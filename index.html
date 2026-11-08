@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CRIVO - UNIOESTE</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0; padding: 0; background: white; width: 100vw; height: 100vh;
+        display: flex; flex-direction: column; overflow: hidden;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .fab-bar {
+        position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 1000;
+        display: flex; gap: 8px; align-items: center;
+    }
+    .fab-bar[hidden] { display: none; }
+    .save-fab {
+        background: #28a745; color: white; border: 2px solid rgba(255,255,255,.7); border-radius: 22px;
+        padding: 7px 18px; font: bold 14px inherit; font-family: inherit; cursor: pointer;
+        box-shadow: 0 3px 12px rgba(0,0,0,.3); white-space: nowrap;
+    }
+    .save-fab:hover { filter: brightness(1.1); }
+    .save-fab.unsaved { background: #e8890c; }
+    .grifar-fab { background: #e8890c; }
+    .anki-fab { background: #6f42c1; }
+    .crivo-highlight { cursor: pointer; padding: 1px 0; border-radius: 2px; }
+    .screen { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.hidden { display: none; }
+
+    #authScreen {
+        justify-content: center; align-items: center;
+        background: linear-gradient(135deg, #1a2a6c, #A63268, #1a2a6c);
+        background-size: 200% 200%; animation: gradientShift 10s ease infinite;
+    }
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+    }
+    .auth-card {
+        background: white; padding: 40px; border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        width: 90%; max-width: 440px; text-align: center;
+        max-height: 95vh; overflow-y: auto;
+    }
+    .auth-title { font-size: 24px; font-weight: bold; color: #1a2a6c; margin-bottom: 30px; }
+    .auth-form { display: flex; flex-direction: column; gap: 15px; }
+    .auth-input {
+        padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 10px;
+        font-size: 15px; transition: border-color 0.2s; font-family: inherit;
+    }
+    .auth-input:focus { outline: none; border-color: #1a2a6c; }
+    .auth-btn {
+        background: linear-gradient(90deg, #1a2a6c, #A63268);
+        color: white; border: none; padding: 12px 24px; font-size: 16px;
+        border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
+        font-family: inherit; font-weight: 600;
+    }
+    .auth-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    .auth-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .auth-link {
+        color: #1a2a6c; font-size: 14px; cursor: pointer; text-decoration: underline;
+        background: none; border: none; padding: 0; font-family: inherit;
+    }
+    .auth-msg { font-size: 14px; color: #dc3545; min-height: 20px; text-align: left; }
+    .auth-check-label {
+        display: flex; align-items: center; gap: 8px;
+        color: #333; font-size: 14px; text-align: left; cursor: pointer; user-select: none;
+    }
+    .auth-check-label input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+    .home-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .home-btn-secondary { background: linear-gradient(90deg, #6c757d, #495057); }
+    .home-btn-danger { background: linear-gradient(90deg, #dc3545, #a71d2a); }
+    .home-btn-start { background: linear-gradient(90deg, #28a745, #1e8a6b); margin-top: 6px; }
+    .auth-divider { border: none; border-top: 1px solid #e5e5e5; margin: 6px 0 2px; }
+
+    .top-bar {
+        height: 60px; background: #1a2a6c; color: white;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 20px; font-size: 16px; font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100; flex-shrink: 0;
+        gap: 10px; flex-wrap: wrap;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .icon-btn {
+        background: rgba(255,255,255,0.15); color: white; border: none;
+        width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+        font-size: 18px; display: flex; align-items: center; justify-content: center;
+        transition: background 0.2s;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.3); }
+    .exam-select, .year-select {
+        padding: 7px 12px; border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.1); color: white;
+        font-size: 14px; font-weight: bold; font-family: inherit; cursor: pointer;
+        max-width: 180px;
+    }
+    .exam-select:focus, .year-select:focus { outline: none; border-color: white; background: rgba(255,255,255,0.2); }
+    .exam-select option, .year-select option { background: #1a2a6c; color: white; }
+    .nav-container { display: flex; align-items: center; gap: 8px; }
+    .go-to-input {
+        padding: 6px 12px; border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.1); color: white; width: 70px;
+        text-align: center; font-size: 14px; font-family: inherit;
+    }
+    .go-to-input::placeholder { color: rgba(255,255,255,0.6); }
+    .go-to-input:focus { outline: none; border-color: white; }
+    .go-btn {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        color: white; border: none; padding: 6px 14px; font-size: 13px;
+        border-radius: 20px; cursor: pointer; transition: all 0.3s ease;
+        font-family: inherit; font-weight: 600;
+    }
+    .go-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+
+    .iframe-container { flex: 1; min-height: 0; width: 100%; border: none; background: white; }
+
+    .bottom-nav {
+        height: 70px; background: white; display: flex; justify-content: space-between;
+        align-items: center; padding: 0 30px; border-top: 1px solid #e0e0e0;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 100; flex-shrink: 0;
+    }
+    .nav-btn {
+        background: linear-gradient(90deg, #007bff, #6f42c1);
+        color: white; border: none; padding: 10px 25px; font-size: 16px;
+        border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
+        font-family: inherit; font-weight: 600;
+    }
+    .nav-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .nav-btn:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
+    .timer { font-size: 24px; font-weight: bold; color: #1a2a6c; font-variant-numeric: tabular-nums; }
+    .timer-container { display: flex; align-items: center; gap: 10px; }
+    .max-time-input {
+        width: 60px; padding: 5px; border-radius: 5px; border: 1px solid #ddd;
+        text-align: center; font-size: 14px; font-family: inherit;
+    }
+    .max-time-label { font-size: 14px; color: #6c757d; }
+
+    #progressScreen { background: #f8f9fa; overflow: hidden; }
+    .progress-header {
+        background: #1a2a6c; color: white; padding: 20px;
+        display: flex; align-items: center; gap: 15px; flex-shrink: 0;
+    }
+    .progress-header h1 { margin: 0; font-size: 20px; }
+    .back-btn {
+        background: rgba(255,255,255,0.15); color: white; border: none;
+        padding: 8px 16px; border-radius: 20px; cursor: pointer;
+        font-family: inherit; font-size: 14px; transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.3); }
+    .progress-content { flex: 1; overflow-y: auto; padding: 20px; max-width: 1000px; margin: 0 auto; width: 100%; }
+    .summary-stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
+    .stat-card {
+        background: white; padding: 15px 20px; border-radius: 10px;
+        flex: 1; min-width: 120px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-left: 4px solid #1a2a6c;
+    }
+    .stat-number { font-size: 28px; font-weight: bold; color: #1a2a6c; }
+    .stat-label { font-size: 12px; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; }
+    .exam-block { margin-bottom: 30px; }
+    .exam-title { color: #1a2a6c; margin: 0 0 5px 0; font-size: 20px; }
+    .year-block { margin-bottom: 18px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .year-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .year-head h3 { margin: 0; font-size: 15px; color: #1a2a6c; }
+    .year-head span { font-size: 12px; color: #6c757d; }
+    .gabarito { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 8px; }
+    .chip {
+        background: white; border: 2px solid #ced4da; border-radius: 10px; padding: 6px 4px;
+        cursor: pointer; font-family: inherit; text-align: center; transition: transform .15s;
+    }
+    .chip:hover { transform: translateY(-2px); box-shadow: 0 3px 8px rgba(0,0,0,.15); }
+    .chip .qn { display: block; font-size: 11px; color: #6c757d; }
+    .chip .ans { display: block; font-size: 20px; font-weight: bold; color: #1a2a6c; line-height: 1.1; }
+    .chip .fix { display: block; font-size: 10px; color: #6c757d; min-height: 12px; }
+    .chip.ok { border-color: #28a745; background: #e8f6ec; }
+    .chip.ok .ans { color: #28a745; }
+    .chip.bad { border-color: #dc3545; background: #fdecee; }
+    .chip.bad .ans { color: #dc3545; }
+    .empty-msg { text-align: center; padding: 60px 20px; color: #6c757d; font-size: 16px; }
+    .legend { font-size: 12px; color: #6c757d; margin-bottom: 15px; }
+
+    /* ============================================================
+       RESPONSIVO — tamanhos em rem; a raiz acompanha a largura da tela
+       (≈16px em desktop até 1280px; 13px em celulares/tablets; até 22px em telas grandes)
+       ============================================================ */
+    :root { --ui: clamp(13px, 0.9vw + 4.5px, 22px); }
+    html { font-size: var(--ui); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+        width: 100%; height: 100vh; height: 100dvh;
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    button, select, input, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .ico, .arr { line-height: 1; }
+
+    /* barra Grifar / Salvar / Exportar */
+    .fab-bar { top: .75rem; gap: .5rem; }
+    .save-fab { padding: .45rem 1.1rem; font-size: .875rem; border-radius: 1.4rem; display: inline-flex; align-items: center; justify-content: center; }
+    .save-fab .ico { font-size: 1.05em; }
+
+    /* componentes principais */
+    .auth-card { padding: 2.5rem; border-radius: 1.25rem; max-width: 27.5rem; max-height: 96vh; max-height: 96dvh; }
+    .auth-title { font-size: 1.5rem; margin-bottom: 1.9rem; }
+    .auth-input { padding: .75rem 1rem; font-size: .95rem; }
+    .auth-btn { padding: .75rem 1.5rem; font-size: 1rem; }
+    .top-bar { min-height: 3.75rem; height: auto; padding: .35rem 1.25rem; font-size: 1rem; }
+    .icon-btn { width: 2.25rem; height: 2.25rem; min-width: 2.25rem; font-size: 1.15rem; flex-shrink: 0; }
+    .exam-select, .year-select { padding: .45rem .75rem; font-size: .875rem; max-width: 11.25rem; }
+    .go-to-input { padding: .4rem .75rem; width: 4.4rem; font-size: .875rem; }
+    .go-btn { padding: .4rem .9rem; font-size: .8rem; }
+    .bottom-nav { min-height: 4.4rem; height: auto; padding: .4rem 1.9rem; gap: .5rem; flex-wrap: wrap; }
+    .nav-btn { padding: .65rem 1.55rem; font-size: 1rem; white-space: nowrap; }
+    .timer { font-size: 1.5rem; }
+    .max-time-input { width: 3.75rem; padding: .3rem; font-size: .875rem; }
+    .max-time-label { font-size: .875rem; }
+    .timer-container { flex-wrap: nowrap; }
+    .progress-header { padding: 1.25rem; }
+    .progress-header h1 { font-size: 1.25rem; }
+    .back-btn { padding: .5rem 1rem; font-size: .875rem; }
+    .progress-content { padding: 1.25rem; max-width: 62.5rem; }
+    .stat-card { min-width: 7.5rem; padding: .95rem 1.25rem; }
+    .stat-number { font-size: 1.75rem; }
+    .gabarito { grid-template-columns: repeat(auto-fill, minmax(3.6rem, 1fr)); gap: .5rem; }
+    .chip .qn { font-size: .7rem; } .chip .ans { font-size: 1.25rem; } .chip .fix { font-size: .65rem; min-height: .8rem; }
+
+    /* telas médias e pequenas (tablets e celulares) e telas baixas (celular deitado):
+       a barra de botões sai de cima da barra superior e vira uma faixa própria */
+    @media (max-width: 1199px), (max-height: 520px) {
+        .fab-bar {
+            position: static; transform: none; width: 100%; flex-shrink: 0; justify-content: center;
+            padding: .3rem .5rem; background: #fff; border-bottom: 1px solid #e0e0e0;
+        }
+        .save-fab { box-shadow: none; border-color: transparent; }
+    }
+
+    @media (max-width: 900px) {
+        .bottom-nav { padding: .4rem 1rem; }
+        .progress-content { padding: 1rem; }
+    }
+
+    /* celulares e tablets pequenos */
+    @media (max-width: 700px) {
+        .top-bar { padding: .4rem .6rem; gap: .4rem; }
+        .top-bar-left { flex: 1 1 auto; min-width: 0; gap: .35rem; flex-wrap: nowrap; }
+        .exam-select, .year-select { flex: 1 1 0; min-width: 0; max-width: none; padding: .45rem .5rem; font-size: .8rem; }
+        .nav-container { margin-left: auto; gap: .35rem; }
+        .go-to-input { width: 3.6rem; padding: .4rem .4rem; }
+        .bottom-nav { padding: .4rem .6rem; gap: .4rem; }
+        .nav-btn { padding: .6rem 1rem; font-size: .9rem; }
+        .timer { font-size: 1.25rem; }
+        .max-time-input { width: 3rem; }
+        .auth-card { padding: 1.6rem; border-radius: 1rem; }
+        .auth-title { font-size: 1.4rem; margin-bottom: 1.2rem; }
+        .progress-header { padding: .75rem .8rem; gap: .6rem; }
+        .progress-header h1 { font-size: 1.1rem; }
+        .summary-stats { gap: .5rem; }
+        .stat-card { min-width: 5.5rem; padding: .6rem .8rem; }
+        .stat-number { font-size: 1.4rem; }
+        .gabarito { grid-template-columns: repeat(auto-fill, minmax(3.3rem, 1fr)); gap: .4rem; }
+        .year-block { padding: .75rem; }
+        .year-head { flex-wrap: wrap; gap: .15rem .6rem; }
+        .exam-title { font-size: 1.1rem; }
+    }
+
+    /* celulares: botões viram só ícone, proporcionais à largura da tela */
+    @media (max-width: 560px) {
+        .save-fab { padding: .5rem .9rem; font-size: 1.25rem; min-width: 2.9rem; }
+        .save-fab .lbl:not(.keep) { display: none; }
+        .save-fab .dot { display: inline; margin-left: .15rem; }
+        .nav-btn .lbl { display: none; }
+        .nav-btn { padding: .55rem .9rem; font-size: 1.4rem; line-height: 1; min-width: 3.2rem; }
+        .lbl-q { display: none; }
+        .max-time-label { font-size: .75rem; }
+        .timer-container { gap: .3rem; }
+        .home-buttons { gap: .6rem; }
+    }
+    @media (max-width: 400px) {
+        .max-time-label:first-child { display: none; }
+        .auth-card { padding: 1.25rem; }
+    }
+
+    /* telas baixas (celular deitado) */
+    @media (max-height: 520px) {
+        .top-bar { min-height: 0; padding-top: .25rem; padding-bottom: .25rem; }
+        .bottom-nav { min-height: 0; padding-top: .25rem; padding-bottom: .25rem; }
+        .nav-btn { padding-top: .35rem; padding-bottom: .35rem; }
+        .auth-card { padding: 1rem 1.4rem; }
+        .auth-title { font-size: 1.1rem; margin-bottom: .6rem; }
+        .auth-form { gap: .5rem; }
+        .home-buttons { gap: .4rem; margin-top: .3rem; }
+        .auth-btn { padding: .5rem 1rem; }
+        .auth-input { padding: .5rem .8rem; }
+    }
+
+    /* telas de toque: alvos de toque confortáveis e fonte >= 16px nos campos (evita zoom automático no iOS) */
+    @media (pointer: coarse) {
+        .icon-btn { width: max(2.25rem, 44px); height: max(2.25rem, 44px); min-width: max(2.25rem, 44px); }
+        .save-fab, .nav-btn, .go-btn, .back-btn, .auth-btn { min-height: 44px; }
+        .auth-input, .go-to-input, .max-time-input, .exam-select, .year-select { font-size: 16px; min-height: 40px; }
+        .chip { min-height: 44px; }
+    }
+    @media (max-width: 400px) and (pointer: coarse) { .nav-btn { min-height: 44px; } }
+</style>
+</head>
+<body>
+    <div class="fab-bar" id="fabBar" hidden>
+        <button class="save-fab grifar-fab" id="grifarBtn" title="Grifar seleção (Ctrl+Alt)" aria-label="Grifar"><span class="ico">🖍️</span><span class="lbl"> Grifar</span></button>
+        <button class="save-fab" id="saveBtn" title="Baixar um arquivo com todo o seu progresso" aria-label="Salvar progresso"><span class="ico">💾</span><span class="lbl"> Salvar progresso</span></button>
+        <button class="save-fab anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Exportar anki</span></button>
+    </div>
+    <input type="file" id="progressFile" accept=".json,application/json" hidden>
+
+    <div id="authScreen" class="screen">
+        <div class="auth-card">
+            <div class="auth-title">CRIVO - UNIOESTE</div>
+
+            <div id="loginArea" class="auth-form">
+                <p style="color:#6c757d;font-size:14px;">Informe o seu RA para entrar</p>
+                <input type="text" id="raInput" class="auth-input" placeholder="RA (somente números)" inputmode="numeric" autocomplete="off">
+                <div class="auth-msg" id="loginMsg"></div>
+                <button class="auth-btn" id="loginBtn">Entrar</button>
+            </div>
+
+            <div id="homeArea" style="display:none">
+                <p style="color:#6c757d;margin-bottom:5px;">Bem-vindo(a),</p>
+                <p style="font-size:20px;font-weight:bold;color:#1a2a6c;margin-bottom:25px;" id="welcomeName"></p>
+                <div class="auth-msg" id="homeMsg"></div>
+                <div class="home-buttons">
+                    <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
+                    <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
+                    <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
+                    <button class="auth-btn home-btn-danger" id="logoutBtn">Sair</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="resolvingScreen" class="screen hidden">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <button class="icon-btn" id="homeBtn" title="Início">⌂</button>
+                <button class="icon-btn" id="progressBtnResolving" title="Meu Progresso">📊</button>
+                <select id="examSelector" class="exam-select" title="Prova"></select>
+                <select id="yearSelector" class="year-select" title="Ano"></select>
+            </div>
+            <div class="nav-container">
+                <span class="lbl-q" style="font-size:13px;opacity:0.8;">Questão:</span>
+                <input type="number" id="goToInput" class="go-to-input" min="1" placeholder="X">
+                <button class="go-btn" id="goBtn">Ir</button>
+            </div>
+        </div>
+        <iframe id="questionFrame" class="iframe-container" title="Questão"></iframe>
+        <div class="bottom-nav">
+            <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr">←</span><span class="lbl"> Anterior</span></button>
+            <div class="timer-container">
+                <span class="max-time-label">Tempo máx.:</span>
+                <input type="number" id="maxTimeInput" class="max-time-input" min="1" value="1">
+                <span class="max-time-label">min</span>
+                <div class="timer" id="timer">00:00</div>
+            </div>
+            <button class="nav-btn" id="nextBtn" disabled aria-label="Próxima questão"><span class="lbl">Próxima </span><span class="arr">→</span></button>
+        </div>
+    </div>
+
+    <div id="progressScreen" class="screen hidden">
+        <div class="progress-header">
+            <button class="back-btn" id="backFromProgressBtn">← Voltar</button>
+            <h1>📊 Meu Gabarito</h1>
+        </div>
+        <div class="progress-content" id="progressContent"></div>
+    </div>
+
+<script>
+/* ============================================================
+   ESTADO GLOBAL
+   ============================================================ */
+let currentUser = null;
+let exams = {};
+let currentExam = null;
+let currentYear = null;
+let questoes = [];
+let questaoAtualIndex = 0;
+let timerInterval = null;
+let expirationTimer = null;
+let startTime = null;
+let pausedElapsedMs = 0;
+let isTimerRunning = false;
+let maxTime = 1;
+let currentBlobUrl = null;
+let progressFrom = 'home';
+let loadingYear = false;
+let currentRA = null;
+let alunos = null;
+let dirty = false;
+let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [] };
+
+/* Paleta de cores pré-definida para os cartões (hue, saturação).
+   Números 1..N mapeiam para cores distintas; a partir de N+1, cicla. */
+const PALETA_CORES = [
+    { h: 45,  s: 92 },  // amarelo-dourado
+    { h: 135, s: 62 },  // verde
+    { h: 200, s: 72 },  // azul
+    { h: 270, s: 62 },  // roxo
+    { h: 330, s: 72 },  // rosa
+    { h: 15,  s: 85 },  // laranja
+    { h: 180, s: 62 },  // ciano
+    { h: 90,  s: 55 },  // verde-limão
+    { h: 240, s: 65 },  // azul-índigo
+    { h: 300, s: 62 }   // magenta
+];
+
+/* ============================================================
+   DOM
+   ============================================================ */
+const authScreen = document.getElementById('authScreen');
+const resolvingScreen = document.getElementById('resolvingScreen');
+const progressScreen = document.getElementById('progressScreen');
+const loginArea = document.getElementById('loginArea');
+const homeArea = document.getElementById('homeArea');
+const welcomeName = document.getElementById('welcomeName');
+const loginMsg = document.getElementById('loginMsg');
+const loginBtn = document.getElementById('loginBtn');
+const raInput = document.getElementById('raInput');
+const loadBtnHome = document.getElementById('loadBtnHome');
+const homeMsg = document.getElementById('homeMsg');
+const fabBar = document.getElementById('fabBar');
+const saveBtn = document.getElementById('saveBtn');
+const grifarBtn = document.getElementById('grifarBtn');
+const ankiBtn = document.getElementById('ankiBtn');
+const progressFile = document.getElementById('progressFile');
+const startBtnHome = document.getElementById('startBtnHome');
+const viewProgressBtn = document.getElementById('viewProgressBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const examSelector = document.getElementById('examSelector');
+const yearSelector = document.getElementById('yearSelector');
+const questionFrame = document.getElementById('questionFrame');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const timerDisplay = document.getElementById('timer');
+const goToInput = document.getElementById('goToInput');
+const goBtn = document.getElementById('goBtn');
+const maxTimeInput = document.getElementById('maxTimeInput');
+const homeBtn = document.getElementById('homeBtn');
+const progressBtnResolving = document.getElementById('progressBtnResolving');
+const backFromProgressBtn = document.getElementById('backFromProgressBtn');
+const progressContent = document.getElementById('progressContent');
+
+/* ============================================================
+   UTILITÁRIOS
+   ============================================================ */
+function showScreen(s) {
+    [authScreen, resolvingScreen, progressScreen].forEach(x => x.classList.add('hidden'));
+    s.classList.remove('hidden');
+}
+function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* ============================================================
+   PROGRESSO
+   ============================================================ */
+function aplicarEvento(estado, ev) {
+    const q = ((estado[ev.prova] ||= {})[ev.ano] ||= {});
+    q[ev.questao] = { selected: ev.opcao, correct: ev.acao === 'confirmou' ? ev.correta : undefined, timestamp: ev.data };
+}
+function saveProgressForQuestion(exam, year, num, data) {
+    if (!currentRA) return;
+    const agora = new Date();
+    const ev = { data: agora.toISOString(), dataHora: agora.toLocaleString('pt-BR'),
+                 prova: exam, ano: year, questao: String(num),
+                 acao: data.correct ? 'confirmou' : 'selecionou', opcao: data.selected };
+    if (data.correct) ev.correta = data.correct;
+    for (let i = progress.registro.length - 1; i >= 0; i--) {
+        const u = progress.registro[i];
+        if (u.prova === ev.prova && u.ano === ev.ano && u.questao === ev.questao) {
+            if (u.acao === ev.acao && u.opcao === ev.opcao && u.correta === ev.correta) return;
+            break;
+        }
+    }
+    progress.registro.push(ev);
+    aplicarEvento(progress.estado, ev);
+    setDirty(true);
+    salvarBackup();
+}
+function getSavedState(exam, year, num) { return progress.estado?.[exam]?.[year]?.[num] || null; }
+function getLastPos() { return progress.ultimaPosicao; }
+function setLastPos(exam, year, num) {
+    if (!currentRA) return;
+    progress.ultimaPosicao = { exam, year, num };
+    salvarBackup();
+}
+function setDirty(v) {
+    dirty = v;
+    saveBtn.classList.toggle('unsaved', v);
+    saveBtn.innerHTML = '<span class="ico">💾</span><span class="lbl"> Salvar progresso</span>' + (v ? '<span class="dot"> •</span>' : '');
+}
+
+const bkKey = ra => 'crivo_backup_' + ra;
+function salvarBackup() { try { localStorage.setItem(bkKey(currentRA), JSON.stringify(progress)); } catch {} }
+function lerBackup(ra) {
+    try {
+        const v = JSON.parse(localStorage.getItem(bkKey(ra)));
+        if (v && v.estado) {
+            if (!Array.isArray(v.grifados)) v.grifados = [];
+            return v;
+        }
+        return null;
+    } catch { return null; }
+}
+
+function normalizar(d) {
+    const p = { estado: {}, ultimaPosicao: d.ultimaPosicao || null,
+                registro: (Array.isArray(d.registro) ? d.registro : []).filter(e => e && e.prova && e.ano && e.questao && e.opcao),
+                grifados: Array.isArray(d.grifados) ? d.grifados : [] };
+    if (p.registro.length) p.registro.forEach(ev => aplicarEvento(p.estado, ev));
+    else if (d.estado) p.estado = d.estado;
+    return p;
+}
+
+/* ---- exportar progresso ---- */
+function nomeArquivo() {
+    const nome = currentUser.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_');
+    const d = new Date(), p2 = n => String(n).padStart(2, '0');
+    return `Progresso_${nome}_${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}.json`;
+}
+function exportarProgresso() {
+    if (!currentRA) return;
+    const dados = {
+        formato: 'crivo-progresso', versao: 1,
+        aluno: { ra: currentRA, nome: currentUser },
+        exportadoEm: new Date().toISOString(),
+        ultimaPosicao: progress.ultimaPosicao,
+        estado: progress.estado,
+        registro: progress.registro,
+        grifados: progress.grifados || []
+    };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' }));
+    a.download = nomeArquivo();
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    setDirty(false);
+}
+saveBtn.addEventListener('click', exportarProgresso);
+
+/* ============================================================
+   LISTA DE ALUNOS E LOGIN POR RA
+   ============================================================ */
+async function loadAlunos() {
+    if (alunos) return alunos;
+    const res = await fetch('alunos.csv', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const txt = (await res.text()).replace(/^\uFEFF/, '');
+    const mapa = {};
+    for (const linha of txt.split(/\r?\n/)) {
+        const m = linha.match(/^\s*"?([\d.\-\/\s]+?)"?\s*[;,\t]\s*"?(.+?)"?\s*$/);
+        if (m) { const ra = m[1].replace(/\D/g, ''); if (ra) mapa[ra] = m[2].trim(); }
+    }
+    return (alunos = mapa);
+}
+function info(texto, ok = false) {
+    const el = currentRA ? homeMsg : loginMsg;
+    el.style.color = ok ? '#28a745' : '#dc3545';
+    el.textContent = texto;
+}
+async function loginWithRA(raBruto) {
+    const ra = String(raBruto).replace(/\D/g, '');
+    if (!ra) { info('Informe o seu RA.'); return false; }
+    let lista;
+    try { lista = await loadAlunos(); }
+    catch (e) { info('Não foi possível carregar a lista de alunos (alunos.csv).'); return false; }
+    const nome = lista[ra];
+    if (!nome) { info('Acesso negado: RA não encontrado na lista de alunos da UNIOESTE.'); return false; }
+    currentRA = ra; currentUser = nome;
+    const bk = lerBackup(ra);
+    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [] };
+    if (!Array.isArray(progress.grifados)) progress.grifados = [];
+    setDirty(!!(bk && bk.registro && bk.registro.length));
+    showHome();
+    showScreen(authScreen);
+    return true;
+}
+
+/* ---- carregar arquivo ---- */
+async function carregarArquivo(file) {
+    if (!currentRA) { info('Entre com um RA válido antes de carregar um arquivo de progresso.'); return; }
+    let d;
+    try { d = JSON.parse(await file.text()); } catch { info('Arquivo inválido (não é um JSON).'); return; }
+    if (d.formato !== 'crivo-progresso' || !d.aluno || !d.aluno.ra) { info('Este não é um arquivo de progresso do CRIVO.'); return; }
+    const ra = String(d.aluno.ra).replace(/\D/g, '');
+    if (currentRA && currentRA !== ra) { info('Este arquivo pertence a outro aluno.'); return; }
+    if (currentRA && dirty && !confirm('Você tem alterações não salvas que serão substituídas pelo arquivo. Continuar?')) return;
+    progress = normalizar(d);
+    setDirty(false);
+    salvarBackup();
+    const n = progress.registro.length;
+    const pos = progress.ultimaPosicao;
+    info(`Progresso carregado: ${n} ação(ões) registradas.` + (pos ? ` Você parou em ${pos.exam} ${pos.year}, questão ${pos.num}.` : ''), true);
+    if (currentExam && currentYear && questoes.length > 0) {
+        carregarQuestao(questaoAtualIndex);
+    }
+}
+progressFile.addEventListener('change', () => {
+    const f = progressFile.files[0];
+    progressFile.value = '';
+    if (f) carregarArquivo(f);
+});
+loadBtnHome.addEventListener('click', () => progressFile.click());
+
+/* ============================================================
+   AUTENTICAÇÃO / TELAS
+   ============================================================ */
+function showLoginForm() {
+    loginArea.style.display = 'flex';
+    homeArea.style.display = 'none';
+    loginMsg.textContent = '';
+    raInput.value = '';
+    fabBar.hidden = true;
+}
+function showHome() {
+    loginArea.style.display = 'none';
+    homeArea.style.display = 'block';
+    welcomeName.textContent = currentUser;
+    homeMsg.textContent = '';
+    fabBar.hidden = false;
+}
+loginBtn.addEventListener('click', async () => {
+    loginBtn.disabled = true;
+    await loginWithRA(raInput.value);
+    loginBtn.disabled = false;
+});
+raInput.addEventListener('keypress', e => { if (e.key === 'Enter') loginBtn.click(); });
+startBtnHome.addEventListener('click', () => startExam());
+
+logoutBtn.addEventListener('click', () => {
+    if (dirty && confirm('Você tem alterações não salvas. Deseja salvar o progresso em arquivo antes de sair?')) exportarProgresso();
+    pausarTimer();
+    currentUser = null; currentRA = null; currentExam = null; currentYear = null; questoes = [];
+    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [] };
+    setDirty(false);
+    showLoginForm();
+    showScreen(authScreen);
+});
+
+/* ============================================================
+   MANIFEST / PROVAS
+   ============================================================ */
+async function loadManifest() {
+    try {
+        const res = await fetch('exams/manifest.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        exams = await res.json();
+        return true;
+    } catch (e) {
+        console.error('Manifest:', e);
+        alert('Não foi possível carregar exams/manifest.json.\n\n' +
+              'Verifique se o arquivo existe na raiz do deploy e se o formato está correto.');
+        return false;
+    }
+}
+function populateExamSelector() {
+    examSelector.innerHTML = '';
+    const names = Object.keys(exams).sort();
+    if (!names.length) { examSelector.innerHTML = '<option value="">(sem provas)</option>'; return; }
+    names.forEach(n => {
+        const o = document.createElement('option');
+        o.value = n; o.textContent = n;
+        examSelector.appendChild(o);
+    });
+}
+function populateYearSelector(examName) {
+    yearSelector.innerHTML = '';
+    const years = Object.keys(exams[examName] || {}).sort((a, b) => b.localeCompare(a));
+    years.forEach(y => {
+        const o = document.createElement('option');
+        o.value = y; o.textContent = y;
+        yearSelector.appendChild(o);
+    });
+}
+async function startExam() {
+    if (loadingYear) return;
+    if (!Object.keys(exams).length) { if (!(await loadManifest())) return; }
+    populateExamSelector();
+    const names = Object.keys(exams);
+    if (!names.length) { alert('Nenhuma prova disponível no manifest.'); return; }
+    const last = getLastPos();
+    let startExamName, startYearName;
+    if (last && exams[last.exam] && exams[last.exam][last.year]) {
+        startExamName = last.exam; startYearName = last.year;
+    } else {
+        startExamName = names[0];
+        const ys = Object.keys(exams[startExamName]).sort((a, b) => b.localeCompare(a));
+        startYearName = ys[0];
+    }
+    examSelector.value = startExamName;
+    populateYearSelector(startExamName);
+    yearSelector.value = startYearName;
+    const ok = await loadYear(startExamName, startYearName, last?.num);
+    if (ok) showScreen(resolvingScreen);
+}
+async function loadYear(examName, yearName, targetNum = null) {
+    if (loadingYear) return false;
+    const yearData = exams[examName]?.[yearName];
+    if (!yearData) { alert(`Ano ${yearName} não encontrado na prova ${examName}.`); return false; }
+    let files = [];
+    if (Array.isArray(yearData)) {
+        files = yearData.map((f, i) => ({ num: String(i + 1), filename: f, url: `exams/${examName}/${yearName}/${f}` }));
+    } else {
+        files = Object.entries(yearData).map(([num, f]) => ({ num: String(num), filename: f, url: `exams/${examName}/${yearName}/${f}` }));
+    }
+    files.sort((a, b) => (parseInt(a.num) || 0) - (parseInt(b.num) || 0));
+    if (!files.length) { alert(`Sem questões em ${examName}/${yearName}.`); return false; }
+    currentExam = examName;
+    currentYear = yearName;
+    questoes = files;
+    let idx = 0;
+    if (targetNum != null) {
+        const f = questoes.findIndex(q => String(q.num) === String(targetNum));
+        if (f >= 0) idx = f;
+    }
+    return await carregarQuestao(idx);
+}
+examSelector.addEventListener('change', async () => {
+    const ex = examSelector.value;
+    populateYearSelector(ex);
+    const y = yearSelector.value;
+    if (ex && y) await loadYear(ex, y);
+});
+yearSelector.addEventListener('change', async () => {
+    const ex = examSelector.value, y = yearSelector.value;
+    if (ex && y) await loadYear(ex, y);
+});
+
+/* ============================================================
+   PONTE PARA O IFRAME
+   ============================================================ */
+const BRIDGE_SCRIPT = `<script>
+(function(){
+  var ce = document.getElementById('correctionContent');
+  if (ce) ce.style.display = 'none';
+  if (window.parent === window) return;
+  var legacy = !window.__bridgeNative;
+  if (!legacy) return;
+  var _sel = window.selectOption, _chk = window.checkAnswer, restoring = false;
+  function send(t, p){ try { window.parent.postMessage({ type: t, payload: p }, '*'); } catch(e){} }
+  window.selectOption = function(o){
+    _sel(o);
+    var i = document.querySelector('.option input[value="' + o + '"]');
+    if (i) i.checked = true;
+    if (!restoring) send('OPTION_SELECTED', { selected: o });
+  };
+  window.checkAnswer = function(){
+    if (!selectedOption) { if (!restoring) alert('Por favor, selecione uma opção antes de confirmar.'); return; }
+    _chk();
+    if (!restoring) send('QUESTION_ANSWERED', { selected: selectedOption, correct: correctAnswer });
+  };
+  window.addEventListener('message', function(ev){
+    if (ev.source !== window.parent || !ev.data || ev.data.type !== 'RESTORE_STATE') return;
+    var p = ev.data.payload || {};
+    if (!p.selected) return;
+    restoring = true;
+    try { window.selectOption(p.selected); if (p.correct) window.checkAnswer(); } finally { restoring = false; }
+  });
+})();
+<\/script>`;
+
+async function carregarQuestao(index) {
+    if (index < 0 || index >= questoes.length) return false;
+    pausarTimer();
+    questaoAtualIndex = index;
+    const q = questoes[index];
+    try {
+        const res = await fetch(q.url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status} em ${q.url}`);
+        let html = await res.text();
+        const nativa = html.includes('RESTORE_STATE');
+        const bridge = nativa
+            ? BRIDGE_SCRIPT.replace('window.__bridgeNative', 'true')
+            : BRIDGE_SCRIPT.replace('!window.__bridgeNative', 'true');
+        const pos = html.lastIndexOf('</body>');
+        html = pos >= 0 ? html.slice(0, pos) + bridge + html.slice(pos) : html + bridge;
+        const url = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+        if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+        currentBlobUrl = url;
+        questionFrame.src = url;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === questoes.length - 1;
+        setLastPos(currentExam, currentYear, q.num);
+        reiniciarTimer();
+        return true;
+    } catch (e) {
+        console.error(e);
+        alert(`Erro ao carregar a questão ${q.num}:\n${e.message}`);
+        return false;
+    }
+}
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function formatTime(ms) {
+    const s = Math.floor(ms / 1000), m = Math.floor(s / 60);
+    return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+function reiniciarTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    if (expirationTimer) clearTimeout(expirationTimer);
+    pausedElapsedMs = 0; isTimerRunning = true; startTime = Date.now();
+    timerDisplay.textContent = '00:00';
+    timerInterval = setInterval(() => {
+        const el = pausedElapsedMs + (Date.now() - startTime);
+        timerDisplay.textContent = formatTime(el);
+    }, 500);
+    expirationTimer = setTimeout(() => {
+        if (questaoAtualIndex < questoes.length - 1) {
+            alert('Tempo máximo atingido. Pulando para a próxima.');
+            carregarQuestao(questaoAtualIndex + 1);
+        } else {
+            alert('Tempo máximo atingido. Esta é a última questão.');
+        }
+    }, maxTime * 60 * 1000);
+}
+function pausarTimer() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    if (expirationTimer) { clearTimeout(expirationTimer); expirationTimer = null; }
+    if (isTimerRunning && startTime) {
+        pausedElapsedMs += Date.now() - startTime;
+        isTimerRunning = false;
+    }
+}
+
+/* ============================================================
+   MENSAGENS DO IFRAME
+   ============================================================ */
+window.addEventListener('message', (event) => {
+    const data = event.data;
+    if (!data || !data.type) return;
+    const q = questoes[questaoAtualIndex];
+    if (!q || !currentExam || !currentYear) return;
+    if (data.type === 'OPTION_SELECTED') {
+        saveProgressForQuestion(currentExam, currentYear, q.num, { selected: data.payload.selected });
+    } else if (data.type === 'QUESTION_ANSWERED') {
+        saveProgressForQuestion(currentExam, currentYear, q.num, {
+            selected: data.payload.selected,
+            correct: data.payload.correct
+        });
+        pausarTimer();
+    }
+});
+
+questionFrame.addEventListener('load', () => {
+    if (!currentExam || !currentYear || !questoes.length) return;
+    const q = questoes[questaoAtualIndex];
+    if (!q) return;
+    const saved = getSavedState(currentExam, currentYear, q.num);
+    if (saved) {
+        try {
+            questionFrame.contentWindow.postMessage({
+                type: 'RESTORE_STATE',
+                payload: { selected: saved.selected, correct: saved.correct }
+            }, '*');
+        } catch (e) { console.warn(e); }
+    }
+    aplicarGrifosDaQuestaoAtual();
+    attachIframeListeners();
+});
+
+/* ============================================================
+   NAVEGAÇÃO
+   ============================================================ */
+function navegarParaQuestao() {
+    const n = parseInt(goToInput.value);
+    if (isNaN(n) || n < 1) { alert('Número de questão inválido.'); return; }
+    const idx = questoes.findIndex(q => parseInt(q.num) === n);
+    if (idx === -1) { alert(`Questão ${n} não encontrada nesta prova.`); return; }
+    carregarQuestao(idx);
+}
+goBtn.addEventListener('click', navegarParaQuestao);
+goToInput.addEventListener('keypress', e => { if (e.key === 'Enter') navegarParaQuestao(); });
+prevBtn.addEventListener('click', () => { if (questaoAtualIndex > 0) carregarQuestao(questaoAtualIndex - 1); });
+nextBtn.addEventListener('click', () => { if (questaoAtualIndex < questoes.length - 1) carregarQuestao(questaoAtualIndex + 1); });
+maxTimeInput.addEventListener('change', () => {
+    const v = parseInt(maxTimeInput.value);
+    if (!isNaN(v) && v > 0) { maxTime = v; if (questaoAtualIndex < questoes.length) reiniciarTimer(); }
+    else maxTimeInput.value = maxTime;
+});
+homeBtn.addEventListener('click', () => {
+    pausarTimer();
+    showHome();
+    showScreen(authScreen);
+});
+progressBtnResolving.addEventListener('click', () => {
+    progressFrom = 'resolving';
+    pausarTimer();
+    renderProgress();
+    showScreen(progressScreen);
+});
+
+/* ============================================================
+   PROGRESSO (render)
+   ============================================================ */
+function renderProgress() {
+    const up = progress.estado || {};
+    const examNames = Object.keys(up).sort();
+    const hasAny = examNames.some(e => Object.keys(up[e]).some(y => Object.keys(up[e][y]).length));
+    if (!hasAny) {
+        progressContent.innerHTML = '<div class="empty-msg">Você ainda não respondeu nenhuma questão.<br>Comece a resolver para ver seu gabarito aqui!</div>';
+        return;
+    }
+    let answered = 0, confirmed = 0, hits = 0;
+    let body = '';
+    for (const exam of examNames) {
+        const years = Object.keys(up[exam]).filter(y => Object.keys(up[exam][y]).length).sort((a,b) => b.localeCompare(a));
+        if (!years.length) continue;
+        let exBlock = `<div class="exam-block"><h2 class="exam-title">📚 ${exam}</h2>`;
+        for (const y of years) {
+            const nums = Object.keys(up[exam][y]).sort((a,b) => parseInt(a)-parseInt(b));
+            let yh = 0, yc = 0, chips = '';
+            for (const n of nums) {
+                const q = up[exam][y][n];
+                if (!q.selected) continue;
+                answered++;
+                let cls = '', fix = '', tip = 'Marcada, ainda não confirmada';
+                if (q.correct) {
+                    confirmed++; yc++;
+                    if (q.selected === q.correct) { cls='ok'; hits++; yh++; fix='✓'; tip='Acertou'; }
+                    else { cls='bad'; fix='✗ '+q.correct; tip='Errou — correta: '+q.correct; }
+                }
+                const date = q.timestamp ? new Date(q.timestamp).toLocaleString('pt-BR') : '';
+                chips += `<button class="chip ${cls}" data-exam="${exam}" data-year="${y}" data-num="${n}" title="${tip}${date ? ' · '+date : ''}"><span class="qn">Q${n}</span><span class="ans">${q.selected}</span><span class="fix">${fix}</span></button>`;
+            }
+            exBlock += `<div class="year-block"><div class="year-head"><h3>📅 ${y}</h3><span>${yh} acertos em ${yc} confirmadas</span></div><div class="gabarito">${chips}</div></div>`;
+        }
+        exBlock += '</div>';
+        body += exBlock;
+    }
+    let html = '<div class="summary-stats">';
+    html += `<div class="stat-card"><div class="stat-number">${answered}</div><div class="stat-label">Marcadas</div></div>`;
+    html += `<div class="stat-card"><div class="stat-number">${hits}</div><div class="stat-label">Acertos</div></div>`;
+    html += `<div class="stat-card"><div class="stat-number">${confirmed ? Math.round(100*hits/confirmed) : 0}%</div><div class="stat-label">Aproveitamento</div></div></div>`;
+    html += '<div class="legend">Verde = acerto, vermelho = erro (com a correta), branco = marcada sem confirmar. Clique para abrir a questão.</div>';
+    progressContent.innerHTML = html + body;
+}
+progressContent.addEventListener('click', async (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    if (!Object.keys(exams).length && !(await loadManifest())) return;
+    populateExamSelector();
+    examSelector.value = chip.dataset.exam;
+    populateYearSelector(chip.dataset.exam);
+    yearSelector.value = chip.dataset.year;
+    if (await loadYear(chip.dataset.exam, chip.dataset.year, chip.dataset.num)) {
+        showScreen(resolvingScreen);
+    }
+});
+viewProgressBtn.addEventListener('click', () => {
+    progressFrom = 'home';
+    pausarTimer();
+    renderProgress();
+    showScreen(progressScreen);
+});
+backFromProgressBtn.addEventListener('click', () => {
+    if (progressFrom === 'resolving' && currentYear) showScreen(resolvingScreen);
+    else { showHome(); showScreen(authScreen); }
+});
+
+/* ============================================================
+   GRIFOS
+   ============================================================ */
+function corDoGrifo(h) {
+    if (!h.numero) return '#FFEB3B';
+    const num = parseInt(h.numero) || 0;
+    const idx = ((num - 1) % PALETA_CORES.length + PALETA_CORES.length) % PALETA_CORES.length;
+    const cor = PALETA_CORES[idx];
+    let lightness = 76;
+    if (h.lado === 'frente') lightness = 86;
+    else if (h.lado === 'verso') lightness = 62;
+    return `hsl(${cor.h}, ${cor.s}%, ${lightness}%)`;
+}
+
+/* ---- utilitários ---- */
+const _GRIFO_SKIP = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA']);
+
+function avisoGrifo(msg) {
+    let t = document.getElementById('crivoToast');
+    if (!t) {
+        t = document.createElement('div');
+        t.id = 'crivoToast';
+        t.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:18px;font-size:13px;z-index:3000;box-shadow:0 3px 12px rgba(0,0,0,.3);max-width:90vw;text-align:center;';
+        document.body.appendChild(t);
+    }
+    t.textContent = msg; t.style.display = 'block';
+    clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = 'none'; }, 3200);
+}
+
+function docDaQuestao() { try { return questionFrame.contentDocument || null; } catch { return null; } }
+
+/* Texto "estável" da questão: todos os nós de texto (menos script/style e o editor).
+   Os grifos (<span>) não alteram esse texto, então os deslocamentos continuam válidos. */
+function textosDoDoc(doc) {
+    const nodes = []; let pos = 0;
+    const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(n) {
+            const p = n.parentElement;
+            if (!p || _GRIFO_SKIP.has(p.tagName) || p.closest('#crivoEditor')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+        }
+    });
+    let n;
+    while ((n = w.nextNode())) {
+        const len = n.data.length;
+        const sp = n.parentElement.closest('.crivo-highlight');
+        nodes.push({ n, start: pos, len, gid: sp ? sp.dataset.grifoId : null });
+        pos += len;
+    }
+    return { nodes, texto: nodes.map(x => x.n.data).join('') };
+}
+function rangesVivos(nodes) {
+    const m = {};
+    for (const x of nodes) {
+        if (!x.gid) continue;
+        const r = m[x.gid] || (m[x.gid] = [x.start, x.start + x.len]);
+        r[0] = Math.min(r[0], x.start); r[1] = Math.max(r[1], x.start + x.len);
+    }
+    return m;
+}
+function offsetDoPonto(doc, T, c, o) {
+    if (c.nodeType === 3) { const x = T.nodes.find(y => y.n === c); if (x) return x.start + o; }
+    const r = doc.createRange();
+    try { r.setStart(c, o); } catch { return -1; }
+    r.collapse(true);
+    for (const x of T.nodes) {
+        const t = doc.createRange(); t.setStart(x.n, 0); t.collapse(true);
+        if (r.compareBoundaryPoints(0, t) <= 0) return x.start;   // 0 = START_TO_START
+    }
+    return T.texto.length;
+}
+
+function envolverIntervalo(doc, T, s, e, h) {
+    const cor = corDoGrifo(h);
+    for (const x of T.nodes) {
+        const a = Math.max(s, x.start), b = Math.min(e, x.start + x.len);
+        if (b <= a) continue;
+        const lo = a - x.start, hi = b - x.start;
+        const fatia = x.n.data.slice(lo, hi);
+        if (!fatia.trim() && /\n/.test(fatia)) continue;          // ignora quebras/indentação entre blocos
+        let alvo = x.n;
+        if (hi < alvo.data.length) alvo.splitText(hi);
+        if (lo > 0) alvo = alvo.splitText(lo);
+        const sp = doc.createElement('span');
+        sp.className = 'crivo-highlight';
+        sp.dataset.grifoId = h.id;
+        sp.style.cssText = `background-color:${cor};cursor:pointer;border-radius:2px;padding:1px 0;`;
+        alvo.parentNode.insertBefore(sp, alvo);
+        sp.appendChild(alvo);
+    }
+}
+
+/* Reencontra o trecho pelo texto + contexto (antes/depois), perto da posição salva.
+   Assim o grifo continua no lugar mesmo que o texto da página mude (ex.: após confirmar a resposta). */
+function localizarGrifo(h, T, vivos) {
+    const alvo = h.bruto || h.texto;
+    if (!alvo) return null;
+    const ocupado = (a, b) => Object.values(vivos).some(r => a < r[1] && b > r[0]);
+    let melhor = null, ms = -1, md = Infinity, i = -1;
+    while ((i = T.texto.indexOf(alvo, i + 1)) !== -1) {
+        const j = i + alvo.length;
+        if (ocupado(i, j)) continue;
+        let sc = 0;
+        if (h.antes && T.texto.slice(Math.max(0, i - h.antes.length), i) === h.antes) sc += 2;
+        if (h.depois && T.texto.substr(j, h.depois.length) === h.depois) sc += 2;
+        const d = Math.abs(i - (h.startOffset || 0));
+        if (sc > ms || (sc === ms && d < md)) { melhor = i; ms = sc; md = d; }
+    }
+    return melhor === null ? null : [melhor, melhor + alvo.length];
+}
+
+function aplicarGrifo(doc, h) {
+    if (doc.querySelector(`.crivo-highlight[data-grifo-id="${h.id}"]`)) return true;
+    const T = textosDoDoc(doc);
+    const r = localizarGrifo(h, T, rangesVivos(T.nodes));
+    if (!r) return false;
+    envolverIntervalo(doc, T, r[0], r[1], h);
+    h.startOffset = r[0]; h.endOffset = r[1];
+    return true;
+}
+
+function grifosDaQuestaoAtual() {
+    const q = questoes[questaoAtualIndex];
+    if (!q) return [];
+    return (progress.grifados || []).filter(g =>
+        g.prova === currentExam && g.ano === currentYear && g.questao === String(q.num));
+}
+
+function aplicarGrifosDaQuestaoAtual() {
+    const doc = docDaQuestao();
+    if (!doc || !doc.body) return;
+    const rodar = () => {
+        if (docDaQuestao() !== doc) return;     // o usuário já trocou de questão
+        grifosDaQuestaoAtual().forEach(g => { try { aplicarGrifo(doc, g); } catch (e) { console.warn('Grifo:', e); } });
+    };
+    rodar();
+    setTimeout(rodar, 350);     // reaplica os que dependem do estado restaurado (resposta/correção)
+    setTimeout(rodar, 1200);
+}
+
+/* ---- criar / atualizar / remover ---- */
+function criarGrifoDaSelecao() {
+    if (!currentRA || !currentExam || !currentYear || !questoes[questaoAtualIndex] || resolvingScreen.classList.contains('hidden')) {
+        avisoGrifo('Abra uma questão para grifar.'); return;
+    }
+    const doc = docDaQuestao();
+    if (!doc || !doc.body) { avisoGrifo('Grifar exige o site aberto por http/https (não por arquivo local).'); return; }
+    const sel = questionFrame.contentWindow.getSelection();
+    if (!sel || !sel.rangeCount || sel.isCollapsed) { avisoGrifo('Selecione um trecho do texto e clique em Grifar (ou Ctrl+Alt).'); return; }
+    const range = sel.getRangeAt(0);
+    const T = textosDoDoc(doc);
+    let s = offsetDoPonto(doc, T, range.startContainer, range.startOffset);
+    let e = offsetDoPonto(doc, T, range.endContainer, range.endOffset);
+    while (s >= 0 && s < e && /\s/.test(T.texto[s])) s++;
+    while (e > s && /\s/.test(T.texto[e - 1])) e--;
+    if (s < 0 || e <= s) { avisoGrifo('Não foi possível grifar essa seleção.'); return; }
+    if (Object.values(rangesVivos(T.nodes)).some(r => s < r[1] && e > r[0])) {
+        avisoGrifo('Esse trecho já está grifado. Selecione apenas texto ainda sem grifo.'); return;
+    }
+    const h = {
+        id: 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        prova: currentExam, ano: currentYear, questao: String(questoes[questaoAtualIndex].num),
+        texto: sel.toString().replace(/\s+/g, ' ').trim(),
+        bruto: T.texto.slice(s, e),
+        antes: T.texto.slice(Math.max(0, s - 30), s),
+        depois: T.texto.slice(e, e + 30),
+        startOffset: s, endOffset: e,
+        numero: null, lado: null,
+        criadoEm: new Date().toISOString()
+    };
+    if (!Array.isArray(progress.grifados)) progress.grifados = [];
+    progress.grifados.push(h);
+    envolverIntervalo(doc, T, s, e, h);
+    sel.removeAllRanges();
+    setDirty(true);
+    salvarBackup();
+}
+
+function atualizarCorGrifos() {
+    const doc = docDaQuestao();
+    if (!doc) return;
+    doc.querySelectorAll('.crivo-highlight').forEach(span => {
+        const h = (progress.grifados || []).find(g => g.id === span.dataset.grifoId);
+        if (h) span.style.backgroundColor = corDoGrifo(h);
+    });
+}
+
+function removerGrifo(doc, id) {
+    progress.grifados = (progress.grifados || []).filter(g => g.id !== id);
+    doc.querySelectorAll(`.crivo-highlight[data-grifo-id="${id}"]`).forEach(sp => {
+        const p = sp.parentNode;
+        while (sp.firstChild) p.insertBefore(sp.firstChild, sp);
+        p.removeChild(sp);
+        p.normalize();
+    });
+    setDirty(true);
+    salvarBackup();
+}
+
+/* ---- caixa flutuante (duplo clique no trecho grifado) ---- */
+function fecharEditorGrifo(doc) {
+    const box = doc && doc.getElementById('crivoEditor');
+    if (box) { if (box._off) box._off(); box.remove(); }
+}
+
+function abrirEditorGrifo(spanEl) {
+    const doc = docDaQuestao();
+    if (!doc) return;
+    const id = spanEl.dataset.grifoId;
+    const h = (progress.grifados || []).find(g => g.id === id);
+    if (!h) return;
+    fecharEditorGrifo(doc);
+
+    const win = questionFrame.contentWindow;
+    const rect = spanEl.getBoundingClientRect();
+    const boxW = 240, boxH = 108;
+    const sx = win.scrollX || 0, sy = win.scrollY || 0;       // posição no documento: a caixa rola junto com o texto
+    const left = Math.min(Math.max(8, rect.left + sx), Math.max(8, doc.documentElement.scrollWidth - boxW - 8));
+    let top = rect.top + sy - boxH - 6;
+    if (top < sy + 8) top = rect.bottom + sy + 6;
+
+    const box = doc.createElement('div');
+    box.id = 'crivoEditor';
+    box.style.cssText = `position:absolute;left:${left}px;top:${top}px;width:${boxW}px;background:#fff;color:#222;` +
+        'border:2px solid #1a2a6c;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:99999;' +
+        'font:13px Arial,sans-serif;line-height:1.2;';
+    box.innerHTML =
+        '<div style="padding:8px 10px;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:6px;">' +
+            '<b>Cartão nº</b>' +
+            `<input type="number" id="crivoNum" min="1" max="999" value="${h.numero ?? ''}" ` +
+                'style="width:70px;padding:6px;border:1px solid #bbb;border-radius:6px;font-size:16px;">' +
+            '<button id="crivoRemover" title="Remover grifo" style="margin-left:auto;border:none;background:none;cursor:pointer;font-size:22px;padding:2px 6px;">🗑️</button>' +
+        '</div>' +
+        '<div style="padding:8px 10px;display:flex;gap:18px;font-size:15px;">' +
+            '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="crivoLado" value="frente" style="width:20px;height:20px;margin:0"> Frente</label>' +
+            '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="crivoLado" value="verso" style="width:20px;height:20px;margin:0"> Verso</label>' +
+        '</div>';
+    doc.documentElement.appendChild(box);
+
+    const num = box.querySelector('#crivoNum');
+    const radios = box.querySelectorAll('input[name="crivoLado"]');
+    const marcarRadio = () => radios.forEach(r => { r.checked = (r.value === h.lado); });
+    marcarRadio();
+    const aplicar = () => { atualizarCorGrifos(); setDirty(true); salvarBackup(); };
+
+    num.addEventListener('input', () => {
+        const v = parseInt(num.value, 10);
+        h.numero = (v >= 1 && v <= 999) ? v : null;
+        if (h.numero && !h.lado) { h.lado = 'frente'; marcarRadio(); }
+        aplicar();
+    });
+    radios.forEach(r => r.addEventListener('change', () => { h.lado = r.value; aplicar(); }));
+    box.querySelector('#crivoRemover').addEventListener('click', () => { fecharEditorGrifo(doc); removerGrifo(doc, id); });
+
+    const fora = ev => { if (!box.contains(ev.target)) fecharEditorGrifo(doc); };
+    const tecla = ev => { if (ev.key === 'Escape') fecharEditorGrifo(doc); };
+    doc.addEventListener('mousedown', fora, true);
+    doc.addEventListener('touchstart', fora, true);
+    doc.addEventListener('keydown', tecla, true);
+    box._off = () => {
+        doc.removeEventListener('mousedown', fora, true);
+        doc.removeEventListener('touchstart', fora, true);
+        doc.removeEventListener('keydown', tecla, true);
+    };
+}
+
+/* ---- eventos dentro da questão e atalho Ctrl+Alt ---- */
+const _ehCtrlAlt = e => !e.repeat && ((e.key === 'Control' && e.altKey) || (e.key === 'Alt' && e.ctrlKey));
+
+function attachIframeListeners() {
+    const doc = docDaQuestao();
+    if (!doc || doc.__crivoListenersAttached) return;
+    doc.__crivoListenersAttached = true;
+
+    /* ajustes para telas pequenas / toque dentro da questão */
+    if (!doc.getElementById('crivoRespCss')) {
+        const st = doc.createElement('style');
+        st.id = 'crivoRespCss';
+        st.textContent = 'html{-webkit-text-size-adjust:100%;touch-action:manipulation}' +
+            'img,video,svg,canvas,table,pre,iframe{max-width:100%}body{overflow-wrap:anywhere}' +
+            '@media (max-width:600px){.container{width:100%;max-width:100%;padding:16px}' +
+            '.btn-container{flex-wrap:wrap}.submit-btn,.view-correction-btn{padding-left:20px;padding-right:20px}}';
+        (doc.head || doc.documentElement).appendChild(st);
+    }
+    /* duplo toque em um trecho grifado abre a caixa (celulares/tablets) */
+    let ultimoToque = { t: 0, alvo: null };
+    doc.addEventListener('touchend', (e) => {
+        const alvo = e.target.closest && e.target.closest('.crivo-highlight');
+        if (!alvo) { ultimoToque = { t: 0, alvo: null }; return; }
+        const agora = Date.now();
+        if (ultimoToque.alvo === alvo && agora - ultimoToque.t < 450) {
+            e.preventDefault();
+            ultimoToque = { t: 0, alvo: null };
+            abrirEditorGrifo(alvo);
+        } else ultimoToque = { t: agora, alvo };
+    }, { passive: false });
+
+    doc.addEventListener('keydown', (e) => {
+        if (!_ehCtrlAlt(e)) return;
+        if (/^(INPUT|TEXTAREA|SELECT)$/.test((doc.activeElement || {}).tagName || '')) return;
+        e.preventDefault();
+        criarGrifoDaSelecao();
+    });
+    doc.addEventListener('dblclick', (e) => {
+        const alvo = e.target.closest && e.target.closest('.crivo-highlight');
+        if (!alvo) return;
+        e.preventDefault(); e.stopPropagation();
+        abrirEditorGrifo(alvo);
+        const sel = questionFrame.contentWindow.getSelection();
+        if (sel) sel.removeAllRanges();      // tira a palavra selecionada pelo duplo clique
+    });
+    /* Evita que arrastar para selecionar texto, ou clicar num trecho grifado, marque uma alternativa por engano. */
+    doc.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!t || !t.closest || t.closest('#crivoEditor')) return;
+        const naMarca = !!t.closest('.crivo-highlight');
+        const sel = questionFrame.contentWindow.getSelection();
+        const arrastou = sel && !sel.isCollapsed && sel.toString().trim() &&
+            sel.containsNode(t, true) && !t.closest('button, input, a, select, textarea');
+        if (naMarca || arrastou) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
+}
+
+document.addEventListener('keydown', (e) => {
+    if (!_ehCtrlAlt(e) || resolvingScreen.classList.contains('hidden')) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '')) return;
+    e.preventDefault();
+    criarGrifoDaSelecao();
+});
+grifarBtn.addEventListener('mousedown', e => e.preventDefault());
+grifarBtn.addEventListener('pointerdown', e => e.preventDefault());   // não perde a seleção ao tocar no botão
+grifarBtn.addEventListener('click', criarGrifoDaSelecao);
+
+/* ============================================================
+   EXPORTAR ANKI (.txt) — apenas questão atual
+   ============================================================ */
+function escAnki(s) {
+    return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+        .replace(/\r?\n/g, '<br>').replace(/\t/g, ' ');
+}
+
+function exportarAnki() {
+    if (!currentRA) { avisoGrifo('Faça login primeiro.'); return; }
+    const q = questoes[questaoAtualIndex];
+    if (!currentExam || !currentYear || !q || resolvingScreen.classList.contains('hidden')) {
+        avisoGrifo('Abra uma questão para exportar os cartões dela.'); return;
+    }
+    // só a questão exibida; ordem do texto
+    const grifos = grifosDaQuestaoAtual().slice().sort((a, b) => (a.startOffset || 0) - (b.startOffset || 0));
+    const porNumero = {};
+    for (const g of grifos) {
+        if (!g.numero || (g.lado !== 'frente' && g.lado !== 'verso')) continue;
+        (porNumero[g.numero] ||= { frente: [], verso: [] })[g.lado].push(g.texto);
+    }
+    const todos = Object.keys(porNumero).map(Number).sort((a, b) => a - b);
+    const validos = todos.filter(n => porNumero[n].frente.length && porNumero[n].verso.length);
+    const ignorados = todos.length - validos.length;
+
+    if (!validos.length) {
+        alert('Nenhum cartão completo nesta questão.\n\nCada cartão precisa de um trecho grifado como "frente" e outro como "verso" com o mesmo número.');
+        return;
+    }
+    const base = `${currentExam}_${currentYear}_Q_${q.num}`;
+    const nomeSeguro = base.replace(/[\\/:*?"<>|]/g, '-');
+    const tag = `CRIVO ${String(currentExam).replace(/\s+/g, '_')}_${currentYear}_Q${q.num}`;
+    const linhas = [
+        '#separator:tab',
+        '#html:true',
+        '#notetype:Basic (and reversed card)',
+        `#deck:${base}`,
+        '#tags column:3'
+    ];
+    for (const n of validos) {
+        const c = porNumero[n];
+        linhas.push([c.frente.map(escAnki).join('<br><br>'), c.verso.map(escAnki).join('<br><br>'), tag].join('\t'));
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([linhas.join('\n') + '\n'], { type: 'text/plain;charset=utf-8' }));
+    a.download = nomeSeguro + '.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+    avisoGrifo(`${validos.length} cartão(ões) exportado(s) em ${a.download}` +
+        (ignorados ? ` — ${ignorados} número(s) ignorado(s) por faltar frente ou verso.` : ''));
+}
+ankiBtn.addEventListener('click', exportarAnki);
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+/* ============================================================
+   COMPATIBILIDADE ENTRE VERSÕES DO SITE
+   Objetivo: depois de um novo deploy, o progresso salvo (arquivo .json ou cópia do navegador)
+   continua apontando para as MESMAS questões, mesmo que o manifest.json tenha mudado.
+
+   Como funciona:
+   1) Cada resposta, grifo e "última posição" passa a guardar também o NOME DO ARQUIVO da questão
+      (campo "arquivo"). O número da questão pode mudar entre versões; o arquivo é a identidade.
+   2) Ao carregar o progresso (arquivo, cópia local ou ao ler o manifest), os registros são
+      reposicionados: se o arquivo agora tem outro número no manifest, o progresso o acompanha.
+   3) Nome de prova/edição com acentuação (NFC/NFD) ou caixa diferente é reconhecido como o mesmo.
+   4) Se o gabarito oficial de uma questão mudar, o gabarito salvo é atualizado ao abri-la.
+   5) Se o texto de uma questão mudar e um grifo não puder ser reposicionado, o usuário é avisado
+      (o grifo continua salvo no progresso).
+   As funções existentes não foram alteradas: aqui elas apenas são "envolvidas" por verificações.
+   ============================================================ */
+const _nfc = t => String(t).normalize('NFC');
+
+/* lista [{num, filename}] de uma edição (aceita os dois formatos do manifest, como loadYear) */
+function questoesDoManifest(prova, ano) {
+    const y = exams && exams[prova] && exams[prova][ano];
+    if (!y) return null;
+    return Array.isArray(y) ? y.map((f, i) => ({ num: String(i + 1), filename: f }))
+                            : Object.entries(y).map(([n, f]) => ({ num: String(n), filename: f }));
+}
+function arquivoNoManifest(prova, ano, num) {
+    const l = questoesDoManifest(prova, ano);
+    const q = l && l.find(x => x.num === String(num));
+    return q ? q.filename : null;
+}
+/* nome da prova/edição exatamente como está no manifest (tolera acentos NFC/NFD e maiúsculas/minúsculas) */
+function chaveCanonica(obj, nome) {
+    const ks = Object.keys(obj || {});
+    if (ks.includes(nome)) return nome;
+    const n = _nfc(nome);
+    let c = ks.filter(k => _nfc(k) === n);
+    if (c.length !== 1) c = ks.filter(k => _nfc(k).toLowerCase() === n.toLowerCase());
+    return c.length === 1 ? c[0] : nome;
+}
+
+/* registra o nome do arquivo em tudo que ainda não o tem */
+function carimbarArquivos(p = progress) {
+    if (!p || !Object.keys(exams || {}).length) return;
+    (p.registro || []).forEach(ev => { if (!ev.arquivo) { const f = arquivoNoManifest(ev.prova, ev.ano, ev.questao); if (f) ev.arquivo = f; } });
+    (p.grifados || []).forEach(g => { if (!g.arquivo) { const f = arquivoNoManifest(g.prova, g.ano, g.questao); if (f) g.arquivo = f; } });
+    const u = p.ultimaPosicao;
+    if (u && !u.arquivo) { const f = arquivoNoManifest(u.exam, u.year, u.num); if (f) u.arquivo = f; }
+}
+
+/* leva o progresso para o número atual de cada arquivo; retorna quantos registros mudaram */
+function reconciliar(p) {
+    if (!p || !Object.keys(exams || {}).length) return 0;
+    const resolver = (prova, ano, num, arquivo) => {
+        const pv = chaveCanonica(exams, prova);
+        const an = chaveCanonica(exams[pv], ano);
+        let nm = String(num);
+        const lista = questoesDoManifest(pv, an);
+        if (lista && arquivo) {
+            const naPos = lista.find(x => x.num === nm);
+            if (!naPos || naPos.filename !== arquivo) {
+                const novo = lista.find(x => x.filename === arquivo);
+                if (novo) nm = novo.num;          // o arquivo mudou de número: o progresso o acompanha
+            }                                      // (se o arquivo sumiu/foi renomeado, mantém o número)
+        }
+        return [pv, an, nm];
+    };
+    let mudancas = 0;
+    (p.registro || []).forEach(ev => {
+        const [pv, an, nm] = resolver(ev.prova, ev.ano, ev.questao, ev.arquivo);
+        if (pv !== ev.prova || an !== ev.ano || nm !== String(ev.questao)) { ev.prova = pv; ev.ano = an; ev.questao = nm; mudancas++; }
+    });
+    (p.grifados || []).forEach(g => {
+        const [pv, an, nm] = resolver(g.prova, g.ano, g.questao, g.arquivo);
+        if (pv !== g.prova || an !== g.ano || nm !== String(g.questao)) { g.prova = pv; g.ano = an; g.questao = nm; mudancas++; }
+    });
+    const u = p.ultimaPosicao;
+    if (u) {
+        const [pv, an, nm] = resolver(u.exam, u.year, u.num, u.arquivo);
+        if (pv !== u.exam || an !== u.year || nm !== String(u.num)) { u.exam = pv; u.year = an; u.num = nm; mudancas++; }
+    }
+    if (mudancas && p.registro && p.registro.length) {      // o estado atual é sempre derivado do registro
+        p.estado = {};
+        p.registro.forEach(ev => aplicarEvento(p.estado, ev));
+    }
+    return mudancas;
+}
+
+/* aceita arquivos de progresso de versões anteriores (sem registro, sem grifados...) */
+function migrarProgresso(d) {
+    const x = Object.assign({}, d);
+    if (!Array.isArray(x.registro)) x.registro = [];
+    if (!Array.isArray(x.grifados)) x.grifados = [];
+    return x;
+}
+
+/* ---- ganchos nas funções existentes (sem modificá-las) ---- */
+const _normalizarOrig = normalizar;
+normalizar = function (d) {
+    const p = _normalizarOrig(migrarProgresso(d));
+    reconciliar(p); carimbarArquivos(p);
+    return p;
+};
+const _lerBackupOrig = lerBackup;
+lerBackup = function (ra) {
+    const v = _lerBackupOrig(ra);
+    if (v) { reconciliar(v); carimbarArquivos(v); }
+    return v;
+};
+const _salvarBackupOrig = salvarBackup;
+salvarBackup = function () {
+    try { carimbarArquivos(progress); } catch (e) { console.warn('carimbo:', e); }
+    _salvarBackupOrig();
+};
+const _loadManifestOrig = loadManifest;
+loadManifest = async function () {
+    const ok = await _loadManifestOrig();
+    if (ok && currentRA) { reconciliar(progress); carimbarArquivos(progress); }
+    return ok;
+};
+
+/* ao abrir uma questão: confere o gabarito oficial e os grifos */
+questionFrame.addEventListener('load', () => {
+    const doc = docDaQuestao();
+    const q = questoes[questaoAtualIndex];
+    if (!doc || !q || !currentExam) return;
+    const exam = currentExam, year = currentYear, num = q.num;
+    setTimeout(() => {
+        if (docDaQuestao() !== doc) return;
+        const saved = getSavedState(exam, year, num);
+        if (!saved || !saved.correct) return;
+        let oficial = null;
+        try { oficial = questionFrame.contentWindow.eval("typeof correctAnswer !== 'undefined' ? correctAnswer : null"); } catch {}
+        if (oficial && /^[A-E]$/.test(oficial) && oficial !== saved.correct) {
+            saveProgressForQuestion(exam, year, num, { selected: saved.selected, correct: oficial });
+            avisoGrifo('O gabarito oficial desta questão foi atualizado no site; o seu progresso foi ajustado.');
+        }
+    }, 700);
+    setTimeout(() => {
+        if (docDaQuestao() !== doc) return;
+        const faltam = grifosDaQuestaoAtual().filter(g => !doc.querySelector(`.crivo-highlight[data-grifo-id="${g.id}"]`)).length;
+        if (faltam) avisoGrifo(`${faltam} grifo(s) não puderam ser posicionados: o texto desta questão foi alterado no site. Eles continuam salvos no seu progresso.`);
+    }, 1800);
+});
+
+window.addEventListener('DOMContentLoaded', async () => {
+    showLoginForm();
+    showScreen(authScreen);
+    loadAlunos().catch(() => {});
+    try { await loadManifest(); } catch {}
+    populateExamSelector();
+});
+window.addEventListener('beforeunload', (e) => {
+    if (dirty) { e.preventDefault(); e.returnValue = ''; return ''; }
+    pausarTimer();
+    if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+});
+</script>
+</body>
+</html>
