@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 60 - Ecocardiografia: Estenose Aórtica, Insuficiência Aórtica, Prolapso Mitral e Complicações do IAM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ecocardiografia: Estenose Aórtica, Insuficiência Aórtica, Prolapso Mitral e Complicações do IAM</div>
+        <h1>Questão 60</h1>
+        <div class="question-text">
+            A ecocardiografia é técnica diagnóstica não invasiva amplamente empregada na avaliação cardiológica. Avalie as afirmativas seguintes sobre aplicações da ecocardiografia e assinale como verdadeira (V) ou falsa (F).
+        </div>
+
+```
+    <div class="statements">
+        <div class="statement">
+            <strong>( &nbsp; )</strong> Na estenose aórtica importante a velocidade máxima instantânea é igual ou superior a 6 m/s.
+        </div>
+        <div class="statement">
+            <strong>( &nbsp; )</strong> Na estenose aórtica a estimativa de gradientes pressóricos transvalvares pode ser subestimada em pacientes com disfunção ventricular esquerda.
+        </div>
+        <div class="statement">
+            <strong>( &nbsp; )</strong> Na insuficiência aórtica crônica há dilatação do ventrículo esquerdo e prejuízo da função sistólica ventricular, devendo serem feitas avaliações seriadas das dimensões e funções ventriculares para a decisão de tratamento cirúrgico.
+        </div>
+        <div class="statement">
+            <strong>( &nbsp; )</strong> O prolapso da valva mitral é causa comum de insuficiência mitral e pode ser devido a degeneração mixomatosa das valvas e redundância dos folhetos.
+        </div>
+        <div class="statement">
+            <strong>( &nbsp; )</strong> O ecocardiograma tem baixo valor diagnóstico na avaliação das complicações mecânicas após o infarto agudo do miocárdio.
+        </div>
+    </div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - V, V, V, F, F.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - F, V, V, V, F.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - V, V, F, F, V.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - F, F, V, V, V.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - F, F, F, V, V.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cardiologia / Ecocardiografia / Valvopatias.</p>
+            <p><strong>Tema:</strong> Aplicações clínicas da ecocardiografia na estenose aórtica, insuficiência aórtica crônica, prolapso da valva mitral e complicações mecânicas do infarto agudo do miocárdio.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A banca cobra critérios de gravidade das valvopatias, indicação de cirurgia, história natural da insuficiência aórtica e do prolapso mitral, além do papel do ecocardiograma na detecção de complicações mecânicas pós-IAM. A questão integra semiologia, imagem e decisão terapêutica.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A ecocardiografia é o método de imagem de primeira linha na avaliação das valvopatias. Na estenose aórtica (EA), a gravidade é definida por velocidade máxima (Vmax), gradiente médio e área valvar. A EA importante/grave é definida por Vmax ≥ 4 m/s, gradiente médio ≥ 40 mmHg ou área ≤ 1,0 cm². Valores ≥ 6 m/s não são o critério usual de “importante”; correspondem a casos muito graves ou situações extremas. Em pacientes com disfunção ventricular esquerda e baixo fluxo, o gradiente pode ser subestimado (EA de baixo fluxo e baixo gradiente), sendo necessário teste com dobutamina.</p>
+            <p>Na insuficiência aórtica (IAo) crônica, há sobrecarga de volume com dilatação progressiva do ventrículo esquerdo; a cirurgia é indicada quando há sintomas ou disfunção sistólica/dilatação importante, o que exige avaliações seriadas com eco. O prolapso da valva mitral (PVM) é a causa mais comum de insuficiência mitral primária, frequentemente por degeneração mixomatosa. Após o IAM, o ecocardiograma é fundamental para diagnosticar complicações mecânicas: ruptura de músculo papilar, comunicação interventricular, ruptura de parede livre, pseudoaneurisma e trombo.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa B está correta. A sequência é F, V, V, V, F:</p>
+            <ul>
+                <li><strong>Falso:</strong> A EA importante é definida por Vmax ≥ 4 m/s, gradiente médio ≥ 40 mmHg ou área ≤ 1,0 cm². O valor ≥ 6 m/s não é o critério usual de “importante”.</li>
+                <li><strong>Verdadeiro:</strong> Na disfunção ventricular esquerda com baixo fluxo, o gradiente transvalvar pode ser subestimado (baixo fluxo/baixo gradiente), exigindo teste com dobutamina.</li>
+                <li><strong>Verdadeiro:</strong> A IAo crônica causa dilatação do VE e pode levar a disfunção sistólica; avaliações seriadas são necessárias para indicar cirurgia.</li>
+                <li><strong>Verdadeiro:</strong> O PVM é causa comum de insuficiência mitral e está associado à degeneração mixomatosa e redundância dos folhetos.</li>
+                <li><strong>Falso:</strong> O ecocardiograma tem alto valor diagnóstico na avaliação das complicações mecânicas pós-IAM, sendo exame de escolha à beira-leito.</li>
+            </ul>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta: classifica a primeira assertiva como verdadeira (Vmax ≥ 6 m/s como critério de EA importante) e a quinta como falsa; ambos os conceitos estão errados.</p>
+            <p><strong>Alternativa B</strong> - Correta: F, V, V, V, F.</p>
+            <p><strong>Alternativa C</strong> - Incorreta: classifica a IAo crônica como falsa e o eco pós-IAM como verdadeiro, invertendo os conceitos.</p>
+            <p><strong>Alternativa D</strong> - Incorreta: classifica a segunda assertiva como falsa (gradiente subestimado na disfunção VE) e a quinta como verdadeira (baixo valor do eco pós-IAM).</p>
+            <p><strong>Alternativa E</strong> - Incorreta: classifica a segunda e a terceira como falsas e a quinta como verdadeira.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Estenose aórtica importante:</strong> Vmax ≥ 4 m/s, gradiente médio ≥ 40 mmHg, área ≤ 1,0 cm².</li>
+                <li><strong>Disfunção ventricular esquerda:</strong> pode subestimar gradiente (baixo fluxo/baixo gradiente); teste com dobutamina.</li>
+                <li><strong>Insuficiência aórtica crônica:</strong> dilatação do VE e necessidade de eco seriado para decisão cirúrgica.</li>
+                <li><strong>Prolapso da valva mitral:</strong> degeneração mixomatosa, redundância de folhetos, causa comum de IM primária.</li>
+                <li><strong>Complicações mecânicas pós-IAM:</strong> o eco é exame de alto valor diagnóstico.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> lembrar os critérios de EA grave (Vmax ≥ 4 m/s) e descartar 6 m/s como critério usual - F.</li>
+                <li><strong>Segundo:</strong> reconhecer que a disfunção VE pode subestimar gradientes - V.</li>
+                <li><strong>Terceiro:</strong> confirmar que a IAo crônica dilata o VE e exige eco seriado - V.</li>
+                <li><strong>Quarto:</strong> confirmar que o PVM é causa comum de IM por degeneração mixomatosa - V.</li>
+                <li><strong>Quinto:</strong> lembrar que o eco é essencial nas complicações mecânicas pós-IAM - F para “baixo valor”.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de V/F em ecocardiografia e valvopatias.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> EA grave = Vmax ≥ 4 m/s, gradiente médio ≥ 40 mmHg, área ≤ 1,0 cm²; PVM = causa comum de IM primária; eco = exame de escolha para complicações mecânicas pós-IAM.</li>
+                <li><strong>Números e doses:</strong> Vmax ≥ 4 m/s (não 6 m/s); gradiente médio ≥ 40 mmHg; área ≤ 1,0 cm²; EA muito grave pode ter Vmax ≥ 5 m/s.</li>
+                <li><strong>Mnemônicos:</strong> “4-40-1 = EA grave”; “PVM mixomatoso = IM primária”; “Pós-IAM mecânico: eco manda”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2020 (Q63) e 2023 (Q62 e Q63), que abordaram EA, IAo e PVM.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Estenose aórtica (correta)</td>
+                        <td>Sopro sistólico ejetivo, pulso parvus et tardus, angina, síncope, dispneia</td>
+                        <td>Eco: Vmax ≥ 4 m/s, gradiente médio ≥ 40 mmHg, área ≤ 1,0 cm²</td>
+                        <td>Troca valvar quando sintomática ou disfunção VE</td>
+                    </tr>
+                    <tr>
+                        <td>Insuficiência aórtica crônica</td>
+                        <td>Sopro diastólico, pulso amplo, dilatação VE</td>
+                        <td>Eco seriado: dimensões e função VE</td>
+                        <td>Cirurgia se sintomas ou disfunção/dilatação VE</td>
+                    </tr>
+                    <tr>
+                        <td>Prolapso da valva mitral</td>
+                        <td>Clique mesossistólico e sopro tardio, pode evoluir com IM</td>
+                        <td>Eco: redundância de folhetos, degeneração mixomatosa</td>
+                        <td>Observação se assintomático; cirurgia se IM grave</td>
+                    </tr>
+                    <tr>
+                        <td>Complicações mecânicas pós-IAM</td>
+                        <td>Choque, sopro novo, edema agudo, instabilidade</td>
+                        <td>Eco à beira-leito: alto valor diagnóstico</td>
+                        <td>Cirurgia de urgência conforme complicação</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das valvopatias e complicações do IAM.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre EA:</strong> critérios de gravidade e indicação cirúrgica.</li>
+                <li><strong>Se fosse sobre IAo:</strong> causas valvares e de raiz, aguda versus crônica, pulso parvus et tardus na EA e pulso amplo na IAo.</li>
+                <li><strong>Se fosse sobre PVM:</strong> degeneração mixomatosa, sopro, risco de IM e endocardite.</li>
+                <li><strong>Se fosse sobre pós-IAM:</strong> ruptura de músculo papilar, CIV, ruptura de parede livre, pseudoaneurisma.</li>
+                <li><strong>Se fosse sobre eco:</strong> fração de ejeção, dimensões, gradientes e estimativa de pressões.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram ecocardiografia e valvopatias:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2010 - Q65</td>
+                        <td>NÃO é sinônimo de prolapso da valva mitral</td>
+                        <td>Nomenclatura do PVM</td>
+                        <td>D (Doença do sopro de Graham Steel)</td>
+                        <td>Relaciona-se à assertiva IV sobre PVM.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q92</td>
+                        <td>Competência da valva mitral; reparo versus troca</td>
+                        <td>Insuficiência mitral e cirurgia valvar</td>
+                        <td>C (reparo valvular apresenta melhores resultados)</td>
+                        <td>Relaciona-se à assertiva IV sobre PVM/IM.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q92</td>
+                        <td>Mesma questão de 2011 sobre valva mitral</td>
+                        <td>Insuficiência mitral e cirurgia</td>
+                        <td>C</td>
+                        <td>Reforça o PVM/IM.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q63</td>
+                        <td>Doença valvar aórtica: valva bicúspide, ECG, sopro e pulso</td>
+                        <td>Estenose aórtica e semiologia</td>
+                        <td>B (I e II verdadeiras)</td>
+                        <td>Relaciona-se às assertivas I e II sobre EA.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q92</td>
+                        <td>Competência da valva mitral; reparo versus troca</td>
+                        <td>Insuficiência mitral e cirurgia</td>
+                        <td>C</td>
+                        <td>Reforça PVM/IM.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q62</td>
+                        <td>Insuficiência aórtica: causas valvares e de raiz, aguda e crônica</td>
+                        <td>IAo e fisiopatologia</td>
+                        <td>D (I, II e III corretas)</td>
+                        <td>Relaciona-se à assertiva III sobre IAo crônica.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q63</td>
+                        <td>Prolapso da valva mitral: causas, folheto e sopro</td>
+                        <td>PVM e IM</td>
+                        <td>A (I e II corretas)</td>
+                        <td>Relaciona-se à assertiva IV sobre PVM.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema valvopatias/ecocardiografia apareceu em pelo menos 7 provas anteriores. A banca alterna entre semiologia (2020 Q63), fisiopatologia (2023 Q62 e Q63), cirurgia valvar (2011/2013/2021 Q92) e nomenclatura (2010 Q65).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> O papel do ecocardiograma nas complicações mecânicas pós-IAM e o critério de Vmax ≥ 6 m/s como distrator não haviam sido cobrados diretamente. São as novidades desta questão.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focavam em uma valvopatia por vez; a atual integra EA, IAo, PVM e pós-IAM em uma única questão de V/F, exigindo visão ampla de ecocardiografia.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar critérios de gravidade da EA (4-40-1), IAo crônica e indicação cirúrgica, PVM e IM, e complicações mecânicas pós-IAM.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Estenose aórtica → insuficiência cardíaca → síncope, angina e morte súbita.</li>
+                <li><strong>Conexão 2:</strong> Insuficiência aórtica crônica → dilatação do VE → decisão cirúrgica seriada.</li>
+                <li><strong>Conexão 3:</strong> Pós-IAM → complicações mecânicas → choque cardiogênico e cirurgia de urgência.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é marcar a primeira assertiva como verdadeira, aceitando Vmax ≥ 6 m/s como critério de EA importante, ou marcar a última como verdadeira, subestimando o eco pós-IAM. Trata-se de lacuna de conhecimento sobre critérios de gravidade e sobre o valor do eco nas complicações mecânicas. A ação corretiva é memorizar: EA grave = 4-40-1; eco é exame de escolha para complicações mecânicas pós-IAM.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o ecocardiograma orienta a decisão cirúrgica nas valvopatias e detecta complicações mecânicas do IAM à beira-leito. Reconhecer os critérios de gravidade da EA e a história natural da IAo crônica é essencial para indicar a cirurgia no momento adequado e evitar desfechos desfavoráveis.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Critérios de gravidade da estenose aórtica</li>
+                <li>Estenose aórtica de baixo fluxo e baixo gradiente</li>
+                <li>Insuficiência aórtica crônica e indicação cirúrgica</li>
+                <li>Prolapso da valva mitral e insuficiência mitral primária</li>
+                <li>Complicações mecânicas do infarto agudo do miocárdio</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Harrison, Medicina Interna, 21ª edição - Valvopatias e Ecocardiografia.</p>
+            <p>2. Diretriz Brasileira de Valvopatias - Sociedade Brasileira de Cardiologia.</p>
+            <p>3. UpToDate: Echocardiography in aortic stenosis; Chronic aortic regurgitation; Mitral valve prolapse; Mechanical complications of acute myocardial infarction.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

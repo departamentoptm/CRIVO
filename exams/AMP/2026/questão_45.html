@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 45 - Anemia Falciforme: manejo da crise álgica e transfusão pré-operatória</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Anemia Falciforme: manejo da crise álgica e transfusão pré-operatória</div>
+        <h1>Questão 45</h1>
+        <div class="question-text">
+            Mulher de 24 anos, com diagnóstico conhecido de anemia falciforme, chega ao Pronto Atendimento apresentando crise álgica há 12 horas. Fez uso de analgésicos comuns, anti-inflamatórios não esteroides (AINEs) e opioide oral em casa, sem alívio da dor. Ao exame físico: anictérica, afebril, PA normal, FC 92 bpm, FR 16 irpm, saturação de O₂ de 97% em ar ambiente; auscultas cardíaca e pulmonar normais. Exames laboratoriais de entrada: Hemoglobina = 8,2 g/dL, Leucócitos = 11.500/mm³, Plaquetas = 280.000/mm³. Assinale a alternativa correta.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+              <input type="radio" name="answer" id="optionA" value="A">
+              <label for="optionA"><strong>A</strong> - A transfusão de concentrado de hemácias está indicada de imediato para o tratamento de rotina da crise álgica aguda vaso-oclusiva não complicada, visando abortar o processo isquêmico antes de futuras complicações.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+              <input type="radio" name="answer" id="optionB" value="B">
+              <label for="optionB"><strong>B</strong> - A oxigenoterapia suplementar de rotina é indicada para todos os pacientes em crise vaso-oclusiva aguda, mesmo com saturação adequada de oxigênio em ar ambiente, pois reverte diretamente a polimerização da HbS no leito microvascular.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+              <input type="radio" name="answer" id="optionC" value="C">
+              <label for="optionC"><strong>C</strong> - O manejo analgésico na emergência deve ser feito com opioides intravenosos em esquema de doses fixas ou analgesia controlada pelo paciente (PCA); caso o paciente necessite de procedimento cirúrgico sob anestesia geral, a recomendação pré-operatória é a transfusão simples até a meta de hemoglobina de aproximadamente 10 g/dL.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+              <input type="radio" name="answer" id="optionD" value="D">
+              <label for="optionD"><strong>D</strong> - A hidroxiureia é uma terapia modificadora da doença cujo principal mecanismo é a indução da síntese de hemoglobina fetal (HbF); contudo, seu uso é formalmente contraindicado em lactentes e crianças menores de 2 anos pelo risco de mielossupressão grave e irreversível.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+              <input type="radio" name="answer" id="optionE" value="E">
+              <label for="optionE"><strong>E</strong> - A auto-asplenia (asplenia funcional) decorrente de infartos esplênicos de repetição ocorre tipicamente a partir da segunda década de vida; por esse motivo, a imunização contra germes encapsulados (como o Streptococcus pneumoniae) e a profilaxia antibiótica só devem ser iniciadas após a puberdade.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Hematologia</p>
+                <p><strong>Tema:</strong> Anemia falciforme — manejo da crise álgica vaso-oclusiva e indicações de transfusão</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência, especialmente em hematologia, clínica médica e pediatria. A anemia falciforme é a hemoglobinopatia mais comum no Brasil e cursa com crises vaso-oclusivas, síndrome torácica aguda, priapismo, acidente vascular cerebral e infecções por germes encapsulados. A banca costuma cobrar desde o diagnóstico (eletroforese de hemoglobina) até o manejo da crise álgica e as indicações de transfusão. A diferenciação entre transfusão de rotina na crise não complicada e transfusão pré-operatória é um ponto clássico de confusão.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A anemia falciforme é causada por uma mutação pontual no gene da beta-globina (HbS), que em condições de desoxigenação polimeriza e deforma a hemácia em forma de foice. Isso leva à vaso-oclusão, isquemia tecidual e dor. A crise álgica vaso-oclusiva é a manifestação mais comum e é tratada com analgesia intensiva (opioides), hidratação, oxigênio se hipoxemia e tratamento de fatores desencadeantes. A transfusão de hemácias não é indicada de rotina na crise álgica não complicada, pois não reduz o tempo de crise e expõe o paciente a riscos transfusionais. No entanto, a transfusão simples (ou de troca) está indicada em situações específicas: síndrome torácica aguda, AVC, priapismo refratário, crise álgica refratária a analgesia, e preparo pré-operatório para cirurgias com anestesia geral, com meta de Hb em torno de 10 g/dL, para reduzir o risco de complicações perioperatórias. A hidroxiureia induz a síntese de HbF e reduz a frequência de crises; é indicada a partir dos 9 meses de idade, não sendo contraindicada em menores de 2 anos. A asplenia funcional ocorre precocemente, geralmente nos primeiros anos de vida, e a imunização contra germes encapsulados e a profilaxia com penicilina devem ser iniciadas precocemente (a partir dos 2 meses de idade).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa C está correta.</strong> O manejo da crise álgica vaso-oclusiva na emergência baseia-se em analgesia intensiva com opioides intravenosos em esquema de doses fixas ou PCA (analgesia controlada pelo paciente). A alternativa também aborda corretamente a indicação de transfusão simples pré-operatória em pacientes com anemia falciforme submetidos a cirurgia sob anestesia geral, com meta de hemoglobina em torno de 10 g/dL, para reduzir o risco de complicações como síndrome torácica aguda e crises no perioperatório. Em provas anteriores, o tema já foi cobrado por meio do diagnóstico (eletroforese de hemoglobina) e de complicações, mas o manejo da crise álgica e as indicações transfusionais ainda são lacunas importantes.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A transfusão de concentrado de hemácias não está indicada de rotina na crise álgica vaso-oclusiva não complicada. Estudos mostram que a transfusão não reduz o tempo de crise e pode causar hiperviscosidade, além de expor o paciente a riscos transfusionais. A transfusão é reservada para situações específicas (síndrome torácica aguda, AVC, priapismo refratário, crise refratária, preparo cirúrgico).</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A oxigenoterapia suplementar de rotina não é indicada para todos os pacientes em crise vaso-oclusiva aguda. Ela é indicada apenas se houver hipoxemia (SatO2 < 90-92%). O oxigênio não reverte diretamente a polimerização da HbS e pode causar hiperóxia com efeitos adversos.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. A hidroxiureia é uma terapia modificadora da doença que induz a síntese de HbF, mas não é formalmente contraindicada em lactentes e crianças menores de 2 anos. Ela é indicada a partir dos 9 meses de idade em pacientes com anemia falciforme, conforme diretrizes. O risco de mielossupressão é monitorável e reversível com ajuste de dose.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A auto-asplenia (asplenia funcional) decorrente de infartos esplênicos de repetição ocorre precocemente, geralmente nos primeiros anos de vida, e não a partir da segunda década. Por esse motivo, a imunização contra germes encapsulados (pneumococo, meningococo, Haemophilus influenzae) e a profilaxia antibiótica com penicilina devem ser iniciadas precocemente, a partir dos 2 meses de idade.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Anemia falciforme:</strong> doença de base que direciona o raciocínio para crise vaso-oclusiva.</li>
+                    <li><strong>Crise álgica há 12 horas:</strong> dor refratária a analgésicos comuns e opioide oral — indica necessidade de opioide IV.</li>
+                    <li><strong>SatO2 97% em ar ambiente:</strong> afasta hipoxemia; oxigênio suplementar não é indicado.</li>
+                    <li><strong>Hemoglobina 8,2 g/dL:</strong> anemia basal; não é indicação de transfusão de rotina na crise não complicada.</li>
+                    <li><strong>Auscultas normais:</strong> afasta síndrome torácica aguda no momento.</li>
+                    <li><strong>“Procedimento cirúrgico sob anestesia geral”:</strong> pista para indicação de transfusão pré-operatória com meta de Hb ~10 g/dL.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar a gravidade da crise e excluir complicações (síndrome torácica aguda, AVC, priapismo, infecção, sequestro esplênico).</li>
+                    <li><strong>Segundo:</strong> iniciar analgesia intensiva com opioides IV (doses fixas ou PCA), hidratação cautelosa e tratamento de fatores desencadeantes.</li>
+                    <li><strong>Terceiro:</strong> não indicar transfusão de rotina na crise álgica não complicada; reservar para situações específicas.</li>
+                    <li><strong>Quarto:</strong> em preparo pré-operatório para cirurgia com anestesia geral, indicar transfusão simples com meta de Hb ~10 g/dL.</li>
+                    <li><strong>Quinto:</strong> manter imunizações e profilaxia antibiótica desde a infância; considerar hidroxiureia para reduzir frequência de crises.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Crise álgica não complicada = opioides IV; transfusão não é rotina. Transfusão pré-operatória = meta de Hb ~10 g/dL. Hidroxiureia = induz HbF, indicada a partir dos 9 meses. Asplenia funcional = precoce; imunização e penicilina desde os 2 meses.</li>
+                    <li><strong>Números e doses:</strong> Morfina 0,1-0,15 mg/kg IV a cada 2-4h ou PCA; meta de Hb pré-operatória 10 g/dL; penicilina profilática 125 mg VO 2x/dia até 3 anos, depois 250 mg 2x/dia até 5 anos.</li>
+                    <li><strong>Mnemônicos:</strong> “Crise álgica: opioide IV, não transfusão”. “Pré-operatório: Hb 10”. “Hidroxiureia: a partir dos 9 meses”.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Crise álgica vaso-oclusiva</td>
+                            <td>Dor óssea/abdominal refratária, sem hipoxemia, sem sinais de gravidade</td>
+                            <td>Clínico; hemograma, reticulócitos, LDH, bilirrubinas</td>
+                            <td>Opioides IV, hidratação, oxigênio se hipoxemia; não transfundir de rotina</td>
+                        </tr>
+                        <tr>
+                            <td>Síndrome torácica aguda</td>
+                            <td>Febre, tosse, dor torácica, hipoxemia, infiltrado pulmonar novo</td>
+                            <td>Radiografia de tórax, gasometria, hemograma</td>
+                            <td>Oxigênio, antibióticos, transfusão simples ou de troca</td>
+                        </tr>
+                        <tr>
+                            <td>Sequestro esplênico agudo</td>
+                            <td>Palidez súbita, esplenomegalia, queda de Hb, choque</td>
+                            <td>Ultrassom abdominal, hemograma</td>
+                            <td>Transfusão de hemácias, hidratação, esplenectomia se refratário</td>
+                        </tr>
+                        <tr>
+                            <td>Preparo pré-operatório</td>
+                            <td>Cirurgia sob anestesia geral em paciente com anemia falciforme</td>
+                            <td>Avaliação pré-operatória, Hb, eletroforese</td>
+                            <td>Transfusão simples com meta de Hb ~10 g/dL</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> “Qual o exame confirmatório?” — eletroforese de hemoglobina.</li>
+                    <li><strong>Se fosse sobre complicação:</strong> “Qual a causa mais comum de morte?” — síndrome torácica aguda e infecções.</li>
+                    <li><strong>Se fosse sobre transfusão:</strong> “Quando transfundir na crise álgica?” — apenas em situações específicas, não de rotina.</li>
+                    <li><strong>Se fosse sobre prevenção:</strong> “Qual a medida que reduz crises?” — hidroxiureia.</li>
+                    <li><strong>Se fosse sobre profilaxia infecciosa:</strong> “Quando iniciar penicilina?” — aos 2 meses de idade.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2017 – Q69</td>
+                            <td>Jovem com dor em membro inferior, anemia normocítica, reticulocitose, LDH aumentado, bilirrubinas indiretas, úlcera de maléolo</td>
+                            <td>Diagnóstico de anemia falciforme (eletroforese de hemoglobina)</td>
+                            <td>B</td>
+                            <td>Mostra que a banca já cobrou o diagnóstico; a questão atual avança para o manejo da crise.</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q81</td>
+                            <td>Criança com artralgia, edemas, febre, insuficiência cardíaca e pancardite</td>
+                            <td>Febre reumática</td>
+                            <td>A</td>
+                            <td>Não é falciforme, mas contextualiza hemoglobinopatias e doenças reumatológicas.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q61</td>
+                            <td>Insuficiência cardíaca com FE reduzida</td>
+                            <td>Manejo da IC</td>
+                            <td>D</td>
+                            <td>Não é falciforme, mas conecta-se a complicações cardiovasculares.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema anemia falciforme apareceu de forma direta em pelo menos 1 prova (2017), focada no diagnóstico. As complicações e o manejo da crise não foram cobrados de forma direta, o que torna esta questão uma novidade importante.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> manejo da crise álgica (opioides IV, hidratação), indicações de transfusão na crise e no pré-operatório, uso de hidroxiureia, profilaxia antibiótica e imunizações. Essas são lacunas que podem surgir nas próximas provas.</p>
+                <p><strong>Evolução da cobrança:</strong> Questões mais antigas focavam diagnóstico; a tendência é cobrar manejo prático da crise e complicações, integrando fisiopatologia e conduta.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar o manejo da crise álgica, as indicações de transfusão (rotina vs pré-operatório vs complicações), o uso de hidroxiureia e a profilaxia infecciosa.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros. “Se você viu X, lembre-se de Y”. Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Infecções por germes encapsulados — a asplenia funcional na anemia falciforme aumenta o risco de sepse por pneumococo, meningococo e Haemophilus influenzae; a imunização e a penicilina profilática são essenciais.</li>
+                    <li><strong>Conexão 2:</strong> Síndrome torácica aguda — complicação grave que exige transfusão, antibióticos e suporte respiratório; é a principal causa de morte em pacientes com anemia falciforme.</li>
+                    <li><strong>Conexão 3:</strong> Priapismo — complicação urológica da falciforme que pode exigir transfusão de troca se refratário.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+                <p>O erro mais provável é achar que a transfusão é indicada de rotina na crise álgica ou que o oxigênio é sempre indicado. Trata-se de lacuna de conhecimento e confusão conceitual. A ação corretiva é memorizar: crise álgica não complicada = opioides IV, não transfundir; transfusão pré-operatória = meta de Hb ~10 g/dL; oxigênio apenas se hipoxemia.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, o paciente com crise álgica deve receber analgesia intensiva e precoce, com reavaliação frequente. A transfusão não é rotina e deve ser reservada para situações específicas. No pré-operatório, a transfusão simples com meta de Hb ~10 g/dL reduz complicações. A hidroxiureia e a profilaxia infecciosa são pilares do tratamento crônico.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Fisiopatologia da anemia falciforme e polimerização da HbS</li>
+                    <li>Manejo da crise álgica vaso-oclusiva</li>
+                    <li>Indicações de transfusão na anemia falciforme</li>
+                    <li>Hidroxiureia: mecanismo e indicações</li>
+                    <li>Asplenia funcional e profilaxia infecciosa</li>
+                    <li>Síndrome torácica aguda</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Harrison. Princípios de Medicina Interna. 21ª edição. Capítulo sobre anemia falciforme.</p>
+                <p>2. Diretrizes da Associação Brasileira de Hematologia, Hemoterapia e Terapia Celular (ABHH) para anemia falciforme.</p>
+                <p>3. UpToDate. Management of acute vaso-occlusive pain in sickle cell disease.</p>
+                <p>4. NIH. Evidence-Based Management of Sickle Cell Disease. 2014.</p>
+                <p>5. Manual de Condutas em Anemia Falciforme do Ministério da Saúde.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 25 - Reprodução Humana: Análise do espermograma e fator masculino grave</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Reprodução Humana: Análise do espermograma e fator masculino grave</div>
+        <h1>Questão 25</h1>
+        <div class="question-text">
+            L.M. traz espermograma que apresenta concentração de 500 mil espermatozoides/mL, com 7% de motilidade progressiva. Sobre o resultado, assinale a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Considerando que apenas um espermatozoide é necessário para fertilizar o oócito, a presença de 500 mil espermatozoides/mL e 7% de motilidade, é suficiente para considerar o exame normal.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - O resultado demonstra alteração importante da concentração e da motilidade espermática, compatível com fator masculino grave.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - O resultado é compatível com azoospermia, pois a concentração espermática está abaixo de 5 milhões/mL.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - O resultado caracteriza oligozoospermia isolada, sem alteração da motilidade espermática.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - A motilidade está preservada, pois valores superiores a 5% são considerados normais.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Reprodução Humana / Urologia / Ginecologia</p>
+            <p><strong>Tema:</strong> Análise do espermograma - interpretação de concentração e motilidade espermática (fator masculino grave)</p>
+            <p><strong>Contextualização:</strong> O fator masculino está envolvido em cerca de 30-50% dos casos de infertilidade conjugal, isoladamente ou associado ao fator feminino. A interpretação correta do espermograma pelos critérios da OMS é essencial para definir a conduta (coito programado, inseminação intrauterina, fertilização in vitro ou FIV com ICSI). A questão é parte de um caso clínico sequencial (questões 22-27) e exige o reconhecimento de alterações graves que contraindiquem tratamentos menos complexos.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O espermograma é interpretado segundo os valores de referência do 5º manual da OMS (2010) ou 6º manual (2021). Os principais parâmetros são:</p>
+            <ul>
+                <li><strong>Concentração:</strong> ≥ 15 milhões/mL (5ª ed.) ou ≥ 16 milhões/mL (6ª ed.).</li>
+                <li><strong>Motilidade total:</strong> ≥ 40% (5ª ed.).</li>
+                <li><strong>Motilidade progressiva:</strong> ≥ 32% (5ª ed.).</li>
+                <li><strong>Morfologia normal:</strong> ≥ 4% (critérios estritos de Kruger).</li>
+                <li><strong>Volume:</strong> ≥ 1,5 mL. <strong>pH:</strong> ≥ 7,2.</li>
+            </ul>
+            <p>As nomenclaturas clássicas são: <em>oligozoospermia</em> (concentração abaixo do limite), <em>astenozoospermia</em> (motilidade abaixo do limite), <em>teratozoospermia</em> (morfologia abaixo do limite), <em>azoospermia</em> (ausência de espermatozoides no ejaculado), <em>oligoteratoastenozoospermia</em> (OTA - combinação das três alterações). A oligozoospermia é classificada como grave quando &lt; 5 milhões/mL. A questão apresenta ambos os parâmetros muito abaixo dos limites: concentração 0,5 milhão/mL e motilidade progressiva 7%, o que caracteriza fator masculino grave.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B.</strong> A concentração de 500.000 espermatozoides/mL (0,5 milhão/mL) está muito abaixo do limite de 15 milhões/mL, configurando oligozoospermia grave. A motilidade progressiva de 7% está muito abaixo dos 32% mínimos, configurando astenozoospermia grave. A combinação caracteriza <strong>oligoteratoastenozoospermia grave</strong> (fator masculino grave). Essa condição costuma contraindicar inseminação intrauterina e coito programado, favorecendo a indicação de fertilização in vitro com injeção intracitoplasmática (ICSI). Alternativa B é a que melhor traduz a interpretação clínica.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - É incorreta. A concentração e a motilidade espermáticas são parâmetros essenciais para a fertilização natural e para tratamentos menos complexos. A presença de um único espermatozoide não basta: a concentração e a motilidade refletem a capacidade funcional do testículo e das vias seminíferas. Valores tão baixos reduzem drasticamente a probabilidade de gestação espontânea. Conceito equivocado de que "basta um".</p>
+            <p><strong>Alternativa B</strong> - Correta: alteração importante da concentração e motilidade, compatível com fator masculino grave.</p>
+            <p><strong>Alternativa C</strong> - A azoospermia é a ausência total de espermatozoides no ejaculado (ou após centrifugação). Aqui há 500.000/mL, então não é azoospermia. Alternativa incorreta.</p>
+            <p><strong>Alternativa D</strong> - Há oligozoospermia (concentração baixa), mas a motilidade também está alterada (7% &lt; 32%). Portanto, não é "oligozoospermia isolada". Alternativa incorreta.</p>
+            <p><strong>Alternativa E</strong> - A motilidade progressiva mínima é de 32% (5ª ed.). 7% está muito abaixo; não está preservada. Alternativa incorreta.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>500 mil espermatozoides/mL:</strong> concentração muito baixa (limite ≥ 15 milhões/mL) → oligozoospermia grave.</li>
+                <li><strong>7% de motilidade progressiva:</strong> muito abaixo do limite de 32% → astenozoospermia grave.</li>
+                <li><strong>Infertilidade conjugal há 2 anos (contexto):</strong> reforça a necessidade de avaliar o fator masculino.</li>
+                <li><strong>Fator masculino grave:</strong> termo que engloba alterações severas de concentração e/ou motilidade, com implicações para a escolha terapêutica.</li>
+                <li><strong>Azoospermia:</strong> não é o caso, pois há espermatozoides.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Comparar cada parâmetro do espermograma com os valores de referência da OMS.</li>
+                <li><strong>Segundo:</strong> Concentração 0,5 milhão/mL &lt; 15 milhões/mL → oligozoospermia grave.</li>
+                <li><strong>Terceiro:</strong> Motilidade progressiva 7% &lt; 32% → astenozoospermia grave.</li>
+                <li><strong>Quarto:</strong> Combinar os achados: fator masculino grave (OTA grave).</li>
+                <li><strong>Quinto:</strong> Definir conduta: coito programado e inseminação intrauterina têm baixa probabilidade de sucesso; a melhor opção é FIV com ICSI.</li>
+                <li><strong>Sexto:</strong> Investigar causa do fator masculino: varicocele, infecções, alterações genéticas (microdeleções do cromossomo Y, cariótipo), exposição a toxinas, uso de drogas, causas obstrutivas ou não obstrutivas.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "interpretação de exame" e "conduta em infertilidade".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> azoospermia = ausência de espermatozoides; oligozoospermia = concentração &lt; 15 milhões/mL; astenozoospermia = motilidade progressiva &lt; 32%; OTA = combinação das alterações.</li>
+                <li><strong>Números e doses:</strong> OMS 2010 (5ª ed.): concentração ≥ 15 milhões/mL, motilidade total ≥ 40%, motilidade progressiva ≥ 32%, morfologia ≥ 4%; OMS 2021 (6ª ed.) é ligeiramente diferente (≥ 16 milhões/mL).</li>
+                <li><strong>Mnemônicos/regras:</strong> "5 milhões/mL é o corte para oligozoospermia grave"; "abaixo de 5 milhões/mL, ICSI é a regra".</li>
+            </ul>
+            <p>Esses dados são cobrados com frequência em provas de ginecologia e reprodução humana.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Achados no espermograma</th>
+                        <th>Significado clínico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Normozoospermia</td>
+                        <td>Concentração, motilidade e morfologia dentro dos limites</td>
+                        <td>Esperma normal</td>
+                        <td>Investigar outros fatores</td>
+                    </tr>
+                    <tr>
+                        <td>Oligozoospermia grave</td>
+                        <td>Concentração &lt; 5 milhões/mL</td>
+                        <td>Redução importante da produção</td>
+                        <td>ICSI geralmente indicada</td>
+                    </tr>
+                    <tr>
+                        <td>Astenozoospermia grave</td>
+                        <td>Motilidade progressiva &lt; 10%</td>
+                        <td>Alteração funcional/estrutural</td>
+                        <td>ICSI; investigar causa</td>
+                    </tr>
+                    <tr>
+                        <td>Azoospermia</td>
+                        <td>Ausência de espermatozoides</td>
+                        <td>Obstrutiva ou não obstrutiva</td>
+                        <td>PESA/TESA/microTESE + ICSI</td>
+                    </tr>
+                    <tr>
+                        <td>Teratozoospermia</td>
+                        <td>Morfologia &lt; 4%</td>
+                        <td>Alteração morfológica</td>
+                        <td>ICSI se alteração isolada grave</td>
+                    </tr>
+                    <tr>
+                        <td>Oligoteratoastenozoospermia (OTA)</td>
+                        <td>Alteração de 2-3 parâmetros</td>
+                        <td>Fator masculino grave</td>
+                        <td>ICSI</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial dos padrões de espermograma.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o limite mínimo de concentração:</strong> 15 milhões/mL (OMS 2010).</li>
+                <li><strong>Se pedisse o limite mínimo de motilidade progressiva:</strong> 32%.</li>
+                <li><strong>Se pedisse o diagnóstico de ausência de espermatozoides:</strong> azoospermia.</li>
+                <li><strong>Se pedisse o tratamento para fator masculino grave:</strong> FIV com ICSI.</li>
+                <li><strong>Se pedisse a investigação do fator masculino:</strong> repetir espermograma, exame físico, hormônios (FSH, testosterona), cariótipo, microdeleções Y.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <p><strong>Tema não abordado diretamente nas provas de 2006_2026.</strong> Não foram identificadas questões específicas sobre interpretação de espermograma (concentração, motilidade, azoospermia, oligozoospermia) nas provas anexadas. O tema aparece de forma indireta em questões sobre infertilidade conjugal e reprodução assistida, mas a interpretação numérica de parâmetros do espermograma não foi objeto de questão específica.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q24</td>
+                        <td>J.S. e L.M. - investigação inicial da infertilidade; hipótese de SOP</td>
+                        <td>Hipótese e investigação inicial</td>
+                        <td>E (SOP; investigar anovulação)</td>
+                        <td>Questão anterior do mesmo caso clínico</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q26</td>
+                        <td>USG transvaginal de J.S. com 23 e 25 folículos antrais</td>
+                        <td>Recomendação diante de morfologia policística</td>
+                        <td>A (mudanças de estilo de vida)</td>
+                        <td>Próxima questão do caso, ainda sobre fator feminino</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q63</td>
+                        <td>Mulher com oligomenorreia e infertilidade há 4 anos</td>
+                        <td>Suspeita diagnóstica (Síndrome de Swyer)</td>
+                        <td>B</td>
+                        <td>Complementa a investigação do fator feminino</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q69</td>
+                        <td>SOP e infertilidade: perda de peso e ovulação</td>
+                        <td>Fator feminino</td>
+                        <td>C (perda de peso não leva a ovulação espontânea - falso)</td>
+                        <td>Contexto do casal infértil</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q71</td>
+                        <td>Mulher com SOP e desejo reprodutivo</td>
+                        <td>Conduta inicial</td>
+                        <td>C (perda de peso)</td>
+                        <td>Reforça que a infertilidade exige avaliação do casal</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico (interpretação numérica do espermograma) não apareceu nas provas anteriores. Temas próximos como investigação da infertilidade, SOP e reprodução assistida foram cobrados em outros contextos.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> valores de referência da OMS, nomenclatura dos padrões de espermograma (oligozoospermia, astenozoospermia, azoospermia, OTA) e critérios de indicação de ICSI.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões de infertilidade anteriores priorizaram o fator feminino; a inclusão de interpretação de espermograma na prova de 2026 sinaliza uma possível tendência de cobrança mais equilibrada do casal.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar os critérios da OMS para espermograma, os padrões de alteração e as indicações de reprodução assistida (coito programado, inseminação intrauterina, FIV, ICSI).</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Fator masculino grave → contraindicação de inseminação intrauterina → indicação de FIV com ICSI.</li>
+                <li><strong>Conexão 2:</strong> Oligozoospermia grave → investigação de varicocele, infecções, alterações genéticas e exposições ambientais.</li>
+                <li><strong>Conexão 3:</strong> Infertilidade conjugal → avaliação simultânea do casal (espermograma + investigação da ovulação, tuba e reserva ovariana).</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é achar que "basta um espermatozoide" (alternativa A) ou confundir oligozoospermia grave com azoospermia (alternativa C). Também é frequente ignorar a alteração da motilidade (alternativa D) e não reconhecer a gravidade. Classificação provável do erro: lacuna de conhecimento sobre os valores de referência da OMS. Ação corretiva: memorizar os limites (concentração ≥ 15 milhões/mL, motilidade progressiva ≥ 32%) e que abaixo de 5 milhões/mL a ICSI costuma ser a via.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o espermograma deve ser repetido em 2-4 semanas se alterado, pois há variabilidade biológica. Diante de fator masculino grave, o casal deve ser encaminhado para reprodução assistida, preferencialmente FIV/ICSI. A investigação etiológica (varicocele, infecções, cariótipo, microdeleções Y, hormônios) permite identificar causas tratáveis e orientar o aconselhamento genético.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Valores de referência da OMS para espermograma (2010 e 2021)</li>
+                <li>Nomenclatura das alterações: oligozoospermia, astenozoospermia, teratozoospermia, azoospermia, OTA</li>
+                <li>Fator masculino grave: definição e implicações terapêuticas</li>
+                <li>Indicações de reprodução assistida: coito programado, inseminação intrauterina, FIV, ICSI</li>
+                <li>Investigação etiológica do fator masculino (varicocele, genética, hormônios)</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. OMS. WHO Laboratory Manual for the Examination and Processing of Human Semen, 5ª edição (2010) e 6ª edição (2021).</p>
+            <p>2. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Infertilidade conjugal.</p>
+            <p>3. Sociedade Brasileira de Urologia. Diretrizes de infertilidade masculina.</p>
+            <p>4. UpToDate. Evaluation of male infertility. 2024.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

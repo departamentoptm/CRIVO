@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 100 - Interpretação de Revisão Sistemática: Metformina versus MEV na Prevenção do Diabetes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Interpretação de Revisão Sistemática: Metformina versus MEV na Prevenção do Diabetes</div>
+        <h1>Questão 100</h1>
+        <div class="question-text">
+            Uma revisão sistemática comparando o uso de metformina com um conjunto intensivo de intervenções de estilo de vida (MEV) na prevenção do diabetes em adultos com pré-diabetes acompanhou pacientes em média por 2,8 anos e mostrou que a incidência de diabetes foi: com o uso de metformina = 7,8 casos/100 pessoas-ano; com MEV = 4,8 casos/100 pessoas-ano; no grupo-controle = 11 casos/100 pessoas-ano. Os cálculos de risco relativo (RR) em comparação com o placebo foram, portanto, 0,71 para o grupo metformina e 0,44 para o grupo MEV. Assim, é correto afirmar que nesse estudo
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - o uso de metformina reduziu em 71% o risco de desenvolver diabetes.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - o NNT verificado para o conjunto das intervenções MEV foi menor do que o NNT para o uso apenas da metformina.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - o grupo MEV teve redução absoluta de risco 6,2% ao longo dos 2,8 anos de acompanhamento do estudo em comparação com o placebo.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - este estudo indica que associar metformina com intervenções intensivas de estilo de vida tem mais efeito na prevenção de diabetes do que apenas uma destas intervenções em separado.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - aplicando estes resultados para um paciente específico cujo risco de desenvolver diabetes seja de 20% no próximo ano, pode-se afirmar que o uso de metformina reduziria mais do que a metade deste risco.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade / Epidemiologia Clínica.</p>
+                <p><strong>Tema:</strong> Interpretação de medidas de efeito em revisão sistemática: risco relativo (RR), redução absoluta do risco (RAR) e número necessário para tratar (NNT).</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com Medicina Baseada em Evidências, interpretação de ensaios clínicos, revisões sistemáticas e metanálises, e leitura crítica de artigos científicos. A banca costuma explorar a distinção entre risco relativo e risco absoluto, o cálculo do NNT e a interpretação de resultados de estudos sobre prevenção de doenças crônicas.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O risco relativo (RR) é a razão entre a incidência no grupo intervenção e a incidência no grupo controle. Um RR de 0,71 significa que a intervenção reduziu o risco em 29% (1 - 0,71), e não em 71%. A redução absoluta do risco (RAR) é a diferença entre as incidências: para MEV, RAR = 11 - 4,8 = 6,2 casos por 100 pessoas-ano; para metformina, RAR = 11 - 7,8 = 3,2 casos por 100 pessoas-ano. O NNT é o inverso da RAR: NNT MEV = 1/0,062 ≈ 16,1; NNT metformina = 1/0,032 ≈ 31,25. Portanto, o NNT do MEV é menor que o da metformina, o que significa que o MEV previne um caso de diabetes com menos pacientes tratados. A alternativa B está correta.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa B está correta. Calculando as reduções absolutas do risco: MEV: 11 - 4,8 = 6,2 casos/100 pessoas-ano, o que corresponde a uma RAR de 0,062 (6,2%). NNT = 1/0,062 ≈ 16,1. Metformina: 11 - 7,8 = 3,2 casos/100 pessoas-ano, RAR = 0,032 (3,2%). NNT = 1/0,032 ≈ 31,25. Como 16,1 < 31,25, o NNT do MEV é menor que o NNT da metformina. Isso significa que o MEV é mais eficiente em termos de número de pacientes necessários para prevenir um caso de diabetes. O estudo mostra que o MEV foi mais efetivo que a metformina na prevenção do diabetes.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. O RR de 0,71 significa redução relativa de 29% (1 - 0,71 = 0,29), e não de 71%. A redução de 71% seria se o RR fosse 0,29.</p>
+                <p><strong>Alternativa B</strong> - Correta. O NNT do MEV (≈16) é menor que o NNT da metformina (≈31).</p>
+                <p><strong>Alternativa C</strong> - Incorreta. A redução absoluta de risco do MEV é de 6,2 casos por 100 pessoas-ano, e não 6,2% ao longo de 2,8 anos. A unidade é pessoas-ano, e a RAR é de 6,2% ao ano, não ao longo de todo o período de 2,8 anos.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. O estudo não testou a associação de metformina com MEV; comparou as duas intervenções separadamente com placebo. Portanto, não é possível concluir que a associação tem mais efeito.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Para um paciente com risco de 20% ao ano, o uso de metformina (RR = 0,71) resultaria em risco de 20% × 0,71 = 14,2%, uma redução absoluta de 5,8 pontos percentuais (redução relativa de 29%), e não mais da metade do risco (que seria uma redução de mais de 10 pontos percentuais).</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“risco relativo (RR)”:</strong> medida de associação que expressa a razão entre incidências; RR = 0,71 significa redução relativa de 29%.</li>
+                    <li><strong>“casos/100 pessoas-ano”:</strong> unidade de incidência que exige cuidado na interpretação da redução absoluta.</li>
+                    <li><strong>“NNT”:</strong> número necessário para tratar; inverso da redução absoluta do risco.</li>
+                    <li><strong>“placebo”:</strong> grupo-controle usado para calcular RR e RAR.</li>
+                    <li><strong>“2,8 anos”:</strong> tempo médio de acompanhamento; a RAR é expressa em pessoas-ano, não como percentual acumulado no período.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar as incidências nos três grupos: metformina 7,8; MEV 4,8; controle 11 (casos/100 pessoas-ano).</li>
+                    <li><strong>Segundo:</strong> Calcular as reduções absolutas do risco: MEV = 11 - 4,8 = 6,2; metformina = 11 - 7,8 = 3,2.</li>
+                    <li><strong>Terceiro:</strong> Calcular os NNT: MEV = 1/0,062 ≈ 16,1; metformina = 1/0,032 ≈ 31,25.</li>
+                    <li><strong>Quarto:</strong> Comparar os NNT e concluir que o NNT do MEV é menor, o que torna a alternativa B correta.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “interpretação de medidas de efeito” e “cálculo de NNT”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> RR = incidência no grupo intervenção / incidência no grupo controle; RAR = incidência controle - incidência intervenção; NNT = 1/RAR.</li>
+                    <li><strong>Números e doses:</strong> NNT MEV ≈ 16; NNT metformina ≈ 31. Quanto menor o NNT, mais eficiente é a intervenção.</li>
+                    <li><strong>Mnemônicos:</strong> “RR é relativo; RAR é absoluto; NNT é o inverso do absoluto”.</li>
+                </ul>
+                <p>Esses conceitos já foram cobrados em questões anteriores sobre NNT, RR e interpretação de ensaios clínicos.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Risco relativo (RR)</td>
+                            <td>Razão entre incidências; expressa redução relativa</td>
+                            <td>Cálculo: incidência intervenção / incidência controle</td>
+                            <td>Interpretar junto com risco absoluto</td>
+                        </tr>
+                        <tr>
+                            <td>Redução absoluta do risco (RAR)</td>
+                            <td>Diferença entre incidências</td>
+                            <td>Cálculo: incidência controle - incidência intervenção</td>
+                            <td>Base para o NNT</td>
+                        </tr>
+                        <tr>
+                            <td>NNT</td>
+                            <td>Número de pacientes a tratar para evitar um desfecho</td>
+                            <td>Cálculo: 1/RAR</td>
+                            <td>Quanto menor, mais eficiente</td>
+                        </tr>
+                        <tr>
+                            <td>Odds ratio (OR)</td>
+                            <td>Razão de chances; usado em estudos caso-controle</td>
+                            <td>Cálculo: odds de exposição entre doentes / odds entre não doentes</td>
+                            <td>Interpretar com cautela em desfechos frequentes</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a diferença entre medidas de efeito.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre RR:</strong> a resposta envolveria a razão entre incidências e a interpretação da redução relativa.</li>
+                    <li><strong>Se fosse sobre OR:</strong> a resposta envolveria a razão de chances e sua aplicação em caso-controle.</li>
+                    <li><strong>Se fosse sobre NNT:</strong> a resposta envolveria o cálculo e a comparação entre intervenções.</li>
+                    <li><strong>Se fosse sobre RAR:</strong> a resposta envolveria a diferença absoluta entre incidências.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2011 - Q22</td>
+                            <td>Validade dos testes diagnósticos: sensibilidade, especificidade, VPP e VPN.</td>
+                            <td>Conceitos de acurácia diagnóstica</td>
+                            <td>C</td>
+                            <td>Relaciona-se à interpretação de medidas de efeito e testes.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 - Q15</td>
+                            <td>Cálculo de valor preditivo positivo em mamografia.</td>
+                            <td>VPP e prevalência</td>
+                            <td>E</td>
+                            <td>Mostra a aplicação prática de conceitos estatísticos.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 - Q89</td>
+                            <td>Tabela 2x2 e cálculo de valor preditivo positivo.</td>
+                            <td>VPP e interpretação de testes</td>
+                            <td>D</td>
+                            <td>Relaciona-se à análise crítica de evidências.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 - Q98</td>
+                            <td>NNT em sinusite maxilar aguda (NNT=15).</td>
+                            <td>NNT e benefício absoluto</td>
+                            <td>E</td>
+                            <td>Questão diretamente relacionada ao cálculo de NNT.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 - Q83</td>
+                            <td>Estudos POEM, intermediários e DOE.</td>
+                            <td>Desfechos centrados no paciente e MBE</td>
+                            <td>C</td>
+                            <td>Reforça a leitura crítica de evidências.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 - Q100</td>
+                            <td>Revisão sistemática sobre ivermectina na COVID-19 e interpretação de RR.</td>
+                            <td>Interpretação de RR e intervalos de confiança</td>
+                            <td>B</td>
+                            <td>Questão diretamente relacionada à interpretação de RR.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 das provas analisadas. A banca alterna entre cobrar conceitos de testes diagnósticos, cálculo de VPP, NNT, RR e interpretação de revisões sistemáticas.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Cálculo e comparação de NNT entre diferentes intervenções em um mesmo estudo, como nesta questão.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em testes diagnósticos; as mais recentes cobram interpretação de medidas de efeito e revisões sistemáticas.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar o cálculo e a interpretação de RR, RAR, NNT e OR, além da leitura crítica de revisões sistemáticas e metanálises.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Medicina Baseada em Evidências e leitura crítica de artigos.</li>
+                    <li><strong>Conexão 2:</strong> Prevenção do diabetes e intervenções de estilo de vida.</li>
+                    <li><strong>Conexão 3:</strong> Testes diagnósticos e valores preditivos.</li>
+                    <li><strong>Conexão 4:</strong> Diretrizes clínicas e tomada de decisão compartilhada.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o tipo de erro mais provável é confundir risco relativo com redução relativa (alternativa A) ou não calcular corretamente a redução absoluta e o NNT (alternativa B). Também pode ter havido erro de interpretação da unidade “casos/100 pessoas-ano” (alternativa C). A ação corretiva é revisar os conceitos de RR, RAR e NNT, praticar o cálculo com os dados do estudo e interpretar corretamente as unidades de incidência.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, compreender a diferença entre redução relativa e absoluta do risco é essencial para a tomada de decisão compartilhada. O NNT permite comparar a eficiência de diferentes intervenções e orientar escolhas terapêuticas, especialmente na prevenção de doenças crônicas como o diabetes.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Risco relativo (RR) e redução relativa do risco (RRR).</li>
+                    <li>Redução absoluta do risco (RAR).</li>
+                    <li>Número necessário para tratar (NNT) e número necessário para causar dano (NNH).</li>
+                    <li>Odds ratio (OR) e razão de prevalência.</li>
+                    <li>Interpretação de revisões sistemáticas e metanálises.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Straus, Sharon E. et al. Evidence-Based Medicine: How to Practice and Teach EBM. Elsevier.</p>
+                <p>2. Sackett, David L. et al. Evidence-Based Medicine: What It Is and What It Isn’t. BMJ, 1996.</p>
+                <p>3. Guyatt, Gordon H. et al. Users’ Guides to the Medical Literature. McGraw-Hill.</p>
+                <p>4. Brasil. Ministério da Saúde. Diretrizes Metodológicas: elaboração de revisões sistemáticas e metanálises.</p>
+                <p>5. Gusso, Gustavo D. F.; Lopes, José M. C. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed, 2012.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

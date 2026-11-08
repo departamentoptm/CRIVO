@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 87 - Tuberculose: Monitoramento do Tratamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Tuberculose: Monitoramento do Tratamento</div>
+        <h1>Questão 87</h1>
+        <div class="question-text">
+            Homem de 63 anos retorna a determinada Unidade Básica de Saúde com os resultados de exames solicitados para investigação de perda de peso e tosse produtiva, iniciadas há cerca de 6 meses. Nega comorbidades, uso contínuo de medicações ou tratamento para qualquer patologia respiratória prévia. A radiografia de tórax apresenta consolidação em lobo superior direito, sem evidências de cavitação. Teste rápido molecular para tuberculose positivo; resistência à rifampicina não detectada; sorologia para HIV negativa.
+            <br><br>
+            Após a prescrição do tratamento pertinente, com que frequência esse paciente deve ser monitorado?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Mensalmente até o término do tratamento.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Quando houver sintomas respiratórios.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - No início e ao término do tratamento.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Após 3 e 6 meses do início do tratamento.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pneumologia / Infectologia / Saúde Pública.</p>
+            <p><strong>Tema:</strong> Tuberculose pulmonar - monitoramento do tratamento.</p>
+            <p><strong>Contextualização:</strong> O tratamento da tuberculose é um dos temas de maior incidência em provas de residência, especialmente na atenção primária. A questão cobra a frequência de acompanhamento após o diagnóstico confirmado por teste rápido molecular, com sensibilidade à rifampicina e HIV negativo. O monitoramento mensal é fundamental para avaliar adesão, efeitos adversos, resposta clínica e baciloscópica, além de prevenir abandono e resistência.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A tuberculose é causada pelo <em>Mycobacterium tuberculosis</em>, com evolução crônica e necessidade de tratamento prolongado. O esquema básico no Brasil é composto por rifampicina, isoniazida, pirazinamida e etambutol por 2 meses, seguido de rifampicina e isoniazida por 4 meses. O monitoramento mensal permite detectar efeitos adversos, como hepatotoxicidade, neuropatia periférica, alterações visuais e intolerância gastrointestinal, além de verificar adesão e resposta ao tratamento. A baciloscopia mensal é recomendada em casos selecionados, mas o acompanhamento clínico mensal é universal.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>A</strong>. O paciente deve ser monitorado mensalmente até o término do tratamento, conforme recomendações do Ministério da Saúde. Esse acompanhamento inclui avaliação clínica, verificação de adesão, pesquisa de efeitos adversos e, quando indicado, controle baciloscópico. O monitoramento apenas quando há sintomas é insuficiente, pois pode atrasar a identificação de efeitos adversos e de falha terapêutica.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. O acompanhamento mensal é recomendado para todos os pacientes em tratamento de tuberculose.</p>
+            <p><strong>Alternativa B</strong> - Monitorar apenas quando houver sintomas respiratórios é inadequado, pois muitos efeitos adversos e falhas podem ser assintomáticos inicialmente.</p>
+            <p><strong>Alternativa C</strong> - Avaliar apenas no início e no término não permite detectar precocemente efeitos adversos, abandono ou falha terapêutica.</p>
+            <p><strong>Alternativa D</strong> - Avaliar apenas após 3 e 6 meses é insuficiente; o monitoramento deve ser mensal desde o início.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Teste rápido molecular positivo:</strong> confirma tuberculose e orienta início do tratamento.</li>
+                <li><strong>Resistência à rifampicina não detectada:</strong> permite uso do esquema básico.</li>
+                <li><strong>HIV negativo:</strong> não há indicação de esquema especial ou monitoramento diferenciado por HIV.</li>
+                <li><strong>Perda de peso e tosse produtiva por 6 meses:</strong> quadro clínico compatível com tuberculose pulmonar.</li>
+                <li><strong>Após a prescrição do tratamento:</strong> foco na frequência de acompanhamento.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> confirmar diagnóstico de tuberculose e sensibilidade à rifampicina.</li>
+                <li><strong>Segundo:</strong> iniciar esquema básico e orientar o paciente sobre adesão e efeitos adversos.</li>
+                <li><strong>Terceiro:</strong> agendar consultas mensais até o término do tratamento.</li>
+                <li><strong>Quarto:</strong> avaliar sintomas, adesão, peso, efeitos adversos e, quando indicado, baciloscopia.</li>
+                <li><strong>Quinto:</strong> manter vigilância para abandono e falha terapêutica.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de monitoramento de doenças crônicas infecciosas.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> tratamento da tuberculose dura 6 meses no esquema básico.</li>
+                <li><strong>Monitoramento:</strong> consultas mensais até o término do tratamento.</li>
+                <li><strong>Efeitos adversos:</strong> hepatotoxicidade, neuropatia periférica, alterações visuais e intolerância gastrointestinal.</li>
+                <li><strong>Controle baciloscópico:</strong> conforme indicação e protocolo local, especialmente em casos de resistência ou falha.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a frequência de acompanhamento e os cuidados durante o tratamento.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tuberculose pulmonar (correta)</td>
+                        <td>Tosse produtiva, perda de peso, febre vespertina, sudorese noturna, consolidação em lobo superior.</td>
+                        <td>Teste rápido molecular, baciloscopia, cultura, radiografia.</td>
+                        <td>Esquema básico e monitoramento mensal.</td>
+                    </tr>
+                    <tr>
+                        <td>Pneumonia bacteriana</td>
+                        <td>Início agudo, febre alta, dor torácica, consolidação lobar.</td>
+                        <td>Radiografia e hemograma.</td>
+                        <td>Antibiótico conforme gravidade.</td>
+                    </tr>
+                    <tr>
+                        <td>Neoplasia pulmonar</td>
+                        <td>Perda de peso, tosse, hemoptise, tabagismo, massa ou nódulo.</td>
+                        <td>Tomografia e biópsia.</td>
+                        <td>Avaliação especializada.</td>
+                    </tr>
+                    <tr>
+                        <td>Micobacteriose não tuberculosa</td>
+                        <td>Quadro crônico, seringa em pacientes com bronquiectasias ou imunossupressão.</td>
+                        <td>Cultura e identificação de espécie.</td>
+                        <td>Esquema específico conforme espécie.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram diagnóstico diferencial e monitoramento.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o esquema terapêutico:</strong> rifampicina, isoniazida, pirazinamida e etambutol por 2 meses, seguidos de rifampicina e isoniazida por 4 meses.</li>
+                <li><strong>Se pedisse efeito adverso:</strong> hepatotoxicidade, neuropatia periférica, alterações visuais e intolerância gastrointestinal.</li>
+                <li><strong>Se pedisse conduta em abandono:</strong> reavaliar, reiniciar tratamento conforme tempo de interrupção e critérios clínicos.</li>
+                <li><strong>Se pedisse prevenção:</strong> busca ativa de contatos, vacinação BCG e tratamento da infecção latente.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q27</td>
+                        <td>Homem em situação de rua com tuberculose, tratamento interrompido após 3 semanas, sem documentação e com receio de discriminação.</td>
+                        <td>Local de reinício do tratamento no plano terapêutico singular.</td>
+                        <td>Alternativa A (na UBS atual).</td>
+                        <td>Aborda continuidade do cuidado e adesão, temas essenciais para o monitoramento mensal.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q55</td>
+                        <td>Homem de 48 anos com tuberculose, interrupção do tratamento há 2 meses, mudou de território e retorna para reiniciar.</td>
+                        <td>Conduta diante de retratamento e resultados de TRM-TB e baciloscopia.</td>
+                        <td>Alternativa C.</td>
+                        <td>Relaciona-se ao monitoramento e à necessidade de cultura com teste de sensibilidade em casos selecionados.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema tuberculose apareceu em pelo menos 2 questões anteriores analisadas. A banca alterna entre local de reinício do tratamento, conduta em retratamento e monitoramento da adesão.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> frequência exata do monitoramento mensal, manejo de efeitos adversos, critérios de cura e seguimento pós-tratamento.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em continuidade do cuidado e retratamento; a questão atual cobra a periodicidade do acompanhamento.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar o protocolo brasileiro de tuberculose, incluindo esquema básico, monitoramento mensal, manejo de efeitos adversos e critérios de cura.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Tuberculose se conecta à infecção pelo HIV, pois a coinfecção altera o esquema e o monitoramento.</li>
+                <li><strong>Conexão 2:</strong> O tratamento da tuberculose se integra à saúde pública, com busca ativa de contatos e vigilância epidemiológica.</li>
+                <li><strong>Conexão 3:</strong> Efeitos adversos dos tuberculostáticos exigem monitoramento clínico e laboratorial, especialmente hepatotoxicidade.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Erros comuns incluem escolher monitoramento apenas quando há sintomas ou apenas no início e no fim do tratamento, por desconhecer a recomendação de acompanhamento mensal. A estratégia correta é memorizar que o paciente com tuberculose deve ser avaliado mensalmente até o término do tratamento. Classificação do erro mais provável: lacuna de conhecimento sobre protocolos de tuberculose. Ação corretiva: revisar o Manual de Recomendações para o Controle da Tuberculose no Brasil.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na atenção primária, o monitoramento mensal permite avaliar adesão, identificar efeitos adversos precocemente, ajustar condutas e prevenir abandono. O vínculo com a equipe e o tratamento diretamente observado, quando indicado, são estratégias importantes. O paciente deve ser orientado sobre a importância de completar o tratamento e comparecer às consultas.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Esquema básico de tratamento da tuberculose.</li>
+                <li>Monitoramento mensal e critérios de cura.</li>
+                <li>Efeitos adversos dos tuberculostáticos.</li>
+                <li>Tratamento diretamente observado.</li>
+                <li>Coinfecção HIV-tuberculose.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Manual de Recomendações para o Controle da Tuberculose no Brasil.</p>
+            <p>2. Ministério da Saúde. Guia de Vigilância em Saúde.</p>
+            <p>3. Organização Mundial da Saúde. Global Tuberculosis Report.</p>
+            <p>4. Sociedade Brasileira de Pneumologia e Tisiologia. Diretrizes para Tuberculose.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

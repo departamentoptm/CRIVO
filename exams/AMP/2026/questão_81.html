@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 81 - Vacinação contra Hepatite B em Profissional de Saúde sem Comprovante Vacinal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Vacinação contra Hepatite B em Profissional de Saúde sem Comprovante Vacinal</div>
+        <h1>Questão 81</h1>
+        <div class="question-text">
+            Uma mulher de 31 anos, enfermeira recém-contratada para atuar em uma Unidade Básica de Saúde, comparece para atualização de vacinas. Não possui comprovantes de vacinação e informa ter recebido “apenas as vacinas da infância”. Nega doenças crônicas, gravidez ou imunossupressão. Nesse cenário, qual é a conduta mais apropriada em relação à vacinação contra hepatite B?
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Administrar uma dose de reforço da vacina contra hepatite B e solicitar anti-HBs após 6 meses para definir se há necessidade de novas doses.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Aplicar um esquema completo de três doses da vacina contra hepatite B e a seguir solicitar anti-HBs em 1 mês, se negativo considerar como indivíduo não respondedor.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Aplicar vacina contra hepatite B agora, nova dose daqui 1 mês e nova dose daqui 6 meses, e 60 dias após esta terceira dose coletar exame para anti-HBs para definir se necessário mais doses.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Solicitar exame de anti-HBc, se negativo administrar uma dose de reforço da vacina contra hepatite B e solicitar novamente o mesmo exame 30 dias após para definir se seriam necessárias mais doses.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Considerar a paciente imunizada, pois a vacinação para hepatite B foi incorporada ao Calendário Básico de Imunização no Brasil em 1992 e portanto a paciente deve ter sido vacinada já na infância, dispensando nova intervenção.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina Preventiva / Infectologia / Saúde Coletiva.</p>
+                <p><strong>Tema:</strong> Vacinação contra hepatite B em profissional de saúde sem comprovante vacinal.</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância para provas de residência, pois articula calendário vacinal do adulto, vacinação de profissionais de saúde, interpretação de comprovantes vacinais e conduta diante da ausência de documentação. A banca costuma cobrar esquema vacinal, necessidade de sorologia pós-vacinal e manejo do profissional de saúde exposto a material biológico. A questão de 2026 é aplicada e foca na conduta correta em uma enfermeira sem comprovante de vacinação.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A hepatite B é uma infecção viral causada pelo vírus HBV, com risco de cronificação, cirrose e carcinoma hepatocelular. A vacina contra hepatite B é recombinante e altamente eficaz. O esquema padrão para adultos é de três doses (0, 1 e 6 meses). Profissionais de saúde têm indicação formal de vacinação e devem ter comprovante do esquema completo. Na ausência de comprovante vacinal, o indivíduo deve ser considerado não vacinado e iniciar esquema completo. Após a terceira dose, recomenda-se dosar anti-HBs entre 30 e 60 dias (habitualmente 60 dias) para avaliar resposta imunológica. Anti-HBs ≥ 10 mUI/mL indica imunidade adequada; valores abaixo indicam não respondedor e exigem nova avaliação e possível revacinação. Não se utiliza anti-HBc para triagem vacinal em pessoas sem história de infecção.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa C é a correta. A paciente é profissional de saúde, sem comprovante de vacinação contra hepatite B, e deve ser considerada não vacinada. A conduta é iniciar esquema completo com três doses (0, 1 e 6 meses) e, 60 dias após a terceira dose, solicitar anti-HBs para verificar a resposta imunológica. Se anti-HBs ≥ 10 mUI/mL, considera-se imunizada; se abaixo, deve-se avaliar a necessidade de doses adicionais ou revacinação. As demais alternativas propõem reforço isolado, dosagem em momento inadequado, uso de anti-HBc para decisão vacinal ou presunção indevida de imunidade.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Não se deve administrar apenas uma dose de reforço em pessoa sem comprovante vacinal. O correto é iniciar esquema completo de três doses. Além disso, a dosagem de anti-HBs após 6 meses da dose de reforço não substitui a avaliação pós-esquema completo.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. O esquema completo está correto, mas a dosagem de anti-HBs deve ser feita preferencialmente 30 a 60 dias após a terceira dose, e não em 1 mês. Além disso, um resultado negativo isolado não define imediatamente não respondedor sem avaliação adequada.</p>
+                <p><strong>Alternativa C</strong> - Correta. Esquema completo (0, 1 e 6 meses) e anti-HBs 60 dias após a terceira dose para definir necessidade de doses adicionais.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. O anti-HBc não é exame de triagem para indicação vacinal em pessoas sem história de infecção. Ele indica contato prévio com o vírus, mas não deve ser usado para decidir reforço vacinal.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A incorporação da vacina ao calendário em 1992 não garante que a paciente tenha sido vacinada ou que tenha respondido adequadamente. Sem comprovante, deve-se considerar não vacinada e iniciar esquema.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Enfermeira recém-contratada em UBS”:</strong> profissional de saúde com indicação formal de vacinação contra hepatite B.</li>
+                    <li><strong>“Não possui comprovantes de vacinação”:</strong> ausência de documentação implica considerar não vacinada.</li>
+                    <li><strong>“Apenas as vacinas da infância”:</strong> não garante esquema completo de hepatite B na idade adulta.</li>
+                    <li><strong>“Nega doenças crônicas, gravidez ou imunossupressão”:</strong> não há contraindicação à vacina de vírus inativado/recombinante.</li>
+                    <li><strong>“Atualização de vacinas”:</strong> oportunidade de revisar calendário vacinal do adulto e profissional de saúde.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> verificar se há comprovante de esquema vacinal completo contra hepatite B. Sem comprovante, considerar não vacinado.</li>
+                    <li><strong>Segundo:</strong> iniciar esquema completo de três doses (0, 1 e 6 meses) com vacina recombinante contra hepatite B.</li>
+                    <li><strong>Terceiro:</strong> 60 dias após a terceira dose, solicitar anti-HBs quantitativo.</li>
+                    <li><strong>Quarto:</strong> se anti-HBs ≥ 10 mUI/mL, considerar imunizado; se < 10 mUI/mL, avaliar necessidade de doses adicionais ou revacinação conforme protocolo.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> profissional de saúde sem comprovante vacinal deve ser considerado não vacinado e iniciar esquema completo; anti-HBs é o marcador de resposta vacinal.</li>
+                    <li><strong>Números e doses:</strong> esquema 0, 1 e 6 meses; anti-HBs ≥ 10 mUI/mL indica imunidade adequada; dosagem 30-60 dias após a última dose.</li>
+                    <li><strong>Mnemônicos:</strong> “0-1-6” para o esquema vacinal e “10” como ponto de corte para anti-HBs.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Profissional de saúde sem comprovante vacinal (caso)</td>
+                            <td>Ausência de documentação, sem história de infecção</td>
+                            <td>Não há indicação de anti-HBc para triagem vacinal</td>
+                            <td>Esquema completo 0-1-6 e anti-HBs após 60 dias da 3ª dose</td>
+                        </tr>
+                        <tr>
+                            <td>Esquema vacinal incompleto documentado</td>
+                            <td>Comprovante com uma ou duas doses</td>
+                            <td>Revisão do cartão vacinal</td>
+                            <td>Completar o esquema conforme intervalo mínimo</td>
+                        </tr>
+                        <tr>
+                            <td>Não respondedor vacinal</td>
+                            <td>Anti-HBs < 10 mUI/mL após esquema completo</td>
+                            <td>Anti-HBs quantitativo</td>
+                            <td>Avaliar revacinação com doses adicionais</td>
+                        </tr>
+                        <tr>
+                            <td>Infecção prévia por HBV</td>
+                            <td>Anti-HBc positivo, anti-HBs positivo, HBsAg negativo</td>
+                            <td>Marcadores sorológicos</td>
+                            <td>Não vacinar; acompanhar conforme risco</td>
+                        </tr>
+                        <tr>
+                            <td>Imunossupressão</td>
+                            <td>Doença crônica, uso de imunossupressores</td>
+                            <td>Avaliação clínica</td>
+                            <td>Esquema adaptado e monitorização sorológica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre acidente biológico:</strong> a resposta poderia envolver conduta pós-exposição, imunoglobulina e vacinação conforme situação vacinal.</li>
+                    <li><strong>Se fosse sobre interpretação de marcadores:</strong> a resposta poderia abordar HBsAg, anti-HBc IgM, anti-HBs e anti-HBc total.</li>
+                    <li><strong>Se fosse sobre prevenção:</strong> a resposta poderia incluir vacinação universal, medidas de precaução e educação em saúde.</li>
+                    <li><strong>Se fosse sobre profissional de saúde:</strong> a resposta poderia cobrar comprovação vacinal, sorologia e conduta em não respondedores.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 - Q57</td>
+                            <td>“Com relação a hepatite viral, qual das afirmações abaixo está correta?” Entre as alternativas, “Todos os cirurgiões devem ser vacinados para hepatite B”.</td>
+                            <td>Vacinação de profissionais de saúde contra hepatite B</td>
+                            <td>C</td>
+                            <td>Reforça a indicação de vacinação de profissionais de saúde; não aborda conduta em sem comprovante.</td>
+                        </tr>
+                        <tr>
+                            <td>2008 - Q83</td>
+                            <td>Questão semelhante sobre hepatite viral; alternativa correta “Todos os cirurgiões devem ser vacinados para hepatite B”.</td>
+                            <td>Vacinação de profissionais de saúde</td>
+                            <td>C</td>
+                            <td>Repete o conceito de vacinação obrigatória para profissionais; não cobra esquema nem anti-HBs.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 - Q79</td>
+                            <td>“Com respeito à hepatite B, assinale a INCORRETA”, com afirmativas sobre período de incubação, HBsAg, anti-HBc IgM e anti-HBs.</td>
+                            <td>História natural e marcadores sorológicos da hepatite B</td>
+                            <td>D</td>
+                            <td>Ajuda a compreender marcadores, mas não aborda vacinação.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 - Q52</td>
+                            <td>Associação entre marcadores virais (HBsAg, anti-HBc IgM, anti-HAV IgM, anti-HCV) e diagnósticos de hepatites.</td>
+                            <td>Interpretação de marcadores sorológicos</td>
+                            <td>D</td>
+                            <td>Reforça a interpretação de anti-HBs/anti-HBc; não aborda conduta vacinal.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 - Q99</td>
+                            <td>Análise de marcadores virais de hepatite B em quatro pacientes (HBsAg e anti-HBc total).</td>
+                            <td>Interpretação de marcadores e estado infeccioso</td>
+                            <td>E</td>
+                            <td>Mostra que a banca cobra marcadores; a questão atual foca na vacinação.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 questões ao longo das provas, alternando entre vacinação de profissionais de saúde (2006 e 2008) e interpretação de marcadores sorológicos (2010, 2014 e 2023). A banca nunca cobrou diretamente a conduta em profissional de saúde sem comprovante vacinal, mas o tema é próximo e recorrente.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Esquema vacinal completo em adulto sem comprovante; dosagem de anti-HBs pós-vacinal; manejo do não respondedor; conduta em profissionais de saúde com esquema incompleto.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2006 e 2008, a cobrança era conceitual (vacinação de cirurgiões). Em 2026, a questão tornou-se mais aplicada, focando na conduta prática diante de uma profissional de saúde sem documentação vacinal.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar calendário vacinal do adulto e do profissional de saúde, esquema da hepatite B, interpretação de anti-HBs e conduta em não respondedores.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Hepatite B crônica → cirrose → carcinoma hepatocelular; a vacinação é medida de prevenção primária.</li>
+                    <li><strong>Conexão 2:</strong> Profissional de saúde → acidente com material biológico → conduta pós-exposição e imunoprofilaxia.</li>
+                    <li><strong>Conexão 3:</strong> Calendário vacinal do adulto → vacinação de grupos de risco → saúde do trabalhador.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, provavelmente assumiu que a paciente estava imunizada pela idade (alternativa E) ou indicou reforço isolado (alternativa A), desconhecendo a regra de considerar não vacinado quem não tem comprovante. Classificação do erro: lacuna de conhecimento sobre conduta vacinal em ausência de comprovante e confusão conceitual entre dose de reforço e esquema completo. Ação corretiva: memorizar que sem comprovante considera-se não vacinado e que o esquema é 0-1-6 com anti-HBs após 60 dias da última dose.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática da Atenção Primária e da Saúde do Trabalhador, é comum atender profissionais de saúde sem comprovante vacinal. A conduta correta é iniciar esquema completo, orientar sobre a importância da documentação e realizar sorologia pós-vacinal para confirmar imunidade. Isso protege o profissional, os pacientes e a coletividade.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Calendário vacinal do adulto e do profissional de saúde.</li>
+                    <li>Esquema e intervalos da vacina contra hepatite B.</li>
+                    <li>Interpretação de anti-HBs, anti-HBc e HBsAg.</li>
+                    <li>Conduta em não respondedores à vacina.</li>
+                    <li>Profilaxia pós-exposição ocupacional ao HBV.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação / Programa Nacional de Imunizações.</p>
+                <p>2. Ministério da Saúde. Nota Técnica sobre vacinação contra hepatite B em adultos e profissionais de saúde.</p>
+                <p>3. Centers for Disease Control and Prevention (CDC). Hepatitis B Vaccination of Health-Care Personnel.</p>
+                <p>4. Sociedade Brasileira de Infectologia. Diretrizes de imunização em adultos.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

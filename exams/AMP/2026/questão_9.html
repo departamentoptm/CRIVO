@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 9 - Pediatria: Estridor Inspiratório no Recém-Nascido - Laringomalácia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Estridor Inspiratório no Recém-Nascido - Laringomalácia</div>
+        <h1>Questão 9</h1>
+        <div class="question-text">
+            Um recém-nascido de 10 dias de vida é levado à consulta devido a um ruído agudo durante a inspiração (estridor inspiratório), que iniciou nos primeiros dias após o nascimento. Os pais relatam que o barulho piora quando o bebê está deitado de costas ou quando está chorando, e melhora significativamente quando ele é colocado de bruços. O lactente apresenta bom ganho de peso, está amamentando bem e não demonstra sinais de desconforto respiratório grave, cianose ou crises de engasgo. Considerando a principal hipótese diagnóstica para este quadro, assinale a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Trata-se de estenose subglótica, uma condição predominantemente congênita que sempre exige intervenção cirúrgica imediata com reconstrução laríngea.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - A principal hipótese é a laringomalácia, cuja conduta inicial na ausência de sinais de gravidade é expectante, pois a maioria dos casos resolve-se espontaneamente até os 12-24 meses de vida.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - O quadro sugere paralisia de pregas vocais bilateral, sendo obrigatória a realização de traqueostomia de urgência devido ao alto risco de obstrução completa da via aérea.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Trata-se de uma fenda laringea tipo I, anomalia caracterizada por estridor puramente inspiratório que melhora com a alimentação pastosa.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - A traqueomalácia é o diagnóstico mais provável, caracterizando-se tipicamente por um estridor isolado na fase inspiratória que piora durante o sono profundo.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria - Otorrinolaringologia Pediátrica / Pneumologia Pediátrica.</p>
+            <p><strong>Tema:</strong> Estridor inspiratório no recém-nascido - laringomalácia como principal causa de estridor congênito.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A laringomalácia é a causa mais comum de estridor congênito (cerca de 60-70% dos casos), caracterizada por colapso supraglótico durante a inspiração. A banca costuma cobrar o reconhecimento clínico (estridor inspiratório que piora em decúbito dorsal e ao choro, melhora em prona), a benignidade na maioria dos casos, a conduta expectante e os critérios de gravidade que indicam avaliação especializada (disfagia, déficit ponderal, cianose, apneia, piora progressiva). Integra-se com estridor laríngeo, refluxo laringofaríngeo, apneia da prematuridade, diagnóstico diferencial com paralisia de pregas vocais, estenose subglótica, traqueomalácia e fenda laríngea.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A laringomalácia é uma malformação congênita da supraglote, caracterizada por cartilagens laríngeas imaturas e hipotonia da musculatura supraglótica, levando ao colapso das estruturas supraglóticas (epiglote, aritenoides e pregas ariepiglóticas) durante a inspiração. O resultado é um estridor inspiratório de tonalidade aguda, que:</p>
+            <ul>
+                <li>Surge nas primeiras semanas de vida (frequentemente nos primeiros dias).</li>
+                <li>Piora em decúbito dorsal, ao choro, na agitação e com infecções virais.</li>
+                <li>Melhora em posição prona e ao acordar.</li>
+                <li>Geralmente se resolve espontaneamente até os 12-24 meses, à medida que as estruturas laríngeas amadurecem e o tônus muscular melhora.</li>
+            </ul>
+            <p>Na maioria dos casos, o estridor é isolado, sem repercussão respiratória ou nutricional. Em cerca de 10-20% dos casos, podem ocorrer sintomas de gravidade: cianose, apneia, dificuldade de alimentação, déficit ponderal, piora progressiva ou estridor expiratório associado. Nesses casos, a avaliação por nasofibrolaringoscopia e possível intervenção (supraglotoplastia) podem ser necessárias.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B - correta.</strong> O quadro é clássico de laringomalácia: estridor inspiratório iniciado nas primeiras semanas, que piora em decúbito dorsal e ao choro, melhora em prona, em lactente com bom ganho de peso, boa amamentação e sem sinais de desconforto respiratório grave. A conduta inicial é expectante, pois a maioria dos casos se resolve espontaneamente até os 12-24 meses. A orientação inclui posicionamento em prona durante a vigília (com supervisão), monitoramento do ganho de peso, tratamento do refluxo quando presente, e sinais de alerta para retorno. Em provas anteriores, a laringomalácia foi cobrada em 2021 - Q3 (estridor em lactente de 10 meses, sendo a alternativa correta a laringite, mas com diagnóstico diferencial incluindo laringomalácia), 2021 - Q50 (tumoração cervical, não relacionada), 2024 - Q17 (cisto tireoglosso, diferencial de massa cervical). O estridor congênito em si não foi diretamente cobrado, mas a questão atual preenche essa lacuna.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Errada. A estenose subglótica é uma condição congênita ou adquirida (pós-intubação) que causa estridor, mas geralmente é bifásica e não melhora em prona. Além disso, não "sempre exige intervenção cirúrgica imediata"; casos leves podem ser observados. A afirmação é categórica e incorreta.</p>
+            <p><strong>Alternativa B</strong> - Correta.</p>
+            <p><strong>Alternativa C</strong> - Errada. A paralisia de pregas vocais bilateral pode causar estridor, mas geralmente é bifásica ou inspiratória e está associada a fatores de risco (neurológicos, cirurgia cervical, cardiopatias). A traqueostomia não é obrigatória; muitos casos são manejados conservadoramente. O quadro descrito é típico de laringomalácia, não de paralisia de pregas vocais.</p>
+            <p><strong>Alternativa D</strong> - Errada. A fenda laríngea tipo I é uma anomalia rara, geralmente associada a aspiração, disfonia e estridor, mas não melhora caracteristicamente em prona. O quadro descrito é mais leve e típico de laringomalácia.</p>
+            <p><strong>Alternativa E</strong> - Errada. A traqueomalácia é caracterizada por colapso da traqueia, geralmente com estridor expiratório ou bifásico, e piora em posição supina e durante o choro. A melhora em prona é mais característica da laringomalácia. Além disso, a traqueomalácia costuma estar associada a outras condições (prematuridade, atresia esofágica) e não é o diagnóstico mais provável isoladamente em um recém-nascido a termo com estridor inspiratório puro.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Estridor inspiratório de início nas primeiras semanas:</strong> típico de laringomalácia.</li>
+                <li><strong>Piora em decúbito dorsal e ao choro:</strong> característica da laringomalácia.</li>
+                <li><strong>Melhora em prona:</strong> sinal clássico da laringomalácia.</li>
+                <li><strong>Bom ganho de peso, amamentação eficaz, sem desconforto grave:</strong> quadro benigno, sem indicação de intervenção imediata.</li>
+                <li><strong>Ausência de cianose, crises de engasgo e desconforto respiratório grave:</strong> ausência de critérios de gravidade.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer estridor inspiratório leve em lactente com bom estado geral.</li>
+                <li><strong>Segundo:</strong> identificar os sinais típicos de laringomalácia: piora em supino e ao choro, melhora em prona, início nas primeiras semanas.</li>
+                <li><strong>Terceiro:</strong> avaliar a presença de sinais de gravidade (déficit ponderal, disfagia, cianose, apneia, piora progressiva). Se ausentes, conduta expectante.</li>
+                <li><strong>Quarto:</strong> orientar os pais sobre posicionamento em prona durante a vigília com supervisão, sinais de alerta e retorno regular para acompanhamento do peso.</li>
+                <li><strong>Quinto:</strong> se sinais de gravidade ou estridor persistente além de 12-24 meses, encaminhar para avaliação otorrinolaringológica (nasofibrolaringoscopia) e considerar supraglotoplastia.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” em estridor congênito.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> laringomalácia é a causa mais comum de estridor congênito (60-70%); estridor inspiratório, piora em supino, melhora em prona; a maioria resolve espontaneamente até 12-24 meses.</li>
+                <li><strong>Números e doses:</strong> resolução espontânea em 80-90% até 12-24 meses; supraglotoplastia indicada em casos com sinais de gravidade; nasofibrolaringoscopia é o exame de escolha para diagnóstico quando necessário.</li>
+                <li><strong>Mnemônicos:</strong> “Laringomalácia = estridor inspiratório que piora deitado e melhora de bruços”; “A maioria resolve até 1-2 anos de vida”; “Sinais de gravidade = cianose, apneia, déficit ponderal”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2021 - Q3 (estridor em lactente, com diagnóstico diferencial), mas a laringomalácia não foi diretamente o gabarito. A questão atual preenche essa lacuna.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Laringomalácia (correta)</td>
+                        <td>Estridor inspiratório que piora em supino e ao choro, melhora em prona; início nas primeiras semanas; bom ganho de peso.</td>
+                        <td>Clínico; nasofibrolaringoscopia se dúvida ou gravidade.</td>
+                        <td>Expectante; orientação; resolução espontânea.</td>
+                    </tr>
+                    <tr>
+                        <td>Paralisia de pregas vocais</td>
+                        <td>Estridor bifásico ou inspiratório, disfonia, aspiração, fatores de risco (neurológicos, cirurgia).</td>
+                        <td>Nasofibrolaringoscopia.</td>
+                        <td>Observação; traqueostomia em casos graves.</td>
+                    </tr>
+                    <tr>
+                        <td>Estenose subglótica</td>
+                        <td>Estridor bifásico, história de intubação, piora progressiva.</td>
+                        <td>Nasofibrolaringoscopia; imagem.</td>
+                        <td>Dilatação ou cirurgia conforme gravidade.</td>
+                    </tr>
+                    <tr>
+                        <td>Traqueomalácia</td>
+                        <td>Estridor expiratório ou bifásico, piora em supino, associada a prematuridade ou anomalias.</td>
+                        <td>Broncoscopia.</td>
+                        <td>Suporte; cirurgia em casos graves.</td>
+                    </tr>
+                    <tr>
+                        <td>Fenda laríngea</td>
+                        <td>Estridor, aspiração, disfonia; tipo I geralmente leve.</td>
+                        <td>Nasofibrolaringoscopia; deglutição com contraste.</td>
+                        <td>Conservador ou cirúrgico conforme tipo.</td>
+                    </tr>
+                    <tr>
+                        <td>Laringite aguda (crupe)</td>
+                        <td>Estridor inspiratório súbito, tosse rouca, febre, pródromo viral; não é congênita.</td>
+                        <td>Clínico.</td>
+                        <td>Dexametasona; adrenalina nebulizada se grave.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a conduta inicial:</strong> expectante, com orientação sobre posicionamento e sinais de alerta.</li>
+                <li><strong>Se pedisse o exame diagnóstico:</strong> nasofibrolaringoscopia (quando necessário).</li>
+                <li><strong>Se pedisse os sinais de gravidade:</strong> cianose, apneia, déficit ponderal, disfagia, piora progressiva, estridor expiratório associado.</li>
+                <li><strong>Se pedisse a idade de resolução:</strong> 12-24 meses.</li>
+                <li><strong>Se pedisse a cirurgia:</strong> supraglotoplastia em casos refratários/graves.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2007 - Q33</td>
+                        <td>Lactente de 6 meses com dificuldade para respirar, tosse rouca, estridor; conduta.</td>
+                        <td>Laringite aguda (crupe).</td>
+                        <td>E (medicação sintomática)</td>
+                        <td>Diferencial de estridor: laringite é aguda e viral, não congênita.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q3</td>
+                        <td>Lactente de 10 meses com tosse, choro rouco, estridor inspiratório; conduta.</td>
+                        <td>Laringite aguda (crupe).</td>
+                        <td>C (inalação com adrenalina e dexametasona)</td>
+                        <td>Diferencial de estridor: laringite aguda é viral, com pródromo de IVAS.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q3</td>
+                        <td>Lactente de 10 meses com IVAS, tosse rouca, estridor; conduta.</td>
+                        <td>Laringite aguda (crupe).</td>
+                        <td>C (inalação com adrenalina e dexametasona)</td>
+                        <td>Diferencial de estridor: reforça que estridor não é sempre laringomalácia.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q50</td>
+                        <td>Tumoração cervical em lactente; diagnóstico.</td>
+                        <td>Cisto tireoglosso (diferencial de massa cervical).</td>
+                        <td>D (cisto tireoglosso)</td>
+                        <td>Não relacionado diretamente ao estridor, mas reforça diagnóstico diferencial em lactentes.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q17</td>
+                        <td>Massa cervical em lactente de 2 anos; diagnóstico.</td>
+                        <td>Cisto tireoglosso (diferencial de massa cervical).</td>
+                        <td>B (cisto tireoglosso)</td>
+                        <td>Não relacionado ao estridor.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> A laringomalácia não foi diretamente cobrada como resposta correta em provas anteriores, mas o estridor foi cobrado principalmente no contexto de laringite aguda (2007 - Q33, 2017 - Q3, 2021 - Q3). A questão atual preenche essa lacuna, cobrando o estridor congênito e a laringomalácia.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Diagnóstico clínico da laringomalácia, conduta expectante e sinais de gravidade que indicam intervenção.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em estridor agudo (laringite); a próxima prova pode cobrar estridor congênito e laringomalácia.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar laringomalácia (clínica, conduta expectante, sinais de gravidade) e diagnóstico diferencial com laringite aguda, paralisia de pregas vocais, estenose subglótica e traqueomalácia.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Refluxo laringofaríngeo - comum em lactentes com laringomalácia; pode agravar o estridor e deve ser tratado quando presente.</li>
+                <li><strong>Conexão 2:</strong> Apneia da prematuridade - diagnóstico diferencial em prematuros com estridor e pausas respiratórias.</li>
+                <li><strong>Conexão 3:</strong> Laringite aguda (crupe) - principal diagnóstico diferencial de estridor agudo; presença de pródromo viral, tosse rouca e febre.</li>
+                <li><strong>Conexão 4:</strong> Disfagia e aspiração - sinais de gravidade que indicam avaliação especializada e possível intervenção.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é confundir laringomalácia com outras causas de estridor (laringite, paralisia de pregas vocais, traqueomalácia) ou desconhecer a benignidade e a conduta expectante da laringomalácia. A ação corretiva é memorizar: “estridor inspiratório que piora em supino e melhora em prona, em lactente saudável, é laringomalácia; conduta expectante; resolução até 12-24 meses; sinais de gravidade = cianose, apneia, déficit ponderal, disfagia”.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o reconhecimento da laringomalácia e a tranquilização dos pais são fundamentais para evitar intervenções desnecessárias. A orientação sobre posicionamento em prona durante a vigília com supervisão, o monitoramento do ganho de peso e os sinais de alerta são essenciais. A maioria dos casos se resolve espontaneamente, mas os casos com sinais de gravidade devem ser encaminhados precocemente ao otorrinolaringologista pediátrico.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Laringomalácia: clínica, história natural e conduta.</li>
+                <li>Estridor: classificação (inspiratório, expiratório, bifásico) e causas.</li>
+                <li>Diagnóstico diferencial de estridor congênito (paralisia de pregas vocais, estenose subglótica, traqueomalácia, fenda laríngea).</li>
+                <li>Sinais de gravidade no estridor.</li>
+                <li>Refluxo laringofaríngeo e sua relação com laringomalácia.</li>
+                <li>Nasofibrolaringoscopia: indicações.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Kliegman RM, et al. Nelson Tratado de Pediatria. Elsevier.</p>
+            <p>2. Diretrizes da Sociedade Brasileira de Pediatria - Otorrinolaringologia Pediátrica.</p>
+            <p>3. American Academy of Pediatrics - Laryngomalacia: Diagnosis and Management.</p>
+            <p>4. European Society of Pediatric Otorhinolaryngology - Guidelines for Congenital Stridor.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

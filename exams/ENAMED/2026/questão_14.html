@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 14 - HIV na Gestação: Acolhimento e Comunicação em Saúde Após Teste Rápido Reagente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">HIV na Gestação: Acolhimento e Comunicação em Saúde Após Teste Rápido Reagente</div>
+        <h1>Questão 14</h1>
+        <div class="question-text">
+            Gestante de 24 anos, G1P0, com 12 semanas de gestação, procura atendimento médico para mostrar o resultado de teste rápido para HIV realizado na primeira consulta do pré-natal, o qual consta como reagente. Demonstra ansiedade e afirma nunca ter imaginado essa possibilidade. Refere medo de ser julgada e receio de que sua família descubra o diagnóstico.<br><br>
+            Em atenção aos princípios da comunicação em saúde, da ética médica e do cuidado humanizado, qual é a conduta inicial nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Solicitar a presença de um familiar da paciente e encaminhá-la para o pré-natal de alto risco.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Acolher a paciente com escuta ativa e fornecer esclarecimentos quanto ao resultado do teste rápido.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Explicar à paciente o risco de transmissão da doença ao feto e solicitar sorologia para confirmar o diagnóstico.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Tranquilizar a paciente e iniciar terapia antirretroviral.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Infectologia / Saúde Coletiva / Medicina de Família e Comunidade</p>
+            <p><strong>Tema:</strong> Acolhimento e comunicação em saúde diante de teste rápido reagente para HIV na gestação.</p>
+            <p><strong>Contextualização:</strong> O diagnóstico de HIV na gestação envolve não apenas condutas clínicas, mas também aspectos éticos, emocionais e comunicacionais. A questão cobra a conduta inicial humanizada, que precede a confirmação sorológica e o início da terapia antirretroviral. O tema é relevante porque a qualidade da comunicação influencia adesão, vínculo e prevenção da transmissão vertical.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O teste rápido para HIV é uma triagem e, quando reagente, deve ser confirmado por testes laboratoriais. No entanto, antes de qualquer conduta técnica, é necessário acolher a paciente, pois o resultado gera impacto emocional significativo, medo de estigma e receio de julgamento. A escuta ativa e a comunicação empática são princípios do cuidado humanizado e da ética médica, especialmente em situações de vulnerabilidade. A confirmação diagnóstica e o início da TARV são etapas posteriores, mas a conduta inicial é o acolhimento e o esclarecimento.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>B</strong>. A conduta inicial é acolher a paciente com escuta ativa, sem julgamento, e fornecer esclarecimentos claros sobre o resultado do teste rápido, explicando que se trata de um teste de triagem e que será necessária confirmação. A paciente deve ser informada sobre sigilo, direitos e próximos passos, com apoio da equipe. Essa abordagem preserva o vínculo, reduz a ansiedade e favorece a adesão ao seguimento.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Solicitar a presença de um familiar sem consentimento viola o sigilo e a autonomia da paciente. O encaminhamento ao pré-natal de alto risco é indicado após confirmação e avaliação, não como primeira conduta comunicacional.</p>
+            <p><strong>Alternativa B</strong> - Correta. Acolhimento com escuta ativa e esclarecimentos é a conduta inicial mais adequada aos princípios da comunicação em saúde, ética e cuidado humanizado.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. Explicar o risco de transmissão vertical e solicitar sorologia confirmatória são etapas importantes, mas não devem ser a primeira conduta sem acolhimento emocional. A paciente está ansiosa e com medo de julgamento; iniciar por informações técnicas pode aumentar a fragilidade do vínculo.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. Tranquilizar e iniciar TARV imediatamente sem confirmação e sem abordagem comunicacional adequada é precipitado. A TARV deve ser iniciada após confirmação diagnóstica e avaliação clínica, embora na gestação o início seja prioritário quando o diagnóstico é confirmado.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Teste rápido reagente”</strong>: indica triagem positiva, que necessita confirmação e acolhimento.</li>
+                <li><strong>“Ansiosa, medo de ser julgada, receio de que a família descubra”</strong>: aponta para vulnerabilidade emocional e necessidade de sigilo e escuta ativa.</li>
+                <li><strong>“Comunicação em saúde, ética médica e cuidado humanizado”</strong>: direciona para conduta de acolhimento, não apenas técnica.</li>
+                <li><strong>“Conduta inicial”</strong>: indica o primeiro passo, que é acolher e esclarecer.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Garantir privacidade e sigilo durante a consulta.</li>
+                <li><strong>Segundo:</strong> Acolher a paciente com escuta ativa, reconhecendo ansiedade e medo de julgamento.</li>
+                <li><strong>Terceiro:</strong> Explicar o significado do teste rápido reagente e a necessidade de confirmação sorológica.</li>
+                <li><strong>Quarto:</strong> Planejar seguimento, orientar sobre prevenção da transmissão vertical e iniciar TARV após confirmação, mantendo apoio contínuo.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Teste rápido reagente para HIV não é diagnóstico definitivo; exige confirmação. O acolhimento é a primeira conduta humanizada.</li>
+                <li><strong>Números e doses:</strong> Na gestação, após confirmação, iniciar TARV o mais precocemente possível, independentemente de CD4.</li>
+                <li><strong>Mnemônicos:</strong> “Acolher antes de confirmar; confirmar antes de tratar”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferença entre triagem, confirmação e conduta humanizada.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Teste rápido reagente para HIV (correta)</td>
+                        <td>Paciente ansiosa, sem sintomas agudos, resultado de triagem positivo</td>
+                        <td>Teste rápido e confirmação sorológica</td>
+                        <td>Acolhimento, esclarecimento, sigilo e confirmação</td>
+                    </tr>
+                    <tr>
+                        <td>Infecção aguda pelo HIV</td>
+                        <td>Síndrome retroviral aguda: febre, adenopatia, rash, faringite</td>
+                        <td>Carga viral e sorologia</td>
+                        <td>Investigação e início de TARV se confirmado</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado falso-positivo</td>
+                        <td>Teste rápido reagente sem confirmação</td>
+                        <td>Sorologia confirmatória</td>
+                        <td>Confirmar antes de comunicar diagnóstico definitivo</td>
+                    </tr>
+                    <tr>
+                        <td>Gestante com HIV confirmado</td>
+                        <td>Testes confirmatórios positivos</td>
+                        <td>Sorologia, carga viral, CD4</td>
+                        <td>TARV, profilaxia da transmissão vertical e seguimento</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas a conduta isolada.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre confirmação diagnóstica:</strong> a resposta envolveria sorologia em dois métodos distintos.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> a resposta seria iniciar TARV após confirmação, com esquema padronizado.</li>
+                <li><strong>Se fosse sobre prevenção da transmissão vertical:</strong> a resposta incluiria TARV, carga viral e via de parto conforme protocolo.</li>
+                <li><strong>Se fosse sobre ética:</strong> a resposta envolveria sigilo, consentimento e comunicação adequada.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q14</td>
+                        <td>Gestante com teste rápido reagente para HIV, ansiosa e com medo de julgamento.</td>
+                        <td>Conduta inicial em comunicação em saúde, ética e cuidado humanizado.</td>
+                        <td>Acolher com escuta ativa e esclarecer o resultado.</td>
+                        <td>É a própria questão atual; não foram identificadas outras questões com o mesmo enfoque no material fornecido.</td>
+                    </tr>
+                    <tr>
+                        <td>Enamed 2026 - Q48</td>
+                        <td>Profissional do sexo com risco de HIV e indicação de PrEP.</td>
+                        <td>Profilaxia pré-exposição e seguimento.</td>
+                        <td>PrEP de uso diário consecutivo com retorno trimestral.</td>
+                        <td>Relaciona-se ao tema HIV, mas com foco em prevenção, não em acolhimento pós-teste reagente.</td>
+                    </tr>
+                    <tr>
+                        <td>Enamed 2026 - Q63</td>
+                        <td>Paciente com HIV e tuberculose, com solicitação de sigilo, evolui a óbito.</td>
+                        <td>Confidencialidade e preenchimento de declaração de óbito.</td>
+                        <td>Choque hipovolêmico, rotura aórtica, tuberculose, PVHIV.</td>
+                        <td>Relaciona-se ao sigilo em HIV, mas não à comunicação inicial de teste rápido reagente.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema HIV aparece em diferentes frentes: prevenção (PrEP), sigilo e comunicação. A banca alterna entre condutas clínicas e aspectos éticos/comunicacionais.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Confirmação sorológica detalhada, início de TARV na gestação, profilaxia da transmissão vertical e comunicação ao parceiro podem surgir em provas futuras.</p>
+            <p><strong>Evolução da cobrança:</strong> A tendência é cobrar condutas humanizadas e éticas, além do manejo clínico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar acolhimento, sigilo, confirmação diagnóstica, TARV na gestação e prevenção da transmissão vertical.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Pré-natal - o diagnóstico de HIV impacta todo o seguimento gestacional e a profilaxia da transmissão vertical.</li>
+                <li><strong>Conexão 2:</strong> Ética médica - sigilo, autonomia e consentimento são essenciais no manejo de ISTs.</li>
+                <li><strong>Conexão 3:</strong> Comunicação em saúde - escuta ativa e empatia melhoram adesão e vínculo.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro comum é escolher a alternativa que já parte para condutas técnicas (sorologia, TARV ou encaminhamento) sem acolher a paciente. Trata-se de lacuna de conhecimento sobre comunicação em saúde e de erro de estratégia ao não priorizar o acolhimento inicial. A correção é memorizar: diante de teste rápido reagente, a primeira conduta é acolher, esclarecer e garantir sigilo; a confirmação e o tratamento vêm depois.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na atenção primária, a forma como o resultado é comunicado pode determinar se a paciente retornará para seguimento. Acolhimento, privacidade e linguagem clara são fundamentais para reduzir o estigma e garantir adesão ao pré-natal e à TARV quando indicada.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Teste rápido para HIV e confirmação sorológica</li>
+                <li>Transmissão vertical do HIV e profilaxia</li>
+                <li>Comunicação em saúde e acolhimento</li>
+                <li>Sigilo e ética médica</li>
+                <li>TARV na gestação</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Prevenção da Transmissão Vertical do HIV.</p>
+            <p>2. Ministério da Saúde. Manual Técnico para Diagnóstico da Infecção pelo HIV.</p>
+            <p>3. Organização Mundial da Saúde (OMS). HIV testing and counselling guidelines.</p>
+            <p>4. Conselho Federal de Medicina. Código de Ética Médica.</p>
+            <p>5. UpToDate. HIV testing and diagnosis in pregnancy.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

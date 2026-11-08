@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 20 - Atenção Primária à Saúde: Educação Alimentar e Nutricional segundo o Guia Alimentar para a População Brasileira</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Atenção Primária à Saúde: Educação Alimentar e Nutricional segundo o Guia Alimentar para a População Brasileira</div>
+        <h1>Questão 20</h1>
+        <div class="question-text">
+            Uma equipe de Saúde da Família, durante planejamento semestral, identificou um aumento significativo na incidência de obesidade e hipertensão arterial sistêmica na população adscrita. O nutricionista propôs uma ação educativa baseada nas recomendações do Guia alimentar para a população brasileira. O objetivo era impactar positivamente os determinantes sociais da saúde e a redução de doenças crônicas não transmissíveis.<br><br>
+            Assinale a alternativa que contém a estratégia educativa a ser priorizada pela equipe para enfrentar o problema identificado.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Estimular a redução do aporte calórico diário, com o uso de produtos diet e light.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Ensinar a contagem sistemática de calorias, com cálculo de macronutrientes para controle da ingestão energética.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Promover habilidades culinárias, com o resgate de hábitos regionais, e incentivar o consumo de alimentos in natura.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Recomendar a exclusão de alimentos processados, como queijos e pães artesanais, e conservar vegetais da dieta regular.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade / Nutrologia</p>
+            <p><strong>Tema:</strong> Educação alimentar e nutricional na atenção primária, com base no Guia Alimentar para a População Brasileira.</p>
+            <p><strong>Contextualização:</strong> A obesidade e a hipertensão arterial são doenças crônicas não transmissíveis (DCNT) de alta prevalência e grande impacto na atenção primária. O Guia Alimentar para a População Brasileira, do Ministério da Saúde, adota a classificação dos alimentos pelo grau de processamento e recomenda o consumo de alimentos in natura ou minimamente processados, a valorização da culinária e dos hábitos regionais, além de desestimular o consumo de ultraprocessados. Esse é um tema recorrente em provas de residência, pois articula promoção da saúde, prevenção de DCNT e determinantes sociais.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A transição nutricional no Brasil tem levado ao aumento do consumo de alimentos ultraprocessados, ricos em açúcares, sódio, gorduras saturadas e aditivos, e à redução do consumo de alimentos frescos e do preparo caseiro. Isso contribui para ganho de peso, resistência insulínica, hipertensão e dislipidemia. O Guia Alimentar propõe uma abordagem baseada em processamento de alimentos e não apenas em calorias ou macronutrientes. Estratégias educativas eficazes incluem o desenvolvimento de habilidades culinárias, o resgate de hábitos regionais e o incentivo ao consumo de alimentos in natura, pois são sustentáveis, culturalmente adequadas e promovem escolhas alimentares mais saudáveis.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>C</strong>. O Guia Alimentar para a População Brasileira preconiza que as ações de educação alimentar e nutricional priorizem a valorização da culinária, o resgate de hábitos regionais e o incentivo ao consumo de alimentos in natura ou minimamente processados. Essa abordagem é mais eficaz e sustentável do que focar apenas em calorias, produtos diet/light ou contagem de macronutrientes, pois atua sobre determinantes sociais, culturais e comportamentais, fortalecendo a autonomia das famílias e a promoção da saúde.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Estimular a redução do aporte calórico com produtos diet e light é uma abordagem reducionista e centrada em alimentos ultraprocessados “light”, contrariando a recomendação do Guia de priorizar alimentos in natura. Além disso, produtos diet/light não necessariamente são mais saudáveis e podem manter padrões alimentares inadequados.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Ensinar a contagem sistemática de calorias e cálculo de macronutrientes é uma abordagem individualizada e pouco sustentável no contexto coletivo da atenção primária, além de não abordar a qualidade dos alimentos e o grau de processamento, que é o eixo central do Guia Alimentar.</p>
+            <p><strong>Alternativa C</strong> - Correta. Promover habilidades culinárias, resgatar hábitos regionais e incentivar alimentos in natura é a estratégia educativa priorizada pelo Guia Alimentar.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A recomendação de excluir alimentos processados como queijos e pães artesanais é equivocada. O Guia Alimentar não proíbe alimentos processados; ele recomenda limitar seu consumo e evitar ultraprocessados. Queijos e pães artesanais, em porções adequadas, podem fazer parte de uma alimentação saudável. A exclusão indiscriminada pode gerar restrições desnecessárias e reduzir a adesão.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Guia alimentar para a população brasileira”</strong>: direciona para a classificação por grau de processamento e para a valorização da culinária e de alimentos in natura.</li>
+                <li><strong>“Determinantes sociais da saúde”</strong>: indica que a estratégia deve atuar em fatores culturais, sociais e comportamentais, não apenas em calorias.</li>
+                <li><strong>“Ação educativa”</strong>: sugere abordagem coletiva, participativa e sustentável.</li>
+                <li><strong>“Redução de doenças crônicas não transmissíveis”</strong>: reforça a importância de mudanças de estilo de vida e padrão alimentar.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer que o Guia Alimentar classifica os alimentos pelo grau de processamento e prioriza in natura ou minimamente processados.</li>
+                <li><strong>Segundo:</strong> Identificar que a estratégia educativa deve ser coletiva, culturalmente sensível e baseada em habilidades culinárias e hábitos regionais.</li>
+                <li><strong>Terceiro:</strong> Descartar abordagens reducionistas de contagem de calorias ou uso de produtos diet/light como prioridade.</li>
+                <li><strong>Quarto:</strong> Evitar recomendações radicais de exclusão de grupos alimentares processados; o foco é limitar ultraprocessados e incentivar comida de verdade.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo” em saúde coletiva.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> O Guia Alimentar prioriza alimentos in natura ou minimamente processados, valoriza a culinária e os hábitos regionais e desestimula ultraprocessados.</li>
+                <li><strong>Números e doses:</strong> Não há dose específica; a recomendação é baseada em padrões alimentares e grau de processamento.</li>
+                <li><strong>Mnemônicos:</strong> “Comida de verdade, feita em casa, com tempero regional” - síntese do Guia Alimentar.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferença entre abordagens reducionistas e a abordagem ampliada do Guia Alimentar.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Educação alimentar baseada no Guia Alimentar (correta)</td>
+                        <td>Abordagem coletiva, valorização da culinária e de alimentos in natura</td>
+                        <td>Avaliação do padrão alimentar e do grau de processamento</td>
+                        <td>Promover habilidades culinárias, hábitos regionais e consumo de in natura</td>
+                    </tr>
+                    <tr>
+                        <td>Abordagem reducionista de calorias</td>
+                        <td>Foco em contagem calórica e macronutrientes</td>
+                        <td>Recordatório alimentar e cálculo</td>
+                        <td>Pouco sustentável no contexto coletivo; não é prioridade no Guia</td>
+                    </tr>
+                    <tr>
+                        <td>Uso de produtos diet/light</td>
+                        <td>Substituição por produtos industrializados “light”</td>
+                        <td>Rótulos e composição</td>
+                        <td>Não recomendado como prioridade; pode manter padrão ultraprocessado</td>
+                    </tr>
+                    <tr>
+                        <td>Exclusão radical de processados</td>
+                        <td>Restrição de queijos e pães artesanais</td>
+                        <td>Anamnese alimentar</td>
+                        <td>Desnecessária e contraproducente; o Guia recomenda limitar, não excluir</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram a diferença entre abordagens educativas em alimentação e nutrição.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre ultraprocessados:</strong> a resposta envolveria desestímulo ao consumo e regulação da publicidade.</li>
+                <li><strong>Se fosse sobre rotulagem:</strong> a resposta envolveria leitura de rótulos e escolhas conscientes.</li>
+                <li><strong>Se fosse sobre segurança alimentar:</strong> a resposta envolveria acesso a alimentos saudáveis e determinantes sociais.</li>
+                <li><strong>Se fosse sobre grupos educativos:</strong> a resposta envolveria metodologias ativas e participação comunitária.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q20</td>
+                        <td>Equipe de Saúde da Família com aumento de obesidade e HAS; ação educativa baseada no Guia Alimentar.</td>
+                        <td>Estratégia educativa priorizada pelo Guia Alimentar.</td>
+                        <td>Promover habilidades culinárias, hábitos regionais e consumo de in natura.</td>
+                        <td>É a própria questão atual.</td>
+                    </tr>
+                    <tr>
+                        <td>Enamed 2026 - Q28</td>
+                        <td>Equipe de saúde da família com aumento de crises hipertensivas e redução de adesão a grupos educativos.</td>
+                        <td>Medida prioritária na atenção primária para melhorar adesão.</td>
+                        <td>Identificar falhas no cuidado e no fluxo de informação.</td>
+                        <td>Relaciona-se à educação em saúde e DCNT, mas com foco em organização do cuidado, não no Guia Alimentar.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema educação em saúde na atenção primária aparece em questões isoladas, com foco em estratégias coletivas e baseadas em evidências. A banca alterna entre abordagens de promoção da saúde e organização do cuidado.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Rotulagem nutricional, regulação de ultraprocessados, segurança alimentar e metodologias ativas em grupos educativos podem surgir em provas futuras.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica ampla no material fornecido; a tendência é cobrar a aplicação prática do Guia Alimentar no contexto da APS.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar o Guia Alimentar para a População Brasileira, classificação de alimentos por processamento e estratégias de educação alimentar e nutricional na APS.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Doenças crônicas não transmissíveis - obesidade e hipertensão são diretamente influenciadas pelo padrão alimentar.</li>
+                <li><strong>Conexão 2:</strong> Determinantes sociais da saúde - acesso, cultura e renda influenciam escolhas alimentares.</li>
+                <li><strong>Conexão 3:</strong> Promoção da saúde - a educação alimentar é uma das principais ferramentas da APS.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro comum é escolher alternativas reducionistas (contagem de calorias, diet/light) ou recomendações radicais de exclusão de alimentos. Trata-se de lacuna de conhecimento sobre o Guia Alimentar e de confusão conceitual entre dieta restritiva e promoção da saúde. A correção é memorizar: o Guia Alimentar valoriza comida de verdade, culinária e hábitos regionais, e desestimula ultraprocessados, sem proibir grupos alimentares.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na atenção primária, oficinas culinárias, hortas comunitárias e grupos de educação alimentar são estratégias eficazes e sustentáveis. Elas fortalecem vínculos, respeitam a cultura local e promovem autonomia, além de contribuir para a prevenção e controle de DCNT.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Guia Alimentar para a População Brasileira</li>
+                <li>Classificação de alimentos por grau de processamento</li>
+                <li>Educação alimentar e nutricional na APS</li>
+                <li>Determinantes sociais da saúde</li>
+                <li>Prevenção e controle de DCNT</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Guia Alimentar para a População Brasileira. 2ª edição. Brasília, 2014.</p>
+            <p>2. Ministério da Saúde. Política Nacional de Alimentação e Nutrição (PNAN).</p>
+            <p>3. Organização Mundial da Saúde (OMS). Healthy diet guidelines.</p>
+            <p>4. Organização Pan-Americana da Saúde (OPAS). Alimentos e bebidas ultraprocessados na América Latina.</p>
+            <p>5. Sociedade Brasileira de Medicina de Família e Comunidade (SBMFC). Diretrizes de promoção da saúde na APS.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

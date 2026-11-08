@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 71 - Anatomia da Região Inguinal: Ligamento Inguinal, Nervo Genitofemoral e Nervo Cutâneo Femoral Lateral</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Geral / Anatomia: Região Inguinal - Ligamento Inguinal, Nervo Genitofemoral e Nervo Cutâneo Femoral Lateral</div>
+        <h1>Questão 71</h1>
+        <div class="question-text">
+            A figura abaixo foi modificada do livro Sabiston, 23ª edição. As letras indicam estruturas anatômicas da região inguinal. Qual alternativa apresenta a correspondência correta entre as letras e as estruturas anatômicas?
+        </div>
+
+```
+    <div class="data-table">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Letra</th>
+                    <th>Estrutura anatômica (descrição da figura)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>E</strong></td>
+                    <td>Estrutura tendínea que forma o assoalho do canal inguinal, estendendo-se da espinha ilíaca ântero-superior ao tubérculo púbico - <strong>ligamento inguinal</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>F</strong></td>
+                    <td>Estrutura tubular que atravessa o canal inguinal em direção ao escroto - <strong>ducto deferente</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>G</strong></td>
+                    <td>Nervo que emerge do anel inguinal superficial acompanhando o cordão espermático - <strong>ramo genital do nervo genitofemoral</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>H</strong></td>
+                    <td>Nervo sensitivo que emerge próximo à espinha ilíaca ântero-superior e segue sobre o músculo iliopsoas - <strong>nervo cutâneo femoral lateral</strong>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - F = ducto deferente; G = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - F = ducto deferente; G = nervo cutâneo femoral lateral; H = ramo genital do nervo genitofemoral.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - E = ligamento inguinal; G = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - E = ligamento de Cooper; G = nervo cutâneo femoral lateral; H = ramo genital do nervo genitofemoral.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - E = ligamento de Cooper; F = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia Geral / Anatomia.</p>
+            <p><strong>Tema:</strong> Anatomia da região inguinal - ligamento inguinal, ducto deferente, ramo genital do nervo genitofemoral e nervo cutâneo femoral lateral.</p>
+            <p><strong>Contextualização:</strong> O conhecimento da anatomia da região inguinal é fundamental para a herniorrafia, a dissecção do canal inguinal e a prevenção de lesões nervosas iatrogênicas. O tema é recorrente em provas de residência, tanto em questões de anatomia pura quanto em questões cirúrgicas que cobram a identificação de estruturas e suas relações. A banca costuma utilizar figuras do Sabiston e de outros textos clássicos.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A região inguinal é delimitada pelo <strong>ligamento inguinal</strong> (Poupart), que se estende da espinha ilíaca ântero-superior ao tubérculo púbico e forma o assoalho do canal inguinal. O <strong>ducto deferente</strong> atravessa o canal inguinal como parte do cordão espermático. O <strong>ramo genital do nervo genitofemoral</strong> acompanha o cordão espermático e emerge pelo anel inguinal superficial, fornecendo sensibilidade ao escroto e à região inguinal. O <strong>nervo cutâneo femoral lateral</strong> emerge próximo à espinha ilíaca ântero-superior e segue sobre o músculo iliopsoas, fornecendo sensibilidade à face lateral da coxa. A identificação correta dessas estruturas evita lesões nervosas e complicações como neurite ilioinguinal e dor crônica pós-herniorrafia.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C - E = ligamento inguinal; G = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</strong> A letra E corresponde ao ligamento inguinal (Poupart), estrutura tendínea que forma o assoalho do canal inguinal. A letra G corresponde ao ramo genital do nervo genitofemoral, que acompanha o cordão espermático e emerge pelo anel inguinal superficial. A letra H corresponde ao nervo cutâneo femoral lateral, que emerge próximo à espinha ilíaca ântero-superior e segue sobre o músculo iliopsoas. Essa correspondência está de acordo com a anatomia descrita no Sabiston e em outros textos clássicos de cirurgia.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - F = ducto deferente; G = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</strong> Parcialmente correta, mas não identifica E. A questão cobra a correspondência completa; como E não é mencionada e a alternativa não inclui E = ligamento inguinal, ela é incompleta. Além disso, a alternativa correta deve incluir E, que é uma estrutura-chave da região.</p>
+            <p><strong>Alternativa B - F = ducto deferente; G = nervo cutâneo femoral lateral; H = ramo genital do nervo genitofemoral.</strong> Inverte G e H: o ramo genital do nervo genitofemoral acompanha o cordão espermático (G), enquanto o nervo cutâneo femoral lateral emerge mais lateralmente (H). Alternativa incorreta.</p>
+            <p><strong>Alternativa C - E = ligamento inguinal; G = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</strong> Correta. Identifica E, G e H de acordo com a anatomia.</p>
+            <p><strong>Alternativa D - E = ligamento de Cooper; G = nervo cutâneo femoral lateral; H = ramo genital do nervo genitofemoral.</strong> Errada. E não é o ligamento de Cooper (que é posterior ao trato iliopúbico e forma a borda posterior do canal femoral), e G e H estão invertidos.</p>
+            <p><strong>Alternativa E - E = ligamento de Cooper; F = ramo genital do nervo genitofemoral; H = nervo cutâneo femoral lateral.</strong> Errada. E não é o ligamento de Cooper, e F não é o ramo genital do nervo genitofemoral (F é o ducto deferente).</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"região inguinal":</strong> direciona para as estruturas do canal inguinal e suas relações anatômicas.</li>
+                <li><strong>"ligamento inguinal":</strong> estrutura-chave que forma o assoalho do canal inguinal, estendendo-se da EIAS ao tubérculo púbico.</li>
+                <li><strong>"ramo genital do nervo genitofemoral":</strong> acompanha o cordão espermático e emerge pelo anel inguinal superficial.</li>
+                <li><strong>"nervo cutâneo femoral lateral":</strong> emerge próximo à EIAS e segue sobre o iliopsoas, fornecendo sensibilidade à face lateral da coxa.</li>
+                <li><strong>"ligamento de Cooper":</strong> distrator; é uma estrutura posterior ao trato iliopúbico e forma a borda posterior do canal femoral, não o assoalho do canal inguinal.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar a estrutura E. A figura mostra uma estrutura tendínea que forma o assoalho do canal inguinal, da EIAS ao tubérculo púbico - ligamento inguinal. Descartar ligamento de Cooper (que é posterior e forma a borda posterior do canal femoral).</li>
+                <li><strong>Segundo:</strong> identificar F. Estrutura tubular que atravessa o canal inguinal em direção ao escroto - ducto deferente.</li>
+                <li><strong>Terceiro:</strong> identificar G e H. G acompanha o cordão espermático e emerge pelo anel inguinal superficial - ramo genital do nervo genitofemoral. H emerge mais lateralmente, próximo à EIAS, e segue sobre o iliopsoas - nervo cutâneo femoral lateral.</li>
+                <li><strong>Quarto:</strong> verificar a alternativa que contém E = ligamento inguinal, G = ramo genital do nervo genitofemoral e H = nervo cutâneo femoral lateral. Alternativa C.</li>
+            </ol>
+            <p>Esse raciocínio treina a habilidade de resolver questões de anatomia aplicada à cirurgia, identificando estruturas e suas relações topográficas.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> ligamento inguinal = assoalho do canal inguinal, da EIAS ao tubérculo púbico; ramo genital do genitofemoral = acompanha o cordão espermático; nervo cutâneo femoral lateral = emerge próximo à EIAS e segue sobre o iliopsoas.</li>
+                <li><strong>Números e doses:</strong> não há doses; lembrar que o ligamento inguinal é também chamado de ligamento de Poupart e que o ligamento de Cooper é posterior ao trato iliopúbico.</li>
+                <li><strong>Mnemônicos:</strong> "E = EIAS ao tubérculo púbico (ligamento inguinal)"; "G = Genital (ramo genital do genitofemoral)"; "H = Horizontal sobre o iliopsoas (nervo cutâneo femoral lateral)".</li>
+            </ul>
+            <p>Esses dados já foram cobrados de forma indireta em provas anteriores, especialmente em questões sobre herniorrafia e complicações nervosas.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Estrutura</th>
+                        <th>Localização/relação</th>
+                        <th>Importância cirúrgica</th>
+                        <th>Complicação se lesada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ligamento inguinal (E)</td>
+                        <td>Da EIAS ao tubérculo púbico; forma o assoalho do canal inguinal.</td>
+                        <td>Referência para a dissecção do canal inguinal e para a reparação de hérnias.</td>
+                        <td>Não é tipicamente lesado; sua identificação é fundamental para a técnica cirúrgica.</td>
+                    </tr>
+                    <tr>
+                        <td>Ducto deferente (F)</td>
+                        <td>Atravessa o canal inguinal no cordão espermático.</td>
+                        <td>Deve ser identificado e preservado na herniorrafia.</td>
+                        <td>Lesão pode causar infertilidade; deve ser preservado.</td>
+                    </tr>
+                    <tr>
+                        <td>Ramo genital do nervo genitofemoral (G)</td>
+                        <td>Acompanha o cordão espermático; emerge pelo anel inguinal superficial.</td>
+                        <td>Fornece sensibilidade ao escroto e à região inguinal; deve ser preservado.</td>
+                        <td>Neurite ilioinguinal/genitofemoral, dor crônica pós-herniorrafia.</td>
+                    </tr>
+                    <tr>
+                        <td>Nervo cutâneo femoral lateral (H)</td>
+                        <td>Emerge próximo à EIAS; segue sobre o músculo iliopsoas.</td>
+                        <td>Fornece sensibilidade à face lateral da coxa; deve ser identificado em dissecções laterais.</td>
+                        <td>Meralgia parestésica (dor e parestesia na face lateral da coxa).</td>
+                    </tr>
+                    <tr>
+                        <td>Ligamento de Cooper</td>
+                        <td>Posterior ao trato iliopúbico; forma a borda posterior do canal femoral.</td>
+                        <td>Referência para a reparação de hérnias femorais (McVay).</td>
+                        <td>Não é lesado; sua identificação é fundamental para a técnica de McVay.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram a anatomia aplicada à cirurgia e as complicações nervosas da herniorrafia.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre herniorrafia:</strong> identificação das estruturas do cordão espermático e dos nervos para evitar lesões.</li>
+                <li><strong>Se fosse sobre complicações:</strong> neurite ilioinguinal, meralgia parestésica, atrofia testicular por lesão do ducto deferente ou dos vasos testiculares.</li>
+                <li><strong>Se fosse sobre anatomia do canal femoral:</strong> ligamento de Cooper como borda posterior; ligamento inguinal como borda anterior.</li>
+                <li><strong>Se fosse sobre técnica de Lichtenstein:</strong> identificação do nervo genitofemoral e do nervo ilioinguinal para preservação.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q66</td>
+                        <td>Elemento anatômico formado pelo periósteo e fáscia ao longo do ramo inferior do púbis, posterior ao trato iliopúbico, borda posterior do canal femoral.</td>
+                        <td>Ligamento de Cooper</td>
+                        <td>C (Ligamento de Cooper)</td>
+                        <td>Reforça a distinção entre ligamento inguinal e ligamento de Cooper; a questão atual cobra o ligamento inguinal como assoalho do canal inguinal.</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q96</td>
+                        <td>Ligamento formado pelo periósteo e fáscia ao longo do ramo superior do púbis, posterior ao trato iliopúbico, borda posterior do canal femoral.</td>
+                        <td>Ligamento de Cooper</td>
+                        <td>E (Ligamento de Cooper)</td>
+                        <td>Reforça a identificação do ligamento de Cooper como distrator; a questão atual usa o ligamento inguinal como estrutura correta.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q51</td>
+                        <td>Marco anatômico para identificação dos ureteres em cirurgias pélvicas.</td>
+                        <td>Anatomia pélvica</td>
+                        <td>C (cruzamento pela face anterior dos vasos ilíacos)</td>
+                        <td>Complementa o conhecimento anatômico; a questão atual foca na região inguinal.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q69</td>
+                        <td>Pulso venoso jugular; onda "a", "v", correção de pressão.</td>
+                        <td>Anatomia/semiologia cardiovascular</td>
+                        <td>E (onda "v" aumentada na insuficiência mitral)</td>
+                        <td>Tema distinto; não se relaciona diretamente.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q41 / 2021 - Q41 / 2022 - Q41</td>
+                        <td>Hérnia inguinal: anatomia, técnicas cirúrgicas, complicações.</td>
+                        <td>Anatomia e cirurgia da hérnia inguinal</td>
+                        <td>Varia conforme a questão</td>
+                        <td>Contextualiza a importância da anatomia da região inguinal; a questão atual cobra a identificação de estruturas específicas.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema anatomia da região inguinal apareceu em pelo menos 4 questões das provas de 2006_2026, com foco no ligamento de Cooper (2006, 2010) e em marcos anatômicos pélvicos (2013). A banca alterna entre cobrar o ligamento de Cooper e o ligamento inguinal; a questão atual cobra a identificação de múltiplas estruturas em uma figura.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> identificação do nervo cutâneo femoral lateral e do ramo genital do nervo genitofemoral em figuras anatômicas; relação topográfica entre essas estruturas e o canal inguinal.</p>
+            <p><strong>Evolução da cobrança:</strong> as questões anteriores foram mais voltadas à identificação isolada do ligamento de Cooper; a próxima prova pode cobrar a identificação de múltiplas estruturas em uma figura, como nesta questão.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> memorizar as relações topográficas das principais estruturas da região inguinal (ligamento inguinal, ducto deferente, nervo genitofemoral, nervo cutâneo femoral lateral) e suas complicações quando lesadas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1 - Herniorrafia inguinal:</strong> a identificação correta das estruturas anatômicas é fundamental para evitar lesões nervosas e complicações como neurite ilioinguinal e dor crônica.</li>
+                <li><strong>Conexão 2 - Ligamento de Cooper:</strong> é uma estrutura posterior ao trato iliopúbico e forma a borda posterior do canal femoral; é referência para a reparação de hérnias femorais (McVay).</li>
+                <li><strong>Conexão 3 - Meralgia parestésica:</strong> lesão do nervo cutâneo femoral lateral causa dor e parestesia na face lateral da coxa; pode ocorrer em cirurgias da região inguinal ou por compressão.</li>
+                <li><strong>Conexão 4 - Ducto deferente:</strong> deve ser identificado e preservado na herniorrafia; sua lesão pode causar infertilidade.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é assinalar a alternativa A ou B, por identificar corretamente F (ducto deferente) e G/H, mas não incluir E (ligamento inguinal). A classificação do erro é <strong>erro de leitura/interpretação</strong> da figura e das alternativas. A ação corretiva é revisar a anatomia da região inguinal, com ênfase nas relações topográficas do ligamento inguinal, do ramo genital do nervo genitofemoral e do nervo cutâneo femoral lateral. Memorizar que o ligamento inguinal é a estrutura E e que o ligamento de Cooper é um distrator.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática cirúrgica, a identificação correta das estruturas da região inguinal é fundamental para a herniorrafia segura. O ligamento inguinal é a referência para a dissecção do canal inguinal; o ducto deferente e o ramo genital do nervo genitofemoral devem ser preservados; o nervo cutâneo femoral lateral deve ser identificado em dissecções laterais para evitar meralgia parestésica. O conhecimento anatômico reduz complicações e melhora os resultados cirúrgicos.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Anatomia do canal inguinal: paredes, conteúdo e anéis.</li>
+                <li>Ligamento inguinal (Poupart) vs ligamento de Cooper.</li>
+                <li>Nervos da região inguinal: ilioinguinal, iliohipogástrico, genitofemoral (ramo genital e femoral) e cutâneo femoral lateral.</li>
+                <li>Complicações nervosas da herniorrafia: neurite ilioinguinal, meralgia parestésica.</li>
+                <li>Técnicas cirúrgicas: Lichtenstein, McVay, laparoscópica (TAPP/TEP).</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sabiston Textbook of Surgery, 21ª edição.</p>
+            <p>2. Schwartz's Principles of Surgery, 11ª edição.</p>
+            <p>3. Netter - Atlas de Anatomia Humana.</p>
+            <p>4. Skandalakis - Anatomia Cirúrgica.</p>
+            <p>5. Diretrizes da Sociedade Brasileira de Hérnia para o manejo da hérnia inguinal.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

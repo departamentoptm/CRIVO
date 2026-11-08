@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 43 - Saúde Mental em Desastres: Primeiros Cuidados Psicológicos na Atenção Primária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde Mental em Desastres: Primeiros Cuidados Psicológicos na Atenção Primária</div>
+        <h1>Questão 43</h1>
+        <div class="question-text">
+            Uma equipe da atenção primária à saúde acolhe uma mulher de 42 anos cuja casa foi destruída há 3 dias, após um desastre natural. Ela afirma estar bastante angustiada e desesperançosa, com sono entrecortado e pesadelos. Refere, ainda, choro recorrente, inapetência e dificuldade de concentração. Relata que, apesar de tudo isso, os filhos lhe dão "força para seguir adiante" e nega pensamentos de morte ou ideação suicida.
+        </div>
+
+```
+    <div class="question-text">
+        Além de abrigo, alimentação e abastecimento de água, que ações, no âmbito da saúde, devem ser inicialmente oferecidas a essa paciente?
+    </div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Realizar escuta ativa, identificando as suas necessidades de saúde, e manter o seguimento na atenção primária à saúde.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Solicitar relato dos eventos traumáticos, oferecendo visão de futuro otimista, e orientar busca por serviço de urgência se houver piora.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Prescrever inibidores seletivos da recaptação de serotonina ou benzodiazepínicos e encaminhar a ambulatório especializado.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Indicar acompanhamento psicológico regular e encaminhar a um centro de atenção psicossocial.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Saúde Mental</p>
+            <p><strong>Tema:</strong> Primeiros cuidados psicológicos (PCP) e acolhimento em situações de desastre na Atenção Primária à Saúde.</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em saúde pública, especialmente diante do aumento de desastres naturais no Brasil. A banca cobra a conduta inicial da equipe da APS diante de sofrimento psíquico agudo relacionado a evento traumático, diferenciando intervenções precoces adequadas de medicalização ou encaminhamentos precipitados.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Após um desastre, é esperada uma reação de estresse agudo, com sintomas como angústia, insônia, pesadelos, choro, inapetência e dificuldade de concentração. Esses sintomas são, em grande parte, adaptativos e podem remitir com apoio social e acolhimento. Os Primeiros Cuidados Psicológicos (PCP) preconizam escuta ativa, avaliação de necessidades, segurança, conexão com redes de apoio e seguimento longitudinal na atenção primária, sem forçar relato detalhado do trauma e sem medicalização de primeira linha. A presença de fatores protetores, como o vínculo com os filhos e a ausência de ideação suicida, reforça o manejo na APS.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa A está correta porque a conduta inicial recomendada em reações agudas a desastres é o acolhimento com escuta ativa, identificação de necessidades de saúde e manutenção do seguimento na atenção primária. Os PCP não exigem relato detalhado do trauma, não indicam medicação de rotina e não encaminham automaticamente para serviços especializados. O vínculo longitudinal na APS permite monitorar a evolução, identificar sinais de risco e acionar a rede quando necessário.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa B</strong> - Incorreta. Solicitar relato detalhado dos eventos traumáticos de forma precoce pode retraumatizar e não é recomendado pelos PCP. Além disso, orientar busca por urgência "se houver piora" é genérico e não substitui o seguimento na APS.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. Não há indicação de iniciar ISRS ou benzodiazepínicos de rotina em reações agudas a desastres. A medicalização precoce pode interferir no processo adaptativo e não é primeira linha. Encaminhamento imediato a ambulatório especializado também não é indicado.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A indicação de acompanhamento psicológico regular e encaminhamento ao CAPS pode ser necessária em casos persistentes ou graves, mas não é a ação inicial para um quadro agudo esperado, sem sinais de gravidade. A APS deve ser a porta de entrada e o local de seguimento inicial.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Há 3 dias:</strong> quadro agudo e recente, compatível com reação esperada ao estresse.</li>
+                <li><strong>Casa destruída após desastre natural:</strong> evento traumático coletivo, com necessidade de apoio psicossocial.</li>
+                <li><strong>Nega pensamentos de morte ou ideação suicida:</strong> ausência de indicador de gravidade imediata.</li>
+                <li><strong>Os filhos lhe dão "força para seguir adiante":</strong> fator protetor e rede de apoio presente.</li>
+                <li><strong>Além de abrigo, alimentação e água:</strong> necessidades básicas já em foco; a pergunta cobra a ação em saúde mental.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> avaliar risco imediato, incluindo ideação suicida, autolesão e desorganização grave. No caso, ausentes.</li>
+                <li><strong>Segundo:</strong> identificar fatores protetores e rede de apoio, como o vínculo com os filhos.</li>
+                <li><strong>Terceiro:</strong> oferecer Primeiros Cuidados Psicológicos: escuta ativa, acolhimento, segurança e conexão com serviços.</li>
+                <li><strong>Quarto:</strong> manter seguimento na APS, evitar medicalização de rotina e encaminhar apenas se houver persistência, gravidade ou risco.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" em saúde mental.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> PCP são a primeira linha em reações agudas a desastres; não se deve forçar relato do trauma nem medicalizar de rotina.</li>
+                <li><strong>Números e doses:</strong> não há dose inicial indicada; a prescrição de psicofármacos não é rotina nos primeiros dias.</li>
+                <li><strong>Mnemônico:</strong> "OLHAR, OUVIR e LIGAR" - os três princípios dos PCP: observar segurança, ouvir sem pressionar e conectar com apoio.</li>
+                <li><strong>Contexto:</strong> a APS é o local privilegiado para acolhimento e seguimento longitudinal após desastres.</li>
+            </ul>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Reação aguda ao estresse (correta)</td>
+                        <td>Sintomas iniciados dias após evento; sem ideação suicida; fatores protetores presentes</td>
+                        <td>Clínico; avaliação de risco</td>
+                        <td>PCP e seguimento na APS</td>
+                    </tr>
+                    <tr>
+                        <td>Transtorno de estresse agudo</td>
+                        <td>Sintomas dissociativos, revivência intensa, esquiva, duração até 1 mês</td>
+                        <td>Clínico (DSM-5/ICD)</td>
+                        <td>Acolhimento, seguimento; avaliar necessidade de suporte especializado</td>
+                    </tr>
+                    <tr>
+                        <td>Transtorno de estresse pós-traumático</td>
+                        <td>Sintomas persistentes > 1 mês, prejuízo funcional</td>
+                        <td>Clínico</td>
+                        <td>Psicoterapia; considerar ISRS; encaminhar conforme gravidade</td>
+                    </tr>
+                    <tr>
+                        <td>Depressão maior</td>
+                        <td>Humor deprimido persistente, anedonia, alterações de sono/apetite, ideação suicida</td>
+                        <td>Clínico; escalas</td>
+                        <td>Avaliar risco; tratar e encaminhar se necessário</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial em saúde mental pós-desastre.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre risco de suicídio:</strong> a conduta seria avaliação imediata de risco e acionamento da rede de urgência.</li>
+                <li><strong>Se fosse sobre persistência de sintomas por mais de 1 mês:</strong> considerar TEPT e avaliar encaminhamento especializado.</li>
+                <li><strong>Se fosse sobre uso de medicação:</strong> ISRS não é primeira linha na reação aguda; pode ser considerado em quadros persistentes ou graves.</li>
+                <li><strong>Se fosse sobre crianças:</strong> PCP adaptados à idade e envolvimento familiar.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas disponíveis (Enamed 2026) que abordaram temas de saúde mental e acolhimento:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q43</td>
+                        <td>Mulher de 42 anos, 3 dias após desastre natural, com sintomas de estresse agudo e sem ideação suicida.</td>
+                        <td>Conduta inicial em saúde mental pós-desastre na APS.</td>
+                        <td>A</td>
+                        <td>É a própria questão; cobra PCP e seguimento na APS.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q36</td>
+                        <td>Estudante de 17 anos com tristeza, isolamento, sem ideação suicida e funcionalidade preservada.</td>
+                        <td>Manejo inicial de sofrimento psíquico na APS.</td>
+                        <td>C</td>
+                        <td>Também cobra conduta inicial na APS, com envolvimento familiar e acompanhamento multidisciplinar.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q22</td>
+                        <td>Mulher de 30 anos no CAPS com humor hipertímico, taquipsiquismo e taquilalia.</td>
+                        <td>Reconhecimento de alterações psicopatológicas.</td>
+                        <td>D</td>
+                        <td>Complementa o reconhecimento de quadros psíquicos, mas em contexto diferente.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q50</td>
+                        <td>Homem de 29 anos com instabilidade interpessoal, raiva e autolesões leves.</td>
+                        <td>Identificação de transtorno de personalidade borderline.</td>
+                        <td>B</td>
+                        <td>Relaciona-se ao reconhecimento de padrões psíquicos e manejo na APS.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q62</td>
+                        <td>Adolescente de 15 anos com autolesão e orientação sexual; dilema de sigilo.</td>
+                        <td>Ética e confidencialidade em saúde do adolescente.</td>
+                        <td>A</td>
+                        <td>Também envolve manejo de sofrimento psíquico e sigilo na APS.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q85</td>
+                        <td>Mulher de 52 anos, 3 dias após morte do filho, com luto agudo e sem ideação suicida.</td>
+                        <td>Conduta no luto agudo na APS.</td>
+                        <td>D</td>
+                        <td>Muito relacionada: também cobra acolhimento e seguimento longitudinal na APS em sofrimento agudo.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> A banca tem cobrado condutas iniciais em sofrimento psíquico agudo na APS, valorizando acolhimento, vínculo e seguimento longitudinal em vez de medicalização ou encaminhamentos precipitados. O tema apareceu em várias questões de 2026.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> PCP estruturados em desastres coletivos, triagem psicológica em abrigos e manejo de crianças/adolescentes em situações de catástrofe.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões de 2026 são mais aplicadas e contextuais, exigindo decisão sobre o nível de cuidado adequado e o papel da APS.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar PCP, luto normal versus patológico, sinais de risco e critérios de encaminhamento em saúde mental.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Luto e reações ao estresse - diferenciar reação esperada de transtorno psíquico.</li>
+                <li><strong>Conexão 2:</strong> Rede de atenção psicossocial (RAPS) - saber quando e como encaminhar ao CAPS.</li>
+                <li><strong>Conexão 3:</strong> Determinantes sociais da saúde - desastres e vulnerabilidade social impactam a saúde mental.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é optar por medicalização precoce ou encaminhamento especializado imediato, subestimando o papel da APS e dos PCP. Trata-se de lacuna de conhecimento sobre protocolos de saúde mental em desastres. A estratégia corretiva é revisar os princípios dos Primeiros Cuidados Psicológicos e os critérios de encaminhamento, lembrando que a maioria das reações agudas é manejada na APS.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, após desastres, a APS deve organizar acolhimento, busca ativa de vulneráveis, escuta qualificada e monitoramento de sinais de risco. Evitar medicalização em massa e encaminhamentos desnecessários reduz a sobrecarga do sistema e respeita o processo de recuperação natural da maioria das pessoas.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Primeiros Cuidados Psicológicos (PCP)</li>
+                <li>Reação aguda ao estresse e transtorno de estresse agudo</li>
+                <li>Luto normal versus luto complicado</li>
+                <li>Avaliação de risco suicida</li>
+                <li>Rede de Atenção Psicossocial (RAPS) e critérios de encaminhamento</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Organização Mundial da Saúde. Psychological first aid: Guide for field workers. Genebra: OMS.</p>
+            <p>2. Ministério da Saúde. Política Nacional de Saúde Mental e Rede de Atenção Psicossocial. Brasília: MS.</p>
+            <p>3. Ministério da Saúde. Saúde mental em situações de desastres. Brasília: MS.</p>
+            <p>4. American Psychiatric Association. DSM-5. 5. ed. Porto Alegre: Artmed.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

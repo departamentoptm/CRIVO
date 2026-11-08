@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 17 - Exantema Súbito (Roséola Infantil): Diagnóstico Etiológico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Exantema Súbito (Roséola Infantil): Diagnóstico Etiológico</div>
+        <h1>Questão 17</h1>
+        <div class="question-text">
+            Criança de 1 ano e 9 meses, previamente hígida, é levada a uma Unidade Básica de Saúde devido a quadro de rash cutâneo iniciado há 12 horas. Nos últimos três dias, vinha apresentando febre, irritabilidade e inapetência, sem outras manifestações. A febre cessou quando o rash cutâneo surgiu, de maneira repentina, inicialmente no tórax, seguido pelos braços. O exame físico revela paciente em estado geral preservado, ativo, brincando durante avaliação e afebril. Constata-se presença de exantema maculopapular de coloração rosada em face, tronco e extremidades. Palpado linfonodo em região cervical anterior direita, indolor, móvel, fibroelástico, de aproximadamente 0,5 cm. Não há outros achados.<br><br>
+            Qual é o agente etiológico do caso relatado?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Vírus Epstein-Barr.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Parvovírus humano B19.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Vírus Coxsackie A1.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Herpes-vírus humano 6.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Infectologia</p>
+            <p><strong>Tema:</strong> Exantema súbito (roséola infantil) e identificação do agente etiológico - herpes-vírus humano 6 (HHV-6).</p>
+            <p><strong>Contextualização:</strong> Os exantemas febris na infância são tema frequente em provas de residência. A roseola infantum é uma doença benigna e autolimitada, típica de crianças entre 6 meses e 2 anos, caracterizada por febre alta por 3 a 5 dias que cede abruptamente com o aparecimento de exantema maculopapular róseo. O reconhecimento clínico é suficiente na maioria dos casos, e o diagnóstico diferencial inclui sarampo, rubéola, eritema infeccioso e mononucleose.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O exantema súbito é causado principalmente pelo HHV-6 (e, menos frequentemente, pelo HHV-7). A infecção primária ocorre na primeira infância, com febre alta que pode desencadear convulsão febril. Após a defervescência, surge exantema maculopapular rosado, inicialmente no tronco e depois em face e extremidades. Linfonodos cervicais e occipitais podem estar aumentados. A fisiopatologia envolve replicação viral em linfócitos e disseminação sistêmica, com resposta imune que coincide com o desaparecimento da febre e aparecimento do rash.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>D</strong>. O quadro descrito é clássico de exantema súbito: criança pequena, febre por três dias, desaparecimento abrupto da febre e surgimento de exantema maculopapular rosado, com estado geral preservado e linfonodo cervical palpável. O agente etiológico principal é o herpes-vírus humano 6 (HHV-6). O diagnóstico é clínico, não sendo necessários exames laboratoriais na maioria dos casos.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. O vírus Epstein-Barr causa mononucleose infecciosa, com febre, faringite, linfadenopatia generalizada, hepatoesplenomegalia e exantema, especialmente após uso de amoxicilina. O quadro do enunciado não é típico de mononucleose.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. O parvovírus humano B19 causa eritema infeccioso (quinta doença), com exantema em face (“bochechas esbofeteadas”) e exantema reticulado em tronco e membros, geralmente sem febre alta prolongada.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. O vírus Coxsackie A1 está associado à herpangina e à doença mão-pé-boca, com vesículas em orofaringe, mãos e pés, não ao quadro descrito.</p>
+            <p><strong>Alternativa D</strong> - Correta. O HHV-6 é o principal agente do exantema súbito, com febre alta seguida de rash após a defervescência.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Febre por três dias”</strong>: pródromo típico da roseola infantil.</li>
+                <li><strong>“Febre cessou quando o rash surgiu”</strong>: pista clássica do exantema súbito.</li>
+                <li><strong>“Exantema maculopapular rosado em tronco e extremidades”</strong>: descrição compatível com HHV-6.</li>
+                <li><strong>“Estado geral preservado, ativo, brincando”</strong>: sugere doença benigna e autolimitada.</li>
+                <li><strong>“Linfonodo cervical anterior indolor, móvel, fibroelástico”</strong>: linfadenopatia reacional comum na roseola.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer o padrão temporal: febre alta por 3 dias que cede abruptamente com aparecimento de exantema.</li>
+                <li><strong>Segundo:</strong> Avaliar estado geral e sinais de alarme; na roseola, a criança costuma estar ativa e sem toxemia no momento do rash.</li>
+                <li><strong>Terceiro:</strong> Diferenciar de sarampo, rubéola, eritema infeccioso e mononucleose pelos achados clínicos e epidemiológicos.</li>
+                <li><strong>Quarto:</strong> Confirmar a hipótese de exantema súbito por HHV-6 e orientar tratamento sintomático e sinais de alerta.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “diagnóstico etiológico” e “conduta inicial”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Exantema súbito = febre por 3 a 5 dias, defervescência abrupta e rash maculopapular rosado.</li>
+                <li><strong>Números e doses:</strong> Principal agente: HHV-6; faixa etária típica: 6 meses a 2 anos; complicação comum: convulsão febril.</li>
+                <li><strong>Mnemônicos:</strong> “Febre que vai, rash que vem” - roseola.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar o agente etiológico e o reconhecimento do padrão clínico.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Exantema súbito por HHV-6 (correta)</td>
+                        <td>Febre alta por 3-5 dias, desaparece e surge rash rosado no tronco; criança ativa</td>
+                        <td>Clínico</td>
+                        <td>Tratamento sintomático e orientação</td>
+                    </tr>
+                    <tr>
+                        <td>Sarampo</td>
+                        <td>Pródromos catarrais, manchas de Koplik, rash cefalocaudal, febre persiste</td>
+                        <td>Clínico e sorologia/RT-PCR</td>
+                        <td>Notificação, suporte e isolamento</td>
+                    </tr>
+                    <tr>
+                        <td>Rubéola</td>
+                        <td>Linfadenopatia retroauricular/occipital, rash róseo, febre baixa</td>
+                        <td>Sorologia IgM</td>
+                        <td>Notificação e suporte</td>
+                    </tr>
+                    <tr>
+                        <td>Eritema infeccioso (parvovírus B19)</td>
+                        <td>Bochechas esbofeteadas, rash reticulado em tronco e membros</td>
+                        <td>Clínico; sorologia se necessário</td>
+                        <td>Suporte</td>
+                    </tr>
+                    <tr>
+                        <td>Mononucleose (EBV)</td>
+                        <td>Faringite, linfadenopatia generalizada, hepatoesplenomegalia, exantema após amoxicilina</td>
+                        <td>Hemograma, sorologia EBV</td>
+                        <td>Suporte e evitar amoxicilina</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial dos exantemas febris.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre complicação:</strong> a resposta poderia ser convulsão febril.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> a resposta seria sintomático, sem antiviral de rotina.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> não há vacina disponível; orientar medidas gerais.</li>
+                <li><strong>Se fosse sobre diagnóstico diferencial:</strong> a resposta poderia envolver sarampo, rubéola ou eritema infeccioso.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q17</td>
+                        <td>Criança de 1 ano e 9 meses com febre por 3 dias, rash após defervescência e linfonodo cervical.</td>
+                        <td>Agente etiológico do exantema súbito.</td>
+                        <td>Herpes-vírus humano 6.</td>
+                        <td>É a própria questão atual.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova complementar - Q94</td>
+                        <td>Adolescente de 15 anos com faringite, exsudato, linfadenopatia e exantema macular após sintomáticos.</td>
+                        <td>Diagnóstico provável de infecção pelo vírus Epstein-Barr.</td>
+                        <td>Infecção pelo vírus Epstein-Barr.</td>
+                        <td>Aborda exantema e diagnóstico diferencial com mononucleose, mas não a roseola.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema exantemas febris aparece em questões isoladas, com foco no reconhecimento clínico e no agente etiológico. A banca pode alternar entre roseola, mononucleose e outras causas de rash.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Complicações da roseola (convulsão febril, encefalite rara), HHV-6 em imunossuprimidos e diagnóstico diferencial com sarampo/rubéola podem surgir em provas futuras.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica ampla no material fornecido; a tendência é cobrar padrões clínicos clássicos e diagnóstico etiológico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar exantemas na infância, especialmente roseola, sarampo, rubéola, eritema infeccioso e mononucleose, com seus agentes e achados distintivos.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Convulsão febril - a roseola é uma causa comum de febre alta em crianças pequenas e pode desencadear convulsão.</li>
+                <li><strong>Conexão 2:</strong> Exantemas virais - o diagnóstico diferencial inclui sarampo, rubéola, eritema infeccioso e mononucleose.</li>
+                <li><strong>Conexão 3:</strong> Imunização - a vacinação contra sarampo e rubéola é fundamental para reduzir doenças exantemáticas graves.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro comum é confundir roseola com mononucleose ou eritema infeccioso por não valorizar o padrão temporal “febre que cede e rash que surge”. Trata-se de lacuna de conhecimento sobre exantemas virais. A correção é memorizar: roseola = HHV-6; febre por 3-5 dias, defervescência abrupta, rash rosado no tronco, criança em bom estado geral.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na atenção primária, o reconhecimento clínico evita exames desnecessários e uso inadequado de antibióticos. O profissional deve orientar os pais sobre a benignidade da roseola, o risco de convulsão febril e os sinais de alerta que justificam reavaliação.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Exantemas virais na infância</li>
+                <li>Roseola infantum e HHV-6</li>
+                <li>Diagnóstico diferencial de sarampo e rubéola</li>
+                <li>Mononucleose infecciosa</li>
+                <li>Convulsão febril</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria. Tratado de Pediatria.</p>
+            <p>2. Ministério da Saúde. Guia de Vigilância em Saúde - doenças exantemáticas.</p>
+            <p>3. American Academy of Pediatrics. Red Book: Report of the Committee on Infectious Diseases.</p>
+            <p>4. UpToDate. Roseola infantum (exanthem subitum).</p>
+            <p>5. World Health Organization. Measles and rubella surveillance guidelines.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

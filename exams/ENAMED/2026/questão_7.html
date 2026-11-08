@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 7 - Bronquiolite em Lactente Prematuro com Displasia Broncopulmonar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Bronquiolite em Lactente Prematuro com Displasia Broncopulmonar</div>
+        <h1>Questão 7</h1>
+        <div class="question-text">
+            Lactente de 5 meses, prematuro de 32 semanas, com antecedente de displasia broncopulmonar, é levado pela mãe a uma Unidade de Pronto Atendimento, com relato de que, há 3 dias, iniciou quadro de coriza e tosse, com piora progressiva do estado geral e dificuldade para mamar nas últimas 24 horas. O exame físico mostra: FR 65 irpm; tiragem subcostal, sibilos e roncos à ausculta; SpO2 90% em ar ambiente.
+        </div>
+
+```
+    <div class="question-text" style="font-weight: bold; margin-bottom: 10px;">A conduta inicial nesse caso consiste em</div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - oxigenoterapia e amoxicilina oral.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - hidratação endovenosa e suporte ventilatório.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - salbutamol inalatório e corticoide sistêmico.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - fisioterapia respiratória e dexametasona intramuscular.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Pneumologia Pediátrica / Emergências Pediátricas</p>
+            <p><strong>Tema:</strong> Bronquiolite viral aguda em lactente de alto risco (prematuro com displasia broncopulmonar): avaliação de gravidade e conduta inicial.</p>
+            <p><strong>Contextualização:</strong> A bronquiolite viral aguda é a infecção respiratória baixa mais comum em lactentes, geralmente causada pelo vírus sincicial respiratório (VSR). Lactentes prematuros e com displasia broncopulmonar (DBP) apresentam maior risco de formas graves, com hipoxemia, dificuldade alimentar e necessidade de suporte ventilatório. O tema é relevante na atenção primária e nos pronto-atendimentos, pois a identificação de sinais de gravidade e a instituição precoce de oxigênio, hidratação e suporte ventilatório são determinantes para o desfecho.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A bronquiolite viral aguda causa inflamação e edema da mucosa dos bronquíolos, com aumento da produção de muco e broncoconstrição. Em prematuros com DBP, os pulmões já apresentam alvéolos reduzidos, vias aéreas com menor calibre e complacência alterada, o que agrava a obstrução e a troca gasosa. A apresentação típica inclui coriza, tosse, taquipneia, tiragem, sibilos e roncos, além de hipoxemia. A dificuldade para mamar por mais de 24 horas indica risco de desidratação e necessidade de suporte hídrico. A SpO2 de 90% em ar ambiente confirma hipoxemia e indica oxigenoterapia. O suporte ventilatório pode variar desde cateter nasal de alto fluxo até ventilação não invasiva ou invasiva, conforme a gravidade.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>B</strong>. O lactente apresenta bronquiolite com sinais de gravidade: taquipneia importante (FR 65 irpm), tiragem subcostal, hipoxemia (SpO2 90% em ar ambiente) e dificuldade para mamar por 24 horas, com piora do estado geral. Nesse contexto, a conduta inicial inclui hidratação endovenosa (devido à dificuldade de alimentação e ao risco de desidratação) e suporte ventilatório (oxigenoterapia, com possibilidade de escalonamento para cateter nasal de alto fluxo ou ventilação não invasiva, conforme necessidade). Além disso, devem ser monitorizados sinais vitais, saturação e estado geral, e avaliada a necessidade de internação hospitalar.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. A oxigenoterapia está indicada, mas a amoxicilina oral não é recomendada rotineiramente na bronquiolite viral aguda, que é de etiologia viral. Antibióticos só são indicados se houver suspeita de infecção bacteriana secundária, o que não é o caso.</p>
+            <p><strong>Alternativa B</strong> - Correta. A hidratação endovenosa e o suporte ventilatório são as medidas iniciais mais adequadas para um lactente de alto risco com bronquiolite grave, hipoxemia e dificuldade alimentar.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. O salbutamol inalatório e o corticoide sistêmico não são recomendados rotineiramente para bronquiolite viral aguda, pois as evidências não demonstram benefício consistente. Em alguns casos, pode-se tentar broncodilatador, mas não é a conduta inicial padrão.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A fisioterapia respiratória não é recomendada na fase aguda da bronquiolite, e a dexametasona intramuscular não tem indicação rotineira. Essas medidas não tratam a fisiopatologia da doença e podem até agravar o desconforto respiratório.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Prematuro de 32 semanas” e “displasia broncopulmonar”:</strong> fatores de risco para bronquiolite grave, indicando necessidade de suporte mais intensivo.</li>
+                <li><strong>“Dificuldade para mamar nas últimas 24 horas”:</strong> sinal de gravidade e risco de desidratação, indicando suporte hídrico.</li>
+                <li><strong>“FR 65 irpm, tiragem subcostal”:</strong> sinais de desconforto respiratório e taquipneia, compatíveis com bronquiolite moderada a grave.</li>
+                <li><strong>“SpO2 90% em ar ambiente”:</strong> hipoxemia, que indica oxigenoterapia e possibilidade de suporte ventilatório.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer bronquiolite viral aguda em lactente de alto risco (prematuro com DBP) e identificar sinais de gravidade: taquipneia, tiragem, hipoxemia e dificuldade alimentar.</li>
+                <li><strong>Segundo:</strong> Indicar oxigenoterapia para manter SpO2 ≥ 92% e avaliar necessidade de suporte ventilatório não invasivo ou invasivo.</li>
+                <li><strong>Terceiro:</strong> Instituir hidratação endovenosa se a ingestão oral estiver comprometida, monitorando eletrólitos e diurese.</li>
+                <li><strong>Quarto:</strong> Monitorizar evolução, considerar internação hospitalar e evitar intervenções sem benefício comprovado, como antibióticos de rotina, corticoide sistêmico e fisioterapia respiratória.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Bronquiolite é a principal causa de infecção respiratória baixa em lactentes, especialmente por VSR; prematuros e portadores de DBP têm maior risco de formas graves.</li>
+                <li><strong>Números e doses:</strong> Manter SpO2 ≥ 92%; FR normal para idade (5 meses: cerca de 30-40 irpm); FR 65 irpm indica taquipneia importante.</li>
+                <li><strong>Mnemônicos:</strong> “Bronquiolite: oxigênio, hidratação e suporte; sem antibiótico de rotina”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a identificação de sinais de gravidade e a conduta inicial na bronquiolite. Em provas anteriores, o tema foi cobrado de forma indireta em questões sobre asma e outras infecções respiratórias.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bronquiolite viral aguda (a correta)</td>
+                        <td>Lactente < 2 anos, coriza, tosse, taquipneia, tiragem, sibilos, hipoxemia; piora da alimentação</td>
+                        <td>Clínico; radiografia de tórax se dúvida ou gravidade</td>
+                        <td>Oxigênio, hidratação, suporte ventilatório; evitar antibióticos de rotina</td>
+                    </tr>
+                    <tr>
+                        <td>Asma aguda</td>
+                        <td>Lactente maior ou criança com história de atopia e sibilância recorrente; resposta a broncodilatador</td>
+                        <td>Clínico; espirometria em maiores</td>
+                        <td>Salbutamol, corticoide sistêmico, oxigênio</td>
+                    </tr>
+                    <tr>
+                        <td>Pneumonia bacteriana</td>
+                        <td>Febre alta, toxemia, dor torácica, consolidação radiológica</td>
+                        <td>Radiografia de tórax; hemograma</td>
+                        <td>Antibióticos</td>
+                    </tr>
+                    <tr>
+                        <td>Coqueluche</td>
+                        <td>Crises de tosse paroxística, cianose, vômitos pós-tosse, guincho inspiratório; lactente não vacinado</td>
+                        <td>PCR em swab nasofaríngeo</td>
+                        <td>Macrolídeos; suporte</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+            <ul>
+                <li><strong>Se a questão foi sobre conduta inicial:</strong> a resposta é oxigênio, hidratação e suporte ventilatório.</li>
+                <li><strong>Se a questão pedisse sinal de gravidade:</strong> a resposta poderia ser SpO2 < 92%, FR elevada, tiragem, dificuldade alimentar.</li>
+                <li><strong>Se a questão pedisse a etiologia mais comum:</strong> a resposta seria vírus sincicial respiratório (VSR).</li>
+                <li><strong>Se a questão pedisse prevenção:</strong> a resposta poderia incluir palivizumabe para prematuros e portadores de DBP.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025 - Q24</td>
+                        <td>Escolar de 8 anos com crise aguda de asma, refratária ao tratamento inicial.</td>
+                        <td>Conduta na exacerbação grave de asma após tratamento inicial.</td>
+                        <td>Sulfato de magnésio.</td>
+                        <td>Tema próximo (doença respiratória obstrutiva), mas focado em asma e não em bronquiolite.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q9 (2º caderno)</td>
+                        <td>Lactente de 1 ano e 10 meses com tosse e dispneia, história de asma, piora apesar de salbutamol.</td>
+                        <td>Exacerbação de asma em lactente e conduta hospitalar.</td>
+                        <td>Metilprednisolona endovenosa.</td>
+                        <td>Ajuda a diferenciar asma de bronquiolite e reforça a conduta em doença obstrutiva grave.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q57</td>
+                        <td>Lactente de 3 meses com crises de tosse intensa, cianose, petéquias e hemorragia conjuntival, vacinação incompleta.</td>
+                        <td>Coqueluche: confirmação diagnóstica por PCR.</td>
+                        <td>Reação em cadeia da polimerase em swab de nasofaringe.</td>
+                        <td>Diagnóstico diferencial importante de bronquiolite em lactentes com tosse paroxística.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> A bronquiolite viral aguda não foi cobrada diretamente nas provas analisadas, mas temas próximos, como asma grave e coqueluche, apareceram. A banca tem valorizado o reconhecimento de sinais de gravidade e a conduta inicial em doenças respiratórias pediátricas.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Bronquiolite em prematuro com DBP, indicação de oxigênio e hidratação, uso de cateter nasal de alto fluxo, prevenção com palivizumabe e critérios de internação. Essas abordagens podem surgir na próxima prova.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em asma e coqueluche. A tendência é cobrar cenários clínicos com fatores de risco e tomada de decisão inicial, incluindo suporte ventilatório e hidratação.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar bronquiolite viral aguda, sinais de gravidade, conduta inicial, diferenças com asma e coqueluche, e indicações de suporte ventilatório em lactentes de alto risco.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <p>Como esse tema se integra com outros:</p>
+            <ul>
+                <li><strong>Conexão 1:</strong> Prematuridade e displasia broncopulmonar - lactentes prematuros têm maior risco de bronquiolite grave e podem se beneficiar de prevenção com palivizumabe.</li>
+                <li><strong>Conexão 2:</strong> Asma e sibilância recorrente - a diferenciação entre bronquiolite e asma é importante, pois a conduta e o prognóstico são diferentes.</li>
+                <li><strong>Conexão 3:</strong> Coqueluche - deve ser considerada no diagnóstico diferencial de lactentes com tosse paroxística e cianose, especialmente se vacinação incompleta.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou alternativa incorreta, o erro provavelmente foi de lacuna de conhecimento sobre a conduta inicial da bronquiolite ou de confusão com asma. A estratégia corretiva é memorizar: bronquiolite viral aguda não tem indicação rotineira de antibiótico, corticoide sistêmico ou fisioterapia respiratória. O tratamento é de suporte, com oxigênio, hidratação e suporte ventilatório conforme gravidade. Em lactentes de alto risco, a internação deve ser considerada precocemente.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o médico deve avaliar a gravidade da bronquiolite em lactentes, especialmente prematuros e com DBP. A SpO2 deve ser monitorizada, e a oxigenoterapia instituída se SpO2 < 92%. A hidratação é fundamental se a alimentação estiver comprometida. O suporte ventilatório pode ser escalonado conforme a necessidade. A alta hospitalar só deve ocorrer com estabilidade clínica, saturação adequada em ar ambiente e garantia de acompanhamento.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Bronquiolite viral aguda: etiologia, fisiopatologia e quadro clínico</li>
+                <li>Sinais de gravidade e critérios de internação</li>
+                <li>Suporte ventilatório em pediatria: cateter nasal de alto fluxo, VNI e ventilação invasiva</li>
+                <li>Prevenção com palivizumabe em prematuros e portadores de DBP</li>
+                <li>Diagnóstico diferencial: asma, pneumonia e coqueluche</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria. Diretrizes para bronquiolite viral aguda.</p>
+            <p>2. Ministério da Saúde. Protocolos de atenção à criança com infecção respiratória aguda.</p>
+            <p>3. American Academy of Pediatrics. Bronchiolitis guideline.</p>
+            <p>4. UpToDate. Bronchiolitis in infants and children: treatment, outcome, and prevention.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

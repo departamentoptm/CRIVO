@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 58 - Cardiopatia Isquêmica: Fisiopatologia e Determinantes do Consumo de Oxigênio Miocárdico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cardiopatia Isquêmica: Fisiopatologia e Determinantes do Consumo de Oxigênio Miocárdico</div>
+        <h1>Questão 58</h1>
+        <div class="question-text">
+            A Cardiopatia Isquêmica (CI) é um distúrbio no qual existe um suprimento inadequado de sangue e oxigênio para uma região do miocárdio. Analise as assertivas relacionadas à CI.<br><br>
+            I. A causa mais comum de isquemia miocárdica é a doença aterosclerótica de uma ou mais artérias coronárias epicárdicas, com redução do fluxo miocárdico.<br>
+            II. Os principais determinantes da demanda miocárdica de oxigênio (MVO2) são a frequência cardíaca, a contratilidade miocárdica e a tensão da parede miocárdica (estresse).<br>
+            III. O sangue flui pelas artérias coronárias de maneira fásica, com a maior parte do fluxo ocorrendo durante a sístole.<br>
+            IV. A Angina variante de Prinzmetal ocorre por falha da dilatação normal dos vasos de resistência coronarianos, também chamada de angina microvascular.<br><br>
+            Escolha entre as alternativas abaixo as assertivas corretas.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - I e II apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - III e IV apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - II e III apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - I, II e III apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - IV apenas.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cardiologia / Fisiopatologia Cardiovascular.</p>
+            <p><strong>Tema:</strong> Cardiopatia Isquêmica - fisiopatologia, balanço oferta/demanda de oxigênio miocárdico, padrão de perfusão coronariana e diagnóstico diferencial entre angina de Prinzmetal e angina microvascular.</p>
+            <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência, base para questões de síndrome coronariana aguda, angina estável, teste ergométrico e tratamento anti-isquêmico. A banca costuma cobrar os determinantes do consumo de oxigênio miocárdico (MVO2) e o padrão fásico do fluxo coronário, com predomínio diastólico.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A isquemia miocárdica resulta do desequilíbrio entre a oferta e a demanda de oxigênio. A oferta depende do fluxo coronário, que por sua vez é determinado pela resistência vascular coronariana e pela pressão de perfusão. As artérias coronárias epicárdicas são condutos de capacitância, enquanto os vasos intramiocárdicos de resistência regulam o fluxo. A maior parte do fluxo coronário ocorre na <strong>diástole</strong>, pois durante a sístole a compressão miocárdica reduz a perfusão, sobretudo no subendocárdio - região mais vulnerável à isquemia.</p>
+            <p>Os principais determinantes da demanda miocárdica de oxigênio (MVO2) são a frequência cardíaca, a contratilidade miocárdica e a tensão da parede ventricular (estresse parietal, que depende da pressão e do volume ventricular). A angina de Prinzmetal (angina variante) é causada por vasoespasmo de artérias coronárias epicárdicas, com elevação transitória do segmento ST durante a dor, tipicamente em repouso ou à noite, aliviada por nitratos. A angina microvascular é entidade distinta, com disfunção de vasos de resistência e ausência de obstrução epicárdica.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa A está correta. As assertivas I e II são verdadeiras:</p>
+            <ul>
+                <li><strong>I (verdadeira):</strong> A doença aterosclerótica de artérias coronárias epicárdicas é a causa mais comum de isquemia miocárdica, com redução do fluxo e desequilíbrio oferta/demanda.</li>
+                <li><strong>II (verdadeira):</strong> Os principais determinantes do MVO2 são frequência cardíaca, contratilidade e tensão da parede miocárdica (estresse parietal).</li>
+                <li><strong>III (falsa):</strong> O fluxo coronário é fásico, mas predomina na <strong>diástole</strong>, não na sístole. Durante a sístole, a contração miocárdica comprime os vasos intramurais e reduz a perfusão, especialmente no subendocárdio.</li>
+                <li><strong>IV (falsa):</strong> A angina variante de Prinzmetal decorre de vasoespasmo de artéria coronária <strong>epicárdica</strong>, com elevação transitória do ST. A “falha de dilatação dos vasos de resistência” corresponde à angina microvascular, entidade distinta.</li>
+            </ul>
+            <p>A questão de 2026 repete o padrão cobrado na prova de 2021 (Q61), que também apresentou a assertiva sobre o fluxo em sístole como falsa e teve como gabarito “I e II apenas” (A). Em 2025 (Q80), a angina de Prinzmetal foi cobrada isoladamente, com gabarito D. Essa recorrência confirma a importância do tema.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta: I e II apenas.</p>
+            <p><strong>Alternativa B</strong> - Incorreta: inclui III (falsa, fluxo predomina na diástole) e IV (falsa, Prinzmetal é vasoespasmo epicárdico).</p>
+            <p><strong>Alternativa C</strong> - Incorreta: inclui III (falsa) e exclui I (verdadeira).</p>
+            <p><strong>Alternativa D</strong> - Incorreta: inclui III (falsa).</p>
+            <p><strong>Alternativa E</strong> - Incorreta: considera apenas a IV, que está errada, pois descreve angina microvascular como se fosse Prinzmetal.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Aterosclerótica epicárdica:</strong> causa mais comum de isquemia - assertiva I verdadeira.</li>
+                <li><strong>MVO2:</strong> frequência cardíaca, contratilidade e tensão parietal - assertiva II verdadeira.</li>
+                <li><strong>Fluxo fásico:</strong> predomínio diastólico, não sistólico - assertiva III falsa.</li>
+                <li><strong>Prinzmetal:</strong> vasoespasmo de artéria epicárdica, ST transitório - assertiva IV falsa.</li>
+                <li><strong>Angina microvascular:</strong> disfunção de vasos de resistência, entidade diferente.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar a causa mais comum de isquemia miocárdica (aterosclerose epicárdica) - I verdadeira.</li>
+                <li><strong>Segundo:</strong> listar os determinantes do MVO2 (FC, contratilidade, tensão parietal) - II verdadeira.</li>
+                <li><strong>Terceiro:</strong> lembrar que o fluxo coronário predomina na diástole - III falsa.</li>
+                <li><strong>Quarto:</strong> diferenciar Prinzmetal (espasmo epicárdico) de angina microvascular - IV falsa.</li>
+                <li><strong>Quinto:</strong> concluir que apenas I e II estão corretas - alternativa A.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de fisiopatologia cardiovascular e de múltiplas assertivas.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Isquemia = desequilíbrio oferta/demanda de O2; causa mais comum = aterosclerose de artérias epicárdicas.</li>
+                <li><strong>Números e doses:</strong> Fluxo coronário predomina na diástole; subendocárdio é o mais vulnerável; MVO2 = FC × contratilidade × tensão parietal.</li>
+                <li><strong>Mnemônicos:</strong> “D de Diástole e de Dióxido (perfusão coronária)”; “Prinzmetal = espasmo EPIcardico”; “Microvascular = vasos de resistência”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2021 (Q61) e 2025 (Q80), demonstrando a importância de memorizar o padrão fásico e as diferenças entre as síndromes anginosas.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Angina estável</td>
+                        <td>Dor ao esforço, aliviada com repouso ou nitrato; padrão previsível</td>
+                        <td>Teste ergométrico, cintilografia, angiotomografia</td>
+                        <td>Antiagregante, estatina, betabloqueador, nitrato, revascularização</td>
+                    </tr>
+                    <tr>
+                        <td>Angina instável / IAMSSST</td>
+                        <td>Dor em repouso, de início recente ou em crescendo; troponina pode elevar</td>
+                        <td>ECG seriado, troponina, estratificação invasiva</td>
+                        <td>Antiagregação dupla, anticoagulação, revascularização</td>
+                    </tr>
+                    <tr>
+                        <td>Angina de Prinzmetal (correta)</td>
+                        <td>Dor em repouso, à noite; ST transitório; alívio com nitrato</td>
+                        <td>ECG durante a dor; teste provocativo com ergonovina</td>
+                        <td>BCC e nitratos; evitar betabloqueador não seletivo</td>
+                    </tr>
+                    <tr>
+                        <td>Angina microvascular</td>
+                        <td>Dor anginosa com coronárias epicárdicas normais; disfunção de resistência</td>
+                        <td>Reserva de fluxo coronário reduzida; excluir obstrução epicárdica</td>
+                        <td>BCC, nitratos, IECA, estatina, MEV</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das síndromes anginosas.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento da angina estável:</strong> betabloqueador, BCC, nitrato, estatina, AAS e revascularização conforme risco.</li>
+                <li><strong>Se fosse sobre Prinzmetal:</strong> BCC e nitratos; betabloqueadores não seletivos podem agravar o espasmo.</li>
+                <li><strong>Se fosse sobre IAMSSST:</strong> antiagregação dupla, anticoagulação e estratificação invasiva.</li>
+                <li><strong>Se fosse sobre fluxo coronário:</strong> predomínio diastólico; subendocárdio vulnerável.</li>
+                <li><strong>Se fosse sobre MVO2:</strong> FC, contratilidade e tensão parietal são os três determinantes clássicos.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram a Cardiopatia Isquêmica e seus temas correlatos:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q42</td>
+                        <td>Mulher 67 anos, dor precordial, T invertidas V4-V6, CK-MB elevada</td>
+                        <td>Diagnóstico de IAM sem supra</td>
+                        <td>E</td>
+                        <td>Contextualiza a síndrome coronariana aguda.</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q28</td>
+                        <td>Síndrome coronária aguda; contraindicações ao betabloqueador</td>
+                        <td>Tratamento anti-isquêmico</td>
+                        <td>B (fibrilação atrial não é contraindicação)</td>
+                        <td>Reforça o conhecimento da fisiopatologia e tratamento.</td>
+                    </tr>
+                    <tr>
+                        <td>2008 - Q63</td>
+                        <td>IAM inferior com BAVT; qual artéria envolvida</td>
+                        <td>Anatomia coronariana</td>
+                        <td>E (ramo distal da coronária direita)</td>
+                        <td>Complementa o entendimento da perfusão coronária.</td>
+                    </tr>
+                    <tr>
+                        <td>2008 - Q64</td>
+                        <td>Dor retrosternal típica; próximo passo na emergência</td>
+                        <td>Conduta inicial no IAM</td>
+                        <td>D (ECG, marcadores e RX em 10 min)</td>
+                        <td>Relaciona-se à investigação da isquemia.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q52</td>
+                        <td>Angina instável e IAMSSST; tratamento anti-isquêmico</td>
+                        <td>Nitratos, betabloqueadores e BCC</td>
+                        <td>A</td>
+                        <td>Mostra aplicação clínica dos conceitos fisiopatológicos.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q33</td>
+                        <td>Angina estável; tratamento e nitratos</td>
+                        <td>Manejo da angina crônica</td>
+                        <td>B (nitratos de longa duração e tolerância)</td>
+                        <td>Reforça o entendimento das síndromes anginosas.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q61</td>
+                        <td>Fisiopatologia da isquemia: determinantes do MVO2, vasos de resistência, fluxo sistólico e pressão arterial</td>
+                        <td>Fisiopatologia da isquemia</td>
+                        <td>A (I e II apenas)</td>
+                        <td>Praticamente idêntica à questão atual; confirma o gabarito A.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q67</td>
+                        <td>Teste ergométrico e critérios de positividade</td>
+                        <td>Investigação da isquemia</td>
+                        <td>E</td>
+                        <td>Relaciona-se aos métodos diagnósticos da CI.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q70</td>
+                        <td>Aterosclerose coronariana: fatores de risco e fisiopatologia</td>
+                        <td>Fisiopatologia da aterosclerose</td>
+                        <td>D</td>
+                        <td>Complementa a assertiva I sobre a causa mais comum.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q80</td>
+                        <td>Dor em repouso com ST transitório e alívio com nitrato</td>
+                        <td>Angina de Prinzmetal</td>
+                        <td>D</td>
+                        <td>Confirma que Prinzmetal é vasoespasmo epicárdico, não microvascular.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q59</td>
+                        <td>Investigação da cardiopatia isquêmica (classificação NYHA, ECG, teste de esforço)</td>
+                        <td>Métodos diagnósticos e limitações</td>
+                        <td>C (II e III)</td>
+                        <td>Complementa o conhecimento sobre investigação da CI.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> A cardiopatia isquêmica apareceu em pelo menos 11 provas anteriores. A banca alterna entre fisiopatologia (2021 Q61, 2024 Q70), diagnóstico (2008 Q64, 2024 Q67, 2026 Q59), tratamento (2007 Q28, 2011 Q52, 2016 Q33) e síndromes específicas (2008 Q63, 2025 Q80). A questão atual é uma repetição praticamente literal da de 2021 (Q61), com o mesmo gabarito A.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> A angina microvascular como entidade distinta foi usada apenas como distrator, não como tema central. Também não foi cobrada a reserva de fluxo coronário de forma aprofundada.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores alternam entre fisiopatologia e aplicação clínica. A repetição de 2021 em 2026 sugere que a banca valoriza a fisiopatologia clássica e o padrão de fluxo coronário.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar fisiopatologia da isquemia (oferta/demanda), determinantes do MVO2, padrão diastólico do fluxo coronário, angina de Prinzmetal (vasoespasmo epicárdico) e angina microvascular, além das síndromes coronarianas agudas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Isquemia miocárdica → síndrome coronariana aguda → IAM com ou sem supra de ST.</li>
+                <li><strong>Conexão 2:</strong> Aterosclerose → fatores de risco (HAS, DM, dislipidemia, tabagismo) → prevenção cardiovascular.</li>
+                <li><strong>Conexão 3:</strong> Angina de Prinzmetal → vasoespasmo → uso de BCC e nitratos; betabloqueador não seletivo pode agravar.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é marcar a assertiva III como verdadeira, por confundir fluxo coronário com fluxo sistêmico. A perfusão coronária predomina na diástole, e isso é um dos conceitos mais cobrados. Outro erro possível é confundir Prinzmetal com angina microvascular. Trata-se de lacuna de conhecimento fisiopatológico. A ação corretiva é memorizar: “D de Diástole = perfusão coronária”; “Prinzmetal = espasmo de artéria EPIcardica”; “Microvascular = vasos de resistência”.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, compreender os determinantes do MVO2 orienta o tratamento anti-isquêmico: betabloqueadores reduzem FC e contratilidade; nitratos reduzem a tensão parietal por vasodilatação venosa; BCC são úteis no vasoespasmo. Reconhecer o padrão diastólico do fluxo coronário explica a maior vulnerabilidade do subendocárdio à isquemia e a importância da taquicardia como fator precipitante.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Determinantes da oferta e da demanda de oxigênio miocárdico</li>
+                <li>Fluxo coronário fásico com predomínio diastólico</li>
+                <li>Síndromes coronarianas agudas e crônicas</li>
+                <li>Angina de Prinzmetal e angina microvascular</li>
+                <li>Tratamento anti-isquêmico: betabloqueador, nitrato, BCC</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Harrison, Medicina Interna, 21ª edição - Cardiopatia Isquêmica e Síndromes Coronarianas.</p>
+            <p>2. Diretriz Brasileira de Doença Arterial Coronariana Crônica - Sociedade Brasileira de Cardiologia.</p>
+            <p>3. UpToDate: Overview of the acute coronary syndromes; Stable ischemic heart disease: Pathophysiology.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

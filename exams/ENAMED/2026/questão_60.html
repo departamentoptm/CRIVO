@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 60 - Saúde Mental na Atenção Primária: Uso de Álcool e Intervenção Breve</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde Mental na Atenção Primária: Uso de Álcool e Intervenção Breve</div>
+        <h1>Questão 60</h1>
+        <div class="question-text">
+            Homem de 53 anos, em consulta a uma Unidade Básica de Saúde (UBS), vigilante, viúvo, relata que perdeu a esposa e um filho de 17 anos em uma tentativa de assalto, há 2 anos. Refere aumento progressivo do consumo de álcool e isolamento social desde o ocorrido. Informa que, durante a semana, ingere cerca de 2 latas de cerveja após o trabalho e, aos finais de semana, consome uma caixa de cerveja ao dia. Afirma também que, ultimamente, tem recebido reclamações do chefe, pois tem chegado atrasado ao trabalho. Nega episódios de “apagões”, agressões ou acidentes. Ao exame psíquico, apresenta humor deprimido e sono fragmentado. Nega plano suicida no momento. Não há sinais de abstinência aguda nem alterações ao exame físico.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Diagnosticar o abuso de álcool utilizando o questionário CAGE e prescrever antidepressivo tricíclico.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Utilizar a abordagem de redução de danos no manejo do consumo de álcool e prescrever dissulfiran.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Realizar intervenção breve e terapia multiprofissional na UBS para abordagem do consumo de álcool.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Encaminhar paciente para internação hospitalar de curta duração e envolver os familiares no plano de cuidado.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Mental / Medicina de Família e Comunidade</p>
+            <p><strong>Tema:</strong> Uso nocivo de álcool e abordagem inicial na Atenção Primária à Saúde</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência e no Enamed, pois o uso de álcool é frequente na atenção primária e frequentemente associado a sofrimento psíquico, luto, prejuízo laboral e isolamento social. A questão cobra a conduta inicial adequada em um paciente com consumo aumentado de álcool, humor deprimido e prejuízo funcional, sem sinais de abstinência grave ou indicação de internação.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O uso nocivo de álcool pode ser abordado na atenção primária por meio de intervenção breve, que é uma estratégia estruturada de aconselhamento, com foco na motivação para redução do consumo e na identificação de riscos. A intervenção breve é eficaz em pacientes com consumo de risco ou nocivo, mas sem dependência grave ou complicações que exijam internação. O caso descrito mostra aumento progressivo do consumo após luto, prejuízo no trabalho, humor deprimido e sono fragmentado, mas sem critérios de gravidade que justifiquem internação. A abordagem multiprofissional na UBS permite acolhimento, avaliação do sofrimento psíquico, orientação sobre riscos, pactuação de metas e seguimento longitudinal. O questionário CAGE é útil como rastreamento, mas não substitui a avaliação clínica e não define sozinho o diagnóstico. O dissulfiram não é primeira linha e exige cautela, principalmente em pacientes com sofrimento psíquico e risco de uso impulsivo. Antidepressivo tricíclico não é a primeira escolha para quadro depressivo associado ao uso de álcool, sobretudo pelo risco de interações e efeitos adversos.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C - Realizar intervenção breve e terapia multiprofissional na UBS para abordagem do consumo de álcool.</strong> É a conduta mais adequada para o caso. O paciente apresenta consumo aumentado de álcool, prejuízo laboral e sofrimento psíquico, mas não há sinais de abstinência aguda, risco iminente, dependência grave com complicações clínicas ou indicação de internação. A intervenção breve, associada ao acompanhamento multiprofissional na UBS, permite abordar o consumo de álcool, avaliar o luto e o quadro depressivo, pactuar redução de danos e oferecer seguimento longitudinal. Essa é a estratégia recomendada pela atenção primária e pelas políticas públicas de saúde mental.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Diagnosticar o abuso de álcool utilizando o questionário CAGE e prescrever antidepressivo tricíclico.</strong> Incorreta. O CAGE é um instrumento de rastreamento, não um diagnóstico isolado. Além disso, antidepressivo tricíclico não é a primeira escolha para o quadro apresentado, especialmente pelo risco de interações com álcool e efeitos adversos.</p>
+            <p><strong>Alternativa B - Utilizar a abordagem de redução de danos no manejo do consumo de álcool e prescrever dissulfiran.</strong> Incorreta. A redução de danos é uma estratégia válida, mas o dissulfiram não é primeira linha e pode ser perigoso em pacientes com sofrimento psíquico, risco de uso impulsivo ou pouca adesão. Não é a conduta inicial mais adequada.</p>
+            <p><strong>Alternativa C</strong> - Correta. Intervenção breve e terapia multiprofissional na UBS é a conduta indicada para uso nocivo de álcool sem critérios de gravidade.</p>
+            <p><strong>Alternativa D - Encaminhar paciente para internação hospitalar de curta duração e envolver os familiares no plano de cuidado.</strong> Incorreta. A internação não está indicada para uso nocivo de álcool sem sinais de abstinência grave, risco suicida iminente ou complicações clínicas. O envolvimento familiar pode ser útil, mas não justifica internação.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Aumento progressivo do consumo de álcool após perda familiar:</strong> uso nocivo associado a luto e sofrimento psíquico.</li>
+                <li><strong>Prejuízo laboral (atrasos):</strong> indica impacto funcional e necessidade de intervenção.</li>
+                <li><strong>Nega apagões, agressões ou acidentes:</strong> sugere ausência de critérios de gravidade imediata.</li>
+                <li><strong>Nega plano suicida e não há sinais de abstinência aguda:</strong> afasta indicação de internação.</li>
+                <li><strong>Humor deprimido e sono fragmentado:</strong> comorbidade psíquica que deve ser abordada no cuidado multiprofissional.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Acolher o paciente e avaliar a gravidade do uso de álcool, sinais de abstinência e risco suicida.</li>
+                <li><strong>Segundo:</strong> Identificar prejuízos funcionais, sofrimento psíquico e contexto de luto.</li>
+                <li><strong>Terceiro:</strong> Realizar intervenção breve, com escuta ativa, feedback sobre riscos e pactuação de metas.</li>
+                <li><strong>Quarto:</strong> Articular acompanhamento multiprofissional na UBS, com seguimento longitudinal e encaminhamento especializado se necessário.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em saúde mental na atenção primária.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Intervenção breve é eficaz para consumo de risco/nocivo de álcool na atenção primária.</li>
+                <li><strong>Indicações de internação:</strong> abstinência grave, risco suicida iminente, complicações clínicas, dependência grave com falha de manejo ambulatorial.</li>
+                <li><strong>CAGE:</strong> ferramenta de rastreamento, não diagnóstico isolado.</li>
+                <li><strong>Mnemônico:</strong> “Álcool sem gravidade = intervenção breve + multiprofissional na UBS”.</li>
+            </ul>
+            <p>Esses dados são essenciais para evitar internações desnecessárias e garantir cuidado longitudinal.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Uso nocivo de álcool sem gravidade (correta)</td>
+                        <td>Consumo aumentado, prejuízo funcional, sem abstinência grave ou risco iminente</td>
+                        <td>Avaliação clínica, rastreamento (AUDIT/CAGE), exame físico</td>
+                        <td>Intervenção breve e terapia multiprofissional na UBS</td>
+                    </tr>
+                    <tr>
+                        <td>Dependência grave com síndrome de abstinência</td>
+                        <td>Tremor, sudorese, convulsões, delirium tremens, instabilidade autonômica</td>
+                        <td>Avaliação clínica e escalas de abstinência</td>
+                        <td>Manejo hospitalar e tratamento farmacológico</td>
+                    </tr>
+                    <tr>
+                        <td>Transtorno depressivo maior com risco suicida</td>
+                        <td>Ideas de morte, plano suicida, anedonia, alterações psicomotoras</td>
+                        <td>Avaliação psiquiátrica e escalas de risco</td>
+                        <td>Avaliação de risco e encaminhamento conforme gravidade</td>
+                    </tr>
+                    <tr>
+                        <td>Luto complicado</td>
+                        <td>Sofrimento intenso e persistente, prejuízo funcional, dificuldade de adaptação</td>
+                        <td>Avaliação clínica e psiquiátrica</td>
+                        <td>Acolhimento, psicoterapia e suporte multiprofissional</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre rastreamento:</strong> a resposta poderia incluir AUDIT ou CAGE.</li>
+                <li><strong>Se fosse sobre redução de danos:</strong> a resposta poderia envolver estratégias de minimização de riscos, sem exigir abstinência imediata.</li>
+                <li><strong>Se fosse sobre abstinência grave:</strong> a conduta seria manejo hospitalar e benzodiazepínicos conforme protocolo.</li>
+                <li><strong>Se fosse sobre depressão associada:</strong> a resposta poderia incluir avaliação do risco suicida e tratamento antidepressivo após estabilização.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q32</td>
+                        <td>Homem de 45 anos com uso de álcool, faltas ao trabalho e amnésias; investigação segundo DSM-5.</td>
+                        <td>Critérios diagnósticos de dependência e padrão de uso.</td>
+                        <td>C</td>
+                        <td>Relaciona-se à avaliação do padrão de consumo e à necessidade de abordagem estruturada.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q72</td>
+                        <td>Homem de 30 anos com uso de crack e recaídas; conduta inicial segundo Ministérios da Saúde e Justiça.</td>
+                        <td>Redução de danos como estratégia inicial.</td>
+                        <td>C</td>
+                        <td>Reforça a lógica de cuidado longitudinal e redução de danos, aplicável ao uso de álcool.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q60</td>
+                        <td>Homem de 53 anos com luto, aumento do consumo de álcool, prejuízo laboral e humor deprimido.</td>
+                        <td>Abordagem inicial do uso nocivo de álcool na APS.</td>
+                        <td>Anulada administrativamente no gabarito definitivo; gabarito preliminar indicava C</td>
+                        <td>Questão atual; o tema foi anulado por erro material, mas o gabarito preliminar apontava intervenção breve e cuidado multiprofissional.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema álcool apareceu em pelo menos 2 questões não anuladas das provas anteriores analisadas, alternando entre critérios diagnósticos e redução de danos. A questão Q60 foi anulada administrativamente no gabarito definitivo, mas o gabarito preliminar indicava intervenção breve e terapia multiprofissional.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Farmacoterapia para transtorno por uso de álcool (naltrexona, acamprosato), manejo da síndrome de abstinência alcoólica, deficiência de tiamina e encefalopatia de Wernicke, e critérios objetivos de internação.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem cobrado o tema de forma aplicada, com casos clínicos e necessidade de escolher a conduta inicial adequada na atenção primária.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar intervenção breve, redução de danos, critérios de gravidade e indicação de internação no uso de álcool, além de diferenciar rastreamento de diagnóstico.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Luto e saúde mental - o sofrimento psíquico pode levar ao aumento do consumo de álcool e exigir abordagem integrada.</li>
+                <li><strong>Conexão 2:</strong> Redução de danos - estratégia transversal para uso de álcool e outras drogas, alinhada à política de saúde mental.</li>
+                <li><strong>Conexão 3:</strong> Atenção Primária à Saúde - acolhimento, vínculo e cuidado longitudinal são fundamentais para o manejo do uso nocivo de álcool.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é supervalorizar a gravidade e indicar internação ou prescrever farmacoterapia inadequada de início. A estratégia corretiva é memorizar que uso nocivo de álcool sem sinais de abstinência grave, risco suicida iminente ou complicações clínicas deve ser manejado com intervenção breve e cuidado multiprofissional na UBS. Classificação do erro: lacuna de conhecimento ou erro de interpretação clínica.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o médico da UBS deve acolher o paciente, avaliar o padrão de consumo, identificar comorbidades psíquicas e prejuízos funcionais, realizar intervenção breve e pactuar metas de redução. O acompanhamento multiprofissional e o seguimento longitudinal são essenciais para reduzir danos e evitar internações desnecessárias.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Intervenção breve para uso de álcool.</li>
+                <li>Redução de danos e cuidado longitudinal.</li>
+                <li>Critérios de gravidade e indicação de internação.</li>
+                <li>Rastreamento com AUDIT e CAGE.</li>
+                <li>Luto, depressão e comorbidade com uso de substâncias.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde - Política Nacional de Saúde Mental e Atenção Primária.</p>
+            <p>2. Organização Mundial da Saúde (OMS) - Intervenções breves para uso de álcool na atenção primária.</p>
+            <p>3. Associação Brasileira de Estudos do Álcool e outras Drogas (ABEAD) - Diretrizes para manejo do uso de álcool.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

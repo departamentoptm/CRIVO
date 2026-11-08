@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 48 - Bradiarritmias e Bloqueio Atrioventricular Total: Diagnóstico e Indicação de Marca-Passo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Bradiarritmias e Bloqueio Atrioventricular Total: Diagnóstico e Indicação de Marca-Passo</div>
+        <h1>Questão 48</h1>
+        <div class="question-text">
+            <p>Um homem de 72 anos é admitido na emergência com queixas de tontura, astenia progressiva e dois episódios de pré-síncope na última semana. Nega dor torácica e uso de medicações. Ao exame físico: PA = 115/70 mmHg; FC = 36 bpm; Ausculta cardíaca sem sopros; Ausculta pulmonar sem estertores. Exames laboratoriais admissionais mostram-se normais. Foi realizado o seguinte registro eletrocardiográfico na derivação DII contínua (velocidade de 25 mm/s):</p>
+            <p><em>[Imagem do eletrocardiograma: traçado mostrando dissociação atrioventricular completa, com ondas P regulares e complexos QRS regulares, porém sem relação entre si, com frequência ventricular baixa e QRS estreito.]</em></p>
+            <p>Com base na análise do caso clínico e do eletrocardiograma, assinale a alternativa correta.</p>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - O quadro caracteriza uma dissociação atrioventricular isorrítmica funcional por hipertonia vagal; por não haver alargamento do complexo QRS, a conduta indicada é a alta hospitalar após o uso de atropina.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Trata-se de um bloqueio atrioventricular de 2º grau Mobitz II; por apresentar complexos QRS estreitos e estabilidade hemodinâmica, o implante de marca-passo está contra-indicado pelo risco de complicações.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - O traçado evidencia bloqueio atrioventricular de 2º grau Mobitz I (Wenckebach), caracterizado pela variação do intervalo PR; por se tratar de uma alteração intranodal benigna, a conduta recomendada é apenas a observação clínica.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - O diagnóstico é de bloqueio atrioventricular Total (3º grau), sendo o ritmo de escape de QRS estreito indicativo de bloqueio infranodal grave no sistema His-Purkinje distal, para o qual o uso de atropina intravenosa é o tratamento definitivo.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - O traçado demonstra um bloqueio atrioventricular Total (3º grau) com dissociação atrioventricular completa; a presença de complexos QRS estreitos indica um ritmo de escape de origem juncional (nó AV ou feixe de His proximal), havendo indicação formal de implante de marca-passo definitivo.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cardiologia / Clínica Médica / Medicina de Emergência.</p>
+                <p><strong>Tema:</strong> Bradiarritmias; bloqueio atrioventricular total (BAVT); ritmos de escape; indicação de marca-passo definitivo.</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência, especialmente em cardiologia e clínica médica. A banca costuma cobrar a diferenciação entre os graus de bloqueio AV, a interpretação do ECG e a conduta adequada (medidas temporárias versus definitivas). O BAVT é uma emergência que exige reconhecimento rápido e, na maioria dos casos sintomáticos, implante de marca-passo definitivo.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O bloqueio atrioventricular total (BAVT) ou de 3º grau ocorre quando há interrupção completa da condução elétrica entre os átrios e os ventrículos. Nenhum impulso atrial alcança os ventrículos, que passam a ser comandados por um ritmo de escape. A localização do bloqueio determina o tipo de escape: se o bloqueio é no nó AV ou no feixe de His proximal, o escape é juncional, com QRS estreito (semelhante ao normal); se o bloqueio é infranodal (distal no sistema His-Purkinje), o escape é ventricular, com QRS largo. No caso apresentado, o QRS é estreito, indicando escape juncional e bloqueio mais proximal. A bradicardia grave e os sintomas (tontura, pré-síncope) decorrem da baixa frequência ventricular e da redução do débito cardíaco. A atropina pode ser útil como medida temporária em bloqueios proximais, mas não é tratamento definitivo. O tratamento definitivo é o marca-passo.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa E está correta. O ECG mostra dissociação atrioventricular completa: ondas P regulares e complexos QRS regulares, porém sem relação entre si, com frequência ventricular baixa. A presença de QRS estreito indica ritmo de escape de origem juncional (nó AV ou feixe de His proximal), o que é compatível com bloqueio proximal. Paciente sintomático (tontura, pré-síncope) com BAVT tem indicação formal de implante de marca-passo definitivo, conforme diretrizes. A atropina pode ser usada como medida temporária, mas não é tratamento definitivo.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Não se trata de dissociação isorrítmica funcional por hipertonia vagal. A dissociação isorrítmica é uma situação em que átrios e ventrículos batem em frequências semelhantes, mas sem relação, geralmente benigna. No caso, há bradicardia importante e sintomas, configurando BAVT. A conduta não é alta hospitalar.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Não é bloqueio de 2º grau Mobitz II. No Mobitz II, há ondas P não conduzidas, mas as ondas P conduzidas mantêm intervalo PR constante. No BAVT, há dissociação completa. Além disso, marca-passo não está contraindicado; pelo contrário, é indicado em pacientes sintomáticos.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. Não é bloqueio de 2º grau Mobitz I (Wenckebach). No Wenckebach, há aumento progressivo do intervalo PR até uma onda P não conduzida, e geralmente é benigno. No caso, há dissociação completa. A observação clínica não é adequada para paciente sintomático com BAVT.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. O diagnóstico de BAVT está correto, mas a interpretação do QRS estreito está errada. QRS estreito indica escape juncional (proximal), não bloqueio infranodal distal. Além disso, a atropina não é tratamento definitivo; é medida temporária. O tratamento definitivo é marca-passo.</p>
+                <p><strong>Alternativa E</strong> - Correta, conforme justificado acima.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“FC = 36 bpm”:</strong> bradicardia grave, sugere bloqueio AV ou disfunção do nó sinusal.</li>
+                    <li><strong>“Tontura, astenia, pré-síncope”:</strong> sintomas de baixo débito cardíaco, indicam gravidade e necessidade de intervenção.</li>
+                    <li><strong>“ECG com dissociação atrioventricular completa”:</strong> confirma BAVT.</li>
+                    <li><strong>“QRS estreito”:</strong> indica escape juncional, bloqueio proximal.</li>
+                    <li><strong>“Sem uso de medicações”:</strong> afasta causas medicamentosas de bradicardia.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar estabilidade hemodinâmica e sintomas (tontura, pré-síncope, hipotensão, alteração de consciência).</li>
+                    <li><strong>Segundo:</strong> realizar ECG e identificar a relação entre ondas P e QRS. Se houver dissociação completa, diagnosticar BAVT.</li>
+                    <li><strong>Terceiro:</strong> analisar a largura do QRS: estreito sugere escape juncional (bloqueio proximal); largo sugere escape ventricular (bloqueio distal).</li>
+                    <li><strong>Quarto:</strong> iniciar medidas temporárias (atropina, marca-passo transcutâneo/transvenoso) se instabilidade, e indicar marca-passo definitivo em pacientes sintomáticos com BAVT.</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões de “conduta inicial” e “próximo passo” em bradiarritmias.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> BAVT = dissociação AV completa; QRS estreito = escape juncional; QRS largo = escape ventricular.</li>
+                    <li><strong>Números e doses:</strong> atropina 0,5-1 mg IV a cada 3-5 min (máx. 3 mg) para bradicardia sintomática; marca-passo definitivo em BAVT sintomático.</li>
+                    <li><strong>Mnemônicos:</strong> “Mobitz I = Wenckebach = PR aumenta até bloquear; Mobitz II = PR fixo com P bloqueada; BAVT = dissociação total”.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em questões sobre IAM inferior com BAVT (2010 - Q63) e síncope (2017 - Q68).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BAVT (3º grau)</td>
+                            <td>Bradicardia grave, dissociação AV completa, QRS estreito ou largo</td>
+                            <td>ECG: ondas P e QRS independentes</td>
+                            <td>Marca-passo definitivo se sintomático; medidas temporárias se instável</td>
+                        </tr>
+                        <tr>
+                            <td>BAV 2º grau Mobitz I (Wenckebach)</td>
+                            <td>Aumento progressivo do PR até P bloqueada; geralmente benigno</td>
+                            <td>ECG: PR variável</td>
+                            <td>Observação; tratar causa se sintomático</td>
+                        </tr>
+                        <tr>
+                            <td>BAV 2º grau Mobitz II</td>
+                            <td>PR constante com P bloqueada; risco de progressão para BAVT</td>
+                            <td>ECG: PR fixo</td>
+                            <td>Marca-passo definitivo frequentemente indicado</td>
+                        </tr>
+                        <tr>
+                            <td>Bradicardia sinusal</td>
+                            <td>Ondas P normais, relação P-QRS preservada</td>
+                            <td>ECG: ritmo sinusal lento</td>
+                            <td>Tratar causa; atropina se sintomático</td>
+                        </tr>
+                        <tr>
+                            <td>Ritmo juncional</td>
+                            <td>QRS estreito, P ausente ou retrógrada</td>
+                            <td>ECG: ritmo de escape juncional</td>
+                            <td>Avaliar causa; marca-passo se sintomático e irreversível</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre os bloqueios AV.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre IAM inferior:</strong> o BAVT é complicação comum e geralmente transitório, com indicação de marca-passo temporário se instável.</li>
+                    <li><strong>Se fosse sobre síncope:</strong> o BAVT é causa de síncope cardiogênica e exige investigação com ECG e monitorização.</li>
+                    <li><strong>Se fosse sobre marcapasso:</strong> as indicações incluem BAVT sintomático, BAV 2º grau Mobitz II, disfunção do nó sinusal sintomática.</li>
+                    <li><strong>Se fosse sobre atropina:</strong> é medida temporária, útil em bloqueios proximais, mas não em bloqueios infranodais.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2010 - Q63</td>
+                            <td>Paciente com IAM inferior apresenta BAVT. Qual artéria coronária mais provavelmente envolvida?</td>
+                            <td>BAVT como complicação do IAM inferior; artéria coronária direita.</td>
+                            <td>E (Ramo distal da artéria coronária direita)</td>
+                            <td>Reforça que o BAVT pode ser complicação do IAM inferior e que a artéria direita é a mais envolvida.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 - Q68</td>
+                            <td>Senhor de 72 anos com síncope. Quais exames iniciais solicitar?</td>
+                            <td>Síncope; investigação inicial com ECG, eletrólitos, hemograma e glicemia.</td>
+                            <td>A</td>
+                            <td>Mostra que o ECG é fundamental na investigação de síncope, pois pode revelar BAVT.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 - Q76</td>
+                            <td>Paciente com síncope após doação de sangue; asserções sobre síncope vasovagal.</td>
+                            <td>Síncope reflexa; diagnóstico diferencial.</td>
+                            <td>C</td>
+                            <td>Contrapõe-se à síncope cardiogênica por BAVT, que é o caso da questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 - Q78</td>
+                            <td>Paciente com fibrilação atrial e resposta ventricular rápida; conduta inicial.</td>
+                            <td>Controle de frequência; anticoagulação.</td>
+                            <td>B</td>
+                            <td>Mostra outra arritmia comum; ajuda a diferenciar taquiarritmias de bradiarritmias.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema BAVT apareceu em pelo menos 4 questões ao longo de 2006-2026, geralmente associado a IAM inferior (2010 - Q63) ou síncope (2017 - Q68). A banca costuma cobrar a interpretação do ECG e a conduta.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Indicação de marca-passo definitivo em BAVT sintomático e a diferenciação entre escape juncional e ventricular com base na largura do QRS. Esses temas podem surgir em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2010, o foco era a artéria coronária envolvida no BAVT pós-IAM. Em 2017, o foco era a investigação de síncope. Em 2026, a banca cobra interpretação do ECG e conduta definitiva, com ênfase no marca-passo.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os graus de bloqueio AV, interpretação do ECG (relação P-QRS, largura do QRS) e indicações de marca-passo. Decorar que QRS estreito = escape juncional e que BAVT sintomático = marca-passo definitivo.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> IAM inferior → BAVT → marca-passo temporário. A artéria coronária direita irriga o nó AV na maioria das pessoas.</li>
+                    <li><strong>Conexão 2:</strong> Síncope → investigação com ECG → diagnóstico de BAVT. O ECG é o exame mais importante na síncope cardiogênica.</li>
+                    <li><strong>Conexão 3:</strong> Bradicardia → baixo débito cardíaco → tontura, pré-síncope, hipotensão. A frequência ventricular baixa compromete a perfusão cerebral.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é confundir BAVT com BAV 2º grau ou não valorizar a largura do QRS para localizar o bloqueio. Trata-se de erro de conhecimento/interpretação. A correção consiste em: (1) revisar os critérios de cada grau de bloqueio AV; (2) memorizar que QRS estreito = escape juncional (proximal) e QRS largo = escape ventricular (distal); (3) saber que BAVT sintomático tem indicação de marca-passo definitivo. Para não errar novamente, praticar interpretação de ECGs com bloqueios AV.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na emergência, o médico deve reconhecer rapidamente o BAVT, avaliar a estabilidade hemodinâmica e iniciar medidas temporárias (atropina, marca-passo transcutâneo) se necessário. Em pacientes sintomáticos, a indicação de marca-passo definitivo é formal. O reconhecimento precoce evita síncope, morte súbita e complicações. Na atenção primária, pacientes com tontura e bradicardia devem ser investigados com ECG e encaminhados ao cardiologista.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Graus de bloqueio atrioventricular (1º, 2º Mobitz I, 2º Mobitz II, 3º grau).</li>
+                    <li>Ritmos de escape (juncional, ventricular).</li>
+                    <li>Indicações de marca-passo definitivo.</li>
+                    <li>Atropina e marca-passo temporário.</li>
+                    <li>IAM inferior e complicações arrítmicas.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Diretriz Brasileira de Bradicardia e Bloqueios AV - Sociedade Brasileira de Cardiologia.</p>
+                <p>2. ACC/AHA/HRS Guidelines for Bradycardia and Cardiac Conduction Delay.</p>
+                <p>3. Braunwald - Tratado de Doenças Cardiovasculares.</p>
+                <p>4. UpToDate: Atrioventricular block - Clinical manifestations and diagnosis.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedOption = null;
+        const correctAnswer = 'E';
+        const isInIframe = window.parent !== window;
+
+        function notifyParent(type, payload, silent) {
+            if (silent || !isInIframe) return;
+            try {
+                window.parent.postMessage({ type, payload }, '*');
+            } catch (e) { }
+        }
+
+        function selectOption(option, silent = false) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            const input = document.querySelector(`.option input[value="${option}"]`);
+            if (!input) return;
+            const wrapper = input.parentElement;
+            wrapper.classList.add('selected');
+            input.checked = true;
+            selectedOption = option;
+            notifyParent('OPTION_SELECTED', { selected: option }, silent);
+        }
+
+        function checkAnswer(silent = false) {
+            if (!selectedOption) {
+                if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+                return;
+            }
+            const submitBtn = document.getElementById('submitBtn');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+            document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.style.display = 'block';
+
+            if (selectedOption === correctAnswer) {
+                submitBtn.textContent = 'Resposta Correta!';
+                submitBtn.classList.add('correct');
+            } else {
+                submitBtn.textContent = 'Confirmar Resposta';
+                submitBtn.classList.remove('correct');
+            }
+            viewCorrectionBtn.style.display = 'inline-block';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+            notifyParent('QUESTION_ANSWERED',
+                { selected: selectedOption, correct: correctAnswer }, silent);
+
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showCorrection() {
+            const correctionContent = document.getElementById('correctionContent');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+                correctionContent.style.display = 'block';
+                viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+            } else {
+                correctionContent.style.display = 'none';
+                viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+            }
+        }
+
+        function resetQuiz() {
+            selectedOption = null;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+            document.getElementById('viewCorrectionBtn').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('message', (event) => {
+            if (!isInIframe) return;
+            if (event.source !== window.parent) return;
+            if (event.data?.type !== 'RESTORE_STATE') return;
+
+            const { selected, correct } = event.data.payload || {};
+            if (selected) {
+                selectOption(selected, true);
+                if (correct) {
+                    checkAnswer(true);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

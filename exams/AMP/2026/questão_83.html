@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 83 - Diagnóstico de Hipertensão Arterial na APS: Confirmação com Medida Fora do Consultório</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Diagnóstico de Hipertensão Arterial na APS: Confirmação com Medida Fora do Consultório</div>
+        <h1>Questão 83</h1>
+        <div class="question-text">
+            Um homem de 47 anos, sem comorbidades conhecidas, procura a Unidade Básica de Saúde (UBS) para consulta de rotina. Após técnica adequada de aferição, foram obtidas pressões arteriais (PA) de 148 × 92 mmHg e 142 × 88 mmHg na mesma consulta. O paciente encontra-se assintomático, sem lesão de órgão-alvo conhecida e sem evidências de urgência hipertensiva. Segundo as recomendações atuais para a Atenção Primária à Saúde, a conduta mais apropriada é
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - orientar mudanças no estilo de vida específicas para redução de pressão arterial e reavaliar as medidas daqui seis meses.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - verificar a viabilidade do paciente realizar monitorização residencial de PA em domicílio e agendar retorno na UBS com este resultado.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - solicitar monitorização ambulatorial de PA por ser essencial para efetivar a confirmação diagnóstica e programar reconsulta assim que tiver tal resultado.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - informar o diagnóstico de hipertensão arterial e iniciar tratamento não-farmacológico e farmacológico, pois duas medidas alteradas já são suficientes.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - solicitar exames laboratoriais, eletrocardiograma, radiografia torácica e ecocardiograma pois a investigação de possível hipertensão secundária ou lesão de órgão-alvo já é primordial no caso.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Clínica Médica / Cardiologia.</p>
+                <p><strong>Tema:</strong> Diagnóstico de hipertensão arterial sistêmica (HAS) na Atenção Primária à Saúde e papel da medida fora do consultório (MRPA/MAPA) para confirmação diagnóstica.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência. A banca cobra, com frequência, a diferença entre hipertensão do avental branco, hipertensão mascarada e hipertensão verdadeira, além da conduta inicial diante de medidas elevadas em consultório. A questão de 2026 é aplicada e foca na conduta na APS quando há duas medidas elevadas na mesma consulta em paciente assintomático, sem lesão de órgão-alvo.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A hipertensão arterial é definida por medidas persistentemente elevadas de pressão arterial (PA ≥ 140/90 mmHg em consultório). Entretanto, uma única consulta com duas medidas elevadas não é suficiente para o diagnóstico, pois há variação fisiológica e o efeito do avental branco (elevação da PA em ambiente de consultório). As diretrizes brasileiras (SBC 2020) e o Ministério da Saúde recomendam que, diante de PA elevada em consultório, o diagnóstico seja confirmado por medida fora do consultório - por Monitorização Residencial da PA (MRPA) ou Monitorização Ambulatorial da PA (MAPA) - ou por novas aferições em consultas subsequentes. A MRPA é especialmente útil na APS por ser viável, de baixo custo e envolver o paciente no autocuidado. A confirmação diagnóstica precede o início de tratamento farmacológico, exceto em situações de urgência/emergência hipertensiva, lesão de órgão-alvo ou PA muito elevada com alto risco cardiovascular.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa B é a correta. O paciente apresenta duas medidas elevadas na mesma consulta (148/92 e 142/88 mmHg), assintomático, sem lesão de órgão-alvo conhecida e sem urgência hipertensiva. Nesse cenário, não se deve iniciar tratamento farmacológico imediatamente nem assumir o diagnóstico com base em duas medidas de uma única consulta. A conduta mais adequada na APS é verificar a viabilidade de realizar a MRPA em domicílio e agendar retorno com os resultados. A MRPA permite confirmar o diagnóstico, identificar hipertensão do avental branco e hipertensão mascarada, e é preferível à MAPA quando viável. Somente após a confirmação diagnóstica é que se decide sobre tratamento não farmacológico e farmacológico e sobre a investigação de lesão de órgão-alvo.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Orientar apenas mudanças no estilo de vida e reavaliar em seis meses é insuficiente e posterga a confirmação diagnóstica. A MRPA (ou nova aferição) deve ser realizada antes dessa reavaliação.</p>
+                <p><strong>Alternativa B</strong> - Correta. Verificar a viabilidade da MRPA e agendar retorno com os resultados é a conduta recomendada para confirmar o diagnóstico e diferenciar hipertensão verdadeira de hipertensão do avental branco.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. A MAPA não é essencial nem obrigatória como primeira escolha na APS; a MRPA é preferível quando viável por ser mais simples e de menor custo. A MAPA é reservada para situações específicas (p. ex., suspeita de hipertensão do avental branco, hipertensão mascarada, variabilidade, avaliação do descenso noturno).</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Duas medidas elevadas na mesma consulta não são suficientes para o diagnóstico de HAS. É necessária confirmação com medida fora do consultório ou novas aferições em consultas subsequentes. Iniciar tratamento farmacológico imediatamente pode caracterizar sobrediagnóstico e sobretratamento.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A investigação de lesão de órgão-alvo e de hipertensão secundária é realizada após a confirmação diagnóstica, e de forma estratificada pelo risco cardiovascular. Solicitar ecocardiograma de rotina e todos esses exames de imediato, antes da confirmação diagnóstica, não é a conduta recomendada.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Duas medidas na mesma consulta (148/92 e 142/88)”</strong>: valores elevados, porém ainda não diagnósticos isoladamente.</li>
+                    <li><strong>“Assintomático, sem lesão de órgão-alvo conhecida”</strong>: sem indicação de tratamento imediato ou investigação agressiva.</li>
+                    <li><strong>“Sem evidências de urgência hipertensiva”</strong>: exclui necessidade de intervenção imediata.</li>
+                    <li><strong>“Recomendações atuais para a APS”</strong>: remete às diretrizes da SBC e do Ministério da Saúde, que valorizam MRPA/MAPA para confirmação.</li>
+                    <li><strong>“47 anos, sem comorbidades”</strong>: risco cardiovascular baixo/intermediário, sem indicação de tratamento farmacológico antes da confirmação.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> confirmar técnica adequada de aferição e identificar PA elevada (≥ 140/90 mmHg) em consultório.</li>
+                    <li><strong>Segundo:</strong> avaliar presença de sinais de urgência/emergência hipertensiva, lesão de órgão-alvo ou alto risco cardiovascular - se presentes, conduta imediata.</li>
+                    <li><strong>Terceiro:</strong> na ausência desses sinais, confirmar o diagnóstico com medida fora do consultório (MRPA preferencialmente, quando viável; MAPA em situações específicas) ou novas aferições em consultas subsequentes.</li>
+                    <li><strong>Quarto:</strong> após confirmação, classificar o risco cardiovascular, investigar lesão de órgão-alvo de forma estratificada e iniciar tratamento não farmacológico e farmacológico quando indicado.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> HAS = PA ≥ 140/90 mmHg confirmada; MRPA e MAPA são métodos de confirmação; hipertensão do avental branco = PA elevada no consultório e normal fora; hipertensão mascarada = PA normal no consultório e elevada fora.</li>
+                    <li><strong>Números e doses:</strong> MRPA: 3 medidas pela manhã e 3 à noite por 5 dias (ou 2 medidas por 7 dias); limite de normalidade para MRPA/MAPA: ≥ 135/85 mmHg (ou 130/80 em 24h).</li>
+                    <li><strong>Mnemônicos:</strong> “ABC” da confirmação: Aferição adequada, Botão fora do consultório (MRPA/MAPA), Confirmação antes do tratamento.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hipertensão arterial verdadeira (caso em investigação)</td>
+                            <td>PA elevada no consultório e fora dele</td>
+                            <td>MRPA/MAPA confirmando médias elevadas</td>
+                            <td>Tratamento não farmacológico e farmacológico conforme risco</td>
+                        </tr>
+                        <tr>
+                            <td>Hipertensão do avental branco</td>
+                            <td>PA elevada no consultório, normal fora</td>
+                            <td>MRPA/MAPA com médias normais</td>
+                            <td>Seguimento; tratar se alto risco</td>
+                        </tr>
+                        <tr>
+                            <td>Hipertensão mascarada</td>
+                            <td>PA normal no consultório, elevada fora</td>
+                            <td>MRPA/MAPA com médias elevadas</td>
+                            <td>Tratar como hipertensão</td>
+                        </tr>
+                        <tr>
+                            <td>Urgência/emergência hipertensiva</td>
+                            <td>PA muito elevada + lesão aguda de órgão-alvo</td>
+                            <td>Avaliação clínica e laboratorial imediata</td>
+                            <td>Tratamento imediato em ambiente hospitalar</td>
+                        </tr>
+                        <tr>
+                            <td>Hipertensão secundária</td>
+                            <td>Início jovem, resistência ao tratamento, sinais específicos</td>
+                            <td>Investigação dirigida (renina, aldosterona, catecolaminas, imagem)</td>
+                            <td>Tratamento específico da causa</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre hipertensão do avental branco:</strong> a resposta envolveria PA elevada no consultório e normal na MRPA/MAPA.</li>
+                    <li><strong>Se fosse sobre hipertensão mascarada:</strong> a resposta envolveria PA normal no consultório e elevada fora.</li>
+                    <li><strong>Se fosse sobre urgência hipertensiva:</strong> a resposta envolveria PA muito elevada com lesão aguda de órgão-alvo e tratamento imediato.</li>
+                    <li><strong>Se fosse sobre tratamento inicial:</strong> a resposta envolveria mudanças de estilo de vida e, conforme risco, anti-hipertensivos de primeira linha.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 - Q75</td>
+                            <td>Homem de 50 anos, assintomático, PA 145/95 mmHg, considerado HAS estágio I e baixo risco. Conduta: MHV, verificar PA bimensalmente, solicitar MAPA para afastar hipertensão do jaleco branco; se não atingir meta em 6 meses, associar TF.</td>
+                            <td>Confirmação diagnóstica e conduta inicial na HAS estágio I</td>
+                            <td>D</td>
+                            <td>Reforça que duas medidas elevadas não bastam para iniciar tratamento imediato e que MAPA é útil para afastar hipertensão do avental branco.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 - Q75</td>
+                            <td>Questão semelhante (homem de 50 anos, PA 145/95, HAS estágio I baixo risco), com conduta de MHV, MAPA e reavaliação em 6 meses.</td>
+                            <td>Confirmação diagnóstica e conduta inicial na HAS</td>
+                            <td>D</td>
+                            <td>Mesma lógica da questão atual: confirmar antes de tratar.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 - Q29</td>
+                            <td>Questão sobre HAS e hipertensão mascarada: paciente com PA normal no consultório e elevada fora tem maior risco.</td>
+                            <td>Conceito de hipertensão mascarada</td>
+                            <td>D</td>
+                            <td>Ajuda a compreender por que a medida fora do consultório é essencial.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 - Q21</td>
+                            <td>Paciente de 35 anos, PA 152/94 mmHg, assintomático. Investigação complementar desnecessária no momento: teste ergométrico.</td>
+                            <td>Investigação inicial da HAS</td>
+                            <td>E</td>
+                            <td>Reforça que exames de investigação devem ser estratificados, não solicitados de forma indiscriminada.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 - Q61</td>
+                            <td>Questão sobre HAS e hipertensão do avental branco/mascarada, com conceitos de risco cardiovascular.</td>
+                            <td>Conceitos de hipertensão do avental branco e mascarada</td>
+                            <td>B</td>
+                            <td>Aprofunda o conhecimento sobre fenótipos de HAS e sua relevância prognóstica.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 - Q61</td>
+                            <td>Paciente de 54 anos com PA 142/91, 153/92 e 130/85 mmHg. Alternativa correta: MAPA fornece avaliação mais abrangente da carga vascular do que poucas leituras no consultório.</td>
+                            <td>Uso da MAPA/medida fora do consultório para confirmar diagnóstico</td>
+                            <td>E</td>
+                            <td>Confirma a tendência da banca de valorizar a medida fora do consultório na APS.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 questões ao longo das provas, alternando entre conduta inicial (2008, 2010, 2016), conceitos de hipertensão do avental branco e mascarada (2013, 2022) e uso da MAPA/medida fora do consultório (2025). A banca valoriza a confirmação diagnóstica antes do tratamento farmacológico.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> O papel específico da MRPA (monitorização residencial) como primeira escolha na APS; critérios práticos de MRPA (5 dias, 3 medidas manhã/noite); comparação MRPA versus MAPA em custo e viabilidade.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2008, a banca recomendava MAPA para afastar hipertensão do avental branco. Em 2025, a banca já cobra a MAPA como ferramenta de avaliação da carga vascular. Em 2026, a questão valoriza a MRPA como opção viável na APS.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar as diretrizes de diagnóstico da HAS (SBC 2020), indicações de MRPA e MAPA, e os fenótipos de hipertensão do avental branco e mascarada.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> HAS → risco cardiovascular → estratificação de risco → decisão terapêutica.</li>
+                    <li><strong>Conexão 2:</strong> HAS → lesão de órgão-alvo (rim, coração, retina, cérebro) → investigação estratificada.</li>
+                    <li><strong>Conexão 3:</strong> Hipertensão do avental branco → sobrediagnóstico → prevenção quaternária.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, provavelmente assumiu que duas medidas elevadas em uma consulta são suficientes para o diagnóstico (alternativa D) ou que a MAPA é obrigatória como primeira escolha (alternativa C). Classificação do erro: lacuna de conhecimento sobre as recomendações diagnósticas da HAS na APS e confusão conceitual entre as indicações de MRPA e MAPA. Ação corretiva: memorizar que o diagnóstico exige confirmação fora do consultório (MRPA preferencialmente) e que a MAPA é reservada para situações específicas.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na APS, o diagnóstico de HAS deve ser feito de forma criteriosa para evitar sobrediagnóstico e sobretratamento. A MRPA é uma ferramenta viável, de baixo custo e que envolve o paciente no autocuidado. O acompanhamento longitudinal, a estratificação de risco cardiovascular e o estímulo a mudanças de estilo de vida são pilares do manejo.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Diretrizes Brasileiras de Hipertensão Arterial (SBC 2020).</li>
+                    <li>Caderno de Atenção Básica nº 37 - HAS (Ministério da Saúde).</li>
+                    <li>MRPA e MAPA: indicações, técnica e interpretação.</li>
+                    <li>Hipertensão do avental branco e hipertensão mascarada.</li>
+                    <li>Estratificação de risco cardiovascular e metas pressóricas.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sociedade Brasileira de Cardiologia. Diretrizes Brasileiras de Hipertensão Arterial - 2020.</p>
+                <p>2. Ministério da Saúde. Caderno de Atenção Básica nº 37: Hipertensão Arterial Sistêmica. Brasília, 2013.</p>
+                <p>3. European Society of Hypertension / European Society of Cardiology. Guidelines for the Management of Arterial Hypertension, 2023.</p>
+                <p>4. American Heart Association. Measurement of Blood Pressure in Humans: A Scientific Statement, 2019.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

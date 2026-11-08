@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 85 - Epidemiologia: Estudo Caso-Controle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Epidemiologia: Delineamentos de Estudos</div>
+        <h1>Questão 85</h1>
+        <div class="question-text">
+            Em uma Unidade Básica de Saúde (UBS), a equipe local, preocupada com a alta prevalência de hipertensão arterial sistêmica (HAS) entre os pacientes, decidiu realizar um estudo epidemiológico para investigar possíveis fatores de risco associados à doença. Os pesquisadores selecionaram cerca de 50 pacientes com diagnóstico recente de HAS e 80 pacientes sem a doença, pareados por idade e sexo, que frequentavam a mesma UBS. Com base em entrevistas e em revisão de prontuários, foram coletadas informações sobre histórico familiar de HAS, nível de atividade física e padrão alimentar desses pacientes nos últimos 5 anos.
+            <br><br>
+            Qual foi o tipo de estudo realizado nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Caso-controle.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Coorte.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Ecológico.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Série temporal.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Epidemiologia / Medicina de Família e Comunidade.</p>
+            <p><strong>Tema:</strong> Delineamentos de estudos epidemiológicos: estudo caso-controle.</p>
+            <p><strong>Contextualização:</strong> A escolha do delineamento é tema recorrente em provas de residência, pois orienta a interpretação de medidas de associação e de causalidade. O estudo caso-controle é frequentemente cobrado quando se deseja investigar doenças de baixa prevalência ou com longo período de latência, partindo do desfecho para investigar exposições passadas. Nesta questão, a equipe parte de pacientes com diagnóstico recente de HAS e compara com controles sem a doença, avaliando exposições retrospectivas.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O estudo caso-controle é um delineamento observacional analítico que seleciona participantes com base no desfecho: casos são indivíduos com a doença e controles são indivíduos sem a doença. A partir daí, investiga-se retrospectivamente a exposição prévia. A medida de associação típica é o odds ratio (OR). Esse desenho é eficiente para doenças raras e permite avaliar múltiplos fatores de risco para um único desfecho, mas é suscetível a vieses de seleção e de memória. No caso descrito, o desfecho é a HAS e as exposições são histórico familiar, atividade física e padrão alimentar nos últimos 5 anos.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>A</strong>. O enunciado descreve seleção de 50 pacientes com diagnóstico recente de HAS (casos) e 80 pacientes sem a doença (controles), pareados por idade e sexo, com coleta retrospectiva de informações sobre exposições. Essa é a estrutura clássica de um estudo caso-controle. O pareamento por idade e sexo é uma estratégia para controlar fatores de confusão, muito utilizada nesse desenho. A medida de associação resultante seria o odds ratio, calculado a partir da frequência de exposição entre casos e controles.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. A seleção parte do desfecho (HAS presente ou ausente) e investiga exposições passadas, configurando estudo caso-controle.</p>
+            <p><strong>Alternativa B</strong> - Coorte seleciona participantes com base na exposição e os acompanha no tempo para observar a ocorrência do desfecho. No enunciado, não há seguimento prospectivo a partir de expostos e não expostos.</p>
+            <p><strong>Alternativa C</strong> - Estudo ecológico utiliza dados agregados de populações ou grupos, e não dados individuais de casos e controles. Aqui há dados individuais de pacientes da UBS.</p>
+            <p><strong>Alternativa D</strong> - Série temporal avalia tendências de um desfecho ao longo do tempo em uma população, sem comparação individual entre casos e controles.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Pacientes com diagnóstico recente de HAS:</strong> definição dos casos.</li>
+                <li><strong>Pacientes sem a doença:</strong> definição dos controles.</li>
+                <li><strong>Pareados por idade e sexo:</strong> estratégia clássica de controle de confundimento em caso-controle.</li>
+                <li><strong>Informações sobre exposições nos últimos 5 anos:</strong> avaliação retrospectiva da exposição.</li>
+                <li><strong>Investigar possíveis fatores de risco associados:</strong> objetivo analítico do estudo caso-controle.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar qual é o ponto de partida do estudo. Se parte da doença (casos e controles), trata-se de caso-controle.</li>
+                <li><strong>Segundo:</strong> verificar se há seguimento prospectivo a partir da exposição. Se houver, seria coorte.</li>
+                <li><strong>Terceiro:</strong> verificar se os dados são individuais ou agregados. Dados agregados sugerem ecológico.</li>
+                <li><strong>Quarto:</strong> verificar se há análise de tendência temporal. Se sim, série temporal.</li>
+                <li><strong>Quinto:</strong> concluir que a seleção por desfecho e a avaliação retrospectiva de exposições definem o caso-controle.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de delineamento epidemiológico.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> caso-controle parte do desfecho; coorte parte da exposição.</li>
+                <li><strong>Medida de associação:</strong> odds ratio no caso-controle; risco relativo na coorte.</li>
+                <li><strong>Vantagens:</strong> eficiente para doenças raras e para avaliar múltiplas exposições.</li>
+                <li><strong>Limitações:</strong> suscetível a viés de memória e de seleção; não estima incidência diretamente.</li>
+                <li><strong>Pareamento:</strong> útil para controlar confundidores, como idade e sexo.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferença entre caso-controle e coorte, além da medida de associação adequada.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Delineamento</th>
+                        <th>Ponto de partida</th>
+                        <th>Medida de associação</th>
+                        <th>Uso típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Caso-controle (correta)</td>
+                        <td>Desfecho (doença presente ou ausente)</td>
+                        <td>Odds ratio</td>
+                        <td>Doenças raras, investigação de múltiplos fatores de risco.</td>
+                    </tr>
+                    <tr>
+                        <td>Coorte</td>
+                        <td>Exposição (expostos e não expostos)</td>
+                        <td>Risco relativo</td>
+                        <td>Doenças comuns, avaliação de incidência e causalidade.</td>
+                    </tr>
+                    <tr>
+                        <td>Ecológico</td>
+                        <td>Populações ou grupos</td>
+                        <td>Correlação ecológica</td>
+                        <td>Comparações entre regiões e tendências populacionais.</td>
+                    </tr>
+                    <tr>
+                        <td>Série temporal</td>
+                        <td>Tempo</td>
+                        <td>Tendência temporal</td>
+                        <td>Avaliação de impacto de intervenções e sazonalidade.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram a diferença entre os delineamentos, não apenas o diagnóstico do caso.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a medida de associação:</strong> odds ratio.</li>
+                <li><strong>Se pedisse a principal limitação:</strong> viés de memória e de seleção.</li>
+                <li><strong>Se pedisse um desenho para doenças raras:</strong> caso-controle.</li>
+                <li><strong>Se pedisse um desenho para calcular incidência:</strong> coorte.</li>
+                <li><strong>Se pedisse um desenho com dados agregados:</strong> ecológico.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q85</td>
+                        <td>Equipe da UBS seleciona 50 pacientes com HAS e 80 sem a doença, pareados por idade e sexo, e investiga exposições passadas.</td>
+                        <td>Identificação do tipo de estudo epidemiológico.</td>
+                        <td>Caso-controle.</td>
+                        <td>Questão-base idêntica, cobrando o mesmo raciocínio de delineamento.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q49</td>
+                        <td>Avaliação de teste rápido para diabetes com tabela 2x2 e cálculo de razão de verossimilhança positiva.</td>
+                        <td>Medidas de desempenho diagnóstico e interpretação clínica.</td>
+                        <td>Alternativa C (razão de verossimilhança positiva 8,00).</td>
+                        <td>Relaciona-se à epidemiologia clínica, mas não ao delineamento caso-controle.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q78</td>
+                        <td>Redução do ponto de corte da PA sistólica de 130 para 120 mmHg para diagnóstico de HAS.</td>
+                        <td>Efeito de mudança de critério diagnóstico sobre detecção e falsos positivos.</td>
+                        <td>Alternativa B (aumento na detecção e aumento de falsos positivos).</td>
+                        <td>Também aborda raciocínio epidemiológico e diagnóstico, mas não delineamento de estudo.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu diretamente na prova de 2026 - Q85. A banca alterna entre cobrar identificação do delineamento, medidas de associação e interpretação de testes diagnósticos.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> cálculo e interpretação do odds ratio, vieses específicos do caso-controle, estudos de coorte, ecológicos e série temporal, além de critérios de causalidade.</p>
+            <p><strong>Evolução da cobrança:</strong> A questão de 2026 foi descritiva, pedindo apenas o tipo de estudo. A próxima prova pode exigir cálculo do OR ou discussão de vieses.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar os quatro delineamentos básicos, suas medidas de associação e aplicações, com ênfase na diferença entre caso-controle e coorte.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Estudos caso-controle se conectam ao cálculo e interpretação do odds ratio em epidemiologia clínica.</li>
+                <li><strong>Conexão 2:</strong> A escolha do delineamento se relaciona à avaliação de testes diagnósticos e à interpretação de medidas de frequência.</li>
+                <li><strong>Conexão 3:</strong> O tema se integra à medicina baseada em evidências e à leitura crítica de artigos científicos.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Erros comuns incluem confundir caso-controle com coorte por não observar que a seleção parte do desfecho, ou escolher ecológico por associar o estudo à UBS. A estratégia correta é identificar o ponto de partida: doença (caso-controle) versus exposição (coorte). Classificação do erro mais provável: lacuna de conhecimento sobre delineamentos epidemiológicos. Ação corretiva: revisar as diferenças entre caso-controle, coorte, ecológico e série temporal.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática da atenção primária, o estudo caso-controle é útil para investigar fatores associados a doenças prevalentes no território, especialmente quando o desfecho já ocorreu. No entanto, seus resultados devem ser interpretados com cautela devido a vieses. O médico de família deve saber ler criticamente esse tipo de estudo para incorporar evidências na tomada de decisão.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Estudo caso-controle: seleção, medida de associação e vieses.</li>
+                <li>Estudo de coorte: seleção por exposição e risco relativo.</li>
+                <li>Estudo ecológico e série temporal.</li>
+                <li>Odds ratio e risco relativo.</li>
+                <li>Critérios de causalidade e confundimento.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Secretaria de Vigilância em Saúde. Guia de Vigilância em Saúde.</p>
+            <p>2. Bonita R, Beaglehole R, Kjellström T. Epidemiologia Básica.</p>
+            <p>3. Rothman KJ, Greenland S, Lash TL. Modern Epidemiology.</p>
+            <p>4. Fletcher RH, Fletcher SW, Fletcher GS. Epidemiologia Clínica.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

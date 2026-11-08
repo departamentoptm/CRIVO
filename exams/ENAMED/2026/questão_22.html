@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 22 - Psicopatologia: Alterações do Humor e do Pensamento em Episódio Maníaco</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Psicopatologia: Alterações do Humor e do Pensamento em Episódio Maníaco</div>
+        <h1>Questão 22</h1>
+        <div class="question-text">
+            Mulher de 30 anos chega ao Centro de Atenção Psicossocial animada, inquieta e falante, andando de um lado para outro, cumprimentando todas as pessoas com sorrisos exagerados e fazendo comentários animados a respeito de coisas aleatórias, emendando os assuntos. O médico que costuma atendê-la percebe que ela está diferente, mais “elétrica” que seu habitual, sendo impossível interrompê-la.<br><br>
+            As alterações psicopatológicas apresentadas por essa paciente incluem
+        </div>
+
+```
+    [DataTableSection]
+
+    [StatementsSection]
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - humor disfórico, esterotipias vocais e agitação psicomotora.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - humor hipotímico, apragmatismo e afrouxamento de associações.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - humor eutímico, fuga de ideias e avolia.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - humor hipertímico, taquipsiquismo e taquilalia.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Psiquiatria</p>
+            <p><strong>Tema:</strong> Episódio maníaco e psicopatologia das alterações do humor e do pensamento.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em questões que exigem a identificação de sintomas maníacos e a diferenciação de outros transtornos psiquiátricos, como depressão, esquizofrenia e transtornos de personalidade. A banca costuma explorar a descrição clínica para testar o reconhecimento de síndromes psicopatológicas.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O episódio maníaco é caracterizado por um período distinto de humor elevado, expansivo ou irritável, acompanhado de aumento de energia e atividade. As alterações psicopatológicas incluem humor hipertímico (elevado), taquipsiquismo (aceleração do pensamento) e taquilalia (fala rápida). A fisiopatologia envolve disfunção de circuitos frontais e límbicos, com alterações na neurotransmissão dopaminérgica e serotoninérgica, levando à desregulação do humor e do pensamento.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa D está correta porque descreve precisamente os achados do caso: a paciente apresenta humor hipertímico (animada, sorrisos exagerados), taquipsiquismo (pensamento acelerado, emendando assuntos) e taquilalia (fala rápida, impossível interromper). Esses são critérios clássicos do episódio maníaco.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta: humor disfórico (depressivo/irritável) e estereotipias vocais não são típicos de mania; estereotipias podem ocorrer em quadros psicóticos ou neurológicos.</p>
+            <p><strong>Alternativa B</strong> - Incorreta: humor hipotímico, apragmatismo e afrouxamento de associações sugerem depressão ou esquizofrenia, não mania.</p>
+            <p><strong>Alternativa C</strong> - Incorreta: humor eutímico (normal) e avolia (falta de vontade) não correspondem ao quadro; fuga de ideias pode ocorrer, mas os outros elementos não se encaixam.</p>
+            <p><strong>Alternativa D</strong> - Correta: humor hipertímico, taquipsiquismo e taquilalia são os achados descritos.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"animada, inquieta e falante":</strong> indica humor hipertímico e agitação psicomotora.</li>
+                <li><strong>"sorrisos exagerados, comentários animados, emendando os assuntos":</strong> sugere taquilalia e fuga de ideias.</li>
+                <li><strong>"impossível interrompê-la":</strong> reforça taquipsiquismo e taquilalia.</li>
+                <li><strong>"mais elétrica que seu habitual":</strong> sugere mudança de humor e aumento de energia.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar o humor predominante. No caso, há exaltação, euforia e energia aumentada → humor hipertímico.</li>
+                <li><strong>Segundo:</strong> avaliar o curso do pensamento e da fala. Há aceleração do pensamento (taquipsiquismo) e da fala (taquilalia).</li>
+                <li><strong>Terceiro:</strong> descartar quadros depressivos (humor hipotímico, lentificação) e psicóticos (afrouxamento de associações).</li>
+                <li><strong>Quarto:</strong> concluir pela alternativa que agrupa humor hipertímico, taquipsiquismo e taquilalia.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "identificação de síndromes psicopatológicas" e "próximo passo" diagnóstico.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <p>Agrupar em:</p>
+            <ul>
+                <li><strong>Fatos que definem:</strong> mania = humor hipertímico + taquipsiquismo + taquilalia + agitação + grandiosidade.</li>
+                <li><strong>Números e doses:</strong> critérios DSM-5 para episódio maníaco: duração mínima de 1 semana, prejuízo funcional acentuado.</li>
+                <li><strong>Mnemônicos:</strong> "DIGFAST" (Distratibilidade, Insônia, Grandiosidade, Fuga de ideias, Agitação, Speed/taquipsiquismo, Tagarelice) para mania.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferenciação entre mania e hipomania, além dos critérios diagnósticos.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Episódio maníaco</td>
+                        <td>Humor hipertímico, taquipsiquismo, taquilalia, grandiosidade, agitação, fuga de ideias</td>
+                        <td>Clínico (DSM-5), excluir causas orgânicas e uso de substâncias</td>
+                        <td>Estabilizadores do humor (lítio, valproato), antipsicóticos, internação se grave</td>
+                    </tr>
+                    <tr>
+                        <td>Episódio depressivo</td>
+                        <td>Humor hipotímico, lentificação, apragmatismo, anedonia</td>
+                        <td>Clínico (DSM-5)</td>
+                        <td>Antidepressivos, psicoterapia</td>
+                    </tr>
+                    <tr>
+                        <td>Esquizofrenia</td>
+                        <td>Afrouxamento de associações, delírios, alucinações, embotamento afetivo</td>
+                        <td>Clínico (DSM-5), avaliação psiquiátrica</td>
+                        <td>Antipsicóticos</td>
+                    </tr>
+                    <tr>
+                        <td>Transtorno de personalidade borderline</td>
+                        <td>Instabilidade afetiva, impulsividade, autolesão, relacionamentos intensos e instáveis</td>
+                        <td>Clínico (DSM-5)</td>
+                        <td>Psicoterapia (DBT), estabilizadores do humor</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento:</strong> a resposta incluiria estabilizadores do humor e antipsicóticos.</li>
+                <li><strong>Se fosse sobre complicações:</strong> risco de suicídio, prejuízo social e financeiro, internação.</li>
+                <li><strong>Se fosse sobre diagnóstico diferencial:</strong> diferenciar mania de hipomania, depressão e esquizofrenia.</li>
+                <li><strong>Exemplo:</strong> "Se a questão pedisse o critério de duração para mania, a resposta seria 1 semana. Se pedisse o mnemônico, seria DIGFAST."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q36</td>
+                        <td>Estudante de 17 anos com tristeza, anedonia, isolamento, mas funcionalidade preservada.</td>
+                        <td>Diagnóstico diferencial e conduta na atenção primária para quadro depressivo.</td>
+                        <td>C</td>
+                        <td>Ambas cobram alterações do humor, mas Q36 é sobre depressão e a atual sobre mania.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q50</td>
+                        <td>Homem de 29 anos com sofrimento emocional, explosões de raiva, sensação de abandono e autolesão leve.</td>
+                        <td>Identificação de transtorno de personalidade borderline.</td>
+                        <td>B</td>
+                        <td>Ambas envolvem instabilidade afetiva, mas a atual foca em episódio maníaco.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico de episódio maníaco não apareceu em outras questões das provas de 2025_2026. A banca tem cobrado temas de psicopatologia descritiva, mas com foco em depressão e transtornos de personalidade.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> critérios diagnósticos de mania, tratamento do episódio maníaco, diferenciação entre mania e hipomania, e manejo na atenção primária.</p>
+            <p><strong>Evolução da cobrança:</strong> as questões de psiquiatria têm priorizado a identificação de síndromes e a conduta inicial, em vez de apenas descrever sintomas.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar psicopatologia do humor e do pensamento, critérios DSM-5 para mania e hipomania, e o manejo inicial do transtorno bipolar.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Transtorno bipolar tipo I - o episódio maníaco é a marca diagnóstica; é importante diferenciar de episódios depressivos.</li>
+                <li><strong>Conexão 2:</strong> Esquizofrenia - sintomas psicóticos podem ocorrer na mania, mas o humor hipertímico e a taquilalia ajudam a diferenciar.</li>
+                <li><strong>Conexão 3:</strong> Uso de substâncias - estimulantes podem simular mania; é essencial investigar uso de drogas.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é confundir taquipsiquismo (aceleração do pensamento) com fuga de ideias (pensamento desorganizado), ou humor hipertímico com eutímico. A estratégia de correção é revisar as definições psicopatológicas e memorizar os pares: humor hipertímico + taquipsiquismo + taquilalia = mania. Classificação do erro: lacuna de conhecimento sobre psicopatologia descritiva. Ação corretiva: estudar os critérios DSM-5 para mania e praticar a identificação de sinais e sintomas em casos clínicos.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, identificar o episódio maníaco é crucial para iniciar tratamento adequado, prevenir complicações (como comportamentos de risco, gastos excessivos, envolvimento em situações perigosas) e evitar a progressão para quadros graves. O manejo inicial inclui estabilização do humor, antipsicóticos e, muitas vezes, internação.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Humor hipertímico, hipotímico e eutímico.</li>
+                <li>Taquipsiquismo, taquilalia e fuga de ideias.</li>
+                <li>Critérios DSM-5 para episódio maníaco e hipomaníaco.</li>
+                <li>Mnemônico DIGFAST.</li>
+                <li>Transtorno bipolar tipo I e tipo II.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders, 5th ed. (DSM-5).</p>
+            <p>2. Kaplan & Sadock. Compêndio de Psiquiatria.</p>
+            <p>3. Associação Brasileira de Psiquiatria. Diretrizes para o Transtorno Bipolar.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

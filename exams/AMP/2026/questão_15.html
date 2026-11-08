@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 15 - Pediatria: Estado de mal epiléptico na infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Estado de mal epiléptico na infância</div>
+        <h1>Questão 15</h1>
+        <div class="question-text">
+            Uma menina de 4 anos dá entrada no pronto-socorro levada pelos pais devido a uma crise convulsiva tônico-clônica generalizada que já dura cerca de 8 minutos. A equipe de enfermagem já garantiu o monitoramento e um acesso venoso periférico calibroso. O médico assistente posiciona a cabeça da paciente, aplica oxigênio sob máscara e constata que a saturação está em 94%. De acordo com as diretrizes atuais para o manejo do estado de mal epiléptico na infância, qual deve ser a primeira escolha medicamentosa por via intravenosa neste momento?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Fenitoína.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Midazolam.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Fenobarbital.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Levetiracetam.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Ácido valproico.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Neurologia / Emergência</p>
+            <p><strong>Tema:</strong> Estado de mal epiléptico (EME) na infância - primeira escolha medicamentosa</p>
+            <p><strong>Contextualização:</strong> O EME é a emergência neurológica mais frequente em pediatria e é tempo-dependente: quanto mais precoce o tratamento, menor a morbimortalidade. A banca cobra de forma recorrente a sequência terapêutica (benzodiazepínico → segunda linha → refratário), o que torna essencial dominar as drogas de primeira linha e seus critérios de indicação.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Durante uma crise prolongada, há falha dos mecanismos inibitórios (GABAérgicos) e excesso de neurotransmissores excitatórios (glutamato). Isso leva a lesão neuronal, edema cerebral, hipertermia, acidose, rabdomiólise e disfunção autonômica. Os benzodiazepínicos potencializam a ação do GABA no receptor GABA-A, aumentando a frequência de abertura do canal de cloreto, hiperpolarizando o neurônio e interrompendo a crise. Justamente por atuarem no mecanismo mais precoce e reversível, são a primeira linha. Com a progressão do tempo, há internalização dos receptores GABA-A, o que explica a perda de eficácia dos benzodiazepínicos em crises muito prolongadas e a necessidade de segunda linha.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B - Midazolam.</strong> O midazolam é um benzodiazepínico de ação rápida, com boa disponibilidade por via intravenosa, intramuscular e bucal, sendo a primeira escolha no EME pediátrico quando há acesso venoso. A dose usual é 0,1 a 0,2 mg/kg IV (ou diazepam 0,3 mg/kg IV, alternativa equivalente). A droga deve ser administrada o mais precocemente possível, com monitorização respiratória e suporte de oxigênio, que já estão garantidos no caso. O quadro de 8 minutos já configura EME (definição operacional: crise ≥ 5 minutos), reforçando a necessidade de tratamento imediato.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Fenitoína.</strong> É uma droga de segunda linha, indicada após falha de um ou dois benzodiazepínicos. Não deve ser a primeira escolha no EME, sobretudo em paciente com acesso venoso disponível e crise de curta duração. A fenitoína é útil na prevenção de recorrência e em crises que não responderam ao benzodiazepínico. Esse distrator já apareceu na prova de 2009 (Q43), em que era a resposta correta após falha do diazepam.</p>
+            <p><strong>Alternativa C - Fenobarbital.</strong> Também é segunda linha, especialmente útil em neonatos e lactentes jovens. Não é a primeira escolha em uma criança de 4 anos com acesso venoso. Apareceu como distrator na prova de 2013 (Q13) e como tema na prova de 2024 (Q7), em que a assertiva “o fenobarbital não é recomendado como terapia de primeira escolha” era a correta.</p>
+            <p><strong>Alternativa D - Levetiracetam.</strong> É uma alternativa de segunda linha, com bom perfil de segurança, mas não é a primeira escolha no EME. Não substitui o benzodiazepínico na fase inicial.</p>
+            <p><strong>Alternativa E - Ácido valproico.</strong> Também é segunda linha. Contraindicado em hepatopatias e em algumas doenças metabólicas, e não é a escolha inicial no EME pediátrico.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Crise tônico-clônica generalizada com 8 minutos de duração:</strong> define estado de mal epiléptico (crise ≥ 5 minutos), exigindo tratamento medicamentoso imediato.</li>
+                <li><strong>Acesso venoso periférico calibroso:</strong> permite a via intravenosa, favorecendo o benzodiazepínico IV.</li>
+                <li><strong>Oxigênio sob máscara e saturação 94%:</strong> via aérea e ventilação já em suporte, liberando o foco para a terapia anticonvulsivante.</li>
+                <li><strong>Diretrizes atuais para o manejo do EME:</strong> direciona para o algoritmo benzodiazepínico → segunda linha → refratário.</li>
+                <li><strong>Primeira escolha medicamentosa por via intravenosa:</strong> palavra decisiva para escolher o benzodiazepínico entre as opções.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Garantir ABC, oxigênio, monitorização e acesso venoso; dosar glicemia capilar (hipoglicemia é causa tratável de crise).</li>
+                <li><strong>Segundo:</strong> Se a crise persistir por ≥ 5 minutos, administrar benzodiazepínico IV (midazolam 0,1-0,2 mg/kg ou diazepam 0,3 mg/kg).</li>
+                <li><strong>Terceiro:</strong> Se não houver controle após 5-10 minutos, repetir benzodiazepínico ou iniciar segunda linha (fenitoína 20 mg/kg, fenobarbital 20 mg/kg ou levetiracetam).</li>
+                <li><strong>Quarto:</strong> Se persistir (EME refratário), IOT, UTI e infusão contínua de midazolam ou tiopental.</li>
+                <li><strong>Quinto:</strong> Investigar causa (meningite, TCE, distúrbio metabólico, intoxicação, epilepsia) e tratar especificamente.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> EME operacional = crise ≥ 5 minutos; EME clássico = ≥ 30 minutos. EME refratário = falha de duas classes de drogas (benzodiazepínico + segunda linha).</li>
+                <li><strong>Números e doses:</strong> midazolam 0,1-0,2 mg/kg IV (ou IM/bucal 0,2-0,3 mg/kg); diazepam 0,3 mg/kg IV; fenitoína 20 mg/kg IV (máx. 50 mg/min); fenobarbital 20 mg/kg IV; levetiracetam 40-60 mg/kg IV.</li>
+                <li><strong>Mnemônicos/regras:</strong> “5 minutos → benzodiazepínico”; “duas classes → refratário”; “refratário → IOT + UTI + infusão contínua”.</li>
+            </ul>
+            <p>Esses dados são cobrados de forma recorrente em provas de pediatria e emergência.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Estado de mal epiléptico</td>
+                        <td>Crise ≥ 5 min ou crises recorrentes sem recuperação de consciência</td>
+                        <td>Clínico; glicemia, eletrólitos, toxicológico, neuroimagem conforme causa</td>
+                        <td>Benzodiazepínico IV; segunda linha; refratário: IOT + UTI</td>
+                    </tr>
+                    <tr>
+                        <td>Crise febril simples</td>
+                        <td>Idade 6 meses a 5 anos, crise generalizada &lt; 15 min, sem sinais meníngeos</td>
+                        <td>Clínico; investigar foco se necessário</td>
+                        <td>Suporte, antitérmico; não é EME</td>
+                    </tr>
+                    <tr>
+                        <td>Hipoglicemia</td>
+                        <td>Sudorese, tremor, confusão, crise; história de diabetes ou jejum</td>
+                        <td>Glicemia capilar</td>
+                        <td>Glicose IV/IM imediata</td>
+                    </tr>
+                    <tr>
+                        <td>Meningite/encefalite</td>
+                        <td>Febre, rigidez de nuca, alteração de consciência, petéquias</td>
+                        <td>Punção lombar, neuroimagem, hemocultura</td>
+                        <td>Antibiótico/antiviral precoce, além do anticonvulsivante</td>
+                    </tr>
+                    <tr>
+                        <td>Intoxicação</td>
+                        <td>História de exposição, sintomas colinérgicos ou adrenérgicos</td>
+                        <td>Toxicológico, gasometria</td>
+                        <td>Antídoto específico + suporte</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a segunda linha:</strong> fenitoína, fenobarbital ou levetiracetam.</li>
+                <li><strong>Se pedisse o EME refratário:</strong> midazolam contínuo ou tiopental em UTI, com IOT.</li>
+                <li><strong>Se pedisse a definição de tempo:</strong> 5 minutos (operacional) ou 30 minutos (clássico).</li>
+                <li><strong>Se não houvesse acesso venoso:</strong> midazolam IM/bucal ou diazepam retal.</li>
+                <li><strong>Se pedisse a causa tratável a excluir primeiro:</strong> hipoglicemia (glicemia capilar).</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2009 - Q43</td>
+                        <td>Pré-escolar 4 anos, crise convulsiva 15 min, diazepam EV sem diluir 0,5 mg/kg, persiste após 10 min</td>
+                        <td>Segunda linha após benzodiazepínico</td>
+                        <td>D (fenitoína 20 mg/kg EV)</td>
+                        <td>Confirma a sequência: benzodiazepínico primeiro, fenitoína depois</td>
+                    </tr>
+                    <tr>
+                        <td>2012 - Q29</td>
+                        <td>Estado de mal epiléptico refratário na infância</td>
+                        <td>Droga de escolha no EME refratário</td>
+                        <td>E (tiopental)</td>
+                        <td>Reforça a progressão terapêutica após falha das primeiras linhas</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q13</td>
+                        <td>EME refratário (crise &gt; 30 min, sem resposta ao tratamento instituído)</td>
+                        <td>Droga de escolha no EME refratário</td>
+                        <td>E (tiopental)</td>
+                        <td>Mesmo padrão de cobrança sobre a fase refratária</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q11</td>
+                        <td>Lactente 9 meses em EME &gt; 30 min, refratário ao tratamento</td>
+                        <td>Droga de escolha no EME refratário</td>
+                        <td>A (tiopental)</td>
+                        <td>Reforça a sequência até a fase refratária</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q19</td>
+                        <td>Lactente 13 meses, benzodiazepínico e fenitoína sem resolução após 20 min</td>
+                        <td>Definição de EME refratário</td>
+                        <td>A (asserções I e II verdadeiras)</td>
+                        <td>Conceitua o EME refratário como falha de duas classes</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q13</td>
+                        <td>EME na infância: definição, primeira e segunda linha</td>
+                        <td>Primeira linha = benzodiazepínico; segunda linha = fenobarbital (falsa)</td>
+                        <td>A (I e II verdadeiras, III falsa)</td>
+                        <td>Confirma o benzodiazepínico como primeira linha em qualquer idade</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q7</td>
+                        <td>Manejo do EME pediátrico: neuroimagem, etiologia, primeira escolha, tempo de tratamento</td>
+                        <td>Primeira escolha e tempo de início do tratamento</td>
+                        <td>C (fenobarbital não é primeira escolha)</td>
+                        <td>Reforça que a primeira escolha não é fenobarbital</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 7 questões no período. A banca alterna entre primeira linha (benzodiazepínico), segunda linha (fenitoína/fenobarbital), definição de refratário e drogas da fase refratária (tiopental/midazolam contínuo).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> dose exata do midazolam por via bucal/IM em cenário pré-hospitalar, manejo da hipoglicemia como causa tratável e critérios de transição para infusão contínua de midazolam.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam na fase refratária (tiopental); as mais recentes passaram a cobrar a sequência inicial e a definição de refratário, com foco em tomada de decisão precoce.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar o algoritmo completo do EME, com doses, vias alternativas e critérios de refratariedade.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> EME → hipoglicemia, distúrbios eletrolíticos e intoxicações: sempre dosar glicemia e considerar causas tratáveis antes de assumir epilepsia.</li>
+                <li><strong>Conexão 2:</strong> EME → meningite/encefalite: o tratamento anticonvulsivante não substitui a investigação e o tratamento da infecção do SNC.</li>
+                <li><strong>Conexão 3:</strong> EME → crise febril: diferenciar crise febril simples (benigna, &lt; 15 min) de EME, pois a conduta e o prognóstico são distintos.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é escolher uma droga de segunda linha (fenitoína, fenobarbital, levetiracetam, valproato) por associação com “crise convulsiva”, esquecendo que o benzodiazepínico é a primeira escolha. Também é frequente não reconhecer que 8 minutos já configuram EME. Classificação provável do erro: lacuna de conhecimento sobre a sequência terapêutica. Ação corretiva: memorizar “5 minutos → benzodiazepínico; duas classes → refratário; refratário → IOT + UTI”.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o atendimento ao EME pediátrico exige atuação em equipe, com monitorização, oxigênio, acesso venoso e cronômetro. O benzodiazepínico deve ser administrado sem atraso, e a segunda linha deve estar pronta caso a crise não ceda. A identificação precoce da causa e a prevenção de complicações (aspiração, hipóxia, hipertermia, rabdomiólise) são essenciais.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Definição operacional e clássica de estado de mal epiléptico</li>
+                <li>Benzodiazepínicos: mecanismo GABA-A e vias de administração</li>
+                <li>Drogas de segunda linha: fenitoína, fenobarbital, levetiracetam, valproato</li>
+                <li>EME refratário: midazolam contínuo, tiopental, IOT e UTI</li>
+                <li>Causas tratáveis de crise: hipoglicemia, hiponatremia, intoxicação, infecção do SNC</li>
+                <li>Crise febril simples versus EME</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria. Diretrizes para o manejo do estado de mal epiléptico em crianças e adolescentes.</p>
+            <p>2. ILAE. Definition and classification of status epilepticus. 2015.</p>
+            <p>3. Nelson Textbook of Pediatrics, 21ª edição.</p>
+            <p>4. Glauser T, et al. Evidence-Based Guideline: Treatment of Convulsive Status Epilepticus in Children and Adults. Epilepsy Currents, 2016.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

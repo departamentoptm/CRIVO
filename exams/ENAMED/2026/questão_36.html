@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 36 - Saúde Mental na Adolescência: Manejo da Depressão Leve na Atenção Primária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde Mental na Adolescência: Manejo da Depressão Leve na Atenção Primária</div>
+        <h1>Questão 36</h1>
+        <div class="question-text">
+            Estudante de 17 anos comparece espontaneamente a uma Unidade Básica de Saúde com relato de tristeza e dificuldade de relacionamento com os pais. Refere que já pensou em “sumir” depois da última briga em casa, mas nega intenção ou planejamento suicida, afirmando que não quer morrer, “só queria que esse sentimento ruim passasse”. Segundo seu relato, perdeu interesse nas atividades do dia a dia e, nos últimos meses, passou a maior parte do tempo em seu quarto, mas tem mantido sono regular, apetite inalterado, bom desempenho escolar, além de funcionalidade preservada. Afirma não usar substâncias psicoativas e nega comportamentos autolesivos ou tentativas de suicídio anteriores.
+            <br><br>
+            Considerando o quadro apresentado e o manejo na atenção primária, a conduta inicial para esse paciente é
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - convocar seus responsáveis e encaminhá-lo ao Centro de Atenção Psicossocial infantojuvenil do território de referência.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - prescrever inibidor de recaptação de serotonina e encaminhá-lo para acompanhamento em ambulatório de saúde mental.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - propor o envolvimento da família no cuidado e iniciar acompanhamento multidisciplinar na Unidade Básica de Saúde.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - explicar-lhe que a distimia faz parte da adolescência, orientá-lo a aguardar e sugerir que busque o serviço de emergência em caso de piora.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Saúde Mental / Saúde do Adolescente.</p>
+            <p><strong>Tema:</strong> Manejo inicial da depressão leve em adolescente na atenção primária, com avaliação de risco suicida e envolvimento familiar.</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência porque a depressão na adolescência é frequente, muitas vezes subdiagnosticada, e a atenção primária é a porta de entrada. A banca costuma cobrar a diferença entre quadros leves, que podem ser manejados na UBS, e quadros graves, que exigem encaminhamento especializado ou internação. Também avalia a identificação de fatores de risco e a conduta ética com a família.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A depressão na adolescência envolve alterações de humor, anedonia, isolamento e prejuízo funcional. No caso descrito, há tristeza, perda de interesse e pensamento de “sumir”, mas sem intenção ou planejamento suicida, sem autolesão, com sono e apetite preservados, bom desempenho escolar e funcionalidade mantida. Esse perfil sugere quadro depressivo leve, sem critérios de gravidade que indiquem encaminhamento imediato ao CAPS ou internação. A atenção primária deve acolher, avaliar risco, envolver a família e iniciar acompanhamento multiprofissional, com reavaliação periódica e orientação sobre sinais de alerta.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>C: propor o envolvimento da família no cuidado e iniciar acompanhamento multidisciplinar na Unidade Básica de Saúde</strong>. O adolescente apresenta sintomas depressivos leves, sem risco suicida iminente e com funcionalidade preservada. A conduta inicial na atenção primária é o acolhimento, a avaliação de risco, o envolvimento familiar e o acompanhamento multiprofissional, reservando encaminhamentos especializados para casos moderados a graves, com prejuízo funcional importante, risco suicida ou falha do manejo inicial.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Convocar responsáveis e encaminhar ao CAPS infantojuvenil:</strong> Erro porque o encaminhamento ao CAPS não é a primeira conduta em quadros leves, sem risco e com funcionalidade preservada. O CAPS é indicado para casos moderados a graves ou quando há necessidade de suporte especializado.</p>
+            <p><strong>Alternativa B - Prescrever ISRS e encaminhar ao ambulatório de saúde mental:</strong> Erro porque a prescrição de antidepressivo não é a primeira linha em depressão leve na adolescência; a psicoterapia e o acompanhamento multiprofissional são preferenciais inicialmente. Além disso, o encaminhamento ambulatorial imediato não é necessário nesse perfil.</p>
+            <p><strong>Alternativa D - Explicar que a distimia faz parte da adolescência e orientar a aguardar:</strong> Erro porque minimiza o sofrimento do adolescente e não oferece cuidado adequado. A ideação de “sumir” e a perda de interesse exigem acolhimento e acompanhamento, não apenas observação passiva.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Nega intenção ou planejamento suicida:</strong> indica ausência de risco iminente, permitindo manejo na atenção primária.</li>
+                <li><strong>Nega comportamentos autolesivos ou tentativas anteriores:</strong> reduz o risco e favorece acompanhamento ambulatorial.</li>
+                <li><strong>Sono regular, apetite inalterado, bom desempenho escolar e funcionalidade preservada:</strong> sugerem quadro leve, sem critérios de gravidade.</li>
+                <li><strong>Dificuldade de relacionamento com os pais:</strong> aponta para a importância do envolvimento familiar no cuidado.</li>
+                <li><strong>Comparece espontaneamente:</strong> demonstra busca de ajuda e possibilidade de vínculo com a equipe.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Avaliar a presença de risco suicida (ideação, plano, intenção, tentativas prévias, autolesão) e a gravidade dos sintomas.</li>
+                <li><strong>Segundo:</strong> Verificar funcionalidade: escola, sono, apetite, relações familiares e sociais.</li>
+                <li><strong>Terceiro:</strong> Em quadros leves, sem risco, propor envolvimento da família e iniciar acompanhamento multiprofissional na UBS.</li>
+                <li><strong>Quarto:</strong> Reavaliar periodicamente; encaminhar ao CAPS ou ambulatório especializado se houver piora, risco suicida, prejuízo funcional importante ou falha do manejo inicial.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em saúde mental na atenção primária.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> depressão leve sem risco suicida e com funcionalidade preservada pode ser manejada na atenção primária com envolvimento familiar e equipe multiprofissional.</li>
+                <li><strong>Números e doses:</strong> não há indicação automática de ISRS em depressão leve na adolescência; a psicoterapia é primeira linha.</li>
+                <li><strong>Mnemônicos:</strong> lembrar "RISCO" para avaliação: Risco suicida, Intenção/plano, Sintomas graves, Comprometimento funcional e Outros fatores (autolesão, substâncias).</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferença entre manejo na UBS e encaminhamento especializado.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Depressão leve</td>
+                        <td>Tristeza, anedonia, isolamento, sem risco suicida, funcionalidade preservada.</td>
+                        <td>Avaliação clínica e de risco; escalas podem auxiliar.</td>
+                        <td>Acolhimento, envolvimento familiar, acompanhamento multiprofissional na UBS.</td>
+                    </tr>
+                    <tr>
+                        <td>Depressão moderada/grave</td>
+                        <td>Prejuízo funcional importante, sintomas intensos, risco suicida, autolesão.</td>
+                        <td>Avaliação especializada.</td>
+                        <td>Encaminhamento ao CAPS/ambulatório; considerar medicação.</td>
+                    </tr>
+                    <tr>
+                        <td>Risco suicida iminente</td>
+                        <td>Ideação com plano, intenção, tentativa prévia, desesperança intensa.</td>
+                        <td>Avaliação de risco criteriosa.</td>
+                        <td>Internação ou encaminhamento de urgência; não deixar o paciente sozinho.</td>
+                    </tr>
+                    <tr>
+                        <td>Luto/reação ao estresse</td>
+                        <td>Sintomas após evento específico, preservação relativa da funcionalidade.</td>
+                        <td>Clínico.</td>
+                        <td>Acolhimento, escuta ativa e seguimento na atenção primária.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão foi sobre tratamento:</strong> poderia perguntar quando iniciar ISRS, quando encaminhar ao CAPS ou quando indicar internação.</li>
+                <li><strong>Exemplo:</strong> "Se a questão descrevesse ideação suicida com plano, a resposta seria encaminhamento de urgência/internação. Se descrevesse depressão leve sem risco, a resposta seria manejo na UBS com envolvimento familiar. Se descrevesse autolesão em adolescente, a resposta envolveria avaliação de risco e conduta ética com sigilo."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q37</td>
+                        <td>Homem de 23 anos, universitário, encontrado chorando com cartelas de medicamentos, admite ideação suicida, tristeza profunda, isolamento e abandono de psicoterapia.</td>
+                        <td>Conduta diante de risco suicida com planejamento.</td>
+                        <td>D - internação em enfermaria de saúde mental em hospital geral.</td>
+                        <td>Mesmo tema (risco suicida), mas em quadro grave com ideação e plano, exigindo internação. A questão atual é um quadro leve, sem risco, manejável na UBS.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q43</td>
+                        <td>Mulher de 42 anos após desastre natural, angustiada, com insônia e pesadelos, nega ideação suicida.</td>
+                        <td>Manejo inicial de sofrimento psíquico na atenção primária.</td>
+                        <td>A - escuta ativa e seguimento na atenção primária.</td>
+                        <td>Relaciona-se por ser sofrimento psíquico sem risco, manejável na UBS, reforçando a lógica de cuidado longitudinal.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q85</td>
+                        <td>Mulher de 52 anos em luto recente pela morte do filho, chorosa, sem ideação suicida.</td>
+                        <td>Manejo do luto na atenção primária.</td>
+                        <td>D - acompanhamento longitudinal e apoio pela equipe da UBS.</td>
+                        <td>Relaciona-se por ser sofrimento psíquico sem risco, com indicação de cuidado na atenção primária.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q62</td>
+                        <td>Adolescente de 15 anos com autolesão e conflito familiar relacionado à orientação sexual; pede sigilo.</td>
+                        <td>Conduta ética e manejo de autolesão em adolescente.</td>
+                        <td>A - preservar sigilo sobre orientação sexual e revelar aos pais os comportamentos autolesivos.</td>
+                        <td>Relaciona-se por envolver adolescente, sofrimento psíquico e necessidade de envolver a família, mas com foco em autolesão e sigilo.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema saúde mental apareceu em pelo menos 4 questões das provas analisadas (Q37, Q43, Q62 e Q85). A banca alterna entre quadros graves com risco suicida, sofrimento psíquico sem risco e situações de autolesão/sigilo. Há uma clara valorização da estratificação de risco e do manejo na atenção primária quando não há gravidade.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Depressão leve em adolescente com envolvimento familiar e acompanhamento multiprofissional na UBS (foco da questão atual); uso de escalas de rastreio; critérios para iniciar ISRS em adolescentes; articulação com a escola.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em situações de maior gravidade (risco suicida, autolesão) ou sofrimento reativo (luto, desastre). A questão atual avança para o manejo de quadros leves na atenção primária, exigindo diferenciar quando encaminhar e quando acompanhar na UBS.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a estratificação de risco em saúde mental, os critérios de encaminhamento ao CAPS, o papel da família e o manejo inicial da depressão leve na adolescência.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Saúde do adolescente e desenvolvimento psicossocial; conflitos familiares e escolaridade são fatores relevantes no manejo.</li>
+                <li><strong>Conexão 2:</strong> Prevenção do suicídio e identificação de fatores de risco; a avaliação de risco é transversal a todos os quadros depressivos.</li>
+                <li><strong>Conexão 3:</strong> Rede de atenção psicossocial (RAPS) e articulação entre UBS, CAPS e ambulatórios especializados.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é superestimar a gravidade e encaminhar ao CAPS ou prescrever antidepressivo de imediato, ou subestimar o quadro e orientar apenas observação. A classificação provável é confusão conceitual sobre níveis de cuidado em saúde mental. A estratégia corretiva é memorizar que depressão leve sem risco e com funcionalidade preservada é manejada na atenção primária, com envolvimento familiar e equipe multiprofissional; encaminhamentos e medicações ficam reservados para quadros moderados/graves ou com risco.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o adolescente que procura a UBS com tristeza e isolamento deve ser acolhido, ter seu risco avaliado e ser incluído em acompanhamento com a equipe. O envolvimento da família é fundamental, mas deve ser feito com cuidado e respeitando a singularidade do adolescente. A reavaliação periódica permite identificar piora e encaminhar precocemente quando necessário.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Critérios diagnósticos de depressão maior e depressão leve.</li>
+                <li>Avaliação de risco suicida em adolescentes.</li>
+                <li>Papel da atenção primária e do CAPS na rede de saúde mental.</li>
+                <li>Indicações de psicoterapia e de ISRS em adolescentes.</li>
+                <li>Sigilo, autonomia e envolvimento familiar em adolescentes.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Cadernos de Atenção Básica - Saúde Mental.</p>
+            <p>2. Sociedade Brasileira de Pediatria. Depressão na infância e adolescência.</p>
+            <p>3. Associação Brasileira de Psiquiatria. Diretrizes para o tratamento da depressão.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

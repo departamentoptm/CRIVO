@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 64 - Ginecologia: Lesão Vulvar Ulcerada Crônica - Diagnóstico Diferencial e Biópsia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Lesão Vulvar Ulcerada Crônica - Diagnóstico Diferencial e Biópsia</div>
+        <h1>Questão 64</h1>
+        <div class="question-text">
+            Mulher de 72 anos, diabética, procura atendimento devido a uma lesão pruriginosa em vulva, há 8 meses. Fez uso de corticosteroides tópicos e aciclovir por 6 semanas, sem melhora dos sintomas ou redução da lesão. O exame físico revela: lesão no lábio externo, arredondada, circunscrita, ulcerada, com 3 cm de diâmetro, bordas discretamente elevadas e pouco definidas, fundo hiperemiado e granulado, com depósitos esbranquiçados na região central.
+        </div>
+
+```
+    <div style="text-align:center; margin:20px 0;">
+        <img src="vulva_lesao.jpg" alt="Lesão vulvar ulcerada crônica em lábio externo" style="max-width:100%; height:auto; border-radius:8px;">
+    </div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Esfregaço da lesão para coloração de Gram.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Genotipagem de HPV.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Biópsia da lesão.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Vulvoscopia com ácido acético.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Ginecologia / Oncologia Ginecológica / Dermatologia Vulvar</p>
+            <p><strong>Tema:</strong> Lesão vulvar ulcerada crônica em idosa - suspeita de carcinoma vulvar e indicação de biópsia</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência e no Enamed, pois úlceras vulvares crônicas exigem diagnóstico diferencial amplo e investigação histopatológica. A persistência por 8 meses, a falta de resposta a corticosteroide tópico e aciclovir e as características da lesão (bordas elevadas, fundo granulado, depósitos esbranquiçados) tornam obrigatória a exclusão de neoplasia vulvar, especialmente carcinoma espinocelular. A biópsia é o exame confirmatório.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Úlceras vulvares crônicas podem decorrer de infecções (herpes, sífilis, cancroide, tuberculose), doenças inflamatórias (liquen escleroso, doença de Behçet, doença de Crohn), dermatoses e neoplasias. Em idosas, lesões ulceradas persistentes e refratárias ao tratamento empírico devem levantar a suspeita de carcinoma vulvar, sobretudo o espinocelular, que pode se desenvolver sobre liquen escleroso ou lesões precursoras associadas ao HPV. A biópsia com exame anatomopatológico é o padrão-ouro para diferenciar benignidade de malignidade e definir conduta. Exames microbiológicos podem ser úteis em infecções, mas não substituem a biópsia quando há lesão crônica e suspeita de neoplasia.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C - Biópsia da lesão.</strong> É a conduta indicada para confirmar a hipótese diagnóstica. Diante de uma úlcera vulvar crônica em idosa, sem melhora com corticosteroides e aciclovir, com bordas elevadas e fundo granulado, a principal preocupação é neoplasia vulvar. A biópsia permite diagnóstico histopatológico, define o tipo de lesão e orienta o tratamento. A investigação deve incluir avaliação de linfonodos e estadiamento se malignidade confirmada.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Esfregaço da lesão para coloração de Gram.</strong> Incorreta. O Gram pode auxiliar em infecções bacterianas, mas não confirma neoplasia e é insuficiente diante de lesão crônica e suspeita de malignidade.</p>
+            <p><strong>Alternativa B - Genotipagem de HPV.</strong> Incorreta. A genotipagem de HPV tem papel em rastreamento e lesões precursoras cervicais/vulvares, mas não substitui a biópsia de uma úlcera crônica suspeita.</p>
+            <p><strong>Alternativa C</strong> - Correta. A biópsia é o exame indicado para confirmação diagnóstica.</p>
+            <p><strong>Alternativa D - Vulvoscopia com ácido acético.</strong> Incorreta. A vulvoscopia pode auxiliar na avaliação de lesões intraepiteliais, mas não é o exame confirmatório de úlcera crônica com suspeita de carcinoma; a biópsia é necessária.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Idosa de 72 anos e diabética:</strong> maior risco de neoplasias vulvares e infecções crônicas.</li>
+                <li><strong>Lesão pruriginosa há 8 meses:</strong> cronicidade que afasta causas autolimitadas.</li>
+                <li><strong>Uso de corticosteroide tópico e aciclovir sem melhora:</strong> refratariedade a tratamentos empíricos para dermatoses e herpes.</li>
+                <li><strong>Úlcera com bordas elevadas, fundo granulado e depósitos esbranquiçados:</strong> características que aumentam a suspeita de malignidade.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Avaliar lesão vulvar crônica com exame detalhado e história de tratamentos prévios.</li>
+                <li><strong>Segundo:</strong> Considerar diagnóstico diferencial amplo, incluindo infecções, dermatoses e neoplasias.</li>
+                <li><strong>Terceiro:</strong> Indicar biópsia da lesão para confirmação histopatológica.</li>
+                <li><strong>Quarto:</strong> Se malignidade confirmada, encaminhar para avaliação oncológica e estadiamento.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em ginecologia.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Úlcera vulvar crônica refratária em idosa exige biópsia para excluir carcinoma vulvar.</li>
+                <li><strong>Números e doses:</strong> Carcinoma vulvar tem pico em mulheres idosas, especialmente acima de 60-70 anos.</li>
+                <li><strong>Mnemônico:</strong> “Úlcera vulvar crônica que não melhora = biópsia”.</li>
+            </ul>
+            <p>Esses dados são essenciais para evitar atraso diagnóstico de neoplasia vulvar.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Carcinoma vulvar (correta)</td>
+                        <td>Idosa, úlcera crônica, bordas elevadas, fundo granulado, refratária a tratamento</td>
+                        <td>Biópsia da lesão</td>
+                        <td>Encaminhamento oncológico e estadiamento</td>
+                    </tr>
+                    <tr>
+                        <td>Herpes genital</td>
+                        <td>Lesões vesiculosas dolorosas, recorrentes, resposta ao aciclovir</td>
+                        <td>PCR ou cultura viral, clínica</td>
+                        <td>Antiviral e acompanhamento</td>
+                    </tr>
+                    <tr>
+                        <td>Sífilis primária</td>
+                        <td>Úlcera indolor, bordas endurecidas, adenopatia inguinal</td>
+                        <td>Sorologia, campo escuro</td>
+                        <td>Penicilina benzatina</td>
+                    </tr>
+                    <tr>
+                        <td>Liquen escleroso</td>
+                        <td>Placas esbranquiçadas, prurido intenso, atrofia vulvar</td>
+                        <td>Clínica e biópsia se dúvida</td>
+                        <td>Corticoide tópico potente e seguimento</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre infecção:</strong> a resposta poderia incluir PCR para herpes ou sorologia para sífilis.</li>
+                <li><strong>Se fosse sobre lesão precursora:</strong> a resposta poderia envolver vulvoscopia e biópsia dirigida.</li>
+                <li><strong>Se fosse sobre tratamento de carcinoma:</strong> a resposta poderia incluir cirurgia e avaliação de linfonodos.</li>
+                <li><strong>Se fosse sobre liquen escleroso:</strong> a resposta poderia ser corticoide tópico potente e seguimento.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q64 (atual)</td>
+                        <td>Idosa de 72 anos com úlcera vulvar crônica refratária a corticosteroide e aciclovir.</td>
+                        <td>Confirmação diagnóstica de lesão vulvar crônica.</td>
+                        <td>C (biópsia)</td>
+                        <td>Questão atual; não há outra questão anterior sobre úlcera vulvar crônica nas provas analisadas.</td>
+                    </tr>
+                    <tr>
+                        <td>Enamed 2026 - Q76</td>
+                        <td>Paciente de 46 anos com DNA-HPV oncogênico positivo e citologia normal.</td>
+                        <td>Conduta em rastreamento de câncer de colo uterino.</td>
+                        <td>B</td>
+                        <td>Relaciona-se ao HPV e prevenção de câncer ginecológico, mas não aborda lesão vulvar ulcerada.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema lesão vulvar crônica não apareceu em outras questões das provas anteriores analisadas além da própria Q64. A banca tem cobrado HPV e rastreamento cervical de forma pontual, mas não havia abordado úlcera vulvar e carcinoma vulvar.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Diagnóstico diferencial de úlceras vulvares, carcinoma vulvar, lesões precursoras (VIN), liquen escleroso, doença de Paget vulvar e manejo oncológico.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há histórico suficiente para identificar evolução. A tendência é que o tema seja cobrado com casos clínicos que exijam reconhecimento de lesões suspeitas e indicação de biópsia.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar lesões vulvares crônicas, carcinoma vulvar, biópsia e diagnóstico diferencial com infecções e dermatoses.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> HPV e câncer ginecológico - o HPV está associado a lesões precursoras cervicais, vulvares e anais.</li>
+                <li><strong>Conexão 2:</strong> Dermatoses vulvares - liquen escleroso e outras doenças inflamatórias podem mimetizar ou predispor a neoplasias.</li>
+                <li><strong>Conexão 3:</strong> Diabetes e infecções - a diabetes aumenta o risco de infecções crônicas e pode dificultar a cicatrização de lesões.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é indicar exame microbiológico ou vulvoscopia em vez de biópsia, não valorizando a cronicidade e a suspeita de neoplasia. A estratégia corretiva é memorizar que úlcera vulvar crônica refratária em idosa exige biópsia para excluir carcinoma. Classificação do erro: lacuna de conhecimento ou erro de interpretação clínica.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a biópsia de lesão vulvar suspeita permite diagnóstico precoce de carcinoma e melhora o prognóstico. O encaminhamento adequado e o estadiamento são essenciais para o tratamento oncológico. Lesões benignas também podem ser diagnosticadas e tratadas adequadamente após a biópsia.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Diagnóstico diferencial de úlceras vulvares.</li>
+                <li>Carcinoma vulvar: epidemiologia, apresentação e diagnóstico.</li>
+                <li>Liquen escleroso e lesões precursoras vulvares.</li>
+                <li>HPV e carcinogênese ginecológica.</li>
+                <li>Indicações e técnicas de biópsia vulvar.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO) - Doenças vulvares.</p>
+            <p>2. International Federation of Gynecology and Obstetrics (FIGO) - Vulvar cancer staging and management.</p>
+            <p>3. Williams Gynecology - capítulo de neoplasias vulvares e doenças dermatológicas da vulva.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

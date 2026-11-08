@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 28 - Ginecologia: Dismenorreia primária - fisiopatologia da dor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Dismenorreia primária - fisiopatologia da dor</div>
+        <h1>Questão 28</h1>
+        <div class="question-text">
+            Mariana, 14 anos, estudante, com cólicas menstruais intensas há cerca de um ano e diagnóstico estabelecido de dismenorreia primária. Já procurou nas redes e mídias sociais a explicação correta para o surgimento das dores ficando mais confusa e preocupada. O mecanismo fisiopatológico correto do surgimento da dor é
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - a produção elevada de estrogênio durante a fase proliferativa, estimulando contrações uterinas de grande intensidade.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - a ativação persistente da musculatura cervical, desencadeando espasmos e aumento da pressão intrauterina e abdominal.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - o crescimento do endométrio associado ao aumento da vascularização uterina, elevando a sensibilidade pélvica e muscular.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - o aumento da síntese de prostanoides endometriais, promovendo hipercontratilidade e redução do fluxo sanguíneo uterino.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - a liberação aumentada de progesterona e inibina B na fase lútea, intensificando o tônus basal do endométrio e pressão uterina.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia</p>
+            <p><strong>Tema:</strong> Dismenorreia primária - mecanismo fisiopatológico da dor</p>
+            <p><strong>Contextualização:</strong> A dismenorreia primária é a causa mais comum de dor pélvica cíclica em adolescentes e mulheres jovens, afetando até 90% das mulheres em idade reprodutiva. O tema é de alta incidência em provas de ginecologia e atenção primária, cobrando o mecanismo fisiopatológico (prostaglandinas), o diagnóstico clínico e o tratamento (AINEs e contraceptivos hormonais). Compreender a fisiopatologia permite diferenciar dismenorreia primária de secundária e orientar corretamente a paciente.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A dismenorreia primária ocorre em ciclos ovulatórios, quando o endométrio secretor produz quantidades elevadas de prostaglandinas (prostanoides), especialmente PGF2α e PGE2, sob estímulo da progesterona da fase lútea. Com a menstruação, há liberação dessas prostaglandinas no miométrio, causando contrações uterinas intensas e prolongadas (hipercontratilidade), além de vasoconstrição dos vasos uterinos. O resultado é isquemia relativa do miométrio, responsável pela dor em cólica. A PGF2α também aumenta a sensibilidade dos nociceptores e pode causar sintomas sistêmicos (náuseas, vômitos, diarreia, cefaleia). O tratamento baseia-se em inibidores da ciclooxigenase (AINEs) e em métodos que suprimem a ovulação (contraceptivos hormonais combinados), reduzindo a produção de prostaglandinas.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa D.</strong> Está correta. O aumento da síntese de prostanoides endometriais (prostaglandinas) é o mecanismo fisiopatológico central da dismenorreia primária. Essas substâncias promovem hipercontratilidade do miométrio e redução do fluxo sanguíneo uterino (vasoconstrição), levando à isquemia e à dor em cólica. A afirmação é tecnicamente precisa e corresponde ao consenso da literatura.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - O estrogênio na fase proliferativa estimula o crescimento endometrial, mas não é o principal responsável pela dor da dismenorreia. A dor ocorre na fase menstrual, mediada por prostaglandinas produzidas sob influência da progesterona da fase lútea. O estrogênio não causa diretamente contrações intensas. Alternativa incorreta.</p>
+            <p><strong>Alternativa B</strong> - A ativação da musculatura cervical não é o mecanismo da dismenorreia primária. A dor é de origem miometrial e isquêmica, não cervical. Alternativa incorreta.</p>
+            <p><strong>Alternativa C</strong> - O crescimento endometrial e o aumento da vascularização ocorrem, mas não são o mecanismo direto da dor. A dor decorre da ação das prostaglandinas sobre o miométrio e os vasos, não apenas da sensibilidade pélvica. Alternativa incorreta.</p>
+            <p><strong>Alternativa E</strong> - A progesterona e a inibina B não são os mediadores da dor. A progesterona da fase lútea estimula a produção de prostaglandinas, mas são estas que causam a hipercontratilidade e a isquemia. A inibina B não tem papel na dismenorreia. Alternativa incorreta.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Dismenorreia primária:</strong> dor pélvica cíclica em mulheres jovens, sem doença pélvica orgânica.</li>
+                <li><strong>Cólicas menstruais intensas:</strong> dor em cólica, típica da hipercontratilidade miometrial.</li>
+                <li><strong>Mecanismo fisiopatológico:</strong> pergunta direcionada à causa da dor.</li>
+                <li><strong>Adolescente de 14 anos:</strong> faixa etária típica da dismenorreia primária, geralmente em ciclos ovulatórios.</li>
+                <li><strong>Prostanoides endometriais:</strong> termo que engloba as prostaglandinas, mediadoras da dor.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Caracterizar a dor: cíclica, em cólica, no início da menstruação, sem dispareunia ou dor pélvica crônica.</li>
+                <li><strong>Segundo:</strong> Diferenciar dismenorreia primária de secundária: na primária, o exame pélvico é normal e a dor começa na adolescência.</li>
+                <li><strong>Terceiro:</strong> Reconhecer o mecanismo: prostaglandinas produzidas no endométrio secretor causam hipercontratilidade e isquemia.</li>
+                <li><strong>Quarto:</strong> Tratar com AINEs (inibidores da COX) e/ou contraceptivos hormonais combinados.</li>
+                <li><strong>Quinto:</strong> Se refratária, investigar causas secundárias (endometriose, malformações mullerianas, adenomiose) com USG transvaginal e, se necessário, laparoscopia.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "fisiopatologia" e "conduta".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> dismenorreia primária = dor menstrual em cólica, sem patologia pélvica, mediada por prostaglandinas.</li>
+                <li><strong>Números e doses:</strong> AINEs (ibuprofeno 400-600 mg a cada 6-8h, naproxeno 500 mg a cada 12h) iniciados 1-2 dias antes da menstruação; contraceptivos hormonais combinados contínuos ou cíclicos.</li>
+                <li><strong>Mnemônicos/regras:</strong> "dismenorreia primária = prostaglandinas"; "AINE é a primeira linha".</li>
+            </ul>
+            <p>Esses dados aparecem com frequência em provas de ginecologia e atenção primária.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dismenorreia primária</td>
+                        <td>Dor em cólica no início da menstruação, adolescente, exame pélvico normal</td>
+                        <td>Clínico; USG se dúvida</td>
+                        <td>AINEs, contraceptivos hormonais, medidas de suporte</td>
+                    </tr>
+                    <tr>
+                        <td>Dismenorreia secundária</td>
+                        <td>Dor progressiva, dispareunia, dor pélvica crônica, início após anos de ciclos normais</td>
+                        <td>USG transvaginal, RM, laparoscopia</td>
+                        <td>Tratar causa (endometriose, adenomiose, malformação)</td>
+                    </tr>
+                    <tr>
+                        <td>Endometriose</td>
+                        <td>Dismenorreia progressiva, dispareunia profunda, infertilidade</td>
+                        <td>USG com mapeamento, RM, laparoscopia</td>
+                        <td>Hormônios, cirurgia, reprodução assistida</td>
+                    </tr>
+                    <tr>
+                        <td>Adenomiose</td>
+                        <td>Útero aumentado, sangramento abundante, dor</td>
+                        <td>USG transvaginal, RM</td>
+                        <td>Hormônios, DIU-LNG, cirurgia</td>
+                    </tr>
+                    <tr>
+                        <td>Malformações mullerianas</td>
+                        <td>Dismenorreia refratária em adolescentes, obstrução do fluxo</td>
+                        <td>USG, RM, histeroscopia</td>
+                        <td>Cirurgia</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial da dor pélvica cíclica.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o tratamento de primeira linha:</strong> AINEs (inibidores da COX).</li>
+                <li><strong>Se pedisse o tratamento em quem não quer engravidar ou tem dismenorreia refratária:</strong> contraceptivos hormonais combinados.</li>
+                <li><strong>Se pedisse a causa mais comum de dismenorreia secundária em adolescentes:</strong> endometriose ou malformações mullerianas obstrutivas.</li>
+                <li><strong>Se pedisse o exame inicial na suspeita de secundária:</strong> USG transvaginal.</li>
+                <li><strong>Se pedisse o mecanismo da dor:</strong> prostaglandinas (prostanoides).</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2010 - Q7</td>
+                        <td>Sobre a dismenorreia primária: I - causa = aumento da produção endometrial de prostaglandinas; II - começa horas antes ou logo após início da menstruação; III - dura 48-72h; IV - tratada com inibidores da prostaglandina sintetase ou contracepção hormonal</td>
+                        <td>Mecanismo, clínica e tratamento da dismenorreia primária</td>
+                        <td>D (todas corretas)</td>
+                        <td>Confirma diretamente o mecanismo (prostaglandinas) e o tratamento</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q24</td>
+                        <td>Adolescente 16 anos, cólicas menstruais fortes desde a menarca, já fez tratamentos, exame ginecológico normal</td>
+                        <td>Diferenciação de dismenorreia primária versus secundária</td>
+                        <td>D (dismenorreia secundária)</td>
+                        <td>Mostra a importância de reconhecer a primária e investigar quando refratária</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q24</td>
+                        <td>Adolescente 16 anos, cólicas desde a menarca, tratamentos sem melhora, exame normal</td>
+                        <td>Suspeita de dismenorreia secundária</td>
+                        <td>D (dismenorreia secundária)</td>
+                        <td>Reforça que dor refratária exige investigação de causas orgânicas</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q39</td>
+                        <td>Jovem 19 anos, dismenorreia desde a menarca, ACO sem melhora, nega sexarca; afirmativas sobre investigação</td>
+                        <td>Dismenorreia primária, investigação de malformações mullerianas e USG</td>
+                        <td>B (III e V)</td>
+                        <td>Reforça o mecanismo primário e a investigação de causas secundárias quando refratária</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 4 questões no período. A banca alterna entre mecanismo fisiopatológico (prostaglandinas), clínica, tratamento e investigação de causas secundárias quando a dismenorreia é refratária.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> o papel da inibina B e da progesterona na fisiopatologia (distratores da questão atual) e os critérios de encaminhamento para laparoscopia em adolescentes com dismenorreia refratária.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas cobravam mecanismo e tratamento; as mais recentes cobram a diferenciação entre primária e secundária e a investigação de causas orgânicas.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a fisiopatologia (prostaglandinas), o tratamento com AINEs e ACO, e os critérios de investigação de dismenorreia secundária.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Dismenorreia primária → tratamento com AINEs → inibição da COX → redução das prostaglandinas.</li>
+                <li><strong>Conexão 2:</strong> Dismenorreia refratária → investigação de endometriose, adenomiose e malformações mullerianas → USG transvaginal e laparoscopia.</li>
+                <li><strong>Conexão 3:</strong> Contraceptivos hormonais combinados → supressão da ovulação → redução da produção de prostaglandinas → melhora da dismenorreia.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é atribuir a dor ao estrogênio (alternativa A) ou à progesterona/inibina (alternativa E), esquecendo que os mediadores são as prostaglandinas (prostanoides). Classificação provável do erro: lacuna de conhecimento sobre a fisiopatologia. Ação corretiva: memorizar que "dismenorreia primária = prostaglandinas = AINE é a primeira linha".</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a adolescente com dismenorreia primária deve ser tranquilizada quanto à benignidade do quadro e orientada sobre o uso correto de AINEs (iniciados antes ou no início da menstruação) e, se necessário, contraceptivos hormonais. A educação sobre a fisiopatologia (prostaglandinas) ajuda a adesão ao tratamento. A persistência dos sintomas ou sinais de alarme (dispareunia, dor pélvica crônica, infertilidade) devem motivar investigação de causas secundárias.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Fisiopatologia da dismenorreia primária (prostaglandinas)</li>
+                <li>Tratamento com AINEs e contraceptivos hormonais</li>
+                <li>Diferenciação entre dismenorreia primária e secundária</li>
+                <li>Investigação de endometriose, adenomiose e malformações mullerianas</li>
+                <li>USG transvaginal e laparoscopia</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Dismenorreia.</p>
+            <p>2. ACOG. Dysmenorrhea: Painful Periods. FAQ, 2023.</p>
+            <p>3. UpToDate. Primary dysmenorrhea in adolescents: Clinical manifestations and diagnosis. 2024.</p>
+            <p>4. Nelson Textbook of Pediatrics, 21ª edição.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

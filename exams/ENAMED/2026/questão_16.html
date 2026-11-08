@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 16 - Cardiopatia Chagásica Crônica: Confirmação Diagnóstica na Insuficiência Cardíaca</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cardiopatia Chagásica Crônica: Confirmação Diagnóstica na Insuficiência Cardíaca</div>
+        <h1>Questão 16</h1>
+        <div class="question-text">
+            Homem de 64 anos, agricultor, residente em zona rural, está em investigação em uma Unidade Básica de Saúde por insuficiência cardíaca com fração de ejeção reduzida. De antecedentes relevantes, informa 2 episódios de malária há 10 anos e hipertensão arterial controlada. A mãe faleceu de arritmia aos 48 anos. Exames laboratoriais descartam diabetes mellitus e dislipidemia. Eletrocardiograma apresenta bloqueio de ramo direito. Ecocardiograma mostra dilatação ventricular excêntrica bilateral.<br><br>
+            Considerando-se a principal hipótese clínica e a fase da doença, qual método laboratorial é indicado para a confirmação diagnóstica nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Exame parasitológico direto por gota espessa.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Intradermo reação de Montenegro.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Sorologia por IgG em dois métodos distintos.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Reação em cadeia da polimerase.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cardiologia / Infectologia / Clínica Médica</p>
+            <p><strong>Tema:</strong> Cardiopatia chagásica crônica e confirmação sorológica da infecção por <em>Trypanosoma cruzi</em>.</p>
+            <p><strong>Contextualização:</strong> A doença de Chagas é uma infecção parasitária endêmica em várias regiões do Brasil, especialmente em áreas rurais. A forma crônica cardíaca é a manifestação mais grave e uma importante causa de insuficiência cardíaca, arritmias e morte súbita. O tema é relevante para provas de residência porque cobra a suspeita clínica em pacientes com epidemiologia compatível, achados eletrocardiográficos típicos e a confirmação laboratorial adequada.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A cardiopatia chagásica crônica resulta de uma miocardite fibrosante progressiva causada pela infecção pelo <em>Trypanosoma cruzi</em>. O parasita lesa fibras miocárdicas e o sistema de condução, levando a fibrose, arritmias, bloqueios (especialmente bloqueio de ramo direito e bloqueio divisional anterossuperior), dilatação ventricular e disfunção sistólica. O quadro clínico pode evoluir com insuficiência cardíaca, tromboembolismo e morte súbita. O paciente apresenta epidemiologia compatível (zona rural), bloqueio de ramo direito e dilatação ventricular bilateral, achados clássicos da cardiopatia chagásica.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>C</strong>. Na fase crônica da doença de Chagas, o diagnóstico é confirmado por sorologia para IgG anti-<em>Trypanosoma cruzi</em> em dois métodos distintos (por exemplo, ELISA, imunofluorescência indireta ou hemaglutinação indireta). Quando há discordância, um terceiro método é utilizado. A sorologia é o padrão-ouro para confirmação na fase crônica, pois a parasitemia é baixa e os métodos diretos têm baixa sensibilidade.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. O exame parasitológico direto por gota espessa é útil na fase aguda da doença de Chagas e no diagnóstico de malária, mas tem baixa sensibilidade na fase crônica, quando a parasitemia é escassa e intermitente.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A intradermo reação de Montenegro é utilizada no diagnóstico de leishmaniose tegumentar, não da doença de Chagas.</p>
+            <p><strong>Alternativa C</strong> - Correta. A sorologia por IgG em dois métodos distintos é o método indicado para confirmação da doença de Chagas crônica.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A reação em cadeia da polimerase (PCR) pode ser útil em situações específicas, como suspeita de reativação em imunossuprimidos, infecção congênita ou aguda, mas não é o método de primeira linha para confirmação da fase crônica, devido à baixa e variável parasitemia.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Agricultor, residente em zona rural”</strong>: epidemiologia compatível com exposição ao vetor triatomíneo.</li>
+                <li><strong>“Insuficiência cardíaca com fração de ejeção reduzida”</strong>: manifestação da cardiopatia chagásica crônica.</li>
+                <li><strong>“Bloqueio de ramo direito”</strong>: achado eletrocardiográfico clássico da doença de Chagas cardíaca.</li>
+                <li><strong>“Dilatação ventricular excêntrica bilateral”</strong>: remodelamento típico da cardiomiopatia chagásica.</li>
+                <li><strong>“Mãe faleceu de arritmia aos 48 anos”</strong>: possível morte súbita por cardiopatia, reforçando a hipótese.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer a suspeita de cardiopatia chagásica crônica em paciente com epidemiologia rural, insuficiência cardíaca, bloqueio de ramo direito e dilatação ventricular.</li>
+                <li><strong>Segundo:</strong> Solicitar sorologia para IgG anti-<em>T. cruzi</em> em dois métodos distintos.</li>
+                <li><strong>Terceiro:</strong> Se os resultados forem discordantes, realizar um terceiro método para confirmação.</li>
+                <li><strong>Quarto:</strong> Confirmado o diagnóstico, avaliar gravidade cardíaca, tratar insuficiência cardíaca, avaliar arritmias e indicar anticoagulação quando pertinente.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Doença de Chagas crônica é confirmada por dois testes sorológicos IgG distintos.</li>
+                <li><strong>Números e doses:</strong> A sorologia deve ser feita em dois métodos diferentes; se discordantes, um terceiro método.</li>
+                <li><strong>Mnemônicos:</strong> “Crônico = sorologia em dois métodos; agudo = parasitológico direto”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferença entre diagnóstico na fase aguda e crônica.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cardiopatia chagásica crônica (correta)</td>
+                        <td>Epidemiologia rural, ICC, bloqueio de ramo direito, dilatação ventricular</td>
+                        <td>Sorologia IgG em dois métodos distintos</td>
+                        <td>Tratamento da ICC, avaliação de arritmias e anticoagulação conforme risco</td>
+                    </tr>
+                    <tr>
+                        <td>Cardiomiopatia dilatada idiopática</td>
+                        <td>Dilatação ventricular sem epidemiologia ou sorologia positiva</td>
+                        <td>Ecocardiograma, sorologia negativa para Chagas</td>
+                        <td>Tratamento padrão da ICC</td>
+                    </tr>
+                    <tr>
+                        <td>Cardiopatia isquêmica</td>
+                        <td>Fatores de risco, dor torácica, alterações de parede segmentares</td>
+                        <td>ECG, troponina, cinecoronariografia</td>
+                        <td>Reperfusão e tratamento anti-isquêmico</td>
+                    </tr>
+                    <tr>
+                        <td>Cardiopatia hipertensiva</td>
+                        <td>Hipertrofia ventricular esquerda, história de HAS</td>
+                        <td>Ecocardiograma, controle pressórico</td>
+                        <td>Controle da PA e tratamento da ICC</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas a confirmação.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre fase aguda:</strong> a resposta poderia envolver exame parasitológico direto.</li>
+                <li><strong>Se fosse sobre reativação:</strong> a resposta poderia envolver PCR.</li>
+                <li><strong>Se fosse sobre complicação:</strong> a resposta poderia envolver arritmias, tromboembolismo ou morte súbita.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> a resposta envolveria benznidazol/nifurtimox na fase crônica selecionada e tratamento da ICC.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q16</td>
+                        <td>Homem de 64 anos, agricultor, com ICC, bloqueio de ramo direito e dilatação ventricular.</td>
+                        <td>Confirmação diagnóstica da cardiopatia chagásica crônica.</td>
+                        <td>Sorologia por IgG em dois métodos distintos.</td>
+                        <td>É a própria questão atual.</td>
+                    </tr>
+                    <tr>
+                        <td>Não identificado</td>
+                        <td>Não foram encontradas, no material de provas anteriores disponível, outras questões especificamente sobre doença de Chagas cardíaca.</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Tema não abordado em outras questões do arquivo analisado; pode ser tema novo ou de baixa incidência no material.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> No material analisado, a doença de Chagas aparece de forma isolada, com foco na confirmação sorológica na fase crônica e no reconhecimento de cardiopatia estrutural.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Reativação em imunossuprimidos, doença de Chagas congênita, forma digestiva (megaesôfago/megacólon) e tratamento etiológico podem surgir em provas futuras.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica adicional no material fornecido; a tendência é cobrar diagnóstico diferencial e conduta prática.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar doença de Chagas crônica, sorologia em dois métodos, achados eletrocardiográficos e manejo da cardiomiopatia chagásica.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Insuficiência cardíaca - a cardiopatia chagásica é importante causa de ICC com fração de ejeção reduzida.</li>
+                <li><strong>Conexão 2:</strong> Arritmias e morte súbita - bloqueios e arritmias ventriculares são comuns e exigem avaliação especializada.</li>
+                <li><strong>Conexão 3:</strong> Tromboembolismo - a dilatação ventricular e o aneurisma apical aumentam o risco de AVC cardioembólico.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro comum é escolher exame parasitológico direto ou PCR por confundir fase aguda com fase crônica, ou valorizar a história de malária como diagnóstico principal. Trata-se de lacuna de conhecimento sobre a confirmação sorológica da doença de Chagas crônica. A correção é memorizar: na fase crônica, a parasitemia é baixa; o diagnóstico é sorológico, com dois métodos IgG distintos.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na atenção primária, reconhecer a cardiopatia chagásica permite iniciar tratamento da insuficiência cardíaca, avaliar risco de arritmias e indicar anticoagulação quando há trombo ou alto risco embólico. A confirmação sorológica é acessível e deve ser solicitada diante de epidemiologia e achados compatíveis.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Doença de Chagas: fases aguda e crônica</li>
+                <li>Sorologia para <em>Trypanosoma cruzi</em></li>
+                <li>Cardiopatia chagásica e achados eletrocardiográficos</li>
+                <li>Insuficiência cardíaca e arritmias</li>
+                <li>Diagnóstico diferencial das cardiomiopatias dilatadas</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Doença de Chagas.</p>
+            <p>2. Sociedade Brasileira de Cardiologia. Diretrizes sobre Cardiopatia Chagásica.</p>
+            <p>3. Organização Pan-Americana da Saúde (OPAS). Guia para diagnóstico e tratamento da doença de Chagas.</p>
+            <p>4. UpToDate. Chagas disease: Chronic cardiomyopathy diagnosis and management.</p>
+            <p>5. World Health Organization. Chagas disease (American trypanosomiasis) fact sheet.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

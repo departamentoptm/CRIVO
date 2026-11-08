@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 5 - Rastreamento do Câncer Colorretal em Paciente de Alto Risco</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Rastreamento do Câncer Colorretal em Paciente de Alto Risco</div>
+        <h1>Questão 5</h1>
+        <div class="question-text">
+            Homem de 34 anos, tabagista, sedentário, com IMC 43 kg/m² e assintomático, comparece a uma consulta em Unidade Básica de Saúde relatando que seu pai foi diagnosticado com câncer de cólon aos 53 anos. O paciente demonstra preocupação com a doença. Considerando-se o rastreamento do câncer colorretal desse paciente pelo SUS, a conduta nesse caso é solicitar colonoscopia:
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - na consulta atual.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - a partir dos 43 anos.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - a partir dos 50 anos.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - se a pesquisa de sangue oculto tiver resultado positivo.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Gastroenterologia / Atenção Primária à Saúde</p>
+            <p><strong>Tema:</strong> Rastreamento do câncer colorretal em paciente de alto risco por história familiar de primeiro grau.</p>
+            <p><strong>Contextualização:</strong> O câncer colorretal é uma das neoplasias mais frequentes e apresenta rastreamento eficaz. A atenção primária é responsável por identificar fatores de risco, orientar e encaminhar para colonoscopia quando indicado. A banca costuma cobrar a diferença entre rastreamento de risco padrão e alto risco, além da idade correta de início conforme a história familiar.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O câncer colorretal origina-se, na maioria dos casos, de pólipos adenomatosos que evoluem ao longo de anos. Por isso, a colonoscopia permite diagnóstico precoce e remoção de lesões precursoras. Em pacientes com familiar de primeiro grau com câncer colorretal antes dos 60 anos, o risco é maior e o rastreamento deve começar mais cedo: aos 40 anos ou 10 anos antes da idade do diagnóstico do familiar, o que ocorrer primeiro. Como o pai foi diagnosticado aos 53 anos, 10 anos antes corresponde a 43 anos. O paciente tem 34 anos e está assintomático; portanto, a colonoscopia deve ser programada a partir dos 43 anos, e não agora.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>B</strong>. O paciente é assintomático, mas tem história familiar de primeiro grau de câncer de cólon diagnosticado antes dos 60 anos (aos 53). Nesse cenário, as diretrizes recomendam colonoscopia a partir dos 40 anos ou 10 anos antes do caso índice, prevalecendo o que ocorrer primeiro. Assim, 53 menos 10 = 43 anos. A obesidade e o tabagismo são fatores de risco adicionais, mas não substituem o critério familiar para definir a idade de início. O rastreamento não deve ser feito na consulta atual (34 anos) nem postergado para os 50 anos, que é a idade de início para risco padrão.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Realizar colonoscopia na consulta atual, aos 34 anos, anteciparia o rastreamento sem indicação. O paciente é assintomático e a regra do familiar de primeiro grau com câncer antes dos 60 anos indica início aos 43 anos.</p>
+            <p><strong>Alternativa B</strong> - Correta. A colonoscopia deve ser solicitada a partir dos 43 anos, conforme a regra de 10 anos antes da idade do diagnóstico do familiar de primeiro grau, ou aos 40 anos, o que ocorrer primeiro.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. A partir dos 50 anos é a recomendação para rastreamento de risco padrão. O paciente tem história familiar de primeiro grau com câncer antes dos 60 anos, o que o classifica como alto risco e antecipa o início.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A pesquisa de sangue oculto nas fezes é uma estratégia de rastreamento para risco padrão e não deve ser usada para condicionar a colonoscopia em pacientes de alto risco. Nesse grupo, a colonoscopia é o método preferencial.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Pai diagnosticado com câncer de cólon aos 53 anos”:</strong> familiar de primeiro grau com câncer colorretal antes dos 60 anos, indicando alto risco e rastreamento antecipado.</li>
+                <li><strong>“Assintomático”:</strong> trata-se de rastreamento, não de investigação diagnóstica por sintomas.</li>
+                <li><strong>“IMC 43 kg/m² e tabagista”:</strong> fatores de risco adicionais, mas o critério que define a idade de início é a história familiar.</li>
+                <li><strong>“Pelo SUS”:</strong> remete às diretrizes brasileiras de rastreamento, que incorporam a regra dos 10 anos antes do caso índice.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Identificar se há história familiar de primeiro grau de câncer colorretal e a idade do diagnóstico. Pai aos 53 anos: familiar de primeiro grau antes dos 60.</li>
+                <li><strong>Segundo:</strong> Calcular a idade de início: 40 anos ou 10 anos antes do diagnóstico do familiar, o que ocorrer primeiro. 53 - 10 = 43 anos.</li>
+                <li><strong>Terceiro:</strong> Não indicar colonoscopia imediata aos 34 anos, pois o paciente é assintomático e ainda não atingiu a idade de início.</li>
+                <li><strong>Quarto:</strong> Programar colonoscopia a partir dos 43 anos e reforçar medidas de estilo de vida, como cessação do tabagismo e perda de peso.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Familiar de primeiro grau com câncer colorretal antes dos 60 anos = alto risco; colonoscopia aos 40 anos ou 10 anos antes do caso índice, o que ocorrer primeiro.</li>
+                <li><strong>Números e doses:</strong> 53 - 10 = 43 anos; risco padrão: início aos 50 anos; colonoscopia de rastreamento em alto risco, se normal, repetir a cada 5 anos.</li>
+                <li><strong>Mnemônicos:</strong> “10 antes ou 40” para alto risco familiar; “50 para risco padrão”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a idade de início do rastreamento conforme o risco. Em provas anteriores, o tema foi cobrado de forma indireta em questões sobre rastreamento geral e manejo do câncer de cólon já diagnosticado.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alto risco por história familiar (a correta)</td>
+                        <td>Familiar de primeiro grau com câncer colorretal antes dos 60 anos; paciente assintomático</td>
+                        <td>Colonoscopia a partir dos 40 anos ou 10 anos antes do caso índice</td>
+                        <td>Iniciar aos 43 anos neste caso; repetir conforme achados</td>
+                    </tr>
+                    <tr>
+                        <td>Risco padrão</td>
+                        <td>Sem história familiar significativa, sem síndromes hereditárias ou doença inflamatória intestinal</td>
+                        <td>Pesquisa de sangue oculto ou colonoscopia</td>
+                        <td>Iniciar aos 50 anos, conforme diretrizes</td>
+                    </tr>
+                    <tr>
+                        <td>Síndrome de Lynch</td>
+                        <td>História familiar de câncer colorretal e outros cânceres em gerações sucessivas, início precoce</td>
+                        <td>Critérios de Amsterdam/Bethesda; teste genético</td>
+                        <td>Rastreamento ainda mais precoce e encaminhamento especializado</td>
+                    </tr>
+                    <tr>
+                        <td>Doença inflamatória intestinal</td>
+                        <td>Colite ulcerativa ou doença de Crohn de longa data</td>
+                        <td>Colonoscopia com biópsias</td>
+                        <td>Rastreamento após 8 a 10 anos de doença, conforme extensão</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+            <ul>
+                <li><strong>Se a questão foi sobre idade de início:</strong> a resposta é 43 anos, pela regra dos 10 anos antes do caso índice.</li>
+                <li><strong>Se a questão pedisse o exame:</strong> a resposta seria colonoscopia, preferencial em alto risco.</li>
+                <li><strong>Se a questão pedisse risco padrão:</strong> a resposta seria iniciar aos 50 anos com pesquisa de sangue oculto ou colonoscopia.</li>
+                <li><strong>Se a questão pedisse conduta diante de sangue oculto positivo:</strong> a resposta seria colonoscopia, independentemente da idade de rastreamento.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025 - Q62</td>
+                        <td>Homem de 52 anos, tabagista, sem sintomas, procura revisão clínica; história familiar de diabetes, hipertensão e mãe com câncer de pulmão.</td>
+                        <td>Rastreamento geral e prevenção, incluindo pesquisa de sangue oculto nas fezes e cessação do tabagismo.</td>
+                        <td>D</td>
+                        <td>Relaciona-se ao rastreamento, mas não aborda alto risco familiar para câncer colorretal nem a idade de início da colonoscopia.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q46</td>
+                        <td>Homem de 58 anos no 2º dia de pós-operatório de hemicolectomia esquerda por neoplasia de cólon, com distensão abdominal e náuseas.</td>
+                        <td>Manejo de íleo pós-operatório após cirurgia colorretal.</td>
+                        <td>B</td>
+                        <td>Não é rastreamento; aborda complicação pós-operatória de câncer de cólon já diagnosticado.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O rastreamento específico do câncer colorretal em alto risco familiar ainda não foi cobrado diretamente. A banca tem cobrado rastreamento geral e manejo do câncer já diagnosticado.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Idade de início da colonoscopia em familiar de primeiro grau com câncer antes dos 60 anos, escolha entre colonoscopia e pesquisa de sangue oculto, intervalos de repetição e síndromes hereditárias. Essas abordagens podem surgir na próxima prova.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores eram mais voltadas ao rastreamento geral e ao manejo pós-operatório. A tendência é cobrar situações aplicadas de risco familial e tomada de decisão na atenção primária.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os critérios de alto risco para câncer colorretal, a regra dos 10 anos antes do caso índice, a idade de início aos 40 anos e a preferência pela colonoscopia nesse grupo.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <p>Como esse tema se integra com outros:</p>
+            <ul>
+                <li><strong>Conexão 1:</strong> Síndromes hereditárias - história familiar de câncer colorretal pode indicar síndrome de Lynch ou polipose adenomatosa familiar, exigindo rastreamento ainda mais precoce e aconselhamento genético.</li>
+                <li><strong>Conexão 2:</strong> Fatores de risco modificáveis - tabagismo, obesidade e sedentarismo aumentam o risco de câncer colorretal e devem ser abordados na atenção primária.</li>
+                <li><strong>Conexão 3:</strong> Saúde coletiva - o rastreamento organizado reduz mortalidade e deve ser incorporado às ações preventivas da UBS.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou alternativa incorreta, o erro provavelmente foi de lacuna de conhecimento sobre a regra de início do rastreamento em alto risco ou de confusão entre risco padrão e alto risco. A estratégia corretiva é memorizar: familiar de primeiro grau com câncer colorretal antes dos 60 anos indica colonoscopia aos 40 anos ou 10 anos antes do diagnóstico do familiar, o que ocorrer primeiro. Também é importante não confundir rastreamento com investigação de sintomas e não condicionar a colonoscopia ao sangue oculto em alto risco.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática da atenção primária, o médico deve identificar a história familiar, calcular a idade de início do rastreamento e orientar o paciente sobre a colonoscopia. Além disso, deve reforçar a cessação do tabagismo, a perda de peso e a atividade física. O encaminhamento deve ser feito no tempo correto, evitando tanto a antecipação desnecessária quanto o atraso do diagnóstico.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Rastreamento do câncer colorretal em risco padrão e alto risco</li>
+                <li>Critérios de história familiar para início precoce da colonoscopia</li>
+                <li>Síndrome de Lynch e polipose adenomatosa familiar</li>
+                <li>Pesquisa de sangue oculto nas fezes versus colonoscopia</li>
+                <li>Fatores de risco modificáveis para câncer colorretal</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Diretrizes para o rastreamento do câncer colorretal.</p>
+            <p>2. Instituto Nacional de Câncer (INCA). Rastreamento do câncer colorretal.</p>
+            <p>3. Federação Brasileira de Gastroenterologia (FBG). Recomendações para rastreamento do câncer colorretal.</p>
+            <p>4. American Cancer Society. Colorectal Cancer Screening Guidelines.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

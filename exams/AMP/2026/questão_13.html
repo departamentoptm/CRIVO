@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 13 - Pediatria: Miosite viral aguda pós-influenza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Miosite viral aguda pós-influenza</div>
+        <h1>Questão 13</h1>
+        <div class="question-text">
+            Adolescente de 14 anos há 5 dias apresentou dor abdominal e cefaleia, acompanhadas de febre e náuseas. Realizou triagem respiratória que foi positiva para Influenza vírus B. Há um dia iniciou com dor em panturrilhas bilateralmente e dificuldade para deambular. Exames laboratoriais mostram leucócitos de 3.700µ/L, CPK (creatinofosfoquinase) de 4.730U/L, TGO (aspartato aminotransferase) de 170U/L, TGP (transaminase glutâmico-pirúvica) de 62U/L. Qual o diagnóstico mais provável?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Miosite viral.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Leptospirose.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Dermatomiosite.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Leucemia aguda.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Síndrome de Guillain-Barré.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Infectologia</p>
+            <p><strong>Tema:</strong> Miosite viral aguda pós-influenza em adolescente</p>
+            <p><strong>Contextualização:</strong> A miosite viral aguda é uma complicação benigna e autolimitada, classicamente associada ao influenza B, que deve ser reconhecida pelo binômio dor em panturrilhas após quadro viral + elevação importante de CPK. É tema de emergência pediátrica por exigir diferenciação de síndrome de Guillain-Barré, dermatomiosite e doenças hematológicas.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A miosite viral ocorre por invasão viral direta e/ou resposta imune contra fibras musculares esqueléticas, com necrose e liberação de enzimas musculares. O influenza B é o agente clássico. Há dor e sensibilidade muscular, especialmente em panturrilhas e coxas, com dificuldade para deambular, mas força muscular e reflexos geralmente preservados. A CPK eleva-se por lesão muscular; AST e ALT também podem subir por origem muscular. A leucopenia é compatível com etiologia viral.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - Miosite viral.</strong> O quadro é típico: adolescente com prodromo de influenza B, dor bilateral em panturrilhas, dificuldade para caminhar e CPK muito elevada, com transaminases moderadamente aumentadas e leucopenia. O diagnóstico é clínico-laboratorial e o tratamento é de suporte: hidratação, analgesia, repouso relativo e monitorização de sinais de rabdomiólise (urina escura, oligúria). A resolução costuma ocorrer em dias a semanas.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa B - Leptospirose.</strong> Cursa com exposição a água/roedores, febre, mialgia, icterícia, lesão renal e hepática; pode haver CPK elevada, mas o contexto de influenza B e o padrão benigno de panturrilhas não favorecem. Não é o diagnóstico mais provável.</p>
+            <p><strong>Alternativa C - Dermatomiosite.</strong> Doença inflamatória crônica com fraqueza proximal simétrica, rash heliotropo, sinal de Gottron e elevação de enzimas musculares. Não se apresenta como quadro agudo pós-influenza com dor isolada de panturrilhas e força preservada.</p>
+            <p><strong>Alternativa D - Leucemia aguda.</strong> Pode causar dor óssea e citopenias, mas o hemograma aqui mostra leucopenia sem blastos ou anemia/plaquetopenia descritas, e a CPK elevada aponta para músculo, não medula óssea.</p>
+            <p><strong>Alternativa E - Síndrome de Guillain-Barré.</strong> É o principal diferencial: fraqueza ascendente simétrica, arreflexia e dissociação albuminocitológica no líquor. Pode haver dor prévia, mas a CPK costuma ser normal ou pouco elevada; a presença de dor em panturrilhas com CPK &gt; 4.000 U/L favorece miosite viral.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Influenza B positivo:</strong> agente clássico da miosite viral aguda benigna da infância/adolescência.</li>
+                <li><strong>Dor em panturrilhas bilateral e dificuldade para deambular:</strong> localização típica da miosite viral.</li>
+                <li><strong>CPK 4.730 U/L:</strong> marcador de lesão muscular; valores muito elevados reforçam miosite/rabdomiólise.</li>
+                <li><strong>AST 170 e ALT 62:</strong> transaminases podem ter origem muscular, não apenas hepática.</li>
+                <li><strong>Leucócitos 3.700/µL:</strong> leucopenia favorece etiologia viral.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer o prodromo viral e a positividade para influenza B.</li>
+                <li><strong>Segundo:</strong> Localizar a dor em panturrilhas e valorizar a CPK muito elevada como lesão muscular.</li>
+                <li><strong>Terceiro:</strong> Excluir Guillain-Barré (força, reflexos, padrão ascendente), dermatomiosite (rash, fraqueza proximal) e leucemia (blastos, citopenias).</li>
+                <li><strong>Quarto:</strong> Confirmar miosite viral e instituir suporte, com orientação de retorno se urina escura, oligúria, fraqueza grave ou piora da deambulação.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "diagnóstico diferencial" e "conduta inicial".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> miosite viral aguda é complicação benigna e autolimitada do influenza B, com dor em panturrilhas e CPK elevada.</li>
+                <li><strong>Números e doses:</strong> CPK pode ultrapassar 1.000 U/L; valores &gt; 5.000 U/L aumentam risco de rabdomiólise e lesão renal. Analgesia com paracetamol ou AINE se necessário, hidratação adequada.</li>
+                <li><strong>Mnemônicos/regras:</strong> "dor em panturrilhas + CPK alta após gripe = miosite viral"; "fraqueza ascendente + arreflexia = Guillain-Barré".</li>
+            </ul>
+            <p>Esses dados ajudam a diferenciar rapidamente miosite viral de seus principais mimics.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Miosite viral</td>
+                        <td>Dor em panturrilhas/coxas após influenza; força e reflexos preservados</td>
+                        <td>CPK muito elevada; leucopenia; diagnóstico clínico</td>
+                        <td>Suporte, hidratação, analgesia, monitorar rabdomiólise</td>
+                    </tr>
+                    <tr>
+                        <td>Síndrome de Guillain-Barré</td>
+                        <td>Fraqueza ascendente simétrica, arreflexia, parestesias</td>
+                        <td>Líquor com dissociação albuminocitológica; eletroneuromiografia</td>
+                        <td>Imunoglobulina IV ou plasmaférese; monitorização respiratória</td>
+                    </tr>
+                    <tr>
+                        <td>Dermatomiosite</td>
+                        <td>Fraqueza proximal, heliotropo, Gottron, calcinose</td>
+                        <td>Enzimas musculares, autoanticorpos, biópsia</td>
+                        <td>Corticoides e imunossupressores</td>
+                    </tr>
+                    <tr>
+                        <td>Leucemia aguda</td>
+                        <td>Palidez, sangramentos, febre, dor óssea, hepatoesplenomegalia</td>
+                        <td>Hemograma com blastos; mielograma</td>
+                        <td>Encaminhamento oncohematológico urgente</td>
+                    </tr>
+                    <tr>
+                        <td>Leptospirose</td>
+                        <td>Exposição a água contaminada, icterícia, renal, mialgia difusa</td>
+                        <td>Sorologia/PCR; função renal e hepática</td>
+                        <td>Antibiótico e suporte</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o agente:</strong> influenza B é o clássico.</li>
+                <li><strong>Se pedisse o exame alterado:</strong> CPK muito elevada, com AST/ALT de origem muscular.</li>
+                <li><strong>Se pedisse a complicação:</strong> rabdomiólise com lesão renal aguda por mioglobinúria.</li>
+                <li><strong>Se pedisse o principal diferencial:</strong> síndrome de Guillain-Barré.</li>
+                <li><strong>Se pedisse a conduta:</strong> suporte, hidratação e analgesia, com orientação de sinais de alarme.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <p><strong>Tema não abordado nas provas de 2006_2026.</strong> Não foram identificadas questões específicas sobre miosite viral aguda pós-influenza. Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica e pela possibilidade de confusão com Guillain-Barré.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>-</td>
+                        <td>Nenhuma questão idêntica identificada no período 2006-2026</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Tema específico não cobrado</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q48</td>
+                        <td>Escolar com fraqueza proximal, lesões palpebrais eritemato-violáceas e pápulas em superfícies extensoras</td>
+                        <td>Dermatomiosite; fator preditivo de gravidade</td>
+                        <td>A</td>
+                        <td>Diferencial de miosite inflamatória; ajuda a excluir dermatomiosite</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q62</td>
+                        <td>Paciente com parestesias, paresia progressiva e arreflexia após infecção</td>
+                        <td>Síndrome de Guillain-Barré; líquor</td>
+                        <td>B</td>
+                        <td>Principal diagnóstico diferencial da miosite viral</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q9</td>
+                        <td>Menina com fraqueza, mialgia e parestesias após diarreia</td>
+                        <td>Guillain-Barré; líquor normal na primeira semana</td>
+                        <td>D</td>
+                        <td>Reforça a importância de diferenciar dor muscular de fraqueza neuropática</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q7</td>
+                        <td>Adolescente com paralisia ascendente, paralisia facial e ataxia após infecção viral</td>
+                        <td>Guillain-Barré; tratamento com imunoglobulina</td>
+                        <td>D</td>
+                        <td>Diferencial com quadro pós-viral</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q7</td>
+                        <td>Adolescente com parestesias e fraqueza após gastroenterite</td>
+                        <td>Guillain-Barré; reflexos abolidos</td>
+                        <td>D</td>
+                        <td>Mostra que a banca cobra síndromes pós-infecciosas</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q89</td>
+                        <td>Criança com distrofia muscular de Duchenne</td>
+                        <td>Doença muscular; sinais clínicos</td>
+                        <td>A</td>
+                        <td>Diferencial de doença muscular crônica</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico não apareceu nas provas anteriores. Temas neuromusculares próximos, especialmente Guillain-Barré, apareceram de forma recorrente, sobretudo em quadros pós-infecciosos.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> miosite viral aguda pós-influenza, elevação de CPK, rabdomiólise e diagnóstico diferencial com Guillain-Barré.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem valorizado quadros pós-infecciosos com manifestação neuromuscular; a próxima prova pode explorar o reconhecimento de miosite viral benigna e seus sinais de alarme.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar síndromes pós-influenza, interpretação de CPK, diagnóstico diferencial de fraqueza aguda e sinais de rabdomiólise.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Influenza B → miosite viral → rabdomiólise → lesão renal aguda por mioglobinúria.</li>
+                <li><strong>Conexão 2:</strong> Quadros pós-infecciosos → Guillain-Barré → fraqueza ascendente e arreflexia; a dor muscular com CPK alta ajuda a separar miosite de neuropatia.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é confundir miosite viral com Guillain-Barré por ambos ocorrerem após infecção viral. A chave é: miosite viral causa dor muscular, CPK muito elevada e força/reflexos preservados; Guillain-Barré causa fraqueza ascendente, arreflexia e CPK normal ou pouco elevada. Classificação provável do erro: confusão conceitual entre dor muscular e fraqueza neuropática. Ação corretiva: memorizar o padrão "panturrilhas + CPK alta + influenza = miosite" e revisar red flags de Guillain-Barré.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o paciente com miosite viral deve ser tranquilizado, hidratado e tratado com analgesia. Deve-se orientar retorno se houver urina escura, redução da diurese, fraqueza intensa, incapacidade de deambular, dor desproporcional ou sinais de neuropatia. A CPK não precisa ser repetida de rotina se a evolução é típica e favorável.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Miosite viral aguda benigna da infância</li>
+                <li>Influenza B e complicações musculares</li>
+                <li>Rabdomiólise e lesão renal aguda</li>
+                <li>Síndrome de Guillain-Barré</li>
+                <li>Dermatomiosite juvenil</li>
+                <li>Interpretação de CPK, AST e ALT</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Nelson Textbook of Pediatrics, 21ª edição.</p>
+            <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria, 5ª edição.</p>
+            <p>3. UpToDate. Viral myositis in children. 2024.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

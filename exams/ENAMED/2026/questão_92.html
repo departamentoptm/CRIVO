@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 92 - Contracepção em adolescente e sigilo na Atenção Primária à Saúde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Contracepção em adolescente e sigilo na Atenção Primária à Saúde</div>
+        <h1>Questão 92</h1>
+        <div class="question-text">
+            Adolescente de 16 anos, assintomática, procura atendimento em uma Unidade de Saúde da Família, sozinha. Em consulta, informa que iniciou atividade sexual consentida com um colega da escola, de mesma idade, razão pela qual pede ao médico que coloque nela um implante contraceptivo de longa duração. Refere que seus pais têm ciência do namoro, mas não sabem que ela iniciou sua vida sexual. Qual é a conduta adequada do médico nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Encaminhar a paciente para o serviço ginecológico.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Acionar o Conselho Tutelar da Criança e do Adolescente.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Comunicar aos pais da paciente o desejo de anticoncepção.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Atender ao pedido feito pela paciente quanto à anticoncepção.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Atenção Primária à Saúde / Saúde do Adolescente / Ética Médica / Saúde da Mulher</p>
+            <p><strong>Tema:</strong> Atendimento de adolescente que solicita contracepção de longa duração, com ênfase em autonomia, sigilo, consentimento parental e acesso a métodos contraceptivos na Atenção Primária à Saúde.</p>
+            <p><strong>Contextualização:</strong> É um tema de alta relevância na Atenção Primária, pois envolve saúde sexual e reprodutiva, prevenção de gravidez não planejada, respeito à autonomia progressiva do adolescente e manejo ético do sigilo. A banca costuma cobrar a conduta prática do médico diante de adolescente sexualmente ativa que procura o serviço sozinha, diferenciando situações de risco ou violência - que exigem notificação - de situações de sexualidade consentida e busca espontânea de cuidado.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Na adolescência, a capacidade de decisão sobre a própria saúde é progressiva. O Estatuto da Criança e do Adolescente e as normas de saúde sexual e reprodutiva reconhecem o direito do adolescente ao atendimento confidencial e ao acesso a métodos contraceptivos, desde que haja avaliação de vulnerabilidades, compreensão e consentimento informado. A sexualidade consensuada entre adolescentes de idade semelhante não configura, por si só, situação de violência ou abuso que obrigue notificação ao Conselho Tutelar. O implante contraceptivo de longa duração é um método reversível de alta eficácia, indicado para adolescentes que desejam contracepção, após aconselhamento sobre benefícios, riscos, efeitos adversos e alternativas. O sigilo deve ser mantido, exceto em situações de risco grave à vida ou de violência, quando a proteção e a notificação se sobrepõem. Portanto, a conduta adequada é acolher, orientar e atender ao pedido de anticoncepção, preservando o sigilo e a autonomia da paciente.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa D é a correta.</strong> A adolescente de 16 anos procura espontaneamente o serviço, relata atividade sexual consentida com colega de mesma idade e solicita método contraceptivo. Não há relato de violência, coerção, abuso ou risco iminente. Nesse contexto, o médico deve acolher a demanda, realizar aconselhamento contraceptivo, avaliar critérios de elegibilidade, oferecer o implante de longa duração ou outras opções e manter o sigilo profissional. A participação dos pais pode ser estimulada quando possível e benéfica, mas não é condição obrigatória para o atendimento contraceptivo nesse cenário. A conduta está alinhada à promoção da saúde sexual e reprodutiva e à prevenção de gravidez não planejada.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Encaminhar automaticamente ao serviço ginecológico não é necessário. A Atenção Primária à Saúde é competente para acolher, orientar e ofertar métodos contraceptivos, incluindo o implante, conforme protocolos e disponibilidade. O encaminhamento pode ocorrer em situações específicas, mas não como primeira conduta diante de um pedido de contracepção sem intercorrências.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Acionar o Conselho Tutelar não é indicado apenas porque a adolescente iniciou atividade sexual consensuada com parceiro de mesma idade e busca contracepção. A notificação compulsória ao Conselho Tutelar ocorre em situações de violência, abuso, exploração sexual ou risco grave, o que não está descrito no caso.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. Comunicar aos pais contra a vontade da paciente, de forma obrigatória, viola o sigilo e pode afastar a adolescente do serviço. A família pode ser envolvida com consentimento e quando isso favorecer o cuidado, mas não deve ser condição para atendimento contraceptivo em situação de sexualidade consentida e sem risco.</p>
+            <p><strong>Alternativa D</strong> - Correta. O médico deve atender ao pedido de anticoncepção, após aconselhamento, avaliação de elegibilidade e esclarecimento sobre o método, respeitando a autonomia e o sigilo da adolescente.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“16 anos” e “sozinha”:</strong> indicam adolescente com autonomia progressiva e atendimento confidencial, sem necessidade automática de acompanhante.</li>
+                <li><strong>“Atividade sexual consentida com um colega da escola, de mesma idade”:</strong> afasta, em princípio, a hipótese de violência sexual ou abuso que exigiria notificação.</li>
+                <li><strong>“Pede implante contraceptivo de longa duração”:</strong> direciona para oferta de método reversível de alta eficácia, com aconselhamento e avaliação de elegibilidade.</li>
+                <li><strong>“Pais têm ciência do namoro, mas não sabem que ela iniciou sua vida sexual”:</strong> sinaliza a tensão entre sigilo e envolvimento familiar, que deve ser manejada com acolhimento e respeito à autonomia.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> acolher a adolescente, garantir privacidade e explicar as regras de sigilo e de proteção.</li>
+                <li><strong>Segundo:</strong> avaliar se há sinais de violência, coerção, exploração ou risco grave; se presentes, acionar proteção e notificação.</li>
+                <li><strong>Terceiro:</strong> na ausência de risco, realizar aconselhamento contraceptivo, avaliar critérios de elegibilidade e oferecer métodos disponíveis, incluindo o implante de longa duração.</li>
+                <li><strong>Quarto:</strong> estimular, quando possível, o diálogo familiar sem torná-lo obrigatório; manter acompanhamento na UBS e orientar sobre prevenção de ISTs e retorno.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> sexualidade consensuada entre adolescentes de idade semelhante não é, por si só, motivo de notificação ao Conselho Tutelar; o adolescente tem direito ao atendimento confidencial em saúde sexual e reprodutiva.</li>
+                <li><strong>Números e doses:</strong> o implante contraceptivo é um método de longa duração, reversível e de alta eficácia; a escolha depende de critérios de elegibilidade e preferência da paciente.</li>
+                <li><strong>Mnemônicos:</strong> “Sigilo com proteção: acolher, avaliar risco, orientar e ofertar método”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma confundir autonomia do adolescente com obrigatoriedade de consentimento parental e notificação.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Adolescente com sexualidade consentida e pedido de contracepção</td>
+                        <td>Relato claro, parceiro de idade semelhante, ausência de coerção ou violência.</td>
+                        <td>Avaliação clínica e aconselhamento; exames conforme indicação.</td>
+                        <td>Acolher, manter sigilo, ofertar contracepção e acompanhar.</td>
+                    </tr>
+                    <tr>
+                        <td>Situação de violência sexual ou abuso</td>
+                        <td>Coerção, assimetria de idade/poder, lesões, medo, relato de abuso.</td>
+                        <td>Avaliação de risco e exames conforme protocolo.</td>
+                        <td>Proteção imediata, notificação compulsória e acionamento da rede.</td>
+                    </tr>
+                    <tr>
+                        <td>Adolescente com risco de gravidez e vulnerabilidade social</td>
+                        <td>Busca de método, dúvidas, falta de apoio, barreiras de acesso.</td>
+                        <td>Avaliação de vulnerabilidades e critérios de elegibilidade.</td>
+                        <td>Aconselhamento, oferta de métodos e articulação intersetorial.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+            <ul>
+                <li><strong>Se a questão fosse sobre violência:</strong> a resposta envolveria notificação compulsória e proteção imediata.</li>
+                <li><strong>Se fosse sobre contraindicação:</strong> a resposta poderia envolver enxaqueca com aura e risco de AVC com método combinado.</li>
+                <li><strong>Se fosse sobre método:</strong> a resposta poderia comparar implante, DIU, injetável e pílula conforme critérios de elegibilidade.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior (arquivo provas_anteriores.pdf) - Q47</td>
+                        <td>Adolescente de 15 anos procura consulta ginecológica para iniciar contracepção; tem enxaqueca com aura.</td>
+                        <td>Contraindicação do contraceptivo combinado pelo risco de acidente vascular cerebral.</td>
+                        <td>C</td>
+                        <td>Relaciona-se ao tema de contracepção em adolescente, mas cobra elegibilidade e contraindicação, não sigilo ou consentimento parental.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior (arquivo provas_anteriores.pdf) - Q99</td>
+                        <td>Mulher de 30 anos com lúpus e história de trombose venosa busca contracepção.</td>
+                        <td>Escolha de método contraceptivo conforme critérios de elegibilidade e risco trombótico.</td>
+                        <td>B</td>
+                        <td>Relaciona-se à escolha de método em população especial, mas não aborda adolescente nem sigilo.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior (arquivo provas_anteriores.pdf) - Q26</td>
+                        <td>Paciente de 29 anos com obesidade grave e cirurgia bariátrica programada necessita de orientação contraceptiva.</td>
+                        <td>Contracepção em situação especial e escolha de método.</td>
+                        <td>A</td>
+                        <td>Relaciona-se ao aconselhamento contraceptivo, mas não ao adolescente e à confidencialidade.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema contracepção apareceu em algumas questões das provas anteriores, principalmente sob a forma de escolha de método e contraindicações em populações especiais. Não foi identificada questão idêntica sobre adolescente que procura o serviço sozinha, sigilo e necessidade de consentimento parental.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> implante subdérmico em adolescente, limites do sigilo, quando notificar o Conselho Tutelar, envolvimento familiar facultativo e autonomia progressiva do adolescente.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram mais em critérios clínicos de elegibilidade e contraindicação; a questão atual desloca o foco para ética, sigilo e organização do cuidado na Atenção Primária.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar contracepção na adolescência, direitos sexuais e reprodutivos, sigilo profissional, consentimento informado e situações que exigem notificação compulsória.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <p>Como esse tema se integra com outros:</p>
+            <ul>
+                <li><strong>Conexão 1:</strong> saúde sexual e reprodutiva se conecta à prevenção de ISTs, ao acolhimento em saúde mental e à prevenção de gravidez na adolescência.</li>
+                <li><strong>Conexão 2:</strong> ética e sigilo se conectam à proteção da criança e do adolescente, à notificação compulsória e à atuação intersetorial com Conselho Tutelar e rede de proteção.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é confusão conceitual entre adolescência, sexualidade consentida e obrigatoriedade de consentimento parental ou notificação. A ação corretiva é revisar: (1) autonomia progressiva do adolescente; (2) sigilo em saúde sexual e reprodutiva; (3) situações que realmente exigem Conselho Tutelar; (4) critérios de elegibilidade para métodos contraceptivos, incluindo implante de longa duração.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o médico da UBS deve garantir atendimento acolhedor e confidencial, avaliar risco, orientar sobre métodos e prevenir gravidez não planejada e ISTs. Deve evitar tanto a ruptura injustificada do sigilo quanto a omissão diante de sinais de violência. O envolvimento familiar pode ser estimulado quando seguro e benéfico, mas não deve ser imposto como barreira ao cuidado.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Estatuto da Criança e do Adolescente e autonomia progressiva.</li>
+                <li>Direitos sexuais e reprodutivos de adolescentes.</li>
+                <li>Sigilo profissional e suas exceções.</li>
+                <li>Critérios de elegibilidade para métodos contraceptivos.</li>
+                <li>Implante contraceptivo de longa duração: indicações, benefícios e efeitos adversos.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Brasil. Estatuto da Criança e do Adolescente (Lei nº 8.069/1990).</p>
+            <p>2. Brasil. Ministério da Saúde. Diretrizes nacionais para a atenção integral à saúde de adolescentes e jovens.</p>
+            <p>3. Brasil. Ministério da Saúde. Protocolos de saúde sexual e reprodutiva e planejamento familiar.</p>
+            <p>4. Conselho Federal de Medicina. Normativas sobre atendimento de adolescentes e sigilo profissional.</p>
+            <p>5. Organização Mundial da Saúde. Critérios médicos de elegibilidade para uso de métodos contraceptivos.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

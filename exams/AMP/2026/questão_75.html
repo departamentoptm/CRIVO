@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 75 - Trauma Vascular Abdominal: Lesão de Veia Cava Inferior e Reanimação de Controle de Danos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia do Trauma: Lesão de Veia Cava Inferior e Reanimação de Controle de Danos</div>
+        <h1>Questão 75</h1>
+        <div class="question-text">
+            Um homem de 28 anos, vítima de ferimento por arma de fogo em abdome, deu entrada no pronto-socorro em choque hemorrágico grave (PAS = 60 mmHg, FC = 140 bpm). Foi submetido imediatamente a uma laparotomia exploradora por incisão mediana ampla. Durante o inventário da cavidade, identificou-se sangramento abundante de origem retroperitoneal proveniente de uma lesão penetrante na veia cava inferior (VCI), com grande instabilidade hemodinâmica mantida e exsanguinação em curso. Com base nos princípios de exposição, controle vascular e reparo das lesões vasculares abdominais descritos na literatura cirúrgica de trauma, assinale a conduta correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - A veia cava inferior deve ser abordada e exposta por meio de uma rotação visceral medial esquerda, que estende a visualização da confluência ilíaca até o hiato diafragmático.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - O controle inicial do sangramento da veia cava deve ser feito com pinçamento vascular cego e vigoroso com pinças atraumáticas, dispensando o controle de tributárias lombares ou renais.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - As lesões penetrantes por arma de fogo na aorta abdominal são rotineiramente tratadas por técnica endovascular em pacientes instáveis, dispensando o controle supracelíaco por laparotomia.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Por se tratar de um paciente hemodinamicamente instável com hemorragia contínua e risco de exsanguinação, reparações complexas são contraindicadas, optando-se pela ligadura ou desvio (shunt) do vaso.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Nas lesões anteriores ou laterais simples da veia cava inferior, o reparo primário deve ser evitado quando determinar qualquer grau redução relevante do lúmen vascular, sendo preferível a reconstrução com remendo ou enxerto.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia Geral / Cirurgia do Trauma / Cirurgia Vascular.</p>
+            <p><strong>Tema:</strong> Trauma vascular abdominal - lesão penetrante de veia cava inferior (VCI) em paciente em choque hemorrágico grave e reanimação de controle de danos.</p>
+            <p><strong>Contextualização:</strong> As lesões vasculares abdominais estão entre as mais letais no trauma, com mortalidade que pode ultrapassar 50% nas lesões de VCI retro-hepática. O manejo exige exposição adequada, controle vascular proximal e distal, reparo ou ligadura conforme a estabilidade do paciente. A reanimação de controle de danos (damage control) é a estratégia padrão em pacientes em extremis, priorizando o controle da hemorragia e da contaminação, com reparações complexas postergadas para um segundo momento. O tema é de alta incidência em provas de residência de cirurgia geral e cirurgia do trauma.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A VCI é um vaso de baixa pressão e alto fluxo, cuja lesão leva rapidamente a choque hemorrágico grave. A exposição cirúrgica depende do segmento acometido: a VCI infra-hepática é exposta pela manobra de Cattell-Braasch (rotação visceral medial direita); a VCI supra-hepática exige manobras adicionais (rotação medial do fígado, secção do ligamento falciforme, manobra de Kocher). O controle inicial do sangramento deve ser feito com compressão digital ou com pinças atraumáticas sob visão direta, nunca com pinçamento cego, pelo risco de lesão de estruturas adjacentes. Tributárias lombares e renais devem ser controladas para expor adequadamente a lesão. Em pacientes em extremis, a estratégia de controle de danos prioriza a ligadura do vaso ou o uso de shunt temporário, postergando reparações complexas (enxertos, remendos) para um segundo tempo cirúrgico, após correção da hipotermia, acidose e coagulopatia - a "tríade letal".</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa D - Por se tratar de um paciente hemodinamicamente instável com hemorragia contínua e risco de exsanguinação, reparações complexas são contraindicadas, optando-se pela ligadura ou desvio (shunt) do vaso.</strong> A afirmativa está alinhada com os princípios da reanimação de controle de danos: em pacientes em choque hemorrágico refratário, hipotérmicos, acidóticos e coagulopatas, reparações complexas prolongam o tempo cirúrgico e agravam a tríade letal. A ligadura (especialmente da VCI infra-renal) ou o shunt temporário são estratégias válidas e frequentemente salvadoras, permitindo o controle rápido da hemorragia e a estabilização em UTI para um segundo tempo cirúrgico. A ligadura da VCI infra-renal pode causar edema importante de membros inferiores, mas é tolerada como medida de salvamento; a ligadura da VCI supra-renal é mais grave, mas ainda assim pode ser realizada em extremis.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Errada. A rotação visceral medial esquerda (Mattox) é usada para expor a aorta abdominal e seus ramos, não a VCI. Para a VCI, a manobra de escolha é a rotação visceral medial direita (Cattell-Braasch), que expõe a VCI da confluência ilíaca até o fígado. Distrator que confunde as manobras de exposição.</p>
+            <p><strong>Alternativa B</strong> - Errada. O pinçamento vascular cego é contraindicado no trauma vascular abdominal, pelo risco de lesão de estruturas adjacentes (veias renais, ureter, duodeno, pâncreas). O controle deve ser feito com compressão digital ou pinças atraumáticas sob visão direta. Além disso, as tributárias lombares e renais precisam ser controladas para expor adequadamente a VCI. Distrator que propõe conduta insegura.</p>
+            <p><strong>Alternativa C</strong> - Errada. Em pacientes hemodinamicamente instáveis com lesão penetrante de aorta abdominal, a laparotomia de controle de danos é a regra; a técnica endovascular é reservada a pacientes estáveis com anatomia favorável. Distrator que inverte a indicação.</p>
+            <p><strong>Alternativa D</strong> - Correta. Reflete o princípio da reanimação de controle de danos: em pacientes em extremis, a ligadura ou o shunt são preferíveis a reparações complexas.</p>
+            <p><strong>Alternativa E</strong> - Errada. Nas lesões simples anteriores ou laterais da VCI, o reparo primário (sutura) é preferível e geralmente bem tolerado, mesmo que cause alguma redução do lúmen. O remendo ou enxerto é reservado para lesões complexas ou quando o reparo primário causar estenose grave. Distrator que superestima a necessidade de reconstrução.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"choque hemorrágico grave (PAS 60 mmHg, FC 140 bpm)":</strong> indica instabilidade hemodinâmica importante, contexto de reanimação de controle de danos.</li>
+                <li><strong>"sangramento abundante de origem retroperitoneal... lesão penetrante na veia cava inferior":</strong> lesão vascular abdominal grave, com alto risco de exsanguinação.</li>
+                <li><strong>"grande instabilidade hemodinâmica mantida e exsanguinação em curso":</strong> reforça que reparações complexas são contraindicadas; ligadura ou shunt é a estratégia.</li>
+                <li><strong>"rotação visceral medial esquerda":</strong> distrator; é a manobra para expor a aorta.</li>
+                <li><strong>"pinçamento vascular cego":</strong> distrator; é contraindicado no trauma vascular.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer o paciente em extremis (choque grave, hipotermia, acidose, coagulopatia) e indicar a reanimação de controle de danos.</li>
+                <li><strong>Segundo:</strong> obter exposição adequada da VCI (rotação visceral medial direita/Cattell-Braasch) e controle proximal e distal do sangramento.</li>
+                <li><strong>Terceiro:</strong> avaliar a complexidade da lesão e a estabilidade do paciente: em extremis, preferir ligadura ou shunt; em paciente estabilizado, reparo primário ou reconstrução.</li>
+                <li><strong>Quarto:</strong> programar segundo tempo cirúrgico em 24-48 horas, após correção da tríade letal, para revisão do reparo ou reconstrução definitiva.</li>
+            </ol>
+            <p>Esse raciocínio treina a habilidade de resolver questões de "conduta em trauma grave" e "reanimação de controle de danos".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> VCI infra-hepática exposta pela manobra de Cattell-Braasch (rotação visceral medial direita); aorta exposta pela manobra de Mattox (rotação visceral medial esquerda).</li>
+                <li><strong>Números e doses:</strong> ligadura da VCI infra-renal é tolerada em extremis; reparo primário é preferível nas lesões simples; segunda laparotomia em 24-48 horas para revisão.</li>
+                <li><strong>Mnemônicos:</strong> "D = Damage control" (alternativa D); "Cattell-Braasch = Cava"; "Mattox = Aorta".</li>
+            </ul>
+            <p>Esses dados já foram indiretamente cobrados em provas anteriores, especialmente em questões sobre trauma abdominal e controle de danos.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lesão de VCI (a correta)</td>
+                        <td>Choque hemorrágico, sangramento retroperitoneal, hematoma em zona I/II, lesão penetrante em topografia de VCI.</td>
+                        <td>Laparotomia exploradora; FAST; tomografia em pacientes estáveis.</td>
+                        <td>Controle proximal e distal; reparo primário se estável; ligadura ou shunt em extremis; segundo tempo cirúrgico.</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão de aorta abdominal</td>
+                        <td>Choque profundo, hematoma retroperitoneal, lesão penetrante em topografia aórtica.</td>
+                        <td>Laparotomia; angiotomografia em estáveis.</td>
+                        <td>Controle supracelíaco; reparo primário, enxerto ou shunt; endovascular em estáveis selecionados.</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão de artéria ilíaca</td>
+                        <td>Hematoma em pelve, isquemia de membro, choque.</td>
+                        <td>Laparotomia; angiotomografia em estáveis.</td>
+                        <td>Reparo primário; enxerto; ligadura em extremis.</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão de veia porta</td>
+                        <td>Hematoma em hilo hepático, choque, lesão penetrante em topografia portal.</td>
+                        <td>Laparotomia; manobra de Kocher; tomografia em estáveis.</td>
+                        <td>Reparo primário; ligadura em extremis; shunt.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das lesões vasculares abdominais.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre exposição:</strong> Cattell-Braasch para VCI; Mattox para aorta; Kocher para duodeno/veia porta.</li>
+                <li><strong>Se fosse sobre controle de danos:</strong> ligadura, shunt, packing, segunda laparotomia em 24-48h.</li>
+                <li><strong>Se fosse sobre complicações:</strong> síndrome compartimental abdominal, edema de membros inferiores (após ligadura de VCI), isquemia de membro, rabdomiólise.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> não há prevenção primária; o foco é o atendimento rápido e a reanimação de controle de danos.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q79</td>
+                        <td>Trauma hepático grau 4 com hipotermia, acidose e coagulopatia; melhor conduta.</td>
+                        <td>Reanimação de controle de danos</td>
+                        <td>C (interrupção da cirurgia com compressas, fechamento com plástico e reanimação em UTI)</td>
+                        <td>Reconhece os princípios de controle de danos em paciente em extremis; a questão atual aplica esses princípios à lesão de VCI.</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q32</td>
+                        <td>Fratura pélvica com choque grau IV, síndrome compartimental abdominal; conduta.</td>
+                        <td>Manejo do choque hemorrágico e síndrome compartimental</td>
+                        <td>E (medir PIA; se 25-30 mmHg, laparotomia descompressiva)</td>
+                        <td>Relaciona-se ao manejo do paciente grave com sangramento; a questão atual foca em lesão vascular específica.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q94</td>
+                        <td>Hematoma retroperitoneal zona II; qual trauma está mais associado?</td>
+                        <td>Zonas do retroperitônio</td>
+                        <td>A (trauma renal)</td>
+                        <td>Complementa o conhecimento das lesões retroperitoneais; a questão atual aborda lesão vascular em zona I/II.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q57</td>
+                        <td>Trauma penetrante abdominal com hematoma retroperitoneal zona II; conduta.</td>
+                        <td>Manejo do hematoma retroperitoneal</td>
+                        <td>E (explorar hematoma se não foi previamente avaliado por TC/pielografia)</td>
+                        <td>Reforça o manejo do trauma retroperitoneal; a questão atual foca na lesão de VCI.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q62</td>
+                        <td>Paciente politraumatizado com pneumotórax/hemotórax e choque hipovolêmico; conduta inicial.</td>
+                        <td>Manejo inicial do trauma</td>
+                        <td>A (via aérea definitiva)</td>
+                        <td>Contextualiza o atendimento inicial ao politraumatizado; a questão atual foca na lesão vascular abdominal.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q30</td>
+                        <td>Politraumatizado com fratura pélvica e choque; assertivas sobre fisiopatologia, ressuscitação e fratura.</td>
+                        <td>Fisiopatologia do choque hemorrágico</td>
+                        <td>D (I, II e IV corretas)</td>
+                        <td>Reforça o manejo do choque hemorrágico; a questão atual foca na lesão vascular específica.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q46</td>
+                        <td>Politraumatizado com hipotermia, acidose e coagulopatia; condutas.</td>
+                        <td>Reanimação de controle de danos</td>
+                        <td>C (III e IV corretas)</td>
+                        <td>Relaciona-se ao controle de danos; a questão atual aplica esse conceito à lesão de VCI.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q10</td>
+                        <td>Criança com trauma renal e hematúria; conduta.</td>
+                        <td>Trauma renal</td>
+                        <td>C (I verdadeira; II falsa)</td>
+                        <td>Complementa o trauma abdominal; a questão atual aborda trauma vascular.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q71</td>
+                        <td>Trauma penetrante tóraco-abdominal com instabilidade; conduta.</td>
+                        <td>Manejo do trauma penetrante</td>
+                        <td>B (III e IV corretas)</td>
+                        <td>Reforça o manejo do trauma penetrante; a questão atual foca na lesão de VCI.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q48</td>
+                        <td>Autoagressão com ferimento cervical e torácico; conduta.</td>
+                        <td>Manejo do trauma penetrante</td>
+                        <td>B (III correta)</td>
+                        <td>Contextualiza o trauma penetrante; a questão atual foca na lesão vascular abdominal.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q51</td>
+                        <td>Paciente com trauma abdominal fechado e FAST positivo; conduta.</td>
+                        <td>Manejo do trauma abdominal</td>
+                        <td>E (FAST é insensível para lesão de víscera oca)</td>
+                        <td>Complementa o manejo do trauma abdominal; a questão atual aborda lesão vascular.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q97</td>
+                        <td>Politraumatizado com trauma craniano e fratura exposta; assertivas sobre sangramento intracraniano e hidratação.</td>
+                        <td>Manejo do politraumatizado</td>
+                        <td>E (ambas as assertivas falsas)</td>
+                        <td>Reforça o manejo do politraumatizado; a questão atual foca na lesão vascular abdominal.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema trauma vascular e controle de danos apareceu em pelo menos 12 questões das provas de 2006_2026. A banca alterna entre cobrar reanimação de controle de danos (2006, 2018), manejo do hematoma retroperitoneal (2011, 2013), trauma renal (2019), trauma penetrante (2022, 2023) e manejo do politraumatizado (2016, 2025). A lesão de VCI e as manobras de exposição (Cattell-Braasch vs. Mattox) ainda não foram cobradas diretamente.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> exposição da VCI pela manobra de Cattell-Braasch, contraindicação do pinçamento cego, indicação de ligadura/shunt em extremis e reparo primário nas lesões simples de VCI.</p>
+            <p><strong>Evolução da cobrança:</strong> as questões anteriores foram mais voltadas aos princípios gerais do controle de danos e ao manejo do trauma abdominal; a próxima prova pode cobrar a aplicação desses princípios em lesões vasculares específicas, como a de VCI.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> memorizar as manobras de exposição (Cattell-Braasch para VCI; Mattox para aorta), os princípios do controle de danos (ligadura/shunt em extremis) e a contraindicação do pinçamento cego.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1 - Tríade letal:</strong> hipotermia, acidose e coagulopatia são os principais determinantes de mortalidade no trauma grave; a estratégia de controle de danos visa interromper esse ciclo.</li>
+                <li><strong>Conexão 2 - Síndrome compartimental abdominal:</strong> complicação frequente após ressuscitação volêmica maciça e packing; exige monitorização da PIA e laparotomia descompressiva se necessário.</li>
+                <li><strong>Conexão 3 - Manobras de exposição:</strong> Cattell-Braasch para VCI; Mattox para aorta; Kocher para duodeno e veia porta; cada manobra deve ser dominada para o controle vascular adequado.</li>
+                <li><strong>Conexão 4 - Reparo vascular:</strong> reparo primário é preferível nas lesões simples; enxerto ou remendo para lesões complexas; ligadura/shunt em extremis.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é assinalar a alternativa A (rotação visceral medial esquerda) por confundir as manobras de exposição, ou a E (evitar reparo primário), por superestimar a necessidade de reconstrução. A classificação do erro é <strong>confusão conceitual</strong> sobre as manobras de exposição e <strong>lacuna de conhecimento</strong> sobre os princípios de controle de danos. A ação corretiva é memorizar: Cattell-Braasch = VCI; Mattox = aorta; em extremis, ligadura ou shunt; nas lesões simples, reparo primário. Revisar também a contraindicação do pinçamento cego.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o paciente com lesão de VCI em choque grave deve ser submetido a laparotomia imediata com exposição adequada (Cattell-Braasch), controle proximal e distal do sangramento, e estratégia de controle de danos: ligadura ou shunt em extremis, com programação de segundo tempo cirúrgico. A comunicação com a equipe de UTI e a correção da tríade letal são fundamentais para o prognóstico.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Manobra de Cattell-Braasch (VCI) vs. Mattox (aorta) vs. Kocher (duodeno).</li>
+                <li>Reanimação de controle de danos: ligadura, shunt, packing, segunda laparotomia.</li>
+                <li>Tríade letal: hipotermia, acidose, coagulopatia.</li>
+                <li>Indicações de reparo primário, remendo e enxerto em trauma vascular.</li>
+                <li>Síndrome compartimental abdominal e laparotomia descompressiva.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sabiston Textbook of Surgery, 21ª edição.</p>
+            <p>2. Schwartz's Principles of Surgery, 11ª edição.</p>
+            <p>3. ATLS - Advanced Trauma Life Support, 10ª edição.</p>
+            <p>4. Mattox KL, et al. Trauma, 8ª edição.</p>
+            <p>5. Diretrizes da Sociedade Brasileira de Cirurgia do Trauma para manejo do trauma vascular abdominal.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

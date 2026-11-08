@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 44 - Síndrome de Lise Tumoral: profilaxia e fisiopatologia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Síndrome de Lise Tumoral: profilaxia e fisiopatologia</div>
+        <h1>Questão 44</h1>
+        <div class="question-text">
+            Homem de 21 anos é admitido com quadro de astenia, febre, sudorese noturna e volumosa massa abdominal. A biópsia confirma o diagnóstico de Linfoma de Burkitt. Exames laboratoriais revelam: Desidrogenase Láctica (LDH) = 2.400 U/L (VN: &lt; 240 U/L), Ácido Úrico = 9,8 mg/dL (VN: 3,5 a 7,0 mg/dL), Potássio = 5,6 mEq/L (VN: 3,5 a 5,0 mEq/L), Fósforo = 6,2 mg/dL (VN: 2,5 a 4,5 mg/dL), Cálcio Iônico = 0,92 mmol/L (VN: 1,16 a 1,32 mmol/L) e Creatinina = 1,6 mg/dL (VN: 0,7 a 1,2 mg/dL). Frente ao caso clínico apresentado, assinale a alternativa correta.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+              <input type="radio" name="answer" id="optionA" value="A">
+              <label for="optionA"><strong>A</strong> - A rasburicase (urato oxidase recombinante) atua inibindo a enzima xantina oxidase, sendo a droga profilática de primeira linha indicada indistintamente para os pacientes em risco.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+              <input type="radio" name="answer" id="optionB" value="B">
+              <label for="optionB"><strong>B</strong> - A alcalinização urinária com bicarbonato de sódio deve ser mantida de rotina durante a hidratação profilática, pois aumenta a solubilidade renal do ácido úrico e de todos os demais eletrólitos liberados na lise tumoral.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+              <input type="radio" name="answer" id="optionC" value="C">
+              <label for="optionC"><strong>C</strong> - A destruição maciça de células tumorais na SLT leva tipicamente à tétrade metabólica caracterizada por hiperuricemia, hipercalemia, hiperfosfatemia e hipercalcemia grave por reabsorção óssea reflexa e expressão de PTH-like.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+              <input type="radio" name="answer" id="optionD" value="D">
+              <label for="optionD"><strong>D</strong> - O alopurinol é a medicação de escolha para metabolizar e degradar de forma rápida o ácido úrico que já se encontra em níveis elevados na circulação sanguínea antes do início da quimioterapia.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+              <input type="radio" name="answer" id="optionE" value="E">
+              <label for="optionE"><strong>E</strong> - A profilaxia inclui hidratação venosa abundante e alopurinol; a alcalinização urinária com bicarbonato de sódio não é recomendada, pois o aumento do pH reduz a solubilidade do fosfato de cálcio e da xantina, favorecendo a sua precipitação renal.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Hematologia / Oncologia</p>
+                <p><strong>Tema:</strong> Síndrome de Lise Tumoral (SLT) — fisiopatologia, tétrade metabólica e profilaxia</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência, especialmente em hematologia, oncologia e medicina intensiva. A SLT é uma emergência oncológica que ocorre tipicamente em neoplasias de alto turnover, como o Linfoma de Burkitt, leucemias agudas e linfomas de alto grau. A banca costuma cobrar a tétrade metabólica (hiperuricemia, hipercalemia, hiperfosfatemia e hipocalcemia), a diferenciação entre alopurinol e rasburicase, e as recomendações atuais de profilaxia, que mudaram ao longo dos anos em relação à alcalinização urinária.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A SLT resulta da destruição maciça e rápida de células tumorais (espontaneamente ou após início da quimioterapia), liberando grande quantidade de conteúdo intracelular na circulação. Isso leva à tétrade clássica: <strong>hiperuricemia</strong> (degradação de ácidos nucleicos), <strong>hipercalemia</strong> (liberação de potássio intracelular), <strong>hiperfosfatemia</strong> (liberação de fosfato intracelular) e <strong>hipocalcemia</strong> (o fosfato elevado precipita com o cálcio, reduzindo o cálcio iônico sérico). A hiperuricemia pode causar nefropatia por ácido úrico; a hiperfosfatemia pode causar precipitação de fosfato de cálcio nos túbulos renais; ambos contribuem para lesão renal aguda. A hipercalemia pode causar arritmias graves. A hipocalcemia pode causar tetania, convulsões e prolongamento do QT. A profilaxia baseia-se em hidratação venosa abundante e uso de hipouricemiantes (alopurinol ou rasburicase), com monitorização rigorosa. A alcalinização urinária caiu em desuso, pois o aumento do pH reduz a solubilidade do fosfato de cálcio e da xantina, favorecendo a precipitação renal.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa E está correta.</strong> A profilaxia atual da SLT inclui hidratação venosa abundante (para manter alto fluxo urinário e reduzir a concentração de solutos) e uso de alopurinol (para prevenir a formação de novo ácido úrico) ou rasburicase (para degradar o ácido úrico já formado em pacientes de alto risco). A alcalinização urinária com bicarbonato de sódio não é mais recomendada de rotina, pois, embora aumente a solubilidade do ácido úrico, reduz a solubilidade do fosfato de cálcio e da xantina, favorecendo a precipitação renal — especialmente em pacientes com hiperfosfatemia, como no caso. As diretrizes atuais (Cairo-Bishop, NCCN, ESMO) não recomendam alcalinização urinária de rotina. Em provas anteriores, o tema SLT não foi cobrado de forma direta, mas questões sobre linfomas e emergências oncológicas já apareceram, mostrando que a banca valoriza o tema.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A rasburicase é uma urato oxidase recombinante que converte o ácido úrico em alantoína (metabólito muito mais solúvel), e não inibe a xantina oxidase. Quem inibe a xantina oxidase é o alopurinol. Além disso, a rasburicase não é indicada “indistintamente” para todos os pacientes em risco; ela é reservada para pacientes de alto risco ou com ácido úrico muito elevado, e é contraindicada em deficiência de G6PD (risco de hemólise grave).</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A alcalinização urinária de rotina não é recomendada. Embora aumente a solubilidade do ácido úrico, ela reduz a solubilidade do fosfato de cálcio e da xantina, favorecendo a precipitação renal. Estudos não demonstraram benefício e há potencial de dano.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. A tétrade da SLT é hiperuricemia, hipercalemia, hiperfosfatemia e <strong>hipocalcemia</strong> (não hipercalcemia). A hipocalcemia ocorre porque o fosfato elevado se liga ao cálcio, reduzindo o cálcio iônico. A hipercalcemia não é típica da SLT; quando ocorre, deve-se suspeitar de outra causa (por exemplo, metástases ósseas ou produção de PTH-like).</p>
+                <p><strong>Alternativa D</strong> - Incorreta. O alopurinol inibe a xantina oxidase e previne a formação de novo ácido úrico, mas não metaboliza nem degrada o ácido úrico já elevado na circulação. Para degradar o ácido úrico existente, usa-se a rasburicase. O alopurinol é profilático e não tem efeito rápido sobre os níveis já elevados.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Linfoma de Burkitt:</strong> neoplasia de alto turnover, alto risco de SLT.</li>
+                    <li><strong>LDH 2.400 U/L:</strong> marcador de alta carga tumoral e alto risco de lise.</li>
+                    <li><strong>Ácido úrico 9,8 mg/dL:</strong> hiperuricemia — componente da SLT.</li>
+                    <li><strong>Potássio 5,6 mEq/L:</strong> hipercalemia — componente da SLT.</li>
+                    <li><strong>Fósforo 6,2 mg/dL:</strong> hiperfosfatemia — componente da SLT.</li>
+                    <li><strong>Cálcio iônico 0,92 mmol/L:</strong> hipocalcemia — componente da SLT (o fosfato se liga ao cálcio).</li>
+                    <li><strong>Creatinina 1,6 mg/dL:</strong> lesão renal aguda — complicação da SLT.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> identificar pacientes de alto risco para SLT (linfomas de alto grau, LDH elevada, massa bulky, leucemias agudas com hiperleucocitose).</li>
+                    <li><strong>Segundo:</strong> iniciar hidratação venosa abundante (2-3 L/m²/dia) para manter fluxo urinário adequado.</li>
+                    <li><strong>Terceiro:</strong> iniciar hipouricemiante: alopurinol para risco baixo/intermediário; rasburicase para alto risco ou ácido úrico já muito elevado.</li>
+                    <li><strong>Quarto:</strong> monitorizar eletrólitos (potássio, fósforo, cálcio, ácido úrico, creatinina) a cada 6-8 horas.</li>
+                    <li><strong>Quinto:</strong> não realizar alcalinização urinária de rotina; tratar complicações (hipercalemia, hipocalcemia, lesão renal).</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Tétrade da SLT = hiperuricemia + hipercalemia + hiperfosfatemia + hipocalcemia. Alopurinol inibe xantina oxidase (previne formação); rasburicase degrada ácido úrico já formado.</li>
+                    <li><strong>Números e doses:</strong> Hidratação 2-3 L/m²/dia; alopurinol 300 mg/dia (ou 100 mg/m²/dia); rasburicase 0,2 mg/kg/dia por até 5 dias. Monitorizar eletrólitos a cada 6-8h.</li>
+                    <li><strong>Mnemônicos:</strong> “SLT: úrico sobe, K sobe, P sobe, Ca cai”. “Alopurinol previne; rasburicase limpa”.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Síndrome de Lise Tumoral (SLT)</td>
+                            <td>Hiperuricemia, hipercalemia, hiperfosfatemia, hipocalcemia, lesão renal aguda</td>
+                            <td>Ácido úrico, K, P, Ca iônico, creatinina, LDH</td>
+                            <td>Hidratação + alopurinol/rasburicase; monitorização</td>
+                        </tr>
+                        <tr>
+                            <td>Hipercalcemia da malignidade</td>
+                            <td>Hipercalcemia, não hipocalcemia; pode haver PTH-like</td>
+                            <td>Cálcio total e iônico, PTH, PTHrP</td>
+                            <td>Hidratação, bisfosfonatos, calcitonina</td>
+                        </tr>
+                        <tr>
+                            <td>Nefropatia por ácido úrico isolada</td>
+                            <td>Hiperuricemia sem outros componentes da SLT</td>
+                            <td>Ácido úrico, creatinina, ultrassom renal</td>
+                            <td>Hidratação, alopurinol/rasburicase</td>
+                        </tr>
+                        <tr>
+                            <td>Lesão renal aguda por outras causas</td>
+                            <td>Creatinina elevada sem hiperuricemia/hipercalemia/hiperfosfatemia</td>
+                            <td>Função renal, sedimento urinário, imagem</td>
+                            <td>Tratar causa base</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> “Qual a tétrade metabólica da SLT?” — hiperuricemia, hipercalemia, hiperfosfatemia, hipocalcemia.</li>
+                    <li><strong>Se fosse sobre tratamento:</strong> “Qual hipouricemiante usar em paciente de alto risco?” — rasburicase.</li>
+                    <li><strong>Se fosse sobre complicação:</strong> “Qual a complicação renal da SLT?” — nefropatia por ácido úrico e precipitação de fosfato de cálcio.</li>
+                    <li><strong>Se fosse sobre prevenção:</strong> “Deve-se alcalinizar a urina?” — não, pois reduz solubilidade de fosfato de cálcio e xantina.</li>
+                    <li><strong>Se fosse sobre contraindicação:</strong> “Quando não usar rasburicase?” — deficiência de G6PD.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q54</td>
+                            <td>Paciente com LMA pós-quimioterapia, neutropenia, febre, tosse, sinal do halo na TAC</td>
+                            <td>Aspergilose pulmonar invasiva em neutropenia</td>
+                            <td>C</td>
+                            <td>Contextualiza complicações oncológicas e infecciosas; a questão atual foca em emergência metabólica.</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q69</td>
+                            <td>Paciente com carcinoma de ovário pós-quimioterapia com febre e neutropenia</td>
+                            <td>Neutropenia febril</td>
+                            <td>D</td>
+                            <td>Relaciona-se ao manejo de complicações pós-quimioterapia; a SLT é outra emergência oncológica.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q84</td>
+                            <td>Paciente com câncer de pulmão e marcadores moleculares</td>
+                            <td>Prognóstico e biologia tumoral</td>
+                            <td>B</td>
+                            <td>Contextualiza oncologia; a SLT é uma emergência do tratamento.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q17</td>
+                            <td>Escolar com dor em membro, destruição óssea, aspecto “casca de cebola”</td>
+                            <td>Osteossarcoma</td>
+                            <td>B</td>
+                            <td>Relaciona-se a neoplasias de alto turnover; a SLT pode ocorrer em linfomas/leucemias.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema SLT não foi cobrado de forma direta nas provas analisadas, mas questões sobre complicações oncológicas (neutropenia febril, aspergilose, osteossarcoma) mostram que a banca valoriza emergências oncológicas. A SLT é uma lacuna importante que pode surgir nas próximas provas.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> tétrade metabólica da SLT, diferenciação entre alopurinol e rasburicase, recomendação contra alcalinização urinária, e manejo da hipercalemia e hipocalcemia na SLT.</p>
+                <p><strong>Evolução da cobrança:</strong> A tendência é cobrar emergências oncológicas de forma integrada, com fisiopatologia e conduta prática. A SLT é um tema clássico e de alto rendimento.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar a tétrade da SLT, os hipouricemiantes (alopurinol vs rasburicase), a não indicação de alcalinização urinária e o manejo das complicações eletrolíticas.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros. “Se você viu X, lembre-se de Y”. Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Lesão renal aguda — a SLT é uma causa importante de LRA em pacientes oncológicos; a nefropatia por ácido úrico e a precipitação de fosfato de cálcio são mecanismos principais.</li>
+                    <li><strong>Conexão 2:</strong> Distúrbios eletrolíticos — hipercalemia (risco de arritmia) e hipocalcemia (risco de tetania e convulsão) exigem monitorização e tratamento urgentes.</li>
+                    <li><strong>Conexão 3:</strong> Linfomas e leucemias — o Linfoma de Burkitt é o protótipo de neoplasia de alto turnover com alto risco de SLT.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+                <p>O erro mais provável é confundir a tétrade (lembrar de hipercalcemia em vez de hipocalcemia) ou confundir os mecanismos do alopurinol e da rasburicase. Trata-se de lacuna de conhecimento e confusão conceitual. A ação corretiva é memorizar a tétrade (úrico↑, K↑, P↑, Ca↓) e fixar: alopurinol inibe xantina oxidase (previne); rasburicase degrada ácido úrico (trata).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, todo paciente com linfoma de Burkitt ou leucemia aguda de alto risco deve receber hidratação vigorosa e hipouricemiante antes do início da quimioterapia. Monitorizar eletrólitos e função renal. Diante de hipercalemia refratária, hipocalcemia sintomática ou lesão renal grave, tratar intensivamente e considerar diálise. Não alcalinizar a urina de rotina.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Síndrome de lise tumoral: tétrade e manejo</li>
+                    <li>Alopurinol vs rasburicase: mecanismos e indicações</li>
+                    <li>Nefropatia por ácido úrico e precipitação de fosfato de cálcio</li>
+                    <li>Manejo da hipercalemia e hipocalcemia</li>
+                    <li>Linfoma de Burkitt: características e alto risco de SLT</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Harrison. Princípios de Medicina Interna. 21ª edição. Capítulo sobre emergências oncológicas.</p>
+                <p>2. NCCN Guidelines. Tumor Lysis Syndrome.</p>
+                <p>3. Cairo MS, Bishop M. Tumour lysis syndrome: new therapeutic strategies and classification. Br J Haematol. 2004.</p>
+                <p>4. UpToDate. Tumor lysis syndrome: prevention and treatment.</p>
+                <p>5. Diretrizes da ABHH sobre emergências oncológicas.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

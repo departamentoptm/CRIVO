@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 34 - Ginecologia: Fatores de risco para incontinência urinária em mulheres</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Fatores de risco para incontinência urinária em mulheres</div>
+        <h1>Questão 34</h1>
+        <div class="question-text">
+            Em relação aos fatores de risco para o desenvolvimento de incontinência urinária em mulheres, assinale a alternativa correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - A idade avançada, a obesidade e o parto vaginal estão entre os principais fatores de risco para o desenvolvimento de incontinência urinária.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - A menopausa, isoladamente, é considerada o principal fator causal da incontinência urinária, independentemente de outros fatores.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A prática regular de atividade física moderada é um fator de risco estabelecido para incontinência urinária.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Mulheres nulíparas apresentam risco maior de incontinência urinária do que mulheres submetidas a parto vaginal.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - O parto via cesariana elimina o risco de desenvolvimento de incontinência urinária ao longo da vida.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Uroginecologia</p>
+                <p><strong>Tema:</strong> Fatores de risco para incontinência urinária (IU) em mulheres</p>
+                <p><strong>Contextualização:</strong> A incontinência urinária afeta cerca de 25-45% das mulheres adultas e tem impacto significativo na qualidade de vida, com custos diretos e indiretos elevados. O tema é de alta incidência em provas de ginecologia, atenção primária e geriatria, cobrando o reconhecimento dos fatores de risco, a diferenciação entre os tipos de IU (esforço, urgência, mista), a avaliação inicial e o tratamento conservador (Kegel, fisioterapia, perda de peso).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A continência urinária depende do equilíbrio entre a pressão intravesical e a resistência uretral, além do suporte anatômico do assoalho pélvico. A IU de esforço (IUE) decorre de hipermobilidade uretral e/ou deficiência esfincteriana intrínseca; a IU de urgência (bexiga hiperativa) por hiperatividade do detrusor; a IU mista combina ambas. Os fatores de risco clássicos incluem: idade avançada (degeneração do colágeno e sarcopenia do assoalho pélvico), obesidade (aumento da pressão intra-abdominal), parto vaginal (especialmente instrumental, macrossômico ou múltiplo, com lesão do nervo pudendo e do assoalho), paridade, cirurgias pélvicas (histerectomia), constipação crônica, tosse crônica, tabagismo, história familiar e doenças do colágeno (Marfan, Ehlers-Danlos). A menopausa contribui (hipoestrogenismo, atrofia urogenital), mas não é fator isolado e principal. A atividade física moderada é geralmente protetora (melhora do condicionamento e do peso), embora esportes de alto impacto possam causar perdas transitórias. Mulheres nulíparas têm menor risco que multíparas com parto vaginal. A cesariana reduz, mas não elimina o risco, pois a gestação e outros fatores (idade, obesidade, genética) contribuem.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa A.</strong> Está correta. A idade avançada, a obesidade e o parto vaginal são fatores de risco bem estabelecidos e consistentemente descritos na literatura para o desenvolvimento de incontinência urinária em mulheres. A afirmação reúne três dos principais fatores e está alinhada às diretrizes da FEBRASGO, da IUGA/ICS e da literatura internacional.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa B</strong> - A menopausa está associada ao hipoestrogenismo e à atrofia urogenital, podendo agravar sintomas urinários, mas NÃO é considerada o principal fator causal isolado da incontinência urinária. A IU é multifatorial (idade, paridade, obesidade, genética, comorbidades). Alternativa incorreta.</p>
+                <p><strong>Alternativa C</strong> - A prática regular de atividade física moderada é geralmente protetora (auxilia no controle de peso e no condicionamento do assoalho pélvico). Esportes de alto impacto podem causar perdas transitórias em atletas, mas não é um fator de risco estabelecido na população geral. Alternativa incorreta.</p>
+                <p><strong>Alternativa D</strong> - Mulheres nulíparas apresentam MENOR risco de incontinência urinária em comparação com mulheres submetidas a parto vaginal, pois o parto vaginal é um dos principais fatores de risco (lesão do assoalho pélvico, do nervo pudendo e do esfíncter). Alternativa incorreta.</p>
+                <p><strong>Alternativa E</strong> - A cesariana pode reduzir o risco em relação ao parto vaginal, mas NÃO elimina o risco de incontinência urinária ao longo da vida. A gestação em si, a idade, a obesidade, a constipação crônica e a predisposição genética continuam contribuindo. Alternativa incorreta.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Fatores de risco:</strong> pergunta direcionada aos preditores de IU.</li>
+                    <li><strong>Idade avançada:</strong> fator de risco clássico (degeneração do colágeno, sarcopenia).</li>
+                    <li><strong>Obesidade:</strong> aumento da pressão intra-abdominal e sobrecarga do assoalho pélvico.</li>
+                    <li><strong>Parto vaginal:</strong> lesão do assoalho pélvico e do nervo pudendo; principal fator de risco modificável.</li>
+                    <li><strong>Menopausa isoladamente:</strong> distrator que superestima o papel do hipoestrogenismo.</li>
+                    <li><strong>Atividade física moderada:</strong> geralmente protetora, não fator de risco.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Caracterizar o tipo de IU: esforço (perda aos esforços), urgência (perda precedida de urgência) ou mista.</li>
+                    <li><strong>Segundo:</strong> Identificar fatores de risco: idade, obesidade, paridade, parto vaginal (especialmente instrumental), cirurgias pélvicas, constipação, tosse crônica, tabagismo, história familiar.</li>
+                    <li><strong>Terceiro:</strong> Avaliação inicial: anamnese, exame físico (teste de esforço, avaliação do assoalho pélvico), diário miccional; excluir infecção urinária.</li>
+                    <li><strong>Quarto:</strong> Tratamento conservador: perda de peso, fisioterapia do assoalho pélvico (Kegel), correção da constipação, redução de cafeína/álcool, eletroestimulação, cones vaginais.</li>
+                    <li><strong>Quinto:</strong> Se refratária ou casos selecionados: estudo urodinâmico, tratamento cirúrgico (sling, colpofixação, Burch) conforme o tipo de IU.</li>
+                    <li><strong>Sexto:</strong> Abordar fatores modificáveis: obesidade, constipação, tosse crônica, tabagismo.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "fatores de risco" e "conduta inicial".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> IU é multifatorial; principais fatores de risco = idade, obesidade e parto vaginal.</li>
+                    <li><strong>Números e doses:</strong> prevalência de IU em mulheres adultas: 25-45%; perda de peso de 5-10% melhora a IUE; fisioterapia do assoalho pélvico reduz episódios em 50-70%.</li>
+                    <li><strong>Mnemônicos/regras:</strong> "idade, obesidade e parto vaginal = tripé de risco"; "cesariana reduz, mas não elimina o risco"; "menopausa não é fator causal isolado".</li>
+                </ul>
+                <p>Esses dados aparecem com frequência em provas de ginecologia e atenção primária.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IU de esforço (IUE)</td>
+                            <td>Perda urinária aos esforços (tosse, espirro, exercício), sem urgência</td>
+                            <td>Teste de esforço, diário miccional, estudo urodinâmico se necessário</td>
+                            <td>Perda de peso, Kegel, eletroestimulação, sling se refratária</td>
+                        </tr>
+                        <tr>
+                            <td>IU de urgência (bexiga hiperativa)</td>
+                            <td>Perda precedida de urgência, noctúria, frequência aumentada</td>
+                            <td>Diário miccional, urodinâmica</td>
+                            <td>Treinamento vesical, anticolinérgicos, mirabegrona, toxina botulínica</td>
+                        </tr>
+                        <tr>
+                            <td>IU mista</td>
+                            <td>Perdas aos esforços e com urgência</td>
+                            <td>Diário, urodinâmica</td>
+                            <td>Tratamento combinado; priorizar o componente dominante</td>
+                        </tr>
+                        <tr>
+                            <td>Fístula vesicovaginal</td>
+                            <td>Perda contínua, história de cirurgia pélvica ou radioterapia</td>
+                            <td>Exame especular, cistoscopia, imagem</td>
+                            <td>Cirurgia corretiva</td>
+                        </tr>
+                        <tr>
+                            <td>Bexiga hiperativa idiopática</td>
+                            <td>Urgência, frequência, noctúria, sem perda aos esforços</td>
+                            <td>Diário, urodinâmica, excluir causas</td>
+                            <td>Treinamento, anticolinérgicos, toxina botulínica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial dos tipos de IU.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse o tipo mais comum de IU em mulheres:</strong> IU de esforço.</li>
+                    <li><strong>Se pedisse o principal fator de risco modificável:</strong> obesidade (e parto vaginal, embora não modificável após ocorrido).</li>
+                    <li><strong>Se pedisse o tratamento de primeira linha na IUE:</strong> fisioterapia do assoalho pélvico (Kegel) e perda de peso.</li>
+                    <li><strong>Se pedisse o exame para confirmar o tipo de IU:</strong> estudo urodinâmico.</li>
+                    <li><strong>Se pedisse a conduta na IUE refratária:</strong> sling suburetral (padrão-ouro).</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q88</td>
+                            <td>Anormalidade mais importante da uretra e bexiga em relação à incontinência urinária de esforço</td>
+                            <td>Fisiopatologia da IUE (alteração do ângulo vesicouretral posterior)</td>
+                            <td>D</td>
+                            <td>Complementa o entendimento da IUE, um dos tipos de IU</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q47</td>
+                            <td>Modalidades de tratamento cirúrgico da incontinência urinária de esforço, exceto</td>
+                            <td>Tratamentos cirúrgicos da IUE</td>
+                            <td>C (ablação transuretral por agulha não é tratamento cirúrgico da IUE)</td>
+                            <td>Complementa o entendimento terapêutico</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q67</td>
+                            <td>IU de esforço em paciente de 61 anos: pode ser consequente à, exceto</td>
+                            <td>Fatores associados à IUE</td>
+                            <td>D (conforme gabarito)</td>
+                            <td>Discute os fatores associados, mas não os fatores de risco populacionais</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q24</td>
+                            <td>Senhora de 63 anos com IUE: tratamento clínico (eletroestimulação, cones vaginais, Kegel, creme vaginal de estrógeno)</td>
+                            <td>Tratamento clínico da IUE</td>
+                            <td>A (II e V)</td>
+                            <td>Reforça o manejo conservador, que depende do reconhecimento dos fatores de risco</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q67</td>
+                            <td>Mesma questão de 2013: IU de esforço, exceto</td>
+                            <td>Fatores associados à IUE</td>
+                            <td>D (conforme gabarito)</td>
+                            <td>Confirma a recorrência do tema na banca</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 questões no período. A banca alterna entre fisiopatologia da IUE (2006), tratamento cirúrgico (2007), fatores associados (2013, 2019) e tratamento conservador (2018). A questão atual é a primeira a cobrar diretamente a lista de fatores de risco populacionais para IU.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> fatores de risco populacionais para IU (idade, obesidade, paridade, parto vaginal), diferenciação entre tipos de IU e o papel protetor da atividade física moderada.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em fisiopatologia e tratamento; a atual amplia para a epidemiologia e os fatores de risco.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar os fatores de risco clássicos, a diferenciação entre IUE e bexiga hiperativa e o tratamento conservador (Kegel, perda de peso).</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Obesidade → aumento da pressão intra-abdominal → IUE; perda de peso melhora os sintomas.</li>
+                    <li><strong>Conexão 2:</strong> Parto vaginal (especialmente instrumental) → lesão do assoalho pélvico → IUE e prolapso genital.</li>
+                    <li><strong>Conexão 3:</strong> Menopausa → hipoestrogenismo → atrofia urogenital → piora de sintomas urinários; terapia tópica com estrogênio pode auxiliar.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais comum é superestimar o papel da menopausa (alternativa B) ou acreditar que a cesariana elimina o risco (alternativa E). Outro erro é considerar a atividade física moderada como fator de risco (alternativa C). Classificação provável do erro: confusão conceitual sobre o caráter multifatorial da IU. Ação corretiva: memorizar que "idade + obesidade + parto vaginal = tripé de risco" e que "cesariana reduz, mas não elimina".</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a anamnese deve investigar os fatores de risco e caracterizar o tipo de IU. A avaliação inicial pode ser feita na atenção primária com diário miccional e teste de esforço. O tratamento conservador (perda de peso, Kegel, correção da constipação, redução de cafeína/álcool, eletroestimulação) deve ser oferecido antes da cirurgia. A prevenção inclui orientação no pré-natal e no puerpério sobre a importância da fisioterapia do assoalho pélvico e do controle de peso.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Tipos de incontinência urinária (esforço, urgência, mista)</li>
+                    <li>Fatores de risco para IU em mulheres</li>
+                    <li>Fisioterapia do assoalho pélvico (Kegel)</li>
+                    <li>Estudo urodinâmico: indicações</li>
+                    <li>Sling suburetral e outras cirurgias para IUE</li>
+                    <li>Atrofia urogenital e terapia tópica com estrogênio</li>
+                    <li>Prolapso genital e sua relação com IU</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Incontinência Urinária de Esforço.</p>
+                <p>2. International Urogynecological Association (IUGA) / International Continence Society (ICS). Guidelines on urinary incontinence in women.</p>
+                <p>3. Ministério da Saúde. Protocolos de Atenção Básica: Saúde da Mulher.</p>
+                <p>4. UpToDate. Urinary incontinence in women: Risk factors and etiology. 2024.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

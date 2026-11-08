@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 93 - Toxoplasmose na Gestação: Interpretação Sorológica, Avidez de IgG e Condutas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Toxoplasmose na Gestação: Interpretação Sorológica, Avidez de IgG e Condutas</div>
+        <h1>Questão 93</h1>
+        <div class="question-text">
+            A toxoplasmose é causada por um protozoário, Toxoplasma gondii, que infecta os seres humanos na forma de oocistos ou cistos, podendo provocar aborto, prematuridade e infecção congênita com ou sem malformações. É correto afirmar que
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - o teste de avidez da IgG inferior a 15% é baixa, sugerindo que infecção pode ser recente (últimos 3 meses).</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - a espiramicina é um macrolídeo que ultrapassa a placenta de maneira adequada atuando de maneira adequada no feto.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - testes falso-negativos causados pela presença de fator reumatoide e anticorpo antinuclear não ocorrem com a pesquisa de IgM.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - caso a infecção ocorra em idade gestacional avançada, o risco de contaminação fetal será menor e a gravidade da doença será maior.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - a maioria dos recém-nascidos infectados são sintomáticos ao nascimento e os efeitos da doença se manifestam nos primeiros meses de vida.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Obstetrícia / Infectologia / Medicina de Família e Comunidade</p>
+            <p><strong>Tema:</strong> Toxoplasmose na gestação - interpretação sorológica, teste de avidez de IgG, risco de transmissão vertical e condutas.</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência porque a toxoplasmose é uma infecção prevalente no Brasil, com risco de transmissão vertical e consequências graves para o feto. A banca cobra a interpretação da sorologia (IgG, IgM e avidez), o risco de infecção fetal conforme a idade gestacional, o papel da espiramicina e as características da infecção congênita. A questão é idêntica à Q93 de 2014, o que reforça o padrão de repetição e a importância do tema.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O Toxoplasma gondii é um protozoário intracelular obrigatório. Na gestação, a infecção materna primária pode resultar em transmissão vertical, com risco que aumenta com a idade gestacional, embora a gravidade da doença fetal seja maior quanto mais precoce for a infecção. O teste de avidez de IgG é utilizado para estimar o tempo da infecção: alta avidez sugere infecção antiga (geralmente &gt; 3 a 4 meses); baixa avidez sugere infecção recente. Valores muito baixos, como inferiores a 15%, são altamente sugestivos de infecção recente (últimos 3 meses), sendo útil na gestação para orientar conduta. A espiramicina é um macrolídeo que não atravessa adequadamente a placenta; sua ação é reduzir a parasitemia materna e, indiretamente, o risco de transmissão fetal, mas não trata o feto já infectado. Por isso, não se afirma que ela atua de maneira adequada no feto. A pesquisa de IgM pode sofrer interferências, incluindo falsos-positivos por fator reumatoide e anticorpo antinuclear; a afirmação de que não ocorrem falso-negativos por essas causas é imprecisa e não é o ponto central. Na infecção congênita, a maioria dos recém-nascidos infectados é assintomática ao nascimento, com manifestações que podem surgir ao longo dos primeiros meses ou anos.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa A é correta porque o teste de avidez de IgG inferior a 15% indica baixa avidez, ou seja, anticorpos com baixa afinidade pelo antígeno, o que sugere infecção recente (geralmente nos últimos 3 meses). Na gestação, esse achado é relevante para estimar o risco de transmissão vertical e orientar a investigação e o tratamento. A resposta está alinhada ao conceito de que a avidez baixa ajuda a datar a infecção e a distinguir infecção recente de infecção pregressa.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. Avidez de IgG inferior a 15% é baixa e sugere infecção recente (últimos 3 meses).</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A espiramicina é um macrolídeo que não ultrapassa a placenta de maneira adequada. Sua ação é reduzir a parasitemia materna, diminuindo o risco de transmissão vertical, mas não trata o feto já infectado. Quando há infecção fetal comprovada, o tratamento costuma envolver pirimetamina, sulfadiazina e ácido folínico, conforme protocolo.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. A pesquisa de IgM pode apresentar interferências, incluindo falsos-positivos por fator reumatoide e anticorpo antinuclear. A afirmação de que "testes falso-negativos causados por fator reumatoide e anticorpo antinuclear não ocorrem" é imprecisa e não corresponde ao ponto central da interpretação sorológica. Além disso, a questão não trata de falso-negativos, mas da interpretação da avidez.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. Na toxoplasmose gestacional, o risco de transmissão fetal aumenta com a idade gestacional avançada, mas a gravidade da doença fetal tende a ser menor. A alternativa inverte os conceitos: afirma que o risco de contaminação será menor e a gravidade maior, quando o correto é o oposto.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. A maioria dos recém-nascidos infectados é assintomática ao nascimento. As manifestações podem surgir nos primeiros meses ou anos de vida, mas não se pode afirmar que a maioria é sintomática ao nascer.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Toxoplasma gondii:</strong> protozoário causador da toxoplasmose.</li>
+                <li><strong>Aborto, prematuridade e infecção congênita:</strong> complicações da toxoplasmose na gestação.</li>
+                <li><strong>Teste de avidez da IgG:</strong> ferramenta para estimar o tempo da infecção.</li>
+                <li><strong>Espiramicina:</strong> macrolídeo usado na gestação, com ação materna e não fetal direta.</li>
+                <li><strong>Idade gestacional avançada:</strong> maior risco de transmissão, menor gravidade.</li>
+                <li><strong>Recém-nascidos infectados:</strong> maioria assintomática ao nascimento.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> interpretar a sorologia (IgG e IgM) para toxoplasmose na gestante.</li>
+                <li><strong>Segundo:</strong> se IgM reagente ou dúvida sobre infecção recente, solicitar teste de avidez de IgG.</li>
+                <li><strong>Terceiro:</strong> avidez baixa (por exemplo, &lt; 15%) sugere infecção recente e exige investigação e conduta adequada.</li>
+                <li><strong>Quarto:</strong> considerar o risco de transmissão vertical e a gravidade conforme a idade gestacional.</li>
+                <li><strong>Quinto:</strong> usar espiramicina para reduzir parasitemia materna; se infecção fetal comprovada, seguir protocolo específico.</li>
+                <li><strong>Sexto:</strong> acompanhar o recém-nascido, lembrando que a maioria é assintomática ao nascimento.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> avidez de IgG baixa sugere infecção recente; a espiramicina não atravessa adequadamente a placenta; a maioria dos infectados congênitos é assintomática ao nascer.</li>
+                <li><strong>Números e doses:</strong> avidez &lt; 15% é muito baixa e sugere infecção recente; risco de transmissão vertical aumenta com a idade gestacional; gravidade é maior no início da gestação.</li>
+                <li><strong>Mnemônicos:</strong> "Avidez baixa = infecção recente"; "Espiramicina é materna, não fetal".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma inverter risco e gravidade e superestimar a ação fetal da espiramicina.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Toxoplasmose recente na gestação</td>
+                        <td>IgM reagente, IgG com baixa avidez</td>
+                        <td>Sorologia e teste de avidez</td>
+                        <td>Investigar infecção fetal; espiramicina ou protocolo específico</td>
+                    </tr>
+                    <tr>
+                        <td>Toxoplasmose pregressa</td>
+                        <td>IgG reagente, IgM não reagente, alta avidez</td>
+                        <td>Sorologia</td>
+                        <td>Nenhuma conduta específica; orientar prevenção</td>
+                    </tr>
+                    <tr>
+                        <td>Sífilis gestacional</td>
+                        <td>VDRL positivo; pode ser assintomática</td>
+                        <td>VDRL e teste treponêmico</td>
+                        <td>Penicilina benzatina; tratar parceiro</td>
+                    </tr>
+                    <tr>
+                        <td>Citomegalovírus</td>
+                        <td>Sorologia e PCR; manifestações fetais</td>
+                        <td>Sorologia, PCR, imagem fetal</td>
+                        <td>Avaliação especializada</td>
+                    </tr>
+                    <tr>
+                        <td>Rubéola</td>
+                        <td>IgM reagente, história de exantema</td>
+                        <td>Sorologia</td>
+                        <td>Avaliação especializada; prevenção por vacinação</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento:</strong> a resposta envolveria espiramicina na infecção materna e pirimetamina/sulfadiazina/ácido folínico na infecção fetal comprovada.</li>
+                <li><strong>Se fosse sobre risco de transmissão:</strong> a resposta envolveria aumento do risco com a idade gestacional e maior gravidade no início da gestação.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta envolveria orientações sobre carne crua, verduras mal lavadas, contato com gatos e solo.</li>
+                <li><strong>Se fosse sobre recém-nascido:</strong> a resposta envolveria a maioria assintomática ao nascimento e o seguimento para detectar manifestações tardias.</li>
+                <li><strong>Se fosse sobre avidez:</strong> a resposta envolveria a interpretação de valores baixos e altos.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2014 - Q93</td>
+                        <td>Questão idêntica: toxoplasmose, avidez de IgG, espiramicina, IgM, risco de transmissão e recém-nascidos infectados.</td>
+                        <td>Interpretação sorológica e condutas na toxoplasmose gestacional</td>
+                        <td>A</td>
+                        <td>É a mesma questão de 2026. Reforça a repetição e a importância do tema.</td>
+                    </tr>
+                    <tr>
+                        <td>2008 - Q38</td>
+                        <td>Gestante de 14 semanas com toxoplasmose IgG positivo e IgM positivo; conduta.</td>
+                        <td>Indicação de teste de avidez de IgG diante de IgM positivo</td>
+                        <td>A</td>
+                        <td>Reforça o papel da avidez de IgG na investigação da infecção recente.</td>
+                    </tr>
+                    <tr>
+                        <td>2006 - Q92</td>
+                        <td>Tratamento da toxoplasmose aguda na gestação com infecção fetal comprovada.</td>
+                        <td>Esquema com espiramicina, pirimetamina, sulfadiazina e ácido folínico</td>
+                        <td>E</td>
+                        <td>Complementa o conhecimento sobre o tratamento e o papel da espiramicina.</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q38</td>
+                        <td>Gestante com toxoplasmose IgG positivo e IgM positivo; conduta com avidez.</td>
+                        <td>Interpretação da sorologia e indicação de avidez</td>
+                        <td>A</td>
+                        <td>Reforça a utilização do teste de avidez na gestação.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q? (se houver)</td>
+                        <td>Questões sobre pré-natal e sorologias</td>
+                        <td>Interpretação de exames do pré-natal</td>
+                        <td>-</td>
+                        <td>Contextualiza a importância da interpretação sorológica na rotina pré-natal.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 4 questões relevantes nas provas de 2006, 2008 e 2014. A banca alterna entre cobrar: (1) interpretação da avidez de IgG; (2) tratamento da toxoplasmose na gestação; (3) risco de transmissão vertical; (4) características da infecção congênita. Há repetição literal da questão de 2014 na prova de 2026.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Interpretação de valores intermediários de avidez; papel da PCR no líquido amniótico; seguimento do recém-nascido assintomático; prevenção primária com orientações alimentares e ambientais; conduta na coinfecção HIV-toxoplasmose.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem mantido questões conceituais sobre a interpretação sorológica e o tratamento, com repetição de questões anteriores, o que sugere que o domínio dos conceitos básicos é suficiente para acertar.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a interpretação da avidez de IgG, o risco de transmissão vertical conforme a idade gestacional, o papel da espiramicina e as características da infecção congênita. Memorizar que avidez baixa sugere infecção recente e que a maioria dos infectados congênitos é assintomática ao nascer.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Pré-natal - a toxoplasmose é uma das sorologias de rotina, e a interpretação correta evita condutas inadequadas.</li>
+                <li><strong>Conexão 2:</strong> Infecções congênitas - toxoplasmose, sífilis, rubéola, citomegalovírus e herpes.</li>
+                <li><strong>Conexão 3:</strong> Testes diagnósticos - sensibilidade, especificidade, valores preditivos e avidez de IgG.</li>
+                <li><strong>Conexão 4:</strong> Prevenção quaternária - evitar exames e tratamentos desnecessários quando a infecção é pregressa.</li>
+                <li><strong>Conexão 5:</strong> Atributos da APS - longitudinalidade, integralidade e coordenação do cuidado no pré-natal.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou B, superestimou a ação fetal da espiramicina. Se marcou C, confundiu interferências sorológicas e focou em falso-negativos. Se marcou D, inverteu risco e gravidade da infecção conforme a idade gestacional. Se marcou E, desconheceu que a maioria dos infectados congênitos é assintomática ao nascer. A ação corretiva é revisar a interpretação sorológica da toxoplasmose, o teste de avidez, o risco de transmissão vertical e as características da infecção congênita.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, o médico de família e comunidade deve interpretar corretamente a sorologia para toxoplasmose no pré-natal, solicitar avidez quando indicado, orientar medidas preventivas e encaminhar para avaliação especializada quando houver suspeita de infecção recente. O tratamento com espiramicina visa reduzir a parasitemia materna, e o seguimento do recém-nascido é essencial para detectar manifestações tardias.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Sorologia da toxoplasmose: IgG, IgM e avidez.</li>
+                <li>Risco de transmissão vertical e gravidade conforme idade gestacional.</li>
+                <li>Tratamento da toxoplasmose na gestação: espiramicina e esquema com pirimetamina/sulfadiazina/ácido folínico.</li>
+                <li>Infecção congênita por toxoplasmose: manifestações e seguimento.</li>
+                <li>Prevenção primária: orientações alimentares e ambientais.</li>
+                <li>Testes diagnósticos e interpretação de resultados.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Caderno de Atenção Básica nº 32: Atenção ao Pré-Natal de Baixo Risco. Brasília: Ministério da Saúde.</p>
+            <p>2. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Manual de Pré-Natal. São Paulo: FEBRASGO.</p>
+            <p>3. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Prevenção da Transmissão Vertical de HIV, Sífilis e Hepatites Virais. Brasília: Ministério da Saúde.</p>
+            <p>4. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+            <p>5. Montoya JG, Liesenfeld O. Toxoplasmosis. Lancet. 2004;363(9425):1965-1976.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

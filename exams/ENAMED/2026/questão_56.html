@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 56 - Psiquiatria da Infância e Adolescência: Crises de Desregulação Comportamental no Transtorno do Espectro Autista</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Psiquiatria da Infância e Adolescência: Crises de Desregulação Comportamental no Transtorno do Espectro Autista</div>
+        <h1>Questão 56</h1>
+        <div class="question-text">
+            Adolescente de 15 anos, com quadro de transtorno do espectro autista, é levado pela mãe a uma Unidade de Pronto Atendimento após ter apresentado, na escola, episódio de agitação progressiva, vocalizações intensas e repetitivas, movimentos amplos dos membros superiores, chegando a cair ao chão. Durante todo o episódio, manteve os olhos abertos e reagia aos estímulos do ambiente. Não houve liberação esfincteriana, confusão mental ou sonolência após o episódio. O quadro em questão é compatível com o diagnóstico de crise
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - epiléptica.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - de ansiedade aguda.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - conversiva.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - de desregulação comportamental.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Psiquiatria / Neuropediatria / Saúde Mental</p>
+            <p><strong>Tema:</strong> Crises de desregulação comportamental em adolescentes com transtorno do espectro autista (TEA) e diagnóstico diferencial com crises epilépticas, ansiosas e conversivas</p>
+            <p><strong>Contextualização:</strong> Tema de relevância crescente em provas de residência e no Enamed, pois envolve atendimento de urgência em saúde mental, reconhecimento de manifestações atípicas no TEA e diferenciação de crises epilépticas. A questão cobra a identificação de uma crise de desregulação comportamental, que é comum em adolescentes autistas diante de sobrecarga sensorial, mudanças de rotina ou sofrimento emocional, e que não deve ser confundida com epilepsia ou transtorno conversivo.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>No TEA, a desregulação comportamental pode se manifestar como agitação psicomotora, vocalizações repetitivas, movimentos amplos, quedas e choro intenso. Esses episódios costumam ocorrer diante de estímulos sensoriais excessivos, frustração, mudança de rotina ou dificuldade de comunicação. Diferentemente das crises epilépticas, a consciência e a responsividade ao ambiente tendem a estar preservadas, não há fase pós-ictal com confusão ou sonolência e geralmente não há liberação esfincteriana. A crise conversiva, por sua vez, costuma cursar com movimentos não estereotipados, olhos fechados, variabilidade e busca de atenção, sem prejuízo real da consciência. A ansiedade aguda pode causar taquicardia, sudorese e sensação de morte iminente, mas não costuma produzir quedas com movimentos amplos e vocalizações repetitivas.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa D - de desregulação comportamental.</strong> É a hipótese mais compatível com o quadro: adolescente com TEA, episódio de agitação progressiva, vocalizações intensas e repetitivas, movimentos amplos, queda ao chão, olhos abertos, responsividade aos estímulos ambientais e ausência de liberação esfincteriana, confusão mental ou sonolência após o episódio. Esse padrão é típico de crise de desregulação comportamental no contexto do TEA, frequentemente desencadeada por sobrecarga sensorial ou emocional. A conduta imediata é acolhimento, redução de estímulos, garantia de segurança, orientação à família e à escola, identificação de gatilhos e plano de manejo comportamental, com encaminhamento especializado se recorrente.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - epiléptica.</strong> Incorreta. Crises epilépticas geralmente cursam com alteração do nível de consciência, movimentos tônico-clônicos estereotipados, liberação esfincteriana e fase pós-ictal com confusão ou sonolência. A preservação da responsividade e a ausência de pós-ictal tornam epilepsia menos provável.</p>
+            <p><strong>Alternativa B - de ansiedade aguda.</strong> Incorreta. A crise de ansiedade pode causar agitação, taquicardia e sudorese, mas não é típica a queda ao chão com movimentos amplos e vocalizações repetitivas, mantendo olhos abertos e responsividade.</p>
+            <p><strong>Alternativa C - conversiva.</strong> Incorreta. A crise conversiva costuma apresentar movimentos não estereotipados, olhos fechados, variabilidade e pode haver busca de atenção, mas o contexto de TEA e a descrição de agitação progressiva com vocalizações repetitivas favorecem desregulação comportamental.</p>
+            <p><strong>Alternativa D</strong> - Correta. Desregulação comportamental é a interpretação mais adequada para o episódio descrito no contexto de TEA.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Transtorno do espectro autista:</strong> contexto de maior vulnerabilidade a desregulação comportamental diante de sobrecarga sensorial e emocional.</li>
+                <li><strong>Agitação progressiva, vocalizações intensas e repetitivas, movimentos amplos, queda ao chão:</strong> manifestações típicas de crise de desregulação.</li>
+                <li><strong>Olhos abertos e responsividade aos estímulos:</strong> argumenta contra crise epiléptica com perda de consciência.</li>
+                <li><strong>Ausência de liberação esfincteriana, confusão mental ou sonolência:</strong> ausência de pós-ictal, reforçando diagnóstico não epiléptico.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Garantir segurança do adolescente e reduzir estímulos ambientais.</li>
+                <li><strong>Segundo:</strong> Avaliar nível de consciência, responsividade, duração e sinais de pós-ictal.</li>
+                <li><strong>Terceiro:</strong> Diferenciar crise epiléptica (alteração de consciência, pós-ictal, incontinência) de desregulação comportamental (responsividade preservada, sem pós-ictal).</li>
+                <li><strong>Quarto:</strong> Acolher família e escola, identificar gatilhos, orientar plano de manejo e encaminhar para acompanhamento especializado se necessário.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em saúde mental infantojuvenil.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Crise de desregulação no TEA cursa com agitação, vocalizações repetitivas, movimentos amplos e queda, com responsividade preservada e sem pós-ictal.</li>
+                <li><strong>Diferenciais:</strong> Epilepsia (pós-ictal, incontinência, perda de consciência), ansiedade (sintomas autonômicos), conversão (olhos fechados, movimentos variáveis).</li>
+                <li><strong>Manejo:</strong> Redução de estímulos, acolhimento, segurança, plano de crise e acompanhamento especializado.</li>
+                <li><strong>Mnemônico:</strong> “TEA + agitação + responsividade + sem pós-ictal = desregulação comportamental”.</li>
+            </ul>
+            <p>Esses dados são essenciais para evitar diagnóstico equivocado de epilepsia e tratamento desnecessário.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desregulação comportamental no TEA (correta)</td>
+                        <td>Agitação, vocalizações repetitivas, movimentos amplos, queda, olhos abertos, responsividade preservada, sem pós-ictal</td>
+                        <td>Clínico; observação e história detalhada</td>
+                        <td>Redução de estímulos, acolhimento, segurança, plano de manejo e acompanhamento</td>
+                    </tr>
+                    <tr>
+                        <td>Crise epiléptica</td>
+                        <td>Alteração de consciência, movimentos estereotipados, incontinência, confusão/sonolência pós-ictal</td>
+                        <td>EEG, avaliação neurológica</td>
+                        <td>Investigação e tratamento anticonvulsivante conforme indicação</td>
+                    </tr>
+                    <tr>
+                        <td>Crise de ansiedade/panic</td>
+                        <td>Taquicardia, sudorese, medo intenso, sensação de morte, sem quedas com movimentos amplos</td>
+                        <td>Clínico; avaliação psiquiátrica</td>
+                        <td>Intervenção ansiolítica e psicoterapia</td>
+                    </tr>
+                    <tr>
+                        <td>Crise conversiva</td>
+                        <td>Movimentos não estereotipados, olhos fechados, variabilidade, busca de atenção</td>
+                        <td>Clínico; exclusão de causas orgânicas</td>
+                        <td>Abordagem psicológica e psiquiátrica</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre epilepsia:</strong> a resposta poderia envolver EEG e tratamento anticonvulsivante.</li>
+                <li><strong>Se fosse sobre crise conversiva:</strong> a conduta seria acolhimento, exclusão de organicidade e abordagem psicológica.</li>
+                <li><strong>Se fosse sobre ansiedade aguda:</strong> a resposta poderia incluir medidas de contenção verbal e ansiolítico conforme gravidade.</li>
+                <li><strong>Se fosse sobre manejo no TEA:</strong> a resposta poderia enfatizar redução de estímulos, comunicação alternativa e plano de crise.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema ou temas relacionados:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q56</td>
+                        <td>Adolescente de 15 anos com TEA e episódio de agitação, vocalizações e movimentos amplos, com responsividade preservada.</td>
+                        <td>Diagnóstico diferencial de crise em TEA.</td>
+                        <td>D</td>
+                        <td>Questão atual; não constitui prova anterior distinta, mas ilustra a cobrança do tema.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q64</td>
+                        <td>Menino de 10 anos com irritabilidade, impulsividade, agressividade e discussão com figuras de autoridade.</td>
+                        <td>Transtorno de oposição desafiante e comportamento disruptivo.</td>
+                        <td>B</td>
+                        <td>Relaciona-se à desregulação comportamental e ao diagnóstico diferencial de transtornos disruptivos.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q50</td>
+                        <td>Homem de 29 anos com explosões de raiva, sensação de abandono, relações instáveis e autolesões leves.</td>
+                        <td>Transtorno de personalidade borderline e desregulação emocional.</td>
+                        <td>B</td>
+                        <td>Aborda desregulação emocional/comportamental em outro contexto, útil para diferenciar crises no TEA.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q36</td>
+                        <td>Adolescente de 17 anos com tristeza, isolamento e ideação suicida sem planejamento.</td>
+                        <td>Manejo inicial de sofrimento mental na atenção primária.</td>
+                        <td>C</td>
+                        <td>Relaciona-se ao acolhimento e avaliação de adolescentes com sofrimento emocional.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> Não foi identificada questão anterior especificamente sobre crise de desregulação comportamental em TEA. A banca tem cobrado temas de saúde mental infantojuvenil e transtornos disruptivos de forma aplicada, com casos clínicos e necessidade de diagnóstico diferencial.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Manejo da crise de desregulação no TEA, plano de crise escolar, comunicação alternativa, diferenciação entre crise epiléptica e desregulação e uso criterioso de psicofármacos.</p>
+            <p><strong>Evolução da cobrança:</strong> A tendência é que o tema seja cobrado com casos clínicos que exijam reconhecimento de sinais de alerta e diferenciação de crises epilépticas e conversivas.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar TEA, crises de desregulação comportamental, diagnóstico diferencial de crises epilépticas e abordagem inicial na urgência.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Epilepsia na adolescência - diferenciação entre crise epiléptica e desregulação comportamental é essencial para evitar tratamento inadequado.</li>
+                <li><strong>Conexão 2:</strong> Saúde mental escolar - crises no TEA frequentemente ocorrem na escola e exigem articulação entre saúde e educação.</li>
+                <li><strong>Conexão 3:</strong> Transtornos disruptivos - comportamento desafiador e desregulação emocional podem se sobrepor ao TEA e exigir avaliação especializada.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é interpretar o episódio como crise epiléptica pela queda e movimentos amplos, desconsiderando a responsividade preservada e a ausência de pós-ictal. A estratégia corretiva é memorizar os critérios que diferenciam crise epiléptica de desregulação comportamental no TEA e revisar o manejo inicial. Classificação do erro: lacuna de conhecimento ou erro de interpretação clínica.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o atendimento de um adolescente autista em crise deve priorizar segurança, redução de estímulos, comunicação clara e acolhimento. É importante orientar a família e a escola sobre sinais de sobrecarga sensorial, estratégias de prevenção e plano de crise. O encaminhamento especializado está indicado quando há recorrência, prejuízo funcional ou dúvida diagnóstica com epilepsia.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Transtorno do espectro autista: manifestações clínicas e comorbidades.</li>
+                <li>Crise de desregulação comportamental: gatilhos e manejo.</li>
+                <li>Diagnóstico diferencial de crises epilépticas, ansiosas e conversivas.</li>
+                <li>Plano de crise e adaptação escolar no TEA.</li>
+                <li>Uso criterioso de psicofármacos em urgências psiquiátricas.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5-TR) - Transtorno do Espectro Autista.</p>
+            <p>2. Diretrizes da Sociedade Brasileira de Pediatria (SBP) para manejo do TEA.</p>
+            <p>3. Protocolos de urgência em saúde mental infantojuvenil - Ministério da Saúde.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

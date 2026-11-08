@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 69 - Lesão por Pressão Estágio 3: Princípios do Curativo e Cicatrização</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Geral / Terapia Intensiva: Lesão por Pressão Estágio 3 e Princípios do Curativo</div>
+        <h1>Questão 69</h1>
+        <div class="question-text">
+            Paciente internado há 30 dias em UTI por complicação de cirurgia abdominal, sob ventilação mecânica, apresenta lesão por pressão sacral em estágio 3. Qual conjunto de condições o curativo deve proporcionar para favorecer a cicatrização?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Ambiente úmido, limpo e quente.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Ambiente seco, limpo e aquecido.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Ambiente plenamente permeável.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Ambiente estéril e completamente oclusivo.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - As condições essenciais dos curativos precisam coexistir.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia Geral / Terapia Intensiva / Tratamento de Feridas.</p>
+            <p><strong>Tema:</strong> Lesão por pressão estágio 3 e princípios do curativo ideal para favorecer a cicatrização.</p>
+            <p><strong>Contextualização:</strong> As lesões por pressão são complicações frequentes em pacientes críticos, acamados e com imobilidade prolongada, especialmente em UTI. A escolha do curativo adequado é fundamental para acelerar a cicatrização, reduzir dor, controlar infecção e minimizar custos. O tema é recorrente em provas de residência, que costumam cobrar a classificação dos estágios, as medidas de prevenção e os princípios do curativo moderno.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A lesão por pressão estágio 3 é caracterizada por perda de tecido em espessura total, com exposição da epiderme, derme e tecido subcutâneo, podendo se estender até a fáscia, mas sem expor músculo, osso ou tendão (o que caracterizaria estágio 4). O curativo ideal deve manter um <strong>ambiente úmido</strong> - comprovadamente mais favorável à migração celular, angiogênese e epitelização (modelo de Winter) -, <strong>limpo</strong> (controle de bioburden, sem necessidade de esterilidade absoluta) e <strong>quente</strong> (temperatura próxima à fisiológica, otimizando a atividade enzimática e a perfusão local). O ambiente seco retarda a cicatrização, forma crostas e aumenta a dor; o ambiente excessivamente úmido ou totalmente oclusivo pode causar maceração e proliferação bacteriana; o ambiente permeável não controla exsudato nem mantém a umidade.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - Ambiente úmido, limpo e quente.</strong> É a descrição clássica do curativo ideal no tratamento de feridas. O ambiente úmido acelera a epitelização, reduz dor e controla o exsudato; a limpeza controla a carga bacteriana sem necessidade de esterilidade absoluta; e o ambiente quente mantém a temperatura próxima à fisiológica, favorecendo a atividade enzimática e a perfusão tecidual. Esses princípios já foram indiretamente cobrados em provas anteriores, especialmente em questões sobre prevenção e manejo de feridas crônicas e lesões por pressão.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. Descreve o conjunto de condições essenciais do curativo moderno (ambiente úmido, limpo e quente), que favorece a cicatrização da lesão por pressão estágio 3.</p>
+            <p><strong>Alternativa B - Ambiente seco, limpo e aquecido.</strong> Errada. O ambiente seco retarda a cicatrização, forma crostas, aumenta a dor e predispõe a infecção. O conceito antigo de "ferida seca" foi abandonado desde o modelo de Winter. Distrator que explora conceito ultrapassado.</p>
+            <p><strong>Alternativa C - Ambiente plenamente permeável.</strong> Errada. Um curativo permeável não controla o exsudato, resseca a ferida e não mantém a umidade necessária à cicatrização. Distrator que confunde ventilação com ressecamento.</p>
+            <p><strong>Alternativa D - Ambiente estéril e completamente oclusivo.</strong> Errada. A esterilidade absoluta não é necessária para o tratamento de lesões por pressão limpas; a oclusão total sem controle de exsudato pode causar maceração e proliferação bacteriana anaeróbia. Distrator que confunde manejo de ferida operatória com lesão por pressão.</p>
+            <p><strong>Alternativa E - As condições essenciais dos curativos precisam coexistir.</strong> Errada ou menos adequada. A afirmação é vaga e não especifica quais são as condições essenciais, não respondendo diretamente à pergunta. A alternativa A é a resposta correta por ser específica.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"lesão por pressão sacral em estágio 3":</strong> estágio 3 = perda de espessura total, com tecido subcutâneo visível, sem exposição de fáscia, músculo, osso ou tendão; indica necessidade de curativo que favoreça a cicatrização por segunda intenção.</li>
+                <li><strong>"internado há 30 dias em UTI":</strong> paciente crítico, acamado, com alto risco de complicações de feridas; a escolha do curativo impacta diretamente o prognóstico.</li>
+                <li><strong>"conjunto de condições... para favorecer a cicatrização":</strong> direciona para os princípios do curativo moderno (ambiente úmido, limpo e quente).</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer o estágio 3 da lesão por pressão (perda de espessura total, sem exposição de estruturas profundas).</li>
+                <li><strong>Segundo:</strong> identificar o princípio do curativo moderno: ambiente úmido, limpo e quente.</li>
+                <li><strong>Terceiro:</strong> escolher o tipo de curativo conforme exsudato, tecido e presença de infecção (hidrocoloide, espuma, alginato, etc.).</li>
+                <li><strong>Quarto:</strong> reavaliar periodicamente, desbridar quando necessário e manter medidas de prevenção (mudança de decúbito, colchão adequado, nutrição).</li>
+            </ol>
+            <p>Esse raciocínio treina a habilidade de resolver questões de "conduta inicial" e "escolha do curativo" em pacientes críticos.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> ambiente úmido acelera a epitelização (modelo de Winter); ambiente seco retarda a cicatrização; curativo ideal = úmido, limpo e quente.</li>
+                <li><strong>Números e doses:</strong> estágio 3 = perda de espessura total; estágio 4 = exposição de músculo/osso/tendão; estágio 2 = perda parcial da derme, leito rosado/viável.</li>
+                <li><strong>Mnemônicos:</strong> "ULQ" - <strong>Ú</strong>mido, <strong>L</strong>impo e <strong>Q</strong>uente.</li>
+            </ul>
+            <p>Esses dados já foram cobrados de forma indireta em provas anteriores, especialmente em questões sobre prevenção e manejo de feridas crônicas.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lesão por pressão estágio 2</td>
+                        <td>Perda parcial da derme, leito rosado/viável, sem tecido subcutâneo; pode haver flictena.</td>
+                        <td>Exame clínico.</td>
+                        <td>Curativo úmido, hidrocoloide ou espuma; alívio de pressão.</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão por pressão estágio 3 (a correta)</td>
+                        <td>Perda de espessura total, tecido subcutâneo visível, sem exposição de fáscia, músculo, osso ou tendão.</td>
+                        <td>Exame clínico; avaliar infecção e tecido desvitalizado.</td>
+                        <td>Curativo úmido, limpo e quente (hidrocoloide, espuma, alginato conforme exsudato); desbridamento quando necessário.</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão por pressão estágio 4</td>
+                        <td>Exposição de fáscia, músculo, osso ou tendão; alto risco de osteomielite.</td>
+                        <td>Exame clínico, imagem em casos selecionados.</td>
+                        <td>Desbridamento cirúrgico, curativo, antibioticoterapia se infecção; suporte nutricional.</td>
+                    </tr>
+                    <tr>
+                        <td>Úlcera venosa crônica</td>
+                        <td>Face interna da perna, edema, hiperpigmentação, lipodermatoesclerose.</td>
+                        <td>Exame clínico, Doppler vascular.</td>
+                        <td>Compressão elástica, curativo úmido, elevação do membro.</td>
+                    </tr>
+                    <tr>
+                        <td>Úlcera neuropática (diabética)</td>
+                        <td>Pressão em pontos de apoio plantar, perda de sensibilidade, calosidade.</td>
+                        <td>Exame clínico, avaliação vascular, glicemia.</td>
+                        <td>Offloading, curativo, controle glicêmico, antibioticoterapia se infecção.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das feridas crônicas, não apenas o estágio da lesão por pressão.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre prevenção:</strong> mudança de decúbito a cada 2 horas, colchões de ar, apoios em gel, hidratação e nutrição adequadas.</li>
+                <li><strong>Se fosse sobre estágios:</strong> estágio 1 = eritema não branqueável; estágio 2 = perda parcial da derme; estágio 3 = perda total sem exposição profunda; estágio 4 = exposição de fáscia/músculo/osso; não classificável = cobertura por esfacelo/necrose.</li>
+                <li><strong>Se fosse sobre complicações:</strong> infecção, osteomielite, sepse, dor crônica, aumento do tempo de internação.</li>
+                <li><strong>Se fosse sobre curativos específicos:</strong> hidrocoloide para feridas limpas com exsudato leve a moderado; alginato para exsudato abundante; prata para infecção; TPN em feridas complexas.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2012 - Q83</td>
+                        <td>Paciente obesa, diabética, após cirurgia de fratura de fêmur, apresenta lesões eritematosas com perda cutânea e bolhas em região pré-sacral e nádegas; qual a melhor forma de prevenção?</td>
+                        <td>Prevenção de lesões por pressão</td>
+                        <td>C (movimentação em intervalos menores que 2 horas, colchões de ar e apoios em gel)</td>
+                        <td>Reforça a importância da prevenção e do manejo de lesões por pressão; a questão atual foca no curativo da lesão já instalada.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q67</td>
+                        <td>Paciente imobilizado com úlceras de pressão; afirmativas sobre monitoramento de estágio II, locais mais comuns (sacral e trocantérica), cultura por swabs e ressecção óssea.</td>
+                        <td>Cuidados e complicações das úlceras de pressão</td>
+                        <td>B (I e IV apenas)</td>
+                        <td>Aborda o manejo e as complicações das lesões por pressão; a questão atual foca no princípio do curativo.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q43</td>
+                        <td>Feridas crônicas: mais frequentes (diabéticas, venosas e por pressão); infecção como causa de atraso; tabagismo; diabetes.</td>
+                        <td>Fisiopatologia e manejo de feridas crônicas</td>
+                        <td>D (I, II e IV)</td>
+                        <td>Complementa o entendimento das feridas crônicas; a questão atual aborda o curativo da lesão por pressão estágio 3.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 3 questões das provas de 2006_2026. A banca alterna entre cobrar prevenção (2012), cuidados e complicações (2022) e fisiopatologia de feridas crônicas (2024). Não há questão prévia que tenha cobrado diretamente os princípios do curativo da lesão por pressão estágio 3.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> princípios do curativo moderno (ambiente úmido, limpo e quente), escolha do tipo de curativo conforme exsudato e tecido, e uso de terapia por pressão negativa em lesões complexas.</p>
+            <p><strong>Evolução da cobrança:</strong> as questões anteriores foram mais voltadas à prevenção e às complicações; a próxima prova pode cobrar a aplicação prática do curativo e a escolha do material.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> memorizar o princípio "úmido, limpo e quente", os estágios da lesão por pressão e a indicação dos diferentes tipos de curativo.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1 - Desnutrição:</strong> pacientes desnutridos têm maior risco de lesão por pressão e cicatrização mais lenta; a nutrição adequada é fundamental.</li>
+                <li><strong>Conexão 2 - Imobilidade:</strong> pacientes críticos, sedados ou com fraturas têm maior risco; a mudança de decúbito é a principal medida preventiva.</li>
+                <li><strong>Conexão 3 - Infecção:</strong> a infecção da lesão por pressão pode evoluir para osteomielite e sepse; o curativo adequado e o desbridamento reduzem esse risco.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é assinalar a alternativa B (ambiente seco), por conceito antigo de que "ferida seca cicatriza melhor", ou a D (estéril e completamente oclusivo), por confundir com ferida operatória. A classificação do erro é <strong>lacuna de conhecimento</strong> sobre o curativo moderno. A ação corretiva é memorizar o modelo de Winter e o princípio "úmido, limpo e quente", além de revisar os estágios da lesão por pressão.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na UTI, o paciente com lesão por pressão estágio 3 deve receber curativo que mantenha ambiente úmido, limpo e quente, associado a mudança de decúbito, colchão adequado, controle de exsudato, desbridamento quando necessário e suporte nutricional. A escolha do curativo impacta diretamente o tempo de cicatrização, o risco de infecção e o custo do tratamento.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Estágios da lesão por pressão (1 a 4 e não classificável).</li>
+                <li>Escala de Braden e fatores de risco.</li>
+                <li>Tipos de curativos: hidrocoloide, espuma, alginato, prata, TPN.</li>
+                <li>Modelo de Winter e cicatrização em ambiente úmido.</li>
+                <li>Medidas de prevenção: mudança de decúbito, colchões, nutrição.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sabiston Textbook of Surgery, 21ª edição.</p>
+            <p>2. Schwartz's Principles of Surgery, 11ª edição.</p>
+            <p>3. Diretrizes da NPUAP/EPUAP/PPPIA para lesão por pressão.</p>
+            <p>4. Ministério da Saúde - Protocolo de Prevenção e Tratamento de Lesões por Pressão.</p>
+            <p>5. Artigos sobre modelo de Winter e curativo úmido.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

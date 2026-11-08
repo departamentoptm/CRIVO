@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 79 - Obstrução Intestinal Maligna de Cólon Esquerdo: Conduta Cirúrgica de Urgência</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstrução Intestinal Maligna de Cólon Esquerdo: Conduta Cirúrgica de Urgência</div>
+        <h1>Questão 79</h1>
+        <div class="question-text">
+            Homem de 70 anos, previamente hígido, foi admitido com parada de eliminação de gases e fezes há 48 horas, distensão abdominal e vômitos. A tomografia mostrou imagem sugestiva de tumor estenosante na topografia do cólon sigmoide associada a dilatação importante do cólon a montante. A medida do ceco foi de 8 cm, sem sinais de pneumoperitônio, isquemia ou metástases à distância. O paciente encontrava-se hemodinamicamente estável na admissão, sem comorbidades relevantes. Foi então levado à cirurgia de urgência, e o intestino proximal encontra-se viável. Sobre a conduta cirúrgica, assinale a alternativa correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - A cirurgia de Hartmann é obrigatória neste caso, pois a anastomose primária em cólon não preparado, realizada no contexto de urgência, apresenta taxas de fístulas e complicações pós-operatórias proibitivas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - A colectomia subtotal com anastomose primária ileorretal é sempre necessária nas obstruções do cólon esquerdo, independentemente da viabilidade do cólon proximal.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A ressecção segmentar com anastomose primária é opção em paciente estável, desde que a anastomose seja construída sem tensão e com boa vascularização. Neste caso as taxas de fístula são comparáveis às taxas das cirurgias eletivas.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A colocação de stent endoscópico como ponte para a cirurgia é a recomendação de rotina para os pacientes com doença curável.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - A exteriorização de um estoma de derivação proximal associado à anastomose primária reduz a taxa de fístula anastomótica.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Geral / Cirurgia do Aparelho Digestivo / Coloproctologia.</p>
+                <p><strong>Tema:</strong> Obstrução intestinal maligna de cólon esquerdo (sigmoide) e escolha da conduta cirúrgica de urgência em paciente estável.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A banca costuma cobrar a diferença entre as opções cirúrgicas na obstrução maligna de cólon esquerdo (Hartmann, anastomose primária, colectomia subtotal com anastomose ileorretal, stent como ponte) e os fatores que influenciam a decisão: estabilidade hemodinâmica, viabilidade do cólon proximal, condições locais da anastomose, preparo intestinal e gravidade do paciente. A questão de 2026 é aplicada e foca na tomada de decisão intraoperatória em paciente estável com intestino proximal viável.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A obstrução intestinal por câncer de cólon esquerdo causa distensão a montante, edema de parede, isquemia relativa e alteração da flora, com risco de perfuração (especialmente no ceco, pelo mecanismo da lei de Laplace). No intraoperatório, após a ressecção do segmento obstruído, o cirurgião deve decidir entre anastomose primária (com ou sem estoma de proteção), cirurgia de Hartmann (ressecção + colostomia terminal) ou colectomia subtotal com anastomose ileorretal. A anastomose primária é factível quando o paciente está estável, o cólon proximal é viável, a anastomose é construída sem tensão e com boa vascularização; nessas condições, as taxas de fístula são comparáveis às das cirurgias eletivas. A presença de instabilidade, isquemia, contaminação importante ou condições locais desfavoráveis favorece Hartmann ou colectomia subtotal.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa C é a correta. No caso descrito, o paciente encontra-se hemodinamicamente estável, sem comorbidades relevantes, com intestino proximal viável e sem sinais de isquemia ou perfuração. Nesse cenário, a ressecção segmentar com anastomose primária é uma opção segura, desde que a anastomose seja construída sem tensão e com boa vascularização. Estudos demonstram que, em pacientes selecionados e estáveis, as taxas de fístula anastomótica da anastomose primária em urgência se aproximam das taxas observadas em cirurgias eletivas, não sendo obrigatória a cirurgia de Hartmann.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A cirurgia de Hartmann não é obrigatória em todos os casos. Ela é indicada quando há instabilidade hemodinâmica, contaminação fecal importante, isquemia do cólon proximal ou condições locais desfavoráveis para a anastomose. Em pacientes estáveis com intestino viável, a anastomose primária é uma opção válida e com resultados comparáveis aos da cirurgia eletiva.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A colectomia subtotal com anastomose ileorretal não é sempre necessária. É uma opção quando há dúvida sobre a viabilidade do cólon proximal ou quando se deseja evitar uma colostomia, mas não é obrigatória em todos os casos de obstrução de cólon esquerdo.</p>
+                <p><strong>Alternativa C</strong> - Correta. A ressecção segmentar com anastomose primária é opção em paciente estável, desde que a anastomose seja construída sem tensão e com boa vascularização; nesse cenário, as taxas de fístula são comparáveis às das cirurgias eletivas.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. A colocação de stent endoscópico como ponte para a cirurgia não é recomendação de rotina para todos os pacientes com doença curável. É uma alternativa em casos selecionados, especialmente como terapia paliativa ou como ponte para cirurgia em pacientes de alto risco, mas não é a recomendação padrão para todos os pacientes com doença curável.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A exteriorização de um estoma de derivação proximal (estoma de proteção) associado à anastomose primária não reduz de forma comprovada a taxa de fístula anastomótica. O estoma de proteção pode reduzir as consequências de uma fístula, mas não previne sua ocorrência.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Parada de eliminação de gases e fezes há 48 horas, distensão abdominal e vômitos”:</strong> quadro clássico de obstrução intestinal.</li>
+                    <li><strong>“Tumor estenosante na topografia do cólon sigmoide”:</strong> obstrução maligna de cólon esquerdo.</li>
+                    <li><strong>“Ceco de 8 cm”:</strong> dilatação significativa do cólon a montante, com risco de perfuração, mas ainda sem pneumoperitônio.</li>
+                    <li><strong>“Sem sinais de pneumoperitônio, isquemia ou metástases à distância”:</strong> ausência de complicações graves e de doença avançada.</li>
+                    <li><strong>“Hemodinamicamente estável, sem comorbidades relevantes”:</strong> paciente de baixo risco cirúrgico, favorecendo anastomose primária.</li>
+                    <li><strong>“Intestino proximal encontra-se viável”:</strong> condição local favorável à anastomose.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> confirmar o diagnóstico de obstrução intestinal por tumor de cólon esquerdo e avaliar a gravidade (estabilidade hemodinâmica, sinais de isquemia, perfuração, contaminação).</li>
+                    <li><strong>Segundo:</strong> avaliar a viabilidade do cólon proximal e as condições locais para anastomose (tensão, vascularização, contaminação).</li>
+                    <li><strong>Terceiro:</strong> em paciente estável, sem comorbidades relevantes, com intestino proximal viável e sem contaminação importante, optar por ressecção segmentar com anastomose primária.</li>
+                    <li><strong>Quarto:</strong> reservar a cirurgia de Hartmann para pacientes instáveis, com contaminação fecal importante, isquemia do cólon proximal ou condições locais desfavoráveis; considerar colectomia subtotal com anastomose ileorretal quando houver dúvida sobre a viabilidade do cólon proximal.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> anastomose primária em obstrução maligna de cólon esquerdo é segura em pacientes estáveis, com intestino proximal viável, sem tensão e com boa vascularização; nesses casos, as taxas de fístula são comparáveis às da cirurgia eletiva.</li>
+                    <li><strong>Números e doses:</strong> ceco > 8-10 cm é fator de risco para perfuração; a lei de Laplace explica por que o ceco é o segmento mais vulnerável.</li>
+                    <li><strong>Mnemônicos:</strong> “HARTMANN” para os casos em que há instabilidade, contaminação, isquemia ou condições locais desfavoráveis: Hemodinâmica instável, Ambiente contaminado, Ressecção com Risco, Tensão, Má vascularização, Necrose, Não anastomosar.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Obstrução maligna de cólon esquerdo (caso)</td>
+                            <td>Parada de eliminação de gases/fezes, distensão, vômitos, tumor estenosante em sigmoide</td>
+                            <td>TC de abdome, colonoscopia (se possível), biópsia</td>
+                            <td>Ressecção segmentar com anastomose primária se estável e condições favoráveis; Hartmann se instável/contaminado</td>
+                        </tr>
+                        <tr>
+                            <td>Volvo de sigmoide</td>
+                            <td>Distensão súbita, dor, ausência de eliminação de gases, imagem com “grão de café”</td>
+                            <td>Radiografia/TC de abdome</td>
+                            <td>Descompressão endoscópica; cirurgia se recidiva ou isquemia</td>
+                        </tr>
+                        <tr>
+                            <td>Obstrução por fecaloma</td>
+                            <td>Histórico de constipação, idoso, uso de opioides</td>
+                            <td>Toque retal, radiografia/TC</td>
+                            <td>Desimpactação, enemas, laxantes; cirurgia raramente</td>
+                        </tr>
+                        <tr>
+                            <td>Pseudo-obstrução colônica (Ogilvie)</td>
+                            <td>Distensão colônica sem obstrução mecânica, paciente grave/hospitalizado</td>
+                            <td>TC sem obstrução, colonoscopia</td>
+                            <td>Correção de causas, neostigmina, descompressão endoscópica</td>
+                        </tr>
+                        <tr>
+                            <td>Obstrução de intestino delgado</td>
+                            <td>Distensão de alças delgadas, níveis hidroaéreos, cirurgias prévias</td>
+                            <td>Radiografia/TC de abdome</td>
+                            <td>Hidratação, sonda nasogástrica; cirurgia se sinais de estrangulamento</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta poderia envolver TC de abdome, radiografia e colonoscopia.</li>
+                    <li><strong>Se fosse sobre complicação:</strong> a resposta poderia abordar perfuração do ceco, isquemia, sepse.</li>
+                    <li><strong>Se fosse sobre prevenção:</strong> a resposta poderia envolver rastreamento do câncer colorretal (colonoscopia, sangue oculto).</li>
+                    <li><strong>Se fosse sobre tratamento paliativo:</strong> a resposta poderia incluir stent endoscópico como ponte ou paliação.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2009 - Q27</td>
+                            <td>Homem de 75 anos com dor abdominal, distensão, vômitos fecaloides, parada de eliminação de gases/fezes, radiografia com níveis hidroaéreos e “empilhamento de moedas”, sem ar no reto. Causa mais provável.</td>
+                            <td>Diagnóstico de obstrução intestinal por câncer de cólon</td>
+                            <td>A</td>
+                            <td>Identifica o câncer de cólon como principal causa de obstrução intestinal no idoso; não aborda conduta cirúrgica.</td>
+                        </tr>
+                        <tr>
+                            <td>2008 - Q97</td>
+                            <td>Indicações de tratamento cirúrgico imediato nas obstruções do intestino delgado (EXCETO).</td>
+                            <td>Indicações cirúrgicas na obstrução intestinal</td>
+                            <td>C</td>
+                            <td>Reforça critérios de gravidade (irritação peritoneal, estrangulamento, pneumoperitônio); não aborda obstrução de cólon.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 - Q80</td>
+                            <td>Pós-operatório de colectomia parcial com dor e distensão abdominal; asserções sobre íleo adinâmico, fístula, pneumoperitônio.</td>
+                            <td>Complicações pós-operatórias de colectomia</td>
+                            <td>D</td>
+                            <td>Mostra a importância da avaliação de distúrbios hidroeletrolíticos e íleo adinâmico no pós-operatório; não aborda escolha intraoperatória.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 - Q86</td>
+                            <td>Homem de 25 anos com dor abdominal em quadrante inferior direito; conduta inicial (investigação com TC).</td>
+                            <td>Abdome agudo, investigação por imagem</td>
+                            <td>E</td>
+                            <td>Reforça o papel da TC na avaliação do abdome agudo, aplicável ao caso de obstrução.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 - Q87</td>
+                            <td>Homem de 63 anos com irritação peritoneal; preparo para cirurgia de emergência.</td>
+                            <td>Preparo pré-operatório no abdome agudo</td>
+                            <td>A</td>
+                            <td>Destaca a antibioticoterapia no preparo cirúrgico; não aborda escolha da técnica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema específico (conduta cirúrgica na obstrução maligna de cólon esquerdo) não foi abordado diretamente nas provas de 2006_2026. A banca cobrou temas correlatos: diagnóstico de obstrução intestinal por câncer de cólon, indicações cirúrgicas na obstrução, complicações pós-operatórias de colectomia e investigação do abdome agudo.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Escolha entre anastomose primária, cirurgia de Hartmann, colectomia subtotal com anastomose ileorretal e stent endoscópico como ponte na obstrução maligna de cólon esquerdo; critérios de segurança para anastomose em urgência; papel do estoma de proteção.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a cobrança era mais descritiva (diagnóstico e complicações). Em 2026, a questão tornou-se mais aplicada, focando em tomada de decisão intraoperatória em paciente estável com intestino viável.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar as opções cirúrgicas na obstrução maligna de cólon esquerdo, critérios de segurança para anastomose primária em urgência e indicações de Hartmann e colectomia subtotal.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Câncer colorretal → obstrução intestinal → conduta cirúrgica de urgência → estadiamento e tratamento adjuvante.</li>
+                    <li><strong>Conexão 2:</strong> Obstrução intestinal → distensão do ceco → risco de perfuração (lei de Laplace) → necessidade de descompressão/cirurgia.</li>
+                    <li><strong>Conexão 3:</strong> Cirurgia de Hartmann → colostomia terminal → impacto na qualidade de vida e possibilidade de reconstrução do trânsito.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, provavelmente superestimou o risco da anastomose primária em urgência ou desconhecia os critérios de seleção para anastomose segura. Classificação do erro: lacuna de conhecimento sobre conduta cirúrgica na obstrução maligna de cólon esquerdo e confusão conceitual entre “urgência” e “contraindicação à anastomose”. Ação corretiva: revisar os critérios de segurança para anastomose primária (estabilidade, viabilidade do cólon, ausência de tensão, boa vascularização) e as indicações de Hartmann e colectomia subtotal.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, a decisão intraoperatória na obstrução maligna de cólon esquerdo deve ser individualizada. O cirurgião deve considerar a estabilidade do paciente, a viabilidade do cólon proximal, o grau de contaminação, as condições locais para anastomose e a experiência da equipe. A anastomose primária em pacientes selecionados é segura e evita o ônus de uma colostomia, mas a cirurgia de Hartmann continua sendo uma opção importante em cenários desfavoráveis.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios de segurança para anastomose primária em cirurgia colorretal de urgência.</li>
+                    <li>Indicações e técnica da cirurgia de Hartmann.</li>
+                    <li>Colectomia subtotal com anastomose ileorretal: indicações e resultados.</li>
+                    <li>Stent endoscópico como ponte para cirurgia ou paliação na obstrução maligna de cólon esquerdo.</li>
+                    <li>Lei de Laplace e risco de perfuração do ceco.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery, 21ª edição. Capítulo de cirurgia colorretal e obstrução intestinal.</p>
+                <p>2. Sociedade Brasileira de Coloproctologia. Diretrizes de câncer colorretal.</p>
+                <p>3. World Journal of Emergency Surgery. Guidelines on the management of malignant left-sided colonic obstruction.</p>
+                <p>4. American Society of Colon and Rectal Surgeons. Clinical Practice Guidelines for the Management of Colorectal Cancer.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

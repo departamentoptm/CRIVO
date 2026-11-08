@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 30 - Obstetrícia: Alterações fisiológicas do organismo materno na gravidez</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstetrícia: Alterações fisiológicas do organismo materno na gravidez</div>
+        <h1>Questão 30</h1>
+        <div class="question-text">
+            Conhecer as alterações fisiológicas do organismo materno na gravidez é de importância fundamental para a boa prática obstétrica. Qual a alternativa que descreve corretamente essas alterações?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Diminui o volume plasmático, diminui o ferro, aumenta o débito cardíaco, aumenta a maturação folicular.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Aumenta o pH vaginal, aumenta a hidratação da pele, diminui a frequência respiratória e diminui a vascularização gengival.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Aumenta a taxa de filtração glomerular, diminui o peristaltismo intestinal, aumenta o débito cardíaco e diminui o retorno venoso.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Diminui a viscosidade sanguínea, diminui a frequência cardíaca, aumenta a frequência respiratória e diminui o diâmetro do ureter.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Aumenta a circulação sanguínea na vagina e vulva, diminui a produção de progesterona pelo corpo lúteo, aumenta a prolactina e diminui a hemodiluição.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Obstetrícia / Fisiologia da Gestação</p>
+            <p><strong>Tema:</strong> Alterações fisiológicas do organismo materno na gravidez</p>
+            <p><strong>Contextualização:</strong> O conhecimento das adaptações fisiológicas da gestação é fundamental para diferenciar o normal do patológico, interpretar exames e conduzir o pré-natal. A banca cobra de forma recorrente as alterações cardiovasculares, renais, gastrointestinais e respiratórias. É tema de alta incidência em provas de ginecologia e obstetrícia e na atenção primária.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A gestação impõe adaptações em praticamente todos os sistemas, mediadas por hormônios (estrogênio, progesterona, lactogênio placentário, relaxina) e por fatores mecânicos (crescimento uterino). As principais alterações são:</p>
+            <ul>
+                <li><strong>Cardiovascular:</strong> aumento do volume plasmático (40-50%), do débito cardíaco (30-50%) e da frequência cardíaca (10-20 bpm). O retorno venoso diminui em decúbito dorsal pela compressão da veia cava inferior pelo útero, causando hipotensão supina.</li>
+                <li><strong>Renal:</strong> aumento da taxa de filtração glomerular (50%) e do fluxo plasmático renal; dilatação do ureter e pelve renal (hidronefrose fisiológica); glicosúria moderada pode ocorrer.</li>
+                <li><strong>Gastrointestinal:</strong> redução do peristaltismo (progesterona) → constipação; relaxamento do esfíncter esofágico inferior → refluxo; náuseas e vômitos no primeiro trimestre.</li>
+                <li><strong>Hematológico:</strong> hemodiluição (aumento do plasma > aumento de hemácias) → anemia fisiológica; aumento de fatores de coagulação → hipercoagulabilidade.</li>
+                <li><strong>Respiratório:</strong> aumento do volume corrente e do consumo de oxigênio; frequência respiratória pouco alterada; alcalose respiratória compensada.</li>
+                <li><strong>Genitourinário:</strong> aumento da vascularização vaginal e vulvar; pH vaginal mais ácido (lactobacilos); aumento do corrimento fisiológico.</li>
+                <li><strong>Endócrino:</strong> aumento da prolactina; corpo lúteo gravídico produz progesterona até a placenta assumir (por volta de 10-12 semanas); aumento de tireoide e adrenais.</li>
+            </ul>
+            <p>A alternativa correta deve combinar alterações verdadeiras e coerentes.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C.</strong> Está correta. A gestação cursa com: (1) aumento da taxa de filtração glomerular (cerca de 50%); (2) redução do peristaltismo intestinal (efeito da progesterona, causando constipação); (3) aumento do débito cardíaco (30-50%); e (4) redução do retorno venoso, especialmente em decúbito dorsal, pela compressão da veia cava inferior pelo útero. Todas as quatro afirmações são corretas e coerentes com a fisiologia da gestação.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - O volume plasmático NÃO diminui; ele aumenta (40-50%). O ferro diminui (por consumo e hemodiluição), o débito cardíaco aumenta, e a maturação folicular está suprimida (não aumentada). Alternativa incorreta. O tema "expansão volêmica" aparece na prova de 2010 (Q12) e 2019 (Q97).</p>
+            <p><strong>Alternativa B</strong> - O pH vaginal NÃO aumenta; ele diminui (mais ácido, pela ação de lactobacilos sobre o glicogênio). A hidratação da pele pode aumentar, mas a frequência respiratória não diminui (permanece pouco alterada ou aumenta levemente), e a vascularização gengival aumenta (gengivite gravídica). Alternativa incorreta.</p>
+            <p><strong>Alternativa C</strong> - Correta: aumento da TFG, redução do peristaltismo, aumento do débito cardíaco e redução do retorno venoso.</p>
+            <p><strong>Alternativa D</strong> - A viscosidade sanguínea NÃO diminui; ela aumenta (hemodiluição reduz o hematócrito, mas a viscosidade total pode aumentar por fatores de coagulação e fibrinogênio). A frequência cardíaca aumenta (não diminui), a frequência respiratória aumenta levemente, e o diâmetro do ureter aumenta (hidronefrose fisiológica), não diminui. Alternativa incorreta.</p>
+            <p><strong>Alternativa E</strong> - A circulação vaginal e vulvar aumenta (correto), a produção de progesterona pelo corpo lúteo NÃO diminui (aumenta até a placenta assumir), a prolactina aumenta (correto), e a hemodiluição NÃO diminui (aumenta). Alternativa incorreta. O tema "progesterona e corpo lúteo" é próximo de questões de endocrinologia da gestação (2013 - Q72).</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Alterações fisiológicas:</strong> adaptações normais da gestação, que devem ser diferenciadas de patologia.</li>
+                <li><strong>Taxa de filtração glomerular:</strong> aumenta cerca de 50% na gestação.</li>
+                <li><strong>Peristaltismo intestinal:</strong> diminui (progesterona) → constipação.</li>
+                <li><strong>Débito cardíaco:</strong> aumenta 30-50%.</li>
+                <li><strong>Retorno venoso:</strong> diminui em decúbito dorsal (compressão da veia cava pelo útero).</li>
+                <li><strong>Hemodiluição:</strong> aumenta (plasma > hemácias) → anemia fisiológica.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Identificar as alterações cardiovasculares: volume plasmático ↑, débito cardíaco ↑, frequência cardíaca ↑, retorno venoso ↓ (em supino), PA ↓ levemente no 2º trimestre.</li>
+                <li><strong>Segundo:</strong> Alterações renais: TFG ↑, fluxo plasmático renal ↑, ureter dilatado, glicosúria moderada.</li>
+                <li><strong>Terceiro:</strong> Alterações gastrointestinais: peristaltismo ↓ (constipação), refluxo (esfíncter esofágico inferior relaxado), náuseas.</li>
+                <li><strong>Quarto:</strong> Alterações hematológicas: hemodiluição (anemia fisiológica), hipercoagulabilidade.</li>
+                <li><strong>Quinto:</strong> Alterações respiratórias: volume corrente ↑, frequência respiratória pouco alterada, alcalose respiratória compensada.</li>
+                <li><strong>Sexto:</strong> Alterações genitais: vascularização vaginal ↑, pH vaginal ↓ (mais ácido), corrimento ↑.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "fisiologia da gestação" e "diagnóstico diferencial".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> expansão volêmica (40-50%), débito cardíaco ↑ (30-50%), TFG ↑ (50%), peristaltismo ↓, hemodiluição (anemia fisiológica), hipercoagulabilidade, hidronefrose fisiológica.</li>
+                <li><strong>Números e doses:</strong> volume plasmático ↑ 40-50%; hemácias ↑ 25-30%; débito cardíaco ↑ 30-50%; TFG ↑ 50%; frequência cardíaca ↑ 10-20 bpm.</li>
+                <li><strong>Mnemônicos/regras:</strong> "gravidez = volume ↑, coagulação ↑, TFG ↑, peristaltismo ↓, retorno venoso ↓"; "hemodiluição = anemia fisiológica".</li>
+            </ul>
+            <p>Esses dados são cobrados com frequência em provas de obstetrícia.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Sistema</th>
+                        <th>Alteração fisiológica na gestação</th>
+                        <th>Consequência clínica</th>
+                        <th>Diagnóstico diferencial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cardiovascular</td>
+                        <td>Volume plasmático ↑, débito cardíaco ↑, retorno venoso ↓ em supino</td>
+                        <td>Sopro sistólico funcional, edema leve, hipotensão supina</td>
+                        <td>Insuficiência cardíaca, TVP, pré-eclâmpsia</td>
+                    </tr>
+                    <tr>
+                        <td>Renal</td>
+                        <td>TFG ↑, ureter dilatado, glicosúria moderada</td>
+                        <td>Hidronefrose fisiológica, glicosúria</td>
+                        <td>Pielonefrite, nefrolitíase, diabetes</td>
+                    </tr>
+                    <tr>
+                        <td>Gastrointestinal</td>
+                        <td>Peristaltismo ↓, esfíncter esofágico inferior relaxado</td>
+                        <td>Constipação, pirose/refluxo</td>
+                        <td>Obstrução intestinal, DRGE patológica</td>
+                    </tr>
+                    <tr>
+                        <td>Hematológico</td>
+                        <td>Hemodiluição, hipercoagulabilidade</td>
+                        <td>Anemia fisiológica, risco de TVP</td>
+                        <td>Anemia ferropriva, trombofilias</td>
+                    </tr>
+                    <tr>
+                        <td>Genital</td>
+                        <td>Vascularização ↑, pH vaginal ↓, corrimento ↑</td>
+                        <td>Corrimento fisiológico, maior susceptibilidade a candidíase</td>
+                        <td>Vaginose bacteriana, ISTs</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das alterações da gestação.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a alteração cardiovascular:</strong> aumento do débito cardíaco e do volume plasmático; redução do retorno venoso em supino.</li>
+                <li><strong>Se pedisse a alteração renal:</strong> aumento da TFG e hidronefrose fisiológica.</li>
+                <li><strong>Se pedisse a alteração gastrointestinal:</strong> redução do peristaltismo e refluxo.</li>
+                <li><strong>Se pedisse a alteração hematológica:</strong> hemodiluição e hipercoagulabilidade.</li>
+                <li><strong>Se pedisse a alteração respiratória:</strong> aumento do volume corrente e alcalose respiratória compensada.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2010 - Q12</td>
+                        <td>Repercussões da gravidez no organismo materno: expansão volêmica, frequência cardíaca, ferro, hiperpigmentação, glicosúria, mamas, eixo gravitacional</td>
+                        <td>Alterações fisiológicas da gestação</td>
+                        <td>B (aumento da necessidade de ferro faz necessária a suplementação)</td>
+                        <td>Confirma a importância das alterações hematológicas e cardiovasculares</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q97</td>
+                        <td>Mesma questão de 2010, com opções reorganizadas</td>
+                        <td>Alterações fisiológicas da gestação</td>
+                        <td>C (aumento da necessidade de ferro faz necessária a suplementação)</td>
+                        <td>Reforça o padrão de cobrança sobre adaptações maternas</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q12</td>
+                        <td>Sinais e sintomas da gestação: pica, constipação, hipersalivação, corrimento, cefaleia</td>
+                        <td>Alterações gastrointestinais e genitais</td>
+                        <td>B (constipação tende a melhorar - falso)</td>
+                        <td>Complementa o conhecimento das alterações gastrointestinais</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q12</td>
+                        <td>Assistência pré-natal: lombalgia, pica, Candida, cefaleia, fadiga</td>
+                        <td>Alterações fisiológicas e sintomas da gestação</td>
+                        <td>C (Candida em 50% das gestantes próximas ao termo - incorreto)</td>
+                        <td>Contextualiza as adaptações genitais e musculoesqueléticas</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q72</td>
+                        <td>Alterações fisiológicas da gravidez que aumentam o risco de TVP</td>
+                        <td>Estase venosa, fatores de coagulação e adesividade plaquetária</td>
+                        <td>A (estase venosa, aumento dos fatores de coagulação e adesividade plaquetária)</td>
+                        <td>Reforça a hipercoagulabilidade e a estase venosa</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q72</td>
+                        <td>Endocrinologia da gestação: hipófise, tireoide, pâncreas, adrenais, ovários</td>
+                        <td>Alterações endócrinas</td>
+                        <td>D (adrenais aumentam sobretudo no 1º trimestre - incorreto)</td>
+                        <td>Complementa o conhecimento das adaptações endócrinas</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q28</td>
+                        <td>TVP na gestação: incidência, trombofilias, diagnóstico e tratamento</td>
+                        <td>Hipercoagulabilidade e risco tromboembólico</td>
+                        <td>C (TC de tórax é o primeiro exame para TEP - incorreto)</td>
+                        <td>Reforça a hipercoagulabilidade gestacional</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q59</td>
+                        <td>Seguimento pré-natal de gestantes com doenças renais</td>
+                        <td>Adaptações renais e monitorização</td>
+                        <td>E (avaliação trimestral da função renal - incorreto)</td>
+                        <td>Complementa o conhecimento das alterações renais</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q34</td>
+                        <td>Pré-eclâmpsia: hiporreatividade vascular, arterite, glomeruloendoteliose, migração trofoblástica, SRAA</td>
+                        <td>Fisiopatologia da pré-eclâmpsia</td>
+                        <td>C (lesão renal caracterizada por glomeruloendoteliose)</td>
+                        <td>Contextualiza o diagnóstico diferencial das alterações renais</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q97</td>
+                        <td>Repercussões da gravidez no organismo materno (mesma questão de 2010/2019)</td>
+                        <td>Alterações fisiológicas da gestação</td>
+                        <td>C (aumento da necessidade de ferro faz necessária a suplementação)</td>
+                        <td>Confirma a recorrência do tema</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em mais de 10 questões no período. A banca alterna entre alterações gerais (2010, 2019, 2025), gastrointestinais (2016), genitais (2018), hematológicas (2007, 2014), renais (2015) e endócrinas (2013). A questão atual combina alterações renais, gastrointestinais e cardiovasculares, exigindo visão integrada.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> alterações respiratórias (volume corrente, alcalose respiratória) e a relação entre hemodiluição e anemia fisiológica de forma explícita.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em um sistema por vez; as mais recentes exigem integração de múltiplos sistemas, como nesta questão.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar o conjunto completo de adaptações fisiológicas (cardiovascular, renal, gastrointestinal, hematológico, respiratório, genital e endócrino) e suas consequências clínicas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Hemodiluição → anemia fisiológica → necessidade de suplementação de ferro (tema recorrente em 2010, 2019, 2025).</li>
+                <li><strong>Conexão 2:</strong> Hipercoagulabilidade e estase venosa → risco de TVP/TEP → diagnóstico e tratamento na gestação (2007, 2014, 2017, 2019).</li>
+                <li><strong>Conexão 3:</strong> Aumento da TFG e hidronefrose fisiológica → maior risco de pielonefrite → rastreamento de bacteriúria assintomática (2015, 2018).</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é achar que a frequência cardíaca diminui ou que a viscosidade sanguínea diminui (alternativas A e D), ou que a produção de progesterona pelo corpo lúteo diminui (alternativa E). Outro erro é achar que o pH vaginal aumenta (alternativa B), quando na verdade ele diminui. Classificação provável do erro: confusão conceitual sobre as adaptações fisiológicas. Ação corretiva: memorizar que "gravidez = volume ↑, TFG ↑, débito cardíaco ↑, peristaltismo ↓, retorno venoso ↓, pH vaginal ↓".</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o conhecimento das alterações fisiológicas permite tranquilizar a gestante sobre sintomas normais (constipação, pirose, edema leve, corrimento), interpretar exames corretamente (anemia fisiológica, glicosúria moderada, hidronefrose) e identificar sinais de alarme que fogem do esperado (hipertensão, proteinúria, edema súbito, dispneia). O pré-natal deve incluir suplementação de ferro e ácido fólico, rastreamento de bacteriúria e orientação sobre sinais de TVP.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Alterações cardiovasculares da gestação</li>
+                <li>Alterações renais e hidronefrose fisiológica</li>
+                <li>Alterações gastrointestinais (constipação, refluxo)</li>
+                <li>Hemodiluição e anemia fisiológica</li>
+                <li>Hipercoagulabilidade e risco de TVP</li>
+                <li>Alterações respiratórias e alcalose respiratória</li>
+                <li>Alterações genitais (pH vaginal, corrimento)</li>
+                <li>Alterações endócrinas (prolactina, tireoide, adrenais)</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Assistência Pré-Natal.</p>
+            <p>2. Ministério da Saúde. Caderno de Atenção Básica: Atenção ao Pré-Natal de Baixo Risco.</p>
+            <p>3. Williams Obstetrics, 26ª edição.</p>
+            <p>4. UpToDate. Maternal adaptations to pregnancy. 2024.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

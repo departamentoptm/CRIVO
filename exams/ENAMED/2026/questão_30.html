@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 30 - Geriatria: Delirium em Idoso Institucionalizado com Suspeita de Pneumonia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Geriatria: Delirium em Idoso Institucionalizado com Suspeita de Pneumonia</div>
+        <h1>Questão 30</h1>
+        <div class="question-text">
+            Homem de 75 anos, residente em instituição de longa permanência, com histórico de declínio cognitivo leve, é levado a uma Unidade Básica de Saúde devido a quadro de confusão mental progressiva iniciado há 7 dias, associado a astenia, tosse e agitação psicomotora. No segundo dia de sintomas, foi iniciada ciprofloxacina empiricamente, sem melhora. O paciente apresenta hipertensão arterial e dislipidemia bem controladas. O exame físico revela: paciente confuso no tempo e no espaço; temperatura axilar 36,1 °C; PA 110 x 60 mmHg; FC 98 bpm; FR 21 irpm; SatO2 94% em ar ambiente. Ausculta respiratória com estertores finos em bases bilateralmente.<br><br>
+            Qual é a conduta inicial para esse paciente?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Associar claritromicina.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Encaminhar para Unidade de Pronto Atendimento.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Solicitar tomografia de tórax.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Administrar furosemida.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Geriatria / Clínica Médica / Infectologia</p>
+            <p><strong>Tema:</strong> Delirium em idoso institucionalizado com suspeita de pneumonia e falha de antibioticoterapia oral empírica.</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência, pois integra geriatria, infectologia e atenção primária. A banca costuma cobrar o reconhecimento de apresentações atípicas de infecção no idoso (delirium, hipotermia, ausência de febre) e a decisão de encaminhamento hospitalar quando há gravidade, fragilidade e falha terapêutica.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>No idoso frágil, especialmente institucionalizado, a pneumonia pode se manifestar sem febre alta, com confusão mental aguda (delirium), astenia e descompensação funcional. O delirium é uma alteração aguda e flutuante da atenção e da consciência, frequentemente desencadeada por infecção, medicações, distúrbios metabólicos ou dor. A presença de estertores finos em bases, tosse e confusão progressiva sugere pneumonia. A hipotermia (36,1 °C) e a saturação limítrofe (94%) são sinais de alerta. A falha da ciprofloxacina oral após 5 dias reforça a necessidade de reavaliação diagnóstica e terapêutica em ambiente com suporte.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa B está correta. O paciente é idoso frágil, institucionalizado, com delirium, sintomas respiratórios, hipotermia, saturação limítrofe e falha de antibioticoterapia oral empírica. A conduta inicial é encaminhar para Unidade de Pronto Atendimento (UPA) para avaliação com exames de imagem (radiografia de tórax), laboratório, hidratação e antibioticoterapia parenteral, além de monitorização. O escore CURB-65 provavelmente é ≥2 (idade ≥65 anos e confusão), indicando avaliação hospitalar. Não se deve apenas associar outro antibiótico oral ou solicitar tomografia antes da avaliação inicial.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta: associar claritromicina sem reavaliação clínica e radiológica é conduta inadequada. A falha terapêutica e a gravidade exigem avaliação em serviço de urgência, não apenas ampliar cobertura oral.</p>
+            <p><strong>Alternativa B</strong> - Correta: encaminhar para UPA permite avaliação diagnóstica, suporte e tratamento parenteral, sendo a conduta mais segura no idoso frágil com delirium e suspeita de pneumonia.</p>
+            <p><strong>Alternativa C</strong> - Incorreta: a tomografia de tórax não é o exame inicial de rotina para pneumonia; a radiografia de tórax é o primeiro exame de imagem. Além disso, solicitar tomografia sem estabilização e avaliação clínica adequada não é prioridade.</p>
+            <p><strong>Alternativa D</strong> - Incorreta: furosemida não está indicada. Não há sinais claros de insuficiência cardíaca congestiva; o quadro é infeccioso e o paciente está com PA 110 x 60, sem congestão evidente.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"residente em instituição de longa permanência":</strong> maior risco de pneumonia, aspiração e infecções por germes resistentes.</li>
+                <li><strong>"confusão mental progressiva iniciado há 7 dias":</strong> delirium, apresentação atípica frequente de infecção no idoso.</li>
+                <li><strong>"ciprofloxacina empiricamente, sem melhora":</strong> falha terapêutica, exigindo reavaliação e provável mudança de via/antibiótico.</li>
+                <li><strong>"temperatura axilar 36,1 °C":</strong> ausência de febre não exclui infecção grave; hipotermia pode ser sinal de sepse no idoso.</li>
+                <li><strong>"SatO2 94% em ar ambiente" e "estertores finos em bases":</strong> sugerem comprometimento respiratório e pneumonia.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer que o idoso pode ter infecção grave sem febre, manifestando-se com delirium e queda do estado geral.</li>
+                <li><strong>Segundo:</strong> avaliar gravidade: idade ≥65, confusão, hipotermia, saturação limítrofe, falha de antibiótico oral e fragilidade institucional.</li>
+                <li><strong>Terceiro:</strong> encaminhar para UPA para radiografia de tórax, exames laboratoriais, hidratação e antibioticoterapia parenteral.</li>
+                <li><strong>Quarto:</strong> evitar condutas isoladas como associar antibiótico oral, solicitar TC de tórax antes da radiografia ou usar diurético sem indicação.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em geriatria e infectologia.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> no idoso, pneumonia pode cursar sem febre, com delirium, hipotermia e descompensação funcional.</li>
+                <li><strong>Números e doses:</strong> CURB-65: confusão, ureia &gt; 7 mmol/L, FR ≥30, PA sistólica &lt;90 ou diastólica ≤60, idade ≥65. Escore ≥2 sugere avaliação hospitalar.</li>
+                <li><strong>Mnemônicos:</strong> "idoso com confusão aguda = procurar infecção"; "CURB-65 ajuda a decidir local de tratamento".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar apresentações atípicas e critérios de gravidade.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pneumonia em idoso</td>
+                        <td>Tosse, estertores, delirium, hipotermia, saturação baixa, falha de antibiótico oral</td>
+                        <td>Radiografia de tórax, hemograma, gasometria, culturas</td>
+                        <td>Encaminhar para UPA/hospital, antibiótico parenteral, suporte</td>
+                    </tr>
+                    <tr>
+                        <td>Delirium por outras causas</td>
+                        <td>Confusão aguda, flutuação, sem sinais respiratórios focais</td>
+                        <td>Investigación de causas metabólicas, infecciosas, medicamentosas</td>
+                        <td>Tratar causa base, medidas não farmacológicas</td>
+                    </tr>
+                    <tr>
+                        <td>Insuficiência cardíaca descompensada</td>
+                        <td>Dispneia, ortopneia, edema, crepitações, BNP elevado</td>
+                        <td>Radiografia, BNP, ecocardiograma</td>
+                        <td>Diurético, vasodilatador, oxigênio conforme necessário</td>
+                    </tr>
+                    <tr>
+                        <td>ITU complicada/sepse</td>
+                        <td>Disúria, febre, dor lombar, confusão, leucocitúria</td>
+                        <td>Urina tipo 1, urocultura, hemograma</td>
+                        <td>Antibiótico e suporte; encaminhar se grave</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento ambulatorial:</strong> a resposta incluiria antibiótico oral e reavaliação em 48h apenas em paciente estável e sem critérios de gravidade.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta incluiria vacinação contra influenza e pneumococo, higiene das mãos e cuidados com aspiração.</li>
+                <li><strong>Se fosse sobre complicação:</strong> a resposta incluiria sepse, derrame pleural e insuficiência respiratória.</li>
+                <li><strong>Exemplo:</strong> "Se o paciente estivesse estável, sem confusão e com saturação normal, poderia ser tratado ambulatorialmente. Com delirium e falha terapêutica, a resposta é encaminhamento hospitalar."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q65</td>
+                        <td>Agricultor de 65 anos com febre, tosse purulenta, estertores em base direita, SpO2 96%, sem esforço respiratório.</td>
+                        <td>Manejo de pneumonia comunitária em idoso: decisão entre tratamento ambulatorial e internação.</td>
+                        <td>C</td>
+                        <td>Mesmo tema (pneumonia em idoso), mas na questão anterior o paciente estava estável e sem critérios de gravidade, permitindo antibioticoterapia oral com reavaliação. Na atual, há delirium, hipotermia, falha terapêutica e fragilidade, indicando encaminhamento hospitalar.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema pneumonia em idoso apareceu em pelo menos 1 questão das provas anteriores, com foco na decisão do local de tratamento (ambulatorial versus hospitalar). A banca tem cobrado critérios de gravidade e apresentações atípicas.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> delirium como manifestação de pneumonia em ILPI, uso de CURB-65, falha de antibioticoterapia oral e necessidade de antibioticoterapia parenteral.</p>
+            <p><strong>Evolução da cobrança:</strong> a banca tem priorizado decisões práticas baseadas em gravidade e fragilidade, em vez de apenas descrever o quadro clínico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar pneumonia em idosos, critérios de internação, apresentações atípicas (delirium, hipotermia) e escalas de gravidade como CURB-65.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Delirium - sempre investigar causa infecciosa, metabólica ou medicamentosa em idoso com confusão aguda.</li>
+                <li><strong>Conexão 2:</strong> Sepse - idoso pode apresentar hipotermia, confusão e hipotensão sem febre alta.</li>
+                <li><strong>Conexão 3:</strong> Instituições de longa permanência - maior risco de pneumonia por aspiração e germes resistentes, exigindo atenção à gravidade.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é subestimar a gravidade por ausência de febre ou tentar apenas associar antibiótico oral. A estratégia de correção é memorizar: idoso frágil com delirium, hipotermia, saturação limítrofe e falha terapêutica deve ser encaminhado para avaliação hospitalar. Classificação do erro: erro de estratégia/priorização e lacuna sobre apresentações atípicas de infecção no idoso. Ação corretiva: revisar critérios de gravidade (CURB-65), delirium e pneumonia em idosos.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o encaminhamento para UPA permite radiografia de tórax, exames laboratoriais, hidratação e antibioticoterapia parenteral, reduzindo mortalidade em idosos frágeis. A avaliação da gravidade e a reavaliação da antibioticoterapia empírica são essenciais.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Delirium em idosos: causas e manejo.</li>
+                <li>Pneumonia em idosos: apresentação atípica e critérios de gravidade.</li>
+                <li>CURB-65 e decisão de internação.</li>
+                <li>Sepse no idoso: hipotermia e confusão.</li>
+                <li>Antibioticoterapia empírica e falha terapêutica.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Brasil. Ministério da Saúde. Diretrizes para o manejo da pneumonia adquirida na comunidade em idosos.</p>
+            <p>2. Sociedade Brasileira de Geriatria e Gerontologia. Delirium em idosos.</p>
+            <p>3. American Thoracic Society/Infectious Diseases Society of America. Guidelines for CAP in adults.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

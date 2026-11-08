@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 4 - Planejamento Familiar: Laqueadura Tubária e Critérios Legais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Planejamento Familiar: Laqueadura Tubária e Critérios Legais</div>
+        <h1>Questão 4</h1>
+        <div class="question-text">
+            Mulher de 23 anos, G3P3, sem comorbidades, procura atendimento em Unidade Básica de Saúde, manifestando desejo de ser submetida à laqueadura tubária. De acordo com a lei de planejamento familiar, qual é a conduta inicial do profissional de saúde nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Informar que a situação da paciente está em desacordo com os critérios legais pertinentes.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Orientar que é necessária a autorização do cônjuge para a realização do procedimento.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Oferecer à paciente informações a respeito de outros métodos anticoncepcionais.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Encaminhar a paciente para realização do procedimento em questão.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Ginecologia e Obstetrícia</p>
+            <p><strong>Tema:</strong> Planejamento familiar e laqueadura tubária: critérios legais, aconselhamento e oferta de métodos contraceptivos.</p>
+            <p><strong>Contextualização:</strong> A laqueadura tubária é um método contraceptivo definitivo e, por isso, exige aconselhamento cuidadoso, informação sobre alternativas reversíveis e cumprimento de critérios legais. O tema é relevante na atenção primária, pois é na UBS que ocorre o primeiro contato e o aconselhamento contraceptivo. A banca costuma cobrar não apenas a elegibilidade legal, mas também a conduta ética de oferecer informações e alternativas antes de encaminhar para cirurgia.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A laqueadura tubária impede a fecundação ao interromper a passagem do óvulo pela tuba uterina. Por ser método definitivo, a legislação brasileira (Lei nº 9.263/1996) estabelece critérios para evitar esterilização precoce: capacidade civil plena e idade superior a 25 anos ou, pelo menos, dois filhos vivos; prazo mínimo de 60 dias entre a manifestação de vontade e a cirurgia; informação sobre riscos, efeitos colaterais, dificuldades de reversão e opções de contracepção reversíveis; e aconselhamento por equipe multidisciplinar. A paciente do caso tem 23 anos, mas possui três filhos vivos (G3P3), portanto preenche o critério de pelo menos dois filhos vivos. Ainda assim, a conduta inicial não é encaminhar diretamente: deve-se oferecer informação e aconselhamento sobre outros métodos anticoncepcionais, conforme prevê a lei.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>C</strong>. A Lei nº 9.263/1996 determina que, antes da esterilização voluntária, a pessoa interessada deve ter acesso a serviço de regulação da fecundidade, incluindo aconselhamento por equipe multidisciplinar, com vistas a desencorajar a esterilização precoce e a apresentar opções de contracepção reversíveis. Assim, a conduta inicial é oferecer à paciente informações a respeito de outros métodos anticoncepcionais, discutir riscos e benefícios, respeitar a autonomia e só então prosseguir com os trâmites legais, incluindo o prazo de 60 dias entre a manifestação e o procedimento. O histórico de provas anteriores mostra que a banca valoriza o aconselhamento contraceptivo e a escolha de métodos conforme critérios de elegibilidade, como nas questões sobre contracepção em obesidade, enxaqueca com aura, adolescência e lúpus com trombose.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. A paciente tem 23 anos, mas possui três filhos vivos, o que atende ao critério legal alternativo de pelo menos dois filhos vivos. Portanto, não há desacordo absoluto com os critérios legais; o que falta é o cumprimento do aconselhamento e do prazo legal.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A lei brasileira de planejamento familiar não exige autorização do cônjuge para laqueadura tubária. Exige manifestação de vontade livre e esclarecida da própria paciente, com aconselhamento e respeito ao prazo mínimo de 60 dias. A ideia de autorização conjugal é um distrator clássico e não corresponde à legislação vigente.</p>
+            <p><strong>Alternativa C</strong> - Correta. É a conduta inicial prevista na lei: oferecer informações sobre outros métodos anticoncepcionais, riscos, benefícios, possibilidades de reversão e alternativas antes de prosseguir com a esterilização cirúrgica.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. Encaminhar diretamente para o procedimento sem aconselhamento e sem observar o prazo de 60 dias entre a manifestação e a cirurgia contraria a Lei nº 9.263/1996. A laqueadura não deve ser tratada como conduta imediata sem as etapas legais.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Laqueadura tubária”:</strong> método contraceptivo definitivo, que exige critérios legais e aconselhamento.</li>
+                <li><strong>“G3P3”:</strong> três gestações e três partos, portanto pelo menos dois filhos vivos; atende ao critério legal alternativo de idade.</li>
+                <li><strong>“Lei de planejamento familiar”:</strong> remete à Lei nº 9.263/1996, que exige informação sobre alternativas, prazo de 60 dias e aconselhamento multidisciplinar.</li>
+                <li><strong>“Conduta inicial”:</strong> não é a cirurgia em si, mas o aconselhamento e a oferta de informações sobre métodos contraceptivos.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Verificar se a paciente preenche critérios legais: capacidade civil plena e idade maior de 25 anos ou pelo menos dois filhos vivos. No caso, ela tem 23 anos, mas três filhos vivos, portanto preenche o critério alternativo.</li>
+                <li><strong>Segundo:</strong> Não exigir autorização do cônjuge, pois a lei não prevê essa exigência para laqueadura tubária.</li>
+                <li><strong>Terceiro:</strong> Oferecer aconselhamento e informações sobre métodos contraceptivos reversíveis, riscos, efeitos colaterais e dificuldades de reversão.</li>
+                <li><strong>Quarto:</strong> Registrar a manifestação de vontade por escrito e observar o prazo mínimo de 60 dias entre a manifestação e a cirurgia, se a paciente mantiver o desejo.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Laqueadura tubária é método definitivo; a lei exige idade maior de 25 anos ou pelo menos dois filhos vivos; prazo mínimo de 60 dias entre manifestação e cirurgia; aconselhamento sobre alternativas reversíveis.</li>
+                <li><strong>Números e doses:</strong> Prazo mínimo de 60 dias entre a manifestação de vontade e o ato cirúrgico; dois filhos vivos como critério alternativo à idade.</li>
+                <li><strong>Mnemônicos:</strong> “25 ou 2”: maior de 25 anos ou pelo menos 2 filhos vivos; “60 dias” para reflexão e aconselhamento.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar os critérios legais e a conduta ética de aconselhamento. Em provas anteriores, o tema contraceptivo foi cobrado em situações especiais, como obesidade, enxaqueca com aura, adolescência e lúpus com trombose.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Laqueadura tubária (a correta)</td>
+                        <td>Desejo de método definitivo; paciente com critérios legais</td>
+                        <td>Avaliação clínica e aconselhamento; registro de manifestação</td>
+                        <td>Oferecer informações sobre alternativas, respeitar prazo de 60 dias e encaminhar se mantiver desejo</td>
+                    </tr>
+                    <tr>
+                        <td>DIU de cobre ou levonorgestrel</td>
+                        <td>Método reversível de longa duração; pode ser preferível em jovens</td>
+                        <td>Exame ginecológico e avaliação de elegibilidade</td>
+                        <td>Oferecer como alternativa reversível antes da laqueadura</td>
+                    </tr>
+                    <tr>
+                        <td>Implante contraceptivo</td>
+                        <td>Método reversível de longa duração; útil em adolescentes e situações especiais</td>
+                        <td>Avaliação clínica; inserção em ambiente adequado</td>
+                        <td>Considerar quando a paciente deseja método eficaz e reversível</td>
+                    </tr>
+                    <tr>
+                        <td>Anticoncepcionais orais combinados</td>
+                        <td>Método reversível; contraindicado em enxaqueca com aura e trombose</td>
+                        <td>Avaliação de risco cardiovascular e trombótico</td>
+                        <td>Evitar em pacientes com contraindicações; orientar métodos alternativos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+            <ul>
+                <li><strong>Se a questão foi sobre conduta inicial:</strong> a resposta é oferecer informações sobre outros métodos e aconselhar, não encaminhar diretamente.</li>
+                <li><strong>Se a questão pedisse critérios legais:</strong> a resposta envolveria idade maior de 25 anos ou pelo menos dois filhos vivos e prazo de 60 dias.</li>
+                <li><strong>Se a questão pedisse contraindicação:</strong> poderia abordar laqueadura durante cesárea, em pessoa com menos de 25 anos e menos de dois filhos, ou sem consentimento esclarecido.</li>
+                <li><strong>Se a questão pedisse método para adolescente:</strong> a resposta poderia ser implante ou DIU, conforme autonomia e avaliação clínica.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025 - Q26</td>
+                        <td>Mulher de 29 anos, nuligesta, IMC 41,5 kg/m², em pré-operatório de cirurgia bariátrica, necessita de orientação contraceptiva.</td>
+                        <td>Escolha de método contraceptivo em obesidade e pré-bariátrica</td>
+                        <td>Endoceptivo antes da operação</td>
+                        <td>Relaciona-se ao aconselhamento contraceptivo e à escolha de método conforme situação clínica, tema próximo da laqueadura.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q47</td>
+                        <td>Adolescente de 15 anos com enxaqueca com aura deseja iniciar contracepção.</td>
+                        <td>Contraindicação de anticoncepcional combinado pelo risco de AVC</td>
+                        <td>Acidente vascular cerebral</td>
+                        <td>Mostra que a banca cobra elegibilidade e contraindicações dos métodos contraceptivos.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q92</td>
+                        <td>Adolescente de 16 anos, assintomática, solicita implante contraceptivo de longa duração.</td>
+                        <td>Autonomia do adolescente e atendimento ao pedido de anticoncepção</td>
+                        <td>Atender ao pedido quanto à anticoncepção</td>
+                        <td>Reforça a importância do aconselhamento e do respeito à autonomia na contracepção.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q99</td>
+                        <td>Nulípara de 30 anos com lúpus eritematoso sistêmico e história recente de trombose venosa busca método contraceptivo.</td>
+                        <td>Escolha de contracepção em paciente com risco trombótico</td>
+                        <td>DIU de levonorgestrel</td>
+                        <td>Relaciona-se à avaliação de critérios de elegibilidade e à oferta de métodos alternativos antes de métodos definitivos.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> Não há questão anterior especificamente sobre laqueadura tubária, mas a banca cobra com frequência aconselhamento contraceptivo, escolha de método conforme situação clínica, contraindicações e autonomia da paciente. O tema apareceu de forma indireta em pelo menos quatro questões analisadas.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Critérios legais específicos da laqueadura tubária (idade maior de 25 anos ou dois filhos vivos, prazo de 60 dias, vedação durante cesárea, necessidade de aconselhamento multidisciplinar) ainda não foram cobrados de forma direta. Podem surgir na próxima prova.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em escolha de método e contraindicações em populações especiais. A tendência é cobrar situações aplicadas, com tomada de decisão e respeito à legislação e à autonomia.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a Lei nº 9.263/1996, os critérios de elegibilidade da laqueadura, o prazo de 60 dias, a vedação de esterilização durante cesárea e a importância de oferecer métodos reversíveis antes do procedimento definitivo.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <p>Como esse tema se integra com outros:</p>
+            <ul>
+                <li><strong>Conexão 1:</strong> Planejamento familiar e saúde da mulher - a laqueadura deve ser discutida no contexto de aconselhamento contraceptivo amplo, incluindo métodos reversíveis de longa duração.</li>
+                <li><strong>Conexão 2:</strong> Ética médica e autonomia - a paciente deve receber informação clara, sem coerção, e o profissional deve respeitar sua decisão após o período de reflexão legal.</li>
+                <li><strong>Conexão 3:</strong> Saúde coletiva e legislação - o cumprimento dos critérios legais evita esterilização precoce e garante acesso adequado ao planejamento familiar no SUS.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Caso o usuário tenha marcado alternativa incorreta, o erro provavelmente foi de lacuna de conhecimento sobre a Lei nº 9.263/1996 ou de confusão conceitual entre critérios legais e autorização conjugal. A estratégia corretiva é memorizar os critérios: maior de 25 anos ou pelo menos dois filhos vivos; prazo de 60 dias; informação sobre métodos reversíveis; ausência de exigência de autorização do cônjuge. Também é importante diferenciar “conduta inicial” (aconselhamento) de “encaminhamento para cirurgia”.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática da atenção primária, a mulher que solicita laqueadura deve ser acolhida, ter sua autonomia respeitada e receber informações completas sobre métodos contraceptivos reversíveis e definitivos. O médico deve registrar a manifestação de vontade, orientar sobre riscos e benefícios, observar o prazo legal e encaminhar ao serviço de referência quando indicado. Isso evita decisões precipitadas e garante o cumprimento da legislação.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Lei nº 9.263/1996 - Planejamento Familiar</li>
+                <li>Critérios de elegibilidade para laqueadura tubária</li>
+                <li>Métodos contraceptivos reversíveis de longa duração (DIU, implante)</li>
+                <li>Contraindicações de anticoncepcionais combinados</li>
+                <li>Aconselhamento contraceptivo e autonomia da paciente</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Brasil. Lei nº 9.263, de 12 de janeiro de 1996 - Regula o § 7º do art. 226 da Constituição Federal, que trata do planejamento familiar.</p>
+            <p>2. Ministério da Saúde. Saúde sexual e saúde reprodutiva: cadernos de atenção básica.</p>
+            <p>3. Federação Brasileira das Associações de Ginecologia e Obstetrícia (Febrasgo). Contracepção: recomendações.</p>
+            <p>4. Organização Mundial da Saúde. Critérios médicos de elegibilidade para uso de métodos contraceptivos.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

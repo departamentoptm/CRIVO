@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 59 - Investigação da Cardiopatia Isquêmica: ECG, Teste de Esforço e Probabilidade Pré-Teste</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Investigação da Cardiopatia Isquêmica: ECG, Teste de Esforço e Probabilidade Pré-Teste</div>
+        <h1>Questão 59</h1>
+        <div class="question-text">
+            Em relação à investigação da Cardiopatia Isquêmica (CI), podemos afirmar<br><br>
+            I. Paciente com angina do peito classe I da New York Heart Association tem limitação leve da atividade física, com dor ao andar ou subir escadas rapidamente.<br>
+            II. O eletrocardiograma obtido em repouso pode ser normal em pacientes com angina de peito típica.<br>
+            III. O teste mais usado para diagnosticar a CI e estimar o risco e o prognóstico é o registro do ECG antes, durante e após o exercício, geralmente em uma esteira (Teste de Esforço).<br>
+            IV. Nos testes de esforço a incidência de resultados falso-positivos independe da probabilidade pré-teste de haver CI no paciente ou na população sob estudo.<br><br>
+            Escolha entre as alternativas abaixo as assertivas corretas.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - I e II apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - III e IV apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - II e III apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - I, II e III apenas.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - IV apenas.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cardiologia / Semiologia Cardiovascular / Medicina Baseada em Evidências.</p>
+            <p><strong>Tema:</strong> Investigação diagnóstica e prognóstica da cardiopatia isquêmica (CI): classificação funcional NYHA, valor do ECG de repouso, papel do teste ergométrico e influência da probabilidade pré-teste sobre os resultados falso-positivos.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A banca cobra a interpretação da classificação NYHA, o valor diagnóstico dos exames iniciais, o papel do teste de esforço como método mais usado na avaliação inicial da angina estável e o raciocínio bayesiano (probabilidade pré-teste) na interpretação de testes diagnósticos. A questão integra semiologia, propedêutica e raciocínio clínico.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A angina estável é a manifestação clínica da isquemia miocárdica desencadeada por esforço e aliviada pelo repouso, decorrente do desequilíbrio entre oferta e demanda de oxigênio em território coronariano com lesão aterosclerótica. A classificação da New York Heart Association (NYHA) estratifica a limitação funcional:</p>
+            <ul>
+                <li><strong>Classe I:</strong> sem limitação. Atividade física habitual não causa sintomas (nem angina).</li>
+                <li><strong>Classe II:</strong> limitação leve. Sintomas com atividade física habitual (subir escadas rapidamente, andar rápido).</li>
+                <li><strong>Classe III:</strong> limitação marcada. Sintomas com atividades de menor intensidade (vestir-se, andar poucos metros).</li>
+                <li><strong>Classe IV:</strong> sintomas em repouso.</li>
+            </ul>
+            <p>O ECG de repouso é normal em cerca de metade dos pacientes com angina estável, o que não exclui a doença. O teste ergométrico é o exame inicial mais utilizado na investigação da CI (angina estável), fornecendo informação diagnóstica e prognóstica. Como todo teste diagnóstico, seus resultados dependem da probabilidade pré-teste: em populações de baixa probabilidade pré-teste, a proporção de falso-positivos é alta (ou seja, a interpretação do teste positivo varia conforme a prevalência).</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa C está correta. As assertivas II e III são verdadeiras:</p>
+            <ul>
+                <li><strong>I (falsa):</strong> A angina classe I da NYHA significa <strong>ausência de limitação</strong>, não limitação leve. A limitação leve corresponde à classe II. Portanto, a assertiva inverte os conceitos.</li>
+                <li><strong>II (verdadeira):</strong> O ECG de repouso pode ser normal em pacientes com angina típica; cerca de 50% dos pacientes com angina estável têm ECG de repouso normal.</li>
+                <li><strong>III (verdadeira):</strong> O teste ergométrico (registro do ECG antes, durante e após o exercício, geralmente em esteira) é o método mais usado para diagnóstico, estratificação de risco e avaliação prognóstica da CI.</li>
+                <li><strong>IV (falsa):</strong> Nos testes de esforço, a incidência de falso-positivos <strong>depende</strong> da probabilidade pré-teste. Em populações com baixa probabilidade pré-teste, a proporção de resultados falso-positivos é alta, sendo um exemplo clássico de aplicação do teorema de Bayes (raciocínio bayesiano).</li>
+            </ul>
+            <p>Essa questão é idêntica à de 2026 (Q59) e compartilha o mesmo racional de questões anteriores (2008 Q64; 2011 Q52; 2016 Q33; 2021 Q62; 2024 Q67), o que reforça a importância de revisar a investigação da CI.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta: inclui I (falsa) e exclui III (verdadeira).</p>
+            <p><strong>Alternativa B</strong> - Incorreta: inclui IV (falsa) e exclui II (verdadeira).</p>
+            <p><strong>Alternativa C</strong> - Correta: II e III apenas.</p>
+            <p><strong>Alternativa D</strong> - Incorreta: inclui I (falsa).</p>
+            <p><strong>Alternativa E</strong> - Incorreta: considera apenas IV, que está errada, pois o desempenho do teste depende da probabilidade pré-teste.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>NYHA classe I:</strong> sem limitação (atividade habitual sem sintomas) - a assertiva I troca por “limitação leve”.</li>
+                <li><strong>ECG de repouso normal:</strong> não exclui angina típica; acontece em ~50% dos casos - II verdadeira.</li>
+                <li><strong>Teste de esforço (esteira):</strong> exame mais usado para diagnóstico e prognóstico da CI - III verdadeira.</li>
+                <li><strong>Probabilidade pré-teste:</strong> interpretação do teste depende da prevalência; falso-positivos aumentam em baixa probabilidade - IV falsa.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> lembrar que NYHA I = sem limitação; limitação leve = NYHA II → I falsa.</li>
+                <li><strong>Segundo:</strong> reconhecer que o ECG de repouso é normal em ~50% dos pacientes com angina típica → II verdadeira.</li>
+                <li><strong>Terceiro:</strong> confirmar que o teste ergométrico é o exame inicial mais usado na investigação da CI → III verdadeira.</li>
+                <li><strong>Quarto:</strong> aplicar raciocínio bayesiano: o desempenho de qualquer teste depende da probabilidade pré-teste → IV falsa.</li>
+                <li><strong>Quinto:</strong> concluir que apenas II e III estão corretas - alternativa C.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de investigação diagnóstica e de raciocínio probabilístico.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> NYHA I = sem limitação; NYHA II = limitação leve; ECG de repouso pode ser normal na angina; teste ergométrico é o exame inicial mais usado na CI.</li>
+                <li><strong>Números e doses:</strong> ~50% dos pacientes com angina estável têm ECG de repouso normal; sensibilidade do teste ergométrico em torno de 60-70% e especificidade ~70-80% para DAC; VPP e VPN dependem da prevalência.</li>
+                <li><strong>Mnemônicos:</strong> “NYHA I = 1 = ileso (sem limitação)”; “Bayes manda: prevalência baixa = falso-positivo alto”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2008 (Q64) e 2024 (Q67), que abordaram a conduta inicial (ECG em até 10 min) e os critérios de positividade do teste ergométrico.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição / Elemento</th>
+                        <th>Característica</th>
+                        <th>Diferenciação</th>
+                        <th>Conduta/Interpretação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Angina estável (correta)</td>
+                        <td>Dor ao esforço, aliviada com repouso/nitrato; padrão previsível</td>
+                        <td>Teste ergométrico para diagnóstico e prognóstico</td>
+                        <td>AAS, estatina, betabloqueador, nitrato, revascularização conforme risco</td>
+                    </tr>
+                    <tr>
+                        <td>Angina instável / IAMSSST</td>
+                        <td>Dor em repouso, início recente ou em crescendo</td>
+                        <td>ECG seriado, troponina, estratificação invasiva</td>
+                        <td>Antiagregação dupla, anticoagulação, revascularização</td>
+                    </tr>
+                    <tr>
+                        <td>Angina de Prinzmetal</td>
+                        <td>Dor em repouso, à noite, com ST transitório</td>
+                        <td>ECG durante a dor; teste provocativo</td>
+                        <td>BCC e nitratos; evitar betabloqueador não seletivo</td>
+                    </tr>
+                    <tr>
+                        <td>Angina microvascular</td>
+                        <td>Dor anginosa com coronárias epicárdicas normais</td>
+                        <td>Reserva de fluxo coronário reduzida</td>
+                        <td>BCC, nitratos, IECA, estatina, MEV</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das síndromes anginosas.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre exame inicial na dor torácica aguda:</strong> ECG em até 10 minutos + marcadores de necrose (2008 Q64).</li>
+                <li><strong>Se fosse sobre tratamento da angina estável:</strong> AAS, estatina, betabloqueador, nitrato, revascularização (2016 Q33).</li>
+                <li><strong>Se fosse sobre angina instável/IAMSSST:</strong> antiagregação dupla, anticoagulação, estratificação invasiva (2011 Q52).</li>
+                <li><strong>Se fosse sobre interpretação de testes diagnósticos:</strong> valor preditivo depende da prevalência (bayesiano) - III e IV.</li>
+                <li><strong>Se fosse sobre teste ergométrico:</strong> critérios de positividade incluem infradesnivelamento do ST, angina, queda da PA, arritmias (2024 Q67).</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram investigação e manejo da Cardiopatia Isquêmica:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2008 - Q64</td>
+                        <td>Paciente com dor retrosternal típica há 2 horas; próximo passo na emergência</td>
+                        <td>Conduta inicial na SCA (ECG, marcadores em 10 min)</td>
+                        <td>D</td>
+                        <td>Reforça a importância do ECG na investigação da CI.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q52</td>
+                        <td>Angina instável e IAMSSST; tratamento anti-isquêmico correto</td>
+                        <td>Manejo farmacológico da SCA sem supra</td>
+                        <td>A</td>
+                        <td>Complementa o entendimento das síndromes isquêmicas.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q33</td>
+                        <td>Angina estável; afirmação INCORRETA sobre o tratamento</td>
+                        <td>Betabloqueador, nitratos, BCC e AAS</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q62</td>
+                        <td>Características da angina pectoris: padrão, sinal de Levine, angina noturna, equivalentes anginosos</td>
+                        <td>Semiologia da angina</td>
+                        <td>B (II e IV)</td>
+                        <td>Complementa a interpretação clínica da angina.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q67</td>
+                        <td>Teste ergométrico: critérios de positividade</td>
+                        <td>Interpretação do teste de esforço</td>
+                        <td>E</td>
+                        <td>Relaciona-se diretamente à assertiva III.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q70</td>
+                        <td>Aterosclerose coronariana: fatores de risco e fisiopatologia</td>
+                        <td>Fisiopatologia da CI</td>
+                        <td>D</td>
+                        <td>Contextualiza a base da CI.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q80</td>
+                        <td>Dor em repouso com ST transitório e alívio com nitrato</td>
+                        <td>Angina de Prinzmetal</td>
+                        <td>D</td>
+                        <td>Complementa o diagnóstico diferencial.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q58</td>
+                        <td>Fisiopatologia da isquemia: MVO2, fluxo coronário diastólico, Prinzmetal x microvascular</td>
+                        <td>Fisiopatologia da CI</td>
+                        <td>A (I e II)</td>
+                        <td>Complementa o entendimento da isquemia.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> A cardiopatia isquêmica apareceu em pelo menos 8 provas anteriores, alternando entre fisiopatologia (2026 Q58, 2024 Q70), semiologia (2021 Q62), investigação diagnóstica (2008 Q64, 2024 Q67), síndrome coronariana aguda (2011 Q52) e manejo (2016 Q33, 2025 Q80). A banca alterna entre raciocínio fisiopatológico e propedêutica.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> A influência da probabilidade pré-teste sobre os resultados falso-positivos do teste de esforço (item IV) não foi cobrada como eixo central em questões anteriores; a classificação NYHA foi usada apenas como distrator. Essas são as novidades desta questão.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores eram mais voltadas a conduta clínica e tratamento; a atual integra semiologia, propedêutica e raciocínio bayesiano, mostrando tendência a cobrar interpretação crítica dos testes diagnósticos.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar classificação NYHA, valor do ECG de repouso, papel e limitações do teste ergométrico, critérios de positividade do teste, probabilidade pré-teste e valor preditivo dos testes diagnósticos.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Isquemia miocárdica → síndrome coronariana aguda → IAM com ou sem supra de ST.</li>
+                <li><strong>Conexão 2:</strong> Classificação NYHA → insuficiência cardíaca → prognóstico e manejo.</li>
+                <li><strong>Conexão 3:</strong> Raciocínio bayesiano → interpretação de testes diagnósticos → probabilidade pré-teste e valores preditivos.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é marcar a assertiva I como verdadeira, confundindo NYHA I (sem limitação) com NYHA II (limitação leve). Também é comum incluir a IV como verdadeira, esquecendo que o desempenho de qualquer teste depende da prevalência (probabilidade pré-teste). Trata-se de lacuna de conhecimento sobre classificação NYHA e sobre raciocínio bayesiano. A ação corretiva é memorizar: NYHA I = sem limitação; NYHA II = limitação leve; VPP e VPN dependem da prevalência.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a classificação NYHA ajuda a estratificar a gravidade funcional da angina e guiar o tratamento. O ECG de repouso normal não exclui doença coronariana, e o teste ergométrico é o exame inicial mais usado na investigação da angina estável. A interpretação do teste deve sempre considerar a probabilidade pré-teste, sendo essencial o raciocínio bayesiano na prática clínica.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Classificação NYHA (I a IV)</li>
+                <li>ECG de repouso na angina estável</li>
+                <li>Teste ergométrico: indicações, critérios de positividade e limitações</li>
+                <li>Probabilidade pré-teste e teorema de Bayes</li>
+                <li>Síndromes coronarianas agudas e crônicas</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Harrison, Medicina Interna, 21ª edição - Doença Arterial Coronariana Crônica.</p>
+            <p>2. Diretriz Brasileira de Doença Arterial Coronariana Crônica - Sociedade Brasileira de Cardiologia.</p>
+            <p>3. UpToDate: Stable ischemic heart disease: Diagnosis and evaluation; Exercise ECG testing: Performance and interpretation.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

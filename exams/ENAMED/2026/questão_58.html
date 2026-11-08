@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 58 - Ética Médica e Responsabilidade Profissional: Negligência Médica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ética Médica e Responsabilidade Profissional: Negligência Médica</div>
+        <h1>Questão 58</h1>
+        <div class="question-text">
+            Homem de 45 anos foi submetido a colecistectomia laparoscópica eletiva, devido a litíase não complicada. No dia seguinte à cirurgia, apresentou temperatura axilar de 37,5 °C, dor abdominal difusa e FC 110 bpm. O médico assistente deu alta ao paciente, atribuindo as queixas ao processo normal de recuperação. O paciente retornou para reavaliação no 4º dia de pós-operatório, com piora do quadro clínico. A ultrassonografia abdominal identificou grande quantidade de líquido livre abdominal, e a reabordagem cirúrgica mostrou fístula biliar. Após a recuperação, a família do paciente decidiu buscar orientação jurídica.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - negligência.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - imprudência.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - diligência.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - omissão de socorro.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Ética Médica / Medicina Legal / Responsabilidade Profissional</p>
+            <p><strong>Tema:</strong> Negligência médica por alta hospitalar inadequada e falha em investigar sinais de alarme no pós-operatório</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência e no Enamed, pois envolve responsabilidade civil e ética do médico, dever de cuidado e reconhecimento de condutas culposas. O caso descreve paciente submetido a colecistectomia que apresentou febre, dor abdominal e taquicardia no primeiro dia pós-operatório, mas recebeu alta sem investigação adequada, evoluindo com fístula biliar e líquido livre abdominal. A questão cobra a classificação da conduta como negligência, imprudência, diligência ou omissão de socorro.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A responsabilidade profissional médica pode decorrer de culpa em suas modalidades: negligência (omissão de cuidado devido), imprudência (ação precipitada ou sem cautela) e imperícia (falta de conhecimento técnico). No caso, o médico assistente tinha diante de si sinais de alarme no pós-operatório: febre, dor abdominal difusa e taquicardia. Esses achados exigiam investigação e monitorização, não alta hospitalar imediata. A falha em agir conforme o dever de cuidado, deixando de investigar e acompanhar adequadamente, caracteriza negligência. A fístula biliar é uma complicação conhecida da colecistectomia, e sua suspeita deve ser considerada diante de dor abdominal, febre e taquicardia. A omissão de socorro, por sua vez, pressupõe ausência de atendimento a pessoa em perigo, o que não é o caso, pois o paciente foi assistido, ainda que de forma inadequada.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - negligência.</strong> É a classificação adequada para a situação descrita. O médico assistente deu alta ao paciente no primeiro dia pós-operatório, atribuindo febre, dor abdominal difusa e taquicardia ao processo normal de recuperação, sem investigar adequadamente nem manter observação. Essa conduta omite o cuidado devido e contraria a boa prática médica, configurando negligência. A imprudência envolveria uma ação precipitada ou sem cautela, mas o núcleo do caso é a omissão de conduta investigativa e de monitorização. A diligência é o oposto do que ocorreu. A omissão de socorro não se aplica, pois o paciente recebeu atendimento, embora inadequado.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. A alta hospitalar sem investigação de sinais de alarme no pós-operatório configura negligência.</p>
+            <p><strong>Alternativa B - imprudência.</strong> Incorreta. A imprudência pressupõe ação sem cautela, como realizar procedimento de forma precipitada. No caso, o problema central é a omissão de cuidado e de investigação adequada.</p>
+            <p><strong>Alternativa C - diligência.</strong> Incorreta. Diligência é o cuidado esperado e não foi observada. A conduta descrita é justamente a falta de diligência.</p>
+            <p><strong>Alternativa D - omissão de socorro.</strong> Incorreta. A omissão de socorro ocorre quando não há prestação de assistência a quem dela necessita. Aqui houve atendimento e alta, mas com falha de cuidado, o que configura negligência.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Febre, dor abdominal difusa e FC 110 bpm no 1º dia pós-operatório:</strong> sinais de alarme que exigiam investigação.</li>
+                <li><strong>Alta hospitalar atribuindo as queixas ao processo normal de recuperação:</strong> falha em valorizar sinais de complicação.</li>
+                <li><strong>Piora no 4º dia, líquido livre abdominal e fístula biliar:</strong> confirmação de complicação grave que poderia ter sido suspeitada antes.</li>
+                <li><strong>Orientação jurídica:</strong> contexto de avaliação de responsabilidade profissional.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Identificar os sinais de alarme no pós-operatório (febre, dor abdominal, taquicardia).</li>
+                <li><strong>Segundo:</strong> Reconhecer que esses sinais exigiam investigação e monitorização, não alta imediata.</li>
+                <li><strong>Terceiro:</strong> Classificar a falha de cuidado como omissão de conduta devida, ou seja, negligência.</li>
+                <li><strong>Quarto:</strong> Diferenciar de imprudência (ação precipitada) e de omissão de socorro (ausência de atendimento).</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de responsabilidade profissional e ética médica.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Negligência é omissão de cuidado devido; imprudência é ação sem cautela; imperícia é falta de conhecimento técnico.</li>
+                <li><strong>Sinais de alarme pós-operatórios:</strong> febre, dor abdominal difusa, taquicardia, íleo prolongado e instabilidade exigem investigação.</li>
+                <li><strong>Complicação:</strong> Fístula biliar pode se manifestar com dor, febre e líquido livre abdominal após colecistectomia.</li>
+                <li><strong>Mnemônico:</strong> “Negligência = deixar de fazer o que deveria; imprudência = fazer sem cautela; imperícia = fazer sem técnica”.</li>
+            </ul>
+            <p>Esses dados são essenciais para diferenciar as modalidades de culpa médica.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Negligência (correta)</td>
+                        <td>Omissão de cuidado devido, alta sem investigar sinais de alarme</td>
+                        <td>Análise da conduta e do prontuário</td>
+                        <td>Responsabilização ética e civil; reparação do dano</td>
+                    </tr>
+                    <tr>
+                        <td>Imprudência</td>
+                        <td>Ação precipitada ou sem cautela, como procedimento sem indicação ou sem preparo</td>
+                        <td>Análise da conduta</td>
+                        <td>Responsabilização conforme o dano</td>
+                    </tr>
+                    <tr>
+                        <td>Imperícia</td>
+                        <td>Falta de conhecimento técnico ou habilidade para o ato</td>
+                        <td>Análise técnica e pericial</td>
+                        <td>Responsabilização conforme o caso</td>
+                    </tr>
+                    <tr>
+                        <td>Omissão de socorro</td>
+                        <td>Ausência de atendimento a pessoa em perigo</td>
+                        <td>Análise da conduta e do contexto</td>
+                        <td>Responsabilização legal específica</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram a diferenciação entre as modalidades de culpa médica.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre imprudência:</strong> o caso envolveria ação precipitada, como alta sem critérios ou procedimento sem indicação.</li>
+                <li><strong>Se fosse sobre imperícia:</strong> haveria erro técnico por falta de habilidade ou conhecimento.</li>
+                <li><strong>Se fosse sobre omissão de socorro:</strong> o paciente não teria recebido qualquer atendimento.</li>
+                <li><strong>Se fosse sobre diligência:</strong> a conduta seria adequada, com investigação e monitorização dos sinais de alarme.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema ou temas relacionados:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q58</td>
+                        <td>Paciente com sinais de alarme pós-colecistectomia recebe alta e evolui com fístula biliar; classificação da conduta.</td>
+                        <td>Negligência médica e responsabilidade profissional.</td>
+                        <td>A</td>
+                        <td>Questão atual; não há outra questão específica sobre negligência médica nas provas anteriores analisadas.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q63</td>
+                        <td>Paciente com HIV e tuberculose, sigilo médico e preenchimento de declaração de óbito.</td>
+                        <td>Ética médica, sigilo e declaração de óbito.</td>
+                        <td>B</td>
+                        <td>Relaciona-se à ética e responsabilidade profissional, mas não à negligência.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q14</td>
+                        <td>Gestante com teste rápido reagente para HIV e conduta inicial humanizada.</td>
+                        <td>Comunicação em saúde, ética e acolhimento.</td>
+                        <td>B</td>
+                        <td>Aborda ética e cuidado, sem tratar de erro médico.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q70</td>
+                        <td>Mulher em relacionamento abusivo e condutas na atenção primária.</td>
+                        <td>Violência, notificação e plano terapêutico.</td>
+                        <td>B</td>
+                        <td>Relaciona-se a aspectos legais e éticos, mas não à negligência médica.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema negligência médica não apareceu em outras questões das provas anteriores analisadas além da própria Q58. A banca tem cobrado ética e legalidade de forma aplicada, alternando entre sigilo, declaração de óbito, violência e comunicação em saúde.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Imprudência e imperícia médica, iatrogenia, consentimento informado, prontuário médico, erro médico em outras especialidades e responsabilidade civil do Estado.</p>
+    <p><strong>Evolução da cobrança:</strong> Não há histórico suficiente para identificar evolução. A tendência é que temas de responsabilidade profissional sejam cobrados com casos clínicos e necessidade de classificação da conduta.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar as modalidades de culpa médica, dever de cuidado, alta hospitalar segura e reconhecimento de sinais de alarme no pós-operatório.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Cirurgia geral - complicações pós-operatórias, como fístula biliar, exigem reconhecimento precoce e investigação.</li>
+                <li><strong>Conexão 2:</strong> Ética médica - sigilo, consentimento e responsabilidade profissional estão interligados ao dever de cuidado.</li>
+                <li><strong>Conexão 3:</strong> Medicina legal - classificação de negligência, imprudência e imperícia é frequente em perícias e processos judiciais.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é confundir negligência com imprudência ou omissão de socorro. A estratégia corretiva é memorizar que negligência é a omissão de cuidado devido, enquanto imprudência é ação sem cautela e omissão de socorro é ausência de atendimento. Classificação do erro: lacuna de conhecimento ou confusão conceitual.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o médico deve valorizar sinais de alarme no pós-operatório, manter observação adequada e investigar complicações antes de conceder alta. A falha nesse dever pode configurar negligência e gerar responsabilização ética e civil, além de risco à vida do paciente.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Negligência, imprudência e imperícia: definições e diferenças.</li>
+                <li>Dever de cuidado e boa prática médica.</li>
+                <li>Complicações pós-colecistectomia e sinais de alarme.</li>
+                <li>Responsabilidade civil e ética do médico.</li>
+                <li>Omissão de socorro: conceito e aplicação.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Código de Ética Médica - Conselho Federal de Medicina (CFM).</p>
+            <p>2. Manual de Medicina Legal - responsabilidade profissional e modalidades de culpa.</p>
+            <p>3. Diretrizes da Sociedade Brasileira de Cirurgia Geral para complicações pós-operatórias.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

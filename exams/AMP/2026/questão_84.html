@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 84 - Rastreamento do Câncer Colorretal em Indivíduos de Risco Habitual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Rastreamento do Câncer Colorretal em Indivíduos de Risco Habitual</div>
+        <h1>Questão 84</h1>
+        <div class="question-text">
+            Durante consulta de revisão periódica, um homem de 58 anos, assintomático, sem história familiar de câncer colorretal, questiona quais exames preventivos apresentam benefício comprovado para indivíduos de risco habitual. Considerando a bibliografia recomendada, assinale a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - O rastreamento do câncer colorretal está preconizado de forma sistemática no SUS dos 40 aos 70 anos.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Após sangue oculto fecal positivo, uma colonoscopia com resultado normal indica ter ocorrido situação de sobrediagnóstico.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - O rastreamento do câncer colorretal pode ser conduzido com a realização periódica de exame de sigmoidoscopia ou sangue oculto nas fezes.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - A colonoscopia anual é o método preferencial para todos os indivíduos de 50 a 75 anos devido a evidências obtidas por meio de ensaios clínicos randomizados.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Na presença de sintomas de alerta para câncer colorretal, como hematoquezia, a investigação diagnóstica não consiste em rastreamento, e sim em prevenção terciária.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Gastroenterologia / Saúde Coletiva</p>
+            <p><strong>Tema:</strong> Rastreamento do câncer colorretal em indivíduos de risco habitual.</p>
+            <p><strong>Contextualização:</strong> Tema de prevenção secundária, com alta relevância em provas de residência porque envolve indicação de rastreamento, escolha de método, idade de início, interpretação de testes e distinção entre rastreamento e investigação diagnóstica. A banca costuma cobrar não apenas a modalidade, mas também a compreensão de evidências e de conceitos como sobrediagnóstico.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O câncer colorretal (CCR) geralmente surge da sequência adenoma-carcinoma, com acúmulo progressivo de alterações genéticas e epigenéticas. O rastreamento em indivíduos assintomáticos de risco habitual busca detectar lesões precursoras (adenomas) ou câncer em estágio inicial, reduzindo incidência e mortalidade. As estratégias válidas incluem colonoscopia a cada 10 anos, sigmoidoscopia a cada 5 anos (ou a cada 10 anos com pesquisa de sangue oculto anual), pesquisa de sangue oculto nas fezes anualmente e teste imunoquímico fecal com DNA a cada 1 a 3 anos, conforme diretrizes. A opção correta está alinhada à existência de métodos periódicos validados, como sigmoidoscopia e sangue oculto.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa C é correta porque o rastreamento do CCR em risco habitual pode ser feito com estratégias periódicas baseadas em sigmoidoscopia ou pesquisa de sangue oculto nas fezes, ambas com benefício comprovado em estudos. A colonoscopia também é opção, mas não anual. O paciente é assintomático, sem história familiar, portanto é de risco habitual; não há indicação de investigação diagnóstica imediata, e sim de oferecer rastreamento conforme diretrizes e decisão compartilhada.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. No SUS, o rastreamento do CCR não está preconizado de forma sistemática dos 40 aos 70 anos. Em geral, recomenda-se rastreamento em adultos de 50 a 75 anos de risco habitual (algumas diretrizes iniciam aos 45 anos), com estratégias oportunísticas ou organizadas conforme o serviço. O intervalo de 40 a 70 anos não corresponde à recomendação populacional habitual.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Sangue oculto fecal positivo indica necessidade de colonoscopia, mas um resultado normal não significa sobrediagnóstico. Pode representar falso-positivo, sangramento intermitente ou lesão não detectada. Sobrediagnóstico é a detecção de uma lesão que nunca causaria sintomas ou morte, não o simples achado de exame inicial positivo com colonoscopia normal.</p>
+            <p><strong>Alternativa C</strong> - Correta. Sigmoidoscopia periódica e pesquisa de sangue oculto nas fezes são métodos de rastreamento validados para CCR em risco habitual, assim como colonoscopia a cada 10 anos e testes fecais mais recentes.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A colonoscopia é uma opção, mas o intervalo recomendado é a cada 10 anos, e não anual. Colonoscopia anual não é método preferencial para todos os indivíduos de 50 a 75 anos e não é apoiada por ensaios clínicos randomizados como estratégia universal.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. Na presença de sintomas de alerta, como hematoquezia, a investigação é diagnóstica, não rastreamento. No entanto, isso não é classificado como prevenção terciária. Prevenção terciária refere-se à reabilitação e à limitação de sequelas; a investigação de sintomas é diagnóstico precoce ou conduta diagnóstica.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Assintomático:</strong> afasta investigação diagnóstica imediata e favorece rastreamento.</li>
+                <li><strong>Sem história familiar de câncer colorretal:</strong> caracteriza risco habitual, sem indicação de rastreamento intensificado por síndrome hereditária.</li>
+                <li><strong>Benefício comprovado:</strong> direciona para métodos com evidência, como sangue oculto, sigmoidoscopia e colonoscopia periódica.</li>
+                <li><strong>Hematoquezia:</strong> é sinal de alerta; se presente, indica investigação diagnóstica, não rastreamento.</li>
+                <li><strong>Prevenção terciária:</strong> termo usado como distrator; não corresponde à investigação de sintomas.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> confirmar que o paciente é assintomático e sem história familiar importante, caracterizando risco habitual.</li>
+                <li><strong>Segundo:</strong> excluir sinais de alerta (hematoquezia, anemia, perda de peso, alteração do hábito intestinal); se presentes, a conduta é investigação diagnóstica.</li>
+                <li><strong>Terceiro:</strong> oferecer estratégias de rastreamento válidas: sangue oculto anual, sigmoidoscopia a cada 5 anos, colonoscopia a cada 10 anos ou testes fecais mais recentes, conforme disponibilidade e decisão compartilhada.</li>
+                <li><strong>Quarto:</strong> se sangue oculto positivo, encaminhar para colonoscopia; resultado normal não é sobrediagnóstico.</li>
+                <li><strong>Quinto:</strong> não indicar colonoscopia anual nem rastreamento sistemático de 40 a 70 anos no SUS.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> rastreamento do CCR é indicado em adultos assintomáticos de risco habitual, geralmente de 50 a 75 anos; algumas diretrizes iniciam aos 45 anos.</li>
+                <li><strong>Números e doses:</strong> colonoscopia a cada 10 anos; sigmoidoscopia a cada 5 anos; sangue oculto fecal anual; teste fecal com DNA a cada 1 a 3 anos.</li>
+                <li><strong>Mnemônicos:</strong> "50-75: FIT anual, sigmo 5, colono 10".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma trocar intervalos e idades; colonoscopia anual é um distrator clássico.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rastreamento em risco habitual</td>
+                        <td>Assintomático, sem história familiar importante</td>
+                        <td>FIT, sigmoidoscopia, colonoscopia ou teste fecal</td>
+                        <td>Rastrear conforme idade e decisão compartilhada</td>
+                    </tr>
+                    <tr>
+                        <td>Investigação diagnóstica por sintomas de alerta</td>
+                        <td>Hematoquezia, anemia, perda de peso, alteração do hábito intestinal</td>
+                        <td>Colonoscopia diagnóstica</td>
+                        <td>Investigar, não classificar como rastreamento</td>
+                    </tr>
+                    <tr>
+                        <td>Sobrediagnóstico</td>
+                        <td>Detecção de lesão que nunca causaria sintomas ou morte</td>
+                        <td>Conceito epidemiológico, não exame isolado</td>
+                        <td>Evitar excesso diagnóstico e tratamento desnecessário</td>
+                    </tr>
+                    <tr>
+                        <td>Prevenção terciária</td>
+                        <td>Sequela ou incapacidade estabelecida</td>
+                        <td>Avaliação funcional e reabilitação</td>
+                        <td>Reabilitar e limitar invalidez</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre idade de início:</strong> a resposta poderia envolver 45 ou 50 anos, conforme diretriz adotada.</li>
+                <li><strong>Se fosse sobre sangue oculto positivo:</strong> a conduta seria colonoscopia, independentemente de sintomas.</li>
+                <li><strong>Se fosse sobre sintomas de alerta:</strong> a resposta seria investigação diagnóstica, não rastreamento.</li>
+                <li><strong>Se fosse sobre sobrediagnóstico:</strong> a resposta envolveria detecção de lesões que não evoluiriam para doença clínica.</li>
+                <li><strong>Se fosse sobre prevenção terciária:</strong> a resposta envolveria reabilitação e limitação de sequelas.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2011 - Q36</td>
+                        <td>Exame periódico de saúde e rastreamentos; alternativa incluía pesquisa de sangue oculto anual e sigmoidoscopia flexível a cada 5 a 10 anos para câncer colorretal.</td>
+                        <td>Modalidades de rastreamento do CCR e limites de rastreamentos universais.</td>
+                        <td>C (alternativa considerada incorreta no conjunto)</td>
+                        <td>Já listava sangue oculto e sigmoidoscopia como estratégias de CCR; o erro estava na combinação com PSA/toque retal universal e outros rastreamentos.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q3</td>
+                        <td>Homem de 58 anos, tabagista, assintomático; questionava indicação de tomografia de tórax, US de aorta, colonoscopia e vacina pneumocócica.</td>
+                        <td>Indicação de rastreamento do câncer colorretal por colonoscopia.</td>
+                        <td>D (F, F, V, V)</td>
+                        <td>Confirmou que colonoscopia é método indicado para rastreamento do CCR em adulto de risco habitual.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q57</td>
+                        <td>Mulher de 49 anos com dois adenomas tubulares de baixo grau após colonoscopia; discutia-se polipose, sequência adenoma-carcinoma e seguimento.</td>
+                        <td>Sequência adenoma-carcinoma e vigilância após polipectomia.</td>
+                        <td>A (apenas II)</td>
+                        <td>Reforça a base fisiopatológica do rastreamento e a importância do seguimento, sem indicar colonoscopia anual universal.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q82</td>
+                        <td>Ensaio clínico randomizado de rastreamento por colonoscopia mostrou redução de 18% na incidência de CCR, mas sem redução significativa da mortalidade específica.</td>
+                        <td>Interpretação de evidência sobre rastreamento do CCR.</td>
+                        <td>B</td>
+                        <td>Mostra que o rastreamento tem benefício, mas exige interpretação crítica; não autoriza colonoscopia anual nem sobrediagnóstico como regra.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 4 questões relevantes nas provas de 2011, 2018 e 2024. A banca alterna entre cobrar modalidades de rastreamento, indicação por idade, interpretação de exames e leitura crítica de evidências.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Comparação direta entre FIT anual e colonoscopia a cada 10 anos; idade de início aos 45 anos; rastreamento em afrodescendentes; colonoscopia virtual; critérios de qualidade da colonoscopia; seguimento após polipectomia; rastreamento acima de 75 anos; decisão compartilhada e expectativa de vida.</p>
+            <p><strong>Evolução da cobrança:</strong> Em questões mais antigas, a banca listava métodos; em anos recentes, passou a cobrar interpretação de evidências e conceitos como sobrediagnóstico e prevenção quaternária.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar as opções válidas de rastreamento e seus intervalos, distinguir rastreamento de investigação diagnóstica e revisar conceitos de sobrediagnóstico e níveis de prevenção.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Níveis de prevenção - rastreamento é prevenção secundária; sintomas de alerta exigem diagnóstico; reabilitação é prevenção terciária.</li>
+                <li><strong>Conexão 2:</strong> Sequência adenoma-carcinoma e síndromes hereditárias (Lynch, polipose adenomatosa familiar), que mudam a idade e a intensidade do rastreamento.</li>
+                <li><strong>Conexão 3:</strong> Saúde coletiva e SUS - o rastreamento pode ser oportunístico ou organizado, com impacto em políticas públicas e alocação de recursos.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou A ou D, provavelmente houve lacuna de conhecimento sobre idade e intervalo de rastreamento, ou confusão entre colonoscopia diagnóstica e rastreamento. Se marcou B, houve confusão conceitual entre falso-positivo e sobrediagnóstico. Se marcou E, houve erro de classificação dos níveis de prevenção. A ação corretiva é revisar as recomendações de rastreamento do CCR, treinar a distinção entre rastreamento e investigação diagnóstica e memorizar os intervalos dos métodos.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na Atenção Primária, o médico deve identificar adultos de risco habitual, oferecer rastreamento com métodos validados, considerar preferência e disponibilidade local, encaminhar para colonoscopia quando sangue oculto for positivo e investigar sintomas de alerta sem rotulá-los como rastreamento. A decisão compartilhada e a expectativa de vida são fundamentais, especialmente em idosos e com multimorbidades.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Prevenção secundária e rastreamento populacional.</li>
+                <li>Sensibilidade, especificidade e valores preditivos de testes fecais.</li>
+                <li>Sobrediagnóstico e prevenção quaternária.</li>
+                <li>Sequência adenoma-carcinoma e síndromes hereditárias.</li>
+                <li>Intervalos de vigilância após polipectomia.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. 2021;325(19):1965-1977.</p>
+            <p>2. American Cancer Society. Colorectal Cancer Screening for Average-Risk Adults: 2018 Guideline Update. CA Cancer J Clin. 2018;68(4):250-281.</p>
+            <p>3. Instituto Nacional de Câncer (INCA). Diretrizes para a detecção precoce do câncer colorretal. Rio de Janeiro: INCA; Ministério da Saúde.</p>
+            <p>4. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 52 - Pediatria: Neoplasias Abdominais na Infância - Neuroblastoma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Neoplasias Abdominais na Infância - Neuroblastoma</div>
+        <h1>Questão 52</h1>
+        <div class="question-text">
+            Criança de 3 anos é levada para consulta de rotina. Apresenta-se irritada, com relato materno de febre intermitente e perda ponderal de 2 kg nos últimos 2 meses. O exame físico mostra que a PA está no percentil 95 para a idade e altura. Nota-se presença de equimoses periorbitárias bilaterais e de massa firme em flanco direito que ultrapassa a linha média abdominal.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Tumor de Wilms.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Neuroblastoma.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Rabdomiossarcoma.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Linfoma de Burkitt.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Oncologia Pediátrica</p>
+            <p><strong>Tema:</strong> Neuroblastoma - neoplasia abdominal da infância</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência e no Enamed, pois exige reconhecer uma massa abdominal em criança associada a sinais sistêmicos e metástases. O neuroblastoma é o tumor sólido extracraniano mais comum na infância, com pico de incidência em menores de 5 anos. A presença de equimoses periorbitárias bilaterais (“olhos de guaxinim”) é um sinal clássico de metástase orbital e deve direcionar fortemente o diagnóstico.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O neuroblastoma origina-se de células precursoras do sistema nervoso simpático, geralmente na medula adrenal ou em cadeias simpáticas paravertebrais. A massa abdominal pode ultrapassar a linha média e, frequentemente, apresenta calcificações. As células tumorais secretam catecolaminas, o que pode causar hipertensão arterial, sudorese e irritabilidade. As metástases podem acometer órbita e tecidos periorbitários, produzindo equimoses periorbitárias bilaterais. A febre e a perda ponderal refletem doença sistêmica. O diagnóstico é confirmado por imagem, dosagem de catecolaminas urinárias (ácido vanilmandélico e ácido homovanílico) e biópsia com histopatologia e biologia molecular.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B - Neuroblastoma.</strong> É a principal hipótese em criança de 3 anos com massa abdominal firme que ultrapassa a linha média, hipertensão arterial e equimoses periorbitárias bilaterais. A tríade massa abdominal + hipertensão + equimoses periorbitárias é clássica de neuroblastoma com metástases orbitárias. A febre e a perda de peso reforçam a natureza maligna e sistêmica. A investigação deve incluir tomografia ou ressonância de abdome, dosagem de catecolaminas urinárias, cintilografia com MIBG e biópsia.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Tumor de Wilms.</strong> É o principal diagnóstico diferencial de massa abdominal em criança, mas costuma se apresentar como massa em flanco, lisa, que raramente ultrapassa a linha média, associada a hematúria e hipertensão. As equimoses periorbitárias não são típicas e sugerem metástase orbital de neuroblastoma.</p>
+            <p><strong>Alternativa C - Rabdomiossarcoma.</strong> Pode ocorrer na infância e acometer cabeça e pescoço, trato geniturinário ou abdome, mas não é a causa clássica de massa abdominal com equimoses periorbitárias e hipertensão em criança de 3 anos.</p>
+            <p><strong>Alternativa D - Linfoma de Burkitt.</strong> É um linfoma de crescimento rápido, frequentemente abdominal (íleo-cecal) ou de cabeça e pescoço, mas o quadro típico não inclui equimoses periorbitárias bilaterais e hipertensão por catecolaminas.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Equimoses periorbitárias bilaterais:</strong> sinal de metástase orbital, clássico do neuroblastoma (“raccoon eyes”).</li>
+                <li><strong>Massa abdominal firme que ultrapassa a linha média:</strong> sugere tumor de origem simpática, como neuroblastoma.</li>
+                <li><strong>Hipertensão arterial (PA no percentil 95):</strong> pode decorrer da secreção de catecolaminas pelo tumor.</li>
+                <li><strong>Febre intermitente e perda ponderal:</strong> indicam doença sistêmica e malignidade.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer a massa abdominal em criança como emergência oncológica e iniciar investigação.</li>
+                <li><strong>Segundo:</strong> Valorizar sinais extrapulmonares/extra-abdominais, como equimoses periorbitárias, que apontam para metástase orbital.</li>
+                <li><strong>Terceiro:</strong> Considerar neuroblastoma como hipótese principal quando houver massa abdominal + hipertensão + equimoses periorbitárias.</li>
+                <li><strong>Quarto:</strong> Solicitar imagem (US/TC/RM), catecolaminas urinárias, MIBG e biópsia para confirmação e estadiamento.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de diagnóstico diferencial e reconhecimento de síndromes clássicas.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Neuroblastoma é o tumor sólido extracraniano mais comum da infância; pico em menores de 5 anos; origina-se do sistema nervoso simpático.</li>
+                <li><strong>Sinais clássicos:</strong> massa abdominal que ultrapassa a linha média, hipertensão por catecolaminas, equimoses periorbitárias (“raccoon eyes”), sudorese e irritabilidade.</li>
+                <li><strong>Exames:</strong> catecolaminas urinárias (VMA e HVA), MIBG, tomografia/resonância e biópsia.</li>
+                <li><strong>Mnemônico:</strong> “Neuroblastoma = massa abdominal + olhos de guaxinim + hipertensão”.</li>
+            </ul>
+            <p>Esses dados são importantes porque o diagnóstico precoce e o estadiamento adequado modificam o prognóstico.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Neuroblastoma (correta)</td>
+                        <td>Massa abdominal que cruza linha média, hipertensão, equimoses periorbitárias, febre, perda de peso</td>
+                        <td>Catecolaminas urinárias, MIBG, TC/RM, biópsia</td>
+                        <td>Estadiamento e tratamento risco-adaptado (cirurgia, quimioterapia, radioterapia, transplante)</td>
+                    </tr>
+                    <tr>
+                        <td>Tumor de Wilms</td>
+                        <td>Massa em flanco, lisa, hematúria, hipertensão; sem equimoses periorbitárias</td>
+                        <td>US/TC de abdome, biópsia, estadiamento</td>
+                        <td>Nefrectomia e quimioterapia conforme estágio</td>
+                    </tr>
+                    <tr>
+                        <td>Linfoma de Burkitt</td>
+                        <td>Massa abdominal de crescimento rápido, íleo-cecal, obstrução; pode ter envolvimento de mandíbula</td>
+                        <td>Biópsia, imunofenotipagem, LDH elevado</td>
+                        <td>Quimioterapia intensiva</td>
+                    </tr>
+                    <tr>
+                        <td>Rabdomiossarcoma</td>
+                        <td>Massa em cabeça/pescoço, trato geniturinário ou abdome; sintomas conforme local</td>
+                        <td>Biópsia, imagem, imuno-histoquímica</td>
+                        <td>Cirurgia, quimioterapia e radioterapia</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta poderia ser dosagem de catecolaminas urinárias ou MIBG.</li>
+                <li><strong>Se fosse sobre complicação:</strong> compressão medular, síndrome de Horner, metástases ósseas e orbitárias.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> cirurgia, quimioterapia e radioterapia conforme risco e estadiamento.</li>
+                <li><strong>Se fosse sobre prognóstico:</strong> idade, estágio, amplificação de MYCN e histologia.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Não identificada</td>
+                        <td>Nenhuma questão sobre neuroblastoma ou massa abdominal pediátrica com equimoses periorbitárias foi encontrada nas provas anteriores analisadas.</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Tema não abordado diretamente nas provas de 2025_2026. Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema não apareceu nas provas anteriores analisadas. A banca cobrou neoplasias pediátricas de forma pontual, como leucemia linfoblástica aguda, mas não neuroblastoma.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Diagnóstico diferencial de massa abdominal na infância, estadiamento do neuroblastoma, dosagem de catecolaminas urinárias, MIBG e tratamento risco-adaptado.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há histórico suficiente para identificar evolução. A tendência é que temas oncológicos pediátricos sejam cobrados de forma aplicada, com casos clínicos e reconhecimento de sinais clássicos.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar neuroblastoma e tumor de Wilms, com foco em sinais clínicos diferenciadores, exames de confirmação e estadiamento. Valorizar sinais como equimoses periorbitárias e hipertensão.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Hipertensão arterial na infância - sempre investigar causas secundárias, incluindo tumores secretores de catecolaminas.</li>
+                <li><strong>Conexão 2:</strong> Massa abdominal pediátrica - diagnóstico diferencial entre neuroblastoma, tumor de Wilms, linfoma e outras neoplasias.</li>
+                <li><strong>Conexão 3:</strong> Oncologia pediátrica - leucemias e linfomas também podem se manifestar com febre, perda de peso e massa, exigindo investigação sistemática.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é confundir neuroblastoma com tumor de Wilms, pois ambos cursam com massa abdominal e hipertensão. A presença de equimoses periorbitárias bilaterais é o principal diferenciador. A estratégia corretiva é memorizar os sinais clássicos do neuroblastoma, revisar o diagnóstico diferencial de massa abdominal pediátrica e treinar a associação entre metástase orbital e neuroblastoma. Classificação do erro: lacuna de conhecimento ou confusão conceitual.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, toda criança com massa abdominal deve ser investigada com urgência. O reconhecimento de sinais como equimoses periorbitárias, hipertensão e irritabilidade permite suspeitar de neuroblastoma e encaminhar precocemente para centro oncológico pediátrico. O diagnóstico precoce é fundamental para o estadiamento e para o tratamento risco-adaptado, que pode incluir cirurgia, quimioterapia, radioterapia e transplante de medula óssea.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Neuroblastoma: epidemiologia, fisiopatologia e sinais clínicos.</li>
+                <li>Tumor de Wilms: apresentação clínica e diagnóstico diferencial.</li>
+                <li>Hipertensão arterial secundária na infância.</li>
+                <li>Catecolaminas urinárias (VMA e HVA) e MIBG.</li>
+                <li>Estadiamento e tratamento risco-adaptado em oncologia pediátrica.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Tratado de Pediatria - Sociedade Brasileira de Pediatria.</p>
+            <p>2. Diretrizes de Oncologia Pediátrica - Sociedade Brasileira de Oncologia Pediátrica (SOBOPE).</p>
+            <p>3. Nelson Textbook of Pediatrics - capítulo de neoplasias pediátricas.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

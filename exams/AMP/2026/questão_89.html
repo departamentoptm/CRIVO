@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 89 - Abordagem da Saúde Mental e Transtornos Ansiosos na Atenção Primária à Saúde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Abordagem da Saúde Mental e Transtornos Ansiosos na Atenção Primária à Saúde</div>
+        <h1>Questão 89</h1>
+        <div class="question-text">
+            Sobre a abordagem da saúde mental e transtornos ansiosos na Atenção Primária à Saúde (APS), responda a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Os benzodiazepínicos constituem o tratamento de primeira linha para transtornos ansiosos na fase aguda e na fase de manutenção.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Na abordagem da pessoa com sintomas sugestivos de ansiedade é desnecessária a solicitação de exames complementares.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - A psicoeducação é uma parte fundamental no tratamento de pessoas com transtornos ansiosos e pode ser realizada por diversas categorias profissionais na equipe de APS.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Dada a alta prevalência de transtornos de ansiedade na população, o papel dos serviços de APS é propiciar acesso e referenciar para serviços de saúde mental que possam propiciar a integralidade do cuidado.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - No caso de transtornos de ansiedade, que costumam ser facilmente reconhecidos e relatados pelos próprios pacientes, o tratamento ideal é com algum inibidor seletivo de recaptação de serotonina (ISRS).</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Psiquiatria / Saúde Coletiva</p>
+            <p><strong>Tema:</strong> Abordagem da saúde mental e dos transtornos ansiosos na Atenção Primária à Saúde (APS).</p>
+            <p><strong>Contextualização:</strong> Tema de altíssima relevância em provas de residência porque os transtornos ansiosos estão entre as condições de saúde mental mais prevalentes na população e são majoritariamente atendidos na APS. A banca cobra a lógica do cuidado longitudinal, a importância da psicoeducação, o papel da equipe multiprofissional, o uso criterioso de psicofármacos e a distinção entre o que compete à APS e o que deve ser referenciado. Trata-se de questão praticamente idêntica à Q89 de 2023, o que reforça o padrão de repetição e a importância do tema.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Os transtornos ansiosos são condições crônicas, multifatoriais, resultantes da interação entre predisposição genética, fatores neurobiológicos (disfunção de circuitos como o eixo amígdala-córtex pré-frontal, alterações de neurotransmissores como serotonina, noradrenalina e GABA), fatores psicológicos e determinantes sociais. Na APS, o manejo deve ser longitudinal, com vínculo, escuta ativa, psicoeducação, intervenções psicossociais, mudanças de estilo de vida e, quando indicado, farmacoterapia. A psicoeducação é parte fundamental do tratamento, pois amplia o conhecimento do paciente sobre sua condição, reduz estigmas, melhora a adesão e favorece o autocuidado. Pode e deve ser realizada por diferentes categorias profissionais da equipe (médico, enfermeiro, psicólogo, terapeuta ocupacional, agente comunitário de saúde), de forma integrada e coordenada.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa C é correta porque a psicoeducação é, de fato, parte fundamental do tratamento dos transtornos ansiosos na APS e pode ser realizada por diversas categorias profissionais da equipe. Essa é uma das características do cuidado em saúde mental na APS: não é exclusividade do médico ou do psiquiatra, mas um componente transversal do cuidado, que fortalece o vínculo, a autonomia e a adesão. A alternativa também se alinha ao princípio da integralidade e ao atributo da coordenação do cuidado, ao reconhecer o papel multiprofissional.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Os benzodiazepínicos não são tratamento de primeira linha para transtornos ansiosos, nem na fase aguda nem na fase de manutenção. São fármacos com risco de dependência, tolerância, abstinência e prejuízo cognitivo; quando usados, devem ser por tempo curto e em situações específicas. O tratamento de primeira linha envolve psicoterapia (como TCC) e ISRS/IRSN.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Na abordagem da pessoa com sintomas sugestivos de ansiedade, a solicitação de exames complementares pode ser necessária para afastar causas orgânicas (hipertireoidismo, arritmias, uso de substâncias, anemia, entre outras) e para avaliar comorbidades. Dizer que é "desnecessária" de forma absoluta é errado; a solicitação deve ser criteriosa, mas não pode ser descartada a priori.</p>
+            <p><strong>Alternativa C</strong> - Correta. A psicoeducação é parte fundamental do tratamento e pode ser realizada por diversas categorias profissionais na equipe de APS.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. Reduzir o papel da APS a "propiciar acesso e referenciar" é uma visão fragmentada e contrária à integralidade e à longitudinalidade. A APS deve acolher, avaliar, tratar os casos leves e moderados, realizar psicoeducação, acompanhar longitudinalmente e referenciar apenas os casos que realmente necessitam de atenção especializada (casos graves, refratários, com risco suicida, comorbidades complexas).</p>
+            <p><strong>Alternativa E</strong> - Incorreta. A afirmação de que os transtornos de ansiedade "costumam ser facilmente reconhecidos e relatados pelos próprios pacientes" é falsa. Muitos pacientes não reconhecem os sintomas como ansiedade, apresentam queixas somáticas, e o transtorno é subdiagnosticado. Além disso, o tratamento ideal não é apenas "algum ISRS": envolve psicoterapia, psicoeducação, mudanças de estilo de vida e, quando indicado, farmacoterapia individualizada.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Atenção Primária à Saúde (APS):</strong> cenário do cuidado longitudinal, integral e coordenado.</li>
+                <li><strong>Saúde mental e transtornos ansiosos:</strong> condições crônicas prevalentes, com abordagem multiprofissional.</li>
+                <li><strong>Psicoeducação:</strong> componente central do tratamento, que pode ser realizado por diversas categorias.</li>
+                <li><strong>Primeira linha:</strong> termo usado no distrator A para testar o conhecimento sobre o tratamento inicial.</li>
+                <li><strong>Referenciar:</strong> termo usado no distrator D para testar a compreensão do papel da APS.</li>
+                <li><strong>Facilmente reconhecidos:</strong> termo do distrator E que testa o conhecimento sobre o subdiagnóstico.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> acolher a pessoa com sintomas ansiosos, realizar escuta ativa e avaliação clínica inicial, incluindo afastar causas orgânicas.</li>
+                <li><strong>Segundo:</strong> realizar psicoeducação, explicando o que é ansiedade, seus sintomas e as opções de tratamento, com linguagem acessível.</li>
+                <li><strong>Terceiro:</strong> envolver a equipe multiprofissional (médico, enfermeiro, psicólogo, ACS) no cuidado, preservando a longitudinalidade.</li>
+                <li><strong>Quarto:</strong> indicar psicoterapia (TCC) e/ou farmacoterapia (ISRS/IRSN) conforme gravidade; reservar benzodiazepínicos para situações específicas e por tempo curto.</li>
+                <li><strong>Quinto:</strong> referenciar ao especialista apenas casos graves, refratários, com risco suicida, comorbidades complexas ou necessidade de avaliação psiquiátrica aprofundada.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> a psicoeducação é parte fundamental do tratamento dos transtornos ansiosos e pode ser realizada por diferentes categorias profissionais na APS.</li>
+                <li><strong>Números e doses:</strong> os benzodiazepínicos devem ser evitados como primeira linha e, quando usados, por tempo curto (geralmente até 4 semanas); ISRS e IRSN são primeira linha farmacológica; TCC é primeira linha psicoterápica.</li>
+                <li><strong>Mnemônicos:</strong> "Psicoeducação é de todos" - reforça a abordagem multiprofissional.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma usar "benzodiazepínico como primeira linha" e "referenciar tudo" como distratores.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Transtorno de ansiedade generalizada</td>
+                        <td>Preocupação excessiva e persistente, sintomas somáticos, irritabilidade, insônia</td>
+                        <td>Avaliação clínica, exclusão de causas orgânicas</td>
+                        <td>Psicoeducação, TCC, ISRS/IRSN</td>
+                    </tr>
+                    <tr>
+                        <td>Transtorno do pânico</td>
+                        <td>Crises súbitas de medo intenso, sintomas cardiopulmonares, medo de morrer</td>
+                        <td>Avaliação clínica e cardiológica quando indicada</td>
+                        <td>Psicoeducação, TCC, ISRS</td>
+                    </tr>
+                    <tr>
+                        <td>Depressão</td>
+                        <td>Humor deprimido, anedonia, alterações de sono e apetite, ideação suicida</td>
+                        <td>Avaliação clínica e escalas</td>
+                        <td>Psicoeducação, psicoterapia, antidepressivos</td>
+                    </tr>
+                    <tr>
+                        <td>Hipertireoidismo</td>
+                        <td>Ansiedade, palpitações, perda de peso, tremor, intolerância ao calor</td>
+                        <td>TSH, T4 livre</td>
+                        <td>Tratar causa base</td>
+                    </tr>
+                    <tr>
+                        <td>Uso de substâncias</td>
+                        <td>Ansiedade associada a cafeína, álcool, cocaína, anfetaminas</td>
+                        <td>Anamnese detalhada, exames toxicológicos</td>
+                        <td>Abordagem específica</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre farmacoterapia:</strong> a resposta poderia envolver ISRS/IRSN como primeira linha e benzodiazepínicos apenas em situações específicas.</li>
+                <li><strong>Se fosse sobre psicoterapia:</strong> a resposta envolveria TCC como primeira linha.</li>
+                <li><strong>Se fosse sobre prevenção quaternária:</strong> a resposta envolveria evitar benzodiazepínicos de longo prazo e sobremedicalização.</li>
+                <li><strong>Se fosse sobre níveis de atenção:</strong> a resposta envolveria cuidado compartilhado e critérios de encaminhamento.</li>
+                <li><strong>Se fosse sobre saúde mental na APS:</strong> a resposta envolveria acolhimento, vínculo e longitudinalidade.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023 - Q89</td>
+                        <td>Questão idêntica: sobre a abordagem da saúde mental e transtornos ansiosos na APS.</td>
+                        <td>Psicoeducação, tratamento de primeira linha, papel da APS, subdiagnóstico.</td>
+                        <td>C</td>
+                        <td>É a mesma questão de 2026. Reforça a repetição e a importância do tema.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q87</td>
+                        <td>Sobre depressão na APS: rastreamento com PHQ-2, especificidade e sensibilidade, papel do médico de família.</td>
+                        <td>Rastreamento e abordagem da depressão na APS.</td>
+                        <td>B</td>
+                        <td>Mostra que a APS deve rastrear e tratar transtornos mentais, não apenas referenciar.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q88</td>
+                        <td>Fármacos para depressão: ADT e ISRS, efeitos adversos e indicações.</td>
+                        <td>Farmacoterapia dos transtornos mentais.</td>
+                        <td>D</td>
+                        <td>Complementa o conhecimento sobre ISRS e a distinção entre classes farmacológicas.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q31</td>
+                        <td>Lei 10.216 (Reforma Psiquiátrica) e direitos das pessoas com transtornos mentais.</td>
+                        <td>Direitos, acesso a meios de comunicação, modelo assistencial.</td>
+                        <td>C</td>
+                        <td>Contextualiza a lógica da Reforma Psiquiátrica e o papel da APS na rede de saúde mental.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q50</td>
+                        <td>Transtorno obsessivo-compulsivo: comorbidades, evolução, fluvoxamina e clomipramina.</td>
+                        <td>Abordagem farmacológica e comorbidades dos transtornos ansiosos.</td>
+                        <td>B</td>
+                        <td>Ilustra a complexidade dos transtornos ansiosos e a necessidade de tratamento individualizado.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q52</td>
+                        <td>Sra. Cleide, 50 anos, tristeza, irritabilidade, menopausa; abordagem inicial na APS.</td>
+                        <td>Acolhimento, escuta ativa, avaliação de gravidade e oferta de cuidado.</td>
+                        <td>C</td>
+                        <td>Reforça a lógica do cuidado na APS: acolher, avaliar e acompanhar, não apenas referenciar.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q92</td>
+                        <td>Sintomas clinicamente inexplicados: sensibilização, atenção seletiva e comportamento.</td>
+                        <td>Abordagem dos sintomas somáticos na APS.</td>
+                        <td>B</td>
+                        <td>Relaciona-se à ansiedade somatizada e à necessidade de escuta e manejo adequado.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q52</td>
+                        <td>Método Clínico Centrado na Pessoa (MCCP): explorar a experiência da doença.</td>
+                        <td>Abordagem centrada na pessoa e escuta ativa.</td>
+                        <td>D</td>
+                        <td>Reforça a importância da escuta e da psicoeducação na abordagem dos transtornos ansiosos.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q85</td>
+                        <td>Kaythllen, 28 anos, sintomas clinicamente inexplicados e fibromialgia.</td>
+                        <td>Investigação, acolhimento e manejo dos sintomas sem causa orgânica aparente.</td>
+                        <td>D</td>
+                        <td>Ilustra a interface entre ansiedade, somatização e cuidado longitudinal na APS.</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q90</td>
+                        <td>Mudanças de estilo de vida na APS: entrevista motivacional, escuta reflexiva, autonomia.</td>
+                        <td>Aconselhamento e mudança de comportamento.</td>
+                        <td>C</td>
+                        <td>Complementa a abordagem dos transtornos ansiosos com técnicas de comunicação e motivação.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 10 questões relevantes nas provas de 2015, 2018, 2019, 2022, 2023 e 2024. A banca alterna entre cobrar: (1) psicoeducação e tratamento multiprofissional; (2) farmacoterapia (ISRS, ADT, benzodiazepínicos); (3) rastreamento e diagnóstico na APS; (4) direitos e Reforma Psiquiátrica; (5) abordagem de sintomas clinicamente inexplicados; (6) Método Clínico Centrado na Pessoa e entrevista motivacional.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Critérios específicos de encaminhamento ao psiquiatra; uso de escalas (GAD-7, PHQ-9) na APS; papel do apoio matricial em saúde mental; prevenção do suicídio; manejo de comorbidades entre ansiedade e depressão; uso de teleconsultoria em saúde mental; abordagem de populações vulneráveis.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem migrado de questões farmacológicas para questões sobre organização do cuidado, abordagem centrada na pessoa e papel da equipe multiprofissional, o que dialoga diretamente com esta questão.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar o papel da APS no cuidado em saúde mental, a psicoeducação, a abordagem multiprofissional, os critérios de encaminhamento e a farmacoterapia (ISRS/IRSN como primeira linha; benzodiazepínicos com cautela). Memorizar que a APS não se limita a referenciar.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Atributos da APS (Barbara Starfield) - longitudinalidade, coordenação e integralidade no cuidado em saúde mental.</li>
+                <li><strong>Conexão 2:</strong> Reforma Psiquiátrica e Lei 10.216 - modelo de base comunitária e papel da APS na rede de saúde mental.</li>
+                <li><strong>Conexão 3:</strong> Método Clínico Centrado na Pessoa - exploração da experiência da doença, sentimentos, ideias, funcionalidade e expectativas.</li>
+                <li><strong>Conexão 4:</strong> Prevenção quaternária - evitar sobremedicalização e uso prolongado de benzodiazepínicos.</li>
+                <li><strong>Conexão 5:</strong> Entrevista motivacional e modelo transteórico - ferramentas para adesão ao tratamento.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou A, houve erro conceitual sobre a primeira linha farmacológica dos transtornos ansiosos e sobre o risco dos benzodiazepínicos. Se marcou B, subestimou a necessidade de investigação de causas orgânicas. Se marcou D, reduziu o papel da APS ao encaminhamento, contrariando a integralidade e a longitudinalidade. Se marcou E, desconheceu o subdiagnóstico dos transtornos ansiosos e a complexidade do tratamento. A ação corretiva é revisar a abordagem da ansiedade na APS, o papel da psicoeducação, o tratamento de primeira linha e a lógica do cuidado integral e multiprofissional.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, o médico de família e comunidade deve acolher a pessoa com sintomas ansiosos, realizar escuta ativa, investigar causas orgânicas, oferecer psicoeducação, envolver a equipe multiprofissional, indicar psicoterapia e/ou farmacoterapia quando necessário e referenciar apenas os casos que ultrapassam a resolutividade da APS. A longitudinalidade e o vínculo são fundamentais para o sucesso do cuidado.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Transtornos ansiosos: apresentação clínica, diagnóstico diferencial e comorbidades.</li>
+                <li>Psicoeducação e abordagem multiprofissional em saúde mental.</li>
+                <li>Farmacoterapia: ISRS, IRSN, benzodiazepínicos (riscos e indicações).</li>
+                <li>Psicoterapia: terapia cognitivo-comportamental (TCC).</li>
+                <li>Critérios de encaminhamento ao especialista em saúde mental.</li>
+                <li>Atributos da APS e Reforma Psiquiátrica.</li>
+                <li>Prevenção quaternária e uso racional de psicofármacos.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Caderno de Atenção Básica nº 34: Saúde Mental. Brasília: Ministério da Saúde.</p>
+            <p>2. Associação Brasileira de Psiquiatria. Diretrizes da ABP para o Transtorno de Ansiedade Generalizada. São Paulo: ABP.</p>
+            <p>3. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+            <p>4. Starfield B. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO/Ministério da Saúde.</p>
+            <p>5. Brasil. Lei nº 10.216, de 6 de abril de 2001 - Reforma Psiquiátrica.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

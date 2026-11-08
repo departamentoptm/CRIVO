@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 17 - Pediatria: Colestase neonatal - atresia de vias biliares</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Colestase neonatal - atresia de vias biliares</div>
+        <h1>Questão 17</h1>
+        <div class="question-text">
+            Recém-nascido de 3 semanas de vida apresenta icterícia progressiva iniciada na segunda semana, acompanhada de colúria e episódios intermitentes de hipocolia fecal. O exame físico revela hepatomegalia com consistência aumentada. Os exames laboratoriais confirmam colestase neonatal (bilirrubina direta de 3,5 mg/dL). Diante do quadro clínico e da necessidade de um diagnóstico precoce para otimizar o prognóstico, qual das seguintes condições representa a causa mais comum de colestase neonatal extra-hepática e exige intervenção cirúrgica idealmente antes dos 60 dias de vida?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Síndrome de Alagille.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Galactosemia clássica.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Atresia de vias biliares.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Deficiência de alfa-1-antitripsina.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Infecção congênita por Citomegalovírus.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Gastroenterologia Pediátrica / Cirurgia Pediátrica</p>
+            <p><strong>Tema:</strong> Colestase neonatal - atresia de vias biliares</p>
+            <p><strong>Contextualização:</strong> A colestase neonatal é definida pela elevação da bilirrubina direta (conjugada) acima de 1 mg/dL ou superior a 20% da bilirrubina total nas primeiras semanas de vida. A atresia de vias biliares é a causa extra-hepática mais comum e a principal indicação de transplante hepático na infância. O diagnóstico precoce é crucial porque a portoenterostomia de Kasai apresenta melhores resultados quando realizada idealmente antes dos 60 dias de vida.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A atresia de vias biliares é uma obstrução inflamatória e fibrosante progressiva das vias biliares extra-hepáticas, de etiologia desconhecida e provavelmente multifatorial (genética, viral, imunológica). Ocorre colestase com bilirrubina direta elevada, acolia/hipocolia fecal, colúria e hepatomegalia. A histologia mostra fibrose portal e proliferação de ductos biliares. Sem tratamento, evolui para cirrose biliar, hipertensão portal e óbito. A cirurgia de Kasai restabelece o fluxo biliar e retarda a progressão, mas muitos pacientes evoluem para transplante hepático.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C - Atresia de vias biliares.</strong> É a causa mais comum de colestase neonatal extra-hepática e a única condição listada que exige intervenção cirúrgica precoce (portoenterostomia de Kasai), idealmente antes dos 60 dias de vida, para melhorar o prognóstico e reduzir a necessidade de transplante precoce. O quadro clínico descrito é clássico: icterícia progressiva com predomínio de bilirrubina direta, colúria, hipocolia fecal e hepatomegalia.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Síndrome de Alagille.</strong> É uma causa de colestase intra-hepática, sindrômica, com fácies característica, sopro pulmonar (estenose de ramos pulmonares), vértebras em borboleta e embriotoxon posterior. Não é a causa mais comum extra-hepática e não tem indicação de cirurgia precoce de Kasai.</p>
+            <p><strong>Alternativa B - Galactosemia clássica.</strong> Erro inato do metabolismo dos carboidratos, causa de colestase intra-hepática, tratada com dieta isenta de galactose. Não é a causa mais comum extra-hepática e não é cirúrgica.</p>
+            <p><strong>Alternativa D - Deficiência de alfa-1-antitripsina.</strong> Causa genética de colestase intra-hepática que pode evoluir para cirrose. Não é a causa mais comum extra-hepática e não exige cirurgia precoce.</p>
+            <p><strong>Alternativa E - Infecção congênita por Citomegalovírus.</strong> Causa infecciosa de colestase intra-hepática, tratada com ganciclovir em casos selecionados. Não é a causa mais comum extra-hepática e não é cirúrgica.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Icterícia progressiva iniciada na segunda semana:</strong> sugere colestase neonatal, não icterícia fisiológica (que é indireta e autolimitada).</li>
+                <li><strong>Colúria e hipocolia fecal:</strong> sinais clássicos de colestase (hiperbilirrubinemia direta).</li>
+                <li><strong>Hepatomegalia com consistência aumentada:</strong> indica doença hepática crônica ou obstrutiva.</li>
+                <li><strong>Bilirrubina direta de 3,5 mg/dL:</strong> confirma colestase (BD &gt; 1 mg/dL ou &gt; 20% da BT).</li>
+                <li><strong>Antes dos 60 dias de vida:</strong> janela cirúrgica da atresia de vias biliares (Kasai).</li>
+                <li><strong>Causa mais comum de colestase neonatal extra-hepática:</strong> atresia de vias biliares.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Confirmar colestase: bilirrubina direta &gt; 1 mg/dL ou &gt; 20% da bilirrubina total.</li>
+                <li><strong>Segundo:</strong> Diferenciar causas intra e extra-hepáticas: ultrassonografia (sinal do cordão triangular), cintilografia biliar, biópsia hepática.</li>
+                <li><strong>Terceiro:</strong> Se suspeita de atresia de vias biliares, encaminhar imediatamente para centro cirúrgico pediátrico.</li>
+                <li><strong>Quarto:</strong> Realizar portoenterostomia de Kasai idealmente antes dos 60 dias de vida.</li>
+                <li><strong>Quinto:</strong> Acompanhar com hepatologista pediátrico; considerar transplante hepático em caso de falha do Kasai ou cirrose avançada.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "diagnóstico" e "conduta inicial".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> colestase neonatal = BD &gt; 1 mg/dL; atresia de vias biliares é a causa extra-hepática mais comum e a principal indicação de transplante hepático na infância.</li>
+                <li><strong>Números e doses:</strong> Kasai idealmente antes de 60 dias; quanto mais precoce, maior a sobrevida do fígado nativo.</li>
+                <li><strong>Mnemônicos/regras:</strong> "icterícia que não melhora após 2 semanas + acolia = colestase"; "colestase neonatal → investigar atresia de vias biliares".</li>
+            </ul>
+            <p>Esses dados são cobrados de forma recorrente em provas de pediatria e cirurgia pediátrica.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Atresia de vias biliares</td>
+                        <td>Colestase progressiva, acolia/hipocolia, hepatomegalia, lactente a termo</td>
+                        <td>USG (sinal do cordão triangular), cintilografia, biópsia</td>
+                        <td>Portoenterostomia de Kasai antes de 60 dias; transplante se falha</td>
+                    </tr>
+                    <tr>
+                        <td>Síndrome de Alagille</td>
+                        <td>Colestase intra-hepática, fácies sindrômica, sopro pulmonar, vértebras em borboleta</td>
+                        <td>Critérios clínicos, biópsia, genética</td>
+                        <td>Suporte nutricional, tratamento do prurido; transplante em casos graves</td>
+                    </tr>
+                    <tr>
+                        <td>Galactosemia clássica</td>
+                        <td>Colestase, vômitos, letargia, catarata, sepse por E. coli</td>
+                        <td>Dosagem de galactose-1-fosfato uridiltransferase</td>
+                        <td>Dieta isenta de galactose</td>
+                    </tr>
+                    <tr>
+                        <td>Deficiência de alfa-1-antitripsina</td>
+                        <td>Colestase, histórico familiar, pode evoluir para cirrose</td>
+                        <td>Dosagem sérica, genotipagem</td>
+                        <td>Suporte; transplante em casos avançados</td>
+                    </tr>
+                    <tr>
+                        <td>CMV congênito</td>
+                        <td>Colestase, petéquias, microcefalia, coriorretinite, surdez</td>
+                        <td>PCR no sangue/urina, neuroimagem, fundoscopia</td>
+                        <td>Ganciclovir em casos selecionados</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o exame de imagem:</strong> ultrassonografia (sinal do cordão triangular) e cintilografia biliar.</li>
+                <li><strong>Se pedisse o tratamento:</strong> portoenterostomia de Kasai antes de 60 dias; transplante hepático em caso de falha.</li>
+                <li><strong>Se pedisse a causa mais comum intra-hepática:</strong> hepatite neonatal idiopática, Alagille, metabólicas, infecciosas.</li>
+                <li><strong>Se pedisse a complicação:</strong> cirrose biliar, hipertensão portal, insuficiência hepática.</li>
+                <li><strong>Se pedisse o sinal clínico:</strong> acolia/hipocolia fecal e colúria.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <p><strong>Tema não abordado nas provas de 2006_2026.</strong> Não foram identificadas questões específicas sobre atresia de vias biliares ou colestase neonatal. Temas próximos, como icterícia neonatal indireta e infecções congênitas, foram cobrados e ajudam a contextualizar o diagnóstico diferencial.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2018 - Q80</td>
+                        <td>Recém-nascido 28 dias com icterícia desde o nascimento, predomínio de bilirrubina indireta, sem hepatoesplenomegalia</td>
+                        <td>Icterícia neonatal prolongada (indireta)</td>
+                        <td>A (Síndrome de Gilbert)</td>
+                        <td>Contrasta com a colestase (direta) da questão atual</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q39</td>
+                        <td>Critérios de exclusão para alojamento conjunto, incluindo icterícia precoce</td>
+                        <td>Icterícia neonatal e critérios de risco</td>
+                        <td>A (Apgar &lt; 7 no primeiro minuto)</td>
+                        <td>Reforça a importância de reconhecer icterícia patológica</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q5</td>
+                        <td>Recém-nascido com icterícia no primeiro dia, Coombs direto positivo</td>
+                        <td>Doença hemolítica por incompatibilidade Rh/ABO</td>
+                        <td>C (Incompatibilidade ABO pode ser descartada - falso)</td>
+                        <td>Diferencial de icterícia neonatal (indireta, hemolítica)</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q10</td>
+                        <td>Recém-nascido de mãe com sífilis, VDRL 1:4, assintomático</td>
+                        <td>Sífilis congênita; conduta</td>
+                        <td>D (Penicilina benzatina dose única)</td>
+                        <td>Infecção congênita como causa de icterícia/colestase</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q54</td>
+                        <td>Mulher com cisto biliar, junção pancreático-biliar anômala, dilatação fusiforme do colédoco</td>
+                        <td>Cisto de colédoco tipo I; conduta cirúrgica</td>
+                        <td>B (Ressecção cirúrgica por condição pré-maligna)</td>
+                        <td>Doença biliar cirúrgica, mas não neonatal</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico não apareceu nas provas anteriores. A banca tem cobrado icterícia neonatal indireta, infecções congênitas e doenças biliares cirúrgicas em outros contextos.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> colestase neonatal, atresia de vias biliares, sinal do cordão triangular, portoenterostomia de Kasai.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões de icterícia neonatal concentram-se na hiperbilirrubinemia indireta; a colestase (direta) é um tema potencialmente novo.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a diferenciação entre icterícia indireta e colestase, as causas de colestase neonatal e a janela cirúrgica da atresia de vias biliares.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Atresia de vias biliares → cirrose biliar → hipertensão portal → transplante hepático.</li>
+                <li><strong>Conexão 2:</strong> Colestase neonatal → diagnóstico diferencial com icterícia fisiológica (indireta) e icterícia do leite materno.</li>
+                <li><strong>Conexão 3:</strong> Infecções congênitas (CMV, sífilis) e erros inatos do metabolismo (galactosemia, tirosinemia) como causas de colestase intra-hepática.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é confundir causas intra e extra-hepáticas de colestase, ou não reconhecer que a atresia de vias biliares é a causa extra-hepática mais comum e a única que exige cirurgia precoce. Classificação provável do erro: lacuna de conhecimento sobre a fisiopatologia e o manejo da colestase neonatal. Ação corretiva: memorizar que "colestase neonatal → investigar atresia de vias biliares" e que o Kasai deve ser feito antes de 60 dias.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, todo recém-nascido com icterícia que persiste após duas semanas deve ter bilirrubina direta dosada. Se houver colestase, o encaminhamento para hepatologista/cirurgião pediátrico deve ser imediato. A ultrassonografia e a cintilografia auxiliam no diagnóstico, e a biópsia hepática pode ser necessária. O aconselhamento familiar e o acompanhamento multiprofissional são essenciais.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Colestase neonatal: definição e investigação</li>
+                <li>Atresia de vias biliares: diagnóstico e tratamento</li>
+                <li>Sinal do cordão triangular na ultrassonografia</li>
+                <li>Portoenterostomia de Kasai</li>
+                <li>Icterícia fisiológica versus icterícia patológica</li>
+                <li>Síndrome de Alagille, galactosemia, deficiência de alfa-1-antitripsina, CMV congênito</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria. Diretrizes para o manejo da colestase neonatal.</p>
+            <p>2. Nelson Textbook of Pediatrics, 21ª edição.</p>
+            <p>3. UpToDate. Approach to the infant with cholestasis. 2024.</p>
+            <p>4. ESPGHAN. Guidelines for the evaluation of cholestatic liver disease in infancy. J Pediatr Gastroenterol Nutr, 2017.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

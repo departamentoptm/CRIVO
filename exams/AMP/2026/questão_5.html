@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 5 - Pediatria: Síndrome Nefrótica na Infância - Diagnóstico e Conduta Inicial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Síndrome Nefrótica na Infância - Diagnóstico e Conduta Inicial</div>
+        <h1>Questão 5</h1>
+        <div class="question-text">
+            Um menino de 4 anos é levado ao pronto-socorro devido a um quadro de edema palpebral bilateral que piora pela manhã, associado a edema de membros inferiores e distensão abdominal notados há 5 dias. O paciente não apresenta hematúria macroscópica, febre ou queixas urinárias. O histórico médico não revela comorbidades prévias. Ao exame físico regular estado geral, normotenso (PA 95/60 mmHg), com edema compressível (cacifo 3+/4+) em membros inferiores, anasarca discreta e ascite clinicamente detectável. Os exames laboratoriais iniciais revelam:
+            <br>• Urina tipo 1: proteinúria (4+); ausência de hemácias ou leucócitos.
+            <br>• Relação proteína/creatinina urinária: 3,8 mg/mg (normal < 0,2).
+            <br>• Albumina sérica: 1,8 g/dL (normal: 3,5 a 5,0 g/dL).
+            <br>• Colesterol total: 290 mg/dL.
+            <br>• Função renal (creatinina e ureia): normais para a idade.
+            <br>• Complemento sérico (C3 e C4): normais.
+            <br>Considerando a principal hipótese diagnóstica e a conduta inicial para este paciente, assinale a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - O diagnóstico provável é de Glomerulonefrite Difusa Aguda (GNDA) e o tratamento imediato deve incluir antibioticoterapia com penicilina benzatina.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Trata-se de um quadro clássico de Síndrome Nefrótica por Doença de Lesões Mínimas, sendo indicada a realização imediata de biópsia renal antes de iniciar a terapia.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - A principal hipótese é Síndrome Nefrótica, e a conduta inicial padrão consiste na corticoterapia empírica com prednisona ou prednisolona (2 mg/kg/dia).</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Diante do quadro de anasarca, deve-se iniciar imediatamente a infusão contínua de albumina humana hiperbólica associada a altas doses de furosemida intravenosa, independentemente do status hemodinâmico.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - A dosagem de complementos (C3 e C4) normais afasta a Doença de Lesões Mínimas, sugerindo fortemente o diagnóstico de Nefropatia por IgA.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria - Nefrologia Pediátrica.</p>
+            <p><strong>Tema:</strong> Síndrome Nefrótica na Infância - diagnóstico clínico, síndrome nefrótica idiopática e conduta inicial com corticoterapia empírica.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A síndrome nefrótica é a glomerulopatia mais comum na infância, com pico de incidência entre 2 e 6 anos. A apresentação clássica é caracterizada pela tétrade: proteinúria maciça, hipoalbuminemia, edema e hiperlipidemia. A maioria dos casos em crianças (80-90%) é por doença de lesões mínimas (DLM), que responde bem ao corticoide. A banca costuma cobrar o diagnóstico clínico, a conduta inicial (corticoide empírico), as indicações de biópsia, as complicações (infecções, trombose, hipovolemia) e o diagnóstico diferencial com glomerulonefrite difusa aguda (GNDA).</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A síndrome nefrótica é caracterizada por aumento da permeabilidade da barreira de filtração glomerular, levando à perda urinária maciça de proteínas (especialmente albumina). O diagnóstico é clínico e baseia-se na tétrade:</p>
+            <ul>
+                <li><strong>Proteinúria maciça:</strong> relação proteína/creatinina urinária > 2,0 mg/mg (ou proteinúria de 24h > 40 mg/m²/h ou > 3,5 g/dia em adultos) - no caso, 3,8 mg/mg.</li>
+                <li><strong>Hipoalbuminemia:</strong> albumina sérica < 2,5 g/dL (no caso, 1,8 g/dL).</li>
+                <li><strong>Edema:</strong> decorrente da queda da pressão oncótica plasmática, com extravasamento de líquido para o interstício; há também retenção de sódio e água por mecanismos compensatórios (ativação do sistema renina-angiotensina-aldosterona e ADH).</li>
+                <li><strong>Hiperlipidemia:</strong> aumento do colesterol e triglicerídeos por aumento da síntese hepática de lipoproteínas.</li>
+            </ul>
+            <p>Na DLM, há perda da carga negativa da membrana basal glomerular e fusão dos pedicelos dos podócitos, sem alterações à microscopia óptica e sem depósitos imunes à imunofluorescência. O complemento sérico é normal, o que ajuda a diferenciar de GNDA (C3 baixo) e nefrite lúpica (C3/C4 baixos). A maioria dos casos pediátricos é corticoide-sensível.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C - correta.</strong> O quadro é clássico de síndrome nefrótica idiopática em criança de 4 anos: edema palpebral que piora pela manhã, anasarca, proteinúria 4+, relação proteína/creatinina 3,8, hipoalbuminemia (1,8 g/dL), hipercolesterolemia (290 mg/dL), função renal normal, complemento normal e ausência de hematúria. Nesse cenário típico, a conduta inicial padrão é a corticoterapia empírica com prednisona ou prednisolona na dose de 2 mg/kg/dia (máximo 60 mg/dia) por 4-6 semanas, seguida de redução gradual, sem necessidade de biópsia renal inicial. A biópsia é reservada para casos atípicos: idade < 1 ano ou > 10-12 anos, hematúria macroscópica, hipertensão arterial, insuficiência renal, complemento baixo, ou resistência ao corticoide. Em provas anteriores, a síndrome nefrótica foi cobrada principalmente em suas complicações (peritonite bacteriana espontânea por pneumococo) e no manejo de recidivas/resistência (2021 - Q8; 2022 - Q10; 2023 - Q8; 2024 - Q5).</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Errada. A GNDA apresenta hematúria (frequentemente macroscópica), hipertensão arterial, complemento C3 baixo, proteinúria não maciça e edema por retenção hidrossalina. O caso não tem hematúria, é normotenso, complemento normal e proteinúria maciça, afastando GNDA. O tratamento da GNDA é de suporte; a penicilina benzatina é usada para erradicar o estreptococo em casos de GNDA pós-estreptocócica, não na síndrome nefrótica.</p>
+            <p><strong>Alternativa B</strong> - Errada. Embora a DLM seja a causa mais provável, a biópsia renal não é indicada de imediato em casos típicos. A biópsia é reservada para casos atípicos ou resistência ao corticoide. Em 2021 - Q8, a biópsia foi cobrada em um caso de síndrome nefrótica com resposta insatisfatória ao corticoide, reforçando que a biópsia não é inicial em casos típicos.</p>
+            <p><strong>Alternativa C</strong> - Correta.</p>
+            <p><strong>Alternativa D</strong> - Errada. A infusão de albumina humana e furosemida em altas doses não é conduta inicial de rotina e pode ser perigosa, especialmente se o paciente não estiver hipovolêmico. A albumina é reservada para casos graves com hipovolemia sintomática ou edema refratário, e deve ser usada com cautela. A prioridade é o corticoide.</p>
+            <p><strong>Alternativa E</strong> - Errada. O complemento normal é esperado na DLM e não afasta o diagnóstico; pelo contrário, ajuda a excluir causas como GNDA e nefrite lúpica, que cursam com complemento baixo. A nefropatia por IgA geralmente cursa com hematúria recorrente e complemento normal, mas não é a principal hipótese neste caso.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Edema palpebral que piora pela manhã:</strong> edema de instalação gradual, típico da síndrome nefrótica (pela hipoalbuminemia).</li>
+                <li><strong>Proteinúria 4+ e relação proteína/creatinina 3,8:</strong> proteinúria maciça, critério diagnóstico.</li>
+                <li><strong>Albumina 1,8 g/dL:</strong> hipoalbuminemia grave, critério diagnóstico.</li>
+                <li><strong>Colesterol 290 mg/dL:</strong> hiperlipidemia, completando a tétrade.</li>
+                <li><strong>Complemento normal e ausência de hematúria:</strong> afastam GNDA e nefrite lúpica, favorecendo DLM.</li>
+                <li><strong>Normotenso e função renal normal:</strong> quadro típico, sem sinais de gravidade ou complicações.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer a síndrome nefrótica pela tétrade (proteinúria maciça + hipoalbuminemia + edema + hiperlipidemia).</li>
+                <li><strong>Segundo:</strong> classificar como caso típico ou atípico. Típico: idade 1-10 anos, sem hematúria macroscópica, sem hipertensão, função renal normal, complemento normal. Atípico: fora dessa faixa ou com alterações.</li>
+                <li><strong>Terceiro:</strong> em casos típicos, iniciar corticoterapia empírica com prednisona/prednisolona 2 mg/kg/dia (máx 60 mg/dia) por 4-6 semanas, sem biópsia inicial.</li>
+                <li><strong>Quarto:</strong> orientar sobre complicações (infecções, trombose, hipovolemia) e sinais de alerta; monitorar resposta clínica e laboratorial.</li>
+                <li><strong>Quinto:</strong> se resistência ao corticoide ou recidivas frequentes, considerar biópsia renal e ajuste terapêutico.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “diagnóstico sindrômico” e “conduta inicial”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> síndrome nefrótica na infância é geralmente DLM (80-90%); a tétrade é proteinúria maciça, hipoalbuminemia, edema e hiperlipidemia; complemento normal; resposta ao corticoide é típica.</li>
+                <li><strong>Números e doses:</strong> prednisona/prednisolona 2 mg/kg/dia (máx 60 mg/dia) por 4-6 semanas, seguida de 1,5 mg/kg/dia em dias alternados por 4-6 semanas; relação proteína/creatinina > 2,0; albumina < 2,5 g/dL.</li>
+                <li><strong>Mnemônicos:</strong> “Nefrótica = proteinúria maciça + hipoalbuminemia + edema + hiperlipidemia”; “DLM = complemento normal, sem hematúria, resposta ao corticoide”; “Biópsia = casos atípicos ou resistência”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2010 - Q36, 2018 - Q69, 2021 - Q8, 2022 - Q10, 2023 - Q8 e 2024 - Q5, principalmente no que se refere a complicações e manejo.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Síndrome Nefrótica por DLM (correta)</td>
+                        <td>Proteinúria maciça, hipoalbuminemia, edema, hiperlipidemia, complemento normal, sem hematúria, normotenso.</td>
+                        <td>Clínico-laboratorial; biópsia apenas em casos atípicos.</td>
+                        <td>Corticoide empírico (prednisona 2 mg/kg/dia).</td>
+                    </tr>
+                    <tr>
+                        <td>Glomerulonefrite Difusa Aguda (GNDA)</td>
+                        <td>Hematúria (frequentemente macroscópica), hipertensão, edema, complemento C3 baixo, proteinúria não maciça.</td>
+                        <td>Clínico; ASLO, C3, urina tipo 1.</td>
+                        <td>Suporte; penicilina benzatina se pós-estreptocócica.</td>
+                    </tr>
+                    <tr>
+                        <td>Nefrite Lúpica</td>
+                        <td>Hematúria, proteinúria, complemento baixo, FAN positivo, manifestações sistêmicas (rash, artrite).</td>
+                        <td>FAN, anti-dsDNA, C3/C4, biópsia renal.</td>
+                        <td>Imunossupressão conforme classe.</td>
+                    </tr>
+                    <tr>
+                        <td>Nefropatia por IgA</td>
+                        <td>Hematúria recorrente (macroscópica ou microscópica) após IVAS, complemento normal, proteinúria variável.</td>
+                        <td>Biopópsia com imunofluorescência para IgA.</td>
+                        <td>IECA/BRA, corticoide em casos selecionados.</td>
+                    </tr>
+                    <tr>
+                        <td>Glomeruloesclerose Focal e Segmentar (GESF)</td>
+                        <td>Proteinúria maciça, hipertensão, hematúria, resposta insatisfatória ao corticoide.</td>
+                        <td>Biopópsia renal.</td>
+                        <td>Imunossupressão; IECA/BRA.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a complicação mais comum:</strong> infecção, especialmente peritonite bacteriana espontânea por pneumococo.</li>
+                <li><strong>Se pedisse o agente da peritonite:</strong> Streptococcus pneumoniae.</li>
+                <li><strong>Se pedisse a indicação de biópsia:</strong> casos atípicos (idade <1 ano ou >10 anos, hematúria macroscópica, hipertensão, insuficiência renal, complemento baixo) ou resistência ao corticoide.</li>
+                <li><strong>Se pedisse o tratamento da recidiva:</strong> mesmo esquema de corticoide; considerar poupança de corticoide em recidivas frequentes.</li>
+                <li><strong>Se pedisse o diagnóstico diferencial com GNDA:</strong> GNDA tem hematúria, hipertensão, complemento baixo; síndrome nefrótica tem proteinúria maciça, complemento normal, sem hematúria.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2010 - Q36</td>
+                        <td>Síndrome nefrótica na infância: principal complicação infecciosa.</td>
+                        <td>Complicação infecciosa (peritonite bacteriana espontânea).</td>
+                        <td>A (peritonite bacteriana espontânea)</td>
+                        <td>Reforça a suscetibilidade a infecções por pneumococo em crianças com síndrome nefrótica.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q34</td>
+                        <td>Complemento sérico nas doenças glomerulares: FSGS, GNDA, PAN e LES.</td>
+                        <td>Padrão de complemento (normo vs hipocomplementemia).</td>
+                        <td>B (B, A, B, A)</td>
+                        <td>Reforça que a DLM cursa com complemento normal, ajudando no diagnóstico diferencial.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q69</td>
+                        <td>Criança com síndrome nefrótica e peritonite espontânea: agente etiológico.</td>
+                        <td>Agente da peritonite (pneumococo).</td>
+                        <td>C (pneumococo)</td>
+                        <td>Reforça a complicação infecciosa mais comum.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q8</td>
+                        <td>Síndrome nefrótica com resposta insatisfatória ao corticoide e biópsia normal.</td>
+                        <td>Interpretação da biópsia e resistência ao corticoide.</td>
+                        <td>E (ambas as asserções falsas)</td>
+                        <td>Reforça que a DLM pode ter biópsia normal e que a falta de resposta não descarta o diagnóstico.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q10</td>
+                        <td>Síndrome nefrótica com recidivas, peritonite por pneumococo e hematúria microscópica.</td>
+                        <td>Manejo de recidivas e complicações.</td>
+                        <td>A (I e II corretas, III incorreta)</td>
+                        <td>Reforça o manejo de recidivas e a associação com peritonite por pneumococo.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q8</td>
+                        <td>Síndrome nefrótica com dor abdominal e febre: tratamento da peritonite.</td>
+                        <td>Antibioticoterapia empírica (ampicilina/cefalosporina).</td>
+                        <td>D (ampicilina ou cefalosporina)</td>
+                        <td>Reforça o manejo da complicação infecciosa.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q5</td>
+                        <td>Síndrome nefrótica com peritonite: agente mais provável.</td>
+                        <td>Agente etiológico (pneumococo).</td>
+                        <td>A (pneumococo)</td>
+                        <td>Reforça a complicação infecciosa mais comum.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 7 questões no período. A banca cobra principalmente as complicações infecciosas (peritonite bacteriana espontânea por pneumococo) e o manejo de recidivas/resistência ao corticoide. A abordagem do diagnóstico inicial e da corticoterapia empírica não foi cobrada diretamente nas provas anteriores.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Critérios diagnósticos da síndrome nefrótica, indicação de corticoterapia empírica inicial, critérios de biópsia renal, e distinção entre casos típicos e atípicos.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em complicações; as mais recentes (2021-2024) continuam cobrando complicações e manejo, mas com maior ênfase em tomada de decisão. A próxima prova pode cobrar o diagnóstico inicial e a conduta empírica.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a tétrade diagnóstica, a corticoterapia empírica inicial (prednisona 2 mg/kg/dia), as indicações de biópsia e o diagnóstico diferencial com GNDA.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Glomerulonefrite Difusa Aguda (GNDA) - principal diagnóstico diferencial; a GNDA cursa com hematúria, hipertensão e complemento baixo, enquanto a síndrome nefrótica cursa com proteinúria maciça, complemento normal e sem hematúria.</li>
+                <li><strong>Conexão 2:</strong> Infecções - a peritonite bacteriana espontânea por pneumococo é a complicação infecciosa mais comum; a vacinação contra pneumococo é recomendada.</li>
+                <li><strong>Conexão 3:</strong> Trombose - estado de hipercoagulabilidade por perda urinária de antitrombina III e aumento de fibrinogênio; trombose de veia renal é complicação grave.</li>
+                <li><strong>Conexão 4:</strong> Hipovolemia - risco durante diurese intensa; monitorar sinais de hipoperfusão.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é confusão entre síndrome nefrótica e GNDA, ou desconhecimento de que a biópsia não é inicial em casos típicos. A ação corretiva é memorizar: “síndrome nefrótica típica = corticoide empírico sem biópsia; biópsia = casos atípicos ou resistência”. Também revisar a tétrade diagnóstica e o padrão de complemento.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o reconhecimento precoce da síndrome nefrótica e o início da corticoterapia empírica em casos típicos evitam atrasos e complicações. A orientação sobre sinais de infecção (febre, dor abdominal), trombose e hipovolemia é fundamental. A adesão ao tratamento e o acompanhamento regular são essenciais para prevenir recidivas e progressão.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Síndrome nefrótica: tétrade diagnóstica e fisiopatologia do edema.</li>
+                <li>Doença de lesões mínimas: características e resposta ao corticoide.</li>
+                <li>Indicações de biópsia renal na síndrome nefrótica.</li>
+                <li>Diagnóstico diferencial com GNDA e nefrite lúpica.</li>
+                <li>Complicações: peritonite bacteriana espontânea, trombose, hipovolemia.</li>
+                <li>Tratamento da síndrome nefrótica: prednisona 2 mg/kg/dia e esquema de redução.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Kliegman RM, et al. Nelson Tratado de Pediatria. Elsevier.</p>
+            <p>2. Diretrizes da Sociedade Brasileira de Pediatria - Nefrologia Pediátrica: Síndrome Nefrótica.</p>
+            <p>3. KDIGO - Clinical Practice Guideline for Glomerulonephritis.</p>
+            <p>4. American Academy of Pediatrics - Nephrotic Syndrome in Children.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

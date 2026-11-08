@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 28 - Atenção Primária à Saúde: Gestão do Cuidado em Hipertensão Arterial e Falhas no Fluxo de Informação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Atenção Primária à Saúde: Gestão do Cuidado em Hipertensão Arterial e Falhas no Fluxo de Informação</div>
+        <h1>Questão 28</h1>
+        <div class="question-text">
+            Uma equipe de saúde da família observa um aumento de crises hipertensivas entre pacientes diagnosticados com hipertensão arterial sistêmica acompanhados pela equipe nos últimos 3 meses. A revisão dos dados revela redução da adesão aos grupos educativos sobre hipertensão, diminuição nos registros de pressão arterial e menor comparecimento às consultas programadas. As visitas domiciliares estão aquém do necessário, devido à redução do número de agentes comunitários no território.<br><br>
+            Qual é a medida prioritária a ser adotada pela equipe de saúde para solucionar essa situação na atenção primária?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Desenvolver ações educativas para o controle de condições de risco.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Identificar as falhas no cuidado e no fluxo de informação.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Analisar o número de visitas domiciliares como indicador.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Encaminhar para acompanhamento ambulatorial especializado.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade / Atenção Primária à Saúde</p>
+            <p><strong>Tema:</strong> Gestão do cuidado em hipertensão arterial sistêmica na APS: identificação de falhas no cuidado e no fluxo de informação.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, pois integra clínica, processo de trabalho da equipe, indicadores de qualidade e organização da APS. A banca costuma cobrar a diferença entre ação educativa isolada, análise de indicador e diagnóstico situacional para planejamento de intervenções.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O aumento de crises hipertensivas em pacientes acompanhados na APS não deve ser atribuído apenas à falta de conhecimento dos usuários. A revisão dos dados mostra múltiplas falhas de processo: redução da adesão aos grupos, diminuição dos registros de pressão arterial, menor comparecimento às consultas e visitas domiciliares insuficientes por redução de agentes comunitários. Na lógica da gestão da clínica, o primeiro passo é identificar as falhas no cuidado e no fluxo de informação, pois isso permite planejar intervenções efetivas, redistribuir tarefas e monitorar resultados.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa B está correta. Diante de um problema de qualidade assistencial, a medida prioritária é realizar diagnóstico situacional e identificar as falhas no cuidado e no fluxo de informação. A equipe já dispõe de dados que apontam redução de adesão, sub-registro de PA, absenteísmo e visitas domiciliares insuficientes. A partir dessa análise, pode-se planejar ações educativas, busca ativa, reorganização da agenda, fortalecimento do vínculo e monitoramento de indicadores. A ação educativa isolada (A) não resolve falhas estruturais e de processo.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta: ações educativas são importantes, mas não são a medida prioritária antes de identificar as falhas de cuidado e de fluxo. Sem diagnóstico, podem não atingir o problema real.</p>
+            <p><strong>Alternativa B</strong> - Correta: identificar falhas no cuidado e no fluxo de informação é o passo inicial para planejar intervenções efetivas na APS.</p>
+            <p><strong>Alternativa C</strong> - Incorreta: analisar o número de visitas domiciliares é apenas um indicador isolado; não esgota a análise e não prioriza a correção do processo de cuidado.</p>
+            <p><strong>Alternativa D</strong> - Incorreta: encaminhar para ambulatório especializado não resolve o problema de gestão na APS e pode sobrecarregar a atenção secundária.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"aumento de crises hipertensivas":</strong> indicador de desfecho desfavorável, que exige análise do processo de cuidado.</li>
+                <li><strong>"redução da adesão aos grupos educativos":</strong> sinal de falha de vínculo e de acompanhamento.</li>
+                <li><strong>"diminuição nos registros de pressão arterial":</strong> falha de fluxo de informação e de monitoramento.</li>
+                <li><strong>"menor comparecimento às consultas programadas":</strong> barreira de acesso e de organização da agenda.</li>
+                <li><strong>"visitas domiciliares aquém do necessário":</strong> falha estrutural, agravada pela redução de agentes comunitários.</li>
+                <li><strong>"medida prioritária":</strong> exige o primeiro passo do ciclo de melhoria da qualidade.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer que o problema é de qualidade assistencial e não apenas de conhecimento do paciente.</li>
+                <li><strong>Segundo:</strong> revisar dados e identificar falhas no cuidado e no fluxo de informação (registros, adesão, consultas, visitas).</li>
+                <li><strong>Terceiro:</strong> planejar intervenções com a equipe: busca ativa, reorganização da agenda, educação continuada, TDO quando indicado e fortalecimento do vínculo.</li>
+                <li><strong>Quarto:</strong> monitorar indicadores e reavaliar o plano, em ciclo de melhoria contínua.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em gestão da clínica na APS.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> na APS, antes de intervir, é preciso diagnosticar o processo de cuidado e o fluxo de informação.</li>
+                <li><strong>Números e doses:</strong> metas de monitoramento de PA, consultas programadas e visitas domiciliares são indicadores de processo; crises hipertensivas são indicador de desfecho.</li>
+                <li><strong>Mnemônicos:</strong> "PDCA" - Planejar, Executar, Checar e Agir; ou "diagnosticar antes de educar".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma trocar a ordem das ações e cobrar a priorização correta.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Falha de processo de cuidado em HAS</td>
+                        <td>Aumento de crises, baixa adesão, sub-registro de PA, absenteísmo, visitas insuficientes</td>
+                        <td>Análise de dados e indicadores da equipe</td>
+                        <td>Identificar falhas no cuidado e fluxo de informação e planejar intervenção</td>
+                    </tr>
+                    <tr>
+                        <td>HAS não controlada por baixa adesão medicamentosa</td>
+                        <td>PA elevada, relato de esquecimento, efeitos adversos, dificuldade de acesso</td>
+                        <td>Medida de PA, revisão de prescrição, entrevista motivacional</td>
+                        <td>Ajustar esquema, simplificar posologia, TDO, educação e vínculo</td>
+                    </tr>
+                    <tr>
+                        <td>Crise hipertensiva</td>
+                        <td>PA muito elevada com ou sem lesão de órgão-alvo</td>
+                        <td>PA, avaliação clínica e de órgão-alvo</td>
+                        <td>Urgência: controle gradual; emergência: internação e tratamento parenteral</td>
+                    </tr>
+                    <tr>
+                        <td>Hipertensão secundária</td>
+                        <td>HAS resistente, início precoce, hipocalemia, sopro abdominal</td>
+                        <td>Investigação laboratorial e de imagem</td>
+                        <td>Tratar causa base e encaminhar quando indicado</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento:</strong> a resposta incluiria ajuste medicamentoso e metas de PA.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta incluiria ações educativas, alimentação saudável e atividade física.</li>
+                <li><strong>Se fosse sobre gestão:</strong> a resposta incluiria diagnóstico situacional, indicadores e ciclo de melhoria.</li>
+                <li><strong>Exemplo:</strong> "Se a questão pedisse a conduta imediata diante de PA 180 x 120 com dor torácica, a resposta seria emergência hipertensiva. Se pedisse a prioridade da equipe diante de falhas de processo, a resposta seria identificar falhas no cuidado e fluxo de informação."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q20</td>
+                        <td>Equipe de Saúde da Família identifica aumento de obesidade e HAS e propõe ação educativa baseada no Guia alimentar.</td>
+                        <td>Estratégia educativa prioritária para enfrentar DCNT na APS.</td>
+                        <td>C</td>
+                        <td>Relaciona-se à prevenção e educação em HAS, mas não aborda falhas de processo e fluxo de informação.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q38</td>
+                        <td>Equipe percebe aumento de casos complicados de diabetes e elabora projeto de intervenção coletiva.</td>
+                        <td>Desenho de pesquisa para avaliação de impacto de intervenção na APS.</td>
+                        <td>B</td>
+                        <td>Ambas tratam de gestão de DCNT e melhoria da qualidade, mas a atual foca em diagnóstico de falhas assistenciais.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q78</td>
+                        <td>Redução do ponto de corte da PA sistólica de 130 para 120 mmHg para diagnóstico de HA.</td>
+                        <td>Efeito nos indicadores de detecção e falsos positivos.</td>
+                        <td>B</td>
+                        <td>Relaciona-se a critérios diagnósticos de HAS, não à gestão do cuidado na APS.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q85</td>
+                        <td>Estudo epidemiológico sobre fatores de risco associados à HAS em uma UBS.</td>
+                        <td>Tipo de estudo (caso-controle).</td>
+                        <td>A</td>
+                        <td>Aborda epidemiologia da HAS, não o processo de cuidado e fluxo de informação.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico "aumento de crises hipertensivas por falhas no cuidado e no fluxo de informação" não foi abordado diretamente nas provas anteriores. Temas relacionados a HAS e DCNT apareceram em pelo menos 4 questões, alternando entre prevenção/educação, epidemiologia, critérios diagnósticos e avaliação de intervenção.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> gestão da qualidade na APS, diagnóstico situacional, análise de indicadores de processo, reorganização de fluxo e plano de ação para falhas assistenciais.</p>
+            <p><strong>Evolução da cobrança:</strong> a banca tem cobrado HAS em diferentes dimensões, mas ainda não havia explorado a priorização de medidas de gestão do cuidado diante de falhas de processo.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar gestão da clínica na APS, indicadores de qualidade, ciclo PDCA, papel do ACS e do TDO no controle da HAS.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Doenças crônicas não transmissíveis - a HAS é a principal DCNT acompanhada na APS, e falhas de processo impactam desfechos.</li>
+                <li><strong>Conexão 2:</strong> Saúde da família e território - a redução de ACS compromete visitas domiciliares e busca ativa, exigindo reorganização do cuidado.</li>
+                <li><strong>Conexão 3:</strong> Indicadores de qualidade - o monitoramento de registros de PA, consultas e visitas é essencial para avaliar a efetividade da equipe.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é escolher ação educativa isolada (A) ou encaminhamento especializado (D), sem diagnosticar o processo de cuidado. A estratégia de correção é memorizar: diante de falhas de processo, primeiro identificar as falhas no cuidado e no fluxo de informação, depois planejar e executar intervenções. Classificação do erro: erro de priorização/estratégia em gestão da clínica. Ação corretiva: revisar ciclo de melhoria da qualidade e diagnóstico situacional na APS.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a equipe que identifica falhas no cuidado e no fluxo de informação pode reorganizar a agenda, reforçar a busca ativa, melhorar o registro de PA, articular visitas domiciliares e fortalecer o vínculo com os usuários, reduzindo crises hipertensivas e internações evitáveis.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Gestão da clínica na APS.</li>
+                <li>Indicadores de processo e de desfecho em HAS.</li>
+                <li>Ciclo PDCA e melhoria contínua da qualidade.</li>
+                <li>Papel do agente comunitário de saúde e das visitas domiciliares.</li>
+                <li>Tratamento Diretamente Observado (TDO) e adesão terapêutica.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Brasil. Ministério da Saúde. Caderno de Atenção Básica - Hipertensão Arterial Sistêmica.</p>
+            <p>2. Brasil. Ministério da Saúde. Diretrizes para o cuidado das pessoas com doenças crônicas na APS.</p>
+            <p>3. Sociedade Brasileira de Cardiologia. Diretrizes Brasileiras de Hipertensão Arterial.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
