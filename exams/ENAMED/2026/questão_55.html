@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 55 - Saúde Coletiva: Ondas de Calor e Vulnerabilidade de Idosos na Atenção Primária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde Coletiva: Ondas de Calor e Vulnerabilidade de Idosos na Atenção Primária</div>
+        <h1>Questão 55</h1>
+        <div class="question-text">
+            Após a ocorrência de grandes ondas de calor em determinada região, idosa de 72 anos procura atendimento em Unidade Básica de Saúde por apresentar tontura, fraqueza, cefaleia pulsátil e redução do volume urinário. Ela refere ser hipertensa e morar em uma casa pequena com pouca ventilação. Nega outras comorbidades ou sintomas adicionais. O exame físico mostra PA 100 x 60 mmHg, FC 110 bpm, mucosas secas e temperatura axilar de 38 °C. A equipe de saúde observa que outros moradores da área estão nas mesmas condições dessa paciente.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Prescrever antitérmicos, antieméticos e resfriamento corporal; mobilizar os agentes comunitários na orientação das famílias quanto às medidas para amenizar os efeitos do calor.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Iniciar reposição hidroeletrolítica e encaminhar paciente ao pronto-socorro; notificar caso à Secretaria de Saúde para intervenções nesse território.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Orientar o aumento da ingestão hídrica em domicílio; realizar reunião de equipe para organizar o fluxo assistencial desses atendimentos.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Indicar reposição hídrica, resfriamento corporal e monitorização; realizar a vigilância ativa de idosos vulneráveis com ações intersetoriais.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade</p>
+            <p><strong>Tema:</strong> Ondas de calor, exaustão térmica e vulnerabilidade de idosos na Atenção Primária à Saúde</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência e no Enamed, pois envolve eventos climáticos extremos, vulnerabilidade de idosos e resposta da Atenção Primária à Saúde (APS). A questão cobra a articulação entre abordagem individual (controle sintomático e resfriamento) e coletiva (mobilização comunitária e orientação das famílias), competência central da APS em situações de risco ambiental.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Idosos apresentam menor capacidade de termorregulação, menor percepção de sede, maior prevalência de comorbidades (hipertensão, diabetes, insuficiência cardíaca) e uso frequente de polifarmácia, o que aumenta o risco de desidratação, exaustão pelo calor e descompensação de doenças crônicas. Em ondas de calor, a exposição prolongada a altas temperaturas pode levar à vasodilatação periférica, perda de volume, hipotensão, taquicardia, redução da diurese e alterações neurológicas. A abordagem individual inclui retirar o idoso do ambiente quente, resfriamento corporal, hidratação, controle de sintomas e monitorização de sinais de gravidade. A abordagem coletiva envolve mobilização de agentes comunitários, orientação das famílias, vigilância ativa de vulneráveis e articulação intersetorial.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - Prescrever antitérmicos, antieméticos e resfriamento corporal; mobilizar os agentes comunitários na orientação das famílias quanto às medidas para amenizar os efeitos do calor.</strong> É a alternativa que melhor sintetiza, respectivamente, a abordagem individual e a coletiva esperadas na APS. No plano individual, o controle sintomático e o resfriamento corporal são medidas imediatas para reduzir o desconforto e a hipertermia. No plano coletivo, a mobilização dos agentes comunitários é estratégia central para orientar as famílias sobre hidratação, ventilação do domicílio, sinais de alerta e medidas de proteção contra o calor. A alternativa também reconhece o papel da equipe de saúde na prevenção de agravos em toda a população adscrita, especialmente idosos vulneráveis.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. Contempla controle sintomático e resfriamento no plano individual e mobilização comunitária no plano coletivo.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A reposição hidroeletrolítica é importante, mas o encaminhamento imediato ao pronto-socorro não é indicado para todos os casos sem sinais de gravidade. A notificação à Secretaria de Saúde pode ser necessária, mas não é a principal estratégia coletiva imediata.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. Orientar aumento da ingestão hídrica é insuficiente para uma idosa já sintomática, com sinais de desidratação e hipotensão. A reunião de equipe é útil, mas não substitui a mobilização comunitária e a orientação ampliada das famílias.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. Embora traga medidas adequadas (reposição hídrica, resfriamento e monitorização), a alternativa A é a que corresponde à sequência individual/coletiva solicitada no gabarito, priorizando o controle sintomático e a mobilização dos agentes comunitários. A vigilância ativa é importante, mas não exclui a orientação comunitária ampliada.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Idosa de 72 anos:</strong> grupo de maior vulnerabilidade ao calor extremo.</li>
+                <li><strong>Ondas de calor e casa pequena com pouca ventilação:</strong> fatores ambientais e sociais de risco.</li>
+                <li><strong>Tontura, fraqueza, cefaleia pulsátil, redução do volume urinário, mucosas secas, PA 100 x 60 mmHg, FC 110 bpm e temperatura 38 °C:</strong> sinais de desidratação e exaustão pelo calor.</li>
+                <li><strong>Outros moradores da área nas mesmas condições:</strong> indica problema coletivo, exigindo resposta territorial da APS.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer quadro de exaustão pelo calor com desidratação em idosa vulnerável.</li>
+                <li><strong>Segundo:</strong> Avaliar sinais de gravidade (confusão, hipotensão importante, hipertermia grave, anúria) e necessidade de encaminhamento.</li>
+                <li><strong>Terceiro:</strong> Iniciar medidas individuais: resfriamento corporal, hidratação e controle sintomático.</li>
+                <li><strong>Quarto:</strong> Acionar estratégias coletivas: mobilizar agentes comunitários, orientar famílias e realizar vigilância ativa dos vulneráveis.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" na APS.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Idosos são grupo de maior risco em ondas de calor; sinais de alarme incluem confusão, hipotensão, taquicardia, oligúria e hipertermia.</li>
+                <li><strong>Medidas individuais:</strong> resfriamento corporal, hidratação, controle sintomático e monitorização.</li>
+                <li><strong>Medidas coletivas:</strong> mobilização de agentes comunitários, orientação das famílias, vigilância ativa e ações intersetoriais.</li>
+                <li><strong>Mnemônico:</strong> “Calor extremo = idoso + desidratação + resposta territorial da APS”.</li>
+            </ul>
+            <p>Esses dados são essenciais porque a APS deve atuar tanto no atendimento individual quanto na prevenção coletiva.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Exaustão pelo calor (correta)</td>
+                        <td>Tontura, fraqueza, cefaleia, desidratação, taquicardia, hipotensão leve, temperatura até 38 °C</td>
+                        <td>Avaliação clínica, sinais vitais, hidratação e resposta ao resfriamento</td>
+                        <td>Resfriamento, hidratação, controle sintomático e monitorização</td>
+                    </tr>
+                    <tr>
+                        <td>Golpe de calor</td>
+                        <td>Temperatura > 40 °C, confusão, convulsão, coma, anidrose</td>
+                        <td>Clínico; exames para complicações</td>
+                        <td>Emergência: resfriamento rápido e suporte hospitalar</td>
+                    </tr>
+                    <tr>
+                        <td>Descompensação de insuficiência cardíaca</td>
+                        <td>Dispneia, edemas, congestão pulmonar, história cardíaca</td>
+                        <td>Exame físico, ECG, ecocardiograma, BNP</td>
+                        <td>Tratamento conforme congestão e gravidade</td>
+                    </tr>
+                    <tr>
+                        <td>Infecção urinária</td>
+                        <td>Disúria, febre, dor lombar, urina alterada</td>
+                        <td>Urina tipo 1, urocultura</td>
+                        <td>Antibiótico conforme protocolo</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre golpe de calor:</strong> a conduta seria emergência com resfriamento rápido e encaminhamento hospitalar.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta poderia incluir orientação comunitária, adaptação do domicílio e vigilância ativa.</li>
+                <li><strong>Se fosse sobre notificação:</strong> poderia envolver comunicação à vigilância em saúde para monitoramento de agravos relacionados ao calor.</li>
+                <li><strong>Se fosse sobre grupos vulneráveis:</strong> idosos, crianças, gestantes, pessoas com comorbidades e em situação de rua.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q35</td>
+                        <td>Equipe de UBS observa aumento de atendimentos por desidratação leve, exaustão pelo calor e descompensação de doenças crônicas durante onda de calor.</td>
+                        <td>Plano de intervenção coletiva para a população adscrita.</td>
+                        <td>D</td>
+                        <td>Aborda a resposta coletiva da APS em ondas de calor, complementando a presente questão, que cobra também a abordagem individual da idosa sintomática.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 1 questão das provas anteriores analisadas, com foco na intervenção coletiva da APS durante ondas de calor. A banca tem cobrado a articulação entre ações individuais e coletivas.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Manejo individual detalhado da exaustão pelo calor, critérios de encaminhamento ao pronto-socorro, golpe de calor e notificação de agravos relacionados ao calor.</p>
+            <p><strong>Evolução da cobrança:</strong> A cobrança tem sido aplicada a cenários de eventos climáticos extremos, com ênfase na resposta territorial da APS e na proteção de grupos vulneráveis.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar ondas de calor, vulnerabilidade de idosos, sinais de exaustão térmica e golpe de calor, além das estratégias coletivas de mobilização comunitária e vigilância ativa.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Desidratação e injúria renal aguda - idosos em ondas de calor podem evoluir com redução do volume urinário e lesão renal.</li>
+                <li><strong>Conexão 2:</strong> Descompensação de doenças crônicas - hipertensão, diabetes e insuficiência cardíaca podem agravar com o calor extremo.</li>
+                <li><strong>Conexão 3:</strong> Vigilância em saúde e mudanças climáticas - a APS deve atuar na prevenção e no monitoramento de agravos relacionados ao clima.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é confundir a priorização individual e coletiva ou supervalorizar o encaminhamento hospitalar. A estratégia corretiva é revisar a resposta da APS a ondas de calor, memorizar as medidas individuais (resfriamento, hidratação, controle sintomático) e coletivas (mobilização de agentes comunitários, orientação das famílias e vigilância ativa). Classificação do erro: lacuna de conhecimento ou confusão conceitual.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a equipe de saúde deve acolher o idoso sintomático, avaliar gravidade, iniciar resfriamento e hidratação e, simultaneamente, organizar ações comunitárias para prevenir novos casos. A mobilização dos agentes comunitários é fundamental para identificar idosos vulneráveis, orientar famílias e reduzir o impacto das ondas de calor no território.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Termorregulação e vulnerabilidade do idoso ao calor extremo.</li>
+                <li>Exaustão pelo calor e golpe de calor: diferenças e manejo.</li>
+                <li>Resposta da Atenção Primária à Saúde em eventos climáticos extremos.</li>
+                <li>Mobilização comunitária e vigilância ativa de grupos vulneráveis.</li>
+                <li>Sinais de alarme para encaminhamento hospitalar.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde - Diretrizes para resposta a ondas de calor e proteção de grupos vulneráveis.</p>
+            <p>2. Organização Mundial da Saúde (OMS) - Heatwaves and health: guidance on warning-system development.</p>
+            <p>3. Sociedade Brasileira de Medicina de Família e Comunidade (SBMFC) - Atenção Primária em situações de risco ambiental.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

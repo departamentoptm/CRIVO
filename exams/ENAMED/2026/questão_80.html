@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 80 - Intoxicação por organofosforado: síndrome colinérgica e antídotos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Intoxicação por organofosforado: síndrome colinérgica e antídotos</div>
+        <h1>Questão 80</h1>
+        <div class="question-text">
+            Um homem de 42 anos foi admitido em uma Unidade de Terapia Intensiva (UTI) com história de provável intoxicação exógena. Ele havia sido encontrado desacordado em sua residência, com sialorreia intensa e broncoespasmo. Exame físico: FC 38 bpm; PA 116 x 64 mmHg; SatO2 83% em ar ambiente; escala de coma de Glasgow 3 e glicemia capilar 70 mg/dL. Optou-se por intubação orotraqueal e instalação de ventilação mecânica invasiva. Na UTI, o paciente apresentava: pupilas puntiformes; roncos e sibilos inspiratórios e expiratórios à ausculta pulmonar; secreção clara e abundante à aspiração de vias aéreas; grande quantidade de resíduo gástrico à sondagem gástrica; boa diurese por sonda vesical de demora e ausência de febre. Foi realizada lavagem gástrica, utilizando-se carvão ativado por 24 horas, e iniciou-se suporte com atropina intravenosa, em bomba de infusão contínua. Qual foi o provável agente da intoxicação desse paciente?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Organofosforado.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Benzodiazepínico.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Sulfonilureia.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Antidepressivo tricíclico.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Emergências Clínicas / Toxicologia / Medicina Intensiva.</p>
+            <p><strong>Tema:</strong> Intoxicação exógena por organofosforado: reconhecimento da síndrome colinérgica e tratamento com atropina.</p>
+            <p><strong>Contextualização:</strong> As intoxicações exógenas são temas frequentes em provas de residência, especialmente em clínica médica, emergência e medicina intensiva. O reconhecimento da síndrome colinérgica e a identificação do agente são fundamentais para a instituição precoce do antídoto e para a redução da mortalidade.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Os organofosforados inibem a acetilcolinesterase, enzima responsável pela degradação da acetilcolina na fenda sináptica. O acúmulo de acetilcolina leva à hiperestimulação colinérgica em receptores muscarínicos, nicotínicos e no sistema nervoso central. O quadro clínico inclui bradicardia, sialorreia, broncorreia, broncoespasmo, miose, sudorese, lacrimejamento, vômitos, diarreia, fasciculações, fraqueza muscular, convulsões e coma. A atropina bloqueia os receptores muscarínicos e é o antídoto inicial para os efeitos muscarínicos; a pralidoxima pode ser utilizada para reativar a acetilcolinesterase, especialmente se administrada precocemente.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - Organofosforado.</strong> O paciente apresenta quadro clássico de síndrome colinérgica: bradicardia importante (FC 38 bpm), sialorreia intensa, broncoespasmo, secreção clara e abundante nas vias aéreas, pupilas puntiformes, resíduo gástrico abundante e coma. A melhora com atropina intravenosa em infusão contínua reforça o diagnóstico. Esses achados são típicos da intoxicação por organofosforado, que deve ser tratada com descontaminação, suporte ventilatório e atropina, com consideração de pralidoxima em casos selecionados.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa B - Benzodiazepínico.</strong> A intoxicação por benzodiazepínico causa depressão do sistema nervoso central, com sonolência, coma e depressão respiratória, mas não cursa tipicamente com bradicardia intensa, sialorreia abundante, broncorreia e pupilas puntiformes. O antídoto é o flumazenil, não a atropina.</p>
+            <p><strong>Alternativa C - Sulfonilureia.</strong> A intoxicação por sulfonilureia causa hipoglicemia grave, com sudorese, taquicardia, confusão, convulsões e coma. Não causa síndrome colinérgica com bradicardia, miose e broncorreia. O tratamento inclui glicose e octreotida.</p>
+            <p><strong>Alternativa D - Antidepressivo tricíclico.</strong> A intoxicação por tricíclicos causa síndrome anticolinérgica: taquicardia, midríase, boca seca, retenção urinária, constipação, convulsões e alterações do ECG (QRS largo). O quadro é oposto ao colinérgico e não melhora com atropina.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Bradicardia (FC 38 bpm):</strong> efeito muscarínico cardíaco da acetilcolina.</li>
+                <li><strong>Sialorreia intensa e secreção clara e abundante:</strong> hipersecreção brônquica e salivar.</li>
+                <li><strong>Broncoespasmo e sibilos:</strong> efeito muscarínico pulmonar.</li>
+                <li><strong>Pupilas puntiformes:</strong> miose por contração do músculo esfíncter da pupila.</li>
+                <li><strong>Resíduo gástrico abundante e diurese preservada:</strong> hiperestimulação de secreções gastrintestinais e urinárias.</li>
+                <li><strong>Atropina intravenosa em infusão contínua:</strong> antídoto muscarínico que confirma a suspeita de síndrome colinérgica.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer a síndrome colinérgica diante de bradicardia, sialorreia, broncorreia, broncoespasmo e miose.</li>
+                <li><strong>Segundo:</strong> garantir via aérea, ventilação e circulação, com intubação e suporte ventilatório quando indicado.</li>
+                <li><strong>Terceiro:</strong> administrar atropina em doses tituladas até o controle das secreções e da bradicardia.</li>
+                <li><strong>Quarto:</strong> considerar pralidoxima e realizar descontaminação cutânea e gástrica, conforme o caso.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> síndrome colinérgica = bradicardia, miose, sialorreia, broncorreia, broncoespasmo, sudorese e diarreia.</li>
+                <li><strong>Antídoto:</strong> atropina para efeitos muscarínicos; pralidoxima para reativação da acetilcolinesterase, se indicada precocemente.</li>
+                <li><strong>Mnemônico:</strong> “DUMBELS” (diarreia, urina, miose, bradicardia, emese, lacrimejamento, salivação) para efeitos muscarínicos.</li>
+                <li><strong>Cuidado:</strong> a atropina deve ser titulada até secar as secreções, não apenas até normalizar a frequência cardíaca.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar o reconhecimento da síndrome e o antídoto correto.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Intoxicação por organofosforado (correta)</td>
+                        <td>Bradicardia, miose, sialorreia, broncorreia, broncoespasmo, sudorese, fasciculações, coma.</td>
+                        <td>Clínica + história de exposição; dosagem de colinesterase quando disponível.</td>
+                        <td>Atropina, suporte ventilatório, descontaminação e pralidoxima se indicada.</td>
+                    </tr>
+                    <tr>
+                        <td>Intoxicação por benzodiazepínico</td>
+                        <td>Sonolência, coma, depressão respiratória, sem síndrome colinérgica.</td>
+                        <td>Clínica e história.</td>
+                        <td>Flumazenil em casos selecionados e suporte.</td>
+                    </tr>
+                    <tr>
+                        <td>Intoxicação por tricíclico</td>
+                        <td>Taquicardia, midríase, boca seca, retenção urinária, QRS largo.</td>
+                        <td>ECG e clínica.</td>
+                        <td>Bicarbonato de sódio e suporte.</td>
+                    </tr>
+                    <tr>
+                        <td>Intoxicação por sulfonilureia</td>
+                        <td>Hipoglicemia, sudorese, taquicardia, convulsões.</td>
+                        <td>Glicemia capilar.</td>
+                        <td>Glicose e octreotida.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre antídoto:</strong> a resposta seria atropina para efeitos muscarínicos e pralidoxima para reativação enzimática.</li>
+                <li><strong>Se fosse sobre complicação:</strong> a resposta poderia envolver síndrome intermediária ou neuropatia tardia.</li>
+                <li><strong>Se fosse sobre diagnóstico diferencial:</strong> a resposta envolveria benzodiazepínicos, tricíclicos e sulfonilureias.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta incluiria uso de equipamentos de proteção individual e descontaminação adequada.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q80</td>
+                        <td>Homem de 42 anos com bradicardia, sialorreia, broncoespasmo, pupilas puntiformes e coma, tratado com atropina.</td>
+                        <td>Identificação do agente causador da síndrome colinérgica.</td>
+                        <td>Organofosforado.</td>
+                        <td>É a própria questão analisada.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q16</td>
+                        <td>Mulher de 42 anos ingeriu 30 comprimidos de clonazepam, com coma e hipotensão.</td>
+                        <td>Intoxicação por benzodiazepínico e uso de flumazenil.</td>
+                        <td>Flumazenil.</td>
+                        <td>Diagnóstico diferencial: intoxicação por benzodiazepínico não cursa com síndrome colinérgica.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q91</td>
+                        <td>Homem de 21 anos com cetoacidose diabética, dor abdominal e hálito cetônico.</td>
+                        <td>Diagnóstico e conduta na cetoacidose diabética.</td>
+                        <td>Cetoacidose diabética; prescrever solução fisiológica a 0,9%.</td>
+                        <td>Diagnóstico diferencial de coma e alteração metabólica, mas não intoxicação exógena.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico de organofosforado apareceu na Q80 do Enamed 2026. A banca tem cobrado intoxicações exógenas com foco no reconhecimento sindrômico e no antídoto, como na Q16 (benzodiazepínico).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> uso da pralidoxima, síndrome intermediária, neuropatia tardia por organofosforado, dosagem de colinesterase e medidas de descontaminação.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica suficiente para identificar evolução; o tema exige reconhecimento clínico e conhecimento dos antídotos.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar as principais síndromes toxicológicas (colinérgica, anticolinérgica, opioide, benzodiazepínica, simpaticomimética) e seus antídotos.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Emergências respiratórias - o broncoespasmo e a broncorreia exigem suporte ventilatório e aspiração frequente.</li>
+                <li><strong>Conexão 2:</strong> Toxicologia - o reconhecimento das síndromes toxicológicas orienta o antídoto e a conduta inicial.</li>
+                <li><strong>Conexão 3:</strong> Saúde do trabalhador - exposições ocupacionais a organofosforados exigem prevenção e notificação.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é confundir a síndrome colinérgica com a anticolinérgica ou não reconhecer a bradicardia e a miose como sinais-chave. A ação corretiva é memorizar o quadro DUMBELS e associar organofosforado a atropina; tricíclicos causam o oposto (midríase e taquicardia), e benzodiazepínicos causam depressão do SNC sem síndrome colinérgica.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o paciente com intoxicação por organofosforado deve ser atendido com prioridade, recebendo suporte ventilatório, aspiração de secreções, atropina titulada e, quando indicado, pralidoxima. A descontaminação cutânea e a remoção de roupas contaminadas são essenciais para evitar absorção adicional e proteger a equipe.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Síndrome colinérgica e síndrome anticolinérgica.</li>
+                <li>Antídotos: atropina, pralidoxima, flumazenil, naloxona, bicarbonato.</li>
+                <li>Intoxicações por benzodiazepínicos, tricíclicos e sulfonilureias.</li>
+                <li>Suporte ventilatório em intoxicações exógenas.</li>
+                <li>Descontaminação e proteção da equipe.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Protocolos de Toxicologia Clínica.</p>
+            <p>2. Associação Brasileira de Medicina de Emergência (ABRAMEDE). Diretrizes para intoxicações exógenas.</p>
+            <p>3. Organização Mundial da Saúde (OMS). Diretrizes para o manejo de intoxicações por pesticidas.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

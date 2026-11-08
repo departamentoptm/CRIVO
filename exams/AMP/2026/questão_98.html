@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 98 - Saúde Planetária na Atenção Primária à Saúde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde Planetária e Emergência Climática na Atenção Primária à Saúde</div>
+        <h1>Questão 98</h1>
+        <div class="question-text">
+            Caso se levem em conta as recomendações propostas pela Organização Mundial de Médicos de Família para a saúde planetária e propostas para enfrentar a emergência climática, são papeis indicados aos profissionais da Atenção Primária à Saúde no Brasil
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - fazer recomendações clínicas que promovam a redução gradual do consumo de líquidos pelos indivíduos, visando prevenir a exaustão dos recursos hídricos disponíveis.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - aconselhar pacientes a buscar escolhas cotidianas que potencializem cobenefícios para a saúde individual e planetária, como preferir dietas com maior sustentabilidade: maior base em plantas, menor consumo de carne vermelha e de ultraprocessados.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - recomendar que nos centros urbanos, devido ao estresse ambiental da poluição e do aumento de calor, se prefira a realização rotineira de exercícios físicos de lazer em ambientes climatizados do que a atividade física realizada nos deslocamentos por transportes ativos.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - sabendo que diversas pessoas, por influência cultural, costumam reduzir suas doses de fármacos anti-hipertensivos durante ondas de calor, reforçar firmemente a importância de manter este tratamento farmacológico no mesmo patamar de dose ao longo de todo o ano para todos os pacientes.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - liderar pelo exemplo individual, reduzindo pelo menos a sua própria pegada ecológica, já que não há (ainda) viabilidade de se ter como objetivo a redução da pegada ecológica de serviços de saúde sem afetar a capacidade destes de responderem adequadamente aos desafios impostos pelas mudanças climáticas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade / Saúde Planetária.</p>
+                <p><strong>Tema:</strong> Saúde planetária e emergência climática: papéis dos profissionais da Atenção Primária à Saúde (APS) segundo a Organização Mundial de Médicos de Família (WONCA).</p>
+                <p><strong>Contextualização:</strong> Tema emergente e de crescente incidência em provas de residência, especialmente após a publicação do documento da WONCA sobre saúde planetária (2019) e a crescente incorporação do tema nas políticas de saúde. A banca cobra a compreensão de que o profissional da APS deve atuar de forma a promover cobenefícios para a saúde individual e planetária, por meio de escolhas cotidianas sustentáveis. É um tema que dialoga com promoção da saúde, determinantes sociais e ambientais, prevenção quaternária e Medicina de Família e Comunidade.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A saúde planetária parte do entendimento de que a saúde humana é indissociável da saúde dos ecossistemas. A WONCA, que representa os médicos de família e comunidade do mundo, publicou recomendações para que os profissionais da APS atuem na emergência climática. Um dos papéis centrais é aconselhar os pacientes a adotar escolhas cotidianas que gerem cobenefícios: ao mesmo tempo que melhoram a saúde individual (prevenção de doenças crônicas, obesidade, diabetes, doenças cardiovasculares), reduzem o impacto ambiental (menor emissão de gases de efeito estufa, uso de recursos naturais). Um exemplo clássico é a recomendação de dietas com maior base em plantas e menor consumo de carne vermelha e de ultraprocessados, que fazem bem à saúde e ao planeta. Portanto, a alternativa B está correta.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa B está correta. O documento da WONCA sobre saúde planetária (2019) e a literatura subsequente destacam que os profissionais de saúde, especialmente os da APS, devem aconselhar pacientes a adotar escolhas cotidianas que potencializem cobenefícios para a saúde individual e planetária. Dietas mais sustentáveis, com maior base em plantas e menor consumo de carne vermelha e de ultraprocessados, reduzem o risco de doenças crônicas não transmissíveis e, ao mesmo tempo, diminuem a pegada ecológica. Esse tipo de orientação é respaldado por evidências e é uma das principais ações recomendadas aos profissionais de APS no enfrentamento da emergência climática.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A recomendação de redução gradual do consumo de líquidos não é uma orientação da WONCA para saúde planetária e pode ser prejudicial à saúde individual (risco de desidratação), especialmente em idosos e pessoas vulneráveis ao calor. A preocupação com a escassez hídrica não se traduz em restringir a ingestão de água dos pacientes.</p>
+                <p><strong>Alternativa B</strong> - Correta. Aconselhar escolhas cotidianas com cobenefícios para saúde individual e planetária, como dietas mais sustentáveis, é uma das principais recomendações da WONCA.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. Recomendar exercícios em ambientes climatizados em vez de transporte ativo vai na contramão das recomendações de saúde planetária. O transporte ativo (caminhada, bicicleta) gera cobenefícios (atividade física e redução de emissões), e a climatização artificial aumenta o consumo de energia e a pegada ecológica. Além disso, a recomendação deve considerar a segurança e a viabilidade, não substituir sistematicamente o transporte ativo por ambientes climatizados.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Reforçar firmemente a manutenção da mesma dose de anti-hipertensivos para todos os pacientes, sem considerar as ondas de calor, pode ser perigoso. Durante ondas de calor, pode haver hipotensão e desidratação, exigindo ajustes individualizados. A recomendação não deve ser generalizada para todos os pacientes.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Embora liderar pelo exemplo seja importante, a afirmação de que "não há viabilidade de reduzir a pegada ecológica dos serviços de saúde sem afetar a capacidade de resposta" é derrotista e contraria as recomendações da WONCA, que apontam para a viabilidade de serviços de saúde mais sustentáveis (eficiência energética, gestão de resíduos, redução de desperdícios, prevenção quaternária).</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Organização Mundial de Médicos de Família”:</strong> WONCA, pista para as recomendações de saúde planetária.</li>
+                    <li><strong>“saúde planetária”:</strong> tema central, articula saúde humana e saúde dos ecossistemas.</li>
+                    <li><strong>“cobenefícios”:</strong> palavra-chave que aparece apenas na alternativa correta.</li>
+                    <li><strong>“escolhas cotidianas”:</strong> direciona para ações individuais com impacto coletivo.</li>
+                    <li><strong>“dietas com maior sustentabilidade”:</strong> exemplo clássico de cobenefício.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar que a questão trata de saúde planetária e recomendações da WONCA.</li>
+                    <li><strong>Segundo:</strong> Lembrar que o conceito de cobenefício é central: ações que fazem bem à saúde e ao planeta.</li>
+                    <li><strong>Terceiro:</strong> Avaliar cada alternativa sob a ótica do cobenefício e da viabilidade.</li>
+                    <li><strong>Quarto:</strong> Reconhecer que dietas sustentáveis com base em plantas são o exemplo mais citado de cobenefício.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões sobre promoção da saúde, determinantes ambientais e saúde planetária.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Saúde planetária articula saúde humana e saúde dos ecossistemas. A WONCA recomenda que os profissionais da APS atuem na emergência climática.</li>
+                    <li><strong>Números e doses:</strong> Dietas com base em plantas e menor consumo de carne vermelha e ultraprocessados reduzem doenças crônicas e a pegada ecológica.</li>
+                    <li><strong>Mnemônicos:</strong> "Cobenefício: saúde para mim, saúde para o planeta".</li>
+                </ul>
+                <p>Esses dados são importantes para questões sobre promoção da saúde e saúde planetária.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ações com cobenefícios</td>
+                            <td>Dieta sustentável, transporte ativo, prevenção quaternária</td>
+                            <td>Avaliação de evidências e recomendações da WONCA</td>
+                            <td>Aconselhamento individual com impacto coletivo</td>
+                        </tr>
+                        <tr>
+                            <td>Ações sem cobenefícios</td>
+                            <td>Redução de líquidos, climatização artificial sistemática, manutenção rígida de doses</td>
+                            <td>Análise de impacto à saúde e ao ambiente</td>
+                            <td>Evitar orientações generalizadas sem base em evidências</td>
+                        </tr>
+                        <tr>
+                            <td>Prevenção quaternária</td>
+                            <td>Evitar intervenções desnecessárias</td>
+                            <td>Revisão de exames e prescrições</td>
+                            <td>Reduzir danos e pegada ecológica do sistema</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram promoção da saúde e saúde planetária.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre promoção da saúde:</strong> a resposta envolveria empoderamento, determinantes sociais e ações intersetoriais.</li>
+                    <li><strong>Se fosse sobre prevenção quaternária:</strong> a resposta envolveria evitar sobrediagnóstico e sobretratamento.</li>
+                    <li><strong>Se fosse sobre determinantes ambientais:</strong> a resposta envolveria poluição, clima e saúde.</li>
+                    <li><strong>Se fosse sobre Carta de Ottawa:</strong> a resposta envolveria ambientes favoráveis à saúde.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 - Q16</td>
+                            <td>Contaminação por chumbo em Adrianópolis e consciência sanitária.</td>
+                            <td>Determinantes ambientais e saúde</td>
+                            <td>B</td>
+                            <td>Relaciona-se à saúde ambiental e à atuação da APS.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 - Q50</td>
+                            <td>Origem do vírus H1N1 e produção intensiva de animais.</td>
+                            <td>Determinantes ambientais e saúde</td>
+                            <td>A</td>
+                            <td>Relaciona-se à saúde planetária e ao impacto ambiental na saúde.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 - Q6</td>
+                            <td>Carta de Ottawa e promoção da saúde.</td>
+                            <td>Promoção da saúde e ambientes favoráveis</td>
+                            <td>D</td>
+                            <td>Relaciona-se ao conceito de promoção da saúde que embasa a saúde planetária.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 - Q33</td>
+                            <td>Modelo do campo da saúde e modelo de Dahlgren & Whitehead.</td>
+                            <td>Determinantes sociais e ambientais</td>
+                            <td>D</td>
+                            <td>Relaciona-se aos determinantes ambientais da saúde.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema de saúde planetária é recente e apareceu de forma indireta em 4 das provas analisadas. A banca tem cobrado determinantes ambientais da saúde, promoção da saúde e, mais recentemente, recomendações da WONCA para a emergência climática.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Recomendações específicas da WONCA sobre saúde planetária, como cobenefícios de dietas sustentáveis, transporte ativo, prevenção quaternária e redução da pegada ecológica dos serviços de saúde.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em determinantes ambientais isolados; as mais recentes tendem a cobrar a atuação dos profissionais de saúde na emergência climática e o conceito de cobenefício.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar as recomendações da WONCA para saúde planetária, o conceito de cobenefício, a relação entre dietas sustentáveis e saúde, o transporte ativo e a prevenção quaternária.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Promoção da saúde (Carta de Ottawa) e determinantes sociais e ambientais da saúde.</li>
+                    <li><strong>Conexão 2:</strong> Prevenção quaternária e redução da pegada ecológica dos serviços de saúde.</li>
+                    <li><strong>Conexão 3:</strong> Doenças crônicas não transmissíveis e dietas sustentáveis.</li>
+                    <li><strong>Conexão 4:</strong> Medicina de Família e Comunidade e atuação comunitária.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o tipo de erro mais provável é desconhecimento das recomendações da WONCA para saúde planetária ou confusão sobre o conceito de cobenefício. Também pode ter havido erro de leitura ao interpretar que a redução de líquidos ou a climatização artificial seriam benéficas. A ação corretiva é revisar o conceito de saúde planetária, as recomendações da WONCA e os exemplos de cobenefício (dietas sustentáveis, transporte ativo, prevenção quaternária).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, o profissional da APS pode incorporar o aconselhamento sobre escolhas sustentáveis como parte da promoção da saúde, gerando benefícios individuais e coletivos. Dietas com base em plantas, transporte ativo, redução de desperdícios e uso racional de medicamentos são exemplos de ações que podem ser estimuladas na consulta e na comunidade.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Saúde planetária e emergência climática.</li>
+                    <li>Recomendações da WONCA para saúde planetária.</li>
+                    <li>Cobenefícios em saúde e ambiente.</li>
+                    <li>Promoção da saúde e determinantes ambientais.</li>
+                    <li>Prevenção quaternária.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. WONCA. Declaração da WONCA sobre Saúde Planetária. 2019.</p>
+                <p>2. Organização Mundial da Saúde. Mudanças climáticas e saúde.</p>
+                <p>3. Gusso, Gustavo D. F.; Lopes, José M. C. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed, 2012.</p>
+                <p>4. Brasil. Ministério da Saúde. Política Nacional de Promoção da Saúde.</p>
+                <p>5. Carta de Ottawa. 1ª Conferência Internacional sobre Promoção da Saúde, 1986.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

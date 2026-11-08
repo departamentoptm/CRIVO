@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 39 - Descarga Papilar: Causas, Características e Investigação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Descarga Papilar: Causas, Características e Investigação</div>
+        <h1>Questão 39</h1>
+        <div class="question-text">
+            Mulher de 48 anos procura atendimento médico com queixa de saída espontânea de secreção pelo mamilo esquerdo há três meses. Refere que a descarga é uniductal, serossanguinolenta e ocorre sem manipulação da mama. Ao exame físico, não há sinais inflamatórios ou massas palpáveis. Com base nessa descrição, assinale a alternativa correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - A principal causa de descarga papilar espontânea sanguinolenta é a mastite puerperal.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - A descarga papilar é um achado raro, ocorrendo em menos de 1% das mulheres, sendo a maioria dos casos decorrente de câncer de mama.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A maioria dos episódios de descarga papilar decorre de doenças benignas, sendo os papilomas intraductais e a ectasia ductal causas frequentes.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A presença de descarga papilar bilateral, multiductal, leitosa e desencadeada apenas à expressão do mamilo é sugestiva de malignidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Toda descarga papilar, independentemente de suas características clínicas, apresenta elevado risco de malignidade e constitui indicação de mastectomia.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia / Mastologia (Doenças Benignas e Malignas da Mama)</p>
+                <p><strong>Tema:</strong> Descarga papilar: epidemiologia, diferenciação entre descarga fisiológica e patológica, principais causas benignas e papel do câncer de mama</p>
+                <p><strong>Contextualização:</strong> A descarga papilar é uma das queixas mamárias mais comuns na consulta ginecológica, atrás apenas de dor (mastalgia) e nódulo. É tema recorrente da prova da AMP: o caso clínico de derrame papilar com citologia negativa e imagem normal foi cobrado em 2019, 2020 e 2021, e a descarga uniductal sanguinolenta voltou em 2025. Em 2026, a banca mudou o formato: em vez de pedir a conduta, pede um julgamento de afirmativas sobre epidemiologia e características. É um tema que costuma ser cobrado junto com BI-RADS, rastreamento e investigação de nódulo mamário.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Os ductos lactíferos terminais podem secretar líquido por estímulo hormonal (prolactina, drogas dopaminérgicas bloqueadoras, hipotireoidismo), por dilatação e acúmulo de debris (ectasia ductal) ou por lesão proliferativa intraductal. O papiloma intraductal é uma proliferação epitelial arborescente com eixo fibrovascular frágil; ele sangra com facilidade e produz descarga espontânea, uniductal, serosa ou serossanguinolenta, geralmente sem nódulo palpável. A ectasia ductal produz secreção espessa, esverdeada ou acastanhada, frequentemente em múltiplos ductos. A secreção fisiológica ou funcional é bilateral, multiductal, leitosa ou esverdeada, e só aparece à expressão. O câncer (carcinoma ductal in situ ou invasivo) é causa menos frequente, mas é o diagnóstico que não pode ser perdido quando a descarga tem critérios de suspeição. Por isso a banca quer que você saiba duas coisas: a maioria é benigna, e mesmo assim a descarga patológica sempre exige investigação.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa C está correta porque descreve o que as séries clínicas mostram: a grande maioria das descargas papilares tem causa benigna, e os papilomas intraductais (principal causa de descarga patológica uniductal) e a ectasia ductal (comum na perimenopausa) estão entre as causas mais frequentes. Descarga associada a câncer representa uma minoria dos casos, na faixa de 5% a 15% das descargas patológicas e bem menos quando se consideram todas as descargas. O caso da paciente é de descarga patológica (espontânea, uniductal, serossanguinolenta), o que exige investigação com exame clínico, mamografia e ultrassonografia, e em geral exérese do ducto acometido, mas isso não torna o câncer a causa mais provável. A afirmativa C não diz que a investigação é dispensável; ela apenas descreve corretamente a epidemiologia. Esse raciocínio de &quot;benigno mais frequente, mas investigar&quot; já aparece nas questões de 2019, 2020, 2021 e 2025, em que a conduta final foi a ressecção do ducto e não a observação.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A mastite puerperal é um processo infeccioso/inflamatório da lactação, cursa com dor, hiperemia, febre e, se houver secreção, ela é purulenta ou láctea. A principal causa de descarga espontânea sanguinolenta é o papiloma intraductal. A mastite apareceu em provas anteriores como tema de conduta no aleitamento (2011) e de contraindicação ao aleitamento (2022), nunca como causa de descarga sanguinolenta.</p>
+                <p><strong>Alternativa B</strong> - Incorreta, com dois erros: a descarga papilar não é rara (é uma queixa mamária frequente) e a maioria dos casos não é câncer. É um distrator do tipo &quot;exagero de gravidade&quot;, que a banca usa para induzir medo diagnóstico.</p>
+                <p><strong>Alternativa C</strong> - Correta (gabarito oficial).</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Descarga bilateral, multiductal, leitosa e provocada apenas pela expressão é característica de descarga fisiológica ou de galactorreia (por exemplo, hiperprolactinemia, hipotireoidismo, drogas), e não de malignidade. Os critérios de suspeição são os opostos: unilateral, uniductal, espontânea, serosa ou sanguinolenta, com ou sem massa associada. A galactorreia e a prolactina foram cobradas em 2024, em questão sobre fatores que elevam a prolactina.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Nem toda descarga tem alto risco de malignidade, e a descarga papilar nunca é, por si só, indicação de mastectomia. A conduta na descarga patológica é investigar e, quando indicado, ressecar o ducto acometido (microdocotomia ou ressecção seletiva de ductos). Esse tipo de &quot;conduta radical&quot; costuma ser distrator em provas, como a mastectomia na mama com carcinoma pequeno de 2006, cuja resposta foi cirurgia conservadora com biópsia do gânglio sentinela.</p>
+
+                <h4>2.5 Palavras-Chave e &quot;Pistas&quot; no Enunciado</h4>
+                <ul>
+                    <li><strong>Saída espontânea:</strong> descarga que aparece sem manipulação é critério de descarga patológica e exige investigação.</li>
+                    <li><strong>Uniductal:</strong> sai por um único ducto, o que sugere lesão focal (papiloma, carcinoma); descarga multiductal sugere causa funcional ou ectasia.</li>
+                    <li><strong>Serossanguinolenta:</strong> cor associada a lesão proliferativa intraductal, mais frequentemente o papiloma, e a causa a excluir é o carcinoma.</li>
+                    <li><strong>Unilateral (mamilo esquerdo):</strong> a descarga bilateral aponta para causa sistêmica ou hormonal.</li>
+                    <li><strong>Sem sinais inflamatórios e sem massa palpável:</strong> afasta mastite e abscesso e reforça a hipótese de lesão intraductal pequena.</li>
+                    <li><strong>&quot;Assinale a alternativa correta&quot;:</strong> a banca pede julgamento de afirmativas, por isso desconfie de termos absolutos como &quot;toda&quot;, &quot;principal&quot;, &quot;sempre&quot; e &quot;menos de 1%&quot;.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> classificar a descarga como fisiológica ou patológica. Espontânea, uniductal, sanguinolenta ou serosa, persistente = patológica.</li>
+                    <li><strong>Segundo:</strong> nas afirmativas, descartar as que usam termos absolutos (&quot;toda&quot;, &quot;raro&quot;, &quot;maioria por câncer&quot;) e as que trocam o perfil (leitosa e bilateral não é maligna).</li>
+                    <li><strong>Terceiro:</strong> lembrar a epidemiologia: a maioria é benigna, com papiloma intraductal e ectasia ductal entre as principais causas.</li>
+                    <li><strong>Quarto:</strong> se a questão pedisse a conduta, a sequência seria exame clínico, mamografia e ultrassonografia (± ressonância ou ductografia), e ressecção do ducto acometido em descarga patológica persistente, mesmo com imagem e citologia negativas.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de &quot;conduta inicial&quot; e &quot;próximo passo&quot;.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> descarga patológica = espontânea, uniductal, unilateral, serosa/sanguinolenta/clara (&quot;água de rocha&quot;), com ou sem massa. Descarga fisiológica = bilateral, multiductal, à expressão, de cores variadas (leitosa, esverdeada, acastanhada). Importante porque a conduta muda por completo: observação versus investigação.</li>
+                    <li><strong>Causas mais frequentes de descarga patológica:</strong> papiloma intraductal (mais comum), ectasia ductal, carcinoma (ductal in situ e invasivo). Já cobrado indiretamente em 2019–2021 e 2025, nos quais a resposta foi a ressecção do ducto.</li>
+                    <li><strong>Números:</strong> a malignidade em descarga patológica fica em torno de 5% a 15%; a presença de massa associada aumenta o risco. A citologia da descarga tem baixa sensibilidade, e resultado negativo não exclui lesão (por isso a ressecção em 2019, 2020 e 2021).</li>
+                    <li><strong>Mnemônicos:</strong> &quot;UES&quot; para a descarga patológica: <em>U</em>niductal, <em>E</em>spontânea, <em>S</em>anguinolenta/serosa. Descarga &quot;BLE&quot;: <em>B</em>ilateral, <em>L</em>eitosa, à <em>E</em>xpressão = fisiológica.</li>
+                    <li><strong>Exames:</strong> mamografia + ultrassonografia em mulheres a partir dos 40 anos; ultrassonografia isolada em mais jovens; ressonância e ductografia como complemento quando as imagens são negativas.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável: a banca tende a repetir a ideia de que imagem e citologia normais não dispensam a ressecção do ducto sanguinolento.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Papiloma intraductal (a causa mais frequente)</td>
+                            <td>Descarga espontânea, uniductal, serosa ou sanguinolenta; sem massa ou com pequeno nódulo retroareolar; mulher de 35 a 55 anos</td>
+                            <td>Ultrassonografia (nódulo intraductal), ductografia ou ressonância; confirmação histológica</td>
+                            <td>Ressecção do ducto acometido</td>
+                        </tr>
+                        <tr>
+                            <td>Ectasia ductal</td>
+                            <td>Secreção espessa, esverdeada ou acastanhada, frequentemente multiductal; perimenopausa</td>
+                            <td>Clínico e ultrassonografia (ductos dilatados)</td>
+                            <td>Observação; cirurgia se sintomática ou persistente</td>
+                        </tr>
+                        <tr>
+                            <td>Carcinoma (CDIS ou invasivo)</td>
+                            <td>Descarga unilateral sanguinolenta, às vezes com massa, calcificações ou alteração mamográfica</td>
+                            <td>Mamografia, ultrassonografia, biópsia</td>
+                            <td>Tratamento oncológico conforme estadiamento</td>
+                        </tr>
+                        <tr>
+                            <td>Galactorreia / descarga fisiológica</td>
+                            <td>Bilateral, multiductal, leitosa, à expressão; pode haver amenorreia ou uso de drogas</td>
+                            <td>Prolactina, TSH, teste de gravidez; ressonância de sela se prolactina alta</td>
+                            <td>Tratar a causa (agonista dopaminérgico, ajuste de medicações)</td>
+                        </tr>
+                        <tr>
+                            <td>Mastite / abscesso</td>
+                            <td>Dor, hiperemia, febre; secreção purulenta ou láctea; frequente na lactação</td>
+                            <td>Clínico; ultrassonografia se suspeita de abscesso</td>
+                            <td>Antibiótico, manter esvaziamento mamário; drenar se abscesso</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Conduta:</strong> descarga sanguinolenta uniductal com exame normal. Resposta: imagem (mamografia e ultrassonografia) e ressecção do ducto (formato de 2019, 2020, 2021 e 2025).</li>
+                    <li><strong>Diagnóstico:</strong> descarga serossanguinolenta uniductal sem massa. Resposta: papiloma intraductal.</li>
+                    <li><strong>Diferenciação:</strong> leitosa, bilateral, multiductal. Resposta: fisiológica ou galactorreia, com dosagem de prolactina e TSH.</li>
+                    <li><strong>Exame complementar:</strong> imagem negativa e citologia negativa. Resposta: ductografia/ressonância ou ressecção do ducto; citologia negativa não exclui lesão.</li>
+                    <li><strong>Complicações e riscos:</strong> relação do papiloma com atipia e risco de câncer, e quando a descarga se associa a carcinoma.</li>
+                    <li><strong>Exemplo:</strong> se a questão pedisse o exame de primeira linha, a resposta seria mamografia mais ultrassonografia (conforme idade). Se pedisse a causa mais frequente de descarga sanguinolenta, seria papiloma intraductal. Se pedisse o que não indica malignidade, seria descarga bilateral, multiductal, leitosa.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2019 – Q56</td>
+                            <td>Mulher de 38 anos com derrame papilar em mama esquerda, citologia negativa para malignidade, imagem normal e hemácias</td>
+                            <td>Conduta na descarga patológica com exames negativos</td>
+                            <td>C – Indicar ressecção cirúrgica de ductos</td>
+                            <td>Mesma situação clínica (descarga sanguinolenta). A conduta é cirúrgica mesmo com citologia e imagem normais.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q33</td>
+                            <td>Mesmo caso: 38 anos, derrame papilar, citologia negativa, imagem normal, hemácias</td>
+                            <td>Conduta</td>
+                            <td>B – Indicar ressecção cirúrgica de ductos</td>
+                            <td>Repetição integral do caso de 2019.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q38</td>
+                            <td>Mesmo caso: 38 anos, derrame papilar, citologia negativa, imagem normal, hemácias</td>
+                            <td>Conduta</td>
+                            <td>B – Indicar ressecção cirúrgica de ductos</td>
+                            <td>Terceira repetição, o que mostra a ênfase da banca em &quot;citologia negativa não exclui lesão&quot;.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q25</td>
+                            <td>Mulher de 45 anos com descarga sanguinolenta espontânea uniductal, sem nódulos palpáveis</td>
+                            <td>Conduta mais indicada</td>
+                            <td>E – Mamografia e ultrassonografia (± ressonância) e depois ressecção do ducto</td>
+                            <td>Perfil clínico quase idêntico ao de 2026 (uniductal, sanguinolenta, sem massa); aqui o foco é a investigação e a conduta.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q54 e 2022 – Q21</td>
+                            <td>Mamografia BI-RADS 3: qual a conduta?</td>
+                            <td>Seguimento de achado provavelmente benigno</td>
+                            <td>D – Controle semestral (nas duas provas)</td>
+                            <td>Tema vizinho (patologia mamária benigna versus suspeita), que costuma ser cobrado junto com a descarga papilar.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q34 e 2021 – Q39</td>
+                            <td>Nódulo mamário de 2 cm, móvel, BI-RADS 3 na mamografia e 4 na ultrassonografia</td>
+                            <td>Conduta no nódulo com discordância de categorias</td>
+                            <td>E (2020) e A (2021) – Punção biópsia por agulha grossa</td>
+                            <td>Mostra a regra de usar a categoria mais suspeita e biopsiar; é a mesma lógica de &quot;benigno é mais frequente, mas confirme&quot;.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q36</td>
+                            <td>Qual o BI-RADS de achado suspeito em que se considera biópsia?</td>
+                            <td>Classificação BI-RADS</td>
+                            <td>D – BI-RADS 4</td>
+                            <td>Mesma família de conhecimentos de classificação e conduta em lesões mamárias.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q8</td>
+                            <td>Mamografia BI-RADS II com nódulo palpável novo em mulher de 50 anos</td>
+                            <td>Orientação quando há discordância clínico-radiológica</td>
+                            <td>B – Encaminhar ao especialista (BI-RADS II não basta se há nódulo palpável)</td>
+                            <td>O achado clínico prevalece sobre a imagem normal, como no derrame sanguinolento com imagem normal.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q37</td>
+                            <td>Menina de 11 anos com mãe com câncer de mama e nódulo retroareolar de 1,5 cm</td>
+                            <td>Conduta em lesão mamária na criança/adolescente</td>
+                            <td>B – Observar e repetir o exame clínico</td>
+                            <td>Contraponto: lesão benigna provável na adolescência é observada, ao contrário da descarga patológica da mulher adulta.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> A descarga papilar apareceu em 4 das 20 provas anteriores (2019, 2020, 2021 e 2025); somando as questões de mama em geral (BI-RADS, nódulo, rastreamento), a mastologia aparece em praticamente todos os anos. A banca alterna entre cobrar conduta na descarga patológica com exames negativos (ressecção do ducto), investigação por imagem seguida de ressecção e, agora em 2026, a interpretação conceitual da epidemiologia e do perfil da descarga.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> causa mais frequente de descarga sanguinolenta (papiloma intraductal) em pergunta direta de diagnóstico; ductografia/galactografia e seu papel; papel da ressonância magnética na descarga com imagens negativas; risco de câncer associado a papiloma com atipia; descarga na gestação e lactação; doença de Paget do mamilo como causa de lesão mamilar; diferenciação formal entre descarga fisiológica e patológica em questão isolada; e descarga induzida por medicações.</p>
+                <p><strong>Evolução da cobrança:</strong> Entre 2019 e 2021 a prova repetiu o mesmo caso com a mesma pergunta de conduta. Em 2025, a pergunta passou a exigir o fluxo completo (imagem e depois cirurgia). Em 2026, a questão deixou de ser de conduta e virou análise de afirmativas sobre epidemiologia e características, o que exige conhecimento mais amplo e conceitual.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> estudar o fluxograma completo da descarga papilar (fisiológica versus patológica, imagem, ductografia, ressonância, ressecção do ducto) e treinar as causas por perfil de descarga. Revisar também a relação entre prolactina, drogas e galactorreia, já que esse tema foi cobrado em 2024 e entra no diagnóstico diferencial.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros: &quot;se você viu X, lembre-se de Y&quot;.</p>
+                <ul>
+                    <li><strong>Descarga papilar → BI-RADS e nódulo mamário:</strong> se você viu descarga patológica, lembre-se de que a imagem normal não exclui lesão intraductal pequena; o achado clínico prevalece (2010 Q8, 2019–2021, 2025).</li>
+                    <li><strong>Descarga leitosa bilateral → hiperprolactinemia:</strong> lembre-se de pedir prolactina e TSH e de revisar medicamentos (antipsicóticos, metoclopramida, antidepressivos); tema cobrado em 2024.</li>
+                    <li><strong>Papiloma intraductal → lesões proliferativas e risco de câncer:</strong> papiloma com atipia aumenta o risco e exige ressecção; liga-se às questões de CDIS (2022).</li>
+                    <li><strong>Descarga purulenta → mastite/abscesso e aleitamento:</strong> conduta na mastite lactacional (2011) e contraindicações ao aleitamento (2022).</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se você marcou a alternativa B ou E, o erro mais provável é de <strong>interpretação/estratégia</strong>: o enunciado traz sinais de descarga patológica (uniductal, sanguinolenta, espontânea), e isso leva a achar que a causa mais provável é câncer. O conceito a fixar é que &quot;patológica&quot; significa &quot;precisa investigar&quot;, e não &quot;provavelmente maligna&quot;. Se marcou A, foi <strong>confusão conceitual</strong> entre processo infeccioso da lactação e lesão intraductal. Se marcou D, foi <strong>confusão conceitual</strong> entre descarga fisiológica/galactorreia e descarga suspeita; o perfil leitoso bilateral à expressão é o oposto do suspeito. Se não houve certeza sobre os números (&quot;menos de 1%&quot;), é <strong>lacuna de conhecimento</strong> epidemiológico. Ação corretiva: montar um quadro com duas colunas (fisiológica versus patológica) e outro com as causas por perfil de secreção, e refazer as questões de 2019, 2020, 2021 e 2025 explicando em voz alta por que a conduta foi cirúrgica. Em questões de afirmativas, sublinhe os termos absolutos antes de ler as opções.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>No consultório, a primeira pergunta é: a descarga é espontânea, de um ducto só, de uma mama só? Se sim, a paciente precisa de exame clínico direcionado (identificar o ponto-gatilho), mamografia e ultrassonografia, e encaminhamento ao mastologista para considerar ressecção do ducto, mesmo que os exames sejam normais. Em descargas bilaterais, leitosas e provocadas apenas pela expressão, o foco é afastar gravidez, hipotireoidismo, hiperprolactinemia e uso de medicações, orientar a não espremer a mama (isso perpetua a secreção) e tranquilizar. É importante explicar à paciente que a causa mais comum é benigna, mas que a investigação é necessária para excluir o câncer.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Descarga papilar fisiológica versus patológica – revisar critérios e cores</li>
+                    <li>Papiloma intraductal e lesões papilares da mama – revisar</li>
+                    <li>BI-RADS: categorias, conduta e discordância clínico-radiológica – revisar</li>
+                    <li>Galactorreia e hiperprolactinemia (drogas, hipotireoidismo, prolactinoma) – revisar</li>
+                    <li>Ductografia, ressonância mamária e ressecção seletiva de ducto – revisar</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. American College of Radiology. ACR BI-RADS Atlas: Breast Imaging Reporting and Data System. 5. ed. Reston: ACR, 2013.</p>
+                <p>2. Expert Panel on Breast Imaging. ACR Appropriateness Criteria: Evaluation of Nipple Discharge. Journal of the American College of Radiology.</p>
+                <p>3. Ministério da Saúde / INCA. Diretrizes para a detecção precoce do câncer de mama no Brasil. Rio de Janeiro: INCA, 2015.</p>
+                <p>4. Febrasgo. Tratado de Ginecologia. Rio de Janeiro: Elsevier.</p>
+                <p>5. Harris JR, Lippman ME, Morrow M, Osborne CK. Diseases of the Breast. 5. ed. Philadelphia: Wolters Kluwer.</p>
+                </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

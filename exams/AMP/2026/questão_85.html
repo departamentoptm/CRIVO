@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 85 - Diabetes Mellitus Tipo 2 na Atenção Primária: Acompanhamento Longitudinal e Encaminhamento ao Especialista</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Diabetes Mellitus Tipo 2 na Atenção Primária: Acompanhamento Longitudinal e Encaminhamento ao Especialista</div>
+        <h1>Questão 85</h1>
+        <div class="question-text">
+            Homem de 59 anos, portador de diabetes mellitus tipo 2 há seis anos, comparece à consulta de seguimento na Estratégia Saúde da Família (ESF). Faz uso de antidiabéticos orais, apresenta boa adesão ao tratamento e não possui complicações conhecidas. Questiona se deveria passar a ser acompanhado pelo endocrinologista "por já ter muitos anos de doença". De acordo com a bibliografia recomendada, a conduta mais adequada é
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - encaminhar para cuidados exclusivos com endocrinologista para atender à demanda do paciente e por haver mais de cinco anos de diabetes.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - manter acompanhamento compartilhado com especialista desde o diagnóstico, intercalando consultas frequentes na ESF com anuais com endocrinologista.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - encaminhar para endocrinologista apenas se houver necessidade de insulinoterapia, permanecendo o restante do acompanhamento com a equipe ESF.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - manter o acompanhamento pela equipe de Atenção Primária, reservando o encaminhamento para situações de maior complexidade clínica ou complicações da doença.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - solicitar uma consulta pontual com endocrinologista para atender à demanda do paciente e conferir a adequação do tratamento; mantendo a seguir a longitudinalidade do cuidado com a equipe de ESF.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Endocrinologia / Saúde Coletiva</p>
+            <p><strong>Tema:</strong> Acompanhamento longitudinal do diabetes mellitus tipo 2 (DM2) na Atenção Primária à Saúde (APS) e critérios de encaminhamento ao endocrinologista.</p>
+            <p><strong>Contextualização:</strong> Tema central da APS e de alta incidência em provas de residência, pois testa os atributos da Atenção Primária (longitudinalidade, coordenação do cuidado e integralidade), o papel do especialista focal e a lógica das linhas de cuidado. A banca cobra a compreensão de que o tempo de doença, isoladamente, não é critério de encaminhamento, e que o acompanhamento na APS é a regra para pacientes estáveis e sem complicações.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O DM2 é uma doença crônica, progressiva e multifatorial, cujo manejo envolve mudanças de estilo de vida, controle glicêmico, controle de comorbidades (hipertensão, dislipidemia), rastreamento de complicações micro e macrovasculares e educação em saúde. O acompanhamento longitudinal na APS permite vínculo, adesão e coordenação do cuidado. A progressão da doença pode exigir intensificação terapêutica (associação de fármacos, insulinização) - mas isso ainda pode ser feito na APS em muitos casos, com apoio matricial ou encaminhamento pontual ao especialista quando há falha terapêutica, dúvidas diagnósticas, complicações complexas ou necessidade de tecnologia específica. Portanto, o simples tempo de doença não justifica transferência de cuidado.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa D é correta porque o paciente é estável, sem complicações conhecidas, com boa adesão e em uso de antidiabéticos orais. Nesse cenário, o acompanhamento deve permanecer na APS, que é o nível mais adequado para o cuidado longitudinal de condições crônicas, com encaminhamento ao especialista reservado para situações de maior complexidade clínica ou presença de complicações (por exemplo, nefropatia avançada, neuropatia grave, pé diabético complexo, controle glicêmico refratário, gestação, suspeita de DM1/LADA, insulinização difícil, entre outros). A resposta preserva a longitudinalidade e a coordenação do cuidado.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Encaminhar para cuidados exclusivos com endocrinologista apenas pelo tempo de doença (mais de cinco anos) contraria a lógica da APS como coordenadora do cuidado. O paciente está estável, sem complicações e com boa adesão; não há indicação de transferência exclusiva de cuidado.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Manter acompanhamento compartilhado com especialista desde o diagnóstico, com consultas anuais, não é a recomendação para todos os pacientes com DM2. O compartilhamento é útil em situações específicas, mas a regra é o acompanhamento pela equipe da APS, com apoio do especialista quando necessário.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. A necessidade de insulinoterapia, por si só, não indica que o paciente deva ser acompanhado exclusivamente pelo endocrinologista. Muitos pacientes em insulinoterapia podem ser acompanhados na APS com suporte matricial. O critério não é o tipo de medicação, mas a complexidade do caso.</p>
+            <p><strong>Alternativa D</strong> - Correta. Mantém o acompanhamento na APS e reserva o encaminhamento para situações de maior complexidade clínica ou complicações, como recomenda a bibliografia.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. Solicitar uma consulta pontual com endocrinologista apenas para atender à demanda do paciente, sem indicação clínica, pode ser uma prática de sobremedicalização e não é a conduta baseada em evidências. A longitudinalidade deve ser preservada, mas o encaminhamento não deve ser feito por pressão do paciente sem critério técnico. Além disso, a alternativa sugere conferir a adequação do tratamento, o que poderia ser pertinente se houvesse dúvida clínica - mas não é a regra nem a melhor conduta baseada na literatura para o caso descrito.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Boa adesão e sem complicações conhecidas:</strong> indicam estabilidade clínica e afastam necessidade de encaminhamento imediato.</li>
+                <li><strong>Seis anos de doença:</strong> o tempo de doença, isoladamente, não é critério de encaminhamento.</li>
+                <li><strong>Questiona se deveria passar a ser acompanhado pelo endocrinologista:</strong> evidencia demanda do paciente, que deve ser acolhida, mas não necessariamente concedida sem critério clínico.</li>
+                <li><strong>Estratégia Saúde da Família (ESF):</strong> reafirma o cenário da APS como coordenadora do cuidado.</li>
+                <li><strong>Antidiabéticos orais:</strong> o tratamento atual é compatível com manejo na APS.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> avaliar se o paciente está estável, sem complicações, com boa adesão e controle glicêmico aceitável.</li>
+                <li><strong>Segundo:</strong> verificar se há critérios de encaminhamento ao especialista: controle glicêmico refratário, complicações complexas, suspeita de outros tipos de diabetes, gestação, insulinização difícil, entre outros.</li>
+                <li><strong>Terceiro:</strong> se não houver critérios, manter o acompanhamento na APS, com educação em saúde, rastreamento de complicações e ajuste terapêutico conforme protocolos.</li>
+                <li><strong>Quarto:</strong> acolher a demanda do paciente, explicar o papel da APS e reforçar o vínculo e a longitudinalidade.</li>
+                <li><strong>Quinto:</strong> se surgirem situações de maior complexidade, encaminhar ao especialista, mantendo o cuidado compartilhado.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> o DM2 estável e sem complicações deve ser acompanhado na APS; o encaminhamento ao endocrinologista é reservado para situações de maior complexidade.</li>
+                <li><strong>Números e doses:</strong> meta de HbA1c geralmente &lt; 7% para a maioria dos adultos; individualizar conforme idade, comorbidades e risco de hipoglicemia.</li>
+                <li><strong>Mnemônicos:</strong> "APS coordena, especialista apoia" - a lógica da coordenação do cuidado.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma usar o tempo de doença e o tipo de medicação como distratores.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DM2 estável sem complicações</td>
+                        <td>Boa adesão, controle glicêmico aceitável, sem complicações</td>
+                        <td>HbA1c, glicemias, avaliação de complicações</td>
+                        <td>Acompanhamento na APS</td>
+                    </tr>
+                    <tr>
+                        <td>DM2 com controle refratário</td>
+                        <td>HbA1c persistentemente elevada apesar de otimização</td>
+                        <td>Revisão de adesão, técnica de aplicação, diagnósticos diferenciais</td>
+                        <td>Encaminhar ao especialista</td>
+                    </tr>
+                    <tr>
+                        <td>Suspeita de DM1/LADA</td>
+                        <td>Emagrecimento, cetoacidose, necessidade precoce de insulina</td>
+                        <td>Autoanticorpos, peptídeo C</td>
+                        <td>Encaminhar ao especialista</td>
+                    </tr>
+                    <tr>
+                        <td>Complicações complexas</td>
+                        <td>Nefropatia avançada, pé diabético, neuropatia grave</td>
+                        <td>Avaliação especializada</td>
+                        <td>Cuidado compartilhado com especialista</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre insulinização:</strong> a resposta poderia envolver a possibilidade de iniciar insulina na APS, com apoio matricial.</li>
+                <li><strong>Se fosse sobre princípio do SUS comprometido pela falta de especialista:</strong> a resposta seria integralidade.</li>
+                <li><strong>Se fosse sobre paciente com complicações graves:</strong> a resposta envolveria encaminhamento ao especialista.</li>
+                <li><strong>Se fosse sobre atributos da APS:</strong> a resposta envolveria longitudinalidade e coordenação do cuidado.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2018 - Q86</td>
+                        <td>Homem de 42 anos vivendo com HIV, estável, carga viral indetectável; questionava-se sobre a descentralização do cuidado para a UBS.</td>
+                        <td>Descentralização do cuidado de condição crônica estável para a APS, com preservação da coordenação.</td>
+                        <td>D</td>
+                        <td>Mesma lógica: paciente crônico estável deve ser acompanhado na APS, com encaminhamento reservado para situações de maior complexidade.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q91</td>
+                        <td>Município de 20.000 habitantes; paciente com DM2 necessitou de endocrinologista e não havia possibilidade de encaminhamento.</td>
+                        <td>Princípio doutrinário do SUS comprometido pela falta de referência especializada.</td>
+                        <td>B (Integralidade)</td>
+                        <td>Mostra que o encaminhamento ao especialista é necessário quando há indicação clínica, reforçando que a APS coordena, mas não substitui o especialista quando indicado.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q95</td>
+                        <td>Paciente de 50 anos com DM2 em uso de metformina e glibenclamida, com HbA1c 9,1%; questionava-se a conduta.</td>
+                        <td>Manejo da intensificação terapêutica do DM2 na APS, incluindo insulinização.</td>
+                        <td>E</td>
+                        <td>Demonstra que a APS maneja DM2 complexo, incluindo insulinização, reforçando que o tempo de doença e o tipo de medicação não são critérios de transferência de cuidado.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q62</td>
+                        <td>Homem de 58 anos com sintomas de DM2; questionava-se diagnóstico e manejo inicial.</td>
+                        <td>Diagnóstico de DM2 e início de metformina, com orientações de estilo de vida.</td>
+                        <td>D</td>
+                        <td>Reforça o papel da APS no diagnóstico e no manejo inicial do DM2.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q85</td>
+                        <td>Sobre Gestão da Clínica na APS: agenda, demanda e longitudinalidade.</td>
+                        <td>Organização da agenda e longitudinalidade na APS.</td>
+                        <td>E</td>
+                        <td>Reforça a importância do acompanhamento longitudinal na APS e da organização do cuidado para condições crônicas.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 questões relevantes nas provas de 2018, 2020 e 2023. A banca alterna entre cobrar: (1) descentralização do cuidado de condições crônicas estáveis para a APS; (2) princípio da integralidade quando falta referência especializada; (3) manejo do DM2 na APS, incluindo insulinização; (4) diagnóstico inicial e (5) longitudinalidade e gestão da clínica.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Critérios explícitos de encaminhamento ao endocrinologista (controle refratário, suspeita de DM1/LADA, gestação, complicações graves); papel do apoio matricial; uso de teleconsultoria; metas individualizadas de HbA1c; rastreamento de complicações microvasculares na APS.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem migrado de questões sobre o manejo medicamentoso para questões sobre organização do cuidado, coordenação e longitudinalidade, o que dialoga diretamente com esta questão.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os critérios de encaminhamento ao especialista em doenças crônicas, os atributos da APS e a lógica da coordenação do cuidado. Memorizar que tempo de doença e tipo de medicação, isoladamente, não são critérios de transferência de cuidado.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Atributos da APS (Barbara Starfield) - longitudinalidade e coordenação do cuidado são a base da resposta.</li>
+                <li><strong>Conexão 2:</strong> Princípios do SUS - integralidade exige que o paciente tenha acesso ao especialista quando indicado, mas a APS permanece como coordenadora.</li>
+                <li><strong>Conexão 3:</strong> Linhas de cuidado de doenças crônicas - o DM2 é um exemplo clássico de condição crônica manejada na APS com apoio especializado.</li>
+                <li><strong>Conexão 4:</strong> Prevenção quaternária - evitar encaminhamentos desnecessários e sobremedicalização.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou A, houve lacuna de conhecimento sobre o papel da APS e critérios de encaminhamento, pois considerou o tempo de doença como critério. Se marcou B ou E, pode ter havido confusão sobre compartilhamento de cuidado e demanda do paciente. Se marcou C, confundiu tipo de tratamento com complexidade. A ação corretiva é revisar os atributos da APS, os critérios de encaminhamento em doenças crônicas e a lógica da coordenação do cuidado, além de treinar a distinção entre tempo de doença e complexidade clínica.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, o médico de família e comunidade deve acolher a demanda do paciente, explicar o papel da APS no acompanhamento longitudinal e reforçar o vínculo. O encaminhamento ao endocrinologista deve ser feito quando houver indicação clínica: controle glicêmico refratário, suspeita de outro tipo de diabetes, complicações complexas, gestação, entre outras. O cuidado compartilhado e o apoio matricial são ferramentas importantes para manter a coordenação e a integralidade.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Atributos da Atenção Primária à Saúde (Starfield): longitudinalidade, coordenação, integralidade, acesso, orientação familiar e comunitária.</li>
+                <li>Princípios do SUS: universalidade, integralidade e equidade.</li>
+                <li>Linhas de cuidado das doenças crônicas não transmissíveis.</li>
+                <li>Critérios de encaminhamento ao endocrinologista no DM2.</li>
+                <li>Apoio matricial e cuidado compartilhado.</li>
+                <li>Prevenção quaternária e sobremedicalização.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Diabetes. Diretrizes da Sociedade Brasileira de Diabetes. São Paulo: SBD; edição vigente.</p>
+            <p>2. Ministério da Saúde. Caderno de Atenção Básica nº 36: Diabetes Mellitus. Brasília: Ministério da Saúde.</p>
+            <p>3. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+            <p>4. Starfield B. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO/Ministério da Saúde.</p>
+            <p>5. Brasil. Linha de Cuidado do Diabetes Mellitus. Brasília: Ministério da Saúde.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

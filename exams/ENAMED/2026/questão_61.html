@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 61 - Infectologia e Hepatologia: Esquistossomose Hepatosplênica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Infectologia e Hepatologia: Esquistossomose Hepatosplênica</div>
+        <h1>Questão 61</h1>
+        <div class="question-text">
+            Homem de 42 anos está sob investigação em Unidade Básica de Saúde, devido a aumento progressivo do volume abdominal e astenia. O paciente é natural e residente de uma cidade no interior da Bahia, nunca tendo viajado para fora do seu estado. Nega etilismo. O exame físico revela ascite moderada e circulação colateral na parede abdominal. A ultrassonografia mostra: fígado de dimensões preservadas, bordas rombas e sem nodulações; presença de fibrose periportal; esplenomegalia e aumento do calibre da veia porta e líquido ascítico na cavidade peritoneal. A endoscopia digestiva alta indica varizes esofágicas. Qual o exame indicado para confirmação da principal hipótese diagnóstica?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Doppler de sistema portal.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Paracentese diagnóstica.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Sorologia de hepatites virais.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Exame parasitológico.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Infectologia / Hepatologia / Gastroenterologia</p>
+            <p><strong>Tema:</strong> Esquistossomose mansônica na forma hepatosplênica com hipertensão portal</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência e no Enamed, especialmente em regiões endêmicas do Brasil. A esquistossomose mansônica pode evoluir com fibrose periportal (fibrose de Symmers), esplenomegalia, hipertensão portal, varizes esofágicas e ascite. O caso descreve paciente procedente do interior da Bahia, sem etilismo, com sinais de hipertensão portal e fibrose periportal à ultrassonografia, quadro clássico da forma hepatosplênica da esquistossomose.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A esquistossomose mansônica é causada pelo <em>Schistosoma mansoni</em>, cujo ciclo envolve caramujos do gênero <em>Biomphalaria</em> e o ser humano como hospedeiro definitivo. A infecção crônica leva à deposição de ovos nos tecidos, com reação granulomatosa e fibrose. No fígado, a fibrose periportal (fibrose de Symmers) obstrui ramos da veia porta, elevando a pressão portal. Isso causa esplenomegalia, circulação colateral, varizes esofágicas e ascite. A confirmação diagnóstica pode ser feita pelo exame parasitológico de fezes, com pesquisa de ovos de <em>S. mansoni</em>, preferencialmente em múltiplas amostras. Em casos crônicos com baixa carga parasitária, o exame pode ser negativo, e a biópsia retal ou a ultrassonografia com critérios específicos podem auxiliar. As sorologias para hepatites virais são importantes para afastar outras causas de hepatopatia crônica, mas não confirmam esquistossomose.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa D - Exame parasitológico.</strong> É o exame indicado para confirmação da principal hipótese diagnóstica, que é esquistossomose mansônica hepatosplênica. A pesquisa de ovos de <em>Schistosoma mansoni</em> nas fezes confirma a infecção. Em pacientes com forma hepatosplênica e baixa carga parasitária, podem ser necessárias múltiplas amostras ou métodos de concentração. A ultrassonografia já mostrou fibrose periportal e sinais de hipertensão portal, compatíveis com a forma crônica. O exame parasitológico é o mais específico entre as opções para confirmar o agente etiológico.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Doppler de sistema portal.</strong> Incorreta. O Doppler avalia fluxo portal e pode auxiliar na avaliação da hipertensão portal, mas não confirma o diagnóstico etiológico da esquistossomose.</p>
+            <p><strong>Alternativa B - Paracentese diagnóstica.</strong> Incorreta. A paracentese pode ser útil para analisar o líquido ascítico e excluir peritonite bacteriana espontânea ou outras causas, mas não confirma esquistossomose.</p>
+            <p><strong>Alternativa C - Sorologia de hepatites virais.</strong> Incorreta. As sorologias para hepatites B e C são importantes para excluir outras causas de hepatopatia crônica e hipertensão portal, mas não confirmam a esquistossomose.</p>
+            <p><strong>Alternativa D</strong> - Correta. O exame parasitológico de fezes é o método indicado para confirmação etiológica da esquistossomose.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Natural e residente do interior da Bahia:</strong> área endêmica para esquistossomose mansônica.</li>
+                <li><strong>Fibrose periportal à ultrassonografia:</strong> achado clássico da esquistossomose hepatosplênica (fibrose de Symmers).</li>
+                <li><strong>Esplenomegalia, aumento da veia porta, varizes esofágicas e ascite:</strong> sinais de hipertensão portal.</li>
+                <li><strong>Nega etilismo:</strong> afasta doença hepática alcoólica como causa principal.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer síndrome de hipertensão portal com fibrose periportal em paciente de área endêmica.</li>
+                <li><strong>Segundo:</strong> Considerar esquistossomose mansônica como principal hipótese diagnóstica.</li>
+                <li><strong>Terceiro:</strong> Solicitar exame parasitológico de fezes para pesquisa de ovos de <em>S. mansoni</em>.</li>
+                <li><strong>Quarto:</strong> Avaliar gravidade da hipertensão portal, profilaxia de sangramento varicoso e tratamento específico com praziquantel quando indicado.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em infectologia e hepatologia.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Fibrose periportal (Symmers) + esplenomegalia + varizes esofágicas em paciente de área endêmica sugere esquistossomose hepatosplênica.</li>
+                <li><strong>Exame confirmatório:</strong> Pesquisa de ovos de <em>Schistosoma mansoni</em> nas fezes; múltiplas amostras podem ser necessárias.</li>
+                <li><strong>Tratamento:</strong> Praziquantel é a droga de escolha para esquistossomose.</li>
+                <li><strong>Mnemônico:</strong> “Fibrose de Symmers = esquistossomose; confirma com parasitológico de fezes”.</li>
+            </ul>
+            <p>Esses dados são essenciais para diferenciar causas de hipertensão portal e indicar o tratamento adequado.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Esquistossomose hepatosplênica (correta)</td>
+                        <td>Área endêmica, fibrose periportal, esplenomegalia, varizes esofágicas, ascite</td>
+                        <td>Exame parasitológico de fezes; ultrassonografia com fibrose de Symmers</td>
+                        <td>Praziquantel, profilaxia de sangramento varicoso e acompanhamento</td>
+                    </tr>
+                    <tr>
+                        <td>Cirrose hepática por hepatites virais</td>
+                        <td>Fígado nodular, sorologias virais reagentes, sinais de insuficiência hepática</td>
+                        <td>Sorologias de hepatites, elastografia, biópsia</td>
+                        <td>Tratamento da hepatopatia e manejo das complicações</td>
+                    </tr>
+                    <tr>
+                        <td>Doença hepática alcoólica</td>
+                        <td>História de etilismo crônico, AST/ALT alteradas, esteatose</td>
+                        <td>História clínica, exames laboratoriais, imagem</td>
+                        <td>Abstinência alcoólica e suporte nutricional</td>
+                    </tr>
+                    <tr>
+                        <td>Trombose de veia porta</td>
+                        <td>Hipertensão portal sem fibrose periportal, dor abdominal, imagem com trombo</td>
+                        <td>Doppler de sistema portal, tomografia</td>
+                        <td>Anticoagulação conforme caso e manejo da hipertensão portal</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento:</strong> a resposta seria praziquantel.</li>
+                <li><strong>Se fosse sobre complicação:</strong> sangramento varicoso, peritonite bacteriana espontânea, encefalopatia hepática.</li>
+                <li><strong>Se fosse sobre profilaxia:</strong> betabloqueador não seletivo ou ligadura elástica para varizes esofágicas.</li>
+                <li><strong>Se fosse sobre diagnóstico diferencial:</strong> sorologias de hepatites e Doppler portal para afastar outras causas.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Não identificada</td>
+                        <td>Nenhuma outra questão sobre esquistossomose hepatosplênica foi encontrada nas provas anteriores analisadas.</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Tema não abordado em outras questões das provas de 2025_2026. Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica e endemicidade no Brasil.</td>
+                    </tr>
+                    <tr>
+                        <td>Enamed 2026 - Q61 (questão atual)</td>
+                        <td>Homem de 42 anos da Bahia com ascite, fibrose periportal, esplenomegalia e varizes esofágicas.</td>
+                        <td>Confirmação diagnóstica de esquistossomose hepatosplênica.</td>
+                        <td>D no gabarito preliminar; questão anulada no gabarito definitivo</td>
+                        <td>Ilustra a cobrança do tema e a importância do exame parasitológico.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema esquistossomose hepatosplênica não apareceu em outras questões das provas anteriores analisadas além da própria Q61. A banca tem cobrado doenças infecciosas endêmicas de forma aplicada, com casos clínicos e necessidade de escolha do exame confirmatório.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Tratamento da esquistossomose com praziquantel, profilaxia de sangramento varicoso, diagnóstico em áreas de baixa endemicidade e formas ectópicas da doença.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há histórico suficiente para identificar evolução. A tendência é que o tema seja cobrado com casos clínicos que exijam reconhecimento de sinais de hipertensão portal e indicação do exame etiológico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar esquistossomose mansônica, com ênfase na forma hepatosplênica, fibrose periportal, hipertensão portal, exame parasitológico de fezes e tratamento com praziquantel.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Hipertensão portal - esquistossomose é uma das principais causas no Brasil, ao lado da cirrose hepática.</li>
+                <li><strong>Conexão 2:</strong> Ascite - investigação etiológica inclui hepatopatias, insuficiência cardíaca, tuberculose peritoneal e neoplasias.</li>
+                <li><strong>Conexão 3:</strong> Doenças negligenciadas - esquistossomose é endêmica em várias regiões brasileiras e exige vigilância e controle.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é não reconhecer a fibrose periportal como sinal clássico de esquistossomose ou confundir com cirrose por hepatites virais. A estratégia corretiva é memorizar a associação entre fibrose de Symmers, esplenomegalia, varizes esofágicas e procedência de área endêmica, além do exame parasitológico como confirmação. Classificação do erro: lacuna de conhecimento ou confusão conceitual.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o paciente com hipertensão portal e fibrose periportal em área endêmica deve ser investigado para esquistossomose, com exame parasitológico de fezes. O tratamento com praziquantel e o manejo da hipertensão portal, incluindo profilaxia de sangramento varicoso, são essenciais para reduzir morbimortalidade.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Ciclo biológico do <em>Schistosoma mansoni</em>.</li>
+                <li>Fibrose periportal (fibrose de Symmers) e hipertensão portal.</li>
+                <li>Exame parasitológico de fezes e diagnóstico da esquistossomose.</li>
+                <li>Tratamento com praziquantel e manejo das complicações.</li>
+                <li>Diagnóstico diferencial de hepatopatias crônicas e ascite.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde - Guia de Vigilância em Saúde: Esquistossomose Mansônica.</p>
+            <p>2. Sociedade Brasileira de Infectologia (SBI) - Diretrizes para esquistossomose.</p>
+            <p>3. World Health Organization (WHO) - Schistosomiasis: prevention and control.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

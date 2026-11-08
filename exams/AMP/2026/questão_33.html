@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 33 - Ginecologia: Miomatose uterina sintomática - conduta definitiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Miomatose uterina sintomática - conduta definitiva</div>
+        <h1>Questão 33</h1>
+        <div class="question-text">
+            Mulher de 44 anos, G3P3, procura atendimento por sangramento uterino intenso há aproximadamente 18 meses, associado à dismenorreia e sensação de peso pélvico. Refere fadiga aos pequenos esforços. Ao exame físico, apresenta útero aumentado. A ultrassonografia transvaginal evidencia útero com volume de 350 cm³ e múltiplos leiomiomas intramurais, sendo o maior com 8 cm de diâmetro, além de distorção importante da cavidade endometrial. Hemoglobina: 8,6 g/dL. Qual a conduta mais adequada nesse caso?
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Iniciar agonista do GnRH como tratamento definitivo, uma vez que promove regressão permanente dos leiomiomas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Realizar embolização das artérias uterinas, pois é o tratamento de primeira escolha para todas as pacientes com leiomiomatose sintomática.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Iniciar anticoncepcional hormonal combinado, pois promove redução significativa do volume dos leiomiomas e corrige definitivamente a anemia.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Prescrever anti-inflamatórios não esteroidais, uma vez que são fortemente eficazes na redução do volume tumoral e no controle dos sintomas compressivos.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Indicar histerectomia, por ser tratamento definitivo para pacientes sintomáticas com importante comprometimento clínico, múltiplos leiomiomas e prole constituída.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia</p>
+                <p><strong>Tema:</strong> Miomatose uterina sintomática - escolha do tratamento definitivo em paciente com prole constituída</p>
+                <p><strong>Contextualização:</strong> O leiomioma uterino é a neoplasia benigna mais frequente do trato genital feminino, presente em até 70-80% das mulheres em idade reprodutiva. É tema de altíssima incidência em provas de ginecologia e atenção primária, cobrando classificação (submucoso, intramural, subseroso), manifestações clínicas (sangramento, dismenorreia, efeitos compressivos, infertilidade), opções terapêuticas (clínicas, minimamente invasivas e cirúrgicas) e a individualização da conduta conforme sintomas, desejo reprodutivo e prole constituída.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Os leiomiomas são tumores benignos de músculo liso que surgem sob estímulo hormonal (estrogênio e progesterona), com fatores de crescimento (TGF-β, IGF) e predisposição genética. Podem ser classificados pela localização: submucosos (distorcem a cavidade endometrial e causam sangramento importante), intramurais (mais comuns, podendo distorcer a cavidade) e subserosos (predominantemente sintomas compressivos). A sintomatologia inclui menorragia (sangramento uterino aumentado), dismenorreia, anemia ferropriva, dor pélvica, sintomas compressivos (bexiga, reto), infertilidade e abortamento. O tratamento deve ser individualizado. As opções são: (1) clínico: AINEs (reduzem sangramento e dor), ácido tranexâmico, anticoncepcionais hormonais combinados, progestagênios, SIU-LNG, análogos de GnRH (redução temporária do volume); (2) minimamente invasivo: embolização das artérias uterinas, ablação endometrial, miomectomia histeroscópica; (3) cirúrgico: miomectomia (preserva o útero, para quem deseja prole) e histerectomia (tratamento definitivo, sem desejo reprodutivo).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa E.</strong> Está correta. A paciente tem 44 anos, G3P3 (prole constituída), miomatose uterina sintomática grave (sangramento intenso há 18 meses, dismenorreia, peso pélvico, anemia significativa com Hb 8,6 g/dL), útero aumentado (350 cm³) com múltiplos leiomiomas intramurais, o maior com 8 cm, e distorção importante da cavidade endometrial. Esse quadro configura indicação de tratamento definitivo. A histerectomia é o tratamento cirúrgico definitivo, indicado para pacientes sintomáticas, com prole constituída, múltiplos leiomiomas e comprometimento clínico importante (anemia). É a conduta mais adequada entre as opções apresentadas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Os análogos de GnRH promovem redução temporária do volume dos leiomiomas e melhora da anemia (pré-operatório), mas NÃO são tratamento definitivo, pois há rebote após a suspensão. Também causam hipoestrogenismo (sintomas vasomotores, perda de massa óssea) e não devem ser usados por tempo prolongado sem add-back. Alternativa incorreta. Tema próximo ao de 2019 (Q25) e 2008 (Q21), que abordaram análogos de GnRH.</p>
+                <p><strong>Alternativa B</strong> - A embolização das artérias uterinas é uma opção minimamente invasiva, com redução do volume e melhora dos sintomas, mas não é o tratamento de primeira escolha para todas as pacientes com miomatose sintomática. É reservada para casos selecionados, sobretudo em pacientes que desejam preservar o útero e não têm contraindicações. Nesta paciente com anemia grave, múltiplos leiomiomas e prole constituída, a histerectomia é mais adequada. Alternativa incorreta.</p>
+                <p><strong>Alternativa C</strong> - O anticoncepcional hormonal combinado pode reduzir o sangramento menstrual, mas não promove redução significativa do volume dos leiomiomas nem corrige definitivamente a anemia. É uma opção de controle sintomático, não de tratamento definitivo. Alternativa incorreta.</p>
+                <p><strong>Alternativa D</strong> - Os AINEs reduzem sangramento e dismenorreia por inibição das prostaglandinas, mas não reduzem o volume tumoral. São tratamento sintomático, não definitivo. Alternativa incorreta.</p>
+                <p><strong>Alternativa E</strong> - Correta: histerectomia é o tratamento definitivo, indicada para pacientes com prole constituída e sintomas importantes.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>44 anos, G3P3:</strong> prole constituída, o que permite considerar tratamentos definitivos.</li>
+                    <li><strong>Sangramento uterino intenso há 18 meses:</strong> sintoma principal da miomatose, com impacto na qualidade de vida.</li>
+                    <li><strong>Dismenorreia e peso pélvico:</strong> sintomas associados, reforçando o caráter sintomático.</li>
+                    <li><strong>Hemoglobina 8,6 g/dL:</strong> anemia significativa, indicando comprometimento clínico.</li>
+                    <li><strong>Múltiplos leiomiomas intramurais, maior 8 cm, útero 350 cm³:</strong> doença volumosa e difusa, com distorção da cavidade endometrial.</li>
+                    <li><strong>Conduta mais adequada:</strong> exige escolha entre opções clínicas, minimamente invasivas e cirúrgicas, individualizando.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Confirmar o diagnóstico de miomatose uterina e caracterizar sintomas (sangramento, dor, compressão, infertilidade).</li>
+                    <li><strong>Segundo:</strong> Avaliar a localização e o volume dos leiomiomas, a distorção da cavidade e a repercussão clínica (anemia, qualidade de vida).</li>
+                    <li><strong>Terceiro:</strong> Definir o objetivo terapêutico: controle sintomático, preservação da fertilidade ou tratamento definitivo.</li>
+                    <li><strong>Quarto:</strong> Paciente com prole constituída e sintomas importantes (anemia, dor, distorção da cavidade) → tratamento definitivo (histerectomia).</li>
+                    <li><strong>Quinto:</strong> Paciente com desejo reprodutivo → miomectomia ou opções clínicas/minimamente invasivas conforme o caso.</li>
+                    <li><strong>Sexto:</strong> Se histerectomia: definir via (abdominal, vaginal ou laparoscópica) e preservação ou não dos anexos conforme idade e risco.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta" e "escolha terapêutica" na miomatose.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> leiomioma é o tumor benigno mais comum do útero; sintomas dependem da localização e do volume; histerectomia é o tratamento definitivo para quem tem prole constituída e sintomas importantes.</li>
+                    <li><strong>Números e doses:</strong> análogos de GnRH (leuprolida 3,75 mg IM mensal ou 11,25 mg trimestral) reduzem volume em 30-50% em 3-6 meses; AINEs (ibuprofeno, naproxeno) e ácido tranexâmico reduzem sangramento; SIU-LNG reduz sangramento e volume.</li>
+                    <li><strong>Mnemônicos/regras:</strong> "submucoso sangra, subseroso comprime, intramural pode fazer os dois"; "prole constituída + sintomas importantes = histerectomia".</li>
+                </ul>
+                <p>Esses dados aparecem com frequência em provas de ginecologia.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Miomatose uterina</td>
+                            <td>Sangramento, dismenorreia, efeitos compressivos, útero aumentado, anemia</td>
+                            <td>USG transvaginal, histeroscopia, RM</td>
+                            <td>Individualizada: clínico, embolização, miomectomia, histerectomia</td>
+                        </tr>
+                        <tr>
+                            <td>Adenomiose</td>
+                            <td>Dismenorreia intensa, sangramento, útero aumentado e amolecido</td>
+                            <td>USG transvaginal, RM</td>
+                            <td>Hormônios, SIU-LNG, histerectomia se refratária</td>
+                        </tr>
+                        <tr>
+                            <td>Pólipo endometrial</td>
+                            <td>Sangramento irregular, pequeno volume, cavidade</td>
+                            <td>USG, histeroscopia</td>
+                            <td>Polipectomia histeroscópica</td>
+                        </tr>
+                        <tr>
+                            <td>Hiperplasia endometrial</td>
+                            <td>Sangramento anormal, espessamento endometrial, fatores de risco (obesidade, anovulação)</td>
+                            <td>USG, biópsia</td>
+                            <td>Progestagênios, histerectomia se atipia</td>
+                        </tr>
+                        <tr>
+                            <td>Câncer de endométrio</td>
+                            <td>Sangramento pós-menopausa ou anormal, endométrio espessado</td>
+                            <td>Biota endometrial, imagem</td>
+                            <td>Cirurgia oncológica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial do sangramento uterino anormal.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse o tratamento em paciente com desejo reprodutivo:</strong> miomectomia.</li>
+                    <li><strong>Se pedisse o tratamento pré-operatório para reduzir volume e corrigir anemia:</strong> análogos de GnRH.</li>
+                    <li><strong>Se pedisse o tratamento definitivo em paciente com prole constituída:</strong> histerectomia.</li>
+                    <li><strong>Se pedisse a opção minimamente invasiva para preservar o útero:</strong> embolização das artérias uterinas.</li>
+                    <li><strong>Se pedisse o controle de sangramento sem redução de volume:</strong> AINEs, ácido tranexâmico, ACO, SIU-LNG.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 – Q21</td>
+                            <td>Embolização das artérias uterinas comparada a outras terapêuticas nos miomas</td>
+                            <td>Embolização e seus riscos/benefícios</td>
+                            <td>D (necessidade de consentimento informado)</td>
+                            <td>Complementa o conhecimento das opções terapêuticas</td>
+                        </tr>
+                        <tr>
+                            <td>2008 – Q23</td>
+                            <td>Paciente de 40 anos, multípara, com mioma parido de 6 cm e Hb 6 mg/dL</td>
+                            <td>Conduta: miomectomia transvaginal e hemotransfusão</td>
+                            <td>D</td>
+                            <td>Reforça a individualização conforme o quadro</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q9</td>
+                            <td>Paciente com prolapso do fórnice vaginal após histerectomia</td>
+                            <td>Complicações da histerectomia</td>
+                            <td>C</td>
+                            <td>Contextualiza a cirurgia</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q3</td>
+                            <td>Paciente com polihipermenorreia e mioma submucoso; critérios de elegibilidade</td>
+                            <td>Manejo clínico e critérios de elegibilidade</td>
+                            <td>C (HAS grave e cavidade deformada)</td>
+                            <td>Complementa o manejo clínico da miomatose</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q25</td>
+                            <td>Paciente de 43 anos com miomatose e sangramento; tratamento medicamentoso</td>
+                            <td>Noretisterona, cetrorelix, ulipristal, asoprisnil, medroxiprogesterona</td>
+                            <td>E (V, F, V, V e F)</td>
+                            <td>Reforça o conhecimento das opções medicamentosas</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q68</td>
+                            <td>Miomatose uterina: contrações miometriais, aromatase, prostaglandinas</td>
+                            <td>Fisiopatologia da miomatose</td>
+                            <td>E (prostaglandina E2 diminuída - incorreto)</td>
+                            <td>Complementa a fisiopatologia</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q24</td>
+                            <td>Paciente de 37 anos com miomatose sintomática; degeneração hialina, aromatase, dismenorreia</td>
+                            <td>Opções terapêuticas e fisiopatologia</td>
+                            <td>D (II e V)</td>
+                            <td>Reforça o conhecimento das opções e da fisiopatologia</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q25</td>
+                            <td>Paciente com miomatose; tratamento medicamentoso (V/F)</td>
+                            <td>Noretisterona, cetrorelix, ulipristal, asoprisnil</td>
+                            <td>A (F, F, V, V e F)</td>
+                            <td>Complementa o conhecimento das opções medicamentosas</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q39</td>
+                            <td>Paciente com sangramento intenso e miomatose; hipótese diagnóstica</td>
+                            <td>Miomatose uterina como causa de sangramento</td>
+                            <td>D</td>
+                            <td>Reforça o reconhecimento clínico da miomatose</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 9 questões no período. A banca alterna entre fisiopatologia, opções medicamentosas (análogos de GnRH, progestagênios, ulipristal), tratamento cirúrgico e individualização da conduta conforme quadro clínico e desejo reprodutivo.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> a escolha do tratamento definitivo (histerectomia) em paciente com prole constituída e quadro clínico importante, como nesta questão.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em opções isoladas (embolização, análogos de GnRH); as mais recentes cobram a individualização da conduta conforme sintomas, prole e comprometimento clínico.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar o algoritmo de escolha terapêutica da miomatose (clínico, minimamente invasivo, cirúrgico) e os critérios de indicação de histerectomia.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Miomatose → sangramento uterino anormal → anemia ferropriva → necessidade de tratamento definitivo conforme quadro.</li>
+                    <li><strong>Conexão 2:</strong> Miomatose → infertilidade e abortamento → miomectomia em pacientes com desejo reprodutivo.</li>
+                    <li><strong>Conexão 3:</strong> Miomatose → sintomas compressivos (bexiga, reto) → diferencial com prolapso genital, adenomiose e outras massas pélvicas.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais comum é marcar a embolização (alternativa B) como tratamento de primeira escolha para todas as pacientes, ou acreditar que os análogos de GnRH são tratamento definitivo (alternativa A). Classificação provável do erro: desconhecimento do caráter individualizado do tratamento da miomatose. Ação corretiva: memorizar que "a escolha depende de prole constituída, sintomas e comprometimento clínico; histerectomia é definitiva para quem tem prole e sintomas importantes".</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a paciente com miomatose sintomática deve ser avaliada quanto à intensidade dos sintomas, ao volume e à localização dos leiomiomas, à repercussão clínica (anemia, compressão) e ao desejo reprodutivo. As opções devem ser discutidas de forma compartilhada. Em pacientes com prole constituída e quadro clínico importante, a histerectomia é o tratamento definitivo e deve ser oferecido. Em pacientes com desejo reprodutivo, a miomectomia (histeroscópica, laparoscópica ou abdominal) ou opções clínicas/minimamente invasivas devem ser consideradas.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Classificação dos leiomiomas (submucoso, intramural, subseroso)</li>
+                    <li>Manifestações clínicas da miomatose</li>
+                    <li>Opções terapêuticas: AINEs, ácido tranexâmico, ACO, progestagênios, SIU-LNG, análogos de GnRH, ulipristal</li>
+                    <li>Embolização das artérias uterinas: indicações e limitações</li>
+                    <li>Miomectomia: indicações e vias de acesso</li>
+                    <li>Histerectomia: indicações e vias</li>
+                    <li>Sangramento uterino anormal: investigação</li>
+                    <li>Anemia ferropriva na miomatose</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Miomatose Uterina.</p>
+                <p>2. Ministério da Saúde. Protocolos de Atenção Básica: Saúde da Mulher.</p>
+                <p>3. Williams Gynecology, 4ª edição.</p>
+                <p>4. UpToDate. Uterine leiomyomas (fibroids): Management. 2024.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

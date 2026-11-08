@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 40 - Mama: Classificação BI-RADS 5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Mama: Classificação BI-RADS 5 e Rastreamento Mamográfico</div>
+        <h1>Questão 40</h1>
+        <div class="question-text">
+            Paciente de 51 anos, assintomática, realiza mamografia de rastreamento. O laudo descreve uma massa espiculada associada a calcificações lineares finas ramificadas, sendo classificada pelo radiologista como BI-RADS 5. Podemos dizer que isso significa
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - achado provavelmente benigno.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - carcinoma confirmado por biópsia.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - achado altamente sugestivo de carcinoma.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - índice de suspeição intermediário para malignidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - achado não totalmente normal, mas definitivamente benigno.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia (Mastologia) / Atenção Primária (Rastreamento)</p>
+                <p><strong>Tema:</strong> Sistema de classificação BI-RADS (Breast Imaging-Reporting and Data System) e interpretação de achados de alta suspeição (BI-RADS 5)</p>
+                <p><strong>Contextualização:</strong> O rastreamento mamográfico é tema recorrente nas provas AMP, tanto na prova geral quanto na prova específica de Ginecologia e Obstetrícia. A classificação BI-RADS já foi cobrada nas provas de 2009 e 2010 (nesta, como alternativa incorreta de uma questão de mamografia de rastreamento), o que confirma a alta incidência do tema. Costuma ser cobrado em conjunto com conduta perante nódulo palpável, conduta perante o diagnóstico (cirurgia conservadora, biópsia, etc.) e fatores de risco para câncer de mama.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A resposta correta depende de compreender que o BI-RADS é um sistema de <strong>relatório e classificação de imagem</strong>, não de diagnóstico histopatológico. Cada categoria tem uma associação estatística com malignidade: BI-RADS 0 (estudo incompleto), 1 (negativo), 2 (benigno — 0% de malignidade), 3 (provavelmente benigno — até 2% de malignidade, conduta de seguimento curto em 6 meses), 4 (suspeito — malignidade provável, indica biópsia; subdividido em 4A, 4B e 4C), 5 (alta probabilidade de malignidade — <strong>&gt;95% de chance de ser carcinoma</strong>, biópsia obrigatória) e 6 (malignidade já confirmada por biópsia prévia).</p>
+                <p>Os achados descritos na questão reforçam a classificação: <strong>massa espiculada</strong> e <strong>calcificações pleomórficas lineares finas ramificadas</strong> são marcadores clássicos de crescimento tumoral infiltrativo (retração desmoplásica para espículas; deposição de cálcio no interior de ductos envolvidos por carcinoma ductal in situ para as calcificações tipo "galho de árvore").</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa C ("achado altamente sugestivo de carcinoma") corresponde exatamente à definição do BI-RADS 5. Trata-se de uma categoria criada para achados que levam à constatação de malignidade em mais de 95% dos casos, mesmo antes da confirmação histológica. A presença de espícula (retração fibroblástica ao redor do tumor invasivo) e de calcificações finas ramificadas pleomórficas (padrão clássico de CDIS / carcinoma ductal in situ com necrose comedoide) é altamente correlacionada ao carcinoma — por isso a categoria 5. A conduta imediata é a <strong>biópsia</strong> (core biópsia, preferencialmente com marcação do sítio) para confirmação histológica e estadiamento, nunca observação ou seguimento.</p>
+                <p>No histórico de provas, a questão de 2010 (Q8) cobrou justamente a inadequação do BIRADS II em paciente com nódulo palpável — mostrando que a banca explora a <em>diferença entre laudo radiológico e exame clínico</em>, um conceito vizinho ao desta questão.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - "Achado provavelmente benigno" corresponde ao BI-RADS 3 (suspeita mínima, malignidade até 2%, seguimento em 6 meses) — e não ao 5. Massas espiculadas nunca são categorizadas como 3. Erro conceitual clássico de trocar as categorias de baixa e alta suspeição.</p>
+                <p><strong>Alternativa B</strong> - "Carcinoma confirmado por biópsia" descreve o BI-RADS 6, usado para lesões já com malignidade comprovada por estudo histopatológico. O caso descreve um <em>rastreamento</em> — não há biópsia prévia. Distor da distinção entre categoria 5 (suspeita alta) e 6 (diagnóstico estabelecido).</p>
+                <p><strong>Alternativa D</strong> - "Índice de suspeição intermediário" corresponde ao BI-RADS 4 (suspeita moderada, cerca de 20–70% de malignidade, subdividido em 4A/4B/4C), que indica biópsia, mas com probabilidade muito menor que a categoria 5.</p>
+                <p><strong>Alternativa E</strong> - "Achado não totalmente normal, mas definitivamente benigno" é uma descrição informal do BI-RADS 2 (achados benignos como cisto simples, calcificações grosseiras, etc.). O "definitivamente benigno" é o contrário da massa espiculada.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Massa espiculada:</strong> espículas radiomarcadas são a assinatura do câncer de mama infiltrativo (retração desmoplásica). Diferente de massa circunscrita (sugestiva de cisto/fibroadenoma).</li>
+                    <li><strong>Calcificações lineares finas ramificadas (pleomórficas, em "galho de árvore"):</strong> padrão patognomônico de carcinoma ductal in situ; contrastam com calcificações grosseiras (BI-RADS 2), vasculares (traço paralelo, benignas) e amorfas difusas (mais favoráveis).</li>
+                    <li><strong>BI-RADS 5:</strong> a categoria em si é a pista — definida como alta probabilidade (&gt;95%) de malignidade.</li>
+                    <li><strong>Assintomática / rastreamento:</strong> indica que o achado é de imagem; reforça que a categoria 5 exige biópsia e não confirmação ainda estabelecida (o que afasta o distrator B).</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar o que a categoria BI-RADS representa — é um sistema de risco de malignidade baseado em imagem, não diagnóstico histológico.</li>
+                    <li><strong>Segundo:</strong> Associe cada categoria à sua probabilidade: 1 = negativo; 2 = benigno; 3 = provavelmente benigno (seguimento); 4 = suspeito (biópsia); 5 = altamente sugestivo de carcinoma (&gt;95%); 6 = carcinoma já confirmado.</li>
+                    <li><strong>Terceiro:</strong> Analise o achado: massa espiculada + calcificações ramificadas = achados com morfologia maligna típica, compatíveis com categorização 5.</li>
+                    <li><strong>Quarto:</strong> Conclua: BI-RADS 5 = "altamente sugestivo de carcinoma" e conduta de biópsia imediata (alternativa C).</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> BI-RADS 5 = probabilidade de malignidade &gt;95%; BI-RADS 6 = malignidade já confirmada por biópsia; BI-RADS 3 = seguimento de curto prazo (6 meses), nunca biópsia de rotina; BI-RADS 4 = biópsia obrigatória.</li>
+                    <li><strong>Números e doses:</strong> Rastreamento mamográfico de rotina: 50 a 69 anos (diretrizes brasileiras), a cada 2 anos (bienal) — em prova de 2009 (Q86) a banca cobrou justamente a interpretação de falsos-negativos do Papanicolaou no câncer cervical, análogo ao conceito de limitação de exame de rastreamento.</li>
+                    <li><strong>Mnemônicos:</strong> Escalonamento da suspeição — <em>"0 incompleto, 1 negativo, 2 benigno, 3 provável benigno, 4 suspeito, 5 quase certo, 6 comprovado"</em>.</li>
+                </ul>
+                <p>Estes dados foram cobrados de forma variada nas provas anteriores (2009 Q100 sobre câncer cervical e rastreamento; 2010 Q8 sobre laudo BIRADS vs nódulo palpável), o que reforça sua importância.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Carcinoma de mama (a correta — suspeita alta, BI-RADS 5)</td>
+                            <td>Massa espiculada, calcificações pleomórficas ramificadas, distorção arquitetural, espessamento assimétrico</td>
+                            <td>Mamografia diagnóstica + ultrassonografia + core biópsia</td>
+                            <td>Biópsia imediata; tratamento conforme estadiamento (cirurgia conservadora + ganglio sentinela, etc.)</td>
+                        </tr>
+                        <tr>
+                            <td>Lesão provavelmente benigna (BI-RADS 3)</td>
+                            <td>Massa oval circunscrita (fibroadenoma), cisto simples, calcificações grosseiras</td>
+                            <td>Ultrassonografia + seguimento mamográfico curto</td>
+                            <td>Reavaliação em 6 meses; biópsia apenas se crescer</td>
+                        </tr>
+                        <tr>
+                            <td>Lesão benigna clássica (BI-RADS 2)</td>
+                            <td>Cisto simples, calcificações grosseiras, lipoma, arco vascular (calcificação vascular)</td>
+                            <td>Laudo de rastreamento</td>
+                            <td>Retorno ao rastreamento de rotina</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre conduta após BI-RADS 5:</strong> a resposta seria "core biópsia para confirmação histológica".</li>
+                    <li><strong>Se fosse sobre conduta após confirmação de carcinoma (BI-RADS 6):</strong> definição de tratamento — tumores T1N0 com reserva cirúrgica adequada: cirurgia conservadora + biópsia do gânglio sentinela (padrão cobrado na questão 2006 Q90, resposta E).</li>
+                    <li><strong>Se pedisse a diferença entre BI-RADS 4 e 5:</strong> grau de suspeição (intermediário/20–70% vs. alta/&gt;95%) — ambos indicam biópsia, mas a 5 tem achados morfológicos típicos de malignidade.</li>
+                    <li><strong>Se pedisse o significado de BI-RADS 3:</strong> "provavelmente benigno, seguimento em 6 meses".</li>
+                    <li><strong>Se pedisse limitação do rastreamento:</strong> falsos-negativos existem (já cobrado para Papanicolaou na questão 2009 Q86) — a mamografia não exclui malignidade, sobretudo em mama densa.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q90</td>
+                            <td>Paciente de 38 anos com carcinoma mamário ductal, 1,2 cm, axila negativa, sem metástases</td>
+                            <td>Conduta terapêutica inicial</td>
+                            <td>Cirurgia conservadora com biópsia do gânglio sentinela</td>
+                            <td>Etapa seguinte ao diagnóstico; mostra que a prova cobra o desfecho após a suspeição radiológica ser confirmada</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q62</td>
+                            <td>Paciente de 68 anos com nódulo endurecido de 2 cm em quadrante superior externo</td>
+                            <td>Conduta inicial perante nódulo suspeito</td>
+                            <td>Biópsia da lesão</td>
+                            <td>Confirma que qualquer achado suspeito (clínico ou radiológico) exige biópsia, não observação</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q69</td>
+                            <td>Paciente de 28 anos, NIC III confirmado por biópsia colpodirigida</td>
+                            <td>Conduta perante lesão pré-neoplásica confirmada</td>
+                            <td>Conização</td>
+                            <td>Paralelo ginecológico: lesão de alto grau confirmada exige procedimento definidor, como o carcinoma BI-RADS 5 exige biópsia</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q70</td>
+                            <td>Paciente de 65 anos, carcinoma ductal moderadamente diferenciado, tumoração de 3 cm com retração de pele e linfonodo axilar endurecido semifixo</td>
+                            <td>Conduta inicial de tratamento</td>
+                            <td>Quimioterapia neoadjuvante</td>
+                            <td>Doença localmente avançada com axila comprometida — neoadjuvância antes da cirurgia; mostra a progressão do raciocínio após o diagnóstico</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q8</td>
+                            <td>Paciente de 50 anos com nódulo palpável e mamografia classificada como BIRADS II</td>
+                            <td>Orientação perante laudo radiológico benigno e achado clínico suspeito</td>
+                            <td>Orientar procurar especialista, pois BIRADS II é insuficiente com nódulo palpável</td>
+                            <td>Questão de maior afinidade: cobrou a classificação BI-RADS como tema central (distor da questão atual)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema mama/rastreamento apareceu em aproximadamente 5 das provas anteriores analisadas (2006, 2007, 2009 e 2010). A banca alterna entre cobrar <strong>classificação/laudo radiológico</strong> (2010 Q8), <strong>conduta inicial perante lesão suspeita</strong> (2007 Q62), <strong>tratamento do carcinoma confirmado</strong> (2006 Q90, 2009 Q70) e <strong>garantias/limitações do rastreamento</strong>.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> a definição formal das categorias BI-RADS 3 e 5 com suas probabilidades de malignidade e o padrão das calcificações (espiculada vs. grosseira) — como nesta questão de 2026. Também não apareceu a conduta com ganglio sentinela em doença axilar negativa + ressonância e o manejo do BIRADS 4 subdividido (4A/4B/4C).</p>
+                <p><strong>Evolução da cobrança:</strong> De 2006 a 2010, as questões eram predominantemente condutas (biópsia, cirurgia). A partir de então, a banca passou a valorizar o conhecimento formal do sistema BI-RADS — a questão de 2026 é descritiva e conceitual, cobrando a precisão da categoria 5, algo que só aparecia implicitamente nos enunciados anteriores.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> dominar a tabela completa de BI-RADS (probabilidades e condutas) e correlacionar os padrões de calcificação e morfologia de massa com cada categoria, além de revisar o manejo do nódulo palpável independentemente do laudo radiológico.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1 — Rastreamento de câncer ginecológico:</strong> "Se você viu mamografia BI-RADS, lembre-se do Papanicolaou e do rastreamento do câncer cervical" (2009 Q86 cobrou falsos-negativos citológicos; 2006 Q87 cobrou HPV 16/18). Ambos são exames de rastreamento com categorias/interpretações padronizadas e limitações análogas.</li>
+                    <li><strong>Conexão 2 — Tratamento do carcinoma de mama:</strong> "Se você viu BI-RADS 5, lembre-se de core biópsia → estadiamento → cirurgia conservadora com ganglio sentinela para T1N0" (2006 Q90) e quimioterapia neoadjuvante para doença localmente avançada (2009 Q70).</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável nesta questão é a <strong>confusão conceitual</strong> entre as categorias BI-RADS, especialmente trocar 5 ("altamente sugestivo") por 6 ("confirmado por biópsia") ou por 4 ("intermediário"). O outro erro frequente é o <strong>erro de leitura</strong>: escolher "carcinoma confirmado" por achar que espícula = certeza diagnóstica. Ação corretiva: memorizar a tabela BI-RADS com as faixas de probabilidade associadas (0 = incompleto; 1 = 0%; 2 = 0% benigno; 3 = ≤2%; 4 = 2–95%; 5 = &gt;95%; 6 = confirmado) e repetir questões que misturem número da categoria com conduta, treinando o automático.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na UBS e no ambulatório, o médico de família frequentemente é o primeiro a receber laudos de mamografia. Reconhecer que BI-RADS 5 exige biópsia imediata (e não encaminhamento eletivo ou observação) acelera o diagnóstico e melhora o prognóstico, pois tumores de mama detectados em estadio inicial (T1N0) têm sobrevida muito superior. Da mesma forma, saber que BI-RADS 3 admite seguimento seguro evita biópsias desnecessárias e reduz custos e ansiedade. A comunicação clara do risco ao paciente também é parte dessa prática.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Classificação BI-RADS completa (0 a 6) e probabilidades de malignidade de cada categoria</li>
+                    <li>Padrões de calcificações mamográficas (grosseiras = benignas; pleomórficas ramificadas = CDIS; vasculares)</li>
+                    <li>Morfologia de massas (espiculada vs. oval circunscrita) e distorção arquitetural</li>
+                    <li>Conduta perante nódulo palpável com laudo radiológico benigno</li>
+                    <li>Tratamento do carcinoma de mama: cirurgia conservadora, gânglio sentinela, quimioterapia neoadjuvante</li>
+                    <li>Rastreamento de câncer cervical: Papanicolaou, HPV e falsos-negativos</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. ACR BI-RADS® Atlas — Breast Imaging Reporting and Data System. American College of Radiology, 5ª ed., 2013.</p>
+                <p>2. INCA — Instituto Nacional de Câncer. Diretrizes para detecção precoce do câncer de mama no Brasil. Rio de Janeiro: INCA, 2015.</p>
+                <p>3. Morrow M. The evaluation of common breast problems. Am Fam Physician; e Sabiston Textbook of Surgery, 23ª ed. — capítulos de neoplasias da mama.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedOption = null;
+        const correctAnswer = 'C';
+
+        function selectOption(option) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            const selected = document.querySelector(`.option input[value="${option}"]`).parentElement;
+            selected.classList.add('selected');
+            selectedOption = option;
+        }
+
+        function checkAnswer() {
+            if (!selectedOption) {
+                alert('Por favor, selecione uma opção antes de confirmar.');
+                return;
+            }
+            const submitBtn = document.getElementById('submitBtn');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+            document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.style.display = 'block';
+            if (selectedOption === correctAnswer) {
+                submitBtn.textContent = 'Resposta Correta!';
+                submitBtn.classList.add('correct');
+            } else {
+                submitBtn.textContent = 'Confirmar Resposta';
+                submitBtn.classList.remove('correct');
+            }
+            viewCorrectionBtn.style.display = 'inline-block';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showCorrection() {
+            const correctionContent = document.getElementById('correctionContent');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+                correctionContent.style.display = 'block';
+                viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+            } else {
+                correctionContent.style.display = 'none';
+                viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+            }
+        }
+
+        function resetQuiz() {
+            selectedOption = null;
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            const radios = document.querySelectorAll('input[name="answer"]');
+            radios.forEach(radio => radio.checked = false);
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+            document.getElementById('viewCorrectionBtn').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

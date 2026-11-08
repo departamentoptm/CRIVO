@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 19 - Pediatria: Cefaleia na infância - sinais de alerta (red flags)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Cefaleia na infância - sinais de alerta (red flags)</div>
+        <h1>Questão 19</h1>
+        <div class="question-text">
+            No pronto atendimento pediátrico, a avaliação de uma criança com queixa de cefaleia exige do médico uma triagem rápida para afastar causas secundárias graves. Com base nas recomendações atuais sobre o manejo da cefaleia na infância, assinale a alternativa que apresenta corretamente um "sinal de alerta" (red flag) que justifica a indicação imediata de exame de neuroimagem.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Cefaleia de forte intensidade, unilateral e pulsátil, associada a fotofobia e fonofobia, com duração de 4 horas.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Cefaleia do tipo holocraniana, em pressão, de intensidade leve a moderada, que não piora com atividades físicas rotineiras.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Cefaleia que desperta a criança durante o sono noturno ou que ocorre logo ao acordar, acompanhada de vômitos em jato.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Cefaleia recorrente há 6 meses, com episódios idênticos entre si, sem alteração no padrão de frequência ou intensidade das crises.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Cefaleia desencadeada por estresse escolar ou privação de sono, que cede completamente após o uso de analgésicos comuns (como dipirona).</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Neurologia Pediátrica / Emergência</p>
+            <p><strong>Tema:</strong> Cefaleia na infância - identificação de sinais de alerta (red flags) que indicam neuroimagem</p>
+            <p><strong>Contextualização:</strong> A cefaleia é uma queixa frequente na pediatria. A maioria das crianças tem cefaleia primária (enxaqueca, tensional), mas é essencial identificar as poucas com causa secundária grave (hipertensão intracraniana, tumor, hemorragia, infecção do SNC). A prova cobra a capacidade de diferenciar cefaleias primárias típicas de quadros com sinais de alarme que exigem investigação imediata.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>As cefaleias primárias resultam de mecanismos de sensibilização central e periférica, ativação do sistema trigeminovascular e disfunção de modulação da dor, sem lesão estrutural. As cefaleias secundárias decorrem de processos que aumentam a pressão intracraniana (tumor, hidrocefalia, edema, hemorragia), inflamam meninges (meningite, encefalite, hemorragia subaracnóidea) ou distorcem estruturas sensíveis à dor. O parênquima cerebral não dói, mas vasos, meninges, seios durais e nervos cranianos sim. A tríade clássica de hipertensão intracraniana é cefaleia que piora ao deitar/desperta a criança + vômitos em jato + alterações visuais/papiledema. Cefaleia que desperta a criança do sono ou surge ao acordar com vômito em jato é um dos sinais de alarme mais importantes.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C.</strong> Cefaleia que desperta a criança durante o sono noturno ou que ocorre logo ao acordar, acompanhada de vômitos em jato, é um sinal clássico de hipertensão intracraniana e constitui red flag que indica neuroimagem imediata. Essa apresentação sugere lesão expansiva, hidrocefalia ou outra causa secundária grave. É a alternativa que descreve corretamente um sinal de alerta.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Cefaleia unilateral, pulsátil, de forte intensidade, com fotofobia e fonofobia, é típica de enxaqueca (cefaleia primária). Embora incapacitante, esse padrão não é red flag por si só, desde que o exame neurológico seja normal e o padrão seja recorrente. A prova de 2019 (Q72) e 2011 (Q57) já abordaram a enxaqueca como cefaleia primária.</p>
+            <p><strong>Alternativa B</strong> - Cefaleia holocraniana, em pressão, leve a moderada, que não piora com atividades rotineiras, é típica de cefaleia tensional (primária). Não é sinal de alerta.</p>
+            <p><strong>Alternativa C</strong> - Correta: sinal de hipertensão intracraniana e red flag.</p>
+            <p><strong>Alternativa D</strong> - Cefaleia recorrente há 6 meses, com episódios idênticos e sem mudança de padrão, sugere cefaleia primária estável. A ausência de progressão e de sinais neurológicos afasta causa secundária grave. A prova de 2019 (Q74) considerou que cefaleia de longa data com crises mensais não é sinal de alerta.</p>
+            <p><strong>Alternativa E</strong> - Cefaleia desencadeada por estresse escolar ou privação de sono, que cede com analgésicos comuns, é típica de cefaleia primária (tensional ou migrânea leve) e não indica neuroimagem. A prova de 2019 (Q74) reforçou que cefaleia de longa data que interfere com atividade, com crises quase mensais, não é red flag.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Sinal de alerta (red flag):</strong> característica clínica que sugere causa secundária grave e indica neuroimagem.</li>
+                <li><strong>Cefaleia que desperta durante o sono ou ao acordar:</strong> sugere aumento da pressão intracraniana, que piora no decúbito.</li>
+                <li><strong>Vômitos em jato:</strong> sinal clássico de hipertensão intracraniana.</li>
+                <li><strong>Neuroimagem imediata:</strong> conduta indicada diante de red flags.</li>
+                <li><strong>Cefaleias primárias:</strong> enxaqueca (unilateral, pulsátil, fotofobia) e tensional (holocraniana, em pressão).</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Caracterizar a cefaleia: início, duração, frequência, padrão, fatores de melhora/piora, sintomas associados.</li>
+                <li><strong>Segundo:</strong> Exame neurológico completo e fundoscopia (papiledema).</li>
+                <li><strong>Terceiro:</strong> Identificar red flags: início súbito ("pior dor da vida"), cefaleia que desperta/acorda com vômitos, piora progressiva, alteração do exame neurológico, papiledema, febre com rigidez de nuca, idade &lt; 3 anos, história de câncer ou imunossupressão.</li>
+                <li><strong>Quarto:</strong> Se houver red flag, indicar neuroimagem (tomografia ou ressonância) e investigação dirigida.</li>
+                <li><strong>Quinto:</strong> Se não houver red flag e o padrão for de cefaleia primária, tratar sintomaticamente e acompanhar.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "sinal de alerta" e "conduta inicial".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> red flags de cefaleia = despertar noturno/acordar com vômitos, piora progressiva, início súbito intenso, alteração neurológica, papiledema, febre + rigidez de nuca, idade &lt; 3 anos, imunossupressão, história de câncer.</li>
+                <li><strong>Números e doses:</strong> cefaleia primária pode ser tratada com analgésicos comuns; red flag exige neuroimagem imediata.</li>
+                <li><strong>Mnemônicos/regras:</strong> "cefaleia que acorda a criança e vomita em jato = HIC"; "pior dor da vida = hemorragia subaracnóidea".</li>
+            </ul>
+            <p>Esses dados são cobrados de forma recorrente em provas de pediatria e neurologia.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cefaleia primária (enxaqueca/tensional)</td>
+                        <td>Padrão recorrente, sem progressão, exame neurológico normal, sem red flags</td>
+                        <td>Clínico; diário de cefaleia</td>
+                        <td>Analgésicos, medidas de estilo de vida, profilaxia se indicado</td>
+                    </tr>
+                    <tr>
+                        <td>Hipertensão intracraniana (tumor, hidrocefalia)</td>
+                        <td>Desperta à noite/acorda com vômitos em jato, piora em decúbito, papiledema, alteração neurológica</td>
+                        <td>Neuroimagem (TC/RM)</td>
+                        <td>Encaminhamento neurocirúrgico urgente</td>
+                    </tr>
+                    <tr>
+                        <td>Hemorragia subaracnóidea</td>
+                        <td>Início súbito ("pior dor da vida"), rigidez de nuca, vômitos, alteração de consciência</td>
+                        <td>TC de crânio; punção lombar se TC normal</td>
+                        <td>Neurocirurgia/neurorradiologia urgente</td>
+                    </tr>
+                    <tr>
+                        <td>Meningite/encefalite</td>
+                        <td>Febre, rigidez de nuca, alteração de consciência, petéquias</td>
+                        <td>Punção lombar, hemocultura, neuroimagem</td>
+                        <td>Antibiótico/antiviral precoce</td>
+                    </tr>
+                    <tr>
+                        <td>Cefaleia por hipotensão liquórica</td>
+                        <td>Piora ao sentar/ficar em pé, melhora ao deitar, história de punção lombar</td>
+                        <td>Clínico; RM se necessário</td>
+                        <td>Repouso, hidratação, cafeína, blood patch</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a cefaleia primária mais comum:</strong> tensional ou migrânea.</li>
+                <li><strong>Se pedisse o red flag clássico de HIC:</strong> cefaleia que desperta com vômitos em jato.</li>
+                <li><strong>Se pedisse a conduta diante de red flag:</strong> neuroimagem imediata.</li>
+                <li><strong>Se pedisse o diferencial de cefaleia súbita intensa:</strong> hemorragia subaracnóidea.</li>
+                <li><strong>Se pedisse o diferencial de cefaleia que piora ao deitar:</strong> hipotensão liquórica (melhora ao deitar) versus HIC (piora ao deitar).</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2011 - Q57</td>
+                        <td>Qual alternativa NÃO é indicativa de causa de cefaleia secundária (enxaqueca, HSA, tumor, distúrbio vascular, infecção)</td>
+                        <td>Classificação de cefaleia primária versus secundária</td>
+                        <td>A (Enxaqueca)</td>
+                        <td>Confirma que enxaqueca é primária, não red flag</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q39</td>
+                        <td>Enxaqueca: pródromos, aura, estado enxaquecoso</td>
+                        <td>Características da enxaqueca</td>
+                        <td>B (pródromos 24-48h antes)</td>
+                        <td>Complementa o reconhecimento de cefaleia primária</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q20</td>
+                        <td>Mulher 24 anos com cefaleia hemicraniana, escotomas, vômitos, fotofobia</td>
+                        <td>Enxaqueca com aura; uso de triptanos após aura</td>
+                        <td>A</td>
+                        <td>Reforça padrão de cefaleia primária migrânea</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q72</td>
+                        <td>Classificação de cefaleias em primárias e secundárias; assertiva errada</td>
+                        <td>Enxaqueca é primária, não secundária</td>
+                        <td>A</td>
+                        <td>Reforça a distinção primária/secundária</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q73</td>
+                        <td>Estrutura que NÃO gera dor na cabeça</td>
+                        <td>Parênquima cerebral não é sensível à dor</td>
+                        <td>D</td>
+                        <td>Fundamenta a fisiopatologia da cefaleia</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q74</td>
+                        <td>Qual NÃO é sinal de alerta em cefaleia na emergência</td>
+                        <td>Cefaleia de longa data com crises mensais não é red flag</td>
+                        <td>E</td>
+                        <td>Confirma que cronicidade estável não indica neuroimagem</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q75</td>
+                        <td>Cefaleias secundárias: tumor, HSA, artrite temporal, meningite</td>
+                        <td>HSA como sinal de alerta</td>
+                        <td>B</td>
+                        <td>Reforça red flags de cefaleia secundária</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q68</td>
+                        <td>Cefaleia occipitofrontal que melhora ao deitar e piora ao sentar</td>
+                        <td>Cefaleia por baixo volume de LCR</td>
+                        <td>E</td>
+                        <td>Diferencial de cefaleia posicional</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q51</td>
+                        <td>Cefaleia contínua progressiva, nucalgia, alteração de memória e mímica facial, líquor com pleiocitose mononuclear</td>
+                        <td>Neuroborreliose (doença de Lyme)</td>
+                        <td>A</td>
+                        <td>Exemplo de cefaleia secundária com red flags</td>
+                    </tr>
+                    <tr>
+                        <td>2012 - Q61</td>
+                        <td>Cefaleia há 10 dias, líquor com proteínas 50, 10% eosinófilos, glicose normal</td>
+                        <td>Meningite parasitária</td>
+                        <td>D</td>
+                        <td>Cefaleia secundária por infecção do SNC</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em mais de 8 questões no período. A banca alterna entre classificação primária/secundária, características da enxaqueca, identificação de red flags e diferenciais de cefaleia secundária (HSA, meningite, hipotensão liquórica, neuroborreliose).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> red flags específicos da faixa pediátrica (idade &lt; 3 anos, cefaleia occipital, papiledema) e o papel da fundoscopia na triagem.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam na classificação; as mais recentes cobram identificação de sinais de alerta e decisão de neuroimagem, com abordagem mais aplicada.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a lista de red flags de cefaleia, a tríade de HIC e o diferencial de cefaleia posicional.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Cefaleia + febre + rigidez de nuca → meningite/encefalite; exige punção lombar e antibiótico/antiviral precoce.</li>
+                <li><strong>Conexão 2:</strong> Cefaleia + papiledema → hipertensão intracraniana; exige neuroimagem e avaliação neurocirúrgica.</li>
+                <li><strong>Conexão 3:</strong> Cefaleia que piora ao deitar versus melhora ao deitar → HIC versus hipotensão liquórica.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é confundir cefaleias primárias graves (enxaqueca intensa) com red flags, ou não reconhecer o padrão de despertar noturno com vômitos em jato como sinal de hipertensão intracraniana. Classificação provável do erro: lacuna de conhecimento sobre os sinais de alerta. Ação corretiva: memorizar a lista de red flags, especialmente "cefaleia que acorda com vômitos em jato = HIC".</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o pediatra deve sempre fazer exame neurológico completo e fundoscopia na criança com cefaleia. A presença de qualquer red flag justifica neuroimagem e encaminhamento especializado. Cefaleias primárias devem ser tratadas com analgesia adequada, medidas de higiene do sono e, quando indicado, profilaxia, com reavaliação periódica.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Red flags de cefaleia na infância</li>
+                <li>Tríade de hipertensão intracraniana</li>
+                <li>Enxaqueca versus cefaleia tensional</li>
+                <li>Hemorragia subaracnóidea</li>
+                <li>Meningite/encefalite</li>
+                <li>Cefaleia por hipotensão liquórica</li>
+                <li>Papiledema e fundoscopia</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria. Diretrizes para o manejo da cefaleia na infância e adolescência.</p>
+            <p>2. Headache Classification Committee of the International Headache Society (ICHD-3).</p>
+            <p>3. Nelson Textbook of Pediatrics, 21ª edição.</p>
+            <p>4. UpToDate. Headache in children: Approach to evaluation and general management strategies. 2024.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

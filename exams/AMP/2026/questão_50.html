@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 50 - Profilaxia Primária de Infecções Oportunistas em HIV: Indicações conforme Contagem de CD4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Profilaxia Primária de Infecções Oportunistas em HIV: Indicações conforme Contagem de CD4</div>
+        <h1>Questão 50</h1>
+        <div class="question-text">
+            <p>Homem de 38 anos, recém-diagnosticado com infecção pelo HIV, sem manifestações de infecção oportunista. A contagem de linfócitos T CD4+ é de 164 células/μL, e a sorologia para Toxoplasma gondii (IgG) é positiva. Não há história de doenças oportunistas prévias. A equipe decide iniciar terapia antirretroviral (TARV) e acompanha periodicamente a contagem de CD4. Durante o seguimento, a contagem de CD4 cai para 92 células/μL e, posteriormente, para 42 células/μL.</p>
+            <p>Considerando as recomendações para profilaxia primária das infecções oportunistas, qual das seguintes sequências de conduta é a mais adequada?</p>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Com CD4 de 164 células/μL, iniciar profilaxia para P. jirovecii e toxoplasmose; após queda para 92 células/μL, manter apenas a profilaxia para P. jirovecii; com CD4 de 42 células/μL, acrescentar profilaxia para MAC independentemente do início da TARV.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Com CD4 de 164 células/μL, iniciar profilaxia para P. jirovecii; com CD4 de 92 células/μL e IgG positiva para toxoplasmose, manter SMX-TMP; quando o CD4 atingir 42 células/μL, substituir o SMX-TMP por azitromicina para priorizar a profilaxia contra MAC.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Com CD4 de 164 células/μL, iniciar profilaxia para P. jirovecii; ao atingir 92 células/μL e apresentar IgG positiva para toxoplasmose, acrescentar profilaxia específica para toxoplasmose; com CD4 de 42 células/μL, iniciar profilaxia para MAC mesmo que a TARV tenha sido iniciada imediatamente.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Com CD4 de 164 células/μL, iniciar profilaxia para P. jirovecii; ao atingir 92 células/μL, iniciar profilaxia para toxoplasmose somente se houver história prévia de encefalite toxoplásmica; com CD4 de 42 células/μL, iniciar profilaxia para MAC.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Com CD4 de 164 células/μL, iniciar profilaxia para P. jirovecii; ao atingir 92 células/μL, iniciar também profilaxia para toxoplasmose devido à IgG positiva; mesmo quando a contagem chegar a 42 células/μL, a profilaxia primária para MAC não estará indicada no caso acima.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Infectologia / Clínica Médica / Medicina de Família e Comunidade.</p>
+                <p><strong>Tema:</strong> Profilaxia primária de infecções oportunistas em pacientes vivendo com HIV/AIDS; indicações conforme contagem de CD4; manejo da TARV.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, especialmente em infectologia e clínica médica. A banca costuma cobrar as indicações de profilaxia para Pneumocystis jirovecii, Toxoplasma gondii e Mycobacterium avium complex (MAC), além da interpretação da queda de CD4 em pacientes em TARV. É fundamental conhecer os pontos de corte e as situações em que a profilaxia pode ser omitida ou suspensa.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A infecção pelo HIV leva à depleção progressiva de linfócitos T CD4+, com comprometimento da imunidade celular e maior risco de infecções oportunistas. A profilaxia primária visa prevenir a primeira ocorrência dessas infecções em pacientes com imunossupressão avançada. As principais indicações são: profilaxia para Pneumocystis jirovecii quando CD4 < 200 células/μL; profilaxia para Toxoplasma gondii quando CD4 < 100 células/μL e IgG positivo; e profilaxia para MAC quando CD4 < 50 células/μL. No entanto, com o advento da TARV, algumas recomendações foram flexibilizadas: a profilaxia para MAC pode ser omitida em pacientes que iniciam TARV imediatamente, pois o risco é baixo e a recuperação imunológica é rápida. Se houver falha terapêutica (queda de CD4), a profilaxia para MAC deve ser considerada.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa E está correta. O paciente inicia com CD4 de 164 células/μL, o que indica profilaxia para P. jirovecii (CD4 < 200). Ao atingir CD4 de 92 células/μL e com IgG positiva para toxoplasmose, deve-se iniciar profilaxia para toxoplasmose (CD4 < 100 + IgG positivo). Quando o CD4 cai para 42 células/μL, a profilaxia para MAC classicamente estaria indicada (CD4 < 50), porém, segundo as diretrizes brasileiras, a profilaxia primária para MAC não é recomendada para pacientes que iniciaram TARV imediatamente, mesmo com CD4 < 50, desde que não haja infecção oportunista prévia. Portanto, a alternativa E está correta ao afirmar que a profilaxia para MAC não estará indicada no caso acima.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Iniciar profilaxia para toxoplasmose com CD4 de 164 células/μL está errado, pois a indicação é CD4 < 100. Além disso, a profilaxia para MAC não deve ser acrescentada independentemente do início da TARV, pois a TARV imediata modifica a indicação.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Substituir SMX-TMP por azitromicina para priorizar MAC não é adequado, pois o SMX-TMP é necessário para P. jirovecii e toxoplasmose. Além disso, a profilaxia para MAC não está indicada no contexto de TARV imediata.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. Acrescentar profilaxia para toxoplasmose ao atingir 92 células/μL está correto, mas iniciar profilaxia para MAC com CD4 de 42 células/μL não é indicado no contexto de TARV imediata, segundo as diretrizes.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Iniciar profilaxia para toxoplasmose somente se houver história prévia de encefalite toxoplásmica está errado; a indicação é CD4 < 100 + IgG positivo, independentemente de história prévia. Além disso, a profilaxia para MAC não está indicada.</p>
+                <p><strong>Alternativa E</strong> - Correta, conforme justificado acima.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“CD4 de 164 células/μL”:</strong> indica profilaxia para P. jirovecii (CD4 < 200).</li>
+                    <li><strong>“IgG positiva para Toxoplasma gondii”:</strong> associada a CD4 < 100, indica profilaxia para toxoplasmose.</li>
+                    <li><strong>“TARV iniciada imediatamente”:</strong> modifica a indicação de profilaxia para MAC.</li>
+                    <li><strong>“CD4 cai para 92 e depois 42”:</strong> sugere falha terapêutica, mas a diretriz ainda não indica MAC se TARV foi iniciada imediatamente.</li>
+                    <li><strong>“Sem manifestações de infecção oportunista”:</strong> profilaxia primária, não secundária.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar contagem de CD4 e sorologias (toxoplasmose, CMV, hepatites, sífilis).</li>
+                    <li><strong>Segundo:</strong> indicar profilaxia para P. jirovecii se CD4 < 200.</li>
+                    <li><strong>Terceiro:</strong> indicar profilaxia para toxoplasmose se CD4 < 100 e IgG positivo.</li>
+                    <li><strong>Quarto:</strong> avaliar indicação de profilaxia para MAC se CD4 < 50, considerando o início imediato de TARV.</li>
+                    <li><strong>Quinto:</strong> monitorar resposta à TARV e ajustar profilaxias conforme recuperação imunológica.</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em HIV.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> P. jirovecii: CD4 < 200; Toxoplasmose: CD4 < 100 + IgG positivo; MAC: CD4 < 50, mas pode ser omitido se TARV imediata.</li>
+                    <li><strong>Números e doses:</strong> SMX-TMP 800/160 mg diário para P. jirovecii e toxoplasmose; azitromicina 1200 mg semanal para MAC.</li>
+                    <li><strong>Mnemônicos:</strong> "200-100-50" para P. jirovecii, toxoplasmose e MAC, respectivamente.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em questões sobre neurotoxoplasmose (2007 - Q16; 2018 - Q13) e profilaxia de tuberculose (2006 - Q12).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Profilaxia para P. jirovecii</td>
+                            <td>CD4 < 200</td>
+                            <td>Contagem de CD4</td>
+                            <td>SMX-TMP 800/160 mg/dia</td>
+                        </tr>
+                        <tr>
+                            <td>Profilaxia para Toxoplasma</td>
+                            <td>CD4 < 100 e IgG positivo</td>
+                            <td>Sorologia IgG</td>
+                            <td>SMX-TMP 800/160 mg/dia</td>
+                        </tr>
+                        <tr>
+                            <td>Profilaxia para MAC</td>
+                            <td>CD4 < 50, mas pode ser omitida se TARV imediata</td>
+                            <td>Contagem de CD4</td>
+                            <td>Azitromicina 1200 mg/semana</td>
+                        </tr>
+                        <tr>
+                            <td>Profilaxia para tuberculose</td>
+                            <td>PPD ≥ 5 mm ou contato com bacilífero</td>
+                            <td>PPD, IGRA, raio-X de tórax</td>
+                            <td>Isoniazida 300 mg/dia por 6-9 meses</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre as profilaxias.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre tratamento de neurotoxoplasmose:</strong> a resposta seria sulfadiazina + pirimetamina + ácido folínico.</li>
+                    <li><strong>Se fosse sobre profilaxia de tuberculose:</strong> a resposta seria isoniazida por 6-9 meses.</li>
+                    <li><strong>Se fosse sobre vacinação em HIV:</strong> a resposta envolveria vacinas inativadas e contraindicação de vacinas vivas em CD4 baixo.</li>
+                    <li><strong>Se fosse sobre falha de TARV:</strong> a resposta envolveria genotipagem e troca de esquema.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 - Q16</td>
+                            <td>Paciente HIV+ com CD4 60, cefaleia, lesões cerebrais em anel. Qual o diagnóstico e tratamento?</td>
+                            <td>Neurotoxoplasmose; tratamento com sulfadiazina, pirimetamina e ácido folínico.</td>
+                            <td>D</td>
+                            <td>Reforça a importância da toxoplasmose em pacientes com CD4 baixo.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 - Q13</td>
+                            <td>Paciente com AIDS, lesão única em anel, CD4 baixo. Conduta?</td>
+                            <td>Diagnóstico diferencial entre toxoplasmose e linfoma; biópsia.</td>
+                            <td>C</td>
+                            <td>Mostra a complexidade do diagnóstico de lesões cerebrais em HIV.</td>
+                        </tr>
+                        <tr>
+                            <td>2006 - Q12</td>
+                            <td>Orientações sobre quimioprofilaxia de tuberculose em comunicantes e HIV+.</td>
+                            <td>Profilaxia com isoniazida.</td>
+                            <td>D</td>
+                            <td>Exemplo de profilaxia primária em HIV, com critérios específicos.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 - Q65</td>
+                            <td>Paciente com HIV, CD4 80, perda ponderal e disfagia. Qual a conduta?</td>
+                            <td>Candidíase esofágica; endoscopia e profilaxia.</td>
+                            <td>E</td>
+                            <td>Reforça a importância da profilaxia e do manejo de infecções oportunistas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 4 questões ao longo de 2006-2026, com foco em diagnóstico e tratamento de infecções oportunistas (toxoplasmose, candidíase, tuberculose) e profilaxia.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Profilaxia primária para MAC e a nuance da TARV imediata modificando a indicação. Esse tema pode surgir em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> Em provas mais antigas, o foco era o tratamento de infecções oportunistas. Em provas recentes, a banca passou a cobrar profilaxia e manejo da TARV, incluindo situações especiais como início imediato de TARV.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os pontos de corte de CD4 para cada profilaxia, as situações em que a profilaxia pode ser omitida (TARV imediata) e as recomendações atualizadas. Decorar o "200-100-50" e a regra do MAC.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> HIV → imunossupressão → infecções oportunistas. A profilaxia primária é fundamental para reduzir morbimortalidade.</li>
+                    <li><strong>Conexão 2:</strong> TARV → recuperação imunológica → suspensão de profilaxias. O monitoramento de CD4 guia a duração das profilaxias.</li>
+                    <li><strong>Conexão 3:</strong> Neurotoxoplasmose → lesões em anel → diagnóstico diferencial com linfoma. A profilaxia previne a reativação.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é indicar profilaxia para MAC com CD4 < 50, ignorando a regra de que a TARV imediata modifica essa indicação. Trata-se de erro de conhecimento. A correção consiste em: (1) memorizar os pontos de corte; (2) conhecer as exceções (TARV imediata); (3) revisar as diretrizes atualizadas. Para não errar novamente, praticar questões que envolvam situações especiais de profilaxia.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, o médico deve iniciar TARV precocemente e indicar profilaxias conforme CD4. A comunicação com o paciente sobre a importância da adesão é fundamental. A monitorização periódica de CD4 e carga viral permite ajustar as profilaxias. Em casos de falha terapêutica, a investigação e a troca de esquema são necessárias.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Pontos de corte de CD4 para profilaxia (P. jirovecii, toxoplasmose, MAC).</li>
+                    <li>Esquemas de profilaxia e doses.</li>
+                    <li>Manejo da TARV e falha terapêutica.</li>
+                    <li>Diagnóstico e tratamento de infecções oportunistas.</li>
+                    <li>Vacinação em pacientes com HIV.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Protocolo Clínico e Diretrizes Terapêuticas para Manejo da Infecção pelo HIV em Adultos - Ministério da Saúde (Brasil).</p>
+                <p>2. Guidelines for the Prevention and Treatment of Opportunistic Infections in Adults and Adolescents with HIV - CDC/NIH/HIVMA.</p>
+                <p>3. Harrison - Medicina Interna (capítulo de HIV/AIDS).</p>
+                <p>4. UpToDate: Primary prevention of opportunistic infections in HIV-infected patients.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedOption = null;
+        const correctAnswer = 'E';
+        const isInIframe = window.parent !== window;
+
+        function notifyParent(type, payload, silent) {
+            if (silent || !isInIframe) return;
+            try {
+                window.parent.postMessage({ type, payload }, '*');
+            } catch (e) { }
+        }
+
+        function selectOption(option, silent = false) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            const input = document.querySelector(`.option input[value="${option}"]`);
+            if (!input) return;
+            const wrapper = input.parentElement;
+            wrapper.classList.add('selected');
+            input.checked = true;
+            selectedOption = option;
+            notifyParent('OPTION_SELECTED', { selected: option }, silent);
+        }
+
+        function checkAnswer(silent = false) {
+            if (!selectedOption) {
+                if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+                return;
+            }
+            const submitBtn = document.getElementById('submitBtn');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+            document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.style.display = 'block';
+
+            if (selectedOption === correctAnswer) {
+                submitBtn.textContent = 'Resposta Correta!';
+                submitBtn.classList.add('correct');
+            } else {
+                submitBtn.textContent = 'Confirmar Resposta';
+                submitBtn.classList.remove('correct');
+            }
+            viewCorrectionBtn.style.display = 'inline-block';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+            notifyParent('QUESTION_ANSWERED',
+                { selected: selectedOption, correct: correctAnswer }, silent);
+
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showCorrection() {
+            const correctionContent = document.getElementById('correctionContent');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+                correctionContent.style.display = 'block';
+                viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+            } else {
+                correctionContent.style.display = 'none';
+                viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+            }
+        }
+
+        function resetQuiz() {
+            selectedOption = null;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+            document.getElementById('viewCorrectionBtn').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('message', (event) => {
+            if (!isInIframe) return;
+            if (event.source !== window.parent) return;
+            if (event.data?.type !== 'RESTORE_STATE') return;
+
+            const { selected, correct } = event.data.payload || {};
+            if (selected) {
+                selectOption(selected, true);
+                if (correct) {
+                    checkAnswer(true);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

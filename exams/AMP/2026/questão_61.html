@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 61 - Trauma Vascular: Artéria Poplítea e Luxação de Joelho</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Trauma Vascular: Artéria Poplítea e Luxação de Joelho</div>
+        <h1>Questão 61</h1>
+        <div class="question-text">
+            O trauma vascular é a destruição dos vasos sanguíneos que nutrem importantes áreas do organismo. Esta perda de integridade interrompe abruptamente o suprimento de oxigênio para os tecidos, carreado pelo sangue, levando à morte dos mesmos.<br><br>
+            Com relação aos traumatismos vasculares, assinale a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Com o avanço da tecnologia das próteses atualmente, os enxertos com veia safena estão sendo usados raramente e preservados para futuras revascularizações do miocárdio se necessário.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - As lesões da artéria radial são responsáveis por 20 a 30% das lesões arteriais periféricas, transformando esse vaso na artéria mais frequentemente lesada do corpo.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - As fasciotomias são realizadas sempre após as revascularizações, mesmo se no pré-operatório já houver sinais de isquemia de membro.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - O maior índice de amputações de perna é quando é lesionada a artéria femoral profunda em sua bifurcação.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - A artéria poplítea está em risco elevado de lesão após luxação de joelho.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia Vascular / Ortopedia / Trauma.</p>
+            <p><strong>Tema:</strong> Trauma vascular - artéria poplítea e sua relação com a luxação de joelho; princípios de revascularização, fasciotomia e complicações (isquemia, síndrome compartimental, amputação).</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A banca cobra o reconhecimento das lesões vasculares por mecanismo de trauma, o risco anatômico de cada vaso e as condutas de controle de dano. A artéria poplítea é um dos vasos mais vulneráveis em trauma ortopédico, sendo a luxação de joelho um mecanismo clássico de lesão. Tema correlato já cobrado em questões de fasciotomia, síndrome de reperfusão e controle de hemorragia.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A artéria poplítea é uma artéria de transição, passando pela fossa poplítea, muito próxima à cápsula articular do joelho e à região posterior do platô tibial. Por essa relação anatômica, a luxação de joelho (geralmente por trauma de alta energia, como colisões de moto e auto, quedas de altura e atropelamentos) é um mecanismo clássico de lesão da artéria poplítea, com incidência estimada de 5 a 15% das luxações. A lesão pode ocorrer por avulsão da íntima, trombose, ruptura ou lesão por tração, podendo evoluir para isquemia aguda, síndrome compartimental, rabdomiólise e amputação se não diagnosticada precocemente. O exame vascular e a angiotomografia estão indicados na suspeita clínica.</p>
+            <p>Em relação aos outros vasos, a artéria femoral superficial e a artéria poplítea são as mais frequentemente acometidas em trauma de membros inferiores, e a lesão da poplítea é associada às maiores taxas de amputação. A revascularização deve ser realizada preferencialmente com veia safena autóloga (enxerto interposto), que continua sendo o conduto de eleição, e não é "rara" como afirma o distrator. A fasciotomia deve ser realizada de forma precoce, quando há sinais de síndrome compartimental, e não apenas após a revascularização - em casos de isquemia prolongada, a fasciotomia profilática está indicada no mesmo tempo cirúrgico.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa E está correta. A luxação de joelho é um mecanismo clássico de trauma de alta energia, com risco elevado de lesão da artéria poplítea (5-15% dos casos), por sua proximidade anatômica com a cápsula articular e o compartimento posterior. A ausência de pulsos distais, hematoma expansivo, palidez e isquemia devem levantar a suspeita. A angiotomografia é o exame de escolha para diagnóstico e planejamento cirúrgico. O reconhecimento precoce é essencial para reduzir a taxa de amputação, que é uma das maiores entre as lesões arteriais periféricas.</p>
+            <p>Na prova de 2025 (Q58), a banca já havia cobrado o manejo de trauma vascular com torniquete em ferimento por arma de fogo na coxa; na de 2013 (Q43), a fasciotomia na síndrome compartimental; na de 2021 (Q43), a síndrome de reperfusão; na de 2015 (Q61), o controle de potássio em crush. A questão atual integra anatomia e mecanismo de trauma.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta: os enxertos com veia safena continuam sendo o conduto de escolha no trauma vascular quando a reparação primária não é possível. Não são “raramente usados” e não são reservados apenas para futuras revascularizações do miocárdio (as artérias mamárias internas e radiais são preferidas para CABG). A afirmação distorce a prática cirúrgica.</p>
+            <p><strong>Alternativa B</strong> - Incorreta: a artéria mais frequentemente lesada em trauma periférico é a femoral superficial (em membros inferiores) ou a braquial (em membros superiores). A artéria radial não é a mais lesada; lesões são mais frequentes em braço e coxa. Os dados apresentados (20-30%) não se aplicam.</p>
+            <p><strong>Alternativa C</strong> - Incorreta: a fasciotomia não deve ser “sempre após” a revascularização. Em casos com sinais de síndrome compartimental ou isquemia prolongada, a fasciotomia deve ser realizada no mesmo tempo cirúrgico (profilática), e não postergada. Postergar aumenta o risco de necrose e amputação.</p>
+            <p><strong>Alternativa D</strong> - Incorreta: a lesão da artéria poplítea é a que apresenta maior taxa de amputação em trauma de membro inferior, não a femoral profunda. A bifurcação femoral não é o sítio de maior risco de amputação.</p>
+            <p><strong>Alternativa E</strong> - Correta: a artéria poplítea está em risco elevado de lesão após luxação de joelho.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Traumatismo vascular:</strong> interrupção abrupta do fluxo, isquemia tecidual, risco de perda do membro.</li>
+                <li><strong>Luxação de joelho:</strong> mecanismo de trauma de alta energia com risco de lesão da artéria poplítea.</li>
+                <li><strong>Artéria poplítea:</strong> relação anatômica com a cápsula articular; maior taxa de amputação.</li>
+                <li><strong>Fasciotomia:</strong> deve ser precoce, não apenas após revascularização.</li>
+                <li><strong>Enxerto de veia safena:</strong> conduto de escolha na reconstrução vascular.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar o mecanismo de trauma e o vaso em risco. Luxação de joelho → artéria poplítea.</li>
+                <li><strong>Segundo:</strong> avaliar sinais de isquemia (pulsos, perfusão, dor desproporcional) e suspeitar de lesão vascular.</li>
+                <li><strong>Terceiro:</strong> solicitar angiotomografia para diagnóstico e planejamento.</li>
+                <li><strong>Quarto:</strong> revascularizar com veia safena quando necessário e realizar fasciotomia precoce se síndrome compartimental.</li>
+                <li><strong>Quinto:</strong> reconhecer que a poplítea é a artéria de maior risco de amputação em trauma de membro inferior.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de trauma vascular e conduta inicial.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Luxação de joelho → risco de lesão da artéria poplítea (5-15%); maior taxa de amputação entre as lesões arteriais periféricas.</li>
+                <li><strong>Números e doses:</strong> 5-15% de lesão vascular em luxação de joelho; amputação em 10-20% dos casos de lesão poplítea; fasciotomia precoce em isquemia &gt; 4-6 horas.</li>
+                <li><strong>Mnemônicos:</strong> “POPlítea = POP de joelho luxado”; “Safena é ouro no trauma vascular”; “Fasciotomia não espera a revascularização”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2013 (Q43) e 2021 (Q43), sobre fasciotomia e síndrome de reperfusão, e na 2025 (Q58), sobre controle de hemorragia com torniquete.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lesão de artéria poplítea (correta)</td>
+                        <td>Luxação de joelho, isquemia distal, pulsos ausentes, dor desproporcional</td>
+                        <td>Angiotomografia, índice tornozelo-braquial, Doppler</td>
+                        <td>Revascularização com veia safena; fasciotomia precoce</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão de artéria femoral superficial</td>
+                        <td>Trauma de coxa, isquemia distal, hematoma</td>
+                        <td>Angiotomografia, Doppler</td>
+                        <td>Revascularização; fasciotomia conforme necessidade</td>
+                    </tr>
+                    <tr>
+                        <td>Síndrome compartimental</td>
+                        <td>Dor desproporcional, parestesia, palidez, dor à mobilização passiva</td>
+                        <td>Pressão compartimental &gt; 30 mmHg</td>
+                        <td>Fasciotomia de urgência</td>
+                    </tr>
+                    <tr>
+                        <td>Lesão de artéria braquial</td>
+                        <td>Trauma de braço, isquemia de antebraço</td>
+                        <td>Angiotomografia, Doppler</td>
+                        <td>Revascularização; fasciotomia conforme necessidade</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial dos traumas vasculares.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre fasciotomia:</strong> indicar quando há sinais de síndrome compartimental, precocemente, e não apenas após revascularização.</li>
+                <li><strong>Se fosse sobre síndrome de reperfusão:</strong> hipercalemia, mioglobinúria, acidose e risco de insuficiência renal.</li>
+                <li><strong>Se fosse sobre controle de hemorragia:</strong> torniquete, compressão, reanimação com controle de danos.</li>
+                <li><strong>Se fosse sobre vasos mais lesados:</strong> femoral superficial e braquial; poplítea é a de maior taxa de amputação.</li>
+                <li><strong>Se fosse sobre enxertos:</strong> veia safena autóloga é o conduto de escolha.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram trauma vascular e temas correlatos:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2013 - Q43</td>
+                        <td>Síndrome compartimental e fasciotomia: quantas incisões para descomprimir os compartimentos da perna</td>
+                        <td>Fasciotomia e síndrome compartimental</td>
+                        <td>B (Apenas 2 incisões para 4 compartimentos)</td>
+                        <td>Relaciona-se à assertiva C (fasciotomia) e ao manejo do trauma vascular.</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q61</td>
+                        <td>Paciente preso em desabamento com lesão vascular e rabdomiólise; conduta para minimizar eventos cardíacos</td>
+                        <td>Crush, hipercalemia e síndrome de reperfusão</td>
+                        <td>D (Gluconato de cálcio)</td>
+                        <td>Complementa o entendimento das complicações do trauma vascular.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q43</td>
+                        <td>Síndrome de reperfusão após revascularização músculo-esquelética; qual item NÃO faz parte</td>
+                        <td>Reperfusão e complicações sistêmicas</td>
+                        <td>A (Alcalose metabólica)</td>
+                        <td>Complementa as complicações da revascularização do membro isquêmico.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q58</td>
+                        <td>Ferimento por arma de fogo em coxa com sangramento; manejo do torniquete e reanimação</td>
+                        <td>Controle de hemorragia e reanimação de controle de danos</td>
+                        <td>A (centro cirúrgico + protocolo de reanimação maciça)</td>
+                        <td>Contextualiza o manejo do trauma vascular periférico.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q94</td>
+                        <td>Hematoma retroperitoneal zona II mais associado a qual trauma</td>
+                        <td>Trauma renal</td>
+                        <td>A (Trauma renal)</td>
+                        <td>Complementa a avaliação do trauma abdominal com componente vascular.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q43</td>
+                        <td>Diagnóstico da doença arterial periférica; exames de imagem</td>
+                        <td>Diagnóstico vascular não traumático</td>
+                        <td>E (Ecodoppler como padrão-ouro)</td>
+                        <td>Complementa o conhecimento sobre avaliação vascular.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O trauma vascular e temas correlatos apareceram em pelo menos 6 provas anteriores. A banca alterna entre fasciotomia (2013 Q43), síndrome de reperfusão (2015 Q61, 2021 Q43), controle de hemorragia (2025 Q58) e diagnóstico vascular (2019 Q43). A questão atual é a primeira a cobrar especificamente a relação entre luxação de joelho e artéria poplítea.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> A relação anatômica entre a artéria poplítea e a luxação de joelho, bem como a maior taxa de amputação associada a essa lesão, não haviam sido cobradas diretamente. São as novidades desta questão.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões anteriores focavam no manejo (fasciotomia, reperfusão, torniquete); a atual exige conhecimento anatômico e de mecanismo de trauma para reconhecer o vaso em risco.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar anatomia vascular dos membros, mecanismos de trauma (luxação de joelho, fratura de fêmur, ferimentos penetrantes), sinais de isquemia aguda, indicações de fasciotomia e manejo do torniquete.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Trauma vascular → síndrome compartimental → fasciotomia de urgência.</li>
+                <li><strong>Conexão 2:</strong> Isquemia prolongada → síndrome de reperfusão → hipercalemia, acidose, mioglobinúria e insuficiência renal.</li>
+                <li><strong>Conexão 3:</strong> Trauma de alta energia → politrauma → reanimação de controle de danos e controle de hemorragia.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é marcar a assertiva C (fasciotomia sempre após revascularização) ou a D (maior amputação com lesão femoral profunda). Trata-se de lacuna de conhecimento sobre anatomia vascular e manejo do trauma. A ação corretiva é memorizar: poplítea é a artéria de maior risco de amputação em trauma de membro inferior; fasciotomia deve ser precoce; veia safena é o conduto de escolha; a artéria mais frequentemente lesada é a femoral superficial (membro inferior) ou braquial (membro superior).</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, diante de luxação de joelho ou trauma de alta energia no membro inferior, é obrigatório avaliar pulsos, perfusão, sensibilidade e motricidade. A presença de isquemia ou déficit de perfusão indica angiotomografia e revascularização precoce. A fasciotomia profilática deve ser considerada em isquemia prolongada, e o controle de danos (torniquete, reanimação maciça, hipotermia) é essencial para reduzir mortalidade e amputação.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Anatomia vascular dos membros inferiores</li>
+                <li>Mecanismos de trauma e vasos em risco</li>
+                <li>Sinais de isquemia aguda de membro</li>
+                <li>Indicações e técnica de fasciotomia</li>
+                <li>Síndrome de reperfusão e rabdomiólise</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. ATLS - Advanced Trauma Life Support, 10ª edição.</p>
+            <p>2. Sabiston, Tratado de Cirurgia, 21ª edição - Trauma vascular.</p>
+            <p>3. UpToDate: Vascular trauma of the extremities; Knee dislocation and vascular injury.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

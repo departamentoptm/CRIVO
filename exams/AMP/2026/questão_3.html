@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 3 - Pediatria: Asma na Infância - Crise Aguda e Índice Preditivo de Asma (IPA)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Asma na Infância - Crise Aguda e Índice Preditivo de Asma (IPA)</div>
+        <h1>Questão 3</h1>
+        <div class="question-text">
+            Um menino de 3 anos é levado ao pronto-atendimento com história de tosse seca e cansaço iniciados há 24 horas após um quadro de coriza. A mãe relata que ele já apresentou episódios semelhantes três vezes no último ano, sempre associados a resfriados, e que o pai tem rinite alérgica severa. Ao exame físico regular estado geral, taquipneico (FR 42 irpm), com tempo expiratório prolongado e sibilância difusa à ausculta pulmonar. Saturação de O2 em 94% em ar ambiente. Não há sinais de tiragem subcostal ou batimento de asa de nariz. Considerando o quadro clínico e os critérios para o Índice Preditivo de Asma (IPA), qual a conduta imediata e a orientação de longo prazo mais adequadas?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Iniciar nebulização com adrenalina e prescrever brometo de ipratrópio isolado, mantendo a criança em observação por 12 horas.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Solicitar espirometria imediata para confirmar o diagnóstico de asma brônquica antes de iniciar qualquer tratamento inalatório.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Realizar radiografia de tórax para descartar pneumonia e prescrever antibioticoterapia profilática, dado o histórico de recorrência.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Prescrever apenas corticoide oral por 5 dias para tratar a inflamação aguda e orientar retorno se houver febre, sem necessidade de medicação de controle no momento.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Iniciar beta-2 agonista de curta duração por via inalatória para a crise atual e considerar o diagnóstico de asma, iniciando corticoide inalatório diário (dose baixa) como manutenção devido ao IPA positivo.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria - Pneumologia Pediátrica / Alergia.</p>
+            <p><strong>Tema:</strong> Asma na infância - crise aguda em pré-escolar, sibilância recorrente e Índice Preditivo de Asma (IPA).</p>
+            <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência. A banca cobra o reconhecimento da crise de asma, a classificação de gravidade, a conduta imediata (beta-2 agonista de curta ação) e a introdução de terapia de manutenção com corticoide inalatório em crianças com sibilância recorrente e risco de asma (IPA positivo). Integra-se com bronquiolite viral aguda, sibilância recorrente, diagnóstico diferencial de pneumonia e uso racional de antibióticos.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A asma é uma doença inflamatória crônica das vias aéreas, com hiperresponsividade brônquica e obstrução variável ao fluxo aéreo. Em pré-escolares, o diagnóstico é clínico, baseado em episódios recorrentes de sibilância, tosse e dispneia, frequentemente desencadeados por infecções virais. O Índice Preditivo de Asma (IPA) ajuda a identificar crianças com alto risco de asma persistente: critérios maiores (asma em um dos pais, eczema) e menores (rinite alérgica, sibilância não relacionada a resfriados, eosinofilia ≥4%). IPA positivo = ≥3 episódios de sibilância em 1 ano + 1 critério maior ou 2 menores. No caso, há 3 episódios no último ano e histórico familiar de atopia (pai com rinite alérgica severa), o que a banca considerou como IPA positivo. A crise aguda é tratada com beta-2 agonista de curta ação inalatório (salbutamol), que promove broncodilatação rápida. O corticoide inalatório diário é a base do tratamento de manutenção para controle da inflamação crônica e redução de exacerbações.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa E - correta.</strong> A conduta imediata na crise é beta-2 agonista de curta duração por via inalatória (ex.: salbutamol), que alivia rapidamente o broncoespasmo. Para o longo prazo, o IPA positivo indica risco elevado de asma persistente, justificando a introdução de corticoide inalatório diário em dose baixa como terapia de controle. Em provas anteriores, a conduta com beta-2 agonista na crise foi cobrada em 2025 - Q6; a introdução de corticoide inalatório em pré-escolares com sibilância recorrente é tema recorrente (2016 - Q57, 2019 - Q11, 2021 - Q16).</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Errada. Adrenalina nebulizada é reservada para casos graves com estridor/edema de via aérea (ex.: laringite), não para crise de asma leve/moderada. Ipratrópio isolado não é primeira linha; é adjuvante em crises graves. Observação por 12 horas é excessiva para quadro leve sem sinais de gravidade.</p>
+            <p><strong>Alternativa B</strong> - Errada. A espirometria não é confiável em crianças menores de 5 anos para confirmar asma; o diagnóstico é clínico. Além disso, não se deve atrasar o tratamento para realizar exame.</p>
+            <p><strong>Alternativa C</strong> - Errada. Radiografia de tórax não é rotina na crise de asma; é indicada quando há suspeita de complicações (pneumonia, pneumotórax) ou diagnóstico duvidoso. Antibioticoterapia profilática não tem indicação.</p>
+            <p><strong>Alternativa D</strong> - Errada. Corticoide oral isolado não trata o broncoespasmo agudo; é adjuvante para reduzir inflamação e prevenir recaídas, mas deve ser associado ao broncodilatador. Além disso, a criança tem sibilância recorrente e IPA positivo, necessitando de terapia de manutenção.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>3 anos:</strong> faixa etária típica de sibilância recorrente e diagnóstico clínico de asma.</li>
+                <li><strong>Três episódios de sibilância no último ano associados a resfriados:</strong> critério para IPA (≥3 episódios/ano).</li>
+                <li><strong>Pai com rinite alérgica severa:</strong> histórico familiar de atopia, considerado critério para IPA positivo.</li>
+                <li><strong>Taquipneia, tempo expiratório prolongado e sibilância difusa:</strong> sinais de crise de asma.</li>
+                <li><strong>Saturação 94% em ar ambiente, sem tiragem ou batimento de asa:</strong> crise leve/moderada, sem sinais de gravidade.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer crise de asma (sibilância difusa, tempo expiratório prolongado, tosse, dispneia).</li>
+                <li><strong>Segundo:</strong> classificar gravidade (leve/moderada/grave) - aqui não há sinais de gravidade (sem tiragem, saturação ≥92%).</li>
+                <li><strong>Terceiro:</strong> iniciar beta-2 agonista de curta ação inalatório imediatamente.</li>
+                <li><strong>Quarto:</strong> avaliar critérios de IPA (episódios recorrentes + atopia) e, se positivo, iniciar corticoide inalatório diário em dose baixa.</li>
+                <li><strong>Quinto:</strong> orientar educação sobre uso correto do inalador, controle ambiental e seguimento ambulatorial.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta imediata e orientação de longo prazo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> asma em pré-escolares é diagnóstico clínico; IPA positivo indica risco de asma persistente; beta-2 agonista de curta ação é a primeira linha na crise; corticoide inalatório é a base da manutenção.</li>
+                <li><strong>Números e doses:</strong> Salbutamol inalatório 2-4 jatos (100 mcg/jato) ou nebulização 0,15 mg/kg/dose (mín. 2,5 mg) a cada 20 min na primeira hora; corticoide inalatório dose baixa (ex.: budesonida 200 mcg/dia ou fluticasona 100 mcg/dia) conforme idade e dispositivo.</li>
+                <li><strong>Mnemônicos:</strong> “IPA = 3 episódios + atopia”; “Crise = beta-2 primeiro; manutenção = corticoide inalatório”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2016 - Q57, 2019 - Q11, 2021 - Q16 e 2025 - Q6.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Asma (correta)</td>
+                        <td>Sibilância recorrente, tosse, dispneia, desencadeados por virais/alérgenos; boa resposta a broncodilatador.</td>
+                        <td>Clínico; espirometria a partir de 5-6 anos.</td>
+                        <td>Beta-2 agonista na crise; corticoide inalatório na manutenção.</td>
+                    </tr>
+                    <tr>
+                        <td>Bronquiolite viral aguda</td>
+                        <td>Primeiro episódio em <2 anos, pródromo viral, crepitações, sem atopia.</td>
+                        <td>Clínico; Rx com hiperinsuflação.</td>
+                        <td>Suporte; broncodilatador não rotineiro.</td>
+                    </tr>
+                    <tr>
+                        <td>Pneumonia</td>
+                        <td>Febre alta, toxemia, crepitações localizadas, hipoxemia.</td>
+                        <td>Rx de tórax com consolidação.</td>
+                        <td>Antibiótico conforme gravidade.</td>
+                    </tr>
+                    <tr>
+                        <td>Corpo estranho</td>
+                        <td>Início súbito, tosse paroxística, estridor, assimetria ausculta.</td>
+                        <td>Rx (corpo estranho radiopaco), broncoscopia.</td>
+                        <td>Remoção por broncoscopia.</td>
+                    </tr>
+                    <tr>
+                        <td>Refluxo gastroesofágico</td>
+                        <td>Tosse crônica, regurgitação, piora pós-prandial.</td>
+                        <td>pHmetria, endoscopia se indicado.</td>
+                        <td>Medidas antirrefluxo.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a droga de escolha na crise:</strong> beta-2 agonista de curta ação (salbutamol).</li>
+                <li><strong>Se pedisse a terapia de manutenção:</strong> corticoide inalatório em dose baixa.</li>
+                <li><strong>Se pedisse o que NÃO fazer:</strong> não usar antibiótico rotineiro; não atrasar tratamento para espirometria; não usar apenas corticoide oral.</li>
+                <li><strong>Se pedisse a classificação de gravidade:</strong> crise leve/moderada (sem tiragem, saturação ≥92%).</li>
+                <li><strong>Se pedisse o IPA:</strong> critérios maiores e menores; IPA positivo indica risco de asma.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2009 - Q9</td>
+                        <td>Asma: qual alternativa correta?</td>
+                        <td>Fatores desencadeantes (exercício).</td>
+                        <td>C (exercício pode desencadear crises)</td>
+                        <td>Reforça o reconhecimento de gatilhos e fisiopatologia.</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q64</td>
+                        <td>Sobre asma: betabloqueadores, espirometria, omalizumabe, gestação.</td>
+                        <td>Contraindicações e diagnóstico.</td>
+                        <td>A (I e II corretas)</td>
+                        <td>Reforça que betabloqueadores são evitados e a espirometria mostra reversibilidade.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q57</td>
+                        <td>Asmático de 4 anos em crise moderada: manejo inicial.</td>
+                        <td>Equivalência de corticoide oral e IV.</td>
+                        <td>A (corticoide oral ou IV têm efeito equivalente)</td>
+                        <td>Reforça o uso de corticoide sistêmico na crise, mas não como única medida.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q20</td>
+                        <td>Pré-escolar de 3 anos com crise de asma: classificação.</td>
+                        <td>Classificação de gravidade (moderada).</td>
+                        <td>B (moderada)</td>
+                        <td>Reforça a avaliação de gravidade (sinais de esforço, saturação, fala).</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q11</td>
+                        <td>Crise de asma: corticoide IV vs oral.</td>
+                        <td>Via de administração do corticoide.</td>
+                        <td>E (ambas as asserções falsas)</td>
+                        <td>Reforça que a via oral é preferível e eficaz; não se usa IV rotineiramente.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q13</td>
+                        <td>Lactente com bronquiolite vs asma: quando broncodilatador está melhor indicado?</td>
+                        <td>Diagnóstico diferencial e indicação de broncodilatador.</td>
+                        <td>A (I e II corretas)</td>
+                        <td>Reforça que história de sibilância pregressa, eczema e idade maior favorecem asma.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q16</td>
+                        <td>Pré-escolar asmático em crise: condutas.</td>
+                        <td>Fisioterapia não recomendada; corticoide EV vs oral.</td>
+                        <td>D (II e III corretas)</td>
+                        <td>Reforça que fisioterapia não é rotina e corticoide EV não é superior ao oral.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q17</td>
+                        <td>Escolar asmático: fisioterapia e mucolíticos na exacerbação.</td>
+                        <td>Não recomendação de fisioterapia/mucolíticos.</td>
+                        <td>A (asserções verdadeiras e justificativa correta)</td>
+                        <td>Reforça que fisioterapia pode piorar broncoespasmo.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q6</td>
+                        <td>Crise de asma: manejo.</td>
+                        <td>Beta-2 agonista como primeiro recurso.</td>
+                        <td>D (beta-2 agonista é o primeiro recurso)</td>
+                        <td>Reforça a conduta imediata com beta-2 agonista inalatório.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 9 questões no período. A banca alterna entre classificação de gravidade, conduta na crise, via de administração de corticoide, diagnóstico diferencial com bronquiolite e uso de beta-2 agonista. O IPA especificamente não foi cobrado em questão anterior, mas o conceito de sibilância recorrente e risco de asma é recorrente.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Critérios do IPA (maiores e menores) e a decisão de iniciar corticoide inalatório em pré-escolares com sibilância recorrente.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em fisiopatologia e classificação; as mais recentes cobram conduta imediata e manejo de manutenção.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar IPA, indicação de corticoide inalatório em pré-escolares e conduta na crise (beta-2 agonista, corticoide sistêmico se necessário).</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Bronquiolite viral aguda - principal diagnóstico diferencial em lactentes; o primeiro episódio de sibilância em <2 anos geralmente é bronquiolite, enquanto episódios recorrentes sugerem asma.</li>
+                <li><strong>Conexão 2:</strong> Rinite alérgica - faz parte da marcha atópica e é critério menor do IPA; o controle da rinite melhora o controle da asma.</li>
+                <li><strong>Conexão 3:</strong> Pneumonia - deve ser considerada se febre alta, toxemia e crepitações localizadas; não usar antibiótico rotineiro na crise de asma.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é lacuna de conhecimento sobre o IPA ou confusão entre tratamento da crise e tratamento de manutenção. A ação corretiva é memorizar: “crise = beta-2 agonista; manutenção = corticoide inalatório; IPA positivo = iniciar corticoide inalatório”. Também revisar que espirometria não é necessária para diagnóstico em pré-escolares e que antibiótico não é rotina.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o reconhecimento precoce da asma em pré-escolares com sibilância recorrente permite iniciar terapia de controle, reduzir exacerbações e melhorar a qualidade de vida. A educação dos pais sobre o uso correto do inalador e a adesão ao tratamento são fundamentais. O uso racional de medicamentos evita atrasos e tratamentos desnecessários.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Índice Preditivo de Asma (IPA): critérios maiores e menores.</li>
+                <li>Crise de asma: classificação de gravidade e conduta escalonada.</li>
+                <li>Corticoide inalatório: doses e dispositivos em pré-escolares.</li>
+                <li>Diagnóstico diferencial de sibilância recorrente.</li>
+                <li>Educação sobre uso de inaladores e controle ambiental.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Kliegman RM, et al. Nelson Tratado de Pediatria. Elsevier.</p>
+            <p>2. Diretrizes da Sociedade Brasileira de Pediatria - Asma na Infância.</p>
+            <p>3. Global Initiative for Asthma (GINA) - Asthma Management and Prevention.</p>
+            <p>4. American Academy of Pediatrics - Asthma Guidelines.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

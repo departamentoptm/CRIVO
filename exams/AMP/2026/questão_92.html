@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 92 - Pré-natal de Risco Habitual: Interpretação de Exames da Primeira Consulta e Condutas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pré-natal de Risco Habitual: Interpretação de Exames da Primeira Consulta e Condutas</div>
+        <h1>Questão 92</h1>
+        <div class="question-text">
+            Gestante de 23 anos, primigesta, IG 8 semanas, traz o resultado de exames: hemoglobina 11,7; tipo sanguíneo A+; glicemia de jejum 90 mg/dL; urocultura com &gt; 100.000 unidades formadoras de colônias; imunoglobulina M não reagente e IgG reagente para toxoplasmose; VDRL 1:2; anti-HIV não reagente, antígeno de superfície para hepatite B não reagente.<br><br>
+            É correta a seguinte conduta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Solicitar teste de avidez de IgG para toxoplasmose e encaminhá-la ao pré-natal de alto risco.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Apenas solicitar novos exames de urina e sangue no segundo trimestre e remarcar a consulta em 4 semanas.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Considerar provável cicatriz sorológica de sífilis e monitorar VDRL conforme rotina de pré-natal nos próximos trimestres.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Solicitar teste oral de tolerância à glicose (TOTG) 75 g; estimular hábitos alimentares saudáveis e exercício físico regular.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Prescrever sulfato ferroso 120 g/dia, 1 hora antes das três principais refeições, tratar possível verminose e repetir exame em 30 dias.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Obstetrícia / Medicina de Família e Comunidade / Saúde Coletiva</p>
+            <p><strong>Tema:</strong> Interpretação dos exames da primeira consulta de pré-natal de risco habitual e condutas subsequentes.</p>
+            <p><strong>Contextualização:</strong> Tema de altíssima relevância em provas de residência porque o pré-natal é uma das ações mais frequentes na APS e envolve a interpretação correta de exames laboratoriais, o rastreamento de doenças e a definição de condutas. A banca cobra a capacidade de distinguir achados normais daqueles que exigem intervenção, além do manejo adequado da bacteriúria assintomática, da sífilis, da toxoplasmose e do rastreamento do diabetes gestacional. A questão dialoga com os atributos da APS (longitudinalidade, integralidade e coordenação do cuidado) e com a prevenção de agravos materno-fetais.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Na primeira consulta de pré-natal, devem ser solicitados exames que rastreiem condições de risco para a gestante e o feto: hemograma, tipagem sanguínea e fator Rh, glicemia de jejum, urocultura, sorologias (toxoplasmose, sífilis, HIV, hepatites), entre outros. Cada achado tem uma conduta específica. A hemoglobina de 11,7 g/dL é considerada normal na gestação (a anemia é definida por valores &lt; 11 g/dL). O tipo A+ indica Rh positivo, sem risco de aloimunização Rh. A glicemia de jejum de 90 mg/dL está abaixo do ponto de corte para diagnóstico de diabetes gestacional na primeira consulta (≥ 92 mg/dL, conforme diretrizes brasileiras), mas o TOTG 75 g está indicado como rastreamento entre 24 e 28 semanas para todas as gestantes sem diagnóstico prévio de diabetes. A urocultura com &gt; 100.000 UFC configura bacteriúria assintomática, que deve ser tratada na gestação para reduzir o risco de pielonefrite, parto prematuro e baixo peso ao nascer. A sorologia para toxoplasmose com IgG reagente e IgM não reagente indica infecção prévia (imunidade), não sendo necessária investigação adicional nem encaminhamento ao alto risco. O VDRL 1:2 é positivo e, na gestação, deve ser confirmado com teste treponêmico e tratado com penicilina benzatina, independentemente do título, para prevenir sífilis congênita; não se trata apenas de "monitorar".</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa D é correta porque, entre as opções apresentadas, é a única que contém uma conduta apropriada do pré-natal de risco habitual: solicitar o TOTG 75 g (exame padrão para rastreamento do diabetes gestacional, no momento oportuno) e estimular hábitos alimentares saudáveis e exercício físico regular, que são orientações universais no pré-natal. A glicemia de jejum de 90 mg/dL é normal na primeira consulta, mas o TOTG continua sendo parte da rotina; além disso, as orientações de estilo de vida são fundamentais para a saúde materno-fetal. As demais alternativas contêm erros conceituais ou condutas inadequadas, como se detalha a seguir.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. A presença de IgG reagente e IgM não reagente para toxoplasmose indica infecção prévia, com imunidade adquirida. Não há indicação de teste de avidez de IgG (que é útil quando há IgM reagente ou dúvida sobre infecção recente) nem de encaminhamento ao pré-natal de alto risco por esse achado isolado. O teste de avidez é usado em situações específicas, não nesse cenário.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Apenas repetir exames no segundo trimestre e remarcar a consulta em 4 semanas ignora achados que exigem conduta imediata: a bacteriúria assintomática (urocultura &gt; 100.000 UFC) deve ser tratada na gestação, e o VDRL 1:2 positivo deve ser investigado e tratado (sífilis gestacional). Adiar essas condutas aumenta o risco de complicações materno-fetais.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. Embora o VDRL 1:2 possa corresponder a cicatriz sorológica, na gestação não se pode presumir isso sem confirmação com teste treponêmico e sem garantir tratamento adequado. A sífilis gestacional deve ser tratada com penicilina benzatina, pois a não tratamento ou o tratamento inadequado pode resultar em sífilis congênita. "Monitorar" sem tratar é conduta inadequada.</p>
+            <p><strong>Alternativa D</strong> - Correta. Solicitar o TOTG 75 g (rastreamento do diabetes gestacional) e estimular hábitos alimentares saudáveis e exercício físico regular são condutas apropriadas do pré-natal. As orientações de estilo de vida são universais e o TOTG é parte da rotina, independentemente de a glicemia de jejum estar normal na primeira consulta.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. Há vários erros: a dose de sulfato ferroso está expressa em "120 g/dia" (o correto seria 120 mg/dia, ou 40-60 mg de ferro elementar); a orientação de tomar "1 hora antes das três principais refeições" não é a recomendação usual (a suplementação costuma ser feita uma vez ao dia, preferencialmente em jejum ou com vitamina C); e "tratar possível verminose" sem indicação clínica ou laboratorial não é conduta de rotina. Além disso, a hemoglobina de 11,7 g/dL não configura anemia, não exigindo tratamento imediato com ferro em dose terapêutica.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Primigesta, IG 8 semanas:</strong> primeira consulta de pré-natal, momento de solicitar exames de rotina.</li>
+                <li><strong>Hemoglobina 11,7:</strong> valor normal na gestação (anemia é &lt; 11 g/dL).</li>
+                <li><strong>Tipo A+:</strong> Rh positivo, sem risco de aloimunização Rh.</li>
+                <li><strong>Glicemia de jejum 90 mg/dL:</strong> normal na primeira consulta (&lt; 92 mg/dL).</li>
+                <li><strong>Urocultura &gt; 100.000 UFC:</strong> bacteriúria assintomática, que deve ser tratada.</li>
+                <li><strong>IgM não reagente e IgG reagente para toxoplasmose:</strong> infecção prévia, imunidade.</li>
+                <li><strong>VDRL 1:2:</strong> positivo, exige confirmação e tratamento na gestação.</li>
+                <li><strong>Anti-HIV e HBsAg não reagentes:</strong> sorologias negativas.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> interpretar cada exame da primeira consulta, identificando achados normais e alterados.</li>
+                <li><strong>Segundo:</strong> tratar a bacteriúria assintomática (urocultura &gt; 100.000 UFC) conforme antibiograma e orientar controle pós-tratamento.</li>
+                <li><strong>Terceiro:</strong> confirmar a sífilis com teste treponêmico e tratar com penicilina benzatina; notificar e tratar parceiro(s).</li>
+                <li><strong>Quarto:</strong> reconhecer a toxoplasmose como infecção prévia (imunidade), sem necessidade de avidez ou alto risco.</li>
+                <li><strong>Quinto:</strong> programar o TOTG 75 g (entre 24 e 28 semanas) e reforçar hábitos saudáveis e atividade física.</li>
+                <li><strong>Sexto:</strong> manter seguimento pré-natal regular, com reavaliação dos exames e orientações.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> bacteriúria assintomática na gestação (&gt; 100.000 UFC) deve ser tratada; VDRL positivo na gestação deve ser tratado; IgG reagente com IgM não reagente para toxoplasmose indica imunidade.</li>
+                <li><strong>Números e doses:</strong> glicemia de jejum ≥ 92 mg/dL na primeira consulta diagnostica DMG; TOTG 75 g entre 24 e 28 semanas; penicilina benzatina 2,4 milhões UI IM (dose única para sífilis recente; três doses semanais para sífilis tardia/indeterminada); sulfato ferroso 40-60 mg de ferro elementar/dia (ou 120 mg de sulfato ferroso).</li>
+                <li><strong>Mnemônicos:</strong> "Bacteriúria e sífilis na gestação: sempre tratar"; "Toxo IgG+ IgM-: imunidade".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma usar a "cicatriz sorológica" e a "repetição de exames" como distratores.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bacteriúria assintomática</td>
+                        <td>Ausência de sintomas urinários; urocultura &gt; 100.000 UFC</td>
+                        <td>Urocultura</td>
+                        <td>Tratar conforme antibiograma e controlar após tratamento</td>
+                    </tr>
+                    <tr>
+                        <td>Sífilis gestacional</td>
+                        <td>VDRL positivo; pode ser assintomática</td>
+                        <td>VDRL + teste treponêmico</td>
+                        <td>Penicilina benzatina; tratar parceiro; notificar</td>
+                    </tr>
+                    <tr>
+                        <td>Toxoplasmose (infecção prévia)</td>
+                        <td>IgG reagente, IgM não reagente</td>
+                        <td>Sorologia</td>
+                        <td>Nenhuma conduta específica; orientar prevenção</td>
+                    </tr>
+                    <tr>
+                        <td>Toxoplasmose (infecção recente)</td>
+                        <td>IgM reagente ou IgG com baixa avidez</td>
+                        <td>Sorologia e teste de avidez</td>
+                        <td>Investigar e tratar conforme protocolo</td>
+                    </tr>
+                    <tr>
+                        <td>Diabetes gestacional</td>
+                        <td>Glicemia de jejum ≥ 92 mg/dL ou TOTG alterado</td>
+                        <td>Glicemia de jejum e TOTG 75 g</td>
+                        <td>Mudanças de estilo de vida; insulinoterapia se necessário</td>
+                    </tr>
+                    <tr>
+                        <td>Anemia na gestação</td>
+                        <td>Hemoglobina &lt; 11 g/dL</td>
+                        <td>Hemograma</td>
+                        <td>Reposição de ferro e investigação da causa</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre sífilis:</strong> a resposta envolveria o tratamento com penicilina benzatina e a notificação.</li>
+                <li><strong>Se fosse sobre toxoplasmose:</strong> a resposta envolveria a interpretação da sorologia e as orientações de prevenção.</li>
+                <li><strong>Se fosse sobre bacteriúria:</strong> a resposta envolveria o tratamento e o controle pós-tratamento.</li>
+                <li><strong>Se fosse sobre diabetes gestacional:</strong> a resposta envolveria os critérios diagnósticos e o manejo.</li>
+                <li><strong>Se fosse sobre anemia:</strong> a resposta envolveria a suplementação de ferro e a investigação etiológica.</li>
+                <li><strong>Se fosse sobre Rh:</strong> a resposta envolveria a profilaxia com imunoglobulina anti-D.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2014 - Q54</td>
+                        <td>Paciente assintomática com urocultura &gt; 100.000 UFC; bacteriúria assintomática.</td>
+                        <td>Tratamento da bacteriúria assintomática em gestantes</td>
+                        <td>C</td>
+                        <td>Reforça que a urocultura &gt; 100.000 na gestação deve ser tratada, mesmo assintomática.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q71</td>
+                        <td>Diabetes mellitus gestacional: teste inicial com 50 g de dextrosol entre 12 e 16 semanas (incorreto).</td>
+                        <td>Rastreamento do diabetes gestacional</td>
+                        <td>E (incorreta)</td>
+                        <td>Reforça que o TOTG 75 g é o exame padrão e que a glicemia de jejum é feita na primeira consulta.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q94</td>
+                        <td>Gestante com VDRL 1:64, sem tratamento prévio; conduta.</td>
+                        <td>Tratamento da sífilis na gestação</td>
+                        <td>E (penicilina benzatina 3 doses)</td>
+                        <td>Reforça que VDRL positivo na gestação deve ser tratado, não apenas monitorado.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q77</td>
+                        <td>Exames laboratoriais da rotina de pré-natal; VDRL e HIV dispensáveis (incorreto).</td>
+                        <td>Rotina de exames do pré-natal</td>
+                        <td>B</td>
+                        <td>Reforça a importância dos exames de rotina e da interpretação correta.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q31</td>
+                        <td>Sífilis: VDRL no pré-natal e tratamento a partir de qualquer valor positivo.</td>
+                        <td>Manejo da sífilis na gestação</td>
+                        <td>D (I, II e III verdadeiras)</td>
+                        <td>Reforça que VDRL positivo na gestação deve ser tratado.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q94</td>
+                        <td>Gestante venezuelana com VDRL 1:64, sem penicilina prévia; conduta.</td>
+                        <td>Tratamento da sífilis na gestação</td>
+                        <td>E (penicilina benzatina 3 doses)</td>
+                        <td>Reforça a conduta na sífilis gestacional.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q24</td>
+                        <td>Gestante com disúria e ITU; cistite e urocultura.</td>
+                        <td>Infecção urinária na gestação</td>
+                        <td>B (urocultura e tratamento)</td>
+                        <td>Relaciona-se à bacteriúria assintomática e ao manejo das ITU na gestação.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q36</td>
+                        <td>TOTG 75 g: valores para diagnóstico de DMG.</td>
+                        <td>Diagnóstico de DMG</td>
+                        <td>D (92/180/153 com um ponto)</td>
+                        <td>Reforça o papel do TOTG 75 g no rastreamento do DMG.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 8 questões relevantes nas provas de 2014, 2016, 2018, 2019, 2022, 2024 e 2025. A banca alterna entre cobrar: (1) tratamento da bacteriúria assintomática; (2) rastreamento e diagnóstico do diabetes gestacional; (3) tratamento da sífilis na gestação; (4) rotina de exames do pré-natal; (5) manejo da toxoplasmose; (6) conduta na infecção urinária.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Interpretação do teste de avidez de IgG para toxoplasmose; profilaxia com imunoglobulina anti-D; suplementação de ferro e ácido fólico; rastreamento de estreptococo do grupo B; manejo da anemia na gestação; conduta na rubéola e citomegalovírus; aconselhamento genético.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem migrado de questões isoladas sobre uma doença para questões que integram a interpretação de vários exames da primeira consulta de pré-natal, cobrando a conduta global e a capacidade de distinguir achados normais de alterados.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a interpretação dos exames de rotina do pré-natal, com ênfase na bacteriúria assintomática, sífilis, toxoplasmose e diabetes gestacional. Memorizar que VDRL positivo na gestação deve ser tratado e que urocultura &gt; 100.000 UFC deve ser tratada mesmo sem sintomas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Infecções do trato urinário na gestação - a bacteriúria assintomática é um precursor de pielonefrite.</li>
+                <li><strong>Conexão 2:</strong> Sífilis congênita - o tratamento adequado da mãe previne a transmissão vertical.</li>
+                <li><strong>Conexão 3:</strong> Diabetes gestacional - o rastreamento e o manejo precoce reduzem complicações materno-fetais.</li>
+                <li><strong>Conexão 4:</strong> Atributos da APS - longitudinalidade, integralidade e coordenação do cuidado no pré-natal.</li>
+                <li><strong>Conexão 5:</strong> Prevenção quaternária - evitar exames e intervenções desnecessárias (como avidez sem indicação ou repetição de exames sem critério).</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou A, houve confusão sobre a interpretação da sorologia para toxoplasmose (IgG+ IgM- indica infecção prévia, não necessidade de avidez). Se marcou B, negligenciou a bacteriúria e a sífilis, que exigem tratamento. Se marcou C, presumiu cicatriz sorológica sem confirmação e deixou de tratar a sífilis. Se marcou E, cometeu erros de dose, via e indicação da suplementação de ferro. A ação corretiva é revisar a interpretação dos exames do pré-natal e as condutas específicas para cada achado, com destaque para bacteriúria, sífilis e toxoplasmose.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, o médico de família e comunidade deve interpretar corretamente os exames da primeira consulta de pré-natal, tratar a bacteriúria assintomática, confirmar e tratar a sífilis, reconhecer a toxoplasmose como infecção prévia quando IgG+ IgM-, programar o TOTG 75 g e reforçar hábitos saudáveis e atividade física. O acompanhamento longitudinal e a coordenação com a equipe multiprofissional são essenciais para a saúde materno-fetal.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Exames de rotina do pré-natal e suas interpretações.</li>
+                <li>Bacteriúria assintomática na gestação: diagnóstico e tratamento.</li>
+                <li>Sífilis gestacional: diagnóstico, tratamento e prevenção da sífilis congênita.</li>
+                <li>Toxoplasmose: interpretação sorológica e condutas.</li>
+                <li>Diabetes gestacional: rastreamento, diagnóstico e manejo.</li>
+                <li>Anemia na gestação: definição e suplementação.</li>
+                <li>Profilaxia da aloimunização Rh.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Caderno de Atenção Básica nº 32: Atenção ao Pré-Natal de Baixo Risco. Brasília: Ministério da Saúde.</p>
+            <p>2. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Manual de Pré-Natal. São Paulo: FEBRASGO.</p>
+            <p>3. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Prevenção da Transmissão Vertical de HIV, Sífilis e Hepatites Virais. Brasília: Ministério da Saúde.</p>
+            <p>4. Sociedade Brasileira de Diabetes. Diretrizes da Sociedade Brasileira de Diabetes. São Paulo: SBD.</p>
+            <p>5. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

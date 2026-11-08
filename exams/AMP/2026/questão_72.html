@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 72 - Dor Abdominal em Homem Transgênero: Exclusão de Gestação antes da Apendicectomia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Geral / Saúde da População Trans: Dor Abdominal e Exclusão de Gestação antes da Apendicectomia</div>
+        <h1>Questão 72</h1>
+        <div class="question-text">
+            Homem transgênero, 30 anos, procura o pronto atendimento por dor abdominal e apresenta 10 pontos na escala de Alvarado. Antes de definir a investigação por imagem ou a abordagem cirúrgica, qual medida é indispensável para excluir um diagnóstico que pode modificar a conduta?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Realizar tomografia de abdome e pelve.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Proceder a apendicectomia laparoscópica.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Solicitar dosagem de gonadotrofina coriônica humana.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Realizar tomografia de abdome e pelve e, após, apendicectomia.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Na indisponibilidade de tomografia, realizar exame físico seriado.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia Geral / Ginecologia e Obstetrícia / Saúde da População Trans.</p>
+            <p><strong>Tema:</strong> Dor abdominal em paciente com potencial gestacional - exclusão de gestação/gestação ectópica antes da apendicectomia em homem transgênero.</p>
+            <p><strong>Contextualização:</strong> A apendicite aguda é uma das principais causas de abdome agudo cirúrgico. Em pacientes com útero e anexos preservados (incluindo homens transgêneros que não realizaram histerectomia/anexectomia), a gestação ectópica é um diagnóstico diferencial obrigatório, mesmo em pacientes que se identificam como homens. A dosagem de β-hCG é indispensável antes de definir a investigação por imagem ou a abordagem cirúrgica, pois a gestação ectópica pode modificar radicalmente a conduta (necessidade de laparoscopia/laparotomia de urgência, preservação da tuba, tratamento com metotrexato, etc.). O tema integra cirurgia, ginecologia e saúde da população trans, e é de altíssima relevância clínica e social.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A escala de Alvarado é um escore clínico para apendicite aguda que varia de 0 a 10 pontos (migração da dor, anorexia, náuseas/vômitos, dor à descompressão em FID, temperatura elevada, leucocitose, desvio à esquerda). Um escore de 10 pontos indica alta probabilidade de apendicite, com indicação cirúrgica. No entanto, em pacientes com potencial gestacional, o primeiro passo é excluir gestação, pois a gestação ectópica é uma emergência que pode causar hemorragia intra-abdominal, choque e morte. A dosagem de β-hCG é o exame de triagem inicial, rápido e de baixo custo. Em homens transgêneros que mantêm útero e anexos, a gestação é possível mesmo com terapia hormonal masculinizante (a testosterona não é contraceptivo confiável). Portanto, a dosagem de β-hCG é indispensável antes de prosseguir com tomografia (que expõe o feto à radiação) ou apendicectomia (que pode ser desnecessária se a causa for ectópica).</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C - Solicitar dosagem de gonadotrofina coriônica humana (β-hCG).</strong> Em qualquer paciente com potencial gestacional e dor abdominal, a dosagem de β-hCG é obrigatória antes de definir a conduta. No caso de homem transgênero, o fato de se identificar como homem não exclui a possibilidade de gestação, pois ele mantém útero e anexos (salvo se submetido a histerectomia/anexectomia). A gestação ectópica pode se apresentar com dor abdominal e ser confundida com apendicite; a escala de Alvarado não diferencia as duas condições. A dosagem de β-hCG é rápida, de baixo custo e modifica a conduta: se positivo, a investigação deve ser direcionada para gestação ectópica (ultrassom transvaginal, laparoscopia), evitando tomografia (radiação) e apendicectomia desnecessária. Esses conceitos já foram indiretamente cobrados em provas anteriores, especialmente em questões sobre gestação ectópica e apendicite em mulheres em idade reprodutiva.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Realizar tomografia de abdome e pelve.</strong> Errada. A tomografia expõe o paciente (e um possível feto) à radiação e não exclui gestação. Em paciente com potencial gestacional, a dosagem de β-hCG deve preceder a tomografia. Distrator que ignora a necessidade de excluir gestação antes de exames de imagem.</p>
+            <p><strong>Alternativa B - Proceder a apendicectomia laparoscópica.</strong> Errada. A apendicectomia sem excluir gestação ectópica pode ser desnecessária e perigosa. Se a causa for ectópica, a conduta é outra (salpingectomia, salpingostomia, metotrexato). Distrator que assume apendicite como diagnóstico definitivo sem excluir o diferencial obrigatório.</p>
+            <p><strong>Alternativa C - Solicitar dosagem de gonadotrofina coriônica humana.</strong> Correta. É a medida indispensável para excluir gestação e gestação ectópica antes de definir a investigação por imagem ou a abordagem cirúrgica.</p>
+            <p><strong>Alternativa D - Realizar tomografia de abdome e pelve e, após, apendicectomia.</strong> Errada. Duplo erro: realiza tomografia sem excluir gestação (radiação para possível feto) e assume apendicite como diagnóstico definitivo. Distrator que combina duas condutas inadequadas.</p>
+            <p><strong>Alternativa E - Na indisponibilidade de tomografia, realizar exame físico seriado.</strong> Errada. A indisponibilidade de tomografia não dispensa a dosagem de β-hCG. O exame físico seriado não exclui gestação ectópica e pode atrasar o diagnóstico de uma emergência. Distrator que confunde manejo de apendicite duvidosa com exclusão de gestação.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"homem transgênero":</strong> pista central. Homem transgênero pode manter útero e anexos, portanto tem potencial gestacional, mesmo com terapia hormonal masculinizante.</li>
+                <li><strong>"10 pontos na escala de Alvarado":</strong> alta probabilidade de apendicite, mas a escala não exclui gestação ectópica; a conduta cirúrgica não deve ser definida antes de excluir gestação.</li>
+                <li><strong>"antes de definir a investigação por imagem ou a abordagem cirúrgica":</strong> indica que a medida deve preceder tomografia e cirurgia, ou seja, é a dosagem de β-hCG.</li>
+                <li><strong>"diagnóstico que pode modificar a conduta":</strong> gestação ectópica é o diagnóstico que muda radicalmente a conduta (cirurgia ginecológica de urgência, metotrexato, preservação da tuba).</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer que o paciente é homem transgênero e pode ter útero e anexos, portanto tem potencial gestacional.</li>
+                <li><strong>Segundo:</strong> diante de dor abdominal com escore de Alvarado elevado, incluir gestação ectópica no diagnóstico diferencial.</li>
+                <li><strong>Terceiro:</strong> solicitar dosagem de β-hCG antes de tomografia ou cirurgia; se positivo, direcionar para ultrassom transvaginal e avaliação ginecológica.</li>
+                <li><strong>Quarto:</strong> se β-hCG negativo, prosseguir com investigação de apendicite (tomografia ou cirurgia conforme disponibilidade e quadro clínico).</li>
+            </ol>
+            <p>Esse raciocínio treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em pacientes com potenciais diagnósticos que modificam radicalmente a abordagem.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> todo paciente com potencial gestacional e dor abdominal deve ter β-hCG dosado antes de tomografia ou cirurgia; homem transgênero pode engravidar se mantiver útero e anexos.</li>
+                <li><strong>Números e doses:</strong> escala de Alvarado varia de 0 a 10; escore ≥ 7 indica alta probabilidade de apendicite; β-hCG sérico detecta gestação precocemente (a partir de 8-10 dias após a concepção).</li>
+                <li><strong>Mnemônicos:</strong> "Potencial gestacional = β-hCG antes de tudo" - vale para mulheres cis, homens trans e pessoas não binárias com útero.</li>
+            </ul>
+            <p>Esses dados já foram indiretamente cobrados em provas anteriores, especialmente em questões sobre gestação ectópica e apendicite em mulheres em idade reprodutiva.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gestação ectópica (a que modifica a conduta)</td>
+                        <td>Dor abdominal, atraso menstrual, sangramento vaginal, síncope, instabilidade hemodinâmica; pode mimetizar apendicite.</td>
+                        <td>β-hCG sérico; ultrassom transvaginal; laparoscopia se dúvida.</td>
+                        <td>Laparoscopia (salpingectomia ou salpingostomia) se rota; metotrexato se critérios.</td>
+                    </tr>
+                    <tr>
+                        <td>Apendicite aguda</td>
+                        <td>Dor migratória para FID, anorexia, náuseas, febre, leucocitose; Alvarado ≥ 7.</td>
+                        <td>Exame clínico, hemograma, ultrassom ou tomografia; β-hCG obrigatório em potencial gestacional.</td>
+                        <td>Apendicectomia laparoscópica ou aberta; antibióticos.</td>
+                    </tr>
+                    <tr>
+                        <td>Doença inflamatória pélvica</td>
+                        <td>Dor pélvica, corrimento, febre, dor à mobilização do colo.</td>
+                        <td>Exame clínico, cultura, ultrassom; β-hCG para excluir gestação.</td>
+                        <td>Antibióticos de amplo espectro; drenagem se abscesso.</td>
+                    </tr>
+                    <tr>
+                        <td>Cisto ovariano roto/torção</td>
+                        <td>Dor súbita, massa anexial, náuseas; pode simular apendicite.</td>
+                        <td>Ultrassom transvaginal; β-hCG obrigatório.</td>
+                        <td>Laparoscopia em casos selecionados; observação se estável.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial da dor abdominal em pacientes com potencial gestacional.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> β-hCG é o primeiro exame; ultrassom transvaginal se positivo; tomografia se negativo e suspeita de apendicite.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> apendicectomia se apendicite; salpingectomia/salpingostomia se ectópica rota; metotrexato se ectópica não rota e critérios.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> orientar sobre contracepção em homens trans; testosterona não é contraceptivo.</li>
+                <li><strong>Se fosse sobre complicações:</strong> ruptura de ectópica com hemorragia e choque; apendicite perfurada com peritonite.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2012 - Q90</td>
+                        <td>Paciente masculino de 18 anos com dor em FID e rigidez; apendicite no diagnóstico diferencial.</td>
+                        <td>Diagnóstico de apendicite</td>
+                        <td>C (laparoscopia como opção terapêutica)</td>
+                        <td>Contextualiza a apendicite; a questão atual acrescenta o potencial gestacional e a necessidade de β-hCG.</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q25</td>
+                        <td>Gravidez ectópica; qual fator NÃO está relacionado ao aumento crescente da patologia?</td>
+                        <td>Fatores de risco de gestação ectópica</td>
+                        <td>B (adenomiose)</td>
+                        <td>Reforça a gestação ectópica como diagnóstico diferencial; a questão atual cobra a exclusão de gestação antes de cirurgia.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q16</td>
+                        <td>Gravidez ectópica; qual fator NÃO é responsável pelo crescente número de casos?</td>
+                        <td>Fatores de risco de gestação ectópica</td>
+                        <td>D (antecedente de gestação molar)</td>
+                        <td>Complementa o conhecimento sobre gestação ectópica; a questão atual foca na triagem com β-hCG.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q91</td>
+                        <td>Gravidez ectópica; qual fator NÃO está relacionado ao aumento crescente da patologia?</td>
+                        <td>Fatores de risco de gestação ectópica</td>
+                        <td>B (adenomiose)</td>
+                        <td>Reforça a ectópica como diagnóstico obrigatório em dor abdominal com potencial gestacional.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q19</td>
+                        <td>Apendicite aguda em criança; diagnóstico e tratamento.</td>
+                        <td>Manejo da apendicite</td>
+                        <td>E (apendicectomia não é emergência; atrasos de até 18h não pioram prognóstico)</td>
+                        <td>Contextualiza a apendicite; a questão atual acrescenta a necessidade de excluir gestação antes da cirurgia.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q7</td>
+                        <td>Apendicite aguda na infância; tomografia, cirurgia de emergência.</td>
+                        <td>Manejo da apendicite</td>
+                        <td>C (I é falsa; II e III verdadeiras)</td>
+                        <td>Complementa o manejo da apendicite; a questão atual foca na triagem de gestação.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q31</td>
+                        <td>Gravidez tubária; local mais frequente de implantação.</td>
+                        <td>Gestação ectópica</td>
+                        <td>B (ampola)</td>
+                        <td>Reforça o conhecimento sobre ectópica; a questão atual cobra a exclusão de gestação antes de cirurgia.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q4</td>
+                        <td>Apendicite aguda em menina de 4 anos; conduta.</td>
+                        <td>Manejo da apendicite</td>
+                        <td>A (ultrassonografia é a primeira escolha)</td>
+                        <td>Contextualiza a apendicite; a questão atual acrescenta o potencial gestacional.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q10</td>
+                        <td>Apendicite aguda na infância; antibióticos e cirurgia.</td>
+                        <td>Manejo da apendicite</td>
+                        <td>D (I, II e III verdadeiras)</td>
+                        <td>Complementa o manejo da apendicite; a questão atual foca na triagem de gestação em homem trans.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apendicite aguda apareceu em pelo menos 5 questões das provas de 2006_2026, e a gestação ectópica em pelo menos 4 questões. A banca alterna entre cobrar o manejo da apendicite e os fatores de risco da ectópica. Não há questão prévia que tenha cobrado diretamente a exclusão de gestação em homem transgênero antes da apendicectomia.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> saúde da população trans, potencial gestacional em homens trans e necessidade de β-hCG antes de tomografia/cirurgia.</p>
+            <p><strong>Evolução da cobrança:</strong> as questões anteriores foram mais voltadas ao manejo da apendicite e aos fatores de risco da ectópica; a próxima prova pode cobrar a aplicação prática em populações especiais, como homens trans e pessoas não binárias.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> memorizar que testosterona não é contraceptivo, que homens trans podem engravidar e que β-hCG é obrigatório antes de tomografia ou cirurgia em pacientes com potencial gestacional.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1 - Gestação ectópica:</strong> é a principal causa de morte materna no primeiro trimestre; a dosagem de β-hCG e o ultrassom transvaginal são fundamentais para o diagnóstico precoce.</li>
+                <li><strong>Conexão 2 - Saúde da população trans:</strong> homens trans que mantêm útero e anexos podem engravidar; a testosterona não é contraceptivo confiável; o cuidado deve ser inclusivo e livre de preconceito.</li>
+                <li><strong>Conexão 3 - Apendicite aguda:</strong> a escala de Alvarado auxilia no diagnóstico, mas não exclui outros diagnósticos; em pacientes com potencial gestacional, a triagem com β-hCG é obrigatória.</li>
+                <li><strong>Conexão 4 - Radiação em gestação:</strong> a tomografia expõe o feto à radiação; sempre que possível, ultrassom e ressonância devem ser preferidos em gestantes.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é assinalar a alternativa A (tomografia) ou B (apendicectomia), ignorando o potencial gestacional do homem transgênero. A classificação do erro é <strong>lacuna de conhecimento</strong> sobre saúde da população trans e <strong>erro de leitura/interpretação</strong> do enunciado. A ação corretiva é memorizar que homens trans podem engravidar se mantiverem útero e anexos, que a testosterona não é contraceptivo e que β-hCG deve ser solicitado antes de tomografia ou cirurgia em qualquer paciente com potencial gestacional. Revisar também os diagnósticos diferenciais de dor abdominal em FID.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o atendimento a homens transgêneros com dor abdominal deve ser inclusivo e livre de preconceito. O médico deve perguntar sobre o status reprodutivo (presença de útero e anexos), possibilidade de gestação e uso de testosterona. A dosagem de β-hCG é obrigatória antes de tomografia ou cirurgia, pois a gestação ectópica é uma emergência. O atraso no diagnóstico pode levar a ruptura tubária, hemorragia e morte.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Escala de Alvarado e diagnóstico de apendicite.</li>
+                <li>Gestção ectópica: fatores de risco, diagnóstico e tratamento.</li>
+                <li>Saúde da população trans: cuidado inclusivo, contracepção e potencial gestacional.</li>
+                <li>Radiação em gestação: preferência por ultrassom e ressonância.</li>
+                <li>Diagnóstico diferencial de dor abdominal em FID.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sabiston Textbook of Surgery, 21ª edição.</p>
+            <p>2. Schwartz's Principles of Surgery, 11ª edição.</p>
+            <p>3. Diretrizes da Associação Brasileira de Medicina de Família e Comunidade para saúde da população trans.</p>
+            <p>4. ACOG Guidelines on Ectopic Pregnancy.</p>
+            <p>5. Harrison - Medicina Interna, 21ª edição.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

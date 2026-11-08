@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 81 - Pediatria: Impetigo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Dermatologia Infecciosa</div>
+        <h1>Questão 81</h1>
+        <div class="question-text">
+            Menina de 4 anos é levada a uma Unidade Básica de Saúde pela mãe, que relata o aparecimento de lesões avermelhadas e com crostas amareladas na região periorbital, labial e nasal da criança há cerca de 5 dias. A mãe refere que as lesões começaram como pequenas bolhas que se romperam facilmente, liberando um líquido amarelado, com prurido associado. Nega febre, prostração ou demais queixas. Exame físico: sem alterações, exceto a pele da face, conforme a seguinte imagem.
+            <br>
+            <img src="imagem_questao81.jpg" alt="Criança com lesões avermelhadas e crostas amareladas na região periorbital, labial e nasal" style="max-width:100%; height:auto; margin:15px 0;">
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - celulite.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - impetigo.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - ectima.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - herpes.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Dermatologia.</p>
+            <p><strong>Tema:</strong> Impetigo na infância.</p>
+            <p><strong>Contextualização:</strong> O impetigo é uma infecção bacteriana superficial da pele muito comum na pediatria, especialmente em pré-escolares. Na prova, costuma ser cobrado pelo reconhecimento clínico das lesões crostosas melicéricas e pela escolha do tratamento tópico ou sistêmico. É um tema que se conecta a outras piodermites, como ectima e celulite, e ao diagnóstico diferencial com herpes simples.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O impetigo é causado principalmente por <em>Staphylococcus aureus</em> e, com menor frequência, por <em>Streptococcus pyogenes</em>. Na forma não bolhosa, as bactérias colonizam a pele, geralmente em áreas de trauma mínimo, e produzem lesões vesicopustulosas que rompem e formam crostas amareladas, conhecidas como crostas melicéricas. Na forma bolhosa, toxinas esfoliativas estafilocócicas clivam a camada superficial da epiderme, formando bolhas flácidas. A autoinoculação por coçadura explica a disseminação das lesões.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>B</strong>. O quadro descrito é típico de impetigo crostoso: criança pequena, lesões periorais e nasais, início com pequenas bolhas que se rompem facilmente, liberando líquido amarelado, seguidas de crostas amareladas e prurido, sem febre ou prostração. O diagnóstico é clínico. Em lesões localizadas, o tratamento pode ser tópico com mupirocina ou ácido fusídico; em casos extensos, recidivantes ou com sinais sistêmicos, indica-se antibiótico oral, como cefalexina ou dicloxacilina, conforme resistência local.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Celulite é uma infecção mais profunda da derme e do tecido subcutâneo, com eritema, calor, edema, dor e bordas mal definidas, frequentemente com febre. Não se caracteriza por crostas melicéricas superficiais.</p>
+            <p><strong>Alternativa B</strong> - Correta. Impetigo é a infecção bacteriana superficial com vesículas/pústulas que evoluem para crostas amareladas, especialmente em região perioral e nasal.</p>
+            <p><strong>Alternativa C</strong> - Ectima é uma forma mais profunda de piodermite, com ulceração e crosta necrótica aderida, geralmente em pernas, podendo deixar cicatriz. Não é a descrição típica deste caso.</p>
+            <p><strong>Alternativa D</strong> - Herpes simples labial cursa com vesículas agrupadas sobre base eritematosa, precedidas por dor ou queimação, com tendência à recidiva no mesmo local. As lesões não são crostas melicéricas disseminadas periorais e nasais.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Crostas amareladas:</strong> sugere crosta melicérica, típica de impetigo.</li>
+                <li><strong>Pequenas bolhas que se rompem facilmente:</strong> corresponde à fase vesiculopustulosa superficial.</li>
+                <li><strong>Região periorbital, labial e nasal:</strong> localização clássica do impetigo não bolhoso.</li>
+                <li><strong>Prurido e ausência de febre/prostração:</strong> reforça infecção superficial localizada.</li>
+                <li><strong>Criança de 4 anos:</strong> faixa etária típica de piodermites.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer lesões superficiais com crostas amareladas e história de bolhas que rompem.</li>
+                <li><strong>Segundo:</strong> afastar celulite, ectima e herpes simples pelas características morfológicas e pela ausência de sinais sistêmicos.</li>
+                <li><strong>Terceiro:</strong> avaliar extensão e fatores de risco; lesões localizadas podem ser tratadas topicamente.</li>
+                <li><strong>Quarto:</strong> orientar higiene, unhas curtas, não compartilhar toalhas e afastamento escolar até 24 horas de tratamento eficaz.</li>
+                <li><strong>Quinto:</strong> reavaliar se não houver melhora ou se surgirem sinais de complicação, como ectima, celulite ou glomerulonefrite pós-estreptocócica.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de diagnóstico diferencial e conduta inicial em piodermites.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> impetigo é infecção bacteriana superficial; a forma não bolhosa cursa com crostas melicéricas; a forma bolhosa é mediada por toxinas estafilocócicas.</li>
+                <li><strong>Agentes:</strong> <em>Staphylococcus aureus</em> é o principal agente; <em>Streptococcus pyogenes</em> também é importante.</li>
+                <li><strong>Tratamento:</strong> mupirocina 2% ou ácido fusídico tópico em lesões localizadas; cefalexina 50 mg/kg/dia ou dicloxacilina em casos extensos.</li>
+                <li><strong>Contágio:</strong> ocorre por contato direto e autoinoculação; orientar higiene das mãos e não compartilhar objetos pessoais.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma alternar entre reconhecimento clínico, agente etiológico e escolha terapêutica.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Impetigo (correta)</td>
+                        <td>Vesículas/pústulas superficiais que rompem e formam crostas amareladas melicéricas; perioral/nasal; prurido; sem febre na maioria.</td>
+                        <td>Clínico.</td>
+                        <td>Tópico se localizado; oral se extenso ou recidivante.</td>
+                    </tr>
+                    <tr>
+                        <td>Celulite</td>
+                        <td>Eritema, calor, edema, dor, bordas mal definidas; pode haver febre e toxemia.</td>
+                        <td>Clínico; hemograma e imagem se dúvida.</td>
+                        <td>Antibiótico sistêmico.</td>
+                    </tr>
+                    <tr>
+                        <td>Ectima</td>
+                        <td>Úlcera profunda com crosta necrótica aderida; comum em pernas; pode deixar cicatriz.</td>
+                        <td>Clínico.</td>
+                        <td>Antibiótico sistêmico.</td>
+                    </tr>
+                    <tr>
+                        <td>Herpes simples</td>
+                        <td>Vesículas agrupadas sobre base eritematosa; dor/queimação; recidiva no mesmo local.</td>
+                        <td>Clínico; PCR se necessário.</td>
+                        <td>Aciclovir em casos selecionados.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o agente etiológico:</strong> a resposta mais provável seria <em>Staphylococcus aureus</em>, seguido de <em>Streptococcus pyogenes</em>.</li>
+                <li><strong>Se pedisse o tratamento:</strong> lesões localizadas podem ser tratadas com mupirocina tópica; lesões extensas ou com sinais sistêmicos exigem antibiótico oral.</li>
+                <li><strong>Se pedisse complicação:</strong> ectima, celulite e glomerulonefrite pós-estreptocócica são possibilidades.</li>
+                <li><strong>Se pedisse prevenção:</strong> higiene das mãos, unhas curtas, não compartilhar toalhas e afastamento escolar até 24 horas de tratamento.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">Tema não abordado em outra questão das provas anteriores analisadas. Foram identificadas apenas questões próximas de dermatologia infecciosa, como esporotricose (Q100) e escabiose (Q31), que não substituem a análise específica do impetigo.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema impetigo não apareceu diretamente nas provas anteriores analisadas. A banca tem cobrado dermatoses infecciosas pelo reconhecimento clínico e pela conduta terapêutica, especialmente em pediatria e atenção primária.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> impetigo bolhoso, ectima como complicação, glomerulonefrite pós-estreptocócica, escolha entre tratamento tópico e sistêmico, resistência antimicrobiana e surtos escolares.</p>
+            <p><strong>Evolução da cobrança:</strong> No material analisado, não há série histórica específica de impetigo; as questões de dermatologia infecciosa têm priorizado diagnóstico clínico e manejo inicial.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar piodermites, diagnóstico diferencial com herpes e celulite, além de critérios para antibioticoterapia tópica versus oral.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Impetigo pode complicar para ectima e celulite, exigindo ampliação da cobertura antibiótica.</li>
+                <li><strong>Conexão 2:</strong> Impetigo por <em>Streptococcus pyogenes</em> pode ser seguido de glomerulonefrite pós-estreptocócica.</li>
+                <li><strong>Conexão 3:</strong> O diagnóstico diferencial com herpes simples labial é frequente em pediatria e atenção primária.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Erros comuns incluem confundir impetigo com herpes simples por causa da localização perioral, ou com celulite por causa do eritema. A estratégia correta é valorizar a crosta melicérica e a superficialidade das lesões. Classificação do erro mais provável: confusão conceitual entre piodermites e dermatoses virais. Ação corretiva: revisar morfologia das lesões elementares e treinar diagnóstico diferencial.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na UBS, o diagnóstico é clínico. Deve-se orientar higiene, unhas curtas, não compartilhar toalhas e afastamento escolar até 24 horas de tratamento eficaz. Lesões localizadas podem ser tratadas topicamente; lesões extensas, recidivantes ou com sinais sistêmicos exigem antibiótico oral. É importante reavaliar para detectar complicações.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Piodermites: impetigo, ectima e celulite.</li>
+                <li><em>Staphylococcus aureus</em> e <em>Streptococcus pyogenes</em>.</li>
+                <li>Herpes simples labial.</li>
+                <li>Glomerulonefrite pós-estreptocócica.</li>
+                <li>Higiene e medidas de controle de contágio.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria. Tratado de Pediatria.</p>
+            <p>2. Nelson Textbook of Pediatrics.</p>
+            <p>3. Ministério da Saúde. Diretrizes de atenção à saúde da criança.</p>
+            <p>4. American Academy of Pediatrics. Red Book: Report of the Committee on Infectious Diseases.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

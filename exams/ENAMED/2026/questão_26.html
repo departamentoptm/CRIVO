@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 26 - Obstetrícia: Descolamento Prematuro de Placenta (DPP) Grave</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstetrícia: Descolamento Prematuro de Placenta (DPP) Grave</div>
+        <h1>Questão 26</h1>
+        <div class="question-text">
+            Gestante de 38 anos, G3PC1A1, com 38 semanas de gestação, comparece a um pronto atendimento referindo sangramento vaginal, iniciado há 1 hora. Ela descreve o sangramento como moderado, de cor vermelho vivo, e afirma que iniciou após um episódio de forte dor abdominal. Relata que, desde então, o útero permanece “muito duro” e que percebeu redução dos movimentos fetais. Nega perda de líquido. A paciente possui histórico de hipertensão gestacional na gravidez atual. Ao exame físico, mostra-se pálida, com PA 150 x 95 mmHg e FC 105 bpm. O abdome está doloroso à palpação, com hipertonia uterina. Identifica-se batimento cardíaco fetal variando de 100 a 110 bpm de forma sustentada. A inspeção especular revela moderada quantidade de sangue vermelho vivo no fundo vaginal.<br><br>
+            Qual é a conduta imediata nessa situação?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Interromper a gestação pela via de parto mais rápida.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Confirmar a localização placentária por ultrassonografia obstétrica.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Realizar perfil biofísico fetal com monitorização dos sinais vitais maternos.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Iniciar a indução do trabalho de parto.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Obstetrícia</p>
+            <p><strong>Tema:</strong> Descolamento prematuro de placenta (DPP) grave com sofrimento fetal.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, pois é uma emergência obstétrica com risco materno e fetal. A banca costuma cobrar o reconhecimento clínico (dor súbita, hipertonia uterina, sangramento vermelho vivo, sofrimento fetal) e a conduta imediata, que é a interrupção da gestação pela via mais rápida quando há comprometimento fetal ou materno.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O DPP é a separação prematura da placenta normalmente inserida, após 20 semanas, antes do nascimento do feto. O sangramento decidual forma um hematoma que descola a placenta, levando à hipertonia uterina, dor abdominal e comprometimento da troca gasosa placentária, com sofrimento fetal. Fatores de risco incluem hipertensão gestacional/pré-eclâmpsia, multiparidade, trauma, cocaína e idade materna avançada. No caso, a hipertensão gestacional e o quadro clínico clássico reforçam a hipótese.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa A está correta. Diante de DPP grave em gestação a termo (38 semanas), com hipertonia uterina, sangramento vaginal, instabilidade materna relativa e sofrimento fetal (BCF 100-110 bpm sustentado), a conduta é interromper a gestação pela via mais rápida, geralmente cesariana de emergência. Não se deve atrasar o parto para ultrassonografia ou perfil biofísico quando há comprometimento fetal e materno.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta: interrupção da gestação pela via mais rápida é a conduta indicada no DPP grave com sofrimento fetal e gestação a termo.</p>
+            <p><strong>Alternativa B</strong> - Incorreta: a ultrassonografia pode auxiliar no diagnóstico diferencial, mas não deve atrasar a conduta em quadro de emergência com sofrimento fetal. O diagnóstico de DPP é clínico.</p>
+            <p><strong>Alternativa C</strong> - Incorreta: perfil biofísico fetal não tem papel na emergência com sofrimento fetal agudo; a prioridade é a interrupção da gestação.</p>
+            <p><strong>Alternativa D</strong> - Incorreta: indução do trabalho de parto é contraindicada no DPP grave com sofrimento fetal, pois pode agravar a hipóxia e o descolamento.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"forte dor abdominal" e "útero muito duro":</strong> indicam hipertonia uterina, típica do DPP.</li>
+                <li><strong>"sangramento vermelho vivo" e "redução dos movimentos fetais":</strong> sugerem descolamento com comprometimento fetal.</li>
+                <li><strong>"hipertensão gestacional":</strong> principal fator de risco para DPP.</li>
+                <li><strong>"BCF 100 a 110 bpm de forma sustentada":</strong> sofrimento fetal, indicando interrupção imediata da gestação.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer a emergência obstétrica: sangramento vaginal doloroso + hipertonia uterina + sofrimento fetal.</li>
+                <li><strong>Segundo:</strong> estabilizar a mãe: acesso venoso, hidratação, monitorização materna e fetal, tipagem sanguínea e reserva de hemocomponentes.</li>
+                <li><strong>Terceiro:</strong> não atrasar a conduta para exames de imagem; acionar obstetrícia, anestesia e neonatologia.</li>
+                <li><strong>Quarto:</strong> interromper a gestação pela via mais rápida, geralmente cesariana de emergência; após o parto, avaliar útero de Couvelaire, coagulopatia e hemorragia.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em emergências obstétricas.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> DPP = sangramento vaginal doloroso + hipertonia uterina + sofrimento fetal; placenta prévia = sangramento indolor + útero relaxado.</li>
+                <li><strong>Números e doses:</strong> DPP ocorre após 20 semanas; em gestação a termo com sofrimento fetal, cesariana de emergência; em pretermo estável, pode-se considerar corticosteroide e conduta conservadora.</li>
+                <li><strong>Mnemônicos:</strong> "DPP: Dor + Hipertonia + Sangue vermelho + Sofrimento fetal".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma diferenciar DPP de placenta prévia e cobrar a conduta conforme a vitalidade fetal.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DPP (descolamento prematuro de placenta)</td>
+                        <td>Dor abdominal súbita, hipertonia uterina, sangramento vermelho vivo, sofrimento fetal</td>
+                        <td>Clínico; ultrassonografia não exclui</td>
+                        <td>Interrupção da gestação pela via mais rápida se grave/sofrimento fetal</td>
+                    </tr>
+                    <tr>
+                        <td>Placenta prévia</td>
+                        <td>Sangramento indolor, útero relaxado, sangramento recorrente</td>
+                        <td>Ultrassonografia transvaginal</td>
+                        <td>Cesárea se placenta prévia oclusiva; evitar toque vaginal</td>
+                    </tr>
+                    <tr>
+                        <td>Rotura uterina</td>
+                        <td>Dor súbita, parada das contrações, choque, sofrimento fetal, cicatriz uterina prévia</td>
+                        <td>Clínico; ultrassonografia</td>
+                        <td>Laparotomia de emergência</td>
+                    </tr>
+                    <tr>
+                        <td>Vasa prévia</td>
+                        <td>Sangramento indolor com ruptura de membranas, sofrimento fetal agudo</td>
+                        <td>Ultrassonografia com Doppler</td>
+                        <td>Cesárea de emergência</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta seria DPP, com base no quadro clínico, sem depender de ultrassom.</li>
+                <li><strong>Se fosse sobre complicação:</strong> a resposta incluiria útero de Couvelaire, CIVD, choque hemorrágico e insuficiência renal.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta incluiria controle da hipertensão, evitar cocaína e trauma, e monitorização de gestantes de risco.</li>
+                <li><strong>Exemplo:</strong> "Se a gestação fosse pretermo e estável, a conduta poderia incluir corticosteroide e conduta conservadora. Se houvesse placenta prévia, a resposta seria cesárea eletiva conforme localização."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q12</td>
+                        <td>Gestante de 28 anos, idade gestacional desconhecida, sangramento vaginal intenso, hipertonia uterina, PA 130 x 90 mmHg, BCF 90 bpm, uso de cocaína.</td>
+                        <td>Diagnóstico, conduta e complicação do DPP: descolamento de placenta, cesárea e útero de Couvelaire.</td>
+                        <td>A</td>
+                        <td>Mesmo tema (DPP grave). A questão anterior cobrou a tríade diagnóstico/conduta/complicação; a atual cobra a conduta imediata em DPP grave a termo com sofrimento fetal.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema DPP apareceu em pelo menos 1 questão das provas anteriores. A banca tem cobrado o reconhecimento clínico e a conduta de emergência, além da complicação clássica (útero de Couvelaire).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> DPP leve/pretermo com conduta conservadora, uso de corticosteroide, diagnóstico diferencial com placenta prévia e vasa prévia, e manejo da coagulopatia.</p>
+            <p><strong>Evolução da cobrança:</strong> a banca tem priorizado condutas práticas e decisões de emergência, em vez de apenas descrever o quadro clínico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar DPP grave, indicação de cesariana de emergência, complicações maternas e fetais, e diferenciais de sangramento vaginal na gestação.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Hipertensão gestacional/pré-eclâmpsia - principal fator de risco para DPP e deve ser controlada.</li>
+                <li><strong>Conexão 2:</strong> Coagulopatia e CIVD - o DPP grave pode levar a consumo de fatores e hemorragia.</li>
+                <li><strong>Conexão 3:</strong> Sofrimento fetal e cesárea de emergência - a vitalidade fetal determina a via e a urgência do parto.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é atrasar a conduta para confirmar a localização placentária por ultrassonografia ou indicar indução do parto. A estratégia de correção é memorizar: DPP grave com sofrimento fetal = interrupção imediata pela via mais rápida; ultrassom não deve atrasar a cesariana. Classificação do erro: erro de estratégia/priorização em emergência obstétrica. Ação corretiva: revisar o manejo do DPP e treinar a identificação de sinais de gravidade.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a cesariana de emergência reduz o risco de morte fetal e materna. Após o parto, é importante avaliar a contratilidade uterina, a presença de útero de Couvelaire e a coagulação, além de garantir suporte neonatal e hemoterápico quando necessário.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Descolamento prematuro de placenta (DPP).</li>
+                <li>Placenta prévia e vasa prévia.</li>
+                <li>Útero de Couvelaire e CIVD.</li>
+                <li>Sofrimento fetal agudo e cesárea de emergência.</li>
+                <li>Hipertensão gestacional e pré-eclâmpsia.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Brasil. Ministério da Saúde. Manual de Gestação de Alto Risco.</p>
+            <p>2. FEBRASGO. Protocolos de Obstetrícia - Hemorragias da Segunda Metade da Gestação.</p>
+            <p>3. Williams Obstetrics.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

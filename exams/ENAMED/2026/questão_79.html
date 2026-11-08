@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 79 - Rede de atenção psicossocial: articulação do cuidado do paciente com esquizofrenia e uso de álcool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Rede de atenção psicossocial: articulação do cuidado do paciente com esquizofrenia e uso de álcool</div>
+        <h1>Questão 79</h1>
+        <div class="question-text">
+            Homem de 60 anos, sem emprego formal, está em acompanhamento em um Centro de Atenção Psicossocial (CAPS) por esquizofrenia. Nos últimos meses, retomou uso de álcool, isolou-se mais e foi visto pelos vizinhos diversas vezes embriagado, em casa, falando sozinho. Apresenta dificuldades de pagar o aluguel, de comprar alimentos e medicamentos da mãe de 80 anos, com quem habita.<br><br>
+            Considerando-se a composição da rede de atenção psicossocial, quais pontos de atenção, além do CAPS, são apropriados para a articulação do cuidado desse paciente?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Unidade de Pronto Atendimento; atenção primária à saúde; e centros de convivência e cultura.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Serviço móvel de urgência; serviços residenciais terapêuticos; e centro de orientação e aconselhamento.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Unidade de acolhimento; centro de referência em assistência social; e unidades ambulatoriais especializadas.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Equipe de consultório na rua; núcleos de apoio à saúde da família; e serviço de atenção domiciliar.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Psiquiatria / Saúde Mental Coletiva / Medicina de Família e Comunidade.</p>
+            <p><strong>Tema:</strong> Rede de Atenção Psicossocial (RAPS): articulação do cuidado do paciente com esquizofrenia, uso de álcool e vulnerabilidade social.</p>
+            <p><strong>Contextualização:</strong> A RAPS é organizada em pontos de atenção que devem atuar de forma articulada e intersetorial. O tema é recorrente em provas de residência em psiquiatria, saúde coletiva e medicina de família, cobrando o conhecimento dos componentes da rede e a capacidade de indicar os pontos adequados para cada situação clínica e social.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A esquizofrenia é um transtorno mental grave, com sintomas positivos, negativos e cognitivos, que frequentemente cursa com comorbidades, como uso de substâncias, e com vulnerabilidade social. O CAPS é o ponto de atenção especializado, mas o cuidado deve ser articulado com outros pontos da RAPS e com a rede intersetorial. O paciente do caso apresenta recaída no uso de álcool, isolamento social e dificuldades financeiras, exigindo atenção à saúde mental, cuidado clínico, suporte social e atividades de convivência para reduzir o isolamento e promover reabilitação psicossocial.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - Unidade de Pronto Atendimento; atenção primária à saúde; e centros de convivência e cultura.</strong> A UPA é importante para atendimento de intercorrências agudas, como intoxicação alcoólica, agitação ou complicações clínicas. A atenção primária à saúde é fundamental para o cuidado longitudinal, manejo de comorbidades clínicas, acompanhamento do uso de álcool e articulação com a rede. Os centros de convivência e cultura fazem parte da RAPS e contribuem para a reabilitação psicossocial, reduzindo o isolamento e promovendo vínculos. Esses três pontos, além do CAPS, compõem uma articulação adequada para o caso.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa B</strong> - Serviço móvel de urgência; serviços residenciais terapêuticos; e centro de orientação e aconselhamento. O SAMU pode ser acionado em urgências, mas não é o ponto de atenção principal para o cuidado longitudinal. Os serviços residenciais terapêuticos são indicados para pessoas sem moradia ou sem suporte familiar, o que não é o caso, pois o paciente reside com a mãe. O centro de orientação e aconselhamento não é um ponto típico da RAPS.</p>
+            <p><strong>Alternativa C</strong> - Unidade de acolhimento; centro de referência em assistência social; e unidades ambulatoriais especializadas. A unidade de acolhimento é de caráter transitório e indicada em situações específicas, não sendo o principal ponto para este caso. O centro de referência em assistência social (CRAS) é importante para o suporte social, mas não é um ponto de atenção em saúde. As unidades ambulatoriais especializadas podem ser úteis, mas não são a articulação prioritária em relação aos centros de convivência.</p>
+            <p><strong>Alternativa D</strong> - Equipe de consultório na rua; núcleos de apoio à saúde da família; e serviço de atenção domiciliar. O consultório na rua é indicado para pessoas em situação de rua, o que não é o caso, pois o paciente tem moradia. Os núcleos de apoio à saúde da família (NASF) são parte da atenção primária, mas não são pontos de atenção autônomos. O serviço de atenção domiciliar pode ser útil em situações de restrição ao domicílio, mas não é a articulação principal para este paciente.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Esquizofrenia em acompanhamento no CAPS:</strong> indica que o paciente já está vinculado ao ponto especializado da RAPS.</li>
+                <li><strong>Retomou uso de álcool e isolou-se:</strong> sugere necessidade de cuidado clínico, manejo do uso de substâncias e reabilitação psicossocial.</li>
+                <li><strong>Visto embriagado em casa, falando sozinho:</strong> reforça a necessidade de atenção à saúde mental e à segurança.</li>
+                <li><strong>Dificuldades de pagar aluguel, comprar alimentos e medicamentos:</strong> indica vulnerabilidade social e necessidade de articulação intersetorial.</li>
+                <li><strong>Mora com a mãe de 80 anos:</strong> mostra que não há indicação de serviço residencial terapêutico nem de consultório na rua.</li>
+                <li><strong>“Além do CAPS”:</strong> direciona para os outros pontos da RAPS.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer que o paciente já está no CAPS e precisa de articulação com outros pontos da RAPS.</li>
+                <li><strong>Segundo:</strong> identificar a necessidade de atendimento de urgência para possíveis intercorrências (UPA).</li>
+                <li><strong>Terceiro:</strong> reconhecer a importância da atenção primária para cuidado longitudinal, comorbidades e manejo do álcool.</li>
+                <li><strong>Quarto:</strong> incluir centros de convivência e cultura para reabilitação psicossocial e redução do isolamento.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> a RAPS é composta por atenção básica, atenção psicossocial especializada, atenção de urgência e emergência, atenção residencial de caráter transitório e atenção de reabilitação psicossocial.</li>
+                <li><strong>Centros de convivência:</strong> são pontos de reabilitação psicossocial que ajudam a reduzir o isolamento e promover vínculos.</li>
+                <li><strong>CAPS:</strong> ponto especializado, mas o cuidado deve ser articulado com a atenção básica e a rede intersetorial.</li>
+                <li><strong>Consultório na rua:</strong> indicado para pessoas em situação de rua, não para quem tem moradia.</li>
+                <li><strong>Serviços residenciais terapêuticos:</strong> indicados para pessoas sem moradia ou sem suporte familiar adequado.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar os componentes da RAPS e a indicação de cada ponto de atenção.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Esquizofrenia com uso de álcool e vulnerabilidade social (correta)</td>
+                        <td>Recaída no uso de álcool, isolamento, dificuldades financeiras, esquizofrenia em acompanhamento no CAPS.</td>
+                        <td>Avaliação clínica e psiquiátrica, avaliação social.</td>
+                        <td>Articulação com UPA, atenção primária e centros de convivência, além do CAPS.</td>
+                    </tr>
+                    <tr>
+                        <td>Esquizofrenia sem suporte familiar</td>
+                        <td>Paciente sem moradia ou sem suporte familiar adequado.</td>
+                        <td>Avaliação social e psiquiátrica.</td>
+                        <td>Serviços residenciais terapêuticos e articulação com a rede.</td>
+                    </tr>
+                    <tr>
+                        <td>Pessoa em situação de rua com transtorno mental</td>
+                        <td>Sem moradia, uso de substâncias, vulnerabilidade extrema.</td>
+                        <td>Avaliação clínica e social.</td>
+                        <td>Consultório na rua, CAPS e articulação intersetorial.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre paciente em situação de rua:</strong> a resposta poderia incluir consultório na rua e serviços residenciais terapêuticos.</li>
+                <li><strong>Se fosse sobre crise aguda:</strong> a resposta poderia incluir UPA e SAMU.</li>
+                <li><strong>Se fosse sobre reabilitação psicossocial:</strong> a resposta poderia incluir centros de convivência, cooperativas sociais e oficinas.</li>
+                <li><strong>Se fosse sobre suporte social:</strong> a resposta poderia incluir CRAS e assistência social.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q93</td>
+                        <td>Homem de 44 anos com esquizofrenia, em situação de rua, sem uso de medicação há meses, com múltiplas internações.</td>
+                        <td>Conduta após acolhimento: acionar a rede de atenção psicossocial e articular cuidado intersetorial.</td>
+                        <td>Acionar a rede de atenção psicossocial e articular o cuidado intersetorial.</td>
+                        <td>Tema próximo: esquizofrenia e articulação da RAPS, mas com foco em situação de rua e má adesão.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q71</td>
+                        <td>Idosa diabética com hipoglicemia por dificuldade de compreensão do esquema de insulina, com locomoção reduzida e filha que trabalha fora.</td>
+                        <td>Ação inicial da equipe: articulação do cuidado com a comunidade.</td>
+                        <td>Articulação do cuidado com a comunidade.</td>
+                        <td>Tema próximo: articulação de redes e cuidado comunitário, mas não em saúde mental.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q60</td>
+                        <td>Homem de 53 anos com aumento do consumo de álcool e isolamento após perda familiar.</td>
+                        <td>Abordagem inicial do uso de álcool na atenção primária.</td>
+                        <td>Intervenção breve e terapia multiprofissional na UBS.</td>
+                        <td>Tema complementar: uso de álcool e cuidado na atenção primária, relevante para o caso.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q72</td>
+                        <td>Homem de 30 anos com uso de crack em binge e objetivo de reduzir consumo.</td>
+                        <td>Conduta inicial e redução de danos.</td>
+                        <td>Ações voltadas à redução de danos.</td>
+                        <td>Tema complementar: uso de substâncias e cuidado psicossocial.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q79</td>
+                        <td>Homem de 60 anos com esquizofrenia, uso de álcool, isolamento e vulnerabilidade social.</td>
+                        <td>Pontos de atenção da RAPS além do CAPS.</td>
+                        <td>UPA, atenção primária e centros de convivência e cultura.</td>
+                        <td>É a própria questão analisada.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em várias questões das provas analisadas, com foco em saúde mental, uso de substâncias e articulação da RAPS. A banca alterna entre cobrar a conduta inicial em situações de vulnerabilidade, a articulação intersetorial e os pontos de atenção da rede.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> funcionamento detalhado dos centros de convivência, cooperativas sociais, programa de volta para casa e articulação com a assistência social.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica suficiente para identificar evolução; o tema exige conhecimento dos componentes da RAPS e da lógica de cuidado em rede.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a RAPS, seus componentes, a articulação intersetorial e as indicações de cada ponto de atenção.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Uso de álcool e outras drogas - frequente em pacientes com esquizofrenia e exige abordagem integrada e redução de danos.</li>
+                <li><strong>Conexão 2:</strong> Vulnerabilidade social - o cuidado em saúde mental deve considerar moradia, renda, suporte familiar e acesso a serviços.</li>
+                <li><strong>Conexão 3:</strong> Reabilitação psicossocial - centros de convivência, oficinas e cooperativas ajudam na reintegração social e na redução do isolamento.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é não conhecer os componentes da RAPS ou confundir os pontos de atenção indicados para situações de rua com os indicados para pacientes com moradia e suporte familiar. A ação corretiva é memorizar que o consultório na rua e os serviços residenciais terapêuticos são indicados para situações específicas de ausência de moradia, enquanto a UPA, a atenção primária e os centros de convivência são pontos mais amplos e adequados ao caso apresentado.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o paciente com esquizofrenia e uso de álcool precisa de cuidado articulado entre CAPS, atenção primária, UPA e centros de convivência. A atenção primária é fundamental para o cuidado longitudinal e manejo de comorbidades, enquanto os centros de convivência contribuem para a reabilitação psicossocial e a redução do isolamento. A articulação intersetorial com a assistência social também é importante para lidar com as dificuldades financeiras e de moradia.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Componentes da Rede de Atenção Psicossocial (RAPS).</li>
+                <li>Centros de convivência e cultura.</li>
+                <li>Consultório na rua e serviços residenciais terapêuticos.</li>
+                <li>Articulação intersetorial em saúde mental.</li>
+                <li>Redução de danos e manejo do uso de álcool.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Portaria 3.088/2011 - Institui a Rede de Atenção Psicossocial (RAPS).</p>
+            <p>2. Ministério da Saúde. Política Nacional de Saúde Mental, Álcool e Outras Drogas.</p>
+            <p>3. Organização Mundial da Saúde (OMS). Diretrizes para o cuidado de pessoas com transtornos mentais graves.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

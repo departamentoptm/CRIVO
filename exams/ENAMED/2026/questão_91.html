@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 91 - Uso de Cannabis medicinal na fibromialgia na Atenção Primária à Saúde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Uso de Cannabis medicinal na fibromialgia na Atenção Primária à Saúde</div>
+        <h1>Questão 91</h1>
+        <div class="question-text">
+            Mulher de 48 anos procurou uma Unidade Básica de Saúde (UBS) devido a dor crônica generalizada persistente. Relata que, em consulta com outro médico, recebeu o diagnóstico de fibromialgia e que, desde então, tem feito diversos tratamentos, mas sem resultados. Diante disso, a paciente solicita a prescrição de Cannabis medicinal. Qual é o papel do médico da UBS em relação ao uso da Cannabis medicinal nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Prescrevê-la, visto que ela consta na relação nacional de medicamentos excepcionais do SUS.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Solicitar autorização do Conselho Regional de Medicina para sua prescrição no SUS.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Informar que faltam evidências que sustentem seu uso e sua prescrição no SUS.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Comunicar que seu uso e sua prescrição no SUS devem ocorrer mediante autorização judicial.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Atenção Primária à Saúde / Clínica Médica / Saúde Coletiva</p>
+            <p><strong>Tema:</strong> Uso de Cannabis medicinal em paciente com fibromialgia e o papel do médico da Atenção Primária à Saúde diante das evidências científicas e da cobertura pelo SUS.</p>
+            <p><strong>Contextualização:</strong> Trata-se de tema contemporâneo, que articula dor crônica, fibromialgia, medicina baseada em evidências, regulação sanitária e acesso a medicamentos no SUS. Na prova, costuma ser cobrado não como indicação clínica isolada, mas como tomada de decisão ética e profissional: o médico deve acolher a demanda, explicar limitações de evidência e não confundir possibilidade excepcional de prescrição com cobertura pública ou indicação consolidada.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A fibromialgia é uma síndrome de dor crônica generalizada, frequentemente associada a sensibilização central, distúrbios do sono, fadiga, alterações cognitivas e sofrimento psíquico. O tratamento baseia-se em abordagem multimodal: educação, atividade física supervisionada, terapia cognitivo-comportamental, higiene do sono e fármacos com evidência para dor crônica, conforme resposta individual. Os canabinoides têm sido estudados em dor crônica, mas a evidência para fibromialgia é limitada, de baixa qualidade e insuficiente para recomendar seu uso rotineiro. Além disso, a prescrição de Cannabis medicinal no Brasil é regulada de forma excepcional e não equivale à incorporação no SUS. Portanto, o papel do médico da UBS é informar que faltam evidências que sustentem seu uso e sua prescrição no SUS, mantendo o cuidado longitudinal e as alternativas terapêuticas disponíveis.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C é a correta.</strong> O médico da UBS deve esclarecer que, para fibromialgia, não há evidência robusta que sustente a prescrição rotineira de Cannabis medicinal e que esses produtos não constam da Relação Nacional de Medicamentos Essenciais (RENAME) para essa indicação, não sendo medicamentos excepcionais do SUS. A conduta adequada é acolher a demanda, explicar as limitações científicas, manter o plano terapêutico multimodal e, se houver indicação excepcional em situações específicas, encaminhar conforme fluxos regulatórios próprios, sem prometer acesso pelo SUS. Isso está alinhado ao princípio da medicina baseada em evidências e ao uso racional de medicamentos.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. A Cannabis medicinal não consta na relação nacional de medicamentos excepcionais do SUS para fibromialgia. A existência de regulamentação sanitária para produtos à base de Cannabis não significa incorporação ou cobertura pública. Esse distrator explora a confusão entre registro/regulação sanitária e financiamento pelo SUS.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A prescrição médica não depende de autorização prévia do Conselho Regional de Medicina para cada caso. O CRM regula o exercício profissional e não autoriza individualmente a prescrição no SUS. A questão não é de autorização corporativa, mas de evidência e cobertura.</p>
+            <p><strong>Alternativa C</strong> - Correta. O médico deve informar a insuficiência de evidências para sustentar uso e prescrição no SUS no contexto da fibromialgia, sem deixar de acolher e acompanhar a paciente.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A autorização judicial pode ser uma via excepcional buscada por pacientes para acesso a produtos não incorporados, mas não é a regra que define o papel do médico da UBS. O médico não deve condicionar toda e qualquer discussão sobre Cannabis medicinal à autorização judicial, nem induzir judicialização como primeira alternativa.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Fibromialgia” e “dor crônica generalizada persistente”:</strong> indicam condição de manejo multimodal, na qual a evidência para canabinoides é limitada.</li>
+                <li><strong>“Tem feito diversos tratamentos, mas sem resultados”:</strong> sugere sofrimento e expectativa de solução, exigindo acolhimento e evitando promessas terapêuticas.</li>
+                <li><strong>“Solicita a prescrição de Cannabis medicinal”:</strong> desloca a questão para o papel profissional, a evidência científica e a cobertura pelo SUS, não para a simples concordância com o pedido.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> acolher a demanda e compreender o sofrimento da paciente, sem julgamento.</li>
+                <li><strong>Segundo:</strong> revisar diagnóstico, tratamentos prévios e comorbidades, reforçando a abordagem multimodal da fibromialgia.</li>
+                <li><strong>Terceiro:</strong> explicar que a evidência para Cannabis medicinal em fibromialgia é insuficiente e que não há cobertura pelo SUS para essa indicação.</li>
+                <li><strong>Quarto:</strong> manter acompanhamento na UBS, ajustar terapêuticas com evidência e, se necessário, articular com especialistas conforme fluxo, sem prometer acesso público ao produto.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> fibromialgia é dor crônica generalizada com sensibilização central; tratamento é multimodal; canabinoides não têm evidência robusta para uso rotineiro.</li>
+                <li><strong>Números e doses:</strong> não há dose padronizada de Cannabis medicinal para fibromialgia no SUS; a ausência de padronização e de cobertura é parte da resposta.</li>
+                <li><strong>Mnemônicos:</strong> “Evidência antes da prescrição; cobertura não é o mesmo que regulação sanitária”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma confundir regulamentação da Anvisa, prescrição médica e financiamento público.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fibromialgia</td>
+                        <td>Dor generalizada crônica, fadiga, sono não reparador, sintomas cognitivos, sem sinovite erosiva.</td>
+                        <td>Diagnóstico clínico; exames para excluir diferenciais conforme alertas.</td>
+                        <td>Educação, exercício, terapia cognitivo-comportamental e fármacos com evidência.</td>
+                    </tr>
+                    <tr>
+                        <td>Dor crônica por doença reumatológica inflamatória</td>
+                        <td>Rigidez matinal prolongada, edema articular, deformidades, sinais sistêmicos.</td>
+                        <td>Exames laboratoriais e imagem conforme suspeita.</td>
+                        <td>Tratamento específico da doença de base.</td>
+                    </tr>
+                    <tr>
+                        <td>Dor neuropática</td>
+                        <td>Queimação, choques, parestesias, distribuição em território nervoso.</td>
+                        <td>Exame neurológico e investigação etiológica.</td>
+                        <td>Fármacos neuropáticos e tratamento da causa.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+            <ul>
+                <li><strong>Se a questão fosse sobre tratamento:</strong> a resposta poderia envolver exercício, terapia cognitivo-comportamental e fármacos com evidência.</li>
+                <li><strong>Se fosse sobre acesso:</strong> a resposta poderia diferenciar registro sanitário, prescrição excepcional e cobertura pelo SUS.</li>
+                <li><strong>Se fosse sobre ética:</strong> a resposta poderia envolver acolhimento, consentimento, comunicação de incerteza e evitar promessas terapêuticas.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Não identificada</td>
+                        <td>Não foram encontradas questões sobre Cannabis medicinal, fibromialgia ou prescrição de canabinoides no arquivo de provas anteriores analisado.</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Tema não abordado nas provas de 2025_2026. Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica e regulatória.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema não apareceu nas provas anteriores analisadas. Não foi possível identificar alternância entre abordagens de diagnóstico, tratamento ou complicação para este tópico específico.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> uso de canabidiol em epilepsia refratária, diferença entre prescrição médica e cobertura pelo SUS, judicialização do acesso, riscos e efeitos adversos dos canabinoides, e critérios regulatórios da Anvisa.</p>
+            <p><strong>Evolução da cobrança:</strong> não aplicável, pois não houve questão prévia identificada sobre o tema.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> estudar o marco regulatório da Cannabis medicinal no Brasil, a ausência de cobertura pelo SUS para fibromialgia e a importância da medicina baseada em evidências, sem decorar apenas indicações clínicas isoladas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <p>Como esse tema se integra com outros:</p>
+            <ul>
+                <li><strong>Conexão 1:</strong> fibromialgia se conecta a dor crônica, saúde mental, sono e reabilitação; o manejo é multimodal.</li>
+                <li><strong>Conexão 2:</strong> Cannabis medicinal se conecta a regulação sanitária, uso racional de medicamentos, SUS e judicialização da saúde.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é lacuna de conhecimento sobre o marco regulatório e a cobertura do SUS, ou confusão conceitual entre possibilidade de prescrição excepcional e indicação rotineira/cobertura pública. A ação corretiva é revisar: (1) fibromialgia e tratamento multimodal; (2) evidência sobre canabinoides em dor crônica; (3) RENAME e cobertura do SUS; (4) diferença entre regulação sanitária, prescrição médica e financiamento público.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o médico da UBS deve acolher a paciente, validar seu sofrimento, explicar de forma clara e empática que a Cannabis medicinal não é tratamento consolidado para fibromialgia nem está disponível pelo SUS para essa indicação. Deve manter o cuidado longitudinal, reforçar adesão às medidas com evidência e evitar tanto a prescrição indiscriminada quanto a desqualificação da demanda. Quando necessário, deve articular a rede e registrar a orientação no prontuário.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Fibromialgia: diagnóstico clínico e tratamento multimodal.</li>
+                <li>Medicina baseada em evidências e níveis de evidência para canabinoides.</li>
+                <li>Relação Nacional de Medicamentos Essenciais (RENAME) e cobertura pelo SUS.</li>
+                <li>Regulação sanitária de produtos à base de Cannabis no Brasil.</li>
+                <li>Judicialização da saúde e acesso excepcional a medicamentos.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Brasil. Ministério da Saúde. Relação Nacional de Medicamentos Essenciais (RENAME).</p>
+            <p>2. Agência Nacional de Vigilância Sanitária (Anvisa). Resolução da Diretoria Colegiada (RDC) nº 327/2019 e atualizações sobre produtos à base de Cannabis.</p>
+            <p>3. Conselho Federal de Medicina. Resolução CFM nº 2.113/2014 e normativas correlatas sobre uso compassivo de canabidiol.</p>
+            <p>4. Diretrizes brasileiras de fibromialgia e literatura sobre manejo multimodal da dor crônica.</p>
+            <p>5. Literatura sobre eficácia e segurança de canabinoides em dor crônica e fibromialgia.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

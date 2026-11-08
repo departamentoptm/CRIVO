@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 32 - Obstetrícia: Doença hemorroidária na gestação - conduta inicial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstetrícia: Doença hemorroidária na gestação - conduta inicial</div>
+        <h1>Questão 32</h1>
+        <div class="question-text">
+            Secundigesta de 26 semanas com parto vaginal anterior, procura atendimento médico por sangramento vermelho vivo ao evacuar, desconforto anal e prolapso hemorroidário durante a defecação. Na inspeção dinâmica anal observa-se prolapso de mamilo hemorroidário interno que retornou espontaneamente após parada da manobra de Valsalva. Qual a conduta inicial mais correta para o caso clínico?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Aumentar ingesta de fibras, orientar banhos de assento e usar pomada anestésica para alívio dos sintomas.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Programar hemorroidectomia imediata para prevenir a progressão e risco aumentado de trombose hemorroidária.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Encaminhar para hemorroidectomia eletiva devido ao risco de progressão da doença e complicações no parto.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Realizar escleroterapia ambulatorial como tratamento definitivo ainda no segundo trimestre gestacional.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Indicar ligadura elástica do plexo hemorroidário para reduzir o prolapso durante a gestação e parto.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Obstetrícia / Coloproctologia</p>
+            <p><strong>Tema:</strong> Doença hemorroidária na gestação - prolapso hemorroidário interno grau II e conduta inicial</p>
+            <p><strong>Contextualização:</strong> A doença hemorroidária é a afecção proctológica mais comum na gestação, acometendo até 40% das gestantes, especialmente no terceiro trimestre e no puerpério. O aumento da pressão intra-abdominal pelo útero gravídico, a constipação (progesterona reduz o peristaltismo) e o aumento do volume plasmático favorecem a dilatação do plexo hemorroidário. O tratamento inicial é sempre clínico e conservador, reservando-se intervenções invasivas para casos refratários ou complicados (trombose, estrangulamento).</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>As hemorroidas são coxins vasculares submucosos do canal anal que, quando sintomáticos, geram sangramento, dor e prolapso. A classificação de Grau (I-IV) baseia-se no prolapso: grau I não prolapsa; grau II prolapsa durante a evacuação e reduz espontaneamente; grau III prolapsa e exige redução manual; grau IV permanece prolapsado e irredutível. No caso, o prolapso retornou espontaneamente após cessar a manobra de Valsalva - caracteriza hemorroida interna grau II. Na gestação, a conduta inicial para graus I-II (e mesmo III sem complicações) é conservadora: aumento da ingesta de fibras e líquidos, banhos de assento mornos, pomadas anestésicas tópicas e correção da constipação. A cirurgia é reservada para trombose, estrangulamento, sangramento incontrolável ou falha do tratamento clínico persistente, e idealmente é adiada para o pós-parto.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A.</strong> Está correta. Diante de hemorroida interna grau II (prolapso que reduz espontaneamente), sem sinais de complicação (trombose, estrangulamento, necrose), a conduta inicial é conservadora: aumento da ingesta de fibras e líquidos, banhos de assento mornos e pomada anestésica tópica para alívio dos sintomas. Essa conduta é segura na gestação, reduz a progressão e é a recomendação da literatura. A cirurgia fica reservada para casos complicados ou refratários, preferencialmente no pós-parto.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa B</strong> - A hemorroidectomia imediata não é indicada em gestante com hemorroida grau II não complicada. O procedimento aumenta o risco de complicações obstétricas (parto prematuro, sofrimento fetal), tem pior cicatrização no contexto gravídico e deve ser evitado durante a gestação sempre que possível. A indicação cirúrgica imediata é reservada para trombose, estrangulamento ou sangramento incontrolável. Alternativa incorreta.</p>
+            <p><strong>Alternativa C</strong> - Encaminhar para hemorroidectomia eletiva durante a gestação também não é a conduta adequada. O tratamento cirúrgico eletivo é preferencialmente postergado para o pós-parto, quando a congestão pélvica e a constipação regridem e as hemorroidas frequentemente melhoram ou desaparecem. Alternativa incorreta.</p>
+            <p><strong>Alternativa D</strong> - A escleroterapia não é a conduta inicial na gestação para hemorroida grau II. Trata-se de um método invasivo com evidências limitadas na gestação, reservado para casos selecionados e, de preferência, após o parto. Alternativa incorreta.</p>
+            <p><strong>Alternativa E</strong> - A ligadura elástica é uma opção no tratamento ambulatorial de hemorroidas internas graus I-III, porém as evidências e as recomendações são de que seja postergada para o pós-parto, pela maior chance de dor, complicações e recorrência no contexto gestacional. Não é a conduta inicial. Alternativa incorreta.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Gestante de 26 semanas:</strong> segundo trimestre, mas com congestão pélvica progressiva.</li>
+                <li><strong>Prolapso que retornou espontaneamente:</strong> hemorroida interna grau II (prolapso com redução espontânea).</li>
+                <li><strong>Sangramento vermelho vivo e desconforto anal:</strong> sintomas típicos, sem sinais de complicação.</li>
+                <li><strong>Sem trombose, estrangulamento ou necrose:</strong> quadro não complicado, permitindo tratamento conservador.</li>
+                <li><strong>Conduta inicial mais correta:</strong> priorizar tratamento clínico, evitar intervenções invasivas na gestação.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Classificar a hemorroida: grau I a IV, conforme o prolapso e a redução.</li>
+                <li><strong>Segundo:</strong> Avaliar complicações: trombose, estrangulamento, necrose, sangramento intenso.</li>
+                <li><strong>Terceiro:</strong> Se grau I-II sem complicações (caso atual): tratamento conservador - fibras, líquidos, banhos de assento, pomada anestésica.</li>
+                <li><strong>Quarto:</strong> Se constipação: orientar dieta rica em fibras, hidratação e, se necessário, laxantes osmóticos suaves (lactulose, polietilenoglicol).</li>
+                <li><strong>Quinto:</strong> Se complicações (trombose, estrangulamento): avaliação cirúrgica, reservando cirurgia para casos refratários e, preferencialmente, postergando para o pós-parto.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "classificação da doença hemorroidária".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> hemorroida grau II = prolapso com redução espontânea; tratamento inicial na gestação é sempre conservador.</li>
+                <li><strong>Números e doses:</strong> ingesta de fibras 25-30 g/dia; banhos de assento mornos 2-3x/dia por 10-15 min; pomadas anestésicas tópicas (lidocaína) conforme necessidade; laxantes osmóticos suaves (lactulose) se constipação.</li>
+                <li><strong>Mnemônicos/regras:</strong> "grau II = prolapso que volta sozinho"; "na gestação, o tratamento inicial é sempre conservador"; "cirurgia na gestação só se complicação".</li>
+            </ul>
+            <p>Esses dados são cobrados com frequência em provas de obstetrícia e coloproctologia.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hemorroida grau II não complicada</td>
+                        <td>Prolapso com redução espontânea, sangramento vivo, desconforto</td>
+                        <td>Inspeção dinâmica anal, anuscopia</td>
+                        <td>Conservador: fibras, banhos de assento, pomada anestésica</td>
+                    </tr>
+                    <tr>
+                        <td>Hemorroida trombosada</td>
+                        <td>Dor intensa, nódulo endurecido, violáceo, irredutível</td>
+                        <td>Inspeção, anuscopia</td>
+                        <td>Analgesia, excisão do trombo se precoce; cirurgia se necessário</td>
+                    </tr>
+                    <tr>
+                        <td>Hemorroida estrangulada</td>
+                        <td>Prolapso irredutível, necrose, dor intensa</td>
+                        <td>Inspeção</td>
+                        <td>Cirurgia</td>
+                    </tr>
+                    <tr>
+                        <td>Fissura anal</td>
+                        <td>Dor à evacuação, sangramento vivo, espasmo esfincteriano</td>
+                        <td>Inspeção, anuscopia</td>
+                        <td>Conservador: fibras, banhos de assento, pomadas</td>
+                    </tr>
+                    <tr>
+                        <td>Abscesso perianal</td>
+                        <td>Dor, febre, massa flutuante, sinais flogísticos</td>
+                        <td>Inspeção, palpação</td>
+                        <td>Drenagem cirúrgica + antibiótico</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial das doenças anorretais.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o tratamento de hemorroida grau I:</strong> conservador (fibras, banhos de assento).</li>
+                <li><strong>Se pedisse o tratamento de hemorroida grau II:</strong> conservador; ligadura elástica ou escleroterapia se refratária, preferencialmente no pós-parto.</li>
+                <li><strong>Se pedisse o tratamento de hemorroida grau III-IV:</strong> cirurgia (hemorroidectomia), preferencialmente no pós-parto.</li>
+                <li><strong>Se pedisse a conduta na trombose hemorroidária:</strong> analgesia e excisão do trombo se precoce; cirurgia se necessário.</li>
+                <li><strong>Se pedisse a conduta no estrangulamento:</strong> cirurgia de urgência.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2007 - Q58</td>
+                        <td>Doença hemorroidária: sintoma principal, trombose, hemorroidas externas, graus e complicações pós-operatórias</td>
+                        <td>Conceitos e tratamento da doença hemorroidária</td>
+                        <td>E (principal complicação pós-hemorroidectomia é retenção urinária)</td>
+                        <td>Reforça conceitos de graus e tratamento</td>
+                    </tr>
+                    <tr>
+                        <td>2012 - Q32</td>
+                        <td>Gestante de 26 semanas com sangramento vivo, desconforto anal e prolapso hemorroidário que reduz espontaneamente</td>
+                        <td>Conduta inicial na hemorroida grau II na gestação</td>
+                        <td>A (aumentar fibras, banhos de assento, pomada anestésica)</td>
+                        <td>Questão praticamente idêntica à atual</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q75</td>
+                        <td>Mulher com desconforto perianal, gotejamento de sangue e prolapso</td>
+                        <td>Tratamento da doença hemorroidária</td>
+                        <td>E (I, II e IV corretas)</td>
+                        <td>Reforça o tratamento conservador inicial</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q58</td>
+                        <td>Hemorroida interna grau II e plicoma anal</td>
+                        <td>Tratamento cirúrgico após falha do conservador</td>
+                        <td>C (tratamento cirúrgico após falha do conservador)</td>
+                        <td>Complementa o entendimento da progressão terapêutica</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q92</td>
+                        <td>Hemorroidas internas de segundo grau: prolapso com redução espontânea</td>
+                        <td>Definição e tratamento do grau II</td>
+                        <td>C (primeira assertiva verdadeira, segunda falsa)</td>
+                        <td>Reforça a definição do grau II e o tratamento conservador</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q46</td>
+                        <td>Ferida operatória com saída de secreção purulenta</td>
+                        <td>Infecção de ferida (tema diferente)</td>
+                        <td>C</td>
+                        <td>Não se aplica diretamente</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q58</td>
+                        <td>Hemorroida interna grau II e plicoma</td>
+                        <td>Tratamento cirúrgico após falha do conservador</td>
+                        <td>C (tratamento cirúrgico após falha do conservador)</td>
+                        <td>Reforça o tratamento conservador inicial</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 questões no período. A banca alterna entre classificação dos graus, tratamento conservador inicial e tratamento cirúrgico após falha. A questão de 2012 (Q32) é praticamente idêntica à atual.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> manejo da trombose hemorroidária na gestação e a diferenciação entre prolapso redutível e irredutível no contexto obstétrico.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas cobravam conceitos gerais e complicações; as mais recentes contextualizam o tratamento na gestação, priorizando a conduta conservadora.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a classificação dos graus, o tratamento conservador inicial e as indicações de cirurgia na gestação.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Constipação na gestação → piora da doença hemorroidária → necessidade de fibras, hidratação e laxantes osmóticos suaves.</li>
+                <li><strong>Conexão 2:</strong> Hemorroida trombosada → dor intensa, nódulo endurecido → analgesia e excisão do trombo se precoce; cirurgia se necessário.</li>
+                <li><strong>Conexão 3:</strong> Hemorroida grau III-IV → cirurgia, preferencialmente no pós-parto, quando as condições locais e sistêmicas são mais favoráveis.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é optar por cirurgia ou procedimentos invasivos (alternativas B, C, D, E) na gestante com hemorroida grau II não complicada. Classificação provável do erro: desconhecimento da recomendação de tratamento conservador na gestação ou confusão sobre a classificação de grau. Ação corretiva: memorizar que "grau II = prolapso com redução espontânea; na gestação, tratamento inicial é conservador; cirurgia só em complicação".</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a gestante com doença hemorroidária deve ser tranquilizada e orientada sobre medidas conservadoras: aumento da ingesta de fibras e líquidos, banhos de assento mornos, pomadas anestésicas e correção da constipação. A avaliação deve excluir complicações (trombose, estrangulamento, necrose) e o acompanhamento deve ser longitudinal, com orientação para retorno se houver piora da dor, sangramento intenso ou prolapso irredutível.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Classificação de graus da doença hemorroidária</li>
+                <li>Tratamento conservador da doença hemorroidária</li>
+                <li>Doença hemorroidária na gestação</li>
+                <li>Trombose e estrangulamento hemorroidário</li>
+                <li>Constipação na gestação e manejo</li>
+                <li>Diagnóstico diferencial das doenças anorretais (fissura, abscesso)</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Coloproctologia. Doença hemorroidária - diretrizes.</p>
+            <p>2. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Alterações gastrointestinais na gestação.</p>
+            <p>3. Williams Obstetrics, 26ª edição.</p>
+            <p>4. UpToDate. Hemorrhoids: Clinical manifestations and diagnosis. 2024.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

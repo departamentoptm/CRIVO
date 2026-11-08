@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 68 - Trauma: Fratura Pélvica Instável com Hipotensão Persistente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Trauma: Fratura Pélvica Instável com Hipotensão Persistente</div>
+        <h1>Questão 68</h1>
+        <div class="question-text">
+            Homem de 22 anos, vítima de atropelamento, foi levado pelo suporte avançado do SAMU a uma emergência terciária de trauma, onde chegou em prancha rígida, com colar cervical e com queixa de dor em andar inferior de abdome. Avaliação inicial: paciente consciente; contactante; descorado 2+/4+; FC 120 bpm; FR 24 irpm; PA 80 x 60 mmHg; abdome plano, normotenso, doloroso à palpação profunda em andar inferior; descompressão brusca negativa; bacia instável e hematoma em região escrotal. Foram realizadas: medidas de estabilização na sala de emergência; ultrassonografia FAST, cujo resultado foi negativo para líquido livre abdominal; e radiografia da pelve, conforme a seguinte figura. Após, foi aplicada cinta pélvica, o que resultou em estabilização mecânica do anel pélvico, com fechamento do quadril.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Angiografia com embolização.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Laparotomia exploradora.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Estabilização cirúrgica do quadril.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Tomografia de abdome e pelve.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia do Trauma / Ortopedia</p>
+            <p><strong>Tema:</strong> Fratura pélvica instável com instabilidade hemodinâmica e FAST negativo</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência e no Enamed, pois o trauma pélvico grave é uma causa importante de hemorragia oculta e morte evitável. A questão cobra a sequência de atendimento no trauma: estabilização inicial, aplicação de cinta pélvica, interpretação do FAST e escolha da próxima conduta diante de hipotensão persistente. A resposta correta é a angiografia com embolização, indicada quando há suspeita de sangramento arterial pélvico e ausência de líquido livre abdominal.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Fraturas pélvicas instáveis podem romper vasos ilíacos ou ramos arteriais pélvicos, causando hemorragia retroperitoneal volumosa. A cinta pélvica promove estabilização mecânica do anel, reduzindo o volume da pelve e auxiliando no controle do sangramento venoso e ósseo. Quando o paciente permanece hipotenso após essas medidas e o FAST é negativo para líquido livre abdominal, a fonte provável é o sangramento pélvico arterial. Nesse cenário, a angiografia com embolização é o próximo passo para identificar e ocluir o vaso sangrante. A laparotomia exploradora está indicada quando o FAST é positivo ou há suspeita de lesão intra-abdominal. A tomografia é reservada a pacientes hemodinamicamente estáveis. A estabilização cirúrgica do quadril (fixação externa) pode ser adjuvante, mas não substitui o controle da hemorragia arterial.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - Angiografia com embolização.</strong> É a conduta adequada para o paciente com fratura pélvica instável, hipotensão persistente após cinta pélvica e FAST negativo. Nesse contexto, a principal fonte de sangramento é o plexo venoso e arterial pélvico. A angiografia permite localizar o extravasamento arterial e realizar embolização, controlando a hemorragia. A conduta deve ocorrer após estabilização inicial e reposição volêmica, sem atraso para exames desnecessários.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. A angiografia com embolização é o próximo passo para controle de hemorragia pélvica arterial com FAST negativo.</p>
+            <p><strong>Alternativa B - Laparotomia exploradora.</strong> Incorreta. A laparotomia está indicada quando há líquido livre abdominal no FAST, sinais de peritonite ou instabilidade persistente com suspeita de sangramento intra-abdominal. No caso, o FAST foi negativo.</p>
+            <p><strong>Alternativa C - Estabilização cirúrgica do quadril.</strong> Incorreta. A fixação externa pode fazer parte do manejo da fratura pélvica, mas não é a prioridade imediata para controle de hemorragia arterial em paciente hipotenso com FAST negativo. A angiografia é mais eficaz para identificar e tratar o sangramento.</p>
+            <p><strong>Alternativa D - Tomografia de abdome e pelve.</strong> Incorreta. A tomografia é indicada em pacientes hemodinamicamente estáveis. Em paciente hipotenso, ela atrasaria o controle da hemorragia e não deve ser realizada.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Bacia instável e hematoma escrotal:</strong> sinais de trauma pélvico grave.</li>
+                <li><strong>FAST negativo:</strong> afasta líquido livre abdominal significativo.</li>
+                <li><strong>Cinta pélvica com estabilização mecânica, mas hipotensão persistente:</strong> sugere sangramento pélvico arterial.</li>
+                <li><strong>PA 80 x 60 mmHg e FC 120 bpm:</strong> instabilidade hemodinâmica que exige controle rápido da fonte de sangramento.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Avaliar ABCDE e estabilizar o paciente com reposição volêmica e cinta pélvica.</li>
+                <li><strong>Segundo:</strong> Realizar FAST para identificar líquido livre abdominal.</li>
+                <li><strong>Terceiro:</strong> Se FAST negativo e hipotensão persistente, suspeitar de sangramento pélvico arterial.</li>
+                <li><strong>Quarto:</strong> Indicar angiografia com embolização para controle da hemorragia.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" no trauma.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Fratura pélvica instável + hipotensão + FAST negativo = suspeita de sangramento pélvico; próximo passo é angiografia com embolização.</li>
+                <li><strong>Indicações de laparotomia:</strong> FAST positivo, peritonite, instabilidade com suspeita de sangramento intra-abdominal.</li>
+                <li><strong>Indicações de tomografia:</strong> paciente estável hemodinamicamente.</li>
+                <li><strong>Mnemônico:</strong> “Pelve instável + FAST negativo + hipotensão = angiografia”.</li>
+            </ul>
+            <p>Esses dados são essenciais para evitar laparotomias desnecessárias e controlar rapidamente a hemorragia.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hemorragia pélvica arterial (correta)</td>
+                        <td>Fratura pélvica instável, hipotensão persistente, FAST negativo</td>
+                        <td>Angiografia</td>
+                        <td>Embolização arterial</td>
+                    </tr>
+                    <tr>
+                        <td>Hemorragia intra-abdominal</td>
+                        <td>FAST positivo, dor abdominal, distensão, instabilidade</td>
+                        <td>FAST, laparotomia</td>
+                        <td>Laparotomia exploradora</td>
+                    </tr>
+                    <tr>
+                        <td>Choque neurogênico</td>
+                        <td>Trauma raquimedular, bradicardia, hipotensão sem taquicardia</td>
+                        <td>Avaliação neurológica e imagem</td>
+                        <td>Suporte hemodinâmico e tratamento da lesão</td>
+                    </tr>
+                    <tr>
+                        <td>Choque obstrutivo</td>
+                        <td>Pneumotórax hipertensivo, tamponamento cardíaco</td>
+                        <td>Exame físico, US, radiografia</td>
+                        <td>Descompressão imediata</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre FAST positivo:</strong> a resposta seria laparotomia exploradora.</li>
+                <li><strong>Se fosse sobre paciente estável:</strong> a resposta poderia ser tomografia de abdome e pelve.</li>
+                <li><strong>Se fosse sobre fixação pélvica:</strong> a resposta poderia envolver fixação externa como adjuvante.</li>
+                <li><strong>Se fosse sobre sangramento arterial:</strong> a resposta seria angiografia com embolização.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Não identificada</td>
+                        <td>Nenhuma questão sobre fratura pélvica instável com FAST negativo e hipotensão persistente foi encontrada nas provas anteriores analisadas.</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Tema não abordado nas provas de 2025_2026. Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica no trauma.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema trauma pélvico não apareceu em outras questões das provas anteriores analisadas. A banca tem cobrado trauma de forma pontual, com ênfase em condutas iniciais e estabilização.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Controle de hemorragia pélvica, angiografia com embolização, fixação externa, tamponamento pré-peritoneal e manejo do choque hemorrágico.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há histórico suficiente para identificar evolução. A tendência é que o tema seja cobrado com casos clínicos que exijam sequência lógica de atendimento ao trauma.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar atendimento inicial ao trauma, fratura pélvica, FAST, indicação de laparotomia versus angiografia e manejo do choque hemorrágico.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Choque hemorrágico - fratura pélvica é causa importante de sangramento oculto e choque.</li>
+                <li><strong>Conexão 2:</strong> FAST no trauma - exame rápido que orienta a decisão entre laparotomia e outras intervenções.</li>
+                <li><strong>Conexão 3:</strong> Radiologia intervencionista - angiografia e embolização são ferramentas essenciais no controle de hemorragia pélvica.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o erro mais provável é indicar laparotomia ou tomografia em paciente hipotenso com FAST negativo. A estratégia corretiva é memorizar o algoritmo: FAST positivo → laparotomia; FAST negativo + instabilidade + fratura pélvica → angiografia com embolização. Classificação do erro: lacuna de conhecimento ou confusão conceitual.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o controle precoce da hemorragia pélvica com angiografia e embolização reduz mortalidade e evita laparotomias desnecessárias. A estabilização mecânica com cinta pélvica é medida inicial importante, mas não substitui o controle da fonte arterial de sangramento.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Atendimento inicial ao trauma e ABCDE.</li>
+                <li>Fratura pélvica instável e controle de hemorragia.</li>
+                <li>FAST e sua interpretação.</li>
+                <li>Indicações de laparotomia versus angiografia.</li>
+                <li>Choque hemorrágico e reposição volêmica.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. ATLS - Advanced Trauma Life Support, 10ª edição.</p>
+            <p>2. Sociedade Brasileira de Cirurgia do Trauma - Diretrizes para manejo do trauma pélvico.</p>
+            <p>3. World Society of Emergency Surgery (WSES) - Guidelines for pelvic trauma.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

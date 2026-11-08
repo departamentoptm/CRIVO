@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 94 - Distúrbios Hipertensivos da Gestação: Definições, Anti-hipertensivos e Classificação de Risco</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Distúrbios Hipertensivos da Gestação: Definições, Anti-hipertensivos e Classificação de Risco</div>
+        <h1>Questão 94</h1>
+        <div class="question-text">
+            Os distúrbios hipertensivos da gestação acometem cerca de 7,5% das gestantes brasileiras e são uma das principais causas de morte materna no Brasil, sendo responsáveis por cerca de 20% dessas mortes. É correto afirmar que
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - a hipertensão arterial gestacional é aquela que surge pela primeira vez após a 12ª semana da gestação.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - a pré-eclâmpsia é uma síndrome caracterizada pelo surgimento de hipertensão em qualquer idade gestacional.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - as convulsões podem ocorrer no período pré-parto, durante o parto e no período pós-parto, sendo as mais comuns durante o parto.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - metildopa, nifedipino e betabloqueadores estão associados a menor ocorrência de HAS grave e descolamento prematuro de placenta.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - metildopa é um inibidor α-adrenérgico central podendo ser utilizado de 500-3000 mg/d e sendo classificado como categoria B de risco na gestação.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Obstetrícia / Medicina de Família e Comunidade / Saúde Coletiva</p>
+            <p><strong>Tema:</strong> Distúrbios hipertensivos da gestação - definições, classificação, anti-hipertensivos e categorias de risco.</p>
+            <p><strong>Contextualização:</strong> Tema de altíssima relevância em provas de residência, pois os distúrbios hipertensivos estão entre as principais causas de morbimortalidade materna e perinatal no Brasil. A banca cobra definições, critérios diagnósticos, fármacos utilizados e classificação de risco na gestação. A questão testa a capacidade de distinguir hipertensão gestacional, pré-eclâmpsia e eclâmpsia, além de reconhecer as propriedades da metildopa, anti-hipertensivo clássico na gestação.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Os distúrbios hipertensivos da gestação compreendem: hipertensão arterial crônica (prévia à gestação ou diagnosticada antes de 20 semanas, que não desaparece até 12 semanas após o parto); hipertensão gestacional (surgida após 20 semanas, sem proteinúria ou outros sinais de gravidade); pré-eclâmpsia (hipertensão após 20 semanas associada a proteinúria ou disfunção de órgãos-alvo); eclâmpsia (convulsões em paciente com pré-eclâmpsia); e síndrome HELLP (hemólise, enzimas hepáticas elevadas e plaquetopenia). A fisiopatologia da pré-eclâmpsia envolve placentação anômala, disfunção endotelial, aumento da resistência vascular e ativação do sistema renina-angiotensina-aldosterona. A metildopa é um anti-hipertensivo de ação central, que atua como agonista alfa-2 (frequentemente descrito como "inibidor α-adrenérgico central"), reduzindo a resistência periférica. É utilizada na dose de 500 a 3000 mg/dia (dividida em 2 a 4 tomadas), é classificada como categoria B pelo FDA e é considerada segura na gestação, com ampla experiência de uso.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa E é correta porque descreve com precisão as características da metildopa: anti-hipertensivo de ação central (agonista alfa-2, frequentemente referido como inibidor α-adrenérgico central), utilizado na dose de 500 a 3000 mg/dia e classificado como categoria B de risco na gestação. É um dos fármacos de primeira linha para o tratamento da hipertensão na gestação, com ampla experiência e perfil de segurança estabelecido.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. A hipertensão arterial gestacional é definida como hipertensão que surge após 20 semanas de gestação (e não após 12 semanas), sem proteinúria ou outros sinais de gravidade, e que geralmente resolve até 12 semanas após o parto. O marco de 12 semanas está errado.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A pré-eclâmpsia é definida como hipertensão que surge após 20 semanas de gestação, acompanhada de proteinúria ou de disfunção de órgãos-alvo (como disfunção renal, hepática, neurológica, hematológica ou placentária). Não é "em qualquer idade gestacional", pois a definição exclui hipertensões que surgem antes de 20 semanas (que correspondem a hipertensão crônica).</p>
+            <p><strong>Alternativa C</strong> - Incorreta. As convulsões da eclâmpsia podem ocorrer no período anteparto (pré-parto), intraparto e pós-parto. No entanto, a maioria ocorre no período anteparto (cerca de 70%), e não "durante o parto". A alternativa inverte a epidemiologia.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. Metildopa, nifedipino e betabloqueadores são anti-hipertensivos utilizados na gestação, mas a afirmação de que estão associados a "menor ocorrência de HAS grave e descolamento prematuro de placenta" não é estabelecida na literatura. O tratamento anti-hipertensivo controla a pressão, mas não previne de forma comprovada o descolamento prematuro de placenta. Além disso, a afirmação generaliza o efeito de classes farmacológicas distintas.</p>
+            <p><strong>Alternativa E</strong> - Correta. Descreve corretamente a metildopa: ação central (agonista alfa-2 / inibidor α-adrenérgico central), dose de 500 a 3000 mg/dia e categoria B na gestação.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Distúrbios hipertensivos da gestação:</strong> grupo de condições que inclui hipertensão crônica, hipertensão gestacional, pré-eclâmpsia, eclâmpsia e síndrome HELLP.</li>
+                <li><strong>7,5% das gestantes / 20% das mortes maternas:</strong> dados que reforçam a relevância do tema.</li>
+                <li><strong>12 semanas / 20 semanas:</strong> marcos temporais usados como distratores para testar a definição.</li>
+                <li><strong>Convulsões:</strong> relacionadas à eclâmpsia e sua epidemiologia.</li>
+                <li><strong>Metildopa:</strong> fármaco central da alternativa correta, com ação, dose e categoria de risco.</li>
+                <li><strong>Categoria B:</strong> classificação do FDA, que confere segurança relativa na gestação.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> classificar o distúrbio hipertensivo conforme o momento de surgimento (antes ou após 20 semanas) e a presença de proteinúria ou disfunção de órgãos-alvo.</li>
+                <li><strong>Segundo:</strong> reconhecer que a hipertensão gestacional e a pré-eclâmpsia surgem após 20 semanas, enquanto a hipertensão crônica é anterior a 20 semanas ou persiste após 12 semanas pós-parto.</li>
+                <li><strong>Terceiro:</strong> identificar eclâmpsia pelas convulsões, lembrando que a maioria ocorre no período anteparto.</li>
+                <li><strong>Quarto:</strong> escolher anti-hipertensivos seguros na gestação: metildopa (categoria B), nifedipino, betabloqueadores (com cautela).</li>
+                <li><strong>Quinto:</strong> monitorar a mãe e o feto, com controle da pressão, avaliação de proteinúria, função renal, hepática e hematológica.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> hipertensão gestacional e pré-eclâmpsia surgem após 20 semanas; hipertensão crônica é anterior a 20 semanas ou persiste após 12 semanas pós-parto; eclâmpsia é a ocorrência de convulsões em paciente com pré-eclâmpsia.</li>
+                <li><strong>Números e doses:</strong> metildopa 500-3000 mg/dia, categoria B; proteinúria ≥ 300 mg/24h define pré-eclâmpsia; as convulsões da eclâmpsia são mais comuns no anteparto (cerca de 70%).</li>
+                <li><strong>Mnemônicos:</strong> "20 semanas = divisor de águas"; "Metildopa: central, categoria B, 500-3000 mg".</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca usa marcos temporais e categorias de risco como distratores.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hipertensão arterial crônica</td>
+                        <td>Hipertensão antes de 20 semanas ou persistente após 12 semanas pós-parto</td>
+                        <td>Medida da PA, história clínica</td>
+                        <td>Anti-hipertensivo seguro, monitorização</td>
+                    </tr>
+                    <tr>
+                        <td>Hipertensão gestacional</td>
+                        <td>Hipertensão após 20 semanas, sem proteinúria ou disfunção de órgãos-alvo</td>
+                        <td>PA e proteinúria</td>
+                        <td>Controle pressórico e monitorização</td>
+                    </tr>
+                    <tr>
+                        <td>Pré-eclâmpsia</td>
+                        <td>Hipertensão após 20 semanas com proteinúria ou disfunção de órgãos-alvo</td>
+                        <td>PA, proteinúria, exames laboratoriais</td>
+                        <td>Sulfato de magnésio, anti-hipertensivo, avaliação da via de parto</td>
+                    </tr>
+                    <tr>
+                        <td>Eclâmpsia</td>
+                        <td>Convulsões em paciente com pré-eclâmpsia</td>
+                        <td>Clínica</td>
+                        <td>Sulfatação, controle da PA, interrupção da gestação</td>
+                    </tr>
+                    <tr>
+                        <td>Síndrome HELLP</td>
+                        <td>Hemólise, enzimas hepáticas elevadas e plaquetopenia</td>
+                        <td>Hemograma, LDH, TGO/TGP</td>
+                        <td>Internação, sulfatação, interrupção da gestação</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre prevenção:</strong> a resposta envolveria AAS e cálcio em pacientes de risco.</li>
+                <li><strong>Se fosse sobre síndrome HELLP:</strong> a resposta envolveria hemólise, enzimas hepáticas e plaquetopenia.</li>
+                <li><strong>Se fosse sobre eclâmpsia:</strong> a resposta envolveria sulfato de magnésio e interrupção da gestação.</li>
+                <li><strong>Se fosse sobre proteinúria:</strong> a resposta envolveria o critério de ≥ 300 mg/24h.</li>
+                <li><strong>Se fosse sobre anti-hipertensivos:</strong> a resposta envolveria metildopa, nifedipino e betabloqueadores.</li>
+                <li><strong>Se fosse sobre fatores de risco:</strong> a resposta envolveria nuliparidade, extremos de idade reprodutiva, obesidade e trombofilias.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q98</td>
+                        <td>Gestante 30 semanas, PA 180x130, cefaleia e epigastralgia; após sedação PA 170x110 e sintomas persistentes.</td>
+                        <td>Conduta na emergência hipertensiva grave</td>
+                        <td>C (Internamento, anti-hipertensivo, sulfatação e rastreamento de vitalidade fetal)</td>
+                        <td>Reforça o reconhecimento de sinais de gravidade e o manejo da pré-eclâmpsia grave.</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q73</td>
+                        <td>GIPO 30 semanas com cefaleia e epigastralgia, PA 170x110.</td>
+                        <td>Melhor conduta na pré-eclâmpsia grave</td>
+                        <td>A (Internamento, sulfatação e controle de PA com exames maternos e de vitalidade fetal)</td>
+                        <td>Reforça o manejo da pré-eclâmpsia grave e a monitorização.</td>
+                    </tr>
+                    <tr>
+                        <td>2008 - Q36</td>
+                        <td>GII PI 36 semanas, cefaleia e nucalgia, PA 170x110, edema.</td>
+                        <td>Melhor conduta</td>
+                        <td>B (Anti-hipertensivo, sulfatação e indução de trabalho de parto)</td>
+                        <td>Reforça o manejo e a definição da via de parto.</td>
+                    </tr>
+                    <tr>
+                        <td>2008 - Q39</td>
+                        <td>Prevenção da pré-eclâmpsia.</td>
+                        <td>Profilaxia (cálcio + AAS)</td>
+                        <td>D (Cálcio em pacientes de risco com baixa ingestão + AAS 100 mg)</td>
+                        <td>Reforça a prevenção em pacientes de risco.</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q72</td>
+                        <td>Sinais de pré-eclâmpsia grave.</td>
+                        <td>Reconhecimento de gravidade</td>
+                        <td>B (Proteinúria entre 300 mg e 2 g em 24h - na exceção)</td>
+                        <td>Reforça que proteinúria ≥ 300 mg é critério e que a gravidade envolve outros parâmetros.</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q16</td>
+                        <td>Gestante 12 semanas, PA 160x90.</td>
+                        <td>Riscos associados à hipertensão na gestação</td>
+                        <td>B (Restrição de crescimento fetal e descolamento prematuro da placenta)</td>
+                        <td>Reforça os riscos associados à hipertensão.</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q20</td>
+                        <td>Síndrome HELLP.</td>
+                        <td>Alterações da síndrome</td>
+                        <td>C (Apenas II e III)</td>
+                        <td>Complementa o conhecimento dos distúrbios hipertensivos.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q71</td>
+                        <td>Proteinúria diagnóstica de DHEG.</td>
+                        <td>Critério de proteinúria</td>
+                        <td>E (300 mg ou mais em 24h)</td>
+                        <td>Reforça o critério de proteinúria ≥ 300 mg/24h.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q78</td>
+                        <td>Fatores de risco para DHEG.</td>
+                        <td>Epidemiologia e fatores de risco</td>
+                        <td>A (multiparidade - na exceção)</td>
+                        <td>Reforça que nuliparidade é fator de risco e multiparidade não é.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q17</td>
+                        <td>DHEG - assinalar a incorreta.</td>
+                        <td>Definição e características</td>
+                        <td>B (12 semanas - incorreta)</td>
+                        <td>Reforça que a DHEG se manifesta a partir de 20 semanas.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q57</td>
+                        <td>DHEG - assinalar a incorreta.</td>
+                        <td>Definição, epidemiologia e proteinúria</td>
+                        <td>E (proteinúria 100 mg - incorreta)</td>
+                        <td>Reforça o critério de proteinúria ≥ 300 mg.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q29</td>
+                        <td>DHEG - afirmativas corretas.</td>
+                        <td>Definição, epidemiologia e proteinúria</td>
+                        <td>E (IV e V)</td>
+                        <td>Reforça os critérios corretos de definição e epidemiologia.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q29</td>
+                        <td>DHEG - afirmativas corretas.</td>
+                        <td>Definição e epidemiologia</td>
+                        <td>E (IV e V)</td>
+                        <td>Reforça os critérios corretos.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q30</td>
+                        <td>DHEG - afirmativas corretas.</td>
+                        <td>Definição, epidemiologia e fatores de risco</td>
+                        <td>C (II e III)</td>
+                        <td>Reforça que a DHEG é após 20 semanas e que a nuliparidade é fator de risco.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q30</td>
+                        <td>DHEG - afirmativas corretas.</td>
+                        <td>Definição, epidemiologia e fatores de risco</td>
+                        <td>C (II e III)</td>
+                        <td>Reforça a mesma lógica de definição e epidemiologia.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q32</td>
+                        <td>Hipertensão arterial na gestação - conceitos.</td>
+                        <td>Classificação e conceitos</td>
+                        <td>D (hipertensão crônica antes de 20 semanas e não desaparece 12 semanas após parto)</td>
+                        <td>Reforça os conceitos de classificação dos distúrbios hipertensivos.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q34</td>
+                        <td>Pré-eclâmpsia - fisiopatologia.</td>
+                        <td>Fisiopatologia (glomeruloendoteliose)</td>
+                        <td>C</td>
+                        <td>Complementa a compreensão da fisiopatologia da pré-eclâmpsia.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 17 questões relevantes nas provas de 2006 a 2025. A banca alterna entre cobrar: (1) definição e marcos temporais (20 semanas, 12 semanas pós-parto); (2) critérios de proteinúria; (3) fatores de risco (nuliparidade, extremos de idade, obesidade); (4) conduta na pré-eclâmpsia grave/eclâmpsia; (5) síndrome HELLP; (6) prevenção com AAS e cálcio; (7) fisiopatologia. A repetição de questões sobre marcos temporais é clara.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Mecanismo de ação detalhado da metildopa; comparação entre metildopa, nifedipino e betabloqueadores; categorias de risco do FDA para anti-hipertensivos na gestação; profilaxia de eclâmpsia com sulfato de magnésio; manejo da hipertensão crônica na gestação; conduta na hipertensão gestacional sem critérios de gravidade.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem mantido questões conceituais sobre marcos temporais e critérios, com repetição de padrões. A inclusão de fármacos (metildopa) e categorias de risco é uma variação recente.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar os marcos temporais (20 semanas para hipertensão gestacional e pré-eclâmpsia; 12 semanas pós-parto para hipertensão crônica); os critérios de proteinúria (≥ 300 mg/24h); os fármacos seguros na gestação (metildopa, nifedipino, betabloqueadores) e suas categorias de risco; e a epidemiologia das convulsões na eclâmpsia (maioria no anteparto).</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Pré-natal - a identificação precoce dos distúrbios hipertensivos e o manejo adequado são centrais para reduzir a morbimortalidade materna e perinatal.</li>
+                <li><strong>Conexão 2:</strong> Farmacologia na gestação - categorias de risco do FDA e escolha de anti-hipertensivos seguros.</li>
+                <li><strong>Conexão 3:</strong> Síndrome HELLP - complicação grave da pré-eclâmpsia que exige reconhecimento e conduta imediatos.</li>
+                <li><strong>Conexão 4:</strong> Prevenção de morbimortalidade materna - os distúrbios hipertensivos são uma das principais causas de morte materna no Brasil.</li>
+                <li><strong>Conexão 5:</strong> Atributos da APS - longitudinalidade, integralidade e coordenação do cuidado no pré-natal e no puerpério.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou A, houve confusão sobre o marco temporal da hipertensão gestacional (12 semanas em vez de 20 semanas). Se marcou B, desconheceu que a pré-eclâmpsia é definida após 20 semanas e não "em qualquer idade gestacional". Se marcou C, inverteu a epidemiologia das convulsões da eclâmpsia (maioria no anteparto). Se marcou D, superestimou o efeito dos anti-hipertensivos na prevenção do descolamento prematuro de placenta. A ação corretiva é revisar as definições e marcos temporais dos distúrbios hipertensivos, a epidemiologia das convulsões da eclâmpsia e as características dos anti-hipertensivos usados na gestação, especialmente a metildopa.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, o médico de família e comunidade deve identificar precocemente os distúrbios hipertensivos, classificar corretamente e iniciar o manejo adequado. A metildopa é uma opção segura e amplamente utilizada, com dose de 500 a 3000 mg/dia e categoria B. O controle pressórico, a monitorização materno-fetal e o reconhecimento de sinais de gravidade são fundamentais para reduzir desfechos adversos.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Classificação dos distúrbios hipertensivos da gestação.</li>
+                <li>Marcos temporais (20 semanas, 12 semanas pós-parto).</li>
+                <li>Critérios de proteinúria e de gravidade.</li>
+                <li>Fármacos anti-hipertensivos na gestação e categorias de risco do FDA.</li>
+                <li>Síndrome HELLP e eclâmpsia.</li>
+                <li>Prevenção com AAS e cálcio.</li>
+                <li>Atributos da APS e cuidado pré-natal.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Manual de Pré-Natal. São Paulo: FEBRASGO.</p>
+            <p>2. Ministério da Saúde. Caderno de Atenção Básica nº 32: Atenção ao Pré-Natal de Baixo Risco. Brasília: Ministério da Saúde.</p>
+            <p>3. American College of Obstetricians and Gynecologists (ACOG). Hypertension in Pregnancy. Practice Bulletin.</p>
+            <p>4. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+            <p>5. Cunningham FG et al. Williams Obstetrics. McGraw-Hill.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

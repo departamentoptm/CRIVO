@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 39 - Toxicidade Sistêmica por Anestésico Local</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Anestesia Local: Toxicidade Sistêmica por Anestésico Local</div>
+        <h1>Questão 39</h1>
+        <div class="question-text">
+            Menino de 12 anos é levado por seus pais a um pronto-socorro porque se machucou, há 5 dias, com galho de árvore. Os pais relatam que demoraram a buscar atendimento para o filho por morarem em região de difícil acesso. Exame físico: ferimento corto-contuso na face lateral da perna direita, com aproximadamente 12 cm, irregular, com presença de contaminação grosseira da ferida. Os pais afirmam que o paciente tem histórico de atopias e que tomou as vacinas da infância até os 5 anos. O médico indica desbridamento cirúrgico, sob anestesia local infiltrativa, com 20 mL de lidocaína a 2% sem vasoconstritor. Durante o procedimento, o paciente começa a relatar formigamento nos lábios, gosto metálico na boca e zumbido. Em seguida, apresenta crise convulsiva tônico-clônica generalizada.
+            <br><br>
+            Qual é o diagnóstico provável do quadro apresentado no momento da cirurgia?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Reação anafilática grave.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Toxicidade pelo anestésico.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Paroxismo tetânico.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Sepse por infecção da ferida.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Cirurgia / Anestesiologia / Emergências.</p>
+            <p><strong>Tema:</strong> Toxicidade sistêmica por anestésico local (LAST) em criança durante procedimento cirúrgico.</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência porque envolve iatrogenia, reconhecimento precoce de sintomas neurológicos e cardiovasculares, e conduta imediata. A banca costuma cobrar a diferença entre toxicidade por anestésico, reação anafilática e crises convulsivas de outras causas.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Os anestésicos locais bloqueiam canais de sódio, mas em doses excessivas ou em absorção sistêmica rápida podem atingir o sistema nervoso central e o coração. A toxicidade sistêmica por anestésico local (LAST) manifesta-se inicialmente por sintomas neurológicos excitatórios: formigamento perioral, gosto metálico, zumbido, tontura, agitação e, em casos graves, convulsões tônico-clônicas. Posteriormente, pode evoluir com depressão do sistema nervoso central, coma, arritmias e parada cardíaca. No caso, a infiltração de 20 mL de lidocaína a 2% sem vasoconstritor em criança de 12 anos pode resultar em dose elevada para o peso, desencadeando os sintomas clássicos e a crise convulsiva.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>B: toxicidade pelo anestésico</strong>. O quadro apresenta a sequência típica de LAST: sintomas prodrômicos neurológicos (formigamento perioral, gosto metálico, zumbido) seguidos de convulsão tônico-clônica generalizada durante a infiltração de lidocaína. A conduta imediata inclui interromper a administração do anestésico, garantir via aérea e oxigenação, monitorizar, controlar convulsões com benzodiazepínicos e, em casos graves com instabilidade cardiovascular, considerar emulsão lipídica a 20% conforme protocolo.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Reação anafilática grave:</strong> Erro porque a anafilaxia cursa com urticária, angioedema, broncoespasmo, hipotensão e choque, geralmente após exposição a alérgenos. Os sintomas neurológicos prodrômicos e a convulsão são mais compatíveis com toxicidade pelo anestésico.</p>
+            <p><strong>Alternativa C - Paroxismo tetânico:</strong> Erro porque o paroxismo tetânico está relacionado à hipocalcemia e cursa com espasmos carpopedais, hiperventilação e parestesias, não com a sequência de sintomas após infiltração de anestésico local.</p>
+            <p><strong>Alternativa D - Sepse por infecção da ferida:</strong> Erro porque a sepse apresenta febre, sinais sistêmicos de infecção, hipotensão e alteração do estado mental, mas não a sequência aguda de sintomas neurológicos durante a infiltração anestésica.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>20 mL de lidocaína a 2% sem vasoconstritor:</strong> dose potencialmente tóxica em criança, especialmente sem vasoconstritor, que reduz a absorção sistêmica.</li>
+                <li><strong>Formigamento nos lábios, gosto metálico e zumbido:</strong> sintomas prodrômicos clássicos de toxicidade por anestésico local.</li>
+                <li><strong>Crise convulsiva tônico-clônica generalizada:</strong> manifestação neurológica grave de LAST.</li>
+                <li><strong>Durante o procedimento:</strong> relação temporal direta com a infiltração do anestésico.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Interromper imediatamente a infiltração do anestésico local.</li>
+                <li><strong>Segundo:</strong> Garantir via aérea, oxigenação e monitorização; acionar ajuda e material de reanimação.</li>
+                <li><strong>Terceiro:</strong> Controlar convulsões com benzodiazepínico (ex.: diazepam ou midazolam) e tratar distúrbios hemodinâmicos.</li>
+                <li><strong>Quarto:</strong> Em casos graves com instabilidade cardiovascular, considerar emulsão lipídica a 20% e suporte avançado de vida.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "diagnóstico" e "conduta imediata" em emergências por iatrogenia.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> LAST manifesta-se por sintomas neurológicos prodrômicos (formigamento perioral, gosto metálico, zumbido) seguidos de convulsão e, em casos graves, colapso cardiovascular.</li>
+                <li><strong>Números e doses:</strong> dose máxima de lidocaína sem vasoconstritor é cerca de 3 a 4 mg/kg em crianças; 20 mL a 2% = 400 mg, dose elevada para uma criança de 12 anos.</li>
+                <li><strong>Mnemônicos:</strong> "LAST: Lábios formigam, Audição alterada (zumbido), Sabor metálico e Tônico-clônica" ajuda a lembrar a sequência.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar o reconhecimento precoce e a dose tóxica.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Toxicidade por anestésico local</td>
+                        <td>Formigamento perioral, gosto metálico, zumbido, convulsão, relação temporal com infiltração.</td>
+                        <td>Clínico; monitorização.</td>
+                        <td>Interromper anestésico, suporte, benzodiazepínico, emulsão lipídica em casos graves.</td>
+                    </tr>
+                    <tr>
+                        <td>Anafilaxia</td>
+                        <td>Urticária, angioedema, broncoespasmo, hipotensão, exposição a alérgeno.</td>
+                        <td>Clínico; triptase em casos selecionados.</td>
+                        <td>Adrenalina intramuscular, suporte.</td>
+                    </tr>
+                    <tr>
+                        <td>Paroxismo tetânico</td>
+                        <td>Espasmos carpopedais, parestesias, hiperventilação, hipocalcemia.</td>
+                        <td>Cálcio sérico, gasometria.</td>
+                        <td>Correção do cálcio, controle da ansiedade.</td>
+                    </tr>
+                    <tr>
+                        <td>Sepse</td>
+                        <td>Febre, sinais de infecção, hipotensão, alteração do estado mental.</td>
+                        <td>Hemocultura, lactato, exames laboratoriais.</td>
+                        <td>Antibióticos, ressuscitação volêmica.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão foi sobre tratamento:</strong> poderia perguntar a conduta imediata, o uso de emulsão lipídica ou o controle da convulsão.</li>
+                <li><strong>Exemplo:</strong> "Se a questão pedisse a dose máxima de lidocaína, a resposta envolveria mg/kg. Se pedisse a conduta inicial, seria interromper o anestésico e suporte. Se pedisse a complicação mais temida, seria parada cardíaca."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q41</td>
+                        <td>Menino de 12 anos com ferimento contaminado, desbridamento com 20 mL de lidocaína 2% sem vasoconstritor, formigamento labial, gosto metálico, zumbido e convulsão.</td>
+                        <td>Diagnóstico provável de toxicidade por anestésico local.</td>
+                        <td>B - toxicidade pelo anestésico.</td>
+                        <td>Questão idêntica em tema e resposta; confirma a cobrança do reconhecimento clínico da LAST.</td>
+                    </tr>
+                    <tr>
+                        <td>Enamed 2026 - Q39 (atual)</td>
+                        <td>Mesmo caso clínico, com ênfase nos sintomas prodrômicos e convulsão durante a infiltração.</td>
+                        <td>Diagnóstico provável no momento da cirurgia.</td>
+                        <td>B - toxicidade pelo anestésico.</td>
+                        <td>É a própria questão; evidencia repetição do tema e a importância do reconhecimento precoce.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 2 questões (Q41 da prova anterior e Q39 atual), com o mesmo caso clínico. A banca cobra o reconhecimento da sequência de sintomas neurológicos prodrômicos e da convulsão após infiltração de anestésico local.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Dose máxima por peso, uso de emulsão lipídica, prevenção com aspiração antes da infiltração, diferença entre anestésicos com e sem vasoconstritor, e manejo avançado da parada cardíaca por LAST.</p>
+            <p><strong>Evolução da cobrança:</strong> A repetição do mesmo caso sugere que a banca valoriza o reconhecimento clínico e a segurança do procedimento, mais do que o tratamento detalhado.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar LAST, doses máximas de anestésicos locais, sintomas prodrômicos e conduta imediata, incluindo emulsão lipídica em casos graves.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Emergências por iatrogenia e segurança do paciente em procedimentos ambulatoriais.</li>
+                <li><strong>Conexão 2:</strong> Convulsões e diagnóstico diferencial com epilepsia, hipoglicemia e distúrbios eletrolíticos.</li>
+                <li><strong>Conexão 3:</strong> Anafilaxia e reações adversas a medicamentos, com necessidade de diferenciar sinais neurológicos de sinais alérgicos.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é escolher anafilaxia por haver histórico de atopias, ou paroxismo tetânico por causa do formigamento. A classificação provável é confusão conceitual ou erro de leitura. A estratégia corretiva é memorizar a sequência clássica de LAST: formigamento perioral, gosto metálico, zumbido e convulsão após infiltração de anestésico. O histórico de atopia é uma pista falsa.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, antes de infiltrar anestésico local, deve-se calcular a dose máxima pelo peso, aspirar antes de injetar e monitorizar o paciente. Ao surgirem sintomas prodrômicos, interrompe-se imediatamente o procedimento, garantem-se via aérea e oxigenação, controlam-se convulsões e, em casos graves, utiliza-se emulsão lipídica. O reconhecimento precoce salva vidas.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Farmacologia dos anestésicos locais e doses máximas.</li>
+                <li>Toxicidade sistêmica por anestésico local (LAST).</li>
+                <li>Emulsão lipídica a 20% no tratamento da LAST.</li>
+                <li>Diagnóstico diferencial de convulsões agudas.</li>
+                <li>Anafilaxia e reações adversas a medicamentos.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Anestesiologia. Diretrizes para tratamento da toxicidade sistêmica por anestésicos locais.</p>
+            <p>2. Ministério da Saúde. Protocolos de Segurança do Paciente.</p>
+            <p>3. American Society of Regional Anesthesia and Pain Medicine. Checklist for LAST.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

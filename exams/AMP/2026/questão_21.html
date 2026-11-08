@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 21 - Ginecologia: Métodos contraceptivos e eficácia dos LARCs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Métodos contraceptivos e eficácia dos LARCs</div>
+        <h1>Questão 21</h1>
+        <div class="question-text">
+            Sobre os métodos contraceptivos, podemos afirmar que
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - a contracepção de emergência pode ser utilizada após a ovulação, mantendo elevada eficácia na prevenção da gravidez.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - a eficácia dos métodos contraceptivos depende exclusivamente do mecanismo de ação, não sendo influenciada pela adesão ao tratamento.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - a eficácia contraceptiva dos métodos de longa duração é pouco influenciada pela adesão da usuária, uma vez que não depende do uso frequente ou diário.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - o retorno da fertilidade após a suspensão dos métodos contraceptivos hormonais ocorre somente após cerca de 3 meses, quando não houver mais hormônio circulante no organismo.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - pelo elevado risco de trombose associado ao estrogênio, recomenda-se realizar exames laboratoriais para investigação de trombofilias antes da prescrição de anticoncepcionais hormonais combinados.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Planejamento Familiar</p>
+            <p><strong>Tema:</strong> Métodos contraceptivos - conceitos de eficácia, adesão e LARCs</p>
+            <p><strong>Contextualização:</strong> O planejamento familiar é tema de alta incidência em provas de residência. A banca cobra conceitos fundamentais sobre eficácia teórica versus eficácia de uso, papel da adesão, mecanismos de ação e indicações/contraindicações dos métodos. Compreender que os métodos de longa duração (LARCs) independem da adesão é essencial para orientar corretamente as usuárias.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A eficácia contraceptiva é classicamente dividida em "eficácia teórica" (ou de uso perfeito) e "eficácia de uso habitual" (ou de uso típico). Métodos dependentes da usuária - pílulas, preservativos, diafragma, injeções mensais - têm grande discrepância entre essas duas medidas, pois o esquecimento ou uso incorreto reduz a eficácia. Os LARCs (Long-Acting Reversible Contraceptives), como implantes subdérmicos e dispositivos intrauterinos (cobre e levonorgestrel), atuam de forma contínua e independente da ação cotidiana da usuária, apresentando taxas de falha muito baixas e próximas da eficácia teórica. Por isso, são os métodos mais eficazes e com menor dependência da adesão.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa C.</strong> A afirmação está correta. Os métodos de longa duração (LARCs) - implante de etonogestrel, DIU de cobre e SIU de levonorgestrel - não dependem de uso frequente, diário ou de lembrança da usuária. Uma vez inseridos, atuam continuamente por meses a anos, conferindo elevada eficácia contraceptiva com baixo índice de falha. Essa é uma das principais vantagens dos LARCs e um conceito central em planejamento familiar.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - A contracepção de emergência (levonorgestrel, ulipristal ou DIU de cobre) atua principalmente antes da ovulação (retardando ou inibindo-a). Após a ovulação, a eficácia do levonorgestrel é praticamente nula, pois não impede a fecundação nem a implantação de forma confiável. Somente o DIU de cobre pode ser inserido até 5 dias após a relação desprotegida com boa eficácia. Afirmar que "após a ovulação mantém elevada eficácia" é incorreto. Esse tema já foi cobrado em 2009 (Q61) e 2010 (Q4).</p>
+            <p><strong>Alternativa B</strong> - A eficácia contraceptiva não depende exclusivamente do mecanismo de ação; depende também da adesão ao uso. Pílulas, preservativos e métodos de barreira apresentam falhas substanciais por uso incorreto ou esquecimento. Essa distinção é justamente o que confere vantagem aos LARCs. Alternativa incorreta.</p>
+            <p><strong>Alternativa C</strong> - Correta: LARCs não dependem de adesão.</p>
+            <p><strong>Alternativa D</strong> - O retorno da fertilidade após a suspensão de métodos hormonais é rápido na maioria das mulheres. Com pílulas, a ovulação pode retornar no primeiro ciclo após a suspensão. Com implante ou injeção trimestral, pode haver atraso de alguns meses, mas não se deve afirmar que "só após 3 meses, quando não houver mais hormônio circulante". O conceito de que o organismo precisa "limpar" o hormônio é um mito. Alternativa incorreta.</p>
+            <p><strong>Alternativa E</strong> - A investigação de trombofilias antes da prescrição de anticoncepcionais combinados NÃO é recomendada de rotina. Deve ser solicitada apenas quando há história pessoal ou familiar forte de tromboembolismo, ou outras condições de risco. A triagem universal é custo-ineficaz e não é recomendada pelas principais diretrizes. Alternativa incorreta. O tema TVP e contracepção hormonal já foi cobrado em 2017 (Q42).</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Métodos contraceptivos:</strong> tema amplo que exige conhecimento de eficácia, mecanismos e adesão.</li>
+                <li><strong>Métodos de longa duração (LARCs):</strong> implantes e DIUs/SIUs, caracterizados por ação contínua e independente da usuária.</li>
+                <li><strong>Adesão ao tratamento:</strong> fator que diferencia métodos dependentes da usuária (pílulas) dos LARCs.</li>
+                <li><strong>Contracepção de emergência:</strong> tema clássico que exige entender o mecanismo (pré-ovulatório).</li>
+                <li><strong>Retorno da fertilidade:</strong> conceito frequentemente distorcido; não exige "limpeza" hormonal.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Identificar o método em questão e sua classificação (dependente ou independente da adesão).</li>
+                <li><strong>Segundo:</strong> Lembrar que LARCs (implante, DIU, SIU) têm eficácia próxima da teórica por ação contínua.</li>
+                <li><strong>Terceiro:</strong> Diferenciar eficácia teórica de eficácia de uso habitual: pílula, preservativo e diafragma dependem de uso correto.</li>
+                <li><strong>Quarto:</strong> Reconhecer mitos: contracepção de emergência após ovulação, retorno da fertilidade após 3 meses, triagem universal de trombofilias.</li>
+                <li><strong>Quinto:</strong> Indicar o método conforme perfil da usuária (idade, tabagismo, amamentação, comorbidades).</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "escolha de método" e "conceitos de eficácia".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> LARCs (implante de etonogestrel, DIU de cobre, SIU de levonorgestrel) são os métodos mais eficazes e independem da adesão.</li>
+                <li><strong>Números e doses:</strong> implante de etonogestrel dura 3 anos; SIU de levonorgestrel dura 5 anos; DIU de cobre dura 10 anos; taxa de falha dos LARCs &lt; 1% ao ano.</li>
+                <li><strong>Mnemônicos/regras:</strong> "LARC = esqueci o que é esquecer"; "contracepção de emergência não funciona após ovulação"; "não é preciso 'limpar' hormônio para engravidar".</li>
+            </ul>
+            <p>Esses dados são cobrados de forma recorrente em provas de ginecologia e atenção primária.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LARCs (implante, DIU, SIU)</td>
+                        <td>Eficácia alta e independente da adesão; ação contínua</td>
+                        <td>Avaliação clínica e critérios de elegibilidade da OMS</td>
+                        <td>Inserção e seguimento; orientação sobre efeitos</td>
+                    </tr>
+                    <tr>
+                        <td>Métodos de curta duração (pílula, preservativo)</td>
+                        <td>Eficácia dependente de uso correto e adesão</td>
+                        <td>Orientação e escolha compartilhada</td>
+                        <td>Reforço de adesão; lembrete; métodos de barreira complementares</td>
+                    </tr>
+                    <tr>
+                        <td>Contracepção de emergência</td>
+                        <td>Atua antes da ovulação; não é método de rotina</td>
+                        <td>Clínico; história da relação</td>
+                        <td>Levonorgestrel, ulipristal ou DIU de cobre até 5 dias</td>
+                    </tr>
+                    <tr>
+                        <td>Contracepção hormonal combinada</td>
+                        <td>Depende de uso diário; risco tromboembólico em tabagistas e comorbidades</td>
+                        <td>Avaliação de contraindicações</td>
+                        <td>Prescrição conforme elegibilidade</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial e a escolha de método, não apenas o conceito isolado.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a definição de LARC:</strong> método de longa duração, reversível, independente da adesão.</li>
+                <li><strong>Se pedisse o mecanismo da contracepção de emergência:</strong> retardo/inibição da ovulação, não abortivo.</li>
+                <li><strong>Se pedisse o método mais indicado para tabagista &gt; 35 anos:</strong> LARC (DIU ou implante) em vez de combinado.</li>
+                <li><strong>Se pedisse o momento de retorno da fertilidade:</strong> rápido após suspensão, sem "limpeza" hormonal.</li>
+                <li><strong>Se pedisse a triagem de trombofilia:</strong> apenas com história pessoal/familiar, não de rotina.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2009 - Q61</td>
+                        <td>Mecanismo de ação da anticoncepção oral de emergência, exceto</td>
+                        <td>Mecanismos confirmados da contracepção de emergência</td>
+                        <td>D (impedimento da implantação não é confirmado)</td>
+                        <td>Reforça que a contracepção de emergência não atua após a ovulação/implantacão</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q62</td>
+                        <td>Mulher 35 anos, fumante 20 cigarros/dia, amamentando parcialmente; escolha de método</td>
+                        <td>Escolha de método em tabagista &gt; 35 anos</td>
+                        <td>D (DIU de cobre)</td>
+                        <td>Mostra preferência por LARC em quem tem contraindicação ao combinado</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q63</td>
+                        <td>Benefícios não contraceptivos dos anticoncepcionais orais no climatério, exceto</td>
+                        <td>Benefícios e riscos dos ACO</td>
+                        <td>E (previne fenômenos tromboembólicos - falso)</td>
+                        <td>Complementa o entendimento de riscos e benefícios</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q3</td>
+                        <td>Taxa de falha dos ACO combinados em uso regular</td>
+                        <td>Eficácia dos ACO</td>
+                        <td>A (2 a 3 por 1.000 mulheres/ano)</td>
+                        <td>Reforça a diferença entre eficácia teórica e de uso</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q4</td>
+                        <td>Contracepção de emergência</td>
+                        <td>Métodos e mecanismos</td>
+                        <td>E (pode ser feita pela inserção pós-coito do DIU)</td>
+                        <td>Confirma o DIU de cobre como opção de emergência</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q56</td>
+                        <td>Critérios de elegibilidade da OMS para DIU e métodos hormonais</td>
+                        <td>Elegibilidade em situações clínicas específicas</td>
+                        <td>B (III, IV e V corretas)</td>
+                        <td>Mostra a importância dos critérios de elegibilidade dos LARCs</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q42</td>
+                        <td>TVP e anticoncepção hormonal: afirmativas verdadeiras</td>
+                        <td>Risco trombótico dos métodos hormonais</td>
+                        <td>D (II, IV e V)</td>
+                        <td>Reforça que a triagem universal de trombofilia não é rotina</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q29</td>
+                        <td>LARCs: mecanismos de ação e eficácia</td>
+                        <td>Implante de etonogestrel, SIU-LNG, DIU de cobre</td>
+                        <td>B (implante atua por supressão da ovulação, muco e endométrio)</td>
+                        <td>Questão muito próxima: confirma a elevada eficácia dos LARCs</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q27</td>
+                        <td>Contraceptivos orais combinados: reduz risco de câncer de ovário</td>
+                        <td>Benefícios não contraceptivos dos ACO</td>
+                        <td>A (reduz o risco de câncer de ovário)</td>
+                        <td>Complementa o conhecimento de benefícios além da contracepção</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q40</td>
+                        <td>Escolha de método em situações especiais</td>
+                        <td>Contracepção no puerpério e amamentação</td>
+                        <td>D (DIU de cobre)</td>
+                        <td>Mostra preferência por LARC em contextos de contraindicação</td>
+                    </tr>
+                    <tr>
+                        <td>2012 - Q56</td>
+                        <td>DIU: critérios de elegibilidade, inserção e efeitos</td>
+                        <td>Manejo do DIU</td>
+                        <td>D (I e III)</td>
+                        <td>Reforça o papel dos LARCs na prática</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em mais de 10 questões no período. A banca alterna entre eficácia dos métodos, mecanismos, escolha em situações especiais, benefícios não contraceptivos e critérios de elegibilidade.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> conceito formal de "eficácia de uso habitual versus teórica" e a classificação estruturada dos LARCs como estratégia de saúde pública.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas cobravam escolha de método em situações específicas; as mais recentes passaram a cobrar conceitos comparativos (LARCs versus métodos de curta duração) e benefícios não contraceptivos.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a classificação de métodos, os conceitos de eficácia e adesão, os mecanismos dos LARCs e a contracepção de emergência.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> LARCs → critérios de elegibilidade da OMS → escolha em mulheres com comorbidades (tabagismo, amamentação, HAS).</li>
+                <li><strong>Conexão 2:</strong> Contracepção hormonal combinada → risco tromboembólico → triagem dirigida (não universal) de trombofilia.</li>
+                <li><strong>Conexão 3:</strong> Contracepção de emergência → mecanismo pré-ovulatório → DIU de cobre como alternativa até 5 dias.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é marcar a alternativa D (retorno da fertilidade após 3 meses) ou E (triagem universal de trombofilia), ambos conceitos incorretos e muito difundidos no senso comum. Classificação provável do erro: confusão conceitual/mito. Ação corretiva: memorizar que os LARCs independem da adesão e que não há necessidade de "limpar hormônio" antes de engravidar.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, oferecer LARCs é uma estratégia central para reduzir gestações não planejadas, especialmente em adolescentes e mulheres com contraindicação a métodos combinados. Cabe ao médico orientar sobre eficácia, efeitos colaterais e elegibilidade, além de desmistificar conceitos equivocados sobre fertilidade e trombofilia.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Eficácia teórica versus eficácia de uso habitual</li>
+                <li>LARCs: implante de etonogestrel, DIU de cobre, SIU de levonorgestrel</li>
+                <li>Critérios de elegibilidade da OMS para métodos contraceptivos</li>
+                <li>Contracepção de emergência: mecanismos e métodos</li>
+                <li>Retorno da fertilidade após métodos hormonais</li>
+                <li>Benefícios não contraceptivos dos ACO</li>
+                <li>Risco tromboembólico e triagem de trombofilia</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Manual de Planejamento Reprodutivo.</p>
+            <p>2. OMS. Medical Eligibility Criteria for Contraceptive Use, 5ª edição.</p>
+            <p>3. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Anticoncepção.</p>
+            <p>4. UpToDate. Contraception: Overview of issues specific to adolescents and young adults. 2024.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

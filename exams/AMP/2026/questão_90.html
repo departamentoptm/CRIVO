@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 90 - Abordagem de Mudanças de Estilo de Vida na Atenção Primária à Saúde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Abordagem de Mudanças de Estilo de Vida na Atenção Primária à Saúde</div>
+        <h1>Questão 90</h1>
+        <div class="question-text">
+            Sobre a abordagem de mudanças de estilo de vida na atenção primária à saúde (APS), responda a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - As mudanças de estilo de vida se caracterizam por ser estratégias de tratamento bastante acessíveis para pessoas de diversos contextos socioeconômicos.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - É papel do profissional de saúde usar de sua autoridade para apontar os hábitos não saudáveis e o que o paciente está fazendo de errado, recomendando mudanças concretas o mais rapidamente possível.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - No manejo da ambivalência de pessoas pré-contemplativas para determinada mudança de hábito são úteis técnicas de entrevista motivacional como escuta reflexiva, uso de perguntas abertas e realização de resumos durante a consulta.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Respeitar a motivação pessoal possibilita maior compromisso e manutenção do novo comportamento em longo prazo, por isso a relação entre profissional e paciente deve sempre ser pautada em evitar julgamentos e preservar a autonomia.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Para ser efetiva no início e manutenção de mudanças de hábitos, é importante que o profissional de saúde comunique informações bem detalhadas para o paciente através da realização de palestras ou recomendações padronizadas de mudanças de hábitos.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Saúde Coletiva / Promoção da Saúde</p>
+            <p><strong>Tema:</strong> Abordagem de mudanças de estilo de vida na Atenção Primária à Saúde, com ênfase na relação profissional-paciente, autonomia, ausência de julgamento e entrevista motivacional.</p>
+            <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência porque as mudanças de estilo de vida são centrais na prevenção e no manejo de doenças crônicas não transmissíveis (diabetes, hipertensão, obesidade, tabagismo, sedentarismo) e, ao mesmo tempo, exigem do profissional habilidades de comunicação, empatia e respeito à autonomia. A banca cobra a compreensão de que a relação profissional-paciente deve ser pautada na escuta ativa, na ausência de julgamento e no respeito à motivação pessoal, e não em posturas autoritárias ou prescritivas.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A mudança de comportamento em saúde é um processo complexo, influenciado por fatores biológicos, psicológicos, sociais, culturais e ambientais. O modelo transteórico de Prochaska e DiClemente descreve estágios de motivação (pré-contemplação, contemplação, preparação, ação e manutenção). A entrevista motivacional é uma abordagem centrada na pessoa, que visa ampliar a motivação intrínseca por meio da exploração da ambivalência, da escuta reflexiva, de perguntas abertas, da afirmação e da realização de resumos. Respeitar a autonomia e evitar julgamentos fortalece o vínculo, aumenta a adesão e favorece a manutenção do novo comportamento em longo prazo. Posturas autoritárias, prescritivas ou padronizadas tendem a gerar resistência e reduzir a efetividade das intervenções.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa D é correta porque respeitar a motivação pessoal possibilita maior compromisso e manutenção do novo comportamento em longo prazo, e a relação entre profissional e paciente deve ser pautada em evitar julgamentos e preservar a autonomia. Essa é a base da abordagem centrada na pessoa e da entrevista motivacional, amplamente recomendada na APS para mudanças de estilo de vida. A resposta está alinhada ao Método Clínico Centrado na Pessoa, aos atributos da APS e às evidências sobre adesão e mudança de comportamento.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. As mudanças de estilo de vida não são igualmente acessíveis a todos os contextos socioeconômicos. Fatores como renda, escolaridade, acesso a alimentos saudáveis, moradia, tempo disponível, transporte e ambiente construído influenciam diretamente a capacidade de adotar e manter hábitos saudáveis. A afirmação ignora os determinantes sociais da saúde e a equidade.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. Usar a autoridade para apontar hábitos não saudáveis e o que o paciente está fazendo de errado é uma abordagem autoritária e julgadora, que contraria a entrevista motivacional e a abordagem centrada na pessoa. Essa postura tende a gerar resistência, reduzir o vínculo e diminuir a efetividade da intervenção.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. A entrevista motivacional, com escuta reflexiva, perguntas abertas e resumos, é útil no manejo da ambivalência, sobretudo em pessoas contemplativas ou em preparação. No entanto, a alternativa descreve essas técnicas como "para pessoas pré-contemplativas", o que é um erro conceitual: na pré-contemplação, o paciente não reconhece o problema e não considera a mudança; a entrevista motivacional é útil, mas o foco inicial é diferente. Além disso, a questão não menciona "pré-contemplativas"; a alternativa D é mais abrangente e correta ao tratar do respeito à motivação e à autonomia.</p>
+            <p><strong>Alternativa D</strong> - Correta. Respeitar a motivação pessoal, evitar julgamentos e preservar a autonomia são fundamentos da abordagem centrada na pessoa e da entrevista motivacional, favorecendo o compromisso e a manutenção do comportamento em longo prazo.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. Comunicar informações detalhadas por meio de palestras ou recomendações padronizadas não é a estratégia mais efetiva para mudanças de hábitos. A abordagem deve ser individualizada, centrada na pessoa, com escuta ativa, negociação de metas e respeito à autonomia. Palestras e recomendações padronizadas podem ser úteis como complemento, mas não como estratégia principal.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Mudanças de estilo de vida:</strong> tema central, associado à prevenção e ao manejo de doenças crônicas.</li>
+                <li><strong>APS:</strong> cenário do cuidado longitudinal, integral e centrado na pessoa.</li>
+                <li><strong>Motivação pessoal:</strong> termo que direciona para a entrevista motivacional e o respeito à autonomia.</li>
+                <li><strong>Autonomia:</strong> princípio ético e clínico central na abordagem centrada na pessoa.</li>
+                <li><strong>Evitar julgamentos:</strong> postura que fortalece o vínculo e a adesão.</li>
+                <li><strong>Entrevista motivacional:</strong> técnica citada no distrator C e relacionada à resposta correta.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> acolher a pessoa e compreender sua motivação, crenças, valores e contexto de vida.</li>
+                <li><strong>Segundo:</strong> evitar posturas autoritárias, julgadoras ou prescritivas, que geram resistência.</li>
+                <li><strong>Terceiro:</strong> usar técnicas de entrevista motivacional, como escuta reflexiva, perguntas abertas, afirmação e resumos.</li>
+                <li><strong>Quarto:</strong> respeitar a autonomia e negociar metas realistas, considerando o estágio de motivação.</li>
+                <li><strong>Quinto:</strong> acompanhar longitudinalmente, reforçando o vínculo e o compromisso ao longo do tempo.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> a relação profissional-paciente na APS deve ser pautada em evitar julgamentos e preservar a autonomia, favorecendo a adesão e a manutenção do comportamento.</li>
+                <li><strong>Números e doses:</strong> o modelo transteórico tem cinco estágios (pré-contemplação, contemplação, preparação, ação e manutenção); a entrevista motivacional usa técnicas como OARS (perguntas abertas, afirmação, escuta reflexiva e resumos).</li>
+                <li><strong>Mnemônicos:</strong> "Autonomia e ausência de julgamento são a base da mudança" - reforça a resposta correta.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma usar a "autoridade do profissional" e a "padronização de recomendações" como distratores.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Abordagem centrada na pessoa</td>
+                        <td>Escuta ativa, respeito à autonomia, ausência de julgamento, negociação de metas</td>
+                        <td>Avaliação clínica e da motivação</td>
+                        <td>Entrevista motivacional, decisão compartilhada</td>
+                    </tr>
+                    <tr>
+                        <td>Abordagem autoritária/prescritiva</td>
+                        <td>Uso da autoridade, foco no erro do paciente, recomendações padronizadas</td>
+                        <td>Identificação da postura na consulta</td>
+                        <td>Evitar; tende a gerar resistência e reduzir adesão</td>
+                    </tr>
+                    <tr>
+                        <td>Pré-contemplação</td>
+                        <td>Não reconhece o problema, não considera mudança</td>
+                        <td>Avaliação do estágio de motivação</td>
+                        <td>Escuta, informação não diretiva, fortalecimento do vínculo</td>
+                    </tr>
+                    <tr>
+                        <td>Contemplação/preparação</td>
+                        <td>Reconhece o problema, ambivalente, planeja mudança</td>
+                        <td>Avaliação do estágio de motivação</td>
+                        <td>Entrevista motivacional, negociação de metas</td>
+                    </tr>
+                    <tr>
+                        <td>Ação/manutenção</td>
+                        <td>Já mudou, precisa de suporte para manter</td>
+                        <td>Avaliação do estágio de motivação</td>
+                        <td>Reforço, prevenção de recaídas</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre tabagismo:</strong> a resposta envolveria entrevista motivacional, estágios de mudança e farmacoterapia.</li>
+                <li><strong>Se fosse sobre obesidade:</strong> a resposta envolveria aconselhamento, ambientes promotores de saúde e metas realistas.</li>
+                <li><strong>Se fosse sobre diabetes:</strong> a resposta envolveria apoio à autonomia, educação em saúde e adesão.</li>
+                <li><strong>Se fosse sobre prevenção quaternária:</strong> a resposta envolveria evitar sobremedicalização e respeitar a autonomia.</li>
+                <li><strong>Se fosse sobre Método Clínico Centrado na Pessoa:</strong> a resposta envolveria explorar a experiência da doença, sentimentos, ideias e expectativas.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2015 - Q90</td>
+                        <td>Abordagem de mudanças de estilo de vida na APS; entrevista motivacional, escuta reflexiva, perguntas abertas e resumos.</td>
+                        <td>Técnicas de entrevista motivacional e relação profissional-paciente.</td>
+                        <td>C</td>
+                        <td>Questão praticamente idêntica à atual; reforça o padrão de cobrança.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q89</td>
+                        <td>Sra. Viviane, tabagista, estágio de motivação segundo Prochaska e DiClemente.</td>
+                        <td>Estágios de mudança e modelo transteórico.</td>
+                        <td>D</td>
+                        <td>Fundamenta a compreensão da motivação e do respeito à autonomia na mudança de hábitos.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q90</td>
+                        <td>Sobre bupropiona em tabagista com cardiopatia isquêmica; relação causal entre indicação e contraindicação.</td>
+                        <td>Farmacoterapia da cessação do tabagismo.</td>
+                        <td>B</td>
+                        <td>Complementa a abordagem das mudanças de estilo de vida no tabagismo.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q95</td>
+                        <td>Lucilene, 79 anos, preocupada com alimentação e perda de peso; afirmativas sobre IMC, processamento de alimentos e suplementação.</td>
+                        <td>Abordagem nutricional em idosos e comunicação com o paciente.</td>
+                        <td>B</td>
+                        <td>Reforça a importância da abordagem individualizada e do respeito ao contexto do paciente.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q90</td>
+                        <td>Sra. Viviane, 65 anos, tabagista, com dependência elevada; estágio de motivação e farmacoterapia.</td>
+                        <td>Estágios de mudança, entrevista motivacional e farmacoterapia.</td>
+                        <td>D</td>
+                        <td>Reforça a lógica da autonomia, motivação e ausência de julgamento.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q89</td>
+                        <td>Maria, 45 anos, insônia e ansiedade; prevenção quaternária e decisão compartilhada.</td>
+                        <td>Prevenção quaternária, decisão compartilhada e autonomia.</td>
+                        <td>D</td>
+                        <td>Ilustra a aplicação dos princípios da autonomia e da ausência de julgamento.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q90</td>
+                        <td>Leopolda, 60 anos, diabetes com complicações; nível de prevenção do procedimento.</td>
+                        <td>Níveis de prevenção.</td>
+                        <td>C</td>
+                        <td>Complementa a compreensão dos níveis de prevenção e da abordagem das doenças crônicas.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q93</td>
+                        <td>Paciente de 32 anos, homem cisgênero, homossexual; prevenção primária e secundária simultâneas no SUS.</td>
+                        <td>Prevenção e acesso na APS.</td>
+                        <td>B</td>
+                        <td>Reforça a lógica da prevenção e do cuidado integral na APS.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q96</td>
+                        <td>Tendência à redução do percentual de participação da União no financiamento do SUS; aproximação com modelo de financiamento.</td>
+                        <td>Modelos de financiamento e sistemas de saúde.</td>
+                        <td>D</td>
+                        <td>Contextualiza a organização do sistema e a importância da APS, embora não trate diretamente de mudanças de estilo de vida.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q52</td>
+                        <td>Sra. Cleide, 50 anos, tristeza, irritabilidade, menopausa; abordagem inicial na APS.</td>
+                        <td>Acolhimento, escuta ativa, avaliação de gravidade e oferta de cuidado.</td>
+                        <td>C</td>
+                        <td>Reforça a lógica da escuta e da autonomia na abordagem inicial.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 10 questões relevantes nas provas de 2015, 2018, 2022, 2023 e 2024. A banca alterna entre cobrar: (1) entrevista motivacional e técnicas de comunicação; (2) estágios de mudança de comportamento; (3) farmacoterapia da cessação do tabagismo; (4) abordagem nutricional e individualizada; (5) prevenção quaternária e decisão compartilhada; (6) autonomia e ausência de julgamento. Há uma repetição explícita da questão de 2015 (Q90) na prova de 2026.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Comparação direta entre aconselhamento autoritário e centrado na pessoa; aplicação do modelo transteórico em doenças específicas; uso de ferramentas como o "5 As" (Ask, Advise, Assess, Assist, Arrange); papel da família na mudança de hábitos; influência dos determinantes sociais nas mudanças de estilo de vida; papel do apoio matricial em mudanças de hábitos.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca tem migrado de questões descritivas sobre técnicas para questões sobre a relação profissional-paciente, autonomia e ausência de julgamento, o que dialoga diretamente com esta questão.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a entrevista motivacional, o modelo transteórico, a abordagem centrada na pessoa e os princípios da autonomia e da ausência de julgamento. Memorizar que posturas autoritárias e recomendações padronizadas não são as estratégias mais efetivas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Método Clínico Centrado na Pessoa - exploração da experiência da doença, sentimentos, ideias, funcionalidade e expectativas.</li>
+                <li><strong>Conexão 2:</strong> Entrevista motivacional e modelo transteórico - técnicas e estágios de mudança.</li>
+                <li><strong>Conexão 3:</strong> Prevenção quaternária - evitar sobremedicalização e respeitar a autonomia.</li>
+                <li><strong>Conexão 4:</strong> Atributos da APS - longitudinalidade, integralidade e vínculo no acompanhamento das mudanças de hábitos.</li>
+                <li><strong>Conexão 5:</strong> Determinantes sociais da saúde - acesso e equidade nas mudanças de estilo de vida.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou A, houve desconhecimento sobre os determinantes sociais e a iniquidade no acesso às mudanças de estilo de vida. Se marcou B, houve confusão sobre a postura adequada do profissional, adotando uma visão autoritária e julgadora. Se marcou C, houve confusão sobre o estágio de motivação e o uso da entrevista motivacional. Se marcou E, superestimou a eficácia de palestras e recomendações padronizadas. A ação corretiva é revisar a abordagem centrada na pessoa, a entrevista motivacional e os princípios da autonomia e da ausência de julgamento.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática clínica, o médico de família e comunidade deve acolher a pessoa, compreender sua motivação e contexto, evitar julgamentos, respeitar a autonomia e usar técnicas de entrevista motivacional. As mudanças de estilo de vida são mais efetivas quando negociadas e individualizadas, com metas realistas e acompanhamento longitudinal. Palestras e recomendações padronizadas podem complementar, mas não substituem a relação profissional-paciente de confiança e o respeito à autonomia.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Entrevista motivacional e suas técnicas (escuta reflexiva, perguntas abertas, afirmação, resumos).</li>
+                <li>Modelo transteórico de Prochaska e DiClemente.</li>
+                <li>Método Clínico Centrado na Pessoa.</li>
+                <li>Prevenção quaternária e decisão compartilhada.</li>
+                <li>Determinantes sociais da saúde e equidade.</li>
+                <li>Atributos da Atenção Primária à Saúde.</li>
+                <li>Abordagem do tabagismo, obesidade e sedentarismo.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Caderno de Atenção Básica: Estratégias para o cuidado da pessoa com doença crônica. Brasília: Ministério da Saúde.</p>
+            <p>2. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+            <p>3. Miller WR, Rollnick S. Entrevista Motivacional: preparando as pessoas para a mudança de comportamentos adictivos. Porto Alegre: Artmed.</p>
+            <p>4. Prochaska JO, DiClemente CC. Stages and processes of self-change of smoking: toward an integrative model of change. J Consult Clin Psychol.</p>
+            <p>5. Stewart M et al. Patient-Centered Medicine: Transforming the Clinical Method. Radcliffe Publishing.</p>
+            <p>6. Starfield B. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO/Ministério da Saúde.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

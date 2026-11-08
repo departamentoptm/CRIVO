@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 37 - Ginecologia: Vaginose bacteriana - diagnóstico e tratamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Vaginose bacteriana - diagnóstico e tratamento</div>
+        <h1>Questão 37</h1>
+        <div class="question-text">
+            Mulher de 26 anos procura atendimento por corrimento vaginal homogêneo, acinzentado, de odor desagradável, intensificado após as relações sexuais. Ao exame especular, observa-se corrimento fino aderido às paredes vaginais. O pH vaginal é de 5,5 e o teste das aminas é positivo. A microscopia evidencia clue cells. Baseado na principal hipótese diagnóstica, qual das seguintes opções corresponde a um esquema terapêutico recomendado para essa paciente?
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Azitromicina 1 g por via oral, em dose única.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Fluconazol 150 mg por via oral, em dose única.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Doxiciclina 100 mg por via oral, duas vezes ao dia, durante 7 dias.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Metronidazol 500 mg por via oral, duas vezes ao dia, durante 7 dias.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Clindamicina 300 mg por via oral, quatro vezes ao dia, durante 14 dias.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Doenças Sexualmente Transmissíveis</p>
+                <p><strong>Tema:</strong> Vaginose bacteriana (VB) - diagnóstico clínico pelos critérios de Amsel e tratamento de primeira linha</p>
+                <p><strong>Contextualização:</strong> A vaginose bacteriana é a causa mais comum de corrimento vaginal em mulheres em idade reprodutiva, resultante da substituição da flora lactobacilar por anaeróbios (Gardnerella vaginalis, Atopobium vaginae, Mobiluncus, Prevotella). É tema de alta incidência em provas de ginecologia, atenção primária e infectologia, cobrando o reconhecimento dos critérios diagnósticos, o tratamento e as situações especiais (gestação, recorrência, dependência alcoólica).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A VB decorre da perda de lactobacilos produtores de peróxido de hidrogênio e do supercrescimento de bactérias anaeróbias. O metabolismo anaeróbio produz aminas (putrescina, cadaverina) que volatilizam em pH alcalino, gerando odor de peixe. O pH vaginal eleva-se acima de 4,5. A resposta inflamatória é discreta, e as células epiteliais recobertas por bactérias formam as clue cells. O diagnóstico é clínico-laboratorial pelos critérios de Amsel: (1) corrimento homogêneo, fino, cinza; (2) pH vaginal > 4,5; (3) teste das aminas (Whiff) positivo; (4) clue cells à microscopia. A presença de 3 dos 4 critérios confirma o diagnóstico. O caso preenche todos os quatro critérios.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa D - Metronidazol 500 mg por via oral, duas vezes ao dia, durante 7 dias.</strong> O metronidazol oral é um dos esquemas de primeira linha recomendados para a vaginose bacteriana, com elevada eficácia (cura de 70-90%). A dose de 500 mg a cada 12 horas por 7 dias é o esquema clássico dos principais guidelines (CDC, FEBRASGO, Ministério da Saúde). Alternativas equivalentes incluem metronidazol 250 mg três vezes ao dia por 7 dias, secnidazol 2 g em dose única, tinidazol 2 g em dose única, metronidazol gel vaginal 0,75% por 5 dias ou clindamicina creme vaginal 2% por 7 dias. A paciente não tem contraindicação ao metronidazol (não há relato de gestação ou dependência alcoólica), tornando a alternativa D a mais adequada.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A - Azitromicina 1 g por via oral, em dose única.</strong> A azitromicina é indicada para infecções por Chlamydia trachomatis (cervicite, uretrite, DIP) e não é tratamento para vaginose bacteriana. Alternativa incorreta. Tema já cobrado na prova de 2018 (Q25) e 2023 (Q22), que discutiam o tratamento de cervicite por clamídia.</p>
+                <p><strong>Alternativa B - Fluconazol 150 mg por via oral, em dose única.</strong> O fluconazol é tratamento para candidíase vulvovaginal, que cursa com corrimento grumoso, branco, prurido e pH normal (≤ 4,5), teste de Whiff negativo e ausência de clue cells. Alternativa incorreta. Tema cobrado na prova de 2020 (Q22) e 2011 (Q61).</p>
+                <p><strong>Alternativa C - Doxiciclina 100 mg por via oral, duas vezes ao dia, durante 7 dias.</strong> A doxiciclina é indicada para cervicite por clamídia (em associação com ceftriaxona para gonococo) e não é tratamento para VB. Alternativa incorreta. Tema cobrado na prova de 2018 (Q25) e 2023 (Q22).</p>
+                <p><strong>Alternativa D - Correta: metronidazol 500 mg VO 12/12h por 7 dias.</strong></p>
+                <p><strong>Alternativa E - Clindamicina 300 mg por via oral, quatro vezes ao dia, durante 14 dias.</strong> A clindamicina oral é uma alternativa válida para VB, mas a dose recomendada é 300 mg a cada 12 horas por 7 dias, e não 300 mg quatro vezes ao dia por 14 dias. A dose e a duração estão incorretas. Alternativa incorreta. Na prova de 2025 (Q40), em paciente com dependência alcoólica, a clindamicina oral foi considerada a melhor opção por evitar o efeito dissulfiram-símile do metronidazol, mas na dose correta de 300 mg 12/12h por 7 dias.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Corrimento homogêneo, acinzentado, com odor desagradável:</strong> descrição clássica da VB.</li>
+                    <li><strong>Odor intensificado após relações sexuais:</strong> o sêmen alcalino volatiliza as aminas, piorando o odor.</li>
+                    <li><strong>pH vaginal 5,5:</strong> pH > 4,5 é um dos critérios de Amsel.</li>
+                    <li><strong>Teste das aminas positivo (Whiff):</strong> liberação de odor de peixe após KOH a 10%.</li>
+                    <li><strong>Clue cells:</strong> células epiteliais recobertas por bactérias, achado característico da VB.</li>
+                    <li><strong>Esquema terapêutico recomendado:</strong> pergunta direcionada ao tratamento de primeira linha.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Caracterizar o corrimento (homogêneo, cinza, odor de peixe) e os fatores de risco.</li>
+                    <li><strong>Segundo:</strong> Aplicar os critérios de Amsel: corrimento homogêneo, pH > 4,5, teste das aminas positivo e clue cells. Três de quatro confirmam VB.</li>
+                    <li><strong>Terceiro:</strong> Excluir outras causas: candidíase (pH normal, Whiff negativo, pseudo-hifas), tricomoníase (corrimento bolhoso, amarelo-esverdeado, pH > 4,5, mobilidade), cervicite (mucopurulento, teste de Whiff negativo, pesquisa de clamídia/gonococo).</li>
+                    <li><strong>Quarto:</strong> Tratar com metronidazol 500 mg VO 12/12h por 7 dias ou alternativas (metronidazol 250 mg 8/8h por 7 dias, secnidazol 2 g dose única, tinidazol 2 g dose única, clindamicina 300 mg 12/12h por 7 dias, metronidazol gel 0,75% por 5 dias, clindamicina creme 2% por 7 dias).</li>
+                    <li><strong>Quinto:</strong> Não é necessário tratar parceiros masculinos de rotina. Orientar abstinência alcoólica durante o metronidazol (até 24-48h após) pelo risco de reação dissulfiram-símile.</li>
+                    <li><strong>Sexto:</strong> Em gestantes, tratar com metronidazol 500 mg VO 12/12h por 7 dias ou clindamicina 300 mg VO 12/12h por 7 dias; evitar metronidazol em altas doses no primeiro trimestre, mas o esquema padrão é considerado seguro. Em casos recorrentes, considerar tratamento prolongado ou terapia com ácido bórico/rint. Em dependentes alcoólicos, preferir clindamicina oral.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "diagnóstico" e "conduta" no corrimento vaginal.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> VB = 3 de 4 critérios de Amsel (corrimento homogêneo, pH > 4,5, Whiff positivo, clue cells).</li>
+                    <li><strong>Números e doses:</strong> metronidazol 500 mg VO 12/12h por 7 dias; metronidazol 250 mg VO 8/8h por 7 dias; secnidazol 2 g VO dose única; tinidazol 2 g VO dose única; clindamicina 300 mg VO 12/12h por 7 dias; metronidazol gel 0,75% por 5 dias; clindamicina creme 2% por 7 dias.</li>
+                    <li><strong>Mnemônicos/regras:</strong> "VB = Amsel 3 de 4"; "metronidazol é a primeira linha"; "não tratar parceiro de rotina"; "metronidazol + álcool = reação dissulfiram-símile".</li>
+                </ul>
+                <p>Esses dados aparecem com frequência em provas de ginecologia e atenção primária.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vaginose bacteriana</td>
+                            <td>Corrimento homogêneo, cinza, odor de peixe, pH > 4,5, Whiff positivo, clue cells</td>
+                            <td>Critérios de Amsel; microscopia</td>
+                            <td>Metronidazol 500 mg VO 12/12h 7d; alternativas</td>
+                        </tr>
+                        <tr>
+                            <td>Candidíase vulvovaginal</td>
+                            <td>Corrimento branco, grumoso, prurido, pH ≤ 4,5, Whiff negativo</td>
+                            <td>Microscopia com pseudo-hifas/leveduras; cultura se recorrente</td>
+                            <td>Fluconazol 150 mg dose única; imidazólicos tópicos</td>
+                        </tr>
+                        <tr>
+                            <td>Tricomoníase</td>
+                            <td>Corrimento amarelo-esverdeado, bolhoso, pH > 4,5, Whiff positivo, tricomonas móveis</td>
+                            <td>Microscopia a fresco; NAAT</td>
+                            <td>Metronidazol 2 g VO dose única; tratar parceiros</td>
+                        </tr>
+                        <tr>
+                            <td>Cervicite por clamídia/gonococo</td>
+                            <td>Corrimento mucopurulento, sangramento pós-coital, dor pélvica</td>
+                            <td>NAAT para clamídia/gonococo</td>
+                            <td>Ceftriaxona 500 mg IM + doxiciclina 100 mg VO 12/12h 7d</td>
+                        </tr>
+                        <tr>
+                            <td>Vaginite atrófica</td>
+                            <td>Mulher pós-menopausa, secura, dispareunia, pH elevado</td>
+                            <td>Exame, pH, microscopia</td>
+                            <td>Estrogênio tópico; lubrificantes</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial do corrimento vaginal.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse o critério diagnóstico:</strong> Amsel (3 de 4) ou Nugent (score bacterioscópico).</li>
+                    <li><strong>Se pedisse o tratamento de primeira linha:</strong> metronidazol oral 500 mg 12/12h por 7 dias.</li>
+                    <li><strong>Se pedisse alternativa em gestante:</strong> metronidazol oral ou clindamicina oral; evitar altas doses no primeiro trimestre.</li>
+                    <li><strong>Se pedisse alternativa em dependente alcoólico:</strong> clindamicina oral 300 mg 12/12h por 7 dias.</li>
+                    <li><strong>Se pedisse sobre parceiros:</strong> não tratar parceiros masculinos de rotina; tratar parceiras sexuais femininas sintomáticas.</li>
+                    <li><strong>Se pedisse sobre recorrência:</strong> considerar tratamento prolongado, ácido bórico vaginal, rint.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2012 – Q60</td>
+                            <td>Paciente com corrimento, úlcera vulvar indolor, teste de Whiff positivo; afirmativas sobre sífilis, vaginose e ectopia</td>
+                            <td>Diagnóstico de vaginose bacteriana e tratamento com secnidazol</td>
+                            <td>B</td>
+                            <td>Reforça o diagnóstico de VB pelo Whiff e o tratamento com nitroimidazólico</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q18</td>
+                            <td>Paciente com corrimento amarelado, úlcera dolorosa e uso de medroxiprogesterona; afirmativas sobre vaginose</td>
+                            <td>Critérios de VB e tratamento</td>
+                            <td>E</td>
+                            <td>Reforça a VB como diagnóstico frequente de corrimento</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q25</td>
+                            <td>Paciente de 27 anos com corrimento cinza-esverdeado, odor fétido, pH elevado; conduta</td>
+                            <td>Diagnóstico de VB e tratamento com metronidazol</td>
+                            <td>D</td>
+                            <td>Questão muito próxima: confirma metronidazol como tratamento</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q22</td>
+                            <td>Paciente com prurido vulvovaginal e corrimento grumoso; melhor tratamento</td>
+                            <td>Candidíase vulvovaginal (fluconazol)</td>
+                            <td>D</td>
+                            <td>Diferencial de VB (pH e aspecto do corrimento)</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q34</td>
+                            <td>Vaginose bacteriana: pH, corrimento e teste de KOH</td>
+                            <td>Critérios diagnósticos de VB</td>
+                            <td>C (II e III corretas)</td>
+                            <td>Reforça os critérios de Amsel e o pH elevado</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q40</td>
+                            <td>Paciente de 18 anos, dependente química, com corrimento fétido e pH aumentado; melhor tratamento</td>
+                            <td>VB em dependente alcoólico: preferir clindamicina</td>
+                            <td>D (Clindamicina)</td>
+                            <td>Mostra situação especial em que o metronidazol é evitado</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q97</td>
+                            <td>Homem trans com corrimento vaginal; afirmativas sobre vaginose e ISTs</td>
+                            <td>VB e rastreamento de ISTs</td>
+                            <td>D (I, III e IV)</td>
+                            <td>Reforça a abordagem da VB em populações específicas</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 7 questões no período. A banca alterna entre critérios diagnósticos (Amsel), tratamento de primeira linha (metronidazol), situações especiais (gestante, dependente alcoólico) e diferenciais (candidíase, tricomoníase, cervicite). A questão de 2018 (Q25) é a mais próxima da atual, pois cobra diagnóstico e tratamento da VB.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> tratamento de parceiros sexuais, manejo da VB recorrente, uso de ácido bórico e rint, e critérios de Nugent.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas cobravam diagnóstico clínico e tratamento; as mais recentes contextualizam situações especiais e populações específicas.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar os critérios de Amsel, os esquemas terapêuticos (metronidazol, clindamicina, secnidazol) e as situações especiais (gestação, álcool, recorrência).</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> VB → risco aumentado de aquisição de ISTs (HIV, clamídia, gonococo) → rastreamento e aconselhamento.</li>
+                    <li><strong>Conexão 2:</strong> VB em gestantes → risco de parto prematuro, corioamnionite, endometrite pós-parto → tratamento com metronidazol ou clindamicina.</li>
+                    <li><strong>Conexão 3:</strong> Corrimento vaginal → diferencial com candidíase, tricomoníase e cervicite → pH, Whiff, microscopia e NAAT.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais comum é escolher a clindamicina (alternativa E) por ser alternativa válida, mas com dose e duração incorretas (300 mg 12/12h por 7 dias, e não 6/6h por 14 dias). Outro erro é escolher azitromicina ou doxiciclina por confundir com cervicite. Classificação provável do erro: lacuna de conhecimento sobre os esquemas terapêuticos da VB. Ação corretiva: memorizar que "metronidazol 500 mg 12/12h por 7 dias é a primeira linha; clindamicina 300 mg 12/12h por 7 dias é alternativa; não usar 6/6h por 14 dias".</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o diagnóstico da VB é clínico-laboratorial pelos critérios de Amsel. O tratamento com metronidazol oral é simples, barato e eficaz, mas deve-se orientar abstinência alcoólica durante o uso e por 24-48 horas após. Em gestantes, o tratamento é indicado para reduzir complicações obstétricas. Em dependentes alcoólicos, a clindamicina oral pode ser preferida. Parceiros masculinos não precisam ser tratados de rotina. A recorrência é comum e pode exigir tratamento prolongado ou terapias adjuvantes.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios de Amsel para vaginose bacteriana</li>
+                    <li>Critérios de Nugent</li>
+                    <li>Tratamento da vaginose bacteriana (metronidazol, clindamicina, secnidazol, tinidazol)</li>
+                    <li>Vaginose bacteriana na gestação</li>
+                    <li>Vaginose bacteriana recorrente</li>
+                    <li>Diagnóstico diferencial do corrimento vaginal</li>
+                    <li>Candidíase vulvovaginal e tricomoníase</li>
+                    <li>Cervicite por clamídia e gonococo</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Atenção Integral às Pessoas com Infecções Sexualmente Transmissíveis (IST).</p>
+                <p>2. Centers for Disease Control and Prevention (CDC). Sexually Transmitted Infections Treatment Guidelines, 2021.</p>
+                <p>3. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Vaginose Bacteriana.</p>
+                <p>4. UpToDate. Bacterial vaginosis: Treatment. 2024.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

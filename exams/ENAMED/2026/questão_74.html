@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 74 - Leucemia linfoblástica aguda na infância: diagnóstico a partir de pancitopenia e blastos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Leucemia linfoblástica aguda na infância: diagnóstico a partir de pancitopenia e blastos</div>
+        <h1>Questão 74</h1>
+        <div class="question-text">
+            Menino de 8 anos é levado a um ambulatório de pediatria com queixa de febre persistente há 3 semanas, associada a palidez progressiva, emagrecimento e aparecimento de petéquias nos membros inferiores. A mãe relata que a criança tem se queixado de dores em membros inferiores e astenia. O exame físico mostra: palidez cutâneo-mucosa; petéquias difusas e hepatoesplenomegalia. O hemograma revela os resultados apresentados na tabela a seguir.<br><br>
+            <table class="data-table">
+                <thead>
+                    <tr><th>Exame</th><th>Resultado</th><th>Valor de referência</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Leucócitos</td><td>2.500/mm³</td><td>4.500 a 13.500/mm³</td></tr>
+                    <tr><td>Hemoglobina</td><td>8,0 g/dL</td><td>11,7 a 15,3 g/dL</td></tr>
+                    <tr><td>Plaquetas</td><td>30.000/mm³</td><td>150.000 a 450.000/mm³</td></tr>
+                    <tr><td>Neutrófilos</td><td>500/mm³</td><td>1.500 a 8.500/mm³</td></tr>
+                    <tr><td>Linfócitos</td><td>1.800/mm³</td><td>1.000 a 4.800/mm³</td></tr>
+                    <tr><td>Blastos</td><td>5%</td><td>0%</td></tr>
+                </tbody>
+            </table>
+            Nesse caso, a principal hipótese diagnóstica é
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - anemia aplásica.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - leucemia linfoblástica aguda.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - púrpura trombocitopênica imunológica.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - calazar.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Hematologia Pediátrica / Oncologia Pediátrica.</p>
+            <p><strong>Tema:</strong> Leucemia linfoblástica aguda (LLA) na infância: diagnóstico a partir de quadro clínico e hemograma com pancitopenia e blastos.</p>
+            <p><strong>Contextualização:</strong> A LLA é a neoplasia maligna mais comum na infância, com pico de incidência entre 2 e 5 anos. É tema de alta incidência em provas de residência em pediatria e clínica médica, frequentemente cobrado por meio de quadro clínico sugestivo (febre, palidez, petéquias, dor óssea, hepatoesplenomegalia) associado a alterações no hemograma. O diagnóstico precoce é fundamental para o prognóstico.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A LLA resulta da proliferação clonal de precursores linfoides na medula óssea, levando à substituição da hematopoese normal. Isso causa pancitopenia: anemia (palidez, astenia), neutropenia (febre e infecções) e trombocitopenia (petéquias e sangramentos). A infiltração medular e extramedular explica a dor óssea, a hepatoesplenomegalia e a linfadenomegalia. A presença de blastos no sangue periférico é um achado-chave, embora o diagnóstico definitivo seja feito por mielograma com ≥20% de blastos. O quadro clínico e o hemograma, portanto, permitem levantar a hipótese e indicar a investigação com urgência.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B - leucemia linfoblástica aguda.</strong> O paciente apresenta febre persistente, palidez progressiva, emagrecimento, petéquias, dor em membros inferiores, astenia e hepatoesplenomegalia. O hemograma mostra pancitopenia (leucopenia, anemia e plaquetopenia) com neutropenia e presença de 5% de blastos no sangue periférico. Esse conjunto é clássico de LLA. A presença de blastos circulantes em uma criança com pancitopenia e hepatoesplenomegalia torna a leucemia aguda a principal hipótese, exigindo mielograma e encaminhamento urgente para hematologia/oncologia pediátrica.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - anemia aplásica.</strong> A anemia aplásica causa pancitopenia, mas tipicamente cursa com medula óssea hipocelular, sem blastos no sangue periférico e, em geral, sem hepatoesplenomegalia. A presença de blastos e a esplenomegalia afastam esse diagnóstico.</p>
+            <p><strong>Alternativa C - púrpura trombocitopênica imunológica.</strong> A PTI cursa com plaquetopenia isolada, com leucócitos e hemoglobina normais, sem blastos e sem hepatoesplenomegalia. O quadro do paciente é de pancitopenia, o que torna a PTI improvável.</p>
+            <p><strong>Alternativa D - calazar (leishmaniose visceral).</strong> O calazar pode causar febre, hepatoesplenomegalia e pancitopenia, mas não cursa com blastos no sangue periférico. Além disso, é mais comum em áreas endêmicas e costuma apresentar hipergamaglobulinemia. A presença de blastos torna a LLA a hipótese principal.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Febre persistente há 3 semanas:</strong> sugere neutropenia e infecções, comum em leucemias agudas.</li>
+                <li><strong>Palidez progressiva, astenia e emagrecimento:</strong> anemia e estado catabólico.</li>
+                <li><strong>Petéquias nos membros inferiores:</strong> trombocitopenia.</li>
+                <li><strong>Dor em membros inferiores:</strong> infiltração medular e periosteal, típica de LLA na infância.</li>
+                <li><strong>Hepatoesplenomegalia:</strong> infiltração extramedular.</li>
+                <li><strong>Blastos 5% no sangue periférico:</strong> achado decisivo para leucemia aguda.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer a síndrome de insuficiência medular (anemia, neutropenia, trombocitopenia) em criança com febre, palidez e petéquias.</li>
+                <li><strong>Segundo:</strong> valorizar a presença de blastos no sangue periférico como sinal de leucemia aguda.</li>
+                <li><strong>Terceiro:</strong> indicar mielograma e encaminhamento urgente para hematologia/oncologia pediátrica.</li>
+                <li><strong>Quarto:</strong> iniciar suporte (transfusões, antibioticoterapia para neutropenia febril) conforme necessidade e avaliação especializada.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> LLA é a neoplasia mais comum na infância; pancitopenia + blastos + hepatoesplenomegalia = suspeita de leucemia aguda.</li>
+                <li><strong>Números e doses:</strong> diagnóstico definitivo com ≥20% de blastos na medula óssea.</li>
+                <li><strong>Mnemônicos:</strong> “PANCITOPENIA + BLASTOS = LEUCEMIA AGUDA” até prova em contrário.</li>
+                <li><strong>Urgência:</strong> neutropenia febril em criança com suspeita de LLA é emergência oncológica e exige antibioticoterapia precoce.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a tríade clínica e o achado de blastos como diferenciador.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LLA (correta)</td>
+                        <td>Pancitopenia, blastos no sangue periférico, hepatoesplenomegalia, dor óssea, febre.</td>
+                        <td>Hemograma, mielograma com ≥20% de blastos, imunofenotipagem.</td>
+                        <td>Encaminhamento urgente para hematologia/oncologia pediátrica, suporte transfusional e antibioticoterapia se neutropenia febril.</td>
+                    </tr>
+                    <tr>
+                        <td>Anemia aplásica</td>
+                        <td>Pancitopenia sem blastos, sem hepatoesplenomegalia, medula hipocelular.</td>
+                        <td>Mielograma e biópsia de medula óssea.</td>
+                        <td>Suporte transfusional e tratamento imunossupressor ou transplante.</td>
+                    </tr>
+                    <tr>
+                        <td>PTI</td>
+                        <td>Plaquetopenia isolada, sem anemia/leucopenia, sem blastos.</td>
+                        <td>Hemograma, exclusão de causas secundárias.</td>
+                        <td>Observação ou corticoterapia/imunoglobulina conforme gravidade.</td>
+                    </tr>
+                    <tr>
+                        <td>Calazar</td>
+                        <td>Febre, hepatoesplenomegalia, pancitopenia, sem blastos; área endêmica.</td>
+                        <td>Sorologia, aspirado de medula óssea para Leishmania.</td>
+                        <td>Antimonial ou anfotericina B.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico definitivo:</strong> a resposta seria mielograma com ≥20% de blastos.</li>
+                <li><strong>Se fosse sobre complicação:</strong> a resposta poderia envolver neutropenia febril, síndrome de lise tumoral ou infiltração do sistema nervoso central.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> a resposta envolveria quimioterapia e suporte multidisciplinar.</li>
+                <li><strong>Se fosse sobre prognóstico:</strong> a resposta poderia incluir idade, leucocometria inicial e alterações citogenéticas.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q74</td>
+                        <td>Criança de 8 anos com febre, palidez, petéquias, dor óssea, hepatoesplenomegalia e blastos no hemograma.</td>
+                        <td>Diagnóstico de LLA a partir de quadro clínico e pancitopenia com blastos.</td>
+                        <td>Leucemia linfoblástica aguda.</td>
+                        <td>É a própria questão analisada.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova anterior - Q59</td>
+                        <td>Criança de 7 anos em tratamento quimioterápico para LLA com febre, lactato elevado, acidose metabólica e leucocitose.</td>
+                        <td>Complicação infecciosa da LLA: neutropenia febril e choque séptico.</td>
+                        <td>Choque séptico.</td>
+                        <td>Tema complementar: mostra a complicação mais temida da LLA e reforça a importância do diagnóstico precoce.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q45</td>
+                        <td>Criança de 2 anos com palidez e anemia microcítica hipocrômica.</td>
+                        <td>Diagnóstico e tratamento da anemia ferropriva.</td>
+                        <td>Ferro oral em dose terapêutica e adequação alimentar.</td>
+                        <td>Diagnóstico diferencial de anemia na infância; reforça a importância de diferenciar anemia carencial de leucemia.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q52</td>
+                        <td>Criança de 3 anos com febre, perda ponderal, equimoses periorbitárias e massa abdominal.</td>
+                        <td>Diagnóstico de tumor de Wilms.</td>
+                        <td>Tumor de Wilms.</td>
+                        <td>Diagnóstico diferencial de massa abdominal e neoplasia pediátrica; reforça a importância da investigação oncológica.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico de LLA apareceu na Q74 do Enamed 2026 e na Q59 da prova anterior, que cobrou a complicação infecciosa. A banca tem explorado tanto o diagnóstico inicial quanto as complicações do tratamento.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> diagnóstico diferencial detalhado com anemia aplásica e calazar, síndrome de lise tumoral, infiltração do sistema nervoso central e critérios de risco da LLA.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica suficiente para identificar evolução; o tema exige conhecimento do quadro clínico, do hemograma e da conduta inicial.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar LLA, neutropenia febril, síndrome de lise tumoral e diagnósticos diferenciais de pancitopenia na infância.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Neutropenia febril - principal emergência infecciosa em crianças com LLA em tratamento.</li>
+                <li><strong>Conexão 2:</strong> Anemia ferropriva - diagnóstico diferencial frequente de palidez na infância, mas sem blastos ou hepatoesplenomegalia.</li>
+                <li><strong>Conexão 3:</strong> Tumor de Wilms e outras neoplasias pediátricas - diagnóstico diferencial de massa abdominal e febre prolongada.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é não valorizar a presença de blastos no sangue periférico ou confundir a pancitopenia com doenças infecciosas como o calazar. A ação corretiva é memorizar que pancitopenia com blastos em criança é leucemia aguda até prova em contrário, e que a hepatoesplenomegalia e a dor óssea reforçam esse diagnóstico.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, a criança com febre prolongada, palidez, petéquias e dor óssea deve ter hemograma solicitado precocemente. A presença de blastos exige encaminhamento urgente para hematologia pediátrica e suporte adequado. O diagnóstico precoce melhora o prognóstico e reduz complicações infecciosas e hemorrágicas.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Pancitopenia na infância: diagnóstico diferencial.</li>
+                <li>Leucemia linfoblástica aguda: quadro clínico, hemograma e mielograma.</li>
+                <li>Neutropenia febril: manejo inicial.</li>
+                <li>Síndrome de lise tumoral.</li>
+                <li>Anemia ferropriva e outras anemias carenciais.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sociedade Brasileira de Pediatria (SBP). Diretrizes para o diagnóstico e tratamento da leucemia linfoblástica aguda na infância.</p>
+            <p>2. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Leucemia Linfoblástica Aguda.</p>
+            <p>3. National Comprehensive Cancer Network (NCCN). Guidelines for Pediatric Acute Lymphoblastic Leukemia.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

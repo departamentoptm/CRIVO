@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 42 - Hipotireoidismo Primário: causas de resposta inadequada à levotiroxina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Hipotireoidismo Primário: causas de resposta inadequada à levotiroxina</div>
+        <h1>Questão 42</h1>
+        <div class="question-text">
+            Os seguintes resultados foram trazidos pela Sra. Ana Maria, mulher de 45 anos de idade, portadora de hipotireoidismo primário, em uso de Levotiroxina 100 mcg ao dia em jejum. Exames Laboratoriais: T4 livre 0,5 [0,7 - 1.8 ng/dl], TSH 7,8 (0,4-4 mUI/L) Fosfato 1.8 [0.8 - 1.4 mmol/L] Creatinina 0,8 [0,4 a 1,2 mg/dL]. Ela afirma que a adesão às tomadas das medicações é total. Ao exame apresenta-se corada, normotensa e com IMC de 23,5. Quais medicações deveriam ser investigadas para descartar a possibilidade de aumento das necessidades de LT4, antes de cogitar aumentar a dose da reposição?
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+              <input type="radio" name="answer" id="optionA" value="A">
+              <label for="optionA"><strong>A</strong> - Biotina / tiamina.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+              <input type="radio" name="answer" id="optionB" value="B">
+              <label for="optionB"><strong>B</strong> - Metformina / sulfonilureia.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+              <input type="radio" name="answer" id="optionC" value="C">
+              <label for="optionC"><strong>C</strong> - Carbamazepina / fenitoína.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+              <input type="radio" name="answer" id="optionD" value="D">
+              <label for="optionD"><strong>D</strong> - Glicocorticóides / enoxaparina.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+              <input type="radio" name="answer" id="optionE" value="E">
+              <label for="optionE"><strong>E</strong> - Opioides / agonistas dopaminérgicos.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Endocrinologia</p>
+                <p><strong>Tema:</strong> Hipotireoidismo primário — reconhecimento de causas de resposta inadequada à levotiroxina (interações medicamentosas e má absorção)</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente associado ao uso crônico de levotiroxina, ao manejo de doenças crônicas e à interpretação de exames de função tireoidiana. A banca costuma cobrar desde a definição de hipotireoidismo subclínico até o reconhecimento de causas de TSH persistentemente elevado a despeito de adesão adequada. A diferenciação entre “aumento de necessidade” (metabolismo acelerado/induzido) e “interferência laboratorial” (biotina) é um diferencial fino que aparece em questões de maior complexidade.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A levotiroxina (T4) é convertida perifericamente em T3 e exerce feedback negativo sobre a hipófise. Quando o paciente está em reposição adequada e aderente, espera-se TSH normal e T4 livre na faixa de referência. Diante de TSH elevado com T4 livre baixo em paciente com adesão comprovada, é preciso investigar causas de aumento da necessidade de LT4. Entre elas, destacam-se: (1) má absorção (doença celíaca, gastrite atrófica, H. pylori, cirurgia bariátrica, uso de inibidores de bomba de prótons, cálcio, ferro); (2) indução enzimática hepática por fármacos que aumentam o metabolismo do T4, como carbamazepina, fenitoína, fenobarbital e rifampicina; (3) aumento de proteínas carreadoras (estrogênio, gravidez, hepatite); (4) aumento de peso; (5) não adesão oculta. A carbamazepina e a fenitoína são indutores do CYP3A4 e de outras enzimas hepáticas, acelerando a degradação do T4 e elevando a necessidade de reposição.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa C está correta.</strong> Carbamazepina e fenitoína são indutores enzimáticos clássicos que aumentam o metabolismo hepático da levotiroxina, podendo elevar a necessidade de reposição. Antes de aumentar a dose de LT4, deve-se investigar o uso desses fármacos, pois a correção pode ser feita com ajuste de dose da levotiroxina ou, quando possível, troca do anticonvulsivante. Em provas anteriores, o tema já foi cobrado por meio da definição de hipotireoidismo subclínico e do manejo da levotiroxina em situações especiais (por exemplo, gravidez e coma mixedematoso), mas a interação com indutores enzimáticos ainda é uma lacuna importante.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A biotina (vitamina B7) é conhecida por interferir em imunoensaios que utilizam streptavidina-biotina, podendo causar resultados falsamente alterados de TSH e T4 (geralmente TSH falsamente baixo e T4 falsamente elevado, dependendo do ensaio). Isso é uma interferência laboratorial, e não um aumento real da necessidade de LT4. A tiamina não tem relação com o metabolismo da levotiroxina. Esse distrator explora a confusão entre interferência analítica e aumento de necessidade.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Metformina e sulfonilureias não induzem enzimas hepáticas nem aumentam o metabolismo da levotiroxina. Não são causas reconhecidas de aumento de necessidade de LT4.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Glicocorticoides em doses altas podem reduzir a conversão periférica de T4 em T3 e suprimir o TSH, mas não são a causa clássica de aumento de necessidade de LT4; ao contrário, podem mascarar o hipotireoidismo. A enoxaparina não interfere no metabolismo da levotiroxina.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Opioides e agonistas dopaminérgicos podem reduzir a secreção de TSH (efeito central), mas não aumentam a necessidade de levotiroxina. Na verdade, podem até mascarar o hipotireoidismo central.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Hipotireoidismo primário em uso de levotiroxina:</strong> indica que a causa é tireoidiana e a reposição é a terapia padrão.</li>
+                    <li><strong>Adesão total:</strong> afasta não adesão como causa do TSH elevado; direciona para causas de aumento de necessidade ou interferência.</li>
+                    <li><strong>T4 livre baixo e TSH elevado:</strong> confirma hipotireoidismo não controlado, com necessidade de investigar a causa.</li>
+                    <li><strong>Fosfato 1,8 mmol/L (elevado):</strong> achado inespecífico, provavelmente distrator; pode sugerir hipoparatireoidismo ou doença renal, mas não é o foco da questão.</li>
+                    <li><strong>“Antes de cogitar aumentar a dose”:</strong> indica que se deve buscar causas reversíveis de aumento de necessidade, incluindo fármacos indutores.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> confirmar que o paciente realmente tem hipotireoidismo primário e que a adesão é adequada (rever horário, jejum, forma de administração).</li>
+                    <li><strong>Segundo:</strong> revisar a lista de medicamentos em busca de indutores enzimáticos (carbamazepina, fenitoína, fenobarbital, rifampicina) e de fármacos que interferem na absorção (IBP, cálcio, ferro, sequestrantes de ácido biliar).</li>
+                    <li><strong>Terceiro:</strong> investigar má absorção (doença celíaca, gastrite atrófica, H. pylori, cirurgia bariátrica) e condições fisiológicas (gravidez, aumento de peso).</li>
+                    <li><strong>Quarto:</strong> afastar interferência laboratorial (biotina) e, se necessário, ajustar a dose de levotiroxina ou trocar o fármaco indutor.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> TSH elevado + T4 livre baixo em paciente com hipotireoidismo primário e adesão adequada = investigar causas de aumento de necessidade (indutores enzimáticos, má absorção, gravidez, ganho de peso) e interferência laboratorial (biotina).</li>
+                    <li><strong>Números e doses:</strong> Levotiroxina em jejum, 30-60 minutos antes do café; dose média de reposição 1,6 mcg/kg/dia em adultos; na gravidez, necessidade aumenta 20-30%.</li>
+                    <li><strong>Mnemônicos:</strong> “Indutores que aumentam LT4: CarbaMazepina, FeniToína, Fenobarbital, Rifampicina” — lembrar que esses fármacos aceleram o CYP450 e reduzem os níveis de T4.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aumento de necessidade por indutor enzimático (carbamazepina/fenitoína)</td>
+                            <td>Paciente em uso crônico do fármaco; TSH elevado, T4 livre baixo; adesão adequada</td>
+                            <td>Revisão da lista de medicamentos; dosar TSH e T4 livre</td>
+                            <td>Ajustar dose de LT4 ou trocar o indutor, se possível</td>
+                        </tr>
+                        <tr>
+                            <td>Má absorção de LT4</td>
+                            <td>História de doença celíaca, gastrite atrófica, H. pylori, cirurgia bariátrica, uso de IBP/cálcio/ferro</td>
+                            <td>Sorologias para celíaca, endoscopia, revisão de medicações</td>
+                            <td>Tratar a causa; separar a levotiroxina de outros fármacos</td>
+                        </tr>
+                        <tr>
+                            <td>Interferência laboratorial por biotina</td>
+                            <td>Uso de suplementos com biotina; TSH e T4 discordantes do quadro clínico</td>
+                            <td>Suspender biotina por 48-72h e repetir exames</td>
+                            <td>Repetir exames após suspensão; não aumentar LT4</td>
+                        </tr>
+                        <tr>
+                            <td>Hipotireoidismo subclínico</td>
+                            <td>TSH elevado com T4 livre normal; geralmente assintomático</td>
+                            <td>TSH e T4 livre; repetir em 3-6 meses</td>
+                            <td>Tratar se TSH >10 ou sintomático/risco cardiovascular</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> “Qual o padrão laboratorial do hipotireoidismo primário?” — TSH elevado, T4 livre baixo.</li>
+                    <li><strong>Se fosse sobre tratamento:</strong> “Qual a dose inicial de levotiroxina em idoso com cardiopatia?” — iniciar com doses baixas (12,5-25 mcg/dia) e titular.</li>
+                    <li><strong>Se fosse sobre complicação:</strong> “Quais os sinais do coma mixedematoso?” — hipotermia, bradicardia, rebaixamento, hiponatremia, hipoglicemia.</li>
+                    <li><strong>Se fosse sobre interação:</strong> “Qual fármaco aumenta a necessidade de levotiroxina?” — carbamazepina, fenitoína, rifampicina.</li>
+                    <li><strong>Se fosse sobre interferência:</strong> “Qual suplemento interfere nos exames de tireoide?” — biotina.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q22</td>
+                            <td>Sobre o tratamento do hipotireoidismo, todas as alternativas são verdadeiras, EXCETO</td>
+                            <td>Segurança da tiroxina na lactação e efeitos adversos</td>
+                            <td>A</td>
+                            <td>Mostra que a banca já cobrou aspectos do tratamento; a questão atual avança para causas de resposta inadequada.</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q59</td>
+                            <td>Critérios essenciais para o diagnóstico de hipotireoidismo e mixedema; assinale a INCORRETA</td>
+                            <td>Diagnóstico clínico e laboratorial do hipotireoidismo</td>
+                            <td>E</td>
+                            <td>Reforça a necessidade de reconhecer o padrão TSH elevado no hipotireoidismo primário.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q80</td>
+                            <td>Define-se hipotireoidismo subclínico como...</td>
+                            <td>Conceito de hipotireoidismo subclínico</td>
+                            <td>D</td>
+                            <td>Contextualiza a interpretação de TSH elevado com T4 livre normal.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q30</td>
+                            <td>Paciente de 23 anos, assintomática, TSH = 10,5 mUI/L; qual a conduta?</td>
+                            <td>Manejo do hipotireoidismo subclínico</td>
+                            <td>E</td>
+                            <td>Ajuda a diferenciar quando tratar e quando investigar causas de TSH persistente.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q80</td>
+                            <td>Define-se hipotireoidismo subclínico como...</td>
+                            <td>Conceito de hipotireoidismo subclínico (repetição)</td>
+                            <td>D</td>
+                            <td>Confirma a recorrência do tema e a importância da interpretação laboratorial.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q30</td>
+                            <td>Paciente de 23 anos, assintomática, TSH = 10,5 mUI/L; conduta</td>
+                            <td>Manejo do hipotireoidismo subclínico (repetição)</td>
+                            <td>E</td>
+                            <td>Reforça o padrão de cobrança sobre quando iniciar levotiroxina.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q75</td>
+                            <td>Paciente com quadro grave de hipotireoidismo (TSH >150, T4 livre <0,40); conduta</td>
+                            <td>Manejo do coma mixedematoso/hipotireoidismo grave</td>
+                            <td>D</td>
+                            <td>Relaciona-se ao reconhecimento de hipotireoidismo descompensado e à necessidade de reposição adequada.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q38</td>
+                            <td>Rastreamento de disfunção tireoidiana em mulheres assintomáticas</td>
+                            <td>Indicações de rastreamento e fatores de risco</td>
+                            <td>C</td>
+                            <td>Contextualiza a investigação de disfunção tireoidiana na atenção primária.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 8 provas anteriores, com abordagens que variam entre diagnóstico, tratamento, hipotireoidismo subclínico e manejo do quadro grave. A banca alterna entre cobrar a definição laboratorial, o momento de tratar e complicações. A investigação de causas de aumento de necessidade de LT4 (interações medicamentosas e má absorção) ainda não foi cobrada de forma direta.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> interação com indutores enzimáticos (carbamazepina, fenitoína) e interferência laboratorial por biotina; investigação de má absorção; ajuste de dose em uso de fármacos indutores. Essas são lacunas que podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Questões mais antigas focavam diagnóstico e tratamento; questões recentes têm cobrado manejo do hipotireoidismo subclínico e do quadro grave. A tendência é integrar fisiopatologia, interpretação laboratorial e manejo prático.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar a interpretação de TSH e T4 livre, o conceito de hipotireoidismo subclínico, as causas de resposta inadequada à levotiroxina (indutores enzimáticos, má absorção, biotina) e o manejo do coma mixedematoso.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros. “Se você viu X, lembre-se de Y”. Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Farmacologia das interações medicamentosas — indutores do CYP450 (carbamazepina, fenitoína, rifampicina) também alteram níveis de outros fármacos (anticoncepcionais, varfarina, corticoides), o que pode ser cobrado de forma integrada.</li>
+                    <li><strong>Conexão 2:</strong> Gravidez — a necessidade de levotiroxina aumenta em 20-30% durante a gestação, e o hipotireoidismo não tratado está associado a complicações obstétricas e neurodesenvolvimento fetal.</li>
+                    <li><strong>Conexão 3:</strong> Doenças autoimunes — a tireoidite de Hashimoto pode coexistir com doença celíaca, diabetes tipo 1 e insuficiência adrenal, o que reforça a necessidade de investigar má absorção e outras endocrinopatias.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+                <p>O erro mais provável é confundir interferência laboratorial (biotina) com aumento real de necessidade (indutores enzimáticos), ou não reconhecer que carbamazepina e fenitoína são indutores enzimáticos. Trata-se de lacuna de conhecimento e confusão conceitual. A ação corretiva é memorizar a lista de indutores enzimáticos que aumentam a necessidade de LT4 e diferenciar de causas de interferência analítica.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, diante de um paciente com hipotireoidismo primário e TSH persistentemente elevado, a primeira atitude é revisar a adesão e a técnica de administração. Em seguida, revisar a lista de medicamentos em busca de indutores enzimáticos e de fármacos que interferem na absorção. Se houver suspeita de má absorção, investigar doença celíaca e gastrite atrófica. Se houver uso de biotina, suspender por 48-72h e repetir os exames. Só então ajustar a dose de levotiroxina.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Fisiologia do eixo hipotálamo-hipófise-tireoide e feedback negativo</li>
+                    <li>Metabolismo e absorção da levotiroxina</li>
+                    <li>Indutores e inibidores do CYP450</li>
+                    <li>Interferência da biotina em imunoensaios</li>
+                    <li>Hipotireoidismo subclínico: quando tratar</li>
+                    <li>Coma mixedematoso: reconhecimento e manejo</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Harrison. Princípios de Medicina Interna. 21ª edição. Capítulo sobre doenças da tireoide.</p>
+                <p>2. Williams Textbook of Endocrinology. 14ª edição. Capítulo sobre hipotireoidismo.</p>
+                <p>3. Diretrizes da Sociedade Brasileira de Endocrinologia e Metabologia (SBEM) sobre hipotireoidismo.</p>
+                <p>4. UpToDate. Treatment of primary hypothyroidism in adults.</p>
+                <p>5. American Thyroid Association (ATA) Guidelines for the Treatment of Hypothyroidism.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

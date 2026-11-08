@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 73 - Peritonite bacteriana espontânea em cirrótico com ascite: conduta imediata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Peritonite bacteriana espontânea em cirrótico com ascite: conduta imediata</div>
+        <h1>Questão 73</h1>
+        <div class="question-text">
+            Homem de 40 anos, etilista crônico, procura a unidade de emergência queixando-se de distensão abdominal há 2 dias e náuseas eventualmente acompanhadas de vômitos. Ao exame físico: temperatura axilar aferida de 38,2 °C; mucosas levemente descoradas e anictéricas; aranhas vasculares no tronco; abdome distendido com circulação colateral; sinal de piparote positivo e baço palpável a 3 cm do rebordo costal esquerdo.<br><br>
+            Qual é a conduta imediata para esse quadro clínico?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Solicitar hemocultura.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Realizar paracentese.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Prescrever antibioticoterapia empírica.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Iniciar diurético poupador de potássio.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Gastroenterologia / Hepatologia / Clínica Médica.</p>
+            <p><strong>Tema:</strong> Peritonite bacteriana espontânea (PBE) em paciente cirrótico com ascite: conduta diagnóstica imediata.</p>
+            <p><strong>Contextualização:</strong> A PBE é uma complicação frequente e grave da cirrose, com mortalidade elevada se não tratada precocemente. O tema é de alta incidência em provas de residência em clínica médica, gastroenterologia e cirurgia, frequentemente cobrado com foco em conduta inicial, diagnóstico e tratamento empírico.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A cirrose leva à hipertensão portal, ascite, translocação bacteriana intestinal e imunossupressão relativa. A PBE ocorre quando há infecção do líquido ascítico sem foco intra-abdominal cirúrgico, geralmente por bactérias da flora intestinal. O diagnóstico é firmado pela paracentese diagnóstica, com contagem de polimorfonucleares (PMN) no líquido ascítico ≥ 250/mm³. A paracentese é o exame inicial obrigatório diante de qualquer paciente cirrótico com ascite e sinais de infecção, como febre, dor abdominal ou piora clínica.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B - Realizar paracentese.</strong> O paciente é etilista crônico, com sinais de cirrose (aranhas vasculares, circulação colateral, esplenomegalia) e ascite (piparote positivo), além de febre e náuseas/vômitos. Esse quadro é altamente sugestivo de PBE. A conduta imediata é a paracentese diagnóstica para análise do líquido ascítico (celularidade, Gram, cultura). A antibioticoterapia empírica será iniciada se PMN ≥ 250/mm³, mas a paracentese deve ser realizada primeiro (ou simultaneamente) para confirmar o diagnóstico e guiar o tratamento.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Solicitar hemocultura. A hemocultura pode ser solicitada em casos de suspeita de infecção, mas não é a conduta imediata que define o diagnóstico de PBE. Ela não substitui a paracentese e não confirma a infecção do líquido ascítico.</p>
+            <p><strong>Alternativa C</strong> - Prescrever antibioticoterapia empírica. O antibiótico é indicado quando há PMN ≥ 250/mm³ no líquido ascítico ou em casos de alto risco. No entanto, a conduta imediata é a paracentese para confirmar o diagnóstico; iniciar antibiótico sem paracentese pode mascarar o diagnóstico e não é a conduta inicial recomendada.</p>
+            <p><strong>Alternativa D</strong> - Iniciar diurético poupador de potássio. A espironolactona é usada no manejo crônico da ascite, mas não tem papel na suspeita de PBE. Não é conduta imediata diante de febre e ascite.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Etilista crônico:</strong> fator de risco para cirrose hepática e ascite.</li>
+                <li><strong>Aranhas vasculares, circulação colateral e esplenomegalia:</strong> sinais de hipertensão portal e cirrose.</li>
+                <li><strong>Distensão abdominal e sinal de piparote positivo:</strong> ascite.</li>
+                <li><strong>Febre (38,2 °C):</strong> sinal de infecção, que no cirrótico com ascite levanta a suspeita de PBE.</li>
+                <li><strong>Náuseas e vômitos:</strong> sintomas inespecíficos, mas que reforçam a suspeita de infecção.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> suspeitar de PBE em todo cirrótico com ascite que apresente febre, dor abdominal ou piora clínica.</li>
+                <li><strong>Segundo:</strong> realizar paracentese diagnóstica imediatamente, com contagem de PMN, cultura e bioquímica do líquido ascítico.</li>
+                <li><strong>Terceiro:</strong> se PMN ≥ 250/mm³, iniciar antibioticoterapia empírica (cefalosporina de 3ª geração).</li>
+                <li><strong>Quarto:</strong> avaliar necessidade de albumina intravenosa em pacientes com creatinina > 1,0 mg/dL ou bilirrubina > 4 mg/dL.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> PBE = infecção do líquido ascítico em cirrótico, definida por PMN ≥ 250/mm³.</li>
+                <li><strong>Números e doses:</strong> PMN ≥ 250/mm³ é o ponto de corte diagnóstico; cefotaxima 2 g a cada 8 horas ou ceftriaxona 2 g/dia são esquemas de escolha.</li>
+                <li><strong>Mnemônicos:</strong> “250” é o número mágico para PBE.</li>
+                <li><strong>Albumina:</strong> indicada em pacientes com PBE e creatinina > 1,0 mg/dL ou bilirrubina > 4 mg/dL.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar o critério diagnóstico e o tratamento inicial da PBE.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PBE (correta)</td>
+                        <td>Cirrótico com ascite, febre, dor abdominal, piora clínica; PMN ≥ 250/mm³ no líquido ascítico.</td>
+                        <td>Paracentese diagnóstica com celularidade e cultura.</td>
+                        <td>Antibiótico empírico (cefalosporina de 3ª geração) e albumina se indicado.</td>
+                    </tr>
+                    <tr>
+                        <td>Peritonite secundária</td>
+                        <td>Dor abdominal intensa, sinais de irritação peritoneal, pneumoperitônio, múltiplos organismos na cultura.</td>
+                        <td>Paracentese, exames de imagem (TC), laparotomia conforme o caso.</td>
+                        <td>Cirurgia e antibióticos de amplo espectro.</td>
+                    </tr>
+                    <tr>
+                        <td>Ascite neutrocítica</td>
+                        <td>PMN ≥ 250/mm³, mas cultura negativa e ausência de sinais clínicos de infecção.</td>
+                        <td>Paracentese com celularidade e cultura.</td>
+                        <td>Tratar como PBE em pacientes sintomáticos.</td>
+                    </tr>
+                    <tr>
+                        <td>Tuberculose peritoneal</td>
+                        <td>Febre prolongada, perda ponderal, ascite com predomínio de linfócitos, ADA elevado.</td>
+                        <td>Paracentese, cultura para BAAR, PCR, biópsia peritoneal.</td>
+                        <td>Esquema anti-TB.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta seria PMN ≥ 250/mm³ no líquido ascítico.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> a resposta seria cefalosporina de 3ª geração (cefotaxima ou ceftriaxona).</li>
+                <li><strong>Se fosse sobre complicação:</strong> a resposta poderia envolver síndrome hepatorrenal.</li>
+                <li><strong>Se fosse sobre profilaxia:</strong> a resposta poderia incluir norfloxacino em pacientes de alto risco.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q61</td>
+                        <td>Homem de 42 anos com ascite, circulação colateral, fibrose periportal, esplenomegalia e varizes esofágicas.</td>
+                        <td>Diagnóstico de esquistossomose hepatoesplênica (exame parasitológico).</td>
+                        <td>Exame parasitológico.</td>
+                        <td>Tema próximo: ascite e hipertensão portal, mas com foco em diagnóstico etiológico, não em PBE.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q89</td>
+                        <td>Homem de 62 anos com febre e dor em hipocôndrio direito após colecistectomia e CPRE; tomografia com abscesso hepático.</td>
+                        <td>Manejo de abscesso hepático (drenagem percutânea).</td>
+                        <td>Drenagem percutânea guiada por imagem.</td>
+                        <td>Tema próximo: infecção intra-abdominal em paciente hepatopata, mas com foco em abscesso, não em PBE.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q18</td>
+                        <td>Mulher de 54 anos com dor em hipocôndrio direito, febre e vesícula biliar espessada.</td>
+                        <td>Conduta na colecistite aguda (colecistectomia de urgência).</td>
+                        <td>Colecistectomia de urgência.</td>
+                        <td>Tema próximo: infecção biliar, mas não ascite/PBE.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q73</td>
+                        <td>Homem de 40 anos, etilista crônico, com ascite e febre.</td>
+                        <td>Conduta imediata na suspeita de PBE.</td>
+                        <td>Realizar paracentese.</td>
+                        <td>É a própria questão analisada.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema específico de PBE não apareceu em outras questões das provas anteriores analisadas. A banca tem cobrado temas próximos, como ascite por esquistossomose, abscesso hepático e colecistite aguda, mas não a PBE em si.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> profilaxia de PBE, ascite neutrocítica, síndrome hepatorrenal como complicação, e critérios de internação em UTI.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica suficiente para identificar evolução; o tema exige conhecimento do critério diagnóstico (PMN ≥ 250) e da conduta inicial (paracentese).</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar PBE, ascite, hipertensão portal e complicações da cirrose, pois são temas de alta relevância clínica e com potencial de cobrança.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Cirrose e hipertensão portal - a PBE é uma complicação frequente da cirrose descompensada.</li>
+                <li><strong>Conexão 2:</strong> Síndrome hepatorrenal - complicação grave da PBE, com alta mortalidade.</li>
+                <li><strong>Conexão 3:</strong> Encefalopatia hepática - pode ser precipitada por infecções, incluindo PBE.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é confundir a conduta imediata (paracentese diagnóstica) com o tratamento empírico (antibiótico). A ação corretiva é memorizar que a paracentese é o primeiro passo diante de suspeita de PBE, e que o antibiótico é iniciado após a confirmação ou em casos de alto risco, mas não substitui a coleta do líquido ascítico.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na emergência, todo cirrótico com ascite e febre deve ser submetido à paracentese precoce. O procedimento é simples, seguro e fundamental para o diagnóstico. A antibioticoterapia empírica deve ser iniciada sem atraso quando indicada, pois a PBE não tratada tem mortalidade elevada.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Critérios diagnósticos da PBE (PMN ≥ 250/mm³).</li>
+                <li>Tratamento empírico da PBE (cefalosporina de 3ª geração).</li>
+                <li>Indicações de albumina na PBE.</li>
+                <li>Profilaxia primária e secundária da PBE.</li>
+                <li>Complicações da cirrose: síndrome hepatorrenal, encefalopatia hepática.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Associação Brasileira de Hepatologia (SBH). Diretrizes para o manejo da cirrose e complicações.</p>
+            <p>2. American Association for the Study of Liver Diseases (AASLD). Practice Guidelines for Ascites and Spontaneous Bacterial Peritonitis.</p>
+            <p>3. European Association for the Study of the Liver (EASL). Clinical Practice Guidelines for the management of ascites and spontaneous bacterial peritonitis.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 97 - Atenção Primária à Saúde no SUS e Política Nacional da Atenção Básica (PNAB)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Atenção Primária à Saúde no SUS e Política Nacional da Atenção Básica (PNAB)</div>
+        <h1>Questão 97</h1>
+        <div class="question-text">
+            Sobre a Atenção Primária à Saúde (APS) no SUS e a Política Nacional da Atenção Básica (PNAB), é correto afirmar que
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - a realização de atendimento domiciliar é de competência apenas das Equipes de Saúde da Família (ESF), e não das equipes de Unidades Básicas sem ESF.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - a composição mínima de uma equipe de Saúde da Família inclui os seguintes profissionais: médico, enfermeiro, agente comunitário de saúde e cirurgião-dentista.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - a maior parte da população brasileira não está sob responsabilidade de uma equipe de Saúde da Família porque este modelo é preconizado para implantação apenas em áreas de vulnerabilidade socioeconômica.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - nas avaliações da presença e extensão dos atributos definidos por Starfield nos serviços de APS no Brasil por meio de pesquisas que aplicaram PCA-Tool em usuários dos serviços, o atributo pior avaliado tem sido o Acesso.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - as unidades básicas de saúde organizadas pela Estratégia de Saúde da Família têm maior ênfase nos atributos derivados definidos por Barbara Starfield: acesso ao primeiro contato, longitudinalidade, integralidade e coordenação do cuidado.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade.</p>
+                <p><strong>Tema:</strong> Atenção Primária à Saúde (APS), Política Nacional da Atenção Básica (PNAB) e os atributos da APS segundo Barbara Starfield.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência. A banca cobra tanto a organização da APS no SUS (ESF, NASF, PNAB, atendimento domiciliar) quanto os atributos essenciais e derivados definidos por Barbara Starfield. É comum a combinação com temas como acolhimento, acesso, longitudinalidade, coordenação do cuidado e avaliação de serviços de saúde. A avaliação dos atributos da APS no Brasil por meio do PCA-Tool é um achado clássico da literatura sanitária brasileira.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Barbara Starfield definiu quatro atributos essenciais da APS: acesso de primeiro contato, longitudinalidade, integralidade e coordenação do cuidado. Além disso, descreveu três atributos derivados: orientação para a comunidade, centralidade na família e competência cultural. Estudos brasileiros que aplicaram o Primary Care Assessment Tool (PCA-Tool) em usuários dos serviços de APS, como os de Macinko, Almeida e outros, têm demonstrado que o atributo sistematicamente pior avaliado é o Acesso (primeiro contato), especialmente no que se refere à acessibilidade e à disponibilidade de atendimento em tempo oportuno. Já os atributos longitudinalidade e integralidade costumam apresentar melhores escores. Portanto, a alternativa D está correta ao afirmar que o Acesso tem sido o atributo pior avaliado nas pesquisas com PCA-Tool no Brasil.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa D está correta. Diversos estudos brasileiros que aplicaram o PCA-Tool (versões infantil e adulto) em usuários dos serviços de APS, em diferentes regiões do país, têm consistentemente demonstrado que o atributo Acesso (acesso de primeiro contato) é o pior avaliado, com escores mais baixos do que os atributos Longitudinalidade, Integralidade e Coordenação. Isso reflete dificuldades de acessibilidade, horários de funcionamento restritos, filas para consultas, dificuldade de contato telefônico e demora no atendimento de demandas espontâneas. A Estratégia Saúde da Família, apesar de melhorar a avaliação dos atributos em relação ao modelo tradicional, ainda não resolveu plenamente o problema do acesso.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A PNAB de 2011 e suas revisões (2017 e 2024) preveem o atendimento domiciliar como atribuição de todas as equipes de Atenção Básica, tanto as da Estratégia Saúde da Família quanto as equipes de UBS sem ESF, conforme as necessidades da população adscrita. Não é competência exclusiva da ESF.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A composição mínima de uma Equipe de Saúde da Família (ESF) é: médico, enfermeiro, técnico ou auxiliar de enfermagem e agentes comunitários de saúde. A presença do cirurgião-dentista compõe a Equipe de Saúde Bucal (ESB), que pode estar vinculada à ESF, mas não é parte da composição mínima da ESF propriamente dita. Além disso, a composição mínima inclui o técnico/auxiliar de enfermagem, que não foi citado na alternativa.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. A ESF é o modelo prioritário de organização da Atenção Básica em todo o território nacional, não sendo restrita a áreas de vulnerabilidade socioeconômica. A PNAB preconiza a ESF como modelo preferencial para todo o país, incluindo áreas urbanas, rurais e de maior renda, com o objetivo de ampliar o acesso e a resolutividade. A maior parte da população brasileira está coberta pela ESF ou por equipes de atenção básica.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Acesso ao primeiro contato, longitudinalidade, integralidade e coordenação do cuidado são atributos essenciais (e não derivados) definidos por Barbara Starfield. Os atributos derivados são: orientação para a comunidade, centralidade na família e competência cultural. A alternativa confunde os conceitos de atributos essenciais e derivados.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“PNAB”:</strong> remete à Política Nacional da Atenção Básica e às atribuições das equipes.</li>
+                    <li><strong>“PCA-Tool”:</strong> instrumento de avaliação dos atributos da APS, pista para a alternativa D.</li>
+                    <li><strong>“atributos definidos por Starfield”:</strong> essenciais (acesso, longitudinalidade, integralidade, coordenação) e derivados (orientação comunitária, centralidade na família, competência cultural).</li>
+                    <li><strong>“atributo pior avaliado”:</strong> pista para o achado do Acesso como pior avaliado nos estudos brasileiros.</li>
+                    <li><strong>“Estratégia de Saúde da Família”:</strong> modelo prioritário de organização da APS no Brasil.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar que a questão trata de dois eixos: organização da PNAB (alternativas A, B e C) e atributos da APS de Starfield (alternativas D e E).</li>
+                    <li><strong>Segundo:</strong> Verificar as atribuições das equipes de APS e a composição mínima da ESF.</li>
+                    <li><strong>Terceiro:</strong> Recordar os resultados dos estudos com PCA-Tool no Brasil: o Acesso é o atributo pior avaliado.</li>
+                    <li><strong>Quarto:</strong> Distinguir atributos essenciais de atributos derivados segundo Starfield.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões sobre avaliação da APS e organização do SUS.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Atributos essenciais de Starfield: acesso de primeiro contato, longitudinalidade, integralidade e coordenação. Atributos derivados: orientação para a comunidade, centralidade na família e competência cultural.</li>
+                    <li><strong>Números e doses:</strong> Nos estudos com PCA-Tool no Brasil, o Acesso é o atributo com pior escore; longitudinalidade e integralidade tendem a ter melhores escores.</li>
+                    <li><strong>Mnemônicos:</strong> "ALIC" (Acesso, Longitudinalidade, Integralidade, Coordenação) para os atributos essenciais; "OCC" (Orientação comunitária, Centralidade na família, Competência cultural) para os derivados.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em questões sobre avaliação da APS no Brasil e atributos de Starfield.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atributo Acesso (pior avaliado)</td>
+                            <td>Dificuldade de atendimento em tempo oportuno, horários restritos, filas</td>
+                            <td>PCA-Tool (escore de acesso)</td>
+                            <td>Ampliar horários, acolhimento, agendamento</td>
+                        </tr>
+                        <tr>
+                            <td>Atributo Longitudinalidade</td>
+                            <td>Vínculo ao longo do tempo com a equipe</td>
+                            <td>PCA-Tool (escore de longitudinalidade)</td>
+                            <td>Manter vínculo e prontuário familiar</td>
+                        </tr>
+                        <tr>
+                            <td>Atributo Integralidade</td>
+                            <td>Oferta de serviços preventivos e curativos</td>
+                            <td>PCA-Tool (escore de integralidade)</td>
+                            <td>Ampliar oferta de serviços na APS</td>
+                        </tr>
+                        <tr>
+                            <td>Atributo Coordenação</td>
+                            <td>Integração com especialistas e contrarreferência</td>
+                            <td>PCA-Tool (escore de coordenação)</td>
+                            <td>Fortalecer regulação e fluxos</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a avaliação dos atributos da APS e suas implicações.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre acolhimento:</strong> a resposta envolveria escuta qualificada e resolutividade.</li>
+                    <li><strong>Se fosse sobre composição da ESF:</strong> a resposta envolveria médico, enfermeiro, técnico de enfermagem e ACS.</li>
+                    <li><strong>Se fosse sobre atributos derivados:</strong> a resposta envolveria orientação comunitária, centralidade na família e competência cultural.</li>
+                    <li><strong>Se fosse sobre PNAB:</strong> a resposta envolveria cobertura universal, adscrição de clientela e financiamento.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2013 - Q98</td>
+                            <td>Atenção Primária abrangente segundo Barbara Starfield.</td>
+                            <td>Atributos da APS e resolutividade</td>
+                            <td>C</td>
+                            <td>Relaciona-se aos atributos essenciais e ao papel da APS.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 - Q99</td>
+                            <td>Atributos da APS.</td>
+                            <td>Identificação dos atributos essenciais</td>
+                            <td>D</td>
+                            <td>Lista os atributos essenciais (primeiro contato, longitudinalidade, coordenação).</td>
+                        </tr>
+                        <tr>
+                            <td>2013 - Q100</td>
+                            <td>Estratégia Saúde da Família e sua expansão.</td>
+                            <td>Organização da ESF e cobertura</td>
+                            <td>A</td>
+                            <td>Relaciona-se à implantação da ESF em municípios de pequeno e grande porte.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 - Q9</td>
+                            <td>Avaliação da ESF e atributos da APS.</td>
+                            <td>Atributos da APS e ESF</td>
+                            <td>D</td>
+                            <td>Reforça que a ESF tem atributos mais fortes que outras formas de atenção básica.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 - Q97</td>
+                            <td>Atributos da APS segundo Starfield.</td>
+                            <td>Atributos derivados</td>
+                            <td>D</td>
+                            <td>Relaciona-se aos atributos essenciais e derivados.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 - Q85</td>
+                            <td>Atenção Primária à Saúde como porta de entrada.</td>
+                            <td>Acesso e resolutividade</td>
+                            <td>D</td>
+                            <td>Reforça o papel do acesso como atributo essencial.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 - Q85</td>
+                            <td>Atenção Primária à Saúde no SUS.</td>
+                            <td>Porta de entrada e organização</td>
+                            <td>D</td>
+                            <td>Relaciona-se à organização da APS e à ESF.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 - Q98</td>
+                            <td>Atributos da APS e o estudo de White e colaboradores.</td>
+                            <td>Acesso e porta de entrada</td>
+                            <td>C</td>
+                            <td>Relaciona-se à avaliação do acesso como atributo essencial.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 - Q86</td>
+                            <td>Definição de APS por Barbara Starfield.</td>
+                            <td>Atributos essenciais e derivados</td>
+                            <td>C</td>
+                            <td>Reforça a distinção entre atributos essenciais e derivados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 9 das provas analisadas. A banca alterna entre cobrar atributos essenciais, atributos derivados, composição da ESF, PNAB e avaliação de serviços com PCA-Tool.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Análise dos escores específicos do PCA-Tool e comparações entre regiões brasileiras, além dos efeitos da PNAB de 2017 sobre a organização da APS.</p>
+                <p><strong>Evolução da cobrança:</strong> Questões mais antigas focavam na definição de APS e atributos; as mais recentes cobram a avaliação dos serviços e os resultados do PCA-Tool no Brasil.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os atributos essenciais e derivados de Starfield, a composição da ESF, a PNAB e os achados do PCA-Tool no Brasil (Acesso como pior atributo).</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Acolhimento e resolutividade na ESF.</li>
+                    <li><strong>Conexão 2:</strong> Regulação, referência e contrarreferência no SUS.</li>
+                    <li><strong>Conexão 3:</strong> Financiamento da Atenção Básica (PAB, Previne Brasil, financiamento por desempenho).</li>
+                    <li><strong>Conexão 4:</strong> Estudo de White e colaboradores (ecologia da atenção médica) e o papel de filtro da APS.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o tipo de erro mais provável é confusão conceitual entre atributos essenciais e derivados (alternativa E), desconhecimento da composição mínima da ESF (alternativa B) ou equívoco sobre a abrangência nacional da ESF (alternativa C). Também pode ter havido erro de leitura ao interpretar "atendimento domiciliar" como exclusivo da ESF (alternativa A). A ação corretiva é revisar os atributos de Starfield, a composição da ESF e a PNAB, e conhecer os resultados dos estudos com PCA-Tool no Brasil.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica e na gestão em saúde, compreender que o Acesso é o atributo pior avaliado orienta estratégias de ampliação de horários, acolhimento com classificação de risco, agendamento e uso de ferramentas digitais. A distinção entre atributos essenciais e derivados auxilia no planejamento de ações que fortaleçam a APS como porta de entrada e coordenadora do cuidado.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Atributos essenciais e derivados da APS (Starfield).</li>
+                    <li>Composição e atribuições das equipes de ESF.</li>
+                    <li>Política Nacional da Atenção Básica (PNAB).</li>
+                    <li>PCA-Tool e avaliação de serviços de APS no Brasil.</li>
+                    <li>Acolhimento, acesso e resolutividade.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Starfield, Barbara. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO, Ministério da Saúde, 2002.</p>
+                <p>2. Brasil. Ministério da Saúde. Política Nacional de Atenção Básica. Brasília, 2011 (e revisões de 2017 e 2024).</p>
+                <p>3. Macinko, James; Almeida, Celia; Oliveira, Eliane dos Santos. Avaliação da atenção primária à saúde no Brasil: resultados do PCA-Tool. Revista de Saúde Pública, 2011.</p>
+                <p>4. Gusso, Gustavo D. F.; Lopes, José M. C. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed, 2012.</p>
+                <p>5. Giovanella, Lígia et al. Políticas e Sistema de Saúde no Brasil. Rio de Janeiro: Editora Fiocruz.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

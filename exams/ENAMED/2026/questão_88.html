@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 88 - Saúde Coletiva: Hepatite A e Vigilância Sanitária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde Coletiva: Hepatite A e Vigilância Sanitária</div>
+        <h1>Questão 88</h1>
+        <div class="question-text">
+            Determinado médico de uma Unidade Básica de Saúde, durante reunião com equipe interprofissional, discute a ocorrência de cinco casos de hepatite A em crianças de uma ocupação habitacional sem rede de esgoto formal. O Conselho Local de Saúde e a Associação de Moradores relatam insegurança quanto à qualidade da água e dificuldade de adesão às medidas de higiene por falta de insumos. A análise epidemiológica indica que há um grande número de crianças na comunidade que não completaram o esquema vacinal e que a transmissão está ativa no território.
+            <br><br>
+            Além da vacinação, qual é a próxima ação adequada para essa comunidade?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Instituir o isolamento das crianças acometidas e de seus familiares.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Organizar mutirões de limpeza coordenados pela equipe de saúde.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Acionar a Vigilância Sanitária com vistas à melhoria do tratamento da água.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Prescrever profilaxia medicamentosa com antivirais para todas as crianças.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Epidemiologia / Vigilância em Saúde.</p>
+            <p><strong>Tema:</strong> Surto de hepatite A em comunidade sem saneamento básico - ações de vigilância sanitária e controle ambiental.</p>
+            <p><strong>Contextualização:</strong> A hepatite A é uma infecção viral de transmissão fecal-oral, diretamente relacionada a condições de saneamento, qualidade da água e higiene. Em provas de residência, é frequentemente cobrada em cenários de surtos comunitários, exigindo articulação entre vacinação, educação em saúde e ações intersetoriais, especialmente da Vigilância Sanitária. O tema se conecta à determinação social da saúde e ao papel da atenção primária na vigilância em saúde.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A hepatite A é causada pelo vírus da hepatite A (HAV), um vírus RNA de transmissão fecal-oral. A infecção ocorre pela ingestão de água ou alimentos contaminados, ou por contato direto com pessoas infectadas. Em comunidades sem rede de esgoto formal, a contaminação da água e do solo é facilitada, especialmente quando há dificuldade de adesão às medidas de higiene. A vacinação é a principal medida de prevenção individual, mas o controle do surto exige intervenções ambientais e sanitárias, como melhoria do tratamento da água, destino adequado de dejetos e educação em saúde.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>C</strong>. Diante de um surto de hepatite A em comunidade sem rede de esgoto formal, com insegurança quanto à qualidade da água e transmissão ativa, a próxima ação adequada, além da vacinação, é acionar a Vigilância Sanitária para melhorar o tratamento da água e intervir nos determinantes ambientais da transmissão. Essa é uma medida intersetorial essencial para interromper a cadeia de transmissão fecal-oral. A Vigilância Sanitária tem competência para avaliar e intervir em fatores de risco ambientais, como qualidade da água, destino de resíduos e condições de saneamento.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - O isolamento de crianças e familiares não é indicado para hepatite A. As medidas de precaução incluem higiene das mãos e sanitização de superfícies, mas o isolamento domiciliar não é uma estratégia recomendada para controle de surtos comunitários.</p>
+            <p><strong>Alternativa B</strong> - Mutirões de limpeza são úteis, mas não substituem a intervenção sobre a qualidade da água e o saneamento, que são os determinantes principais da transmissão. A ação da Vigilância Sanitária é mais específica e estruturante.</p>
+            <p><strong>Alternativa C</strong> - Correta. Acionar a Vigilância Sanitária para melhoria do tratamento da água é a medida mais adequada para interromper a transmissão fecal-oral em uma comunidade sem saneamento básico.</p>
+            <p><strong>Alternativa D</strong> - Não há profilaxia antiviral recomendada para hepatite A. A prevenção é feita por vacinação e medidas de higiene e saneamento. Antivirais não são indicados para profilaxia pós-exposição ou para controle de surtos.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Hepatite A:</strong> transmissão fecal-oral, relacionada a água e alimentos contaminados.</li>
+                <li><strong>Ocupação habitacional sem rede de esgoto formal:</strong> condição de vulnerabilidade sanitária que favorece surtos.</li>
+                <li><strong>Insegurança quanto à qualidade da água:</strong> pista para intervenção da Vigilância Sanitária.</li>
+                <li><strong>Transmissão ativa no território:</strong> indica necessidade de medidas de controle ambientais e coletivas.</li>
+                <li><strong>Além da vacinação:</strong> direciona para ações intersetoriais de saneamento e vigilância.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer surto de hepatite A em comunidade com condições sanitárias precárias.</li>
+                <li><strong>Segundo:</strong> iniciar vacinação e orientações de higiene.</li>
+                <li><strong>Terceiro:</strong> acionar a Vigilância Sanitária para avaliar e melhorar a qualidade da água e o saneamento.</li>
+                <li><strong>Quarto:</strong> articular ações intersetoriais com o Conselho Local de Saúde e a Associação de Moradores.</li>
+                <li><strong>Quinto:</strong> monitorar novos casos e manter vigilância ativa no território.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de surtos e vigilância em saúde.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> hepatite A é transmitida por via fecal-oral, relacionada a água e alimentos contaminados.</li>
+                <li><strong>Prevenção:</strong> vacinação, higiene das mãos, saneamento básico e tratamento adequado da água.</li>
+                <li><strong>Controle de surto:</strong> vacinação, educação em saúde e intervenção da Vigilância Sanitária.</li>
+                <li><strong>Não indicado:</strong> isolamento de casos e profilaxia antiviral.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar medidas de controle de surtos e o papel da Vigilância Sanitária.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição/Situação</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Surto de hepatite A (correta)</td>
+                        <td>Icterícia, náuseas, dor abdominal, febre, transaminases elevadas, transmissão fecal-oral.</td>
+                        <td>Sorologia IgM anti-HAV, clínica e epidemiologia.</td>
+                        <td>Vacinação, higiene, acionar Vigilância Sanitária, monitoramento.</td>
+                    </tr>
+                    <tr>
+                        <td>Hepatite B</td>
+                        <td>Transmissão sexual, sanguínea e vertical; pode cronificar.</td>
+                        <td>HBsAg, anti-HBc, HBV-DNA.</td>
+                        <td>Antivirais, vacinação, profilaxia.</td>
+                    </tr>
+                    <tr>
+                        <td>Hepatite C</td>
+                        <td>Transmissão sanguínea; alta taxa de cronificação.</td>
+                        <td>Anti-HCV, HCV-RNA.</td>
+                        <td>Antivirais de ação direta.</td>
+                    </tr>
+                    <tr>
+                        <td>Hepatite E</td>
+                        <td>Transmissão fecal-oral, especialmente em áreas endêmicas.</td>
+                        <td>Sorologia e PCR.</td>
+                        <td>Suporte, medidas de saneamento.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram diagnóstico diferencial das hepatites virais.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a via de transmissão:</strong> fecal-oral, por água e alimentos contaminados.</li>
+                <li><strong>Se pedisse prevenção individual:</strong> vacinação e higiene das mãos.</li>
+                <li><strong>Se pedisse medida coletiva:</strong> saneamento básico, tratamento da água e atuação da Vigilância Sanitária.</li>
+                <li><strong>Se pedisse conduta em surto:</strong> vacinação, educação em saúde, notificação e intervenção ambiental.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026 - Q88</td>
+                        <td>Surto de hepatite A em ocupação habitacional sem rede de esgoto formal, com insegurança quanto à qualidade da água.</td>
+                        <td>Ação intersetorial de Vigilância Sanitária no controle de surto.</td>
+                        <td>Alternativa C.</td>
+                        <td>Questão idêntica, cobrando a mesma conduta.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q86</td>
+                        <td>Equipe de saúde diante de suicídio em contexto indígena, com crenças culturais.</td>
+                        <td>Abordagem cultural e vigilância em saúde.</td>
+                        <td>Alternativa B.</td>
+                        <td>Relaciona-se à articulação intersetorial e à competência cultural, mas não à vigilância sanitária.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q99</td>
+                        <td>Inundações no Rio Grande do Sul e ações da Vigilância Epidemiológica.</td>
+                        <td>Etapas de manejo de desastres e ações de vigilância.</td>
+                        <td>Alternativa C.</td>
+                        <td>Relaciona-se à vigilância em saúde e a ações de controle de agravos, mas não especificamente à hepatite A.</td>
+                    </tr>
+                    <tr>
+                        <td>2026 - Q21</td>
+                        <td>Intoxicação por chumbo em trabalhador de reciclagem de baterias; papel da atenção primária na vigilância.</td>
+                        <td>Notificação e articulação com a Vigilância em Saúde do Trabalhador.</td>
+                        <td>Alternativa A.</td>
+                        <td>Relaciona-se à vigilância em saúde e notificação, mas não à transmissão fecal-oral.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema hepatite A apareceu diretamente em 2026 - Q88. A banca tem cobrado ações de vigilância em saúde e articulação intersetorial em cenários de surtos e agravos ambientais.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> diagnóstico laboratorial da hepatite A, manejo clínico de casos graves, hepatite fulminante, profilaxia pós-exposição e vacinação de contatos.</p>
+            <p><strong>Evolução da cobrança:</strong> A questão de 2026 foi aplicada e intersetorial. A próxima prova pode cobrar diagnóstico, notificação ou manejo clínico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar hepatites virais, com foco em transmissão, prevenção, diagnóstico e ações de vigilância sanitária e epidemiológica.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Hepatite A se conecta à determinação social da saúde e ao saneamento básico como direito fundamental.</li>
+                <li><strong>Conexão 2:</strong> O tema se integra à vigilância em saúde, incluindo notificação compulsória e investigação de surtos.</li>
+                <li><strong>Conexão 3:</strong> A vacinação contra hepatite A faz parte do calendário infantil e é uma medida de prevenção individual que deve ser articulada com ações coletivas.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Erros comuns incluem escolher o isolamento dos casos ou a profilaxia antiviral por desconhecer as medidas específicas de controle da hepatite A, ou escolher mutirões de limpeza por não reconhecer o papel da Vigilância Sanitária. A estratégia correta é lembrar que a transmissão fecal-oral exige intervenção sobre a qualidade da água e o saneamento. Classificação do erro mais provável: lacuna de conhecimento sobre medidas de controle de surtos. Ação corretiva: revisar o Guia de Vigilância em Saúde e as atribuições da Vigilância Sanitária.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, diante de um surto de hepatite A, a equipe de atenção primária deve notificar os casos, orientar a comunidade sobre higiene, iniciar vacinação e acionar a Vigilância Sanitária para avaliar a qualidade da água e as condições de saneamento. A articulação com lideranças locais e a educação em saúde são fundamentais para a adesão às medidas de controle.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Hepatites virais: transmissão, prevenção e diagnóstico.</li>
+                <li>Vigilância Sanitária e Vigilância Epidemiológica.</li>
+                <li>Saneamento básico e qualidade da água.</li>
+                <li>Notificação compulsória e investigação de surtos.</li>
+                <li>Vacinação contra hepatite A.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Guia de Vigilância em Saúde.</p>
+            <p>2. Ministério da Saúde. Manual de Vigilância Sanitária.</p>
+            <p>3. Brasil. Lei nº 8.080/1990 - Lei Orgânica da Saúde.</p>
+            <p>4. Organização Mundial da Saúde. Hepatitis A: Vaccine and Prevention.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

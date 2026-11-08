@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 19 - Gravidez Ectópica: Manejo Expectante com Beta-HCG Seriado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Gravidez Ectópica: Manejo Expectante com Beta-HCG Seriado</div>
+        <h1>Questão 19</h1>
+        <div class="question-text">
+            Mulher de 23 anos, G2POA1, com última menstruação há 8 semanas, é atendida em uma emergência com dor pélvica leve e sangramento vaginal em pequena quantidade. PA 120 x 70 mmHg e FC 82 bpm. Ao exame físico, apresenta-se lúcida e orientada, sem dor à palpação de abdômen e pelve. Tem beta-HCG quantitativo de 1920 mUI/mL na primeira dosagem e 700 mUI/mL na segunda dosagem. Na ultrassonografia transvaginal: ausência de saco gestacional na cavidade uterina; presença de massa anexial esquerda de 2,0 cm com sinal de anel tubário e ausência de batimento cardíaco fetal ou de líquido livre na cavidade pélvica.<br><br>
+            Qual é a estratégia de manejo indicada nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Orientar beta-HCG quantitativo seriado.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Indicar procedimento cirúrgico.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Prescrever o uso de metotrexate.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Indicar aspiração intrauterina.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Emergência</p>
+            <p><strong>Tema:</strong> Gravidez ectópica em resolução e manejo expectante com beta-HCG quantitativo seriado.</p>
+            <p><strong>Contextualização:</strong> A gravidez ectópica é uma emergência obstétrica potencialmente fatal, mas nem todos os casos exigem cirurgia ou metotrexate imediatos. Pacientes hemodinamicamente estáveis, com beta-HCG em queda e sem sinais de ruptura podem ser manejadas de forma expectante, com monitorização seriado do beta-HCG. O tema é relevante para provas de residência porque cobra a estratificação de risco e a escolha da conduta mais segura.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Na gravidez ectópica, o blastocisto se implanta fora da cavidade endometrial, mais comumente na tuba uterina. O trofoblasto invade a parede tubária e pode causar sangramento e ruptura. O beta-HCG produzido pelo trofoblasto reflete a atividade proliferativa. Quando há queda progressiva dos níveis de beta-HCG, isso sugere resolução espontânea ou baixa atividade trofoblástica, especialmente na ausência de líquido livre, instabilidade hemodinâmica ou batimento cardíaco fetal. Nesse cenário, o manejo expectante com dosagens seriadas é uma opção segura, desde que haja seguimento rigoroso.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>A</strong>. A paciente está hemodinamicamente estável, sem dor intensa, sem líquido livre na pelve e com beta-HCG em queda (de 1920 para 700 mUI/mL). Esses critérios favorecem o manejo expectante, com acompanhamento seriado do beta-HCG quantitativo até a negativação. A conduta cirúrgica ou o metotrexate são reservados para casos com instabilidade, beta-HCG em ascensão, massa grande, batimento cardíaco fetal, líquido livre ou impossibilidade de seguimento.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. O beta-HCG seriado é a conduta indicada para casos selecionados de gravidez ectópica em resolução, com paciente estável e níveis em queda.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. O procedimento cirúrgico é indicado em instabilidade hemodinâmica, ruptura, líquido livre, dor intensa ou falha do manejo clínico/expectante. Não é a primeira escolha nesse caso estável e com beta-HCG em queda.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. O metotrexate é indicado em gravidez ectópica com critérios específicos (beta-HCG geralmente &lt; 5.000 mUI/mL, massa &lt; 3-4 cm, ausência de batimento cardíaco e estabilidade), mas quando há queda espontânea do beta-HCG, o manejo expectante pode ser preferível, evitando efeitos adversos do quimioterápico.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. A aspiração intrauterina é utilizada em situações de abortamento retido ou para diferenciar gravidez intrauterina anormal de ectópica, não sendo tratamento de gravidez ectópica tubária.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Beta-HCG 1920 → 700 mUI/mL”</strong>: queda progressiva, sugerindo resolução espontânea.</li>
+                <li><strong>“Ausência de saco gestacional na cavidade uterina”</strong>: confirma que não se trata de gestação intrauterina viável.</li>
+                <li><strong>“Massa anexial com sinal de anel tubário”</strong>: achado típico de gravidez ectópica.</li>
+                <li><strong>“Ausência de batimento cardíaco fetal e de líquido livre”</strong>: critérios de bom prognóstico para manejo expectante.</li>
+                <li><strong>“PA 120 x 70 mmHg, FC 82 bpm, lúcida e orientada”</strong>: estabilidade hemodinâmica.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Confirmar a suspeita de gravidez ectópica com beta-HCG e ultrassonografia transvaginal.</li>
+                <li><strong>Segundo:</strong> Avaliar estabilidade hemodinâmica, dor, líquido livre e tamanho da massa.</li>
+                <li><strong>Terceiro:</strong> Se paciente estável, beta-HCG em queda e sem sinais de ruptura, optar por manejo expectante com beta-HCG seriado.</li>
+                <li><strong>Quarto:</strong> Orientar sinais de alarme e retorno imediato se dor intensa, síncope ou sangramento abundante; reavaliar conduta se beta-HCG não cair ou subir.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> Gravidez ectópica com beta-HCG em queda e paciente estável pode ser manejada de forma expectante.</li>
+                <li><strong>Números e doses:</strong> Metotrexate é mais eficaz com beta-HCG &lt; 5.000 mUI/mL e massa &lt; 3-4 cm; cirurgia é indicada se instabilidade ou ruptura.</li>
+                <li><strong>Mnemônicos:</strong> “Estável + queda do beta = observar; instável + líquido livre = cirurgia”.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a estratificação de risco na gravidez ectópica.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gravidez ectópica em resolução (correta)</td>
+                        <td>Paciente estável, dor leve, beta-HCG em queda, massa anexial sem batimento</td>
+                        <td>Beta-HCG seriado e ultrassonografia transvaginal</td>
+                        <td>Manejo expectante com beta-HCG seriado e orientação de alarme</td>
+                    </tr>
+                    <tr>
+                        <td>Gravidez ectópica com indicação de metotrexate</td>
+                        <td>Beta-HCG em ascensão, massa pequena, sem batimento, estabilidade</td>
+                        <td>Beta-HCG seriado, ultrassonografia</td>
+                        <td>Metotrexate e monitorização</td>
+                    </tr>
+                    <tr>
+                        <td>Gravidez ectópica rota</td>
+                        <td>Dor intensa, instabilidade, líquido livre, defesa abdominal</td>
+                        <td>FAST, ultrassonografia, clínica</td>
+                        <td>Cirurgia de emergência</td>
+                    </tr>
+                    <tr>
+                        <td>Abortamento incompleto</td>
+                        <td>Sangramento, cólicas, colo aberto, restos ovulares</td>
+                        <td>Ultrassonografia</td>
+                        <td>Esvaziamento uterino conforme caso</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas a conduta.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre instabilidade:</strong> a resposta seria cirurgia de emergência.</li>
+                <li><strong>Se fosse sobre indicação de metotrexate:</strong> a resposta envolveria critérios de elegibilidade e monitorização.</li>
+                <li><strong>Se fosse sobre diagnóstico:</strong> a resposta envolveria beta-HCG e ultrassonografia transvaginal.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta envolveria orientação sobre fatores de risco e planejamento reprodutivo.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enamed 2026 - Q19</td>
+                        <td>Mulher jovem com atraso menstrual, beta-HCG em queda, massa anexial com anel tubário e ausência de líquido livre.</td>
+                        <td>Manejo da gravidez ectópica em resolução.</td>
+                        <td>Orientar beta-HCG quantitativo seriado.</td>
+                        <td>É a própria questão atual.</td>
+                    </tr>
+                    <tr>
+                        <td>Prova complementar - Q97</td>
+                        <td>Mulher com dor pélvica e imagem ovariana cística com vascularização periférica.</td>
+                        <td>Diagnóstico diferencial de cisto ovariano hemorrágico.</td>
+                        <td>Cisto hemorrágico.</td>
+                        <td>Relaciona-se ao diagnóstico diferencial de dor pélvica e massa anexial, mas não à gravidez ectópica.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> No material analisado, o tema gravidez ectópica aparece de forma isolada, com foco na estratificação de risco e escolha entre manejo expectante, clínico e cirúrgico.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Indicação de metotrexate, critérios de cirurgia, gravidez ectópica rota e manejo em pacientes com desejo reprodutivo podem surgir em provas futuras.</p>
+            <p><strong>Evolução da cobrança:</strong> Não há série histórica adicional no material fornecido; a tendência é cobrar conduta prática e segurança do manejo.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar critérios de manejo expectante, metotrexate e cirurgia na gravidez ectópica, além do diagnóstico diferencial de dor pélvica.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Sangramento vaginal na primeira metade da gestação - diferenciação entre abortamento, gravidez ectópica e doença trofoblástica.</li>
+                <li><strong>Conexão 2:</strong> Dor pélvica aguda - diagnóstico diferencial com cisto ovariano hemorrágico, torção anexial e DIP.</li>
+                <li><strong>Conexão 3:</strong> Emergências obstétricas - gravidez ectópica rota é causa de choque hemorrágico e morte materna.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro comum é indicar cirurgia ou metotrexate de imediato sem valorizar a estabilidade hemodinâmica e a queda do beta-HCG. Trata-se de lacuna de conhecimento sobre os critérios de manejo expectante. A correção é memorizar: paciente estável + beta-HCG em queda + ausência de líquido livre = manejo expectante com beta-HCG seriado.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na emergência, o manejo expectante evita intervenções desnecessárias e preserva a tuba uterina. No entanto, exige seguimento rigoroso e orientação clara sobre sinais de alarme. A paciente deve ser reavaliada se houver dor intensa, síncope, sangramento abundante ou elevação do beta-HCG.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Gravidez ectópica: diagnóstico e manejo</li>
+                <li>Beta-HCG quantitativo seriado</li>
+                <li>Critérios de metotrexate</li>
+                <li>Indicações cirúrgicas na gravidez ectópica</li>
+                <li>Diagnóstico diferencial de dor pélvica e sangramento na gestação inicial</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Ministério da Saúde. Protocolo de Atenção à Gestante com Gravidez Ectópica.</p>
+            <p>2. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Diretrizes de gravidez ectópica.</p>
+            <p>3. American College of Obstetricians and Gynecologists (ACOG). Ectopic Pregnancy Guidelines.</p>
+            <p>4. UpToDate. Ectopic pregnancy: Management.</p>
+            <p>5. Royal College of Obstetricians and Gynaecologists (RCOG). Management of Ectopic Pregnancy.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

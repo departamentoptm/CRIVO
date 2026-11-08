@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 33 - Endometriose: Dismenorreia Progressiva e Hematoquezia Catamenial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia: Endometriose e Dor Pélvica Crônica</div>
+        <h1>Questão 33</h1>
+        <div class="question-text">
+            Mulher de 35 anos, nuligesta, comparece à consulta em Unidade Básica de Saúde com queixa de dismenorreia progressiva e de hematoquezia quando está menstruada. Relata que as cólicas menstruais pioraram há 5 anos e que precisou procurar o pronto-socorro em duas ocasiões por dor pélvica forte e necessidade de medicação intravenosa. Afirma não fazer uso de contracepção hormonal por não ter atividade sexual há 10 anos. Nega doenças crônicas ou uso de medicações. Refere constipação, com piora nos últimos 6 meses, e distensão abdominal. Ao exame físico, observa-se abdome indolor à palpação; exame especular sem lesões visíveis; toque vaginal com dor à mobilização do colo uterino; útero pouco móvel; palpação de nódulos endurecidos e doloridos em fórnice vaginal posterior.
+            <br><br>
+            Considerando-se a provável hipótese diagnóstica, qual é o exame de referência para investigação inicial nesse caso?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Tomografia computadorizada do abdome.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Laparoscopia diagnóstica.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Histerossonossalpingografia.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Ultrassonografia endovaginal.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Dor Pélvica Crônica.</p>
+            <p><strong>Tema:</strong> Endometriose profunda e investigação inicial da dismenorreia progressiva com sintomas intestinais catameniais.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência porque envolve dor pélvica crônica, infertilidade e diagnóstico diferencial com doenças inflamatórias pélvicas, miomatose e cistos ovarianos. A banca costuma cobrar a suspeita clínica a partir de sintomas típicos e a escolha do exame inicial, diferenciando o padrão-ouro diagnóstico da investigação não invasiva de primeira linha.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A endometriose é caracterizada por implantes de tecido endometrial fora da cavidade uterina, com resposta inflamatória crônica, aderências e fibrose. O acometimento do fórnice vaginal posterior e do septo retovaginal explica a dispareunia de profundidade, a dor à mobilização do colo e os nódulos endurecidos e dolorosos. A hematoquezia catamenial sugere envolvimento intestinal, especialmente retossigmóide. A dismenorreia progressiva é o sintoma clássico. A ultrassonografia endovaginal com preparo intestinal é o exame de imagem inicial de referência para avaliar endometriomas, nódulos profundos e acometimento intestinal, sendo não invasiva e amplamente disponível.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>D: ultrassonografia endovaginal</strong>. Diante da suspeita clínica de endometriose profunda, a ultrasonografia endovaginal é o exame de imagem inicial de escolha. Ela permite identificar endometriomas, nódulos em septo retovaginal, acometimento intestinal e alterações da mobilidade uterina. A laparoscopia é o padrão-ouro diagnóstico, mas é invasiva e não deve ser o primeiro exame na investigação inicial. A tomografia não é o método de escolha para endometriose pélvica, e a histerossonossalpingografia avalia a cavidade uterina e a permeabilidade tubária, não os implantes profundos.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Tomografia computadorizada do abdome:</strong> Erro porque a TC tem baixa sensibilidade para implantes endometrióticos e não é o exame inicial de escolha para endometriose pélvica. Pode ser útil em casos selecionados de acometimento intestinal ou complicações, mas não como primeira linha.</p>
+            <p><strong>Alternativa B - Laparoscopia diagnóstica:</strong> Erro porque, embora seja o padrão-ouro para o diagnóstico de endometriose, é um procedimento invasivo, cirúrgico e não deve ser indicado como investigação inicial antes de métodos de imagem não invasivos.</p>
+            <p><strong>Alternativa C - Histerossonossalpingografia:</strong> Erro porque esse exame avalia a cavidade uterina e a permeabilidade das tubas, sendo útil na investigação de infertilidade e alterações müllerianas, mas não é o exame de referência para endometriose pélvica profunda.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Dismenorreia progressiva:</strong> sintoma clássico de endometriose, especialmente quando piora ao longo dos anos.</li>
+                <li><strong>Hematoquezia quando está menstruada:</strong> sugere acometimento intestinal pela endometriose, com sangramento catamenial.</li>
+                <li><strong>Dispareunia de profundidade e dor à mobilização do colo:</strong> indicam doença inflamatória pélvica profunda e aderências.</li>
+                <li><strong>Nódulos endurecidos e doloridos em fórnice vaginal posterior:</strong> achado típico de endometriose profunda no septo retovaginal.</li>
+                <li><strong>Útero pouco móvel:</strong> sugere aderências pélvicas.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Reconhecer a síndrome clínica de endometriose: dismenorreia progressiva, dispareunia de profundidade e sintomas intestinais catameniais.</li>
+                <li><strong>Segundo:</strong> Realizar exame ginecológico detalhado, incluindo toque vaginal, para identificar nódulos, dor à mobilização do colo e útero pouco móvel.</li>
+                <li><strong>Terceiro:</strong> Solicitar ultrassonografia endovaginal com preparo intestinal como exame de imagem inicial.</li>
+                <li><strong>Quarto:</strong> Reservar a laparoscopia para casos em que a imagem não esclarece, há falha terapêutica ou necessidade de tratamento cirúrgico.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "exame inicial" e "próximo passo" na dor pélvica crônica.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> endometriose é suspeitada por dismenorreia progressiva, dispareunia de profundidade e dor pélvica crônica; hematoquezia catamenial sugere envolvimento intestinal.</li>
+                <li><strong>Números e doses:</strong> a ultrassonografia endovaginal é o exame inicial de referência; a laparoscopia é o padrão-ouro diagnóstico, mas invasiva.</li>
+                <li><strong>Mnemônicos:</strong> lembrar da tríade "dismenorreia progressiva + dispareunia profunda + nódulos no fórnice posterior" como pista para endometriose.</li>
+            </ul>
+            <p>Esses dados são importantes porque a banca costuma cobrar a diferença entre exame inicial e padrão-ouro, além dos sintomas que levantam a suspeita.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Endometriose profunda</td>
+                        <td>Dismenorreia progressiva, dispareunia de profundidade, hematoquezia catamenial, nódulos no fórnice posterior, útero pouco móvel.</td>
+                        <td>Ultrassonografia endovaginal com preparo intestinal; laparoscopia é padrão-ouro.</td>
+                        <td>Tratamento hormonal, analgesia e cirurgia em casos selecionados.</td>
+                    </tr>
+                    <tr>
+                        <td>Doença inflamatória pélvica</td>
+                        <td>Dor pélvica aguda ou subaguda, febre, corrimento, dor à mobilização do colo, história de IST.</td>
+                        <td>Clínico; exames laboratoriais e imagem quando necessário.</td>
+                        <td>Antibioticoterapia empírica.</td>
+                    </tr>
+                    <tr>
+                        <td>Miomatose uterina</td>
+                        <td>Sangramento uterino aumentado, útero aumentado e irregular, dor pélvica; dismenorreia pode ocorrer, mas hematoquezia catamenial é menos típica.</td>
+                        <td>Ultrassonografia pélvica.</td>
+                        <td>Tratamento conforme sintomas e desejo reprodutivo.</td>
+                    </tr>
+                    <tr>
+                        <td>Cisto hemorrágico</td>
+                        <td>Dor pélvica aguda, geralmente relacionada ao ciclo, sem nódulos profundos ou hematoquezia catamenial.</td>
+                        <td>Ultrassonografia transvaginal.</td>
+                        <td>Observação ou cirurgia conforme complicação.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão foi sobre tratamento:</strong> poderia perguntar a terapia hormonal de primeira linha, o uso de progestagênios, ou a indicação cirúrgica.</li>
+                <li><strong>Exemplo:</strong> "Se a questão pedisse o padrão-ouro diagnóstico, a resposta seria laparoscopia. Se pedisse o exame inicial de imagem, seria ultrassonografia endovaginal. Se pedisse a complicação mais associada, seria infertilidade e dor crônica."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2025_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prova anterior - Q54</td>
+                        <td>Paciente de 30 anos com fadiga, dismenorreia progressiva e dispareunia de profundidade; toque com dor à mobilização do colo e útero retroversofletido.</td>
+                        <td>Diagnóstico clínico da principal hipótese em dor pélvica crônica.</td>
+                        <td>D - endometriose.</td>
+                        <td>Mesmo tema clínico; a questão anterior cobrou a hipótese diagnóstica, enquanto a atual cobra o exame de referência para investigação inicial.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 1 questão anterior (Q54) e foi cobrado por meio do reconhecimento clínico da endometriose. A questão atual avança para a investigação inicial, exigindo diferenciar ultrassonografia endovaginal de laparoscopia.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Tratamento hormonal, classificação da endometriose, endometrioma, infertilidade associada, adenomiose e critérios de indicação cirúrgica.</p>
+            <p><strong>Evolução da cobrança:</strong> A banca parece alternar entre diagnóstico clínico e conduta investigativa, com foco em tomada de decisão na atenção primária e ginecologia.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar não apenas a suspeita clínica, mas também a sequência de investigação, o papel da ultrassonografia endovaginal e as indicações de laparoscopia.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Infertilidade e endometriose; a doença profunda pode alterar a anatomia pélvica e a função tubária.</li>
+                <li><strong>Conexão 2:</strong> Dor pélvica crônica e diagnóstico diferencial com doença inflamatória pélvica, miomatose e adenomiose.</li>
+                <li><strong>Conexão 3:</strong> Sintomas intestinais catameniais e investigação de endometriose intestinal, que pode simular doenças do cólon.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais comum é escolher laparoscopia por ser o padrão-ouro, esquecendo que a pergunta pede o exame de referência para investigação inicial. A classificação provável é confusão conceitual entre padrão-ouro e exame inicial. A estratégia corretiva é memorizar: suspeita clínica de endometriose → ultrassonografia endovaginal com preparo intestinal como primeiro exame de imagem; laparoscopia fica reservada para confirmação ou tratamento cirúrgico.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na atenção primária, a mulher com dismenorreia progressiva e dispareunia deve ser investigada com ultrassonografia endovaginal, que é acessível e não invasiva. O achado de nódulos no fórnice posterior e hematoquezia catamenial deve alertar para endometriose profunda com possível envolvimento intestinal, exigindo encaminhamento especializado. O diagnóstico precoce evita anos de dor e melhora o manejo da infertilidade.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Endometriose superficial, ovariana e profunda.</li>
+                <li>Endometrioma e cisto hemorrágico.</li>
+                <li>Adenomiose e miomatose uterina.</li>
+                <li>Doença inflamatória pélvica e dor pélvica crônica.</li>
+                <li>Padrão-ouro versus exame inicial na investigação diagnóstica.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (Febrasgo). Protocolo de Endometriose.</p>
+            <p>2. Ministério da Saúde. Protocolos da Atenção Básica: Saúde das Mulheres.</p>
+            <p>3. Williams Gynecology. McGraw-Hill.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

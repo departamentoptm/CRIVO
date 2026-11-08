@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 2 - Pediatria: Anafilaxia na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Anafilaxia na Infância - Diagnóstico e Conduta Imediata</div>
+        <h1>Questão 2</h1>
+        <div class="question-text">
+            Um lactente de 11 meses de idade, sem antecedentes mórbidos conhecidos, é levado à Unidade de Pronto Atendimento pelos pais. Eles relatam que, cerca de 15 minutos após ingerir ovo cozido pela primeira vez, o lactente apresentou placas eritematosas e pruriginosas disseminadas pelo tronco, associadas a episódios repetidos de vômitos e irritabilidade intensa. Ao exame físico, o paciente encontra-se vigil, muito irritado, com urticária generalizada, frequência cardíaca de 145 bpm, frequência respiratória de 32 irpm, tempo de enchimento capilar de 2 segundos e saturação de oxigênio de 96% em ar ambiente. A ausculta pulmonar e a pressão arterial estão normais para a idade. Considerando o caso clínico e as diretrizes atuais sobre anafilaxia na infância, assinale a conduta imediata correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Administrar difenidramina por via intramuscular e manter o lactente em observação clínica por 6 horas.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Aplicar adrenalina na dose de 0,01 mg/kg (máximo de 0,3 mg) por via intramuscular na face anterolateral da coxa.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Prescrever metilprednisolona por via intravenosa e nebulização com adrenalina total devido ao risco de estridor.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Prescrever dexclorfeniramina por via oral e solicitar retorno em 24 horas para reavaliação.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Realizar expansão volêmica imediata com soro fisiológico a 20 mL/kg por via intravenosa devido ao quadro de choque anafilático.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria - Alergia e Imunologia / Emergências Pediátricas.</p>
+            <p><strong>Tema:</strong> Anafilaxia na infância - reconhecimento e conduta imediata.</p>
+            <p><strong>Contextualização:</strong> Tema de altíssima relevância em provas de residência, pois envolve emergência potencialmente fatal e conduta tempo-dependente. A banca costuma cobrar o reconhecimento dos critérios clínicos, a droga de escolha (adrenalina IM), a dose, a via e o local de aplicação, além dos erros clássicos (anti-histamínicos e corticoides como primeira linha). Integra-se com alergia alimentar, urticária, angioedema, choque distributivo e manejo de vias aéreas.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A anafilaxia é uma reação de hipersensibilidade sistêmica, rápida e grave, mediada predominantemente por IgE, com degranulação de mastócitos e liberação de mediadores (histamina, triptase, leucotrienos, prostaglandinas). Clinicamente, envolve dois ou mais sistemas, com destaque para pele/mucosas (urticária, angioedema), respiratório (broncoespasmo, estridor, dispneia), cardiovascular (hipotensão, taquicardia, choque) e gastrointestinal (vômitos, dor abdominal). No caso, há urticária generalizada, vômitos repetidos e irritabilidade intensa após exposição alimentar, preenchendo critérios de anafilaxia. A adrenalina é a droga de primeira linha porque atua em receptores alfa-1 (vasoconstrição e redução de edema), beta-1 (aumento da contratilidade) e beta-2 (broncodilatação e estabilização de mastócitos), revertendo rapidamente a fisiopatologia.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa B - correta.</strong> A adrenalina intramuscular na dose de 0,01 mg/kg (máximo 0,3 mg) na face anterolateral da coxa é a conduta imediata padrão para anafilaxia. A via IM é preferível à IV na maioria dos casos, pela segurança e rápida absorção; a face anterolateral da coxa tem musculatura bem vascularizada e absorção mais rápida que o deltoide. Em provas anteriores, a conduta com adrenalina IM foi cobrada em 2017 - Q6 (picada de vespa), 2021 - Q72 (ferroadas de abelhas) e 2022 - Q5 (alergia alimentar com anafilaxia).</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Errada. Difenidramina é anti-histamínico e não trata broncoespasmo, choque ou edema de via aérea; não é primeira linha. Já apareceu como distrator em 2017 - Q6 e 2022 - Q5.</p>
+            <p><strong>Alternativa C</strong> - Errada. Metilprednisolona IV e nebulização com adrenalina não são a conduta imediata padrão. Corticoides têm efeito tardio e não revertem a reação aguda. Nebulização com adrenalina é usada em estridor/edema de via aérea, mas não substitui a adrenalina IM sistêmica.</p>
+            <p><strong>Alternativa D</strong> - Errada. Dexclorfeniramina oral é insuficiente e perigosa em anafilaxia; não trata comprometimento sistêmico. Retorno em 24h é inadequado.</p>
+            <p><strong>Alternativa E</strong> - Errada. Expansão volêmica com 20 mL/kg é parte do tratamento do choque anafilático, mas não é a primeira conduta isolada; a prioridade é adrenalina IM. Além disso, o paciente não apresenta hipotensão no momento. Em 2017 - Q6, a expansão volêmica também apareceu como distrator.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>15 minutos após ingerir ovo:</strong> temporalidade típica de anafilaxia mediada por IgE.</li>
+                <li><strong>Urticária generalizada + vômitos + irritabilidade:</strong> dois ou mais sistemas acometidos.</li>
+                <li><strong>Taquicardia (145 bpm) e tempo de enchimento capilar de 2 segundos:</strong> sinais de resposta sistêmica/hipoperfusão inicial.</li>
+                <li><strong>Ausculta pulmonar e PA normais:</strong> não excluem anafilaxia; a ausência de hipotensão não afasta o diagnóstico.</li>
+                <li><strong>Primeira ingestão de ovo:</strong> sensibilização prévia pode ter ocorrido por outras vias (leite materno, contato), explicando a reação na primeira ingestão evidente.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer anafilaxia por critérios clínicos (início rápido + dois ou mais sistemas, ou hipotensão após exposição).</li>
+                <li><strong>Segundo:</strong> administrar adrenalina IM imediatamente (0,01 mg/kg, max 0,3 mg) na face anterolateral da coxa.</li>
+                <li><strong>Terceiro:</strong> posicionar o paciente, garantir via aérea, oxigênio e monitorização; obter acesso venoso.</li>
+                <li><strong>Quarto:</strong> se hipotensão refratária, expansão volêmica e drogas vasoativas; considerar segunda dose de adrenalina após 5-15 min se necessário.</li>
+                <li><strong>Quinto:</strong> anti-histamínicos e corticoides são adjuvantes, não primeira linha; observar por risco de reação bifásica.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta inicial” em emergências.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> anafilaxia é emergência; adrenalina IM é primeira linha; via IM na coxa anterolateral; dose 0,01 mg/kg (max 0,3 mg).</li>
+                <li><strong>Números e doses:</strong> adrenalina 1:1000 (1 mg/mL); 0,01 mg/kg = 0,01 mL/kg; máximo 0,3 mg (0,3 mL); repetir em 5-15 min se necessário.</li>
+                <li><strong>Mnemônicos:</strong> “Adrenalina primeiro, sempre IM, na coxa”; “anti-histamínico não salva anafilaxia”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2017 - Q6, 2021 - Q72 e 2022 - Q5.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Anafilaxia (correta)</td>
+                        <td>Início rápido após exposição, dois ou mais sistemas (pele, respiratório, GI, cardiovascular).</td>
+                        <td>Clínico; triptase sérica pode auxiliar retrospectivamente.</td>
+                        <td>Adrenalina IM imediata; suporte; observação.</td>
+                    </tr>
+                    <tr>
+                        <td>Urticária aguda isolada</td>
+                        <td>Lesões cutâneas pruriginosas sem comprometimento sistêmico.</td>
+                        <td>Clínico.</td>
+                        <td>Anti-histamínico; observar sinais de anafilaxia.</td>
+                    </tr>
+                    <tr>
+                        <td>Angioedema hereditário</td>
+                        <td>Edema sem urticária, história familiar, crises recorrentes; não responde a adrenalina.</td>
+                        <td>C4, C1-inibidor.</td>
+                        <td>Icatibanto, C1-inibidor, plasma fresco.</td>
+                    </tr>
+                    <tr>
+                        <td>Síncope vasovagal</td>
+                        <td>Palidez, bradicardia, hipotensão, sem urticária ou broncoespasmo.</td>
+                        <td>Clínico.</td>
+                        <td>Posicionamento, hidratação.</td>
+                    </tr>
+                    <tr>
+                        <td>Crise de asma</td>
+                        <td>Sibilância, dispneia, sem urticária ou sintomas GI.</td>
+                        <td>Clínico; espirometria se possível.</td>
+                        <td>Beta-2 agonista, corticoide.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse a droga de escolha:</strong> adrenalina.</li>
+                <li><strong>Se pedisse a via e local:</strong> intramuscular, face anterolateral da coxa.</li>
+                <li><strong>Se pedisse a dose:</strong> 0,01 mg/kg (max 0,3 mg).</li>
+                <li><strong>Se pedisse a conduta em choque refratário:</strong> expansão volêmica e vasopressores, além de segunda dose de adrenalina.</li>
+                <li><strong>Se pedisse o que NÃO fazer:</strong> não usar anti-histamínico ou corticoide como primeira linha; não atrasar adrenalina.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2015 - Q4</td>
+                        <td>Lactente de 18 meses com erupção cutânea pruriginosa após medicamentos; quando indicar epinefrina IM?</td>
+                        <td>Indicação de adrenalina IM.</td>
+                        <td>A (comprometimento das vias aéreas)</td>
+                        <td>Reforça que a adrenalina é indicada quando há comprometimento sistêmico/grave, não apenas lesões cutâneas.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q6</td>
+                        <td>Menina de 3 anos com rinorreia, sibilos, estridor e hipoperfusão após picada de vespa.</td>
+                        <td>Conduta imediata na anafilaxia.</td>
+                        <td>A (epinefrina IM 1:1000)</td>
+                        <td>Mesma conduta: adrenalina IM é a primeira medida.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q72</td>
+                        <td>Paciente de 18 anos com urticária generalizada, dispneia e sibilância após ferroadas de abelhas.</td>
+                        <td>Diagnóstico e conduta na anafilaxia.</td>
+                        <td>E (posicionar em decúbito dorsal antes da epinefrina para evitar síndrome do coração vazio) - na verdade a alternativa correta foi E? Vou verificar: no gabarito 2021 Q72 = E. A assertiva correta era sobre posicionamento? Preciso checar. No arquivo, Q72 pergunta “assinale a assertiva correta” e as alternativas incluem A) atopia é fator de risco; B) degranulação não mediada por IgE; C) maioria bifásica; D) ocupações com insetos tornam alergia menos provável; E) posicionar em decúbito dorsal antes da epinefrina para evitar síndrome do coração vazio. A resposta E está correta. Isso reforça o manejo da anafilaxia.</td>
+                        <td>E (posicionamento em decúbito dorsal antes da epinefrina)</td>
+                        <td>Reforça o manejo global da anafilaxia, incluindo posicionamento e adrenalina.</td>
+                    </tr>
+                    <tr>
+                        <td>2022 - Q5</td>
+                        <td>Menina de 9 anos com alergia após pão, evoluiu com sonolência, tosse, rouquidão, dispneia e dor abdominal.</td>
+                        <td>Conduta imediata na anafilaxia.</td>
+                        <td>C (administrar adrenalina IM imediatamente)</td>
+                        <td>Mesma conduta: adrenalina IM é a primeira linha.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q6</td>
+                        <td>Pré-escolar com broncoespasmo e hipotensão após amendoim, sem lesões cutâneas.</td>
+                        <td>Diagnóstico de anafilaxia sem manifestações cutâneas.</td>
+                        <td>E (ambas as asserções falsas)</td>
+                        <td>Reforça que a ausência de lesões cutâneas não descarta anafilaxia.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q10</td>
+                        <td>Anafilaxia na infância: causas e manifestações.</td>
+                        <td>Reconhecimento e etiologia.</td>
+                        <td>D (alergia alimentar é a causa mais comum fora do hospital; látex em ambiente hospitalar; pode ocorrer sem manifestações cutâneas)</td>
+                        <td>Reforça a etiologia alimentar e a apresentação clínica variável.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 6 questões no período. A banca alterna entre reconhecimento clínico, indicação de adrenalina, dose/via e manejo adjuvante. Há tendência a cobrar situações em que a apresentação não é clássica (sem lesões cutâneas) e a conduta imediata.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Dose exata e apresentação da adrenalina (1:1000), local de aplicação (coxa anterolateral), uso de segunda dose, e critérios de observação para reação bifásica.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam na indicação; as mais recentes cobram a conduta imediata e detalhes de manejo.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar adrenalina IM (dose, via, local), diagnóstico clínico sem lesões cutâneas e manejo do choque anafilático.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Alergia alimentar - principal causa de anafilaxia extra-hospitalar; ovo, leite, amendoim, trigo, soja, peixe e frutos do mar são os principais alérgenos.</li>
+                <li><strong>Conexão 2:</strong> Asma - broncoespasmo é componente da anafilaxia; beta-2 agonista é adjuvante, mas não substitui adrenalina.</li>
+                <li><strong>Conexão 3:</strong> Choque distributivo - anafilaxia é causa de choque distributivo; expansão volêmica e vasopressores são usados na refratariedade.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é lacuna de conhecimento sobre a primeira linha (adrenalina) ou confusão com anti-histamínicos/corticoides. A ação corretiva é memorizar: “anafilaxia = adrenalina IM imediatamente; anti-histamínico e corticoide são adjuvantes”. Também revisar dose e local de aplicação.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o reconhecimento precoce e a adrenalina IM imediata salvam vidas. O atraso na administração está associado a pior prognóstico. Após a estabilização, o paciente deve ser observado por risco de reação bifásica e receber orientação sobre evicção do alérgeno e plano de ação.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Critérios clínicos de anafilaxia.</li>
+                <li>Adrenalina IM: dose, via, local e repetição.</li>
+                <li>Reação bifásica.</li>
+                <li>Diagnósticos diferenciais de urticária e angioedema.</li>
+                <li>Manejo do choque anafilático refratário.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Kliegman RM, et al. Nelson Tratado de Pediatria. Elsevier.</p>
+            <p>2. Diretrizes da Sociedade Brasileira de Pediatria - Anafilaxia.</p>
+            <p>3. World Allergy Organization (WAO) - Anaphylaxis Guidelines.</p>
+            <p>4. American Academy of Pediatrics - Allergy and Anaphylaxis.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

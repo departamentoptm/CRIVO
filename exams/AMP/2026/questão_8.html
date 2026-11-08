@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 8 - Pediatria: Pneumonia Necrotizante na Infância - Etiologia e Conduta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Pneumonia Necrotizante na Infância - Etiologia e Conduta</div>
+        <h1>Questão 8</h1>
+        <div class="question-text">
+            Um pré-escolar de 5 anos está internado há 4 dias para tratamento de pneumonia lobar em pulmão direito. Apesar do uso de ceftriaxona intravenosa em doses adequadas, a criança mantém febre alta persistente, piora do estado geral, taquipneia e dor torácica ipsilateral. Foi realizada uma nova radiografia de tórax que evidenciou velamento de dois terços do hemitórax direito, com sinal do menisco. Uma tomografia de tórax revelou a presença de derrame pleural loculado e múltiplas áreas de cavitação de paredes finas no parênquima pulmonar, sem realce de contraste, sugerindo pneumonia necrotizante. Considerando a principal etiologia atual dessa complicação e a conduta recomendada, assinale a alternativa correta.
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - O agente etiológico mais provável é o pneumococo ou Staphylococcus aureus (especialmente o MRSA), sendo indicada a substituição imediata ou associação de vancomicina ao esquema.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - A presença de necrose e cavitações indica obrigatoriamente a necessidade de ressecção cirúrgica de urgência (lobectomia), dado o alto risco de fístula broncopleural.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - O principal agente envolvido nesta complicação em crianças vacinadas é o Haemophilus influenzae tipo b, sendo o tratamento de escolha a claritromicina.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - A pneumonia necrotizante é uma indicação clássica para a instalação de dois drenos de tórax de grosso calibre e início imediato de corticoterapia em doses imunossupressoras.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - O agente mais comum é o Mycoplasma pneumoniae, e o achado de necrose na tomografia é apenas um artefato comum do derrame pleural parapneumônico, sem valor clínico.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria - Pneumologia Pediátrica / Infectologia.</p>
+            <p><strong>Tema:</strong> Pneumonia necrotizante na infância - complicação da pneumonia adquirida na comunidade (PAC), etiologia e conduta antimicrobiana.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. A pneumonia necrotizante é uma complicação grave da PAC, caracterizada por consolidação com áreas de necrose e cavitação, frequentemente associada a derrame pleural loculado. A banca costuma cobrar o reconhecimento da evolução desfavorável apesar do antibiótico adequado, a etiologia mais provável (pneumococo e <em>Staphylococcus aureus</em>, especialmente MRSA) e a conduta (ampliar cobertura com vancomicina). Integra-se com derrame pleural parapneumônico, empiema, pneumatocele, fístula broncopleural e diagnóstico diferencial com tuberculose e pneumonia por <em>Mycoplasma</em>.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A pneumonia necrotizante é uma complicação da PAC em que há destruição do parênquima pulmonar com formação de cavitações e áreas de necrose. A fisiopatologia envolve inflamação intensa, trombose de vasos locais, isquemia e necrose tecidual, com possível formação de pneumatoceles, abscessos e fístulas broncopleurais. Os agentes mais frequentemente associados são <em>Streptococcus pneumoniae</em> (especialmente sorotipos invasivos) e <em>Staphylococcus aureus</em> (em particular cepas MRSA adquiridas na comunidade, produtoras de leucocidina de Panton-Valentine). Outros agentes incluem <em>Streptococcus pyogenes</em> e, mais raramente, <em>Mycoplasma pneumoniae</em> e <em>Haemophilus influenzae</em>. O quadro clínico é de piora clínica apesar de antibioticoterapia adequada, com febre persistente, toxemia, taquipneia, dor torácica e derrame pleural loculado. A tomografia é o exame de escolha para caracterizar a necrose e as cavitações.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A - correta.</strong> A principal etiologia atual da pneumonia necrotizante em crianças é o <em>Streptococcus pneumoniae</em>, com crescente importância do <em>Staphylococcus aureus</em> (especialmente MRSA comunitário). Diante da evolução desfavorável com ceftriaxona, a conduta é ampliar a cobertura antimicrobiana, substituindo ou associando vancomicina (ou linezolida) ao esquema, para cobrir MRSA e pneumococo resistente. Em provas anteriores, a etiologia da pneumonia necrosante foi cobrada em 2018 - Q79 (gabarito D: <em>Streptococcus pneumoniae</em>) e 2024 - Q2 (gabarito D: <em>Streptococcus pneumoniae</em>). A conduta cirúrgica (drenagem pleural) foi cobrada em 2021 - Q57 (toracotomia com descorticação precoce em caso de <em>S. aureus</em> com pneumatoceles e derrame).</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta.</p>
+            <p><strong>Alternativa B</strong> - Errada. A presença de necrose e cavitações não indica obrigatoriamente lobectomia de urgência. O manejo inicial é clínico (antibiótico ampliado) e, se houver derrame pleural significativo, drenagem pleural. A ressecção cirúrgica é reservada para casos refratários, complicações graves (fístula broncopleural persistente, hemoptise maciça, destruição pulmonar extensa) e é decidida caso a caso.</p>
+            <p><strong>Alternativa C</strong> - Errada. O <em>Haemophilus influenzae</em> tipo b é raro em crianças vacinadas, e a claritromicina não é tratamento de escolha para pneumonia necrotizante. A claritromicina cobre bactérias atípicas, mas não cobre pneumococo resistente nem MRSA.</p>
+            <p><strong>Alternativa D</strong> - Errada. A pneumonia necrotizante não é indicação clássica de dois drenos de grosso calibre nem de corticoterapia em doses imunossupressoras. A corticoterapia não tem papel estabelecido nessa complicação e pode agravar a infecção. A drenagem pleural é indicada quando há derrame significativo, geralmente com um dreno.</p>
+            <p><strong>Alternativa E</strong> - Errada. O <em>Mycoplasma pneumoniae</em> raramente causa necrose pulmonar; o achado de necrose na TC é um sinal real e de grande valor clínico, indicando gravidade e necessidade de ampliar a cobertura antimicrobiana.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Piora apesar de ceftriaxona por 4 dias:</strong> sugere agente não coberto (MRSA, pneumococo resistente) ou complicação (derrame, necrose).</li>
+                <li><strong>Febre alta persistente + taquipneia + dor torácica:</strong> sinais de evolução complicada.</li>
+                <li><strong>Velamento de 2/3 do hemitórax com sinal do menisco:</strong> derrame pleural loculado.</li>
+                <li><strong>Cavitações de paredes finas sem realce:</strong> pneumonia necrotizante.</li>
+                <li><strong>Pré-escolar de 5 anos:</strong> faixa em que pneumococo e <em>S. aureus</em> são os principais agentes.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer evolução desfavorável de PAC (febre persistente, piora clínica, toxemia).</li>
+                <li><strong>Segundo:</strong> solicitar imagem (Rx e TC) para avaliar complicações (derrame, necrose, cavitação).</li>
+                <li><strong>Terceiro:</strong> ampliar cobertura antimicrobiana: substituir ceftriaxona por ceftriaxona + vancomicina (ou linezolida) para cobrir MRSA e pneumococo resistente.</li>
+                <li><strong>Quarto:</strong> avaliar necessidade de drenagem pleural se derrame significativo/loculado; considerar fibrinolíticos ou cirurgia (VATS) em empiema organizado.</li>
+                <li><strong>Quinto:</strong> monitorar resposta clínica e laboratorial; ajustar antibiótico conforme cultura e antibiograma.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “conduta em complicações de pneumonia”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> pneumonia necrotizante = piora apesar do antibiótico + cavitações + derrame; agentes principais: pneumococo e MRSA; conduta: ampliar cobertura com vancomicina/linezolida.</li>
+                <li><strong>Números e doses:</strong> vancomicina 60 mg/kg/dia dividida em 4 doses (ajustar níveis); ceftriaxona 50-75 mg/kg/dia; linezolida 30 mg/kg/dia dividida em 3 doses.</li>
+                <li><strong>Mnemônicos:</strong> “Pneumonia necrotizante = pneumococo + MRSA; conduta = vancomicina”; “Piora com ceftriaxona = ampliar cobertura”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em 2018 - Q79 e 2024 - Q2 (etiologia) e 2021 - Q57 (conduta cirúrgica).</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pneumonia necrotizante (correta)</td>
+                        <td>Febre persistente, piora clínica, cavitações, derrame loculado.</td>
+                        <td>TC de tórax.</td>
+                        <td>Ampliar antibiótico (vancomicina); drenagem se empiema.</td>
+                    </tr>
+                    <tr>
+                        <td>Derrame pleural parapneumônico simples</td>
+                        <td>Derrame pequeno, sem loculação; melhora com antibiótico.</td>
+                        <td>USG/Rx.</td>
+                        <td>Antibiótico; drenagem se grande/refratário.</td>
+                    </tr>
+                    <tr>
+                        <td>Empiema</td>
+                        <td>Derrame loculado, septado, com pus.</td>
+                        <td>USG/TC; análise do líquido pleural.</td>
+                        <td>Drenagem pleural; fibrinolíticos/VATS em casos organizados.</td>
+                    </tr>
+                    <tr>
+                        <td>Tuberculose pulmonar</td>
+                        <td>Evolução subaguda, cavitação em ápice, adenopatia, contato.</td>
+                        <td>BAAR, cultura, PCR, PPD.</td>
+                        <td>RIPE.</td>
+                    </tr>
+                    <tr>
+                        <td>Abscesso pulmonar</td>
+                        <td>Cavidade única com nível líquido, geralmente aspiração.</td>
+                        <td>TC.</td>
+                        <td>Antibiótico prolongado; drenagem percutânea se necessário.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão pedisse o agente mais provável:</strong> <em>Streptococcus pneumoniae</em> (com crescente participação de MRSA).</li>
+                <li><strong>Se pedisse a conduta inicial:</strong> ampliar cobertura com vancomicina + drenagem se derrame significativo.</li>
+                <li><strong>Se pedisse a complicação mais temida:</strong> empiema e fístula broncopleural.</li>
+                <li><strong>Se pedisse o exame de escolha:</strong> tomografia de tórax.</li>
+                <li><strong>Se pedisse o que NÃO fazer:</strong> não indicar lobectomia de urgência de rotina; não usar corticoide em dose imunossupressora; não subestimar a necrose como artefato.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q52</td>
+                        <td>Classificação de gravidade da PAC: qual achado mais pontua?</td>
+                        <td>Critérios de gravidade (pH &lt; 7,35).</td>
+                        <td>A (pH &lt; 7,35)</td>
+                        <td>Reforça a avaliação de gravidade e de complicações.</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q50</td>
+                        <td>Broncopneumonia aspirativa em paciente grave.</td>
+                        <td>Esquema antibiótico (cefepime + clindamicina).</td>
+                        <td>E (cefepime + clindamicina)</td>
+                        <td>Reforça a cobertura de gram-negativos e anaeróbios em pneumonia complicada.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q20</td>
+                        <td>Identificação do agente na efusão pleural em crianças.</td>
+                        <td>Agente mais frequente em derrame pleural.</td>
+                        <td>B (<em>Streptococcus pneumoniae</em>)</td>
+                        <td>Reforça o pneumococo como agente principal de complicações.</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q27</td>
+                        <td>Paciente com derrame pleural livre e consolidação: conduta.</td>
+                        <td>Toracocentese diagnóstica.</td>
+                        <td>D (toracocentese diagnóstica)</td>
+                        <td>Reforça a abordagem do derrame pleural.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q34</td>
+                        <td>PAC: quando suspeitar de infecção bacteriana.</td>
+                        <td>Critérios clínicos e laboratoriais.</td>
+                        <td>A (febre alta e dor de garganta)</td>
+                        <td>Reforça a suspeita de complicações.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q79</td>
+                        <td>Pré-escolar com pneumonia e piora; TC com derrame extenso e cavitações (necrosante).</td>
+                        <td>Agente etiológico mais provável.</td>
+                        <td>D (<em>Streptococcus pneumoniae</em>)</td>
+                        <td>Praticamente o mesmo cenário da questão atual; reforça o pneumococo como principal agente.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q57</td>
+                        <td>Criança com pneumonia extensa, pneumatoceles e derrame por <em>S. aureus</em>: conduta.</td>
+                        <td>Abordagem cirúrgica (toracotomia com descorticação precoce).</td>
+                        <td>D (toracotomia com descorticação precoce)</td>
+                        <td>Reforça a gravidade da necrose por <em>S. aureus</em> e a necessidade de abordagem cirúrgica em casos selecionados.</td>
+                    </tr>
+                    <tr>
+                        <td>2021 - Q57</td>
+                        <td>Criança com pneumonia extensa, pneumatoceles e derrame por <em>S. aureus</em>: conduta.</td>
+                        <td>Abordagem cirúrgica.</td>
+                        <td>D (toracotomia com descorticação precoce)</td>
+                        <td>Mesma temática; reforça a gravidade da pneumonia necrotizante.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q2</td>
+                        <td>Pré-escolar com pneumonia lobar, piora com ampicilina, derrame extenso e focos necróticos.</td>
+                        <td>Agente etiológico mais provável.</td>
+                        <td>D (<em>Streptococcus pneumoniae</em>)</td>
+                        <td>Praticamente o mesmo cenário; reforça o pneumococo como principal agente.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 9 questões no período. A banca cobra a etiologia da pneumonia necrotizante (pneumococo), a importância da piora clínica apesar do antibiótico adequado, o papel da TC na detecção de complicações, a conduta de ampliar cobertura (vancomicina) e a abordagem cirúrgica em casos selecionados (toracotomia com descorticação precoce em <em>S. aureus</em> com pneumatoceles e derrame).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> A associação de vancomicina ao esquema para cobrir MRSA e pneumococo resistente em pneumonia necrotizante, o que é a conduta mais atual.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em derrame pleural e agentes; as mais recentes (2018, 2024) cobram a necrose como complicação e a conduta cirúrgica/antimicrobiana.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar a etiologia da pneumonia necrotizante (pneumococo e MRSA), a conduta de ampliar cobertura com vancomicina e a abordagem do derrame pleural/empiema (drenagem, fibrinolíticos, VATS).</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Empiema - complicação do derrame parapneumônico; manejo com drenagem pleural e, se necessário, fibrinolíticos ou cirurgia (VATS).</li>
+                <li><strong>Conexão 2:</strong> Sepse e choque séptico - pneumonia grave pode evoluir com sepse; estabilização hemodinâmica e antibiótico precoce são fundamentais.</li>
+                <li><strong>Conexão 3:</strong> MRSA comunitário - agente emergente em pneumonia necrotizante; suspeitar em casos graves, com hemoptise, pneumatoceles e piora rápida.</li>
+                <li><strong>Conexão 4:</strong> Diagnóstico diferencial com tuberculose - em casos de cavitação crônica, considerar TB e investigar com BAAR/cultura/PCR.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário errou, o tipo de erro mais provável é desconhecer a necessidade de ampliar a cobertura antimicrobiana (vancomicina) diante da piora com ceftriaxona, ou subestimar a possibilidade de MRSA como agente de pneumonia necrotizante. A ação corretiva é memorizar: “piora com ceftriaxona + necrose = ampliar cobertura com vancomicina/linezolida; agentes: pneumococo e MRSA; drenar derrame se significativo”.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o reconhecimento precoce da pneumonia necrotizante e a ampliação da cobertura antimicrobiana são fundamentais para reduzir mortalidade e complicações. A avaliação multidisciplinar (pediatra, infectologista, cirurgião pediátrico e radiologista) é essencial. A drenagem pleural precoce em empiema e a consideração de fibrinolíticos ou cirurgia (VATS) em casos organizados melhoram o prognóstico.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Pneumonia necrotizante: etiologia e fisiopatologia.</li>
+                <li>Derrame pleural parapneumônico e empiema: classificação e manejo.</li>
+                <li>MRSA comunitário: diagnóstico e tratamento.</li>
+                <li>Papel da TC no diagnóstico de complicações.</li>
+                <li>Drenagem pleural, fibrinolíticos e VATS.</li>
+                <li>Diagnóstico diferencial com tuberculose e abscesso pulmonar.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Kliegman RM, et al. Nelson Tratado de Pediatria. Elsevier.</p>
+            <p>2. Diretrizes da Sociedade Brasileira de Pediatria - Pneumonia Adquirida na Comunidade.</p>
+            <p>3. American Academy of Pediatrics - Community-Acquired Pneumonia in Children.</p>
+            <p>4. IDSA/ATS - Guidelines for the Management of Community-Acquired Pneumonia.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 12 - Pediatria: Febre Sem Sinais Localizatórios (FSSL) em lactentes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Febre Sem Sinais Localizatórios (FSSL) em lactentes</div>
+        <h1>Questão 12</h1>
+        <div class="question-text">
+            Um lactente de 14 meses de idade é levado à consulta ambulatorial com história de febre alta (38,8 °C) há 24 horas. A mãe relata que a criança está ativa, aceitando bem a amamentação e sem outras queixas. Ao realizar exame físico nota-se que o lactente está em bom estado geral, corado, hidratado e não se encontra nenhum foco infeccioso aparente (otoscopia, oroscopia, ausculta pulmonar e avaliação abdominal normais). Diante do diagnóstico de Febre Sem Sinais Localizatórios (FSSL), qual é a principal causa etiológica infecciosa esperada para essa faixa etária e quadro clínico?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Apendicite aguda em fase inicial.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Infecção do trato urinário por Escherichia coli.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Bacteremia oculta por Streptococcus pneumoniae.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Infecção bacteriana grave, como a meningite meningocócica.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Infecção viral autolimitada, como as causadas por enterovírus ou herpes-vírus humano 6.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Pediatria / Infectologia pediátrica.</p>
+            <p><strong>Tema:</strong> Febre Sem Sinais Localizatórios (FSSL) em lactentes - principal causa etiológica.</p>
+            <p><strong>Contextualização:</strong> A FSSL é um tema frequente na prática pediátrica e em provas de residência, especialmente após a introdução das vacinas pneumocócicas conjugadas, que modificaram o perfil etiológico. A FSSL é definida como febre aguda, geralmente de curta duração, sem foco infeccioso aparente após anamnese e exame físico cuidadosos, em criança com bom estado geral. A principal preocupação é identificar crianças com risco de infecção bacteriana grave (IBG), como bacteremia oculta, meningite e infecção urinária. A banca tem cobrado o tema de forma indireta, por meio de questões sobre febre de origem indeterminada (FOI) e agentes bacterianos mais comuns.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>A febre é uma resposta fisiológica a pirogênios endógenos, mediada por interleucinas (IL-1, IL-6, TNF-α) que atuam no hipotálamo. Na FSSL, a febre é o único sinal clínico evidente. A maioria dos casos em crianças vacinadas e com bom estado geral é de etiologia viral, especialmente enterovírus, herpes-vírus humano 6 (HHV-6), rinovírus, adenovírus e vírus sincicial respiratório. A bacteremia oculta por <em>Streptococcus pneumoniae</em> era a principal preocupação antes da vacinação universal, mas sua incidência caiu drasticamente. Outras bactérias importantes incluem <em>Escherichia coli</em> (infecção urinária), <em>Neisseria meningitidis</em> e <em>Salmonella</em> (em situações específicas, como anemia falciforme). A fisiopatologia da FSSL está relacionada à resposta imune inata e adaptativa, com ativação de citocinas e febre como manifestação sistêmica.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>E - Infecção viral autolimitada, como as causadas por enterovírus ou herpes-vírus humano 6</strong>. Em lactentes de 14 meses, com bom estado geral, vacinação adequada e sem sinais de localização, a etiologia viral é a mais provável. Os vírus são responsáveis pela grande maioria dos casos de FSSL, especialmente enterovírus (que podem causar febre sem outros sintomas) e HHV-6 (agente da roséola infantil, que pode se apresentar inicialmente apenas com febre alta por 3 a 5 dias). A bacteremia oculta por pneumococo tornou-se rara após a vacina conjugada, e a meningite meningocócica geralmente cursa com sinais de gravidade (petéquias, rigidez de nuca, alteração do estado geral), ausentes no caso. A infecção urinária por <em>E. coli</em> é uma causa importante de FSSL, mas é menos frequente que as viroses e geralmente requer confirmação por urocultura; a questão pergunta a principal causa etiológica esperada, e as viroses são mais comuns. Apendicite aguda em fase inicial pode causar febre e dor abdominal, mas o exame abdominal foi normal.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - Apendicite aguda em fase inicial:</strong> Pode se manifestar com febre e dor abdominal, mas o exame abdominal normal e a ausência de sinais de irritação peritoneal tornam essa hipótese menos provável. Além disso, a apendicite é uma causa cirúrgica, não a principal causa etiológica de FSSL.</p>
+            <p><strong>Alternativa B - Infecção do trato urinário por Escherichia coli:</strong> É uma causa importante de FSSL em lactentes, especialmente em meninas e crianças não circuncidadas, mas não é a mais frequente quando se considera toda a população de lactentes com FSSL. A urocultura é necessária para confirmação. A prevalência de ITU em lactentes com FSSL é de cerca de 5 a 10%, enquanto as viroses são responsáveis pela maioria dos casos.</p>
+            <p><strong>Alternativa C - Bacteremia oculta por Streptococcus pneumoniae:</strong> Antes da vacina pneumocócica conjugada, era a principal preocupação. Atualmente, com a vacinação universal, a incidência caiu drasticamente (menos de 1% em crianças vacinadas). O caso não apresenta sinais de gravidade, e a criança está ativa e aceitando bem a amamentação.</p>
+            <p><strong>Alternativa D - Infecção bacteriana grave, como a meningite meningocócica:</strong> A meningite meningocócica geralmente cursa com febre, sinais meníngeos, petéquias, alteração do estado geral e toxemia. O lactente está em bom estado geral, ativo, corado e hidratado, o que torna essa hipótese improvável.</p>
+            <p><strong>Alternativa E - Infecção viral autolimitada, como as causadas por enterovírus ou herpes-vírus humano 6:</strong> Correta. As viroses são a causa mais comum de FSSL em crianças com bom estado geral.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>"Lactente de 14 meses":</strong> Faixa etária em que as viroses são a principal causa de FSSL, especialmente após a vacinação.</li>
+                <li><strong>"Febre alta (38,8 °C) há 24 horas":</strong> Febre aguda, de curta duração, sem sinais de gravidade.</li>
+                <li><strong>"Criança está ativa, aceitando bem a amamentação e sem outras queixas":</strong> Indica bom estado geral, baixa probabilidade de infecção bacteriana grave.</li>
+                <li><strong>"Bom estado geral, corado, hidratado e não se encontra nenhum foco infeccioso aparente":</strong> Exame físico normal, reforçando a etiologia viral.</li>
+                <li><strong>"Febre Sem Sinais Localizatórios (FSSL)":</strong> O próprio diagnóstico já direciona para a etiologia viral como a mais provável.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> Avaliar o estado geral da criança. Se estiver ativa, corada, hidratada, aceitando bem a dieta, a probabilidade de infecção bacteriana grave é baixa.</li>
+                <li><strong>Segundo:</strong> Buscar sinais de localização infecciosa (otoscopia, oroscopia, ausculta pulmonar, exame abdominal, pele, articulações). Se não houver, trata-se de FSSL.</li>
+                <li><strong>Terceiro:</strong> Considerar a idade e o estado vacinal. Em lactentes vacinados, a bacteremia oculta por pneumococo é rara; as viroses são a causa mais comum.</li>
+                <li><strong>Quarto:</strong> Se houver sinais de gravidade (toxemia, petéquias, alteração do estado geral, recusa alimentar, letargia), investigar infecção bacteriana grave e considerar internação e antibioticoterapia empírica. Caso contrário, orientar medidas de suporte e reavaliação.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> FSSL é febre aguda sem foco aparente após exame físico cuidadoso, em criança com bom estado geral. A maioria é viral.</li>
+                <li><strong>Números e doses:</strong> Prevalência de ITU em lactentes com FSSL: 5-10%. Prevalência de bacteremia oculta por pneumococo em vacinados: <1%. Duração da febre na roséola (HHV-6): 3-5 dias, seguida de exantema.</li>
+                <li><strong>Mnemônico:</strong> "Viral é o mais comum" - em crianças com FSSL e bom estado geral, pensar primeiro em vírus.</li>
+            </ul>
+            <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FSSL viral (a correta)</td>
+                        <td>Febre sem foco, bom estado geral, exame físico normal, criança ativa e hidratada.</td>
+                        <td>Clínico; exames apenas se sinais de gravidade ou idade de risco.</td>
+                        <td>Suporte, antitérmicos, hidratação, reavaliação.</td>
+                    </tr>
+                    <tr>
+                        <td>Infecção do trato urinário</td>
+                        <td>Febre sem foco, irritabilidade, recusa alimentar, pode haver urina fétida; mais comum em meninas.</td>
+                        <td>Urocultura por cateterismo ou punção suprapúbica.</td>
+                        <td>Antibioticoterapia conforme cultura.</td>
+                    </tr>
+                    <tr>
+                        <td>Bacteremia oculta</td>
+                        <td>Febre, bom estado geral, mas hemocultura positiva; atualmente rara em vacinados.</td>
+                        <td>Hemocultura.</td>
+                        <td>Antibioticoterapia se confirmada.</td>
+                    </tr>
+                    <tr>
+                        <td>Meningite bacteriana</td>
+                        <td>Febre, sinais meníngeos, toxemia, petéquias, alteração do estado geral.</td>
+                        <td>Punção lombar, hemocultura.</td>
+                        <td>Internação e antibioticoterapia empírica.</td>
+                    </tr>
+                    <tr>
+                        <td>Pneumonia oculta</td>
+                        <td>Febre, tosse, taquipneia, estertores.</td>
+                        <td>Radiografia de tórax.</td>
+                        <td>Antibioticoterapia.</td>
+                    </tr>
+                    <tr>
+                        <td>Apendicite aguda</td>
+                        <td>Febre, dor abdominal, sinais peritoneais, recusa alimentar.</td>
+                        <td>Ultrassonografia, tomografia.</td>
+                        <td>Cirurgia.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta poderia envolver a realização de urocultura, hemocultura ou punção lombar conforme idade e estado geral.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> a resposta poderia envolver medidas de suporte, antitérmicos e reavaliação, ou antibioticoterapia empírica em casos de risco.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> a resposta poderia envolver a vacinação pneumocócica e meningocócica.</li>
+                <li><strong>Se fosse sobre complicações:</strong> a resposta poderia envolver bacteremia, meningite, ITU.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2022 - Q1</td>
+                        <td>Febre de origem indeterminada (FOI) em crianças: definição, prognóstico e principais causas.</td>
+                        <td>Definição, prognóstico e causas de FOI.</td>
+                        <td>A (I e II verdadeiras; III falsa).</td>
+                        <td>A FOI é um conceito relacionado, porém mais prolongado. As causas infecciosas são as principais; as neoplásicas não são a segunda causa mais prevalente.</td>
+                    </tr>
+                    <tr>
+                        <td>2025 - Q13</td>
+                        <td>Agente bacteriano responsável pelo maior número de casos de bacteremia, pneumonia, otite média e meningite em crianças.</td>
+                        <td>Agente bacteriano mais comum em infecções pediátricas.</td>
+                        <td>D - Streptococcus pneumoniae.</td>
+                        <td>Mostra que o pneumococo é o principal agente bacteriano, mas em crianças vacinadas a bacteremia oculta é rara; a FSSL é majoritariamente viral.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema FSSL não foi cobrado diretamente, mas conceitos relacionados (FOI e agentes bacterianos) apareceram em 2022 e 2025. A banca tem cobrado mais a etiologia viral e a importância da vacinação.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> A diferenciação entre FSSL e FOI, a idade como fator de risco para ITU, e a conduta expectante em lactentes vacinados com bom estado geral são abordagens que podem surgir na próxima prova.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões têm enfatizado a mudança do perfil etiológico após a vacinação, com queda da bacteremia oculta por pneumococo.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar FSSL, com foco na etiologia viral, na identificação de sinais de gravidade e nas indicações de investigação (urocultura, hemocultura, punção lombar conforme idade).</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1 - Roséola infantil (HHV-6):</strong> Pode se apresentar como FSSL e evoluir com exantema após a defervescência. Se você viu FSSL, lembre-se de roséola.</li>
+                <li><strong>Conexão 2 - Infecção do trato urinário:</strong> Importante causa de FSSL em lactentes; sempre considerar urocultura em crianças sem foco.</li>
+                <li><strong>Conexão 3 - Vacinação:</strong> A vacina pneumocócica conjugada reduziu a bacteremia oculta; a vacina meningocócica reduz meningite.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou <strong>C - Bacteremia oculta por Streptococcus pneumoniae</strong>, provavelmente está desatualizado em relação à epidemiologia pós-vacinação. A ação corretiva é revisar a queda da incidência de bacteremia oculta após a vacina pneumocócica conjugada. Se marcou <strong>B - ITU</strong>, pode ter supervalorizado a ITU como causa de FSSL; a ITU é importante, mas menos frequente que as viroses. Se marcou <strong>D - Meningite</strong>, não considerou o bom estado geral. A estratégia é revisar a etiologia da FSSL e os sinais de gravidade.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o médico deve tranquilizar os pais, orientar medidas de suporte (hidratação, antitérmicos) e reavaliação se houver sinais de gravidade. A não solicitação rotineira de exames em crianças com FSSL e bom estado geral é uma prática baseada em evidências, evitando intervenções desnecessárias.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Definição e manejo da FSSL.</li>
+                <li>Etiologia das infecções virais na infância (enterovírus, HHV-6).</li>
+                <li>Infecção do trato urinário em lactentes.</li>
+                <li>Bacteremia oculta e vacinação pneumocócica.</li>
+                <li>Sinais de gravidade em crianças com febre.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Kliegman RM, St. Geme JW, Blum NJ, et al. Nelson Textbook of Pediatrics. 21. ed. Elsevier; 2020.</p>
+            <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5. ed. Barueri: Manole; 2022.</p>
+            <p>3. American Academy of Pediatrics. Red Book: 2021-2024 Report of the Committee on Infectious Diseases. 32. ed. Itasca: AAP; 2021.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

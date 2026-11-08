@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 68 - Choque Refratário e Insuficiência Adrenal Secundária ao Uso Crônico de Corticoides</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Emergências/Endocrinologia: Insuficiência Adrenal Secundária ao Uso Crônico de Corticoides no Choque Refratário</div>
+        <h1>Questão 68</h1>
+        <div class="question-text">
+            Paciente internado em UTI após politraumatismo apresenta choque refratário a fluidos e vasopressores, com vasodilatação periférica acentuada e má distribuição do fluxo sanguíneo. Ao revisar o prontuário, identifica-se antecedente de artrite reumatoide. Qual informação adicional relacionada ao tratamento dessa doença é mais relevante para o manejo imediato do choque?
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - O uso prévio de corticoides causa hiperestimulação do eixo hipotálamo-hipófise-adrenal, resultando em hiperaldosteronismo agudo e choque hipovolêmico por diurese osmótica.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - Deve-se investigar uso recente de anti-inflamatórios não esteroides, pois esses medicamentos podem agravar a função renal e contribuir para hipotensão em pacientes criticamente enfermos.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - Pacientes com artrite reumatoide podem apresentar resposta reduzida aos vasopressores convencionais em razão da atividade inflamatória sistêmica, devendo-se considerar terapia imunomoduladora específica.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - Deve-se verificar o uso de medicamentos antirreumáticos modificadores da doença, pois seus efeitos imunossupressores podem aumentar o risco de infecção e favorecer choque distributivo de origem séptica.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - Deve-se verificar se o paciente fazia uso prolongado de corticosteroides, pois a supressão do eixo hipotálamo-hipófise-adrenal pode causar insuficiência adrenal e indicar a administração de glicocorticoide em dose de estresse.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Emergências / Endocrinologia / Terapia Intensiva.</p>
+            <p><strong>Tema:</strong> Insuficiência adrenal secundária ao uso crônico de glicocorticoides e choque refratário no paciente crítico.</p>
+            <p><strong>Contextualização:</strong> A insuficiência adrenal relativa é uma causa reversível de choque refratário a fluidos e vasopressores, frequentemente subdiagnosticada em pacientes com antecedente de uso crônico de corticoides. O tema integra endocrinologia e terapia intensiva e é de alta relevância em provas de residência, sobretudo em questões que associam doenças autoimunes (artrite reumatoide) ao uso de corticoides e a desfechos hemodinâmicos.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O uso prolongado de glicocorticoides exógenos suprime o eixo hipotálamo-hipófise-adrenal (HHA) por feedback negativo. Em situações de estresse agudo (politrauma, sepse, cirurgia), a demanda de cortisol aumenta, mas a glândula adrenal hipotrofiada não consegue produzir quantidade suficiente. O resultado é insuficiência adrenal relativa, com perda do efeito permissivo do cortisol sobre a resposta vascular às catecolaminas, levando a vasodilatação, extravasamento capilar e choque refratário a fluidos e vasopressores. O tratamento é a administração de hidrocortisona em dose de estresse.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa E - Deve-se verificar se o paciente fazia uso prolongado de corticosteroides, pois a supressão do eixo hipotálamo-hipófise-adrenal pode causar insuficiência adrenal e indicar a administração de glicocorticoide em dose de estresse.</strong> O antecedente de artrite reumatoide é a pista para o uso crônico de corticoides. Diante de choque refratário com vasodilatação, a principal informação adicional é a exposição prévia a glicocorticoides, pois ela permite reconhecer a insuficiência adrenal secundária e instituir hidrocortisona em dose de estresse (por exemplo, 100 mg IV 8/8h ou 50 mg IV 6/6h, ou 200 mg/24h em infusão contínua). Essa conduta pode reverter o choque e reduzir a mortalidade.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Errada. O uso crônico de corticoides não causa hiperestimulação do eixo HHA; ao contrário, suprime o eixo. Não há hiperaldosteronismo agudo nem choque hipovolêmico por diurese osmótica nesse contexto. Distrator que explora o inverso do mecanismo fisiopatológico.</p>
+            <p><strong>Alternativa B</strong> - Parcialmente verdadeira, mas não é a informação mais relevante. AINEs podem agravar a função renal e contribuir para hipotensão, porém o quadro descrito é de choque distributivo com vasodilatação refratária, e a pista da artrite reumatoide aponta para o uso de corticoides e insuficiência adrenal. Distrator que confunde nefrotoxicidade com o mecanismo central do choque.</p>
+            <p><strong>Alternativa C</strong> - Errada. A atividade inflamatória sistêmica pode contribuir para disfunção vascular, mas não é o mecanismo principal nem há indicação de terapia imunomoduladora específica no manejo imediato do choque. Distrator que desvia o foco para a doença de base.</p>
+            <p><strong>Alternativa D</strong> - Parcialmente verdadeira, mas não é a informação mais relevante. Os DMARDs aumentam o risco de infecção e podem favorecer choque séptico, mas o quadro descrito é de choque refratário com vasodilatação, e a pista da artrite reumatoide remete ao uso de corticoides. Distrator que explora outra complicação do tratamento da AR.</p>
+            <p><strong>Alternativa E</strong> - Correta. Identifica a supressão do eixo HHA pelo uso prolongado de corticoides como causa de insuficiência adrenal e indica a administração de glicocorticoide em dose de estresse.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“choque refratário a fluidos e vasopressores”:</strong> sugere causas endócrinas, incluindo insuficiência adrenal, além de causas hemorrágicas e sépticas.</li>
+                <li><strong>“vasodilatação periférica acentuada e má distribuição do fluxo sanguíneo”:</strong> aponta para choque distributivo, no qual a insuficiência adrenal é causa reversível.</li>
+                <li><strong>“antecedente de artrite reumatoide”:</strong> pista para uso crônico de glicocorticoides e para supressão do eixo HHA.</li>
+                <li><strong>“informação adicional... mais relevante para o manejo imediato”:</strong> direciona para a conduta que muda o prognóstico, isto é, identificar o uso de corticoides e iniciar dose de estresse.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> reconhecer o choque refratário a fluidos e vasopressores com vasodilatação, sugerindo componente distributivo e possível causa endócrina.</li>
+                <li><strong>Segundo:</strong> revisar o prontuário em busca de antecedentes que sugiram insuficiência adrenal, especialmente uso crônico de corticoides (pista: artrite reumatoide).</li>
+                <li><strong>Terceiro:</strong> na suspeita, administrar hidrocortisona em dose de estresse sem aguardar dosagens hormonais, pois o atraso piora o prognóstico.</li>
+                <li><strong>Quarto:</strong> manter suporte hemodinâmico e investigar outras causas de choque; confirmar o diagnóstico posteriormente com cortisol basal e teste de estimulação com ACTH.</li>
+            </ol>
+            <p>Esse raciocínio treina a habilidade de resolver questões de “conduta inicial” e “próximo passo” em pacientes críticos.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> uso prolongado de corticoides suprime o eixo HHA e causa insuficiência adrenal secundária; no choque refratário com vasodilatação, suspeitar e tratar empiricamente.</li>
+                <li><strong>Números e doses:</strong> hidrocortisona em dose de estresse: 100 mg IV 8/8h ou 50 mg IV 6/6h, ou 200 mg/24h em infusão contínua. Cortisol basal &lt; 10-15 mcg/dL sugere insuficiência; teste de estimulação com ACTH sintético (250 mcg) é o padrão-ouro.</li>
+                <li><strong>Mnemônicos:</strong> “choque refratário + corticoide crônico = pense em insuficiência adrenal e dê hidrocortisona” .</li>
+            </ul>
+            <p>Esses dados já foram cobrados de forma indireta em provas anteriores, especialmente em questões sobre retirada de glicocorticoide crônico e manejo da síndrome de Addison em intercorrências agudas.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Insuficiência adrenal secundária (uso crônico de corticoide)</td>
+                        <td>Choque refratário a fluidos e vasopressores, vasodilatação, hipoglicemia, hiponatremia; antecedente de uso de corticoides.</td>
+                        <td>Cortisol basal baixo; teste de estimulação com ACTH; hipoglicemia e eosinofilia podem sugerir.</td>
+                        <td>Hidrocortisona em dose de estresse; desmame gradual posterior.</td>
+                    </tr>
+                    <tr>
+                        <td>Insuficiência adrenal primária (Addison)</td>
+                        <td>Hiperpigmentação, hiponatremia, hipercalemia, hipotensão; pode ser autoimune.</td>
+                        <td>Cortisol baixo e ACTH elevado; anticorpos antiadrenais.</td>
+                        <td>Reposição de glicocorticoide e mineralocorticoide; dose de estresse em intercorrências.</td>
+                    </tr>
+                    <tr>
+                        <td>Choque séptico</td>
+                        <td>Foco infeccioso, febre, leucocitose, lactato elevado.</td>
+                        <td>Culturas, lactato, exames de imagem.</td>
+                        <td>Antibióticos precoces, ressuscitação volêmica, vasopressores; hidrocortisona em choque refratário.</td>
+                    </tr>
+                    <tr>
+                        <td>Choque cardiogênico</td>
+                        <td>Congestão pulmonar, hipoperfusão, pressão de pulso estreita.</td>
+                        <td>Ecocardiograma, BNP, eletrocardiograma.</td>
+                        <td>Inotrópicos, revascularização quando indicada.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial do choque refratário, não apenas a causa endócrina.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> dosagem de cortisol basal e teste de estimulação com ACTH; na suspeita em paciente crítico, não aguardar exames para tratar.</li>
+                <li><strong>Se fosse sobre tratamento:</strong> hidrocortisona em dose de estresse; não usar dexametasona como reposição crônica.</li>
+                <li><strong>Se fosse sobre prevenção:</strong> desmame gradual de corticoides para evitar crise adrenal; orientar pacientes em uso crônico a aumentar dose em situações de estresse.</li>
+                <li><strong>Se fosse sobre complicações:</strong> crise adrenal, hipoglicemia, hiponatremia, hipercalemia (na primária), choque refratário.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q58</td>
+                        <td>Qual manifestação está relacionada à insuficiência suprarrenal aguda?</td>
+                        <td>Manifestações clínicas da insuficiência adrenal</td>
+                        <td>C (hipotermia)</td>
+                        <td>Reforça o reconhecimento clínico da insuficiência adrenal; a questão atual cobra a suspeita no choque refratário.</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q25</td>
+                        <td>Uso e retirada do glicocorticoide crônico; assinale a INCORRETA.</td>
+                        <td>Supressão do eixo HHA e síndrome de retirada</td>
+                        <td>D (sintomas da retirada não ocorrem com doses fisiológicas)</td>
+                        <td>Aborda a supressão do eixo HHA pelo uso crônico, base fisiopatológica da questão atual.</td>
+                    </tr>
+                    <tr>
+                        <td>2023 - Q3</td>
+                        <td>Paciente com síndrome de Addison em uso de hidrocortisona chega com febre e taquicardia; suspender o corticoide?</td>
+                        <td>Manejo da insuficiência adrenal em intercorrência aguda</td>
+                        <td>E (ambas as assertivas falsas; não se deve suspender, e sim fazer dose de estresse)</td>
+                        <td>Relaciona-se diretamente: na intercorrência aguda, a conduta é aumentar o glicocorticoide (dose de estresse), não suspender.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q1</td>
+                        <td>Choque séptico refratário com vasodilatação; qual droga vasoativa iniciar?</td>
+                        <td>Manejo do choque distributivo</td>
+                        <td>D (noradrenalina)</td>
+                        <td>Contextualiza o choque distributivo; a questão atual acrescenta a causa endócrina reversível.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q49</td>
+                        <td>Paciente em choque; qual droga utilizar?</td>
+                        <td>Manejo do choque</td>
+                        <td>A (epinefrina)</td>
+                        <td>Complementa o manejo hemodinâmico; a questão atual foca na insuficiência adrenal.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q50</td>
+                        <td>Paciente com choque séptico; qual conduta inicial?</td>
+                        <td>Ressuscitação volêmica no choque</td>
+                        <td>C (infusão de cristaloide)</td>
+                        <td>Contextualiza o choque refratário; a questão atual aborda a refratariedade por causa endócrina.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q44</td>
+                        <td>Choque hipovolêmico; qual conduta?</td>
+                        <td>Ressuscitação volêmica</td>
+                        <td>C (cristaloides)</td>
+                        <td>Reforça o manejo inicial do choque; a questão atual discute a refratariedade e a insuficiência adrenal.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema insuficiência adrenal apareceu de forma direta em 3 questões (2006, 2007, 2023) e o manejo do choque em outras 4 (2013, 2016, 2018, 2020). A banca alterna entre cobrar manifestações clínicas, supressão do eixo HHA e conduta na intercorrência aguda; não há questão prévia que tenha cobrado diretamente a insuficiência adrenal como causa de choque refratário no politraumatizado.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> insuficiência adrenal relativa no paciente crítico, dose de estresse de hidrocortisona no choque refratário e interpretação do teste de estimulação com ACTH.</p>
+            <p><strong>Evolução da cobrança:</strong> as questões anteriores foram mais voltadas ao reconhecimento clínico e à retirada do corticoide; a próxima prova pode cobrar a aplicação prática no paciente crítico.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> memorizar a dose de estresse de hidrocortisona, a relação entre uso crônico de corticoide e insuficiência adrenal, e a conduta de não suspender o corticoide em intercorrências agudas.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1 - Artrite reumatoide:</strong> doença autoimune crônica tratada com corticoides e DMARDs; o uso prolongado de glicocorticoides suprime o eixo HHA.</li>
+                <li><strong>Conexão 2 - Choque séptico:</strong> a insuficiência adrenal relativa é uma das causas de refratariedade a vasopressores; a hidrocortisona é considerada em choque séptico refratário.</li>
+                <li><strong>Conexão 3 - Desmame de corticoides:</strong> a retirada abrupta pode precipitar crise adrenal; o desmame gradual e a orientação sobre dose de estresse são fundamentais.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é assinalar a alternativa D (DMARDs e risco de infecção) ou a B (AINEs e função renal), que são informações verdadeiras, mas não as mais relevantes para o manejo imediato do choque refratário com vasodilatação. A classificação do erro é <strong>erro de leitura/interpretação</strong> ou <strong>lacuna de conhecimento</strong> sobre a insuficiência adrenal secundária. A ação corretiva é fixar a associação “choque refratário + uso crônico de corticoide = insuficiência adrenal → hidrocortisona em dose de estresse” e revisar o mecanismo de supressão do eixo HHA.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na UTI, todo paciente com choque refratário a fluidos e vasopressores deve ter o prontuário revisado para uso prévio de corticoides. Na suspeita de insuficiência adrenal, a hidrocortisona em dose de estresse deve ser iniciada sem aguardar dosagens hormonais, pois o atraso piora o prognóstico. A confirmação diagnóstica é feita posteriormente, com cortisol basal e teste de estimulação com ACTH.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Eixo hipotálamo-hipófise-adrenal e supressão por glicocorticoides exógenos.</li>
+                <li>Insuficiência adrenal primária vs secundária.</li>
+                <li>Dose de estresse de hidrocortisona e desmame.</li>
+                <li>Teste de estimulação com ACTH e interpretação do cortisol basal.</li>
+                <li>Choque distributivo e refratariedade a vasopressores.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Sabiston Textbook of Surgery, 21ª edição.</p>
+            <p>2. Harrison - Medicina Interna, 21ª edição.</p>
+            <p>3. Schwartz's Principles of Surgery, 11ª edição.</p>
+            <p>4. Surviving Sepsis Campaign Guidelines (2021).</p>
+            <p>5. Diretrizes da Sociedade Brasileira de Endocrinologia e Metabologia para insuficiência adrenal.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+```
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

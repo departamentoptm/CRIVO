@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 47 - Prevenção e Rastreamento do Câncer: Princípios de Detecção Precoce e Prevenção Primária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Prevenção e Rastreamento do Câncer: Princípios de Detecção Precoce e Prevenção Primária</div>
+        <h1>Questão 47</h1>
+        <div class="question-text">
+            <p>Paciente comparece à consulta de rotina na Unidade Básica de Saúde, relata preocupação com o risco de desenvolver neoplasias, mencionando ter lido matérias na internet sobre novos testes e estratégias de rastreamento de câncer. Não possui histórico familiar de neoplasias de início precoce, é vacinado e nega qualquer sintoma. Com base nos princípios de prevenção e detecção precoce do câncer, assinale a alternativa correta.</p>
+        </div>
+
+```
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - Os testes de detecção precoce de múltiplos cânceres (MCED), baseados na pesquisa de biomarcadores sanguíneos circulantes, são recomendados para o rastreamento rotineiro em adultos assintomáticos devido à sua comprovada redução na mortalidade global por neoplasias.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - A suplementação de vitaminas e minerais é uma estratégia recomendada, uma vez que ensaios clínicos demonstraram redução significativa na incidência global de tumores sólidos.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - A vacinação contra o vírus da hepatite B representa uma estratégia de prevenção primária eficaz na redução do risco de desenvolvimento de câncer hepático, consequente ao controle da infecção crônica por este agente oncogênico.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - A demonstração de um aumento no diagnóstico de tumores em estágios precoces é suficiente para comprovar o benefício real de um teste de rastreamento, dispensando a necessidade de demonstrar a redução na mortalidade causa-específica.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - O exame de toque retal isolado é recomendado pelas principais diretrizes como o método não invasivo de escolha para o rastreamento inicial do câncer colorretal em adultos assintomáticos.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Medicina Preventiva e Social / Saúde Coletiva / Atenção Primária à Saúde.</p>
+            <p><strong>Tema:</strong> Princípios de prevenção e detecção precoce do câncer; prevenção primária versus rastreamento; danos do sobrediagnóstico e do sobretratamento.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, especialmente em saúde coletiva e medicina de família. A banca costuma cobrar a distinção entre prevenção primária, secundária e quaternária, além de exigir que o candidato reconheça quais estratégias têm benefício comprovado em desfechos duros, como redução de mortalidade, e não apenas aumento de diagnóstico precoce.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>O câncer resulta de alterações genéticas e epigenéticas acumuladas, com influência de exposições ambientais e infecções crônicas. A prevenção primária atua antes do surgimento da doença, reduzindo exposições oncogênicas. A vacinação contra hepatite B evita a infecção crônica pelo vírus B, que é um dos principais fatores de risco para cirrose e carcinoma hepatocelular. Assim, a vacina reduz a incidência de câncer hepático por meio do controle de um agente oncogênico. Já o rastreamento é prevenção secundária e só deve ser recomendado quando há evidência de redução de mortalidade, com balanço favorável entre benefícios e danos.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa C está correta porque a vacinação contra hepatite B é uma medida de prevenção primária comprovadamente eficaz para reduzir a infecção crônica pelo HBV, a cirrose e o carcinoma hepatocelular. Trata-se de estratégia segura, incorporada ao calendário vacinal, com impacto populacional relevante. O enunciado descreve paciente assintomático, sem histórico familiar de neoplasia de início precoce, o que reforça a importância de estratégias de prevenção primária e de rastreamento baseadas em evidências, e não de testes indiscriminados.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Incorreta. Os testes MCED (detecção precoce de múltiplos cânceres) ainda não têm comprovação de redução de mortalidade global que justifique rastreamento rotineiro em adultos assintomáticos. O aumento de diagnósticos pode representar sobrediagnóstico. Esse tipo de distrator já apareceu em questões sobre sobrediagnóstico e rastreamento (ex.: 2017 - Q91 e Q98).</p>
+            <p><strong>Alternativa B</strong> - Incorreta. A suplementação rotineira de vitaminas e minerais não demonstrou redução significativa da incidência global de tumores sólidos; algumas suplementações podem até trazer riscos. A ideia de “vitamina previne câncer” é distrator recorrente em prevenção primária.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. O aumento do diagnóstico de tumores em estágios precoces não prova benefício de um teste de rastreamento. É necessário demonstrar redução de mortalidade causa-específica, pois pode haver viés de tempo de antecedência (lead-time bias), viés de comprimento e sobrediagnóstico. Tema já cobrado em 2017 - Q98 e 2017 - Q100.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. O toque retal isolado não é recomendado como método de escolha para rastreamento inicial do câncer colorretal em adultos assintomáticos. As estratégias recomendadas incluem pesquisa de sangue oculto nas fezes, colonoscopia, sigmoidoscopia ou outras modalidades conforme risco e diretrizes. Distrator semelhante apareceu em 2018 - Q3 e 2018 - Q60.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“Princípios de prevenção e detecção precoce”:</strong> direciona para a distinção entre prevenção primária, rastreamento e prevenção quaternária.</li>
+                <li><strong>“Não possui histórico familiar de neoplasias de início precoce”:</strong> sugere risco habitual, no qual não se indicam testes experimentais ou rastreamentos não validados.</li>
+                <li><strong>“É vacinado e nega qualquer sintoma”:</strong> reforça o papel da prevenção primária e a ausência de indicação de investigação sintomática.</li>
+                <li><strong>“Matérias na internet sobre novos testes”:</strong> alerta para o risco de recomendações sem evidência e de sobrediagnóstico.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> classificar o paciente como assintomático e de risco habitual, sem sinais de alerta.</li>
+                <li><strong>Segundo:</strong> diferenciar prevenção primária (vacinas, cessação de tabagismo, controle de infecções oncogênicas) de rastreamento (prevenção secundária).</li>
+                <li><strong>Terceiro:</strong> avaliar se o teste proposto tem evidência de redução de mortalidade e balanço benefício-dano favorável.</li>
+                <li><strong>Quarto:</strong> recomendar apenas estratégias validadas e aconselhar sobre sobrediagnóstico e riscos de intervenções desnecessárias.</li>
+            </ol>
+            <p>Esse raciocínio treina a habilidade de resolver questões de “conduta inicial” e “princípios de rastreamento”.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> vacinação contra HBV é prevenção primária do carcinoma hepatocelular; HPV é agente oncogênico para câncer cervical; tabagismo é o principal fator de risco evitável para câncer de pulmão.</li>
+                <li><strong>Números e doses:</strong> rastreamento de câncer colorretal em adultos de 50 a 75 anos; mamografia a cada 2 anos entre 50 e 74 anos; citologia cervical em mulheres de 25 a 64 anos conforme diretrizes; vacinação contra HBV no calendário infantil e em grupos de risco.</li>
+                <li><strong>Mnemônicos:</strong> “SPPIN/SNNOUT” para sensibilidade e especificidade; “prevenção primária = antes da doença; secundária = rastreamento; terciária = reabilitação; quaternária = evitar danos da medicalização”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em questões sobre hepatite B (2006 - Q57; 2008 - Q83), HPV (2006 - Q87), rastreamento (2018 - Q3; 2018 - Q60) e sobrediagnóstico (2017 - Q91; 2017 - Q98).</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Condição/Estratégia</th>
+                        <th>Sinais/Sintomas que diferenciam</th>
+                        <th>Exame/Diagnóstico</th>
+                        <th>Conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prevenção primária (ex.: vacina HBV)</td>
+                        <td>Paciente assintomático; foco em redução de exposição oncogênica</td>
+                        <td>Avaliação vacinal e de fatores de risco</td>
+                        <td>Vacinar, cessar tabagismo, controlar infecções crônicas</td>
+                    </tr>
+                    <tr>
+                        <td>Rastreamento (prevenção secundária)</td>
+                        <td>Assintomático, faixa etária/risco definidos</td>
+                        <td>Mamografia, colonoscopia, citologia cervical, PSA compartilhado</td>
+                        <td>Somente se evidência de redução de mortalidade e decisão compartilhada</td>
+                    </tr>
+                    <tr>
+                        <td>Prevenção quaternária</td>
+                        <td>Paciente exposto a testes ou tratamentos excessivos</td>
+                        <td>Revisão crítica de indicações e evidências</td>
+                        <td>Evitar sobrediagnóstico, sobretratamento e medicalização</td>
+                    </tr>
+                    <tr>
+                        <td>Investigação de sintomas</td>
+                        <td>Presença de sinais de alerta ou queixa clínica</td>
+                        <td>Investigação dirigida, não rastreamento</td>
+                        <td>Diagnóstico e tratamento oportunos</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre prevenção, rastreamento e investigação de sintomas.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre prevenção primária:</strong> a resposta poderia envolver vacinação contra HPV/HBV, cessação do tabagismo ou redução de exposição solar.</li>
+                <li><strong>Se fosse sobre rastreamento:</strong> a resposta poderia envolver mamografia, colonoscopia, citologia cervical ou PSA com decisão compartilhada.</li>
+                <li><strong>Se fosse sobre danos:</strong> a resposta poderia envolver sobrediagnóstico, sobretratamento e prevenção quaternária.</li>
+                <li><strong>Se fosse sobre hepatite B:</strong> a resposta poderia envolver vacinação, sorologia e risco de carcinoma hepatocelular.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q57</td>
+                        <td>Afirmações sobre hepatites virais, incluindo vacinação de cirurgiões contra hepatite B.</td>
+                        <td>Prevenção da hepatite B e risco ocupacional.</td>
+                        <td>C</td>
+                        <td>Reforça a vacinação contra HBV como medida preventiva, base da alternativa correta.</td>
+                    </tr>
+                    <tr>
+                        <td>2008 - Q83</td>
+                        <td>Questão sobre hepatites virais e vacinação de cirurgiões contra hepatite B.</td>
+                        <td>Prevenção primária e hepatite B.</td>
+                        <td>C</td>
+                        <td>Mesmo tema da vacina HBV como prevenção; cobrança recorrente.</td>
+                    </tr>
+                    <tr>
+                        <td>2006 - Q87</td>
+                        <td>HPV: subtipos oncogênicos, transmissão, coilócitos e colposcopia.</td>
+                        <td>HPV e câncer cervical.</td>
+                        <td>B</td>
+                        <td>Relaciona infecção oncogênica e prevenção; conecta-se à lógica de vacinação e rastreamento.</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q86</td>
+                        <td>Casos de câncer cervical invasivo após citologias negativas; possíveis explicações.</td>
+                        <td>Limitações do rastreamento e falsos-negativos.</td>
+                        <td>D</td>
+                        <td>Mostra que rastreamento não é infalível e exige interpretação crítica.</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q58</td>
+                        <td>Palestra com maior impacto na redução de mortalidade por neoplasia.</td>
+                        <td>Prevenção primária do câncer.</td>
+                        <td>C</td>
+                        <td>Reforça que prevenção primária (ex.: não fumar) tem grande impacto.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q91</td>
+                        <td>Gráfico sobre sobrediagnóstico em câncer de tireoide e melanoma.</td>
+                        <td>Sobrediagnóstico e rastreamento.</td>
+                        <td>E</td>
+                        <td>Alerta contra testes que aumentam diagnóstico sem reduzir mortalidade.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q98</td>
+                        <td>Mamografia e sobrediagnóstico.</td>
+                        <td>Benefício versus dano do rastreamento.</td>
+                        <td>C</td>
+                        <td>Reforça que diagnóstico precoce não é suficiente; é preciso reduzir mortalidade.</td>
+                    </tr>
+                    <tr>
+                        <td>2017 - Q100</td>
+                        <td>Rastreamento do câncer de próstata com PSA.</td>
+                        <td>Rastreamento e decisão compartilhada.</td>
+                        <td>B</td>
+                        <td>Exemplo de rastreamento que exige evidência e individualização.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q3</td>
+                        <td>Indicações de rastreamento em homem tabagista de 58 anos.</td>
+                        <td>Rastreamento de câncer e vacinação.</td>
+                        <td>D</td>
+                        <td>Mostra que nem todo rastreamento é indicado para todos.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q60</td>
+                        <td>Rastreamento do câncer de próstata.</td>
+                        <td>PSA, toque retal e evidências.</td>
+                        <td>E</td>
+                        <td>Contrapõe-se ao distrator E da questão atual (toque retal isolado).</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q100</td>
+                        <td>Controle periódico de saúde em pessoas assintomáticas.</td>
+                        <td>Rastreamento e exames de rotina.</td>
+                        <td>A</td>
+                        <td>Reforça o uso racional de exames e a necessidade de evidência.</td>
+                    </tr>
+                    <tr>
+                        <td>2024 - Q88</td>
+                        <td>Estratégias de prevenção do câncer de colo uterino no SUS.</td>
+                        <td>Prevenção primária e secundária.</td>
+                        <td>E</td>
+                        <td>Conecta vacinação, rastreamento e acesso na APS.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 12 questões distribuídas ao longo de 2006-2026. A banca alterna entre prevenção primária (vacinas, tabagismo), rastreamento (mamografia, colonoscopia, citologia, PSA) e danos do rastreamento (sobrediagnóstico e sobretratamento).</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Uso rotineiro de testes multicâncer (MCED) e suplementação de vitaminas/minerais para prevenção de câncer. Esses temas podem surgir como distratores em questões futuras sobre prevenção quaternária e rastreamento baseado em evidências.</p>
+            <p><strong>Evolução da cobrança:</strong> Em provas mais antigas, o foco era reconhecer a vacina contra hepatite B e o HPV. Em provas recentes, a banca passou a cobrar raciocínio crítico sobre benefícios e danos do rastreamento, sobrediagnóstico e decisão compartilhada.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> Revisar níveis de prevenção, critérios de rastreamento, viés de tempo de antecedência, sobrediagnóstico e prevenção quaternária. Decorar que vacinação contra HBV é prevenção primária do câncer hepático e que MCED não é rastreamento rotineiro.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Hepatite B crônica → cirrose → carcinoma hepatocelular. A vacinação contra HBV é, portanto, prevenção primária do câncer de fígado.</li>
+                <li><strong>Conexão 2:</strong> HPV → lesões precursoras → câncer cervical. Vacinação contra HPV e rastreamento citológico são estratégias complementares.</li>
+                <li><strong>Conexão 3:</strong> Tabagismo → câncer de pulmão, cabeça e pescoço, bexiga. Cessação do tabagismo é prevenção primária e deve ser abordada em toda consulta.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é supervalorizar “novos testes” ou acreditar que diagnosticar mais precocemente já prova benefício. Trata-se de erro de conhecimento/estratégia. A correção consiste em: (1) diferenciar prevenção primária de rastreamento; (2) exigir desfechos duros (mortalidade) para recomendar rastreamento; (3) reconhecer sobrediagnóstico; (4) memorizar que a vacina contra HBV previne câncer hepático. Para não errar novamente, revisar prevenção quaternária e vieses de rastreamento.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na Atenção Primária, o médico deve orientar o paciente assintomático sobre medidas preventivas com evidência, como vacinação, cessação do tabagismo, alimentação saudável e atividade física, além de indicar rastreamentos conforme faixa etária e risco. Também deve evitar exames indiscriminados, explicar riscos de sobrediagnóstico e praticar decisão compartilhada. A vacinação contra hepatite B é exemplo de intervenção simples, segura e com impacto na prevenção do câncer hepático.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Prevenção primária, secundária, terciária e quaternária.</li>
+                <li>Lead-time bias, length-time bias e sobrediagnóstico.</li>
+                <li>Vacinação contra hepatite B e HPV.</li>
+                <li>Rastreamento do câncer colorretal, mama, colo uterino e próstata.</li>
+                <li>Decisão compartilhada e medicina baseada em evidências.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Instituto Nacional de Câncer (INCA). Diretrizes para a detecção precoce do câncer.</p>
+            <p>2. Ministério da Saúde. Cadernos de Atenção Primária e Calendário Nacional de Vacinação.</p>
+            <p>3. US Preventive Services Task Force. Cancer screening recommendations.</p>
+            <p>4. World Health Organization. Guide to cancer early diagnosis.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+
+<script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+```
+
+</body>
+</html>
