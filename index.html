@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a2a6c">
 <title>CRIVO - UNIOESTE</title>
 <style>
     * { box-sizing: border-box; }
@@ -11,20 +12,21 @@
         display: flex; flex-direction: column; overflow: hidden;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .fab-bar {
-        position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 1000;
-        display: flex; gap: 8px; align-items: center;
+    .action-btn {
+        background: #28a745; color: white; border: 1px solid rgba(255,255,255,.4);
+        border-radius: 1rem; padding: .4rem .8rem;
+        font: inherit; font-size: .8rem; font-weight: bold; font-family: inherit;
+        cursor: pointer; white-space: nowrap;
+        display: inline-flex; align-items: center; gap: .3rem;
+        transition: filter .15s;
     }
-    .fab-bar[hidden] { display: none; }
-    .save-fab {
-        background: #28a745; color: white; border: 2px solid rgba(255,255,255,.7); border-radius: 22px;
-        padding: 7px 18px; font: bold 14px inherit; font-family: inherit; cursor: pointer;
-        box-shadow: 0 3px 12px rgba(0,0,0,.3); white-space: nowrap;
-    }
-    .save-fab:hover { filter: brightness(1.1); }
-    .save-fab.unsaved { background: #e8890c; }
-    .grifar-fab { background: #e8890c; }
-    .anki-fab { background: #6f42c1; }
+    .action-btn:hover { filter: brightness(1.15); }
+    .action-btn.unsaved { background: #e8890c; }
+    .action-btn.grifar-fab { background: #e8890c; }
+    .action-btn.anki-fab { background: #6f42c1; }
+    .action-btn.refazer-fab { background: #fd7e14; }
+    .action-btn.historico-fab { background: #17a2b8; }
+    .action-btn .ico { font-size: 1.05em; line-height: 1; }
     .crivo-highlight { cursor: pointer; padding: 1px 0; border-radius: 2px; }
     .screen { display: flex; flex-direction: column; flex: 1; min-height: 0; }
     .screen.hidden { display: none; }
@@ -75,13 +77,13 @@
     .auth-divider { border: none; border-top: 1px solid #e5e5e5; margin: 6px 0 2px; }
 
     .top-bar {
-        height: 60px; background: #1a2a6c; color: white;
-        display: flex; align-items: center; justify-content: space-between;
+        min-height: 60px; background: #1a2a6c; color: white;
+        display: flex; align-items: center;
         padding: 0 20px; font-size: 16px; font-weight: bold;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100; flex-shrink: 0;
         gap: 10px; flex-wrap: wrap;
     }
-    .top-bar-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .top-bar-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; flex: 1 1 auto; min-width: 0; }
     .icon-btn {
         background: rgba(255,255,255,0.15); color: white; border: none;
         width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
@@ -89,16 +91,40 @@
         transition: background 0.2s;
     }
     .icon-btn:hover { background: rgba(255,255,255,0.3); }
-    .exam-select, .year-select {
-        padding: 7px 12px; border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.3);
-        background: rgba(255,255,255,0.1); color: white;
-        font-size: 14px; font-weight: bold; font-family: inherit; cursor: pointer;
-        max-width: 180px;
+
+    .multiselect { position: relative; }
+    .multiselect-btn {
+        padding: .45rem .9rem; border-radius: 1.4rem;
+        border: 1px solid rgba(255,255,255,.3);
+        background: rgba(255,255,255,.1); color: white;
+        font: inherit; font-size: .875rem; font-weight: bold; cursor: pointer;
+        max-width: 11rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
-    .exam-select:focus, .year-select:focus { outline: none; border-color: white; background: rgba(255,255,255,0.2); }
-    .exam-select option, .year-select option { background: #1a2a6c; color: white; }
-    .nav-container { display: flex; align-items: center; gap: 8px; }
+    .multiselect-btn:hover { background: rgba(255,255,255,.2); }
+    .multiselect-panel {
+        position: absolute; top: calc(100% + 4px); left: 0;
+        background: white; color: #333; border: 1px solid #ddd; border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,.2);
+        padding: .5rem .75rem; z-index: 300; min-width: 12rem;
+        max-height: 50vh; overflow-y: auto; font-size: .9rem; font-weight: normal;
+    }
+    .multiselect-panel label {
+        display: flex; align-items: center; gap: .4rem;
+        padding: .3rem .1rem; cursor: pointer;
+    }
+    .multiselect-panel label input { width: 16px; height: 16px; cursor: pointer; }
+    .multiselect-panel hr { border: none; border-top: 1px solid #eee; margin: .3rem 0; }
+
+    .disciplina-select {
+        padding: .45rem .75rem; border-radius: 1.4rem;
+        border: 1px solid rgba(255,255,255,.3);
+        background: rgba(255,255,255,.1); color: white;
+        font: inherit; font-size: .875rem; font-weight: bold; cursor: pointer;
+        max-width: 11rem;
+    }
+    .disciplina-select option { background: #1a2a6c; color: white; }
+
+    .nav-container { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
     .go-to-input {
         padding: 6px 12px; border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.3);
@@ -118,9 +144,9 @@
     .iframe-container { flex: 1; min-height: 0; width: 100%; border: none; background: white; }
 
     .bottom-nav {
-        height: 70px; background: white; display: flex; justify-content: space-between;
+        min-height: 70px; background: white; display: flex; justify-content: space-between;
         align-items: center; padding: 0 30px; border-top: 1px solid #e0e0e0;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 100; flex-shrink: 0;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 100; flex-shrink: 0; gap: .5rem;
     }
     .nav-btn {
         background: linear-gradient(90deg, #007bff, #6f42c1);
@@ -138,6 +164,27 @@
     }
     .max-time-label { font-size: 14px; color: #6c757d; }
 
+    .bottom-center {
+        display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; justify-content: center;
+        flex: 1 1 auto; min-width: 0;
+    }
+    .bottom-filters {
+        display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+    }
+    .bottom-filters label {
+        display: flex; align-items: center; gap: .3rem;
+        font-size: .8rem; color: #495057; cursor: pointer; white-space: nowrap;
+    }
+    .bottom-filters input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+    .bottom-filters input[type="number"] {
+        width: 4.5rem; padding: .35rem .4rem; border: 1px solid #ddd;
+        border-radius: 6px; font: inherit; text-align: center; font-size: .8rem;
+    }
+    .pos-indicator {
+        background: #e9ecef; color: #495057; padding: .3rem .7rem;
+        border-radius: 1rem; font-size: .8rem; font-weight: bold; white-space: nowrap;
+    }
+
     #progressScreen { background: #f8f9fa; overflow: hidden; }
     .progress-header {
         background: #1a2a6c; color: white; padding: 20px;
@@ -151,6 +198,21 @@
     }
     .back-btn:hover { background: rgba(255,255,255,0.3); }
     .progress-content { flex: 1; overflow-y: auto; padding: 20px; max-width: 1000px; margin: 0 auto; width: 100%; }
+
+    .gab-filters {
+        display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem;
+        padding: .75rem; background: white; border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,.05);
+    }
+    .gab-filters select {
+        padding: .4rem .6rem; border: 1px solid #ddd; border-radius: 8px;
+        font: inherit; font-size: .85rem;
+    }
+    .gab-filters label {
+        display: flex; align-items: center; gap: .3rem; font-size: .85rem; cursor: pointer;
+    }
+    .gab-filters input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+
     .summary-stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
     .stat-card {
         background: white; padding: 15px 20px; border-radius: 10px;
@@ -159,16 +221,32 @@
     }
     .stat-number { font-size: 28px; font-weight: bold; color: #1a2a6c; }
     .stat-label { font-size: 12px; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; }
+
     .exam-block { margin-bottom: 30px; }
-    .exam-title { color: #1a2a6c; margin: 0 0 5px 0; font-size: 20px; }
+    .exam-title { color: #1a2a6c; margin: 0; font-size: 20px; }
     .year-block { margin-bottom: 18px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-    .year-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .year-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; flex-wrap: wrap; gap: .3rem .6rem; }
     .year-head h3 { margin: 0; font-size: 15px; color: #1a2a6c; }
     .year-head span { font-size: 12px; color: #6c757d; }
+    .group-header {
+        display: flex; align-items: center; gap: .5rem; margin: 0 0 .5rem 0; flex-wrap: wrap;
+    }
+    .group-header .counts { font-size: .75rem; color: #6c757d; }
+    .group-header .tempo-counts { font-size: .75rem; color: #495057; background: #f1f3f5; padding: .1rem .5rem; border-radius: .6rem; }
+    .refazer-grupo {
+        background: #6c757d; color: white; border: none; padding: .25rem .65rem;
+        border-radius: 1rem; font: inherit; font-size: .75rem; cursor: pointer;
+    }
+    .refazer-grupo:hover { background: #5a6268; }
+    .refazer-grupo.restaurar-grupo { background: #28a745; }
+    .refazer-grupo.restaurar-grupo:hover { background: #1e7e34; }
+    .grupo-acoes { margin-left: auto; display: flex; gap: .3rem; }
+
     .gabarito { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 8px; }
     .chip {
         background: white; border: 2px solid #ced4da; border-radius: 10px; padding: 6px 4px;
         cursor: pointer; font-family: inherit; text-align: center; transition: transform .15s;
+        user-select: none; -webkit-user-select: none;
     }
     .chip:hover { transform: translateY(-2px); box-shadow: 0 3px 8px rgba(0,0,0,.15); }
     .chip .qn { display: block; font-size: 11px; color: #6c757d; }
@@ -178,13 +256,47 @@
     .chip.ok .ans { color: #28a745; }
     .chip.bad { border-color: #dc3545; background: #fdecee; }
     .chip.bad .ans { color: #dc3545; }
+    .chip.gray { background:#e9ecef; border-color:#ced4da; color:#6c757d; cursor:pointer; }
+    .chip.gray .ans { color:#6c757d; }
+    .chip.gray .qn { font-size:.85rem; font-weight:bold; }
+    .chip { -webkit-touch-callout: none; }
+    .sub-block { margin: 0 0 .9rem; padding-left: .75rem; border-left: 3px solid #dde1ee; }
+    .sub-title { margin: 0; font-size: 1rem; color: #1a2a6c; }
+    [hidden] { display: none !important; }
+
     .empty-msg { text-align: center; padding: 60px 20px; color: #6c757d; font-size: 16px; }
     .legend { font-size: 12px; color: #6c757d; margin-bottom: 15px; }
 
-    /* ============================================================
-       RESPONSIVO — tamanhos em rem; a raiz acompanha a largura da tela
-       (≈16px em desktop até 1280px; 13px em celulares/tablets; até 22px em telas grandes)
-       ============================================================ */
+    .chip-menu {
+        position: fixed; background: white; border: 1px solid #ddd;
+        border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.25);
+        z-index: 3000; padding: .25rem 0; font-size: .9rem; min-width: 12rem;
+    }
+    .chip-menu button {
+        display: block; width: 100%; text-align: left;
+        padding: .55rem 1rem; border: none; background: none;
+        font: inherit; cursor: pointer;
+    }
+    .chip-menu button:hover { background: #f0f0f0; }
+
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,.5);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 4000; padding: 20px;
+    }
+    .modal {
+        background: white; border-radius: 12px; padding: 20px;
+        max-width: 520px; width: 100%; max-height: 80vh; overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0,0,0,.3);
+    }
+    .modal h3 { margin-top: 0; color: #1a2a6c; font-size: 1.1rem; }
+    .modal-item {
+        padding: 10px 0; border-bottom: 1px solid #eee;
+        display: flex; justify-content: space-between; align-items: center; gap: 10px;
+        flex-wrap: wrap;
+    }
+    .modal-item:last-child { border-bottom: none; }
+
     :root { --ui: clamp(13px, 0.9vw + 4.5px, 22px); }
     html { font-size: var(--ui); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body {
@@ -194,19 +306,14 @@
     button, select, input, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .ico, .arr { line-height: 1; }
 
-    /* barra Grifar / Salvar / Exportar */
-    .fab-bar { top: .75rem; gap: .5rem; }
-    .save-fab { padding: .45rem 1.1rem; font-size: .875rem; border-radius: 1.4rem; display: inline-flex; align-items: center; justify-content: center; }
-    .save-fab .ico { font-size: 1.05em; }
+    .action-btn { padding: .4rem .8rem; font-size: .8rem; border-radius: 1rem; }
 
-    /* componentes principais */
     .auth-card { padding: 2.5rem; border-radius: 1.25rem; max-width: 27.5rem; max-height: 96vh; max-height: 96dvh; }
     .auth-title { font-size: 1.5rem; margin-bottom: 1.9rem; }
     .auth-input { padding: .75rem 1rem; font-size: .95rem; }
     .auth-btn { padding: .75rem 1.5rem; font-size: 1rem; }
     .top-bar { min-height: 3.75rem; height: auto; padding: .35rem 1.25rem; font-size: 1rem; }
     .icon-btn { width: 2.25rem; height: 2.25rem; min-width: 2.25rem; font-size: 1.15rem; flex-shrink: 0; }
-    .exam-select, .year-select { padding: .45rem .75rem; font-size: .875rem; max-width: 11.25rem; }
     .go-to-input { padding: .4rem .75rem; width: 4.4rem; font-size: .875rem; }
     .go-btn { padding: .4rem .9rem; font-size: .8rem; }
     .bottom-nav { min-height: 4.4rem; height: auto; padding: .4rem 1.9rem; gap: .5rem; flex-wrap: wrap; }
@@ -224,27 +331,16 @@
     .gabarito { grid-template-columns: repeat(auto-fill, minmax(3.6rem, 1fr)); gap: .5rem; }
     .chip .qn { font-size: .7rem; } .chip .ans { font-size: 1.25rem; } .chip .fix { font-size: .65rem; min-height: .8rem; }
 
-    /* telas médias e pequenas (tablets e celulares) e telas baixas (celular deitado):
-       a barra de botões sai de cima da barra superior e vira uma faixa própria */
-    @media (max-width: 1199px), (max-height: 520px) {
-        .fab-bar {
-            position: static; transform: none; width: 100%; flex-shrink: 0; justify-content: center;
-            padding: .3rem .5rem; background: #fff; border-bottom: 1px solid #e0e0e0;
-        }
-        .save-fab { box-shadow: none; border-color: transparent; }
-    }
-
     @media (max-width: 900px) {
         .bottom-nav { padding: .4rem 1rem; }
         .progress-content { padding: 1rem; }
     }
 
-    /* celulares e tablets pequenos */
     @media (max-width: 700px) {
         .top-bar { padding: .4rem .6rem; gap: .4rem; }
-        .top-bar-left { flex: 1 1 auto; min-width: 0; gap: .35rem; flex-wrap: nowrap; }
-        .exam-select, .year-select { flex: 1 1 0; min-width: 0; max-width: none; padding: .45rem .5rem; font-size: .8rem; }
-        .nav-container { margin-left: auto; gap: .35rem; }
+        .top-bar-left { gap: .35rem; }
+        .multiselect-btn, .disciplina-select { font-size: .78rem; padding: .4rem .55rem; max-width: 8rem; }
+        .nav-container { gap: .35rem; }
         .go-to-input { width: 3.6rem; padding: .4rem .4rem; }
         .bottom-nav { padding: .4rem .6rem; gap: .4rem; }
         .nav-btn { padding: .6rem 1rem; font-size: .9rem; }
@@ -259,28 +355,28 @@
         .stat-number { font-size: 1.4rem; }
         .gabarito { grid-template-columns: repeat(auto-fill, minmax(3.3rem, 1fr)); gap: .4rem; }
         .year-block { padding: .75rem; }
-        .year-head { flex-wrap: wrap; gap: .15rem .6rem; }
         .exam-title { font-size: 1.1rem; }
+        .gab-filters select { font-size: .8rem; padding: .35rem .5rem; }
     }
 
-    /* celulares: botões viram só ícone, proporcionais à largura da tela */
     @media (max-width: 560px) {
-        .save-fab { padding: .5rem .9rem; font-size: 1.25rem; min-width: 2.9rem; }
-        .save-fab .lbl:not(.keep) { display: none; }
-        .save-fab .dot { display: inline; margin-left: .15rem; }
+        .action-btn { padding: .4rem .6rem; font-size: 1rem; min-width: 2.4rem; }
+        .action-btn .lbl:not(.keep) { display: none; }
+        .action-btn .dot { display: inline; margin-left: .15rem; }
         .nav-btn .lbl { display: none; }
         .nav-btn { padding: .55rem .9rem; font-size: 1.4rem; line-height: 1; min-width: 3.2rem; }
         .lbl-q { display: none; }
         .max-time-label { font-size: .75rem; }
         .timer-container { gap: .3rem; }
         .home-buttons { gap: .6rem; }
+        .multiselect-btn, .disciplina-select { max-width: 6rem; }
+        .bottom-filters label { font-size: .75rem; }
+        .bottom-filters input[type="number"] { width: 3.5rem; font-size: .75rem; }
     }
     @media (max-width: 400px) {
         .max-time-label:first-child { display: none; }
         .auth-card { padding: 1.25rem; }
     }
-
-    /* telas baixas (celular deitado) */
     @media (max-height: 520px) {
         .top-bar { min-height: 0; padding-top: .25rem; padding-bottom: .25rem; }
         .bottom-nav { min-height: 0; padding-top: .25rem; padding-bottom: .25rem; }
@@ -293,38 +389,459 @@
         .auth-input { padding: .5rem .8rem; }
     }
 
-    /* telas de toque: alvos de toque confortáveis e fonte >= 16px nos campos (evita zoom automático no iOS) */
     @media (pointer: coarse) {
         .icon-btn { width: max(2.25rem, 44px); height: max(2.25rem, 44px); min-width: max(2.25rem, 44px); }
-        .save-fab, .nav-btn, .go-btn, .back-btn, .auth-btn { min-height: 44px; }
-        .auth-input, .go-to-input, .max-time-input, .exam-select, .year-select { font-size: 16px; min-height: 40px; }
+        .action-btn, .nav-btn, .go-btn, .back-btn, .auth-btn { min-height: 44px; }
+        .auth-input, .go-to-input, .max-time-input, .exam-select, .year-select, .disciplina-select { font-size: 16px; min-height: 40px; }
         .chip { min-height: 44px; }
     }
     @media (max-width: 400px) and (pointer: coarse) { .nav-btn { min-height: 44px; } }
+
+/* ============================================================
+   CAMADA VISUAL (apenas aparência — nenhuma função alterada)
+   ============================================================ */
+:root {
+    --navy-950:#0c1440; --navy-900:#111c55; --navy:#1a2a6c; --navy-600:#2b3f9a;
+    --magenta:#A63268; --magenta-600:#c2417f;
+    --bg:#f3f5fb; --surface:#ffffff; --line:#e3e8f4; --line-strong:#d3dbee;
+    --ink:#1b2445; --muted:#66708f;
+    --ok:#16a34a; --bad:#dc2626; --warn:#ea8a0c;
+    --sh-sm:0 1px 2px rgba(17,28,85,.06), 0 2px 8px rgba(17,28,85,.05);
+    --sh-md:0 4px 14px rgba(17,28,85,.10), 0 2px 4px rgba(17,28,85,.05);
+    --sh-lg:0 28px 70px rgba(8,14,50,.40);
+    --ring:0 0 0 4px rgba(43,63,154,.18);
+    --ease:cubic-bezier(.2,.7,.2,1);
+    --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+html { scroll-behavior: smooth; }
+body {
+    background: var(--bg); color: var(--ink);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+input[type="checkbox"], input[type="radio"] { accent-color: var(--navy-600); }
+::selection { background: rgba(166,50,104,.25); }
+button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-visible {
+    outline: 3px solid rgba(255,255,255,.85); outline-offset: 2px;
+    box-shadow: 0 0 0 5px rgba(43,63,154,.55);
+}
+.auth-card input:focus-visible, .bottom-nav input:focus-visible, .gab-filters select:focus-visible {
+    outline: none; box-shadow: var(--ring);
+}
+
+/* ---- animações ---- */
+@keyframes screenIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cardIn   { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes popIn    { from { opacity: 0; transform: scale(.96) translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes dropIn   { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes floatA   { from { transform: translate(0,0) scale(1); } to { transform: translate(6rem,4rem) scale(1.15); } }
+@keyframes floatB   { from { transform: translate(0,0) scale(1); } to { transform: translate(-5rem,-4rem) scale(1.12); } }
+.screen:not(.hidden) { animation: screenIn .35s ease both; }
+
+/* ============================================================
+   TELA DE ACESSO
+   ============================================================ */
+#authScreen {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #0c1440 0%, #1a2a6c 38%, #A63268 100%);
+    background-size: 200% 200%;
+}
+#authScreen::before, #authScreen::after {
+    content: ''; position: absolute; border-radius: 50%; pointer-events: none;
+    filter: blur(60px); opacity: .5;
+}
+#authScreen::before {
+    width: 34rem; height: 34rem; left: -10rem; top: -12rem;
+    background: radial-gradient(circle, #5b78ff, transparent 65%);
+    animation: floatA 15s ease-in-out infinite alternate;
+}
+#authScreen::after {
+    width: 30rem; height: 30rem; right: -9rem; bottom: -12rem;
+    background: radial-gradient(circle, #ff6aa9, transparent 65%);
+    animation: floatB 17s ease-in-out infinite alternate;
+}
+.auth-card {
+    position: relative; z-index: 1;
+    background: linear-gradient(90deg, var(--navy), var(--magenta)) top / 100% 5px no-repeat, #fff;
+    border-radius: 1.5rem;
+    box-shadow: var(--sh-lg), 0 0 0 1px rgba(255,255,255,.25);
+    animation: cardIn .6s var(--ease) both;
+    scrollbar-width: thin;
+}
+.brand-mark {
+    width: 4rem; height: 4rem; margin: .4rem auto 1rem; border-radius: 1.2rem;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--navy-600), var(--magenta));
+    box-shadow: 0 10px 24px rgba(166,50,104,.35), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.brand-mark svg { width: 2.3rem; height: 2.3rem; display: block; }
+.auth-title {
+    font-weight: 800; letter-spacing: .06em;
+    background: linear-gradient(90deg, var(--navy), var(--magenta));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+}
+.auth-lead { color: var(--muted); font-size: .95rem; margin: 0 0 .15rem; }
+.welcome-hello { color: var(--muted); font-size: .95rem; margin: 0 0 .25rem; }
+.welcome-name { font-size: 1.35rem; font-weight: 700; color: var(--navy); margin: 0 0 1.4rem; line-height: 1.25; }
+.auth-input {
+    background: #f7f9fe; color: var(--ink);
+    border: 2px solid var(--line); border-radius: .8rem;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.auth-input::placeholder { color: #98a1bd; }
+.auth-input:hover { border-color: var(--line-strong); }
+.auth-input:focus { background: #fff; border-color: var(--navy-600); box-shadow: var(--ring); }
+.auth-msg { font-weight: 500; }
+.auth-btn {
+    background: linear-gradient(90deg, var(--navy), var(--magenta));
+    box-shadow: 0 6px 16px rgba(26,42,108,.25);
+    letter-spacing: .01em;
+    transition: transform .2s var(--ease), box-shadow .2s, filter .2s;
+}
+.auth-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(166,50,104,.35); filter: brightness(1.06); }
+.auth-btn:active:not(:disabled) { transform: translateY(0); box-shadow: 0 3px 8px rgba(26,42,108,.25); }
+.auth-btn:disabled { opacity: .55; box-shadow: none; }
+.home-buttons { gap: .75rem; }
+.home-btn-start {
+    background: linear-gradient(90deg, #16a34a, #0f9f7a);
+    box-shadow: 0 8px 20px rgba(22,163,74,.35);
+}
+.home-btn-start:hover:not(:disabled) { box-shadow: 0 12px 26px rgba(22,163,74,.45); }
+.home-btn-secondary {
+    background: #f2f5fc; color: var(--navy);
+    box-shadow: inset 0 0 0 1.5px var(--line-strong);
+}
+.home-btn-secondary:hover:not(:disabled) { background: #e8edfa; box-shadow: inset 0 0 0 1.5px var(--navy-600), 0 6px 16px rgba(26,42,108,.12); filter: none; }
+.home-btn-danger {
+    background: #fff; color: #c02a3a;
+    box-shadow: inset 0 0 0 1.5px #f3c2c8;
+}
+.home-btn-danger:hover:not(:disabled) { background: #fff0f2; box-shadow: inset 0 0 0 1.5px #e5737f, 0 6px 16px rgba(220,38,38,.12); filter: none; }
+.auth-link { color: var(--navy-600); }
+
+/* ============================================================
+   BARRA SUPERIOR
+   ============================================================ */
+.top-bar {
+    background: linear-gradient(100deg, var(--navy-950) 0%, var(--navy) 55%, #4b2a70 100%);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 6px 20px rgba(12,20,64,.28);
+}
+.icon-btn {
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16);
+    transition: background .2s, transform .2s var(--ease);
+}
+.icon-btn:hover { background: rgba(255,255,255,.28); transform: translateY(-1px); }
+.icon-btn:active { transform: scale(.94); }
+
+.top-bar .multiselect-btn, .top-bar .disciplina-select {
+    background-color: rgba(255,255,255,.10); color: #fff;
+    border: 1px solid rgba(255,255,255,.22);
+    font-weight: 600;
+    transition: background-color .2s, border-color .2s;
+    -webkit-appearance: none; appearance: none;
+    background-image: var(--chev); background-repeat: no-repeat;
+    background-position: right .7rem center; background-size: .7rem;
+    padding-right: 1.9rem; text-align: left;
+}
+.top-bar .multiselect-btn:hover, .top-bar .disciplina-select:hover {
+    background-color: rgba(255,255,255,.22); border-color: rgba(255,255,255,.4);
+}
+.multiselect-panel {
+    border: 1px solid var(--line); border-radius: .9rem;
+    box-shadow: 0 16px 40px rgba(12,20,64,.28), 0 2px 6px rgba(12,20,64,.08);
+    padding: .4rem; color: var(--ink);
+    animation: dropIn .16s var(--ease) both; scrollbar-width: thin;
+}
+.multiselect-panel label { padding: .45rem .55rem; border-radius: .55rem; transition: background .15s; }
+.multiselect-panel label:hover { background: #eef2fc; }
+.multiselect-panel hr { border-top-color: var(--line); margin: .3rem .3rem; }
+
+.nav-container {
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);
+    padding: .2rem; border-radius: 2rem;
+}
+.lbl-q { padding-left: .6rem; font-weight: 600; letter-spacing: .02em; }
+.go-to-input { border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.12); }
+.go-to-input:focus { background: rgba(255,255,255,.2); box-shadow: 0 0 0 3px rgba(255,255,255,.2); }
+.go-btn {
+    background: linear-gradient(90deg, #16a34a, #14b8a6);
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+}
+.go-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.28); filter: brightness(1.08); }
+
+/* botões de ação (cores por função preservadas) */
+.action-btn { --c: #16a34a; }
+.action-btn.unsaved       { --c: #ea8a0c; }
+.action-btn.grifar-fab    { --c: #ea8a0c; }
+.action-btn.anki-fab      { --c: #6f42c1; }
+.action-btn.refazer-fab   { --c: #f2661c; }
+.action-btn.historico-fab { --c: #0e93ac; }
+.action-btn, .action-btn.unsaved, .action-btn.grifar-fab, .action-btn.anki-fab,
+.action-btn.refazer-fab, .action-btn.historico-fab {
+    background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 60%), var(--c);
+    border: 1px solid rgba(255,255,255,.35);
+    box-shadow: 0 2px 8px rgba(0,0,0,.22);
+    font-weight: 700; letter-spacing: .01em;
+    transition: transform .18s var(--ease), box-shadow .18s, filter .18s;
+}
+.action-btn:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0,0,0,.3); }
+.action-btn:active { transform: translateY(0); box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.action-btn.unsaved { animation: pulseSave 2.2s ease-in-out infinite; }
+@keyframes pulseSave {
+    0%,100% { box-shadow: 0 2px 8px rgba(0,0,0,.22), 0 0 0 0 rgba(234,138,12,.55); }
+    50%     { box-shadow: 0 2px 8px rgba(0,0,0,.22), 0 0 0 7px rgba(234,138,12,0); }
+}
+
+/* ============================================================
+   BARRA INFERIOR
+   ============================================================ */
+.bottom-nav {
+    background: rgba(255,255,255,.94);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -6px 22px rgba(17,28,85,.08);
+}
+.nav-btn {
+    background: linear-gradient(135deg, var(--navy-600), var(--magenta));
+    box-shadow: 0 5px 14px rgba(43,63,154,.30);
+    transition: transform .2s var(--ease), box-shadow .2s, filter .2s;
+}
+.nav-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 9px 20px rgba(166,50,104,.35); filter: brightness(1.05); }
+.nav-btn:active:not(:disabled) { transform: translateY(0); }
+.nav-btn:disabled { background: #d5d9e6; color: #f6f7fb; box-shadow: none; }
+.arr { display: inline-block; transition: transform .2s var(--ease); }
+#prevBtn:hover:not(:disabled) .arr { transform: translateX(-3px); }
+#nextBtn:hover:not(:disabled) .arr { transform: translateX(3px); }
+
+.timer-container {
+    background: #f1f4fc; border: 1px solid var(--line); border-radius: 2rem;
+    padding: .25rem .8rem;
+}
+.timer { color: var(--navy); font-weight: 800; letter-spacing: .02em; }
+.max-time-label { color: var(--muted); }
+.max-time-input, .bottom-filters input[type="number"] {
+    background: #fff; border: 1px solid var(--line-strong); border-radius: .55rem; color: var(--ink);
+    transition: border-color .2s, box-shadow .2s;
+}
+.max-time-input:focus, .bottom-filters input[type="number"]:focus { outline: none; border-color: var(--navy-600); box-shadow: var(--ring); }
+.bottom-filters label { color: #3d4666; font-weight: 500; }
+.pos-indicator {
+    background: linear-gradient(135deg, #e9edfb, #f6e8f0); color: var(--navy);
+    border: 1px solid var(--line); font-variant-numeric: tabular-nums; font-weight: 800;
+}
+.iframe-container { background: #fff; }
+
+/* ============================================================
+   TELA DE PROGRESSO / GABARITO
+   ============================================================ */
+#progressScreen { background: linear-gradient(180deg, #f5f7fc, #edf0f9); }
+.progress-header {
+    background: linear-gradient(100deg, var(--navy-950) 0%, var(--navy) 55%, #4b2a70 100%);
+    box-shadow: 0 6px 20px rgba(12,20,64,.25);
+}
+.progress-header h1 { font-weight: 800; letter-spacing: .01em; }
+.back-btn {
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); font-weight: 600;
+    transition: background .2s, transform .2s var(--ease);
+}
+.back-btn:hover { background: rgba(255,255,255,.28); transform: translateX(-2px); }
+.progress-content { scrollbar-width: thin; scrollbar-color: #c5cde4 transparent; }
+.progress-content::-webkit-scrollbar { width: 10px; }
+.progress-content::-webkit-scrollbar-thumb { background: #c5cde4; border-radius: 10px; border: 2px solid transparent; background-clip: content-box; }
+.multiselect-panel::-webkit-scrollbar, .auth-card::-webkit-scrollbar { width: 8px; }
+.multiselect-panel::-webkit-scrollbar-thumb, .auth-card::-webkit-scrollbar-thumb { background: #c5cde4; border-radius: 8px; }
+
+.gab-filters {
+    background: #fff; border: 1px solid var(--line); border-radius: 1rem; box-shadow: var(--sh-sm);
+}
+.gab-filters select {
+    background: #f7f9fe; color: var(--ink); border: 1px solid var(--line-strong); border-radius: .65rem;
+    transition: border-color .2s, box-shadow .2s, background .2s; cursor: pointer;
+}
+.gab-filters select:hover { border-color: var(--navy-600); background: #fff; }
+.gab-filters label { color: #3d4666; font-weight: 500; }
+
+.summary-stats .stat-card {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--line); border-left: 4px solid var(--navy-600); border-radius: 1rem;
+    background: radial-gradient(circle at 100% 0, rgba(43,63,154,.10), transparent 60%), #fff;
+    box-shadow: var(--sh-sm); transition: transform .2s var(--ease), box-shadow .2s;
+}
+.summary-stats .stat-card:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
+.summary-stats .stat-card:nth-child(2) { border-left-color: var(--ok); background: radial-gradient(circle at 100% 0, rgba(22,163,74,.12), transparent 60%), #fff; }
+.summary-stats .stat-card:nth-child(2) .stat-number { color: var(--ok); }
+.summary-stats .stat-card:nth-child(3) { border-left-color: var(--magenta); background: radial-gradient(circle at 100% 0, rgba(166,50,104,.12), transparent 60%), #fff; }
+.summary-stats .stat-card:nth-child(3) .stat-number { color: var(--magenta); }
+.stat-number { font-weight: 800; letter-spacing: -.01em; }
+.stat-label { font-weight: 600; color: var(--muted); }
+
+.legend {
+    background: #fff; border: 1px solid var(--line); border-radius: .75rem;
+    padding: .6rem .85rem; color: var(--muted); line-height: 1.45;
+}
+.exam-block > .group-header {
+    padding-bottom: .55rem; margin-bottom: .9rem; border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, var(--navy), var(--magenta), rgba(166,50,104,0)) 1;
+}
+.exam-title { font-weight: 800; letter-spacing: .005em; }
+.year-block {
+    border: 1px solid var(--line); border-radius: 1rem; box-shadow: var(--sh-sm);
+    transition: box-shadow .2s;
+}
+.year-block:hover { box-shadow: var(--sh-md); }
+.sub-block { border-left: 3px solid transparent; border-image: linear-gradient(180deg, var(--navy-600), var(--magenta)) 1; }
+.sub-title { font-weight: 700; }
+.group-header .counts {
+    background: #eef2fc; color: #4b5578; padding: .12rem .55rem; border-radius: .7rem; font-weight: 600;
+}
+.group-header .tempo-counts { background: #f6eef3; color: #7a2b58; font-weight: 600; }
+.refazer-grupo {
+    background: #6b7694; border-radius: 1rem; font-weight: 600;
+    transition: background .2s, transform .2s var(--ease), box-shadow .2s;
+}
+.refazer-grupo:hover { background: #576080; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,.18); }
+.refazer-grupo.restaurar-grupo { background: var(--ok); }
+.refazer-grupo.restaurar-grupo:hover { background: #12843c; }
+
+.chip {
+    border: 2px solid var(--line-strong); border-radius: .75rem; box-shadow: 0 1px 2px rgba(17,28,85,.06);
+    transition: transform .18s var(--ease), box-shadow .18s, border-color .18s;
+}
+.chip:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(17,28,85,.16); border-color: var(--navy-600); }
+.chip:active { transform: translateY(0) scale(.97); }
+.chip .qn { font-weight: 600; }
+.chip .ans { font-weight: 800; }
+.chip.ok  { border-color: #3fbf6d; background: linear-gradient(180deg, #f0fbf4, #dcf5e6); }
+.chip.ok:hover  { border-color: var(--ok); box-shadow: 0 8px 18px rgba(22,163,74,.25); }
+.chip.ok .ans, .chip.ok .fix  { color: var(--ok); font-weight: 700; }
+.chip.bad { border-color: #ef6b6b; background: linear-gradient(180deg, #fff4f4, #fde3e5); }
+.chip.bad:hover { border-color: var(--bad); box-shadow: 0 8px 18px rgba(220,38,38,.25); }
+.chip.bad .ans, .chip.bad .fix { color: var(--bad); font-weight: 700; }
+.chip.gray { background: #f4f6fb; border-color: #e1e6f2; box-shadow: none; }
+.chip.gray:hover { background: #fff; border-color: var(--navy-600); }
+.chip.gray .qn { color: #7d87a6; }
+.empty-msg {
+    background: #fff; border: 2px dashed var(--line-strong); border-radius: 1rem; color: var(--muted);
+}
+
+/* ============================================================
+   MENU DE CHIP, MODAL E AVISOS
+   ============================================================ */
+.chip-menu {
+    border: 1px solid var(--line); border-radius: .9rem; padding: .35rem;
+    box-shadow: 0 16px 40px rgba(12,20,64,.30), 0 2px 6px rgba(12,20,64,.08);
+    transform-origin: top left; animation: popIn .14s var(--ease) both;
+}
+.chip-menu button { border-radius: .55rem; color: var(--ink); transition: background .15s; }
+.chip-menu button:hover { background: #eef2fc; }
+.modal-overlay {
+    background: rgba(12,20,64,.55);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    animation: fadeIn .2s ease both;
+}
+.modal {
+    border-radius: 1.2rem; box-shadow: 0 30px 80px rgba(8,14,50,.45);
+    border-top: 5px solid transparent; border-image: linear-gradient(90deg, var(--navy), var(--magenta)) 1;
+    animation: popIn .22s var(--ease) both; scrollbar-width: thin;
+}
+.modal h3 { font-weight: 800; }
+.modal-item { border-bottom-color: var(--line); }
+#crivoToast {
+    background: linear-gradient(90deg, var(--navy-900), #4b2a70) !important;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 2rem !important; font-weight: 600; letter-spacing: .01em;
+    padding: .6rem 1.2rem !important;
+    box-shadow: 0 10px 28px rgba(12,20,64,.4) !important;
+}
+
+/* ============================================================
+   AJUSTES RESPONSIVOS DA CAMADA VISUAL
+   ============================================================ */
+@media (max-width: 700px) {
+    .nav-container { padding: .15rem; }
+    .auth-card { border-radius: 1.25rem; }
+}
+@media (max-width: 560px) {
+    .timer-container { padding: .2rem .55rem; }
+    .brand-mark { width: 3.4rem; height: 3.4rem; border-radius: 1rem; }
+    .brand-mark svg { width: 1.9rem; height: 1.9rem; }
+}
+@media (max-height: 640px) {
+    .brand-mark { width: 3rem; height: 3rem; margin-bottom: .6rem; border-radius: .9rem; }
+    .brand-mark svg { width: 1.7rem; height: 1.7rem; }
+}
+@media (max-height: 520px) {
+    .brand-mark { display: none; }
+    .welcome-name { margin-bottom: .6rem; }
+}
+@media (min-width: 701px) {
+    .top-bar .multiselect-btn, .top-bar .disciplina-select { max-width: 13rem; }
+}
+@media (max-width: 700px) {
+    .top-bar .multiselect-btn, .top-bar .disciplina-select { padding-right: 1.6rem; background-position: right .55rem center; }
+}
+@media (max-width: 560px) {
+    .summary-stats .stat-card { min-width: 0; padding-left: .7rem; padding-right: .5rem; }
+    .stat-label { font-size: .58rem; letter-spacing: .02em; overflow-wrap: anywhere; }
+}
+.auth-card .brand-mark { border-radius: 50%; }
+.auth-card .brand-mark svg { width: 100%; height: 100%; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
 </style>
 </head>
 <body>
-    <div class="fab-bar" id="fabBar" hidden>
-        <button class="save-fab grifar-fab" id="grifarBtn" title="Grifar seleção (Ctrl+Alt)" aria-label="Grifar"><span class="ico">🖍️</span><span class="lbl"> Grifar</span></button>
-        <button class="save-fab" id="saveBtn" title="Baixar um arquivo com todo o seu progresso" aria-label="Salvar progresso"><span class="ico">💾</span><span class="lbl"> Salvar progresso</span></button>
-        <button class="save-fab anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Exportar anki</span></button>
-    </div>
     <input type="file" id="progressFile" accept=".json,application/json" hidden>
 
     <div id="authScreen" class="screen">
         <div class="auth-card">
+            <div class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="1.012" fill="#fff"/>
+                    <circle cx="24.000" cy="15.200" r="2.024" fill="#fff"/>
+                    <circle cx="24.000" cy="6.400" r="3.036" fill="#fff"/>
+                    <circle cx="28.090" cy="16.208" r="2.024" fill="#fff"/>
+                    <circle cx="32.179" cy="8.416" r="3.036" fill="#fff"/>
+                    <circle cx="31.242" cy="19.001" r="2.024" fill="#fff"/>
+                    <circle cx="38.485" cy="14.002" r="3.036" fill="#fff"/>
+                    <circle cx="32.736" cy="22.939" r="2.024" fill="#fff"/>
+                    <circle cx="41.472" cy="21.879" r="3.036" fill="#fff"/>
+                    <circle cx="32.228" cy="27.121" r="2.024" fill="#fff"/>
+                    <circle cx="40.456" cy="30.241" r="3.036" fill="#fff"/>
+                    <circle cx="29.835" cy="30.587" r="2.024" fill="#fff"/>
+                    <circle cx="35.671" cy="37.174" r="3.036" fill="#fff"/>
+                    <circle cx="26.106" cy="32.544" r="2.024" fill="#fff"/>
+                    <circle cx="28.212" cy="41.089" r="3.036" fill="#fff"/>
+                    <circle cx="21.894" cy="32.544" r="2.024" fill="#fff"/>
+                    <circle cx="19.788" cy="41.089" r="3.036" fill="#fff"/>
+                    <circle cx="18.165" cy="30.587" r="2.024" fill="#fff"/>
+                    <circle cx="12.329" cy="37.174" r="3.036" fill="#fff"/>
+                    <circle cx="15.772" cy="27.121" r="2.024" fill="#fff"/>
+                    <circle cx="7.544" cy="30.241" r="3.036" fill="#fff"/>
+                    <circle cx="15.264" cy="22.939" r="2.024" fill="#fff"/>
+                    <circle cx="6.528" cy="21.879" r="3.036" fill="#fff"/>
+                    <circle cx="16.758" cy="19.001" r="2.024" fill="#fff"/>
+                    <circle cx="9.515" cy="14.002" r="3.036" fill="#fff"/>
+                    <circle cx="19.910" cy="16.208" r="2.024" fill="#fff"/>
+                    <circle cx="15.821" cy="8.416" r="3.036" fill="#fff"/>
+                </svg>
+            </div>
             <div class="auth-title">CRIVO - UNIOESTE</div>
 
             <div id="loginArea" class="auth-form">
-                <p style="color:#6c757d;font-size:14px;">Informe o seu RA para entrar</p>
+                <p class="auth-lead">Informe o seu RA para entrar</p>
                 <input type="text" id="raInput" class="auth-input" placeholder="RA (somente números)" inputmode="numeric" autocomplete="off">
                 <div class="auth-msg" id="loginMsg"></div>
                 <button class="auth-btn" id="loginBtn">Entrar</button>
             </div>
 
             <div id="homeArea" style="display:none">
-                <p style="color:#6c757d;margin-bottom:5px;">Bem-vindo(a),</p>
-                <p style="font-size:20px;font-weight:bold;color:#1a2a6c;margin-bottom:25px;" id="welcomeName"></p>
+                <p class="welcome-hello">Bem-vindo(a),</p>
+                <p class="welcome-name" id="welcomeName"></p>
                 <div class="auth-msg" id="homeMsg"></div>
                 <div class="home-buttons">
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
@@ -341,8 +858,24 @@
             <div class="top-bar-left">
                 <button class="icon-btn" id="homeBtn" title="Início">⌂</button>
                 <button class="icon-btn" id="progressBtnResolving" title="Meu Progresso">📊</button>
-                <select id="examSelector" class="exam-select" title="Prova"></select>
-                <select id="yearSelector" class="year-select" title="Ano"></select>
+                <div class="multiselect">
+                    <button class="multiselect-btn" id="bancaMultiBtn" title="Bancas">Bancas: todas</button>
+                    <div class="multiselect-panel" id="bancaMultiPanel" hidden></div>
+                </div>
+                <div class="multiselect">
+                    <button class="multiselect-btn" id="anoMultiBtn" title="Edições">Edições: todas</button>
+                    <div class="multiselect-panel" id="anoMultiPanel" hidden></div>
+                </div>
+                <select id="disciplinaSelector" class="disciplina-select" title="Disciplina">
+                    <option value="">Todas as disciplinas</option>
+                </select>
+                <button class="action-btn refazer-fab" id="refazerBtn" title="Refazer questão atual" aria-label="Refazer questão" hidden><span class="ico">🔄</span><span class="lbl"> Refazer</span></button>
+                <button class="action-btn historico-fab" id="historicoBtn" title="Histórico de respostas" aria-label="Histórico" hidden><span class="ico">📜</span><span class="lbl"> Histórico</span></button>
+                <button class="action-btn grifar-fab" id="grifarBtn" title="Grifar seleção (Ctrl+Alt)" aria-label="Grifar"><span class="ico">🖍️</span><span class="lbl"> Grifar</span></button>
+                <button class="action-btn" id="saveBtn" title="Baixar um arquivo com todo o seu progresso" aria-label="Salvar progresso"><span class="ico">💾</span><span class="lbl"> Salvar</span></button>
+                <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
+                <select id="examSelector" hidden></select>
+                <select id="yearSelector" hidden></select>
             </div>
             <div class="nav-container">
                 <span class="lbl-q" style="font-size:13px;opacity:0.8;">Questão:</span>
@@ -353,11 +886,18 @@
         <iframe id="questionFrame" class="iframe-container" title="Questão"></iframe>
         <div class="bottom-nav">
             <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr">←</span><span class="lbl"> Anterior</span></button>
-            <div class="timer-container">
-                <span class="max-time-label">Tempo máx.:</span>
-                <input type="number" id="maxTimeInput" class="max-time-input" min="1" value="1">
-                <span class="max-time-label">min</span>
-                <div class="timer" id="timer">00:00</div>
+            <div class="bottom-center">
+                <div class="bottom-filters">
+                    <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
+                    <input type="number" id="maxQuestoesInput" placeholder="máx" min="0">
+                    <span class="pos-indicator" id="posIndicator">0/0</span>
+                </div>
+                <div class="timer-container">
+                    <span class="max-time-label">Tempo máx.:</span>
+                    <input type="number" id="maxTimeInput" class="max-time-input" min="1" value="1">
+                    <span class="max-time-label">min</span>
+                    <div class="timer" id="timer">00:00</div>
+                </div>
             </div>
             <button class="nav-btn" id="nextBtn" disabled aria-label="Próxima questão"><span class="lbl">Próxima </span><span class="arr">→</span></button>
         </div>
@@ -384,6 +924,7 @@ let questaoAtualIndex = 0;
 let timerInterval = null;
 let expirationTimer = null;
 let startTime = null;
+let questaoStartTime = null;      // tempo entre início da questão e confirmação
 let pausedElapsedMs = 0;
 let isTimerRunning = false;
 let maxTime = 1;
@@ -393,21 +934,41 @@ let loadingYear = false;
 let currentRA = null;
 let alunos = null;
 let dirty = false;
-let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [] };
+let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {} };
 
-/* Paleta de cores pré-definida para os cartões (hue, saturação).
-   Números 1..N mapeiam para cores distintas; a partir de N+1, cicla. */
+let disciplinas = {};
+let disciplinasLoaded = false;
+let disciplinasFailed = false;
+let filtrosCarregadosPara = null;
+let abrirLimpo = null;
+let iframeDesatualizado = false;
+let gabGrupos = {}, gabGrupoSeq = 0;
+
+const DISCIPLINAS_LISTA = [
+    'Pediatria','Medicina Preventiva','Cirurgia','Ginecologia','Obstetrícia',
+    'Endocrinologia','Neurologia','Gastroenterologia','Cardiologia','Reumatologia',
+    'Psiquiatria','Nefrologia','Dermatologia','Infectologia','Pneumologia',
+    'Hematologia','Ortopedia','Otorrinolaringologia','Hepatologia','Oftalmologia','Urologia'
+];
+
+function disciplinaDe(banca, ano, num) {
+    const y = disciplinas?.[banca]?.[ano];
+    const d = String((Array.isArray(y) ? y[(parseInt(num) || 0) - 1] : y?.[num]) || '').trim();
+    return DISCIPLINAS_LISTA.includes(d) ? d : null;
+}
+
+let filtros = {
+    bancas: [],
+    anos: [],
+    disciplina: '',
+    somenteNaoRealizadas: false,
+    maxQuestoes: 0
+};
+
 const PALETA_CORES = [
-    { h: 45,  s: 92 },  // amarelo-dourado
-    { h: 135, s: 62 },  // verde
-    { h: 200, s: 72 },  // azul
-    { h: 270, s: 62 },  // roxo
-    { h: 330, s: 72 },  // rosa
-    { h: 15,  s: 85 },  // laranja
-    { h: 180, s: 62 },  // ciano
-    { h: 90,  s: 55 },  // verde-limão
-    { h: 240, s: 65 },  // azul-índigo
-    { h: 300, s: 62 }   // magenta
+    { h: 45,  s: 92 }, { h: 135, s: 62 }, { h: 200, s: 72 }, { h: 270, s: 62 },
+    { h: 330, s: 72 }, { h: 15,  s: 85 }, { h: 180, s: 62 }, { h: 90,  s: 55 },
+    { h: 240, s: 65 }, { h: 300, s: 62 }
 ];
 
 /* ============================================================
@@ -424,10 +985,11 @@ const loginBtn = document.getElementById('loginBtn');
 const raInput = document.getElementById('raInput');
 const loadBtnHome = document.getElementById('loadBtnHome');
 const homeMsg = document.getElementById('homeMsg');
-const fabBar = document.getElementById('fabBar');
 const saveBtn = document.getElementById('saveBtn');
 const grifarBtn = document.getElementById('grifarBtn');
 const ankiBtn = document.getElementById('ankiBtn');
+const refazerBtn = document.getElementById('refazerBtn');
+const historicoBtn = document.getElementById('historicoBtn');
 const progressFile = document.getElementById('progressFile');
 const startBtnHome = document.getElementById('startBtnHome');
 const viewProgressBtn = document.getElementById('viewProgressBtn');
@@ -445,6 +1007,14 @@ const homeBtn = document.getElementById('homeBtn');
 const progressBtnResolving = document.getElementById('progressBtnResolving');
 const backFromProgressBtn = document.getElementById('backFromProgressBtn');
 const progressContent = document.getElementById('progressContent');
+const bancaMultiBtn = document.getElementById('bancaMultiBtn');
+const bancaMultiPanel = document.getElementById('bancaMultiPanel');
+const anoMultiBtn = document.getElementById('anoMultiBtn');
+const anoMultiPanel = document.getElementById('anoMultiPanel');
+const disciplinaSelector = document.getElementById('disciplinaSelector');
+const soNaoRealizadas = document.getElementById('soNaoRealizadas');
+const maxQuestoesInput = document.getElementById('maxQuestoesInput');
+const posIndicator = document.getElementById('posIndicator');
 
 /* ============================================================
    UTILITÁRIOS
@@ -456,6 +1026,15 @@ function showScreen(s) {
 function escapeHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function fmtTempo(ms) {
+    if (ms == null || ms < 0) return '—';
+    const sec = Math.round(ms / 1000);
+    if (sec < 60) return `${sec}s`;
+    const m = Math.floor(sec / 60), s = sec % 60;
+    if (m < 60) return s ? `${m}m${s}s` : `${m}m`;
+    const h = Math.floor(m / 60), mm = m % 60;
+    return mm ? `${h}h${mm}m` : `${h}h`;
 }
 
 /* ============================================================
@@ -471,7 +1050,10 @@ function saveProgressForQuestion(exam, year, num, data) {
     const ev = { data: agora.toISOString(), dataHora: agora.toLocaleString('pt-BR'),
                  prova: exam, ano: year, questao: String(num),
                  acao: data.correct ? 'confirmou' : 'selecionou', opcao: data.selected };
-    if (data.correct) ev.correta = data.correct;
+    if (data.correct) {
+        ev.correta = data.correct;
+        if (data.tempoMs != null) ev.tempoMs = data.tempoMs;
+    }
     for (let i = progress.registro.length - 1; i >= 0; i--) {
         const u = progress.registro[i];
         if (u.prova === ev.prova && u.ano === ev.ano && u.questao === ev.questao) {
@@ -494,16 +1076,18 @@ function setLastPos(exam, year, num) {
 function setDirty(v) {
     dirty = v;
     saveBtn.classList.toggle('unsaved', v);
-    saveBtn.innerHTML = '<span class="ico">💾</span><span class="lbl"> Salvar progresso</span>' + (v ? '<span class="dot"> •</span>' : '');
+    saveBtn.innerHTML = '<span class="ico">💾</span><span class="lbl"> Salvar</span>' + (v ? '<span class="dot"> •</span>' : '');
 }
 
 const bkKey = ra => 'crivo_backup_' + ra;
+const filtrosKey = ra => 'crivo_filtros_' + ra;
 function salvarBackup() { try { localStorage.setItem(bkKey(currentRA), JSON.stringify(progress)); } catch {} }
 function lerBackup(ra) {
     try {
         const v = JSON.parse(localStorage.getItem(bkKey(ra)));
         if (v && v.estado) {
             if (!Array.isArray(v.grifados)) v.grifados = [];
+            if (!v.resetados || typeof v.resetados !== 'object') v.resetados = {};
             return v;
         }
         return null;
@@ -513,10 +1097,105 @@ function lerBackup(ra) {
 function normalizar(d) {
     const p = { estado: {}, ultimaPosicao: d.ultimaPosicao || null,
                 registro: (Array.isArray(d.registro) ? d.registro : []).filter(e => e && e.prova && e.ano && e.questao && e.opcao),
-                grifados: Array.isArray(d.grifados) ? d.grifados : [] };
+                grifados: Array.isArray(d.grifados) ? d.grifados : [],
+                resetados: (d.resetados && typeof d.resetados === 'object') ? d.resetados : {} };
     if (p.registro.length) p.registro.forEach(ev => aplicarEvento(p.estado, ev));
     else if (d.estado) p.estado = d.estado;
     return p;
+}
+
+/* ---- filtros persistidos ---- */
+function salvarFiltros() {
+    if (!currentRA) return;
+    try { localStorage.setItem(filtrosKey(currentRA), JSON.stringify(filtros)); } catch {}
+}
+function garantirFiltros() { if (filtrosCarregadosPara !== currentRA) { lerFiltros(); filtrosCarregadosPara = currentRA; } }
+function lerFiltros() {
+    if (!currentRA) return;
+    filtros = { bancas: [], anos: [], disciplina: '', somenteNaoRealizadas: false, maxQuestoes: 0 };
+    try {
+        const v = JSON.parse(localStorage.getItem(filtrosKey(currentRA)));
+        if (v && typeof v === 'object') {
+            filtros = {
+                bancas: Array.isArray(v.bancas) ? v.bancas : [],
+                anos: Array.isArray(v.anos) ? v.anos : [],
+                disciplina: v.disciplina || '',
+                somenteNaoRealizadas: !!v.somenteNaoRealizadas,
+                maxQuestoes: parseInt(v.maxQuestoes) || 0
+            };
+        }
+    } catch {}
+}
+
+/* ---- reset/refazer ---- */
+function isResetada(banca, ano, num) {
+    return !!(progress.resetados?.[banca]?.[ano]?.[num]);
+}
+function isRealizada(banca, ano, num) {
+    const e = progress.estado?.[banca]?.[ano]?.[num];
+    return !!(e && e.correct) && !isResetada(banca, ano, num);
+}
+function _marcarReset(banca, ano, num) {
+    if (!progress.resetados) progress.resetados = {};
+    const est = progress.estado?.[banca]?.[ano]?.[num] || null;
+    (progress.resetados[banca] ||= {});
+    (progress.resetados[banca][ano] ||= {});
+    progress.resetados[banca][ano][num] = {
+        quando: new Date().toISOString(),
+        arquivo: arquivoNoManifest(banca, ano, num) || undefined,
+        estadoAnterior: est ? { selected: est.selected, correct: est.correct, timestamp: est.timestamp } : null
+    };
+}
+function refazerQuestao(banca, ano, num) {
+    if (!currentRA) return;
+    _marcarReset(banca, ano, num);
+    setDirty(true);
+    salvarBackup();
+}
+function restaurarResposta(banca, ano, num, evento) {
+    if (!currentRA) return;
+    if (!progress.estado[banca]) progress.estado[banca] = {};
+    if (!progress.estado[banca][ano]) progress.estado[banca][ano] = {};
+    progress.estado[banca][ano][num] = {
+        selected: evento.opcao,
+        correct: evento.correta,
+        timestamp: evento.data
+    };
+    const agora = new Date();
+    progress.registro.push({
+        data: agora.toISOString(),
+        dataHora: agora.toLocaleString('pt-BR'),
+        prova: banca, ano, questao: String(num),
+        acao: 'restaurou',
+        opcao: evento.opcao,
+        correta: evento.correta,
+        restauradoDe: evento.data
+    });
+    if (progress.resetados?.[banca]?.[ano]?.[num]) {
+        delete progress.resetados[banca][ano][num];
+    }
+    setDirty(true);
+    salvarBackup();
+}
+function restaurarDoReset(banca, ano, num) {
+    const snap = progress.resetados?.[banca]?.[ano]?.[num];
+    if (snap && snap.estadoAnterior) {
+        restaurarResposta(banca, ano, num, {
+            opcao: snap.estadoAnterior.selected,
+            correta: snap.estadoAnterior.correct,
+            data: snap.estadoAnterior.timestamp
+        });
+    } else {
+        delete progress.resetados[banca][ano][num];
+        setDirty(true);
+        salvarBackup();
+    }
+}
+function respostasAnteriores(banca, ano, num) {
+    return (progress.registro || [])
+        .filter(e => e.prova === banca && e.ano === ano && String(e.questao) === String(num)
+                  && (e.acao === 'confirmou' || e.acao === 'restaurou'))
+        .sort((a, b) => new Date(b.data) - new Date(a.data));
 }
 
 /* ---- exportar progresso ---- */
@@ -529,13 +1208,14 @@ function nomeArquivo() {
 function exportarProgresso() {
     if (!currentRA) return;
     const dados = {
-        formato: 'crivo-progresso', versao: 1,
+        formato: 'crivo-progresso', versao: 2,
         aluno: { ra: currentRA, nome: currentUser },
         exportadoEm: new Date().toISOString(),
         ultimaPosicao: progress.ultimaPosicao,
         estado: progress.estado,
         registro: progress.registro,
-        grifados: progress.grifados || []
+        grifados: progress.grifados || [],
+        resetados: progress.resetados || {}
     };
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' }));
@@ -576,15 +1256,15 @@ async function loginWithRA(raBruto) {
     if (!nome) { info('Acesso negado: RA não encontrado na lista de alunos da UNIOESTE.'); return false; }
     currentRA = ra; currentUser = nome;
     const bk = lerBackup(ra);
-    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [] };
+    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {} };
     if (!Array.isArray(progress.grifados)) progress.grifados = [];
+    if (!progress.resetados) progress.resetados = {};
     setDirty(!!(bk && bk.registro && bk.registro.length));
     showHome();
     showScreen(authScreen);
     return true;
 }
 
-/* ---- carregar arquivo ---- */
 async function carregarArquivo(file) {
     if (!currentRA) { info('Entre com um RA válido antes de carregar um arquivo de progresso.'); return; }
     let d;
@@ -618,14 +1298,12 @@ function showLoginForm() {
     homeArea.style.display = 'none';
     loginMsg.textContent = '';
     raInput.value = '';
-    fabBar.hidden = true;
 }
 function showHome() {
     loginArea.style.display = 'none';
     homeArea.style.display = 'block';
     welcomeName.textContent = currentUser;
     homeMsg.textContent = '';
-    fabBar.hidden = false;
 }
 loginBtn.addEventListener('click', async () => {
     loginBtn.disabled = true;
@@ -639,11 +1317,30 @@ logoutBtn.addEventListener('click', () => {
     if (dirty && confirm('Você tem alterações não salvas. Deseja salvar o progresso em arquivo antes de sair?')) exportarProgresso();
     pausarTimer();
     currentUser = null; currentRA = null; currentExam = null; currentYear = null; questoes = [];
-    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [] };
+    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {} };
     setDirty(false);
     showLoginForm();
     showScreen(authScreen);
 });
+
+/* ============================================================
+   DISCIPLINAS
+   ============================================================ */
+async function loadDisciplinas() {
+    if (disciplinasLoaded) return;
+    try {
+        const res = await fetch('exams/disciplinas.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        disciplinas = await res.json();
+        disciplinasLoaded = true;
+    } catch (e) {
+        console.warn('disciplinas.json não carregado:', e);
+        if (!disciplinasFailed) {
+            disciplinasFailed = true;
+            alert('Arquivo de disciplinas não encontrado. Os filtros de disciplina ficarão desativados.');
+        }
+    }
+}
 
 /* ============================================================
    MANIFEST / PROVAS
@@ -662,6 +1359,7 @@ async function loadManifest() {
     }
 }
 function populateExamSelector() {
+    if (!examSelector) return;
     examSelector.innerHTML = '';
     const names = Object.keys(exams).sort();
     if (!names.length) { examSelector.innerHTML = '<option value="">(sem provas)</option>'; return; }
@@ -672,6 +1370,7 @@ function populateExamSelector() {
     });
 }
 function populateYearSelector(examName) {
+    if (!yearSelector) return;
     yearSelector.innerHTML = '';
     const years = Object.keys(exams[examName] || {}).sort((a, b) => b.localeCompare(a));
     years.forEach(y => {
@@ -680,27 +1379,13 @@ function populateYearSelector(examName) {
         yearSelector.appendChild(o);
     });
 }
-async function startExam() {
-    if (loadingYear) return;
-    if (!Object.keys(exams).length) { if (!(await loadManifest())) return; }
-    populateExamSelector();
-    const names = Object.keys(exams);
-    if (!names.length) { alert('Nenhuma prova disponível no manifest.'); return; }
-    const last = getLastPos();
-    let startExamName, startYearName;
-    if (last && exams[last.exam] && exams[last.exam][last.year]) {
-        startExamName = last.exam; startYearName = last.year;
-    } else {
-        startExamName = names[0];
-        const ys = Object.keys(exams[startExamName]).sort((a, b) => b.localeCompare(a));
-        startYearName = ys[0];
-    }
-    examSelector.value = startExamName;
-    populateYearSelector(startExamName);
-    yearSelector.value = startYearName;
-    const ok = await loadYear(startExamName, startYearName, last?.num);
-    if (ok) showScreen(resolvingScreen);
+function questoesDoManifest(prova, ano) {
+    const y = exams && exams[prova] && exams[prova][ano];
+    if (!y) return null;
+    return Array.isArray(y) ? y.map((f, i) => ({ num: String(i + 1), filename: f }))
+                            : Object.entries(y).map(([n, f]) => ({ num: String(n), filename: f }));
 }
+
 async function loadYear(examName, yearName, targetNum = null) {
     if (loadingYear) return false;
     const yearData = exams[examName]?.[yearName];
@@ -723,16 +1408,303 @@ async function loadYear(examName, yearName, targetNum = null) {
     }
     return await carregarQuestao(idx);
 }
-examSelector.addEventListener('change', async () => {
+if (examSelector) examSelector.addEventListener('change', async () => {
     const ex = examSelector.value;
     populateYearSelector(ex);
     const y = yearSelector.value;
     if (ex && y) await loadYear(ex, y);
 });
-yearSelector.addEventListener('change', async () => {
+if (yearSelector) yearSelector.addEventListener('change', async () => {
     const ex = examSelector.value, y = yearSelector.value;
     if (ex && y) await loadYear(ex, y);
 });
+
+/* ============================================================
+   NOVO ESCOPO: REBUILD + FILTROS
+   ============================================================ */
+async function rebuildQuestoes(navigateIfLost = true) {
+    const cur = questoes[questaoAtualIndex];
+    const oldKey = cur ? { exam: cur.exam || currentExam, year: cur.year || currentYear, num: String(cur.num) } : null;
+
+    if (!Object.keys(exams).length) { questoes = []; updatePositionIndicator(); return; }
+
+    const allBancas = Object.keys(exams).sort();
+    const bancasSel = filtros.bancas.length === 0 || filtros.bancas.length === allBancas.length
+        ? allBancas : filtros.bancas.filter(b => exams[b]);
+
+    const todas = [];
+    for (const banca of bancasSel) {
+        const anosDisp = Object.keys(exams[banca] || {});
+        const anosSel = filtros.anos.length === 0
+            ? anosDisp
+            : anosDisp.filter(a => filtros.anos.includes(a));
+        for (const ano of anosSel) {
+            const files = questoesDoManifest(banca, ano);
+            if (!files) continue;
+            for (const f of files) {
+                todas.push({
+                    exam: banca, year: ano, num: f.num, filename: f.filename,
+                    url: `exams/${banca}/${ano}/${f.filename}`
+                });
+            }
+        }
+    }
+
+    todas.sort((a, b) => {
+        if (a.year !== b.year) return b.year.localeCompare(a.year);
+        if (a.exam !== b.exam) return a.exam.localeCompare(b.exam);
+        return (parseInt(a.num) || 0) - (parseInt(b.num) || 0);
+    });
+
+    let filtradas = todas;
+    if (filtros.disciplina && disciplinasLoaded) {
+        filtradas = filtradas.filter(q => {
+            return disciplinaDe(q.exam, q.year, q.num) === filtros.disciplina;
+        });
+    }
+    if (filtros.somenteNaoRealizadas) {
+        filtradas = filtradas.filter(q => !isRealizada(q.exam, q.year, q.num));
+    }
+    if (filtros.maxQuestoes > 0) {
+        filtradas = filtradas.slice(0, filtros.maxQuestoes);
+    }
+
+    questoes = filtradas;
+
+    let idx = -1;
+    if (oldKey) {
+        idx = questoes.findIndex(q => q.exam === oldKey.exam && q.year === oldKey.year && String(q.num) === oldKey.num);
+    }
+
+    if (idx >= 0) {
+        questaoAtualIndex = idx;
+    } else if (questoes.length > 0 && navigateIfLost) {
+        await carregarQuestao(0);
+    } else if (questoes.length === 0) {
+        pausarTimer();
+        showEmptyMessage();
+    }
+    if (questaoAtualIndex >= questoes.length) questaoAtualIndex = 0;
+
+    updatePositionIndicator();
+    updateNavButtons();
+    updateFabBarButtons();
+    salvarFiltros();
+}
+
+function updatePositionIndicator() {
+    if (!posIndicator) return;
+    if (questoes.length === 0) posIndicator.textContent = '0/0';
+    else posIndicator.textContent = `${questaoAtualIndex + 1}/${questoes.length}`;
+}
+function updateNavButtons() {
+    if (questoes.length === 0) {
+        prevBtn.disabled = true; nextBtn.disabled = true;
+    } else {
+        prevBtn.disabled = questaoAtualIndex === 0;
+        nextBtn.disabled = questaoAtualIndex === questoes.length - 1;
+    }
+}
+function showEmptyMessage() {
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+        body{font-family:'Segoe UI',Tahoma,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f8f9fa;color:#6c757d;text-align:center;padding:20px;}
+        h2{color:#495057;font-size:1.2rem;}
+    </style></head><body><div><h2>Nenhuma questão corresponde aos filtros atuais</h2><p>Ajuste os filtros para ver questões.</p></div></body></html>`;
+    if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+    currentBlobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+    questionFrame.src = currentBlobUrl;
+}
+
+/* ============================================================
+   MULTI-SELECT UI
+   ============================================================ */
+function renderBancaMulti() {
+    const bancas = Object.keys(exams).sort();
+    const selected = filtros.bancas;
+    const all = selected.length === 0 || selected.length === bancas.length;
+
+    let label;
+    if (all) label = 'Bancas: todas';
+    else if (selected.length === 1) label = selected[0];
+    else label = `${selected.length} bancas`;
+    bancaMultiBtn.textContent = label;
+
+    let html = `<label><input type="checkbox" id="bancaAllChk" ${all ? 'checked' : ''}> <b>Todas as bancas</b></label><hr>`;
+    bancas.forEach(b => {
+        const checked = all || selected.includes(b) ? 'checked' : '';
+        html += `<label><input type="checkbox" data-banca-value="${escapeHtml(b)}" ${checked}> ${escapeHtml(b)}</label>`;
+    });
+    bancaMultiPanel.innerHTML = html;
+}
+
+function renderAnoMulti() {
+    const bancas = filtros.bancas.length === 0 || filtros.bancas.length === Object.keys(exams).length
+        ? Object.keys(exams).sort()
+        : filtros.bancas.filter(b => exams[b]);
+    const anosSet = new Set();
+    bancas.forEach(b => Object.keys(exams[b] || {}).forEach(a => anosSet.add(a)));
+    const anos = Array.from(anosSet).sort((a, b) => b.localeCompare(a));
+
+    filtros.anos = filtros.anos.filter(a => anos.includes(a));
+
+    const selected = filtros.anos;
+    const all = selected.length === 0 || selected.length === anos.length;
+
+    let label;
+    if (all) label = 'Edições: todas';
+    else if (selected.length === 1) label = `Edição: ${selected[0]}`;
+    else label = `Edições: ${selected.length}`;
+    anoMultiBtn.textContent = label;
+
+    let html = `<label><input type="checkbox" id="anoAllChk" ${all ? 'checked' : ''}> <b>Todas as edições</b></label><hr>`;
+    anos.forEach(a => {
+        const checked = all || selected.includes(a) ? 'checked' : '';
+        html += `<label><input type="checkbox" data-ano-value="${escapeHtml(a)}" ${checked}> ${escapeHtml(a)}</label>`;
+    });
+    anoMultiPanel.innerHTML = html;
+}
+
+function renderDisciplinaSelector() {
+    if (!disciplinaSelector) return;
+    if (!disciplinasLoaded && disciplinasFailed) {
+        disciplinaSelector.innerHTML = '<option value="">Todas as disciplinas</option>';
+        disciplinaSelector.disabled = true;
+        return;
+    }
+    disciplinaSelector.disabled = false;
+    let html = '<option value="">Todas as disciplinas</option>';
+    DISCIPLINAS_LISTA.forEach(d => {
+        html += `<option value="${escapeHtml(d)}" ${filtros.disciplina === d ? 'selected' : ''}>${escapeHtml(d)}</option>`;
+    });
+    disciplinaSelector.innerHTML = html;
+}
+
+function renderBottomFilters() {
+    soNaoRealizadas.checked = filtros.somenteNaoRealizadas;
+    maxQuestoesInput.value = filtros.maxQuestoes > 0 ? filtros.maxQuestoes : '';
+}
+
+function renderAllFilterUI() {
+    renderBancaMulti();
+    renderAnoMulti();
+    renderDisciplinaSelector();
+    renderBottomFilters();
+}
+
+bancaMultiBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wasOpen = !bancaMultiPanel.hidden;
+    bancaMultiPanel.hidden = true;
+    anoMultiPanel.hidden = true;
+    if (!wasOpen) bancaMultiPanel.hidden = false;
+});
+anoMultiBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wasOpen = !anoMultiPanel.hidden;
+    bancaMultiPanel.hidden = true;
+    anoMultiPanel.hidden = true;
+    if (!wasOpen) {
+        renderAnoMulti();
+        anoMultiPanel.hidden = false;
+    }
+});
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.multiselect')) {
+        bancaMultiPanel.hidden = true;
+        anoMultiPanel.hidden = true;
+    }
+});
+
+bancaMultiPanel.addEventListener('change', async (e) => {
+    const t = e.target;
+    const allBancas = Object.keys(exams).sort();
+    if (t.id === 'bancaAllChk') {
+        filtros.bancas = t.checked ? [] : allBancas.slice();
+        if (filtros.bancas.length === allBancas.length) filtros.bancas = [];
+    } else if (t.dataset.bancaValue) {
+        const b = t.dataset.bancaValue;
+        let current = filtros.bancas.length === 0 ? allBancas.slice() : filtros.bancas.slice();
+        if (t.checked) {
+            if (!current.includes(b)) current.push(b);
+        } else {
+            current = current.filter(x => x !== b);
+        }
+        if (current.length === allBancas.length) filtros.bancas = [];
+        else filtros.bancas = current;
+    }
+    renderBancaMulti();
+    renderAnoMulti();
+    await rebuildQuestoes();
+});
+
+anoMultiPanel.addEventListener('change', async (e) => {
+    const t = e.target;
+    const bancas = filtros.bancas.length === 0 || filtros.bancas.length === Object.keys(exams).length
+        ? Object.keys(exams).sort()
+        : filtros.bancas.filter(b => exams[b]);
+    const anosSet = new Set();
+    bancas.forEach(b => Object.keys(exams[b] || {}).forEach(a => anosSet.add(a)));
+    const allAnos = Array.from(anosSet).sort((a, b) => b.localeCompare(a));
+
+    if (t.id === 'anoAllChk') {
+        filtros.anos = t.checked ? [] : allAnos.slice();
+        if (filtros.anos.length === allAnos.length) filtros.anos = [];
+    } else if (t.dataset.anoValue) {
+        const a = t.dataset.anoValue;
+        let current = filtros.anos.length === 0 ? allAnos.slice() : filtros.anos.slice();
+        if (t.checked) {
+            if (!current.includes(a)) current.push(a);
+        } else {
+            current = current.filter(x => x !== a);
+        }
+        if (current.length === allAnos.length) filtros.anos = [];
+        else filtros.anos = current;
+    }
+    renderAnoMulti();
+    await rebuildQuestoes();
+});
+
+disciplinaSelector.addEventListener('change', async () => {
+    filtros.disciplina = disciplinaSelector.value;
+    await rebuildQuestoes();
+});
+
+soNaoRealizadas.addEventListener('change', async () => {
+    filtros.somenteNaoRealizadas = soNaoRealizadas.checked;
+    await rebuildQuestoes();
+});
+
+maxQuestoesInput.addEventListener('change', async () => {
+    const v = parseInt(maxQuestoesInput.value);
+    filtros.maxQuestoes = (!isNaN(v) && v > 0) ? v : 0;
+    await rebuildQuestoes();
+});
+
+/* ============================================================
+   OVERRIDE startExam
+   ============================================================ */
+async function startExam() {
+    if (!Object.keys(exams).length) {
+        if (!(await loadManifest())) return;
+    }
+    await loadDisciplinas();
+    garantirFiltros();
+
+    const last = getLastPos();
+    await rebuildQuestoes(false);
+
+    if (questoes.length === 0) {
+        showEmptyMessage();
+    } else if (last) {
+        const idx = questoes.findIndex(q =>
+            q.exam === last.exam && q.year === last.year && String(q.num) === String(last.num));
+        await carregarQuestao(idx >= 0 ? idx : 0);
+    } else {
+        await carregarQuestao(0);
+    }
+    renderAllFilterUI();
+    showScreen(resolvingScreen);
+}
 
 /* ============================================================
    PONTE PARA O IFRAME
@@ -771,7 +1743,10 @@ async function carregarQuestao(index) {
     if (index < 0 || index >= questoes.length) return false;
     pausarTimer();
     questaoAtualIndex = index;
+    questaoStartTime = Date.now();
     const q = questoes[index];
+    if (q.exam) currentExam = q.exam;
+    if (q.year) currentYear = q.year;
     try {
         const res = await fetch(q.url, { cache: 'no-store' });
         if (!res.ok) throw new Error(`HTTP ${res.status} em ${q.url}`);
@@ -790,6 +1765,8 @@ async function carregarQuestao(index) {
         nextBtn.disabled = index === questoes.length - 1;
         setLastPos(currentExam, currentYear, q.num);
         reiniciarTimer();
+        updatePositionIndicator();
+        updateFabBarButtons();
         return true;
     } catch (e) {
         console.error(e);
@@ -843,11 +1820,18 @@ window.addEventListener('message', (event) => {
     if (data.type === 'OPTION_SELECTED') {
         saveProgressForQuestion(currentExam, currentYear, q.num, { selected: data.payload.selected });
     } else if (data.type === 'QUESTION_ANSWERED') {
+        const tempoMs = questaoStartTime ? (Date.now() - questaoStartTime) : undefined;
         saveProgressForQuestion(currentExam, currentYear, q.num, {
             selected: data.payload.selected,
-            correct: data.payload.correct
+            correct: data.payload.correct,
+            tempoMs
         });
-        pausarTimer();
+        // Timer continua rodando (não pausa ao confirmar, conforme requisito)
+        if (progress.resetados?.[currentExam]?.[currentYear]?.[q.num]) {
+            delete progress.resetados[currentExam][currentYear][q.num];
+            salvarBackup();
+        }
+        updateFabBarButtons();
     }
 });
 
@@ -875,7 +1859,7 @@ function navegarParaQuestao() {
     const n = parseInt(goToInput.value);
     if (isNaN(n) || n < 1) { alert('Número de questão inválido.'); return; }
     const idx = questoes.findIndex(q => parseInt(q.num) === n);
-    if (idx === -1) { alert(`Questão ${n} não encontrada nesta prova.`); return; }
+    if (idx === -1) { alert(`Questão ${n} não encontrada no escopo atual.`); return; }
     carregarQuestao(idx);
 }
 goBtn.addEventListener('click', navegarParaQuestao);
@@ -892,79 +1876,494 @@ homeBtn.addEventListener('click', () => {
     showHome();
     showScreen(authScreen);
 });
-progressBtnResolving.addEventListener('click', () => {
+progressBtnResolving.addEventListener('click', async () => {
     progressFrom = 'resolving';
     pausarTimer();
-    renderProgress();
+    await garantirDadosGabarito();
+    renderProgressV2();
     showScreen(progressScreen);
 });
 
 /* ============================================================
-   PROGRESSO (render)
+   FAB-BAR: Refazer / Histórico
    ============================================================ */
-function renderProgress() {
-    const up = progress.estado || {};
-    const examNames = Object.keys(up).sort();
-    const hasAny = examNames.some(e => Object.keys(up[e]).some(y => Object.keys(up[e][y]).length));
-    if (!hasAny) {
-        progressContent.innerHTML = '<div class="empty-msg">Você ainda não respondeu nenhuma questão.<br>Comece a resolver para ver seu gabarito aqui!</div>';
+function updateFabBarButtons() {
+    const q = questoes[questaoAtualIndex];
+    if (!q || !currentExam || !currentYear || resolvingScreen.classList.contains('hidden')) {
+        refazerBtn.hidden = true; historicoBtn.hidden = true;
         return;
     }
+    const e = progress.estado?.[currentExam]?.[currentYear]?.[q.num];
+    const conf = !!(e && e.correct);
+    const reset = isResetada(currentExam, currentYear, q.num);
+    refazerBtn.hidden = !(conf && !reset);
+    historicoBtn.hidden = respostasAnteriores(currentExam, currentYear, q.num).length === 0;
+}
+
+refazerBtn.addEventListener('click', async () => {
+    const q = questoes[questaoAtualIndex];
+    if (!q) return;
+    refazerQuestao(currentExam, currentYear, q.num);
+    updateFabBarButtons();
+    await carregarQuestao(questaoAtualIndex);
+});
+
+historicoBtn.addEventListener('click', () => {
+    const q = questoes[questaoAtualIndex];
+    if (!q) return;
+    openHistoricoModal(currentExam, currentYear, q.num);
+});
+
+/* Modal de histórico: apenas visualização (sem restaurar) */
+function openHistoricoModal(banca, ano, num) {
+    const events = respostasAnteriores(banca, ano, num);
+    if (!events.length) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.id = 'historicoModalOverlay';
+    overlay.innerHTML = `
+        <div class="modal">
+            <h3>📜 Histórico — ${escapeHtml(banca)} ${escapeHtml(ano)} Q${escapeHtml(num)}</h3>
+            <div id="historicoList"></div>
+            <button class="back-btn" style="margin-top:1rem;background:#6c757d;color:white;width:100%;" id="closeHistoricoBtn">Fechar</button>
+        </div>`;
+    document.body.appendChild(overlay);
+    const list = overlay.querySelector('#historicoList');
+    events.forEach(ev => {
+        const item = document.createElement('div');
+        item.className = 'modal-item';
+        const dataStr = fmtDataHora(ev.data);
+        const label = ev.acao === 'confirmou' ? 'Confirmou' : 'Restaurou';
+        const corretaTxt = ev.correta ? ` (correta: ${escapeHtml(ev.correta)})` : '';
+        const tempoTxt = ev.tempoMs != null ? ` · ⏱ ${fmtTempo(ev.tempoMs)}` : '';
+        item.innerHTML = `<span style="font-size:.9rem;">${label} <b>${escapeHtml(ev.opcao || '?')}</b>${corretaTxt} em ${dataStr}${tempoTxt}</span>`;
+        list.appendChild(item);
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeHistoricoModal(); });
+    overlay.querySelector('#closeHistoricoBtn').addEventListener('click', closeHistoricoModal);
+}
+function fmtDataHora(iso) {
+    const d = new Date(iso), p = n => String(n).padStart(2, '0');
+    return isNaN(d) ? String(iso || '') : `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+async function sincronizarQuestaoAtual(banca, ano, num) {
+    const q = questoes[questaoAtualIndex];
+    if (!q || (q.exam || currentExam) !== banca || (q.year || currentYear) !== ano || String(q.num) !== String(num)) return;
+    if (resolvingScreen.classList.contains('hidden')) iframeDesatualizado = true;
+    else await carregarQuestao(questaoAtualIndex);
+}
+function closeHistoricoModal() {
+    const m = document.getElementById('historicoModalOverlay');
+    if (m) m.remove();
+}
+
+/* ============================================================
+   GABARITO V2
+   ============================================================ */
+async function garantirDadosGabarito() {
+    if (!Object.keys(exams).length) await loadManifest();
+    if (!disciplinasLoaded) await loadDisciplinas();
+}
+/* Gabarito original (sem filtros); os botões usam renderProgressV2(). */
+function renderProgress() {
+    let html = '';
+    for (const exam of Object.keys(progress.estado || {}).sort()) {
+        let anos = '';
+        for (const year of Object.keys(progress.estado[exam]).sort((a, b) => b.localeCompare(a))) {
+            let chips = '';
+            for (const n of Object.keys(progress.estado[exam][year]).sort((a, b) => a - b)) {
+                const e = progress.estado[exam][year][n];
+                if (!e.selected) continue;
+                const ok = e.correct && e.selected === e.correct, bad = e.correct && !ok;
+                chips += `<button class="chip ${ok ? 'ok' : bad ? 'bad' : ''}" data-exam="${escapeHtml(exam)}" data-year="${escapeHtml(year)}" data-num="${escapeHtml(n)}"><span class="qn">Q${escapeHtml(n)}</span><span class="ans">${escapeHtml(e.selected)}</span><span class="fix">${ok ? '✓' : bad ? '✗ ' + escapeHtml(e.correct) : ''}</span></button>`;
+            }
+            if (chips) anos += `<div class="year-block"><div class="year-head"><h3>${escapeHtml(year)}</h3></div><div class="gabarito">${chips}</div></div>`;
+        }
+        if (anos) html += `<div class="exam-block"><h2 class="exam-title">${escapeHtml(exam)}</h2>${anos}</div>`;
+    }
+    progressContent.innerHTML = html || '<div class="empty-msg">Nenhuma questão marcada ainda.</div>';
+}
+
+function getGabFilters() {
+    return {
+        banca: document.getElementById('gabBancaFilter')?.value || '',
+        disciplina: document.getElementById('gabDisciplinaFilter')?.value || '',
+        modo: document.getElementById('gabModoFilter')?.value || 'banca',
+        mostrar: document.getElementById('gabMostrarFilter')?.value || 'tudo',
+        mostrarNaoRealizadas: document.getElementById('gabMostrarNaoRealizadas')?.checked === true
+    };
+}
+
+function renderProgressV2() {
+    if (!Object.keys(exams).length) {
+        progressContent.innerHTML = '<div class="empty-msg">Carregue o manifest para ver o gabarito.</div>';
+        return;
+    }
+    let html = '<div class="gab-filters">';
+    html += `<select id="gabBancaFilter"><option value="">Todas as bancas</option>`;
+    Object.keys(exams).sort().forEach(b => { html += `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`; });
+    html += `</select>`;
+    html += `<select id="gabDisciplinaFilter"><option value="">Todas as disciplinas</option>`;
+    DISCIPLINAS_LISTA.forEach(d => { html += `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`; });
+    html += `</select>`;
+    html += `<select id="gabModoFilter">
+        <option value="banca" selected>Por banca</option>
+        <option value="disciplina">Por disciplina</option>
+        <option value="banca-disciplina">Disciplinas por banca</option>
+    </select>`;
+    html += `<select id="gabMostrarFilter">
+        <option value="tudo" selected>Tudo</option>
+        <option value="erros">Só erros</option>
+        <option value="acertos">Só acertos</option>
+    </select>`;
+    html += `<label><input type="checkbox" id="gabMostrarNaoRealizadas"> Exibir questões não realizadas</label>`;
+    html += '</div><div id="gabDynamic"></div>';
+    progressContent.innerHTML = html;
+    if (!disciplinasLoaded) {
+        document.getElementById('gabDisciplinaFilter').disabled = true;
+        document.querySelectorAll('#gabModoFilter option:not([value="banca"])').forEach(o => { o.disabled = true; });
+    }
+
+    ['gabBancaFilter','gabDisciplinaFilter','gabModoFilter','gabMostrarFilter','gabMostrarNaoRealizadas'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', () => updateProgressDynamic());
+    });
+    updateProgressDynamic();
+}
+
+/* Calcula média e desvio padrão do tempo de confirmação por grupo. */
+function tempoStatsGrupo(qs) {
+    const key = q => `${q.banca}|${q.ano}|${q.num}`;
+    const qSet = new Set(qs.map(key));
+    const latest = {};
+    for (const ev of progress.registro || []) {
+        if (ev.acao !== 'confirmou' || ev.tempoMs == null) continue;
+        const k = `${ev.prova}|${ev.ano}|${ev.questao}`;
+        if (!qSet.has(k)) continue;
+        latest[k] = ev.tempoMs;
+    }
+    const vals = Object.values(latest);
+    if (!vals.length) return null;
+    const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const variance = vals.reduce((a, b) => a + (b - mean) ** 2, 0) / vals.length;
+    return { mean, std: Math.sqrt(variance), n: vals.length };
+}
+
+function updateProgressDynamic() {
+    const el = document.getElementById('gabDynamic');
+    if (!el) return;
+    const filters = getGabFilters();
+    gabGrupos = {}; gabGrupoSeq = 0;
+
+    // Estatísticas globais
     let answered = 0, confirmed = 0, hits = 0;
-    let body = '';
-    for (const exam of examNames) {
-        const years = Object.keys(up[exam]).filter(y => Object.keys(up[exam][y]).length).sort((a,b) => b.localeCompare(a));
-        if (!years.length) continue;
-        let exBlock = `<div class="exam-block"><h2 class="exam-title">📚 ${exam}</h2>`;
-        for (const y of years) {
-            const nums = Object.keys(up[exam][y]).sort((a,b) => parseInt(a)-parseInt(b));
-            let yh = 0, yc = 0, chips = '';
-            for (const n of nums) {
-                const q = up[exam][y][n];
+    for (const exam in progress.estado) {
+        for (const year in progress.estado[exam]) {
+            for (const num in progress.estado[exam][year]) {
+                if (isResetada(exam, year, num)) continue;
+                const q = progress.estado[exam][year][num];
                 if (!q.selected) continue;
                 answered++;
-                let cls = '', fix = '', tip = 'Marcada, ainda não confirmada';
                 if (q.correct) {
-                    confirmed++; yc++;
-                    if (q.selected === q.correct) { cls='ok'; hits++; yh++; fix='✓'; tip='Acertou'; }
-                    else { cls='bad'; fix='✗ '+q.correct; tip='Errou — correta: '+q.correct; }
+                    confirmed++;
+                    if (q.selected === q.correct) hits++;
                 }
-                const date = q.timestamp ? new Date(q.timestamp).toLocaleString('pt-BR') : '';
-                chips += `<button class="chip ${cls}" data-exam="${exam}" data-year="${y}" data-num="${n}" title="${tip}${date ? ' · '+date : ''}"><span class="qn">Q${n}</span><span class="ans">${q.selected}</span><span class="fix">${fix}</span></button>`;
             }
-            exBlock += `<div class="year-block"><div class="year-head"><h3>📅 ${y}</h3><span>${yh} acertos em ${yc} confirmadas</span></div><div class="gabarito">${chips}</div></div>`;
         }
-        exBlock += '</div>';
-        body += exBlock;
     }
     let html = '<div class="summary-stats">';
     html += `<div class="stat-card"><div class="stat-number">${answered}</div><div class="stat-label">Marcadas</div></div>`;
     html += `<div class="stat-card"><div class="stat-number">${hits}</div><div class="stat-label">Acertos</div></div>`;
     html += `<div class="stat-card"><div class="stat-number">${confirmed ? Math.round(100*hits/confirmed) : 0}%</div><div class="stat-label">Aproveitamento</div></div></div>`;
-    html += '<div class="legend">Verde = acerto, vermelho = erro (com a correta), branco = marcada sem confirmar. Clique para abrir a questão.</div>';
-    progressContent.innerHTML = html + body;
+    html += '<div class="legend">Verde = acerto, vermelho = erro, cinza = não realizada. Clique para abrir. Botão direito/long-press para mais opções.</div>';
+
+    // Coleta todas as questões
+    const allQ = [];
+    const bancasAll = Object.keys(exams).sort();
+    for (const banca of bancasAll) {
+        if (filters.banca && banca !== filters.banca) continue;
+        const anos = Object.keys(exams[banca] || {}).sort((a, b) => b.localeCompare(a));
+        for (const ano of anos) {
+            const files = questoesDoManifest(banca, ano);
+            if (!files) continue;
+            for (const f of files) {
+                const num = f.num;
+                const d = disciplinaDe(banca, ano, num);
+                const reset = isResetada(banca, ano, num);
+                const e = progress.estado?.[banca]?.[ano]?.[num];
+                let status = 'gray', selected = null, correctAnswer = null;
+                if (e && e.correct && !reset) {
+                    status = e.selected === e.correct ? 'ok' : 'bad';
+                    selected = e.selected;
+                    correctAnswer = e.correct;
+                }
+                allQ.push({ banca, ano, num, disciplina: d, status, selected, correctAnswer });
+            }
+        }
+    }
+
+    let discQ = filters.disciplina
+        ? allQ.filter(q => q.disciplina === filters.disciplina)
+        : allQ;
+
+    for (const q of discQ) {
+        q.visible = true;
+        if (filters.mostrar === 'erros') q.visible = q.status === 'bad';
+        else if (filters.mostrar === 'acertos') q.visible = q.status === 'ok';
+        else if (q.status === 'gray' && !filters.mostrarNaoRealizadas) q.visible = false;
+    }
+
+    if (discQ.length === 0) {
+        el.innerHTML = html + '<div class="empty-msg">Nenhuma questão corresponde aos filtros.</div>';
+        return;
+    }
+
+    let groupsHtml = '';
+    if (filters.modo === 'disciplina') {
+        groupsHtml = renderHierarchy(discQ, ['disciplina', 'banca', 'ano']);
+    } else if (filters.modo === 'banca-disciplina') {
+        groupsHtml = renderHierarchy(discQ, ['banca', 'disciplina', 'ano']);
+    } else {
+        groupsHtml = renderHierarchy(discQ, ['banca', 'ano']);
+    }
+    if (!groupsHtml) groupsHtml = '<div class="empty-msg">Nenhuma questão corresponde aos filtros.</div>';
+    el.innerHTML = html + groupsHtml;
 }
-progressContent.addEventListener('click', async (e) => {
+
+function hasVisibleDeep(qs) { return qs.some(q => q.visible); }
+
+function renderHierarchy(questions, keys, depth = 0) {
+    const key = keys[0], folha = keys.length === 1;
+    const groups = {};
+    for (const q of questions) {
+        const v = q[key];
+        if (v == null) continue;
+        (groups[v] ||= []).push(q);
+    }
+    const vals = Object.keys(groups).sort((a, b) =>
+        key === 'ano' ? b.localeCompare(a)
+        : key === 'disciplina' ? DISCIPLINAS_LISTA.indexOf(a) - DISCIPLINAS_LISTA.indexOf(b)
+        : a.localeCompare(b));
+    let html = '';
+    for (const v of vals) {
+        const qs = groups[v];
+        if (!hasVisibleDeep(qs)) continue;
+        const conf = qs.filter(q => q.status !== 'gray').length;
+        const hits = qs.filter(q => q.status === 'ok').length;
+        const tempoStats = tempoStatsGrupo(qs);
+        const icon = key === 'banca' ? '📚' : key === 'disciplina' ? '📖' : '📅';
+        const tag = depth === 0 ? 'h2' : 'h3';
+        const wrap = depth === 0 ? 'exam-block' : folha ? 'year-block' : 'sub-block';
+        let tempoHtml = '';
+        if (tempoStats) {
+            tempoHtml = `<span class="tempo-counts" title="Baseado em ${tempoStats.n} confirmação(ões)">⏱ média ${fmtTempo(tempoStats.mean)} · σ ${fmtTempo(tempoStats.std)}</span>`;
+        }
+        let btn = '';
+        if (depth === 0) {
+            const gid = 'g' + (++gabGrupoSeq);
+            gabGrupos[gid] = qs;
+            btn = `<div class="grupo-acoes">
+                <button class="refazer-grupo" data-grupo-id="${gid}" data-grupo-acao="refazer" data-grupo-nome="${escapeHtml(v)}">🔄 Refazer grupo</button>
+                <button class="refazer-grupo restaurar-grupo" data-grupo-id="${gid}" data-grupo-acao="restaurar" data-grupo-nome="${escapeHtml(v)}">↩️ Restaurar</button>
+            </div>`;
+        }
+        const inner = folha ? renderChipsBlock(qs) : renderHierarchy(qs, keys.slice(1), depth + 1);
+        html += `<div class="${wrap}"><div class="group-header"><${tag} class="${depth === 0 ? 'exam-title' : 'sub-title'}">${icon} ${escapeHtml(v)}</${tag}><span class="counts">${hits} acertos em ${conf} confirmadas</span>${tempoHtml}${btn}</div>${inner}</div>`;
+    }
+    return html;
+}
+
+function renderChipsBlock(qs) {
+    const visible = qs.filter(q => q.visible).sort((a, b) => (parseInt(a.num) || 0) - (parseInt(b.num) || 0));
+    if (!visible.length) return '';
+    let chips = '';
+    for (const q of visible) chips += renderChipHtml(q);
+    return `<div class="gabarito">${chips}</div>`;
+}
+
+function renderChipHtml(q) {
+    const { banca, ano, num, status, selected, correctAnswer } = q;
+    const ts = progress.estado?.[banca]?.[ano]?.[num]?.timestamp;
+    const dateStr = ts ? new Date(ts).toLocaleString('pt-BR') : '';
+    const dataAttr = `data-exam="${escapeHtml(banca)}" data-year="${escapeHtml(ano)}" data-num="${escapeHtml(num)}"`;
+    if (status === 'ok') {
+        return `<button class="chip ok" ${dataAttr} title="Acertou${dateStr ? ' · ' + dateStr : ''}">
+            <span class="qn">Q${num}</span><span class="ans">${escapeHtml(selected || '')}</span><span class="fix">✓</span></button>`;
+    }
+    if (status === 'bad') {
+        return `<button class="chip bad" ${dataAttr} title="Errou — correta: ${escapeHtml(correctAnswer || '')}${dateStr ? ' · ' + dateStr : ''}">
+            <span class="qn">Q${num}</span><span class="ans">${escapeHtml(selected || '')}</span><span class="fix">✗ ${escapeHtml(correctAnswer || '')}</span></button>`;
+    }
+    return `<button class="chip gray" ${dataAttr} title="Não realizada"><span class="qn">Q${num}</span></button>`;
+}
+
+function handleGrupoBtn(btn) {
+    const acao = btn.dataset.grupoAcao || 'refazer';
+    const qs = gabGrupos[btn.dataset.grupoId] || [];
+    if (acao === 'restaurar') handleRestaurarGrupo(btn, qs);
+    else handleRefazerGrupo(btn, qs);
+}
+function handleRefazerGrupo(btn, qs) {
+    const alvo = qs.filter(q => isRealizada(q.banca, q.ano, q.num));
+    if (!alvo.length) { avisoGrifo('Nenhuma questão confirmada neste grupo.'); return; }
+    if (!confirm(`Refazer ${alvo.length} questão(ões) confirmada(s) de ${btn.dataset.grupoNome}? Grifos e histórico são mantidos.`)) return;
+    alvo.forEach(q => _marcarReset(q.banca, q.ano, q.num));
+    setDirty(true);
+    salvarBackup();
+    alvo.forEach(q => sincronizarQuestaoAtual(q.banca, q.ano, q.num));
+    updateProgressDynamic();
+    updateFabBarButtons();
+    avisoGrifo(`${alvo.length} questão(ões) marcada(s) para refazer.`);
+}
+function handleRestaurarGrupo(btn, qs) {
+    const alvo = qs.filter(q => isResetada(q.banca, q.ano, q.num));
+    if (!alvo.length) { avisoGrifo('Nenhuma questão refeita neste grupo.'); return; }
+    if (!confirm(`Restaurar ${alvo.length} questão(ões) de ${btn.dataset.grupoNome}? O último estado antes de refazer será recuperado.`)) return;
+    alvo.forEach(q => restaurarDoReset(q.banca, q.ano, q.num));
+    alvo.forEach(q => sincronizarQuestaoAtual(q.banca, q.ano, q.num));
+    updateProgressDynamic();
+    updateFabBarButtons();
+    avisoGrifo(`${alvo.length} questão(ões) restaurada(s).`);
+}
+
+/* ============================================================
+   CHIP MENU / LONG-PRESS / CONTEXT MENU
+   ============================================================ */
+let lpTimer = null;
+let lpJustOpened = false;
+
+function openChipMenu(chip, x, y) {
+    closeChipMenu();
+    const banca = chip.dataset.exam, ano = chip.dataset.year, num = chip.dataset.num;
+    const e = progress.estado?.[banca]?.[ano]?.[num];
+    const isConf = !!(e && e.correct) && !isResetada(banca, ano, num);
+    const isReset = isResetada(banca, ano, num);
+    const hasHist = respostasAnteriores(banca, ano, num).length > 0;
+
+    const menu = document.createElement('div');
+    menu.className = 'chip-menu';
+    menu.id = 'chipMenu';
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+
+    let html = '';
+    if (isConf) html += `<button data-action="refazer">🔄 Refazer questão</button>`;
+    if (isReset) html += `<button data-action="restaurar">↩️ Restaurar questão</button>`;
+    if (hasHist) html += `<button data-action="historico">📜 Histórico</button>`;
+    if (!html) html = '<div style="padding:.55rem 1rem;color:#888;font-size:.85rem;">Sem ações disponíveis</div>';
+    menu.innerHTML = html;
+    document.body.appendChild(menu);
+
+    const rect = menu.getBoundingClientRect();
+    if (rect.right > window.innerWidth - 8) menu.style.left = (window.innerWidth - rect.width - 8) + 'px';
+    if (rect.bottom > window.innerHeight - 8) menu.style.top = (window.innerHeight - rect.height - 8) + 'px';
+
+    menu.addEventListener('click', (ev) => {
+        const b = ev.target.closest('button[data-action]');
+        if (!b) return;
+        const action = b.dataset.action;
+        closeChipMenu();
+        if (action === 'refazer') {
+            refazerQuestao(banca, ano, num);
+            salvarBackup();
+            updateProgressDynamic();
+            updateFabBarButtons();
+            sincronizarQuestaoAtual(banca, ano, num);
+        } else if (action === 'restaurar') {
+            restaurarDoReset(banca, ano, num);
+            updateProgressDynamic();
+            updateFabBarButtons();
+            sincronizarQuestaoAtual(banca, ano, num);
+        } else if (action === 'historico') {
+            openHistoricoModal(banca, ano, num);
+        }
+    });
+
+    setTimeout(() => {
+        document.addEventListener('click', _closeChipMenuOutside, { once: true });
+    }, 10);
+}
+function _closeChipMenuOutside(e) {
+    if (!e.target.closest('#chipMenu')) closeChipMenu();
+}
+function closeChipMenu() {
+    const m = document.getElementById('chipMenu');
+    if (m) m.remove();
+}
+
+progressContent.addEventListener('contextmenu', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
-    if (!Object.keys(exams).length && !(await loadManifest())) return;
-    populateExamSelector();
-    examSelector.value = chip.dataset.exam;
-    populateYearSelector(chip.dataset.exam);
-    yearSelector.value = chip.dataset.year;
-    if (await loadYear(chip.dataset.exam, chip.dataset.year, chip.dataset.num)) {
-        showScreen(resolvingScreen);
-    }
+    e.preventDefault();
+    openChipMenu(chip, e.clientX, e.clientY);
 });
-viewProgressBtn.addEventListener('click', () => {
+
+progressContent.addEventListener('touchstart', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    if (lpTimer) clearTimeout(lpTimer);
+    const t = e.touches[0];
+    lpTimer = setTimeout(() => {
+        lpJustOpened = true;
+        setTimeout(() => { lpJustOpened = false; }, 600);
+        openChipMenu(chip, t.clientX, t.clientY);
+        lpTimer = null;
+    }, 500);
+}, { passive: true });
+progressContent.addEventListener('touchend', () => {
+    if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+});
+progressContent.addEventListener('touchmove', () => {
+    if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+});
+
+async function abrirQuestaoDoGabarito(banca, ano, num, limpar) {
+    if (!Object.keys(exams).length && !(await loadManifest())) return;
+    if (!disciplinasLoaded) await loadDisciplinas();
+    garantirFiltros();
+    const achar = () => questoes.findIndex(q => q.exam === banca && q.year === ano && String(q.num) === String(num));
+    await rebuildQuestoes(false);
+    let idx = achar(), relaxou = false;
+    const passos = [() => { filtros.maxQuestoes = 0; }, () => { filtros.somenteNaoRealizadas = false; },
+                    () => { filtros.disciplina = ''; }, () => { filtros.anos = []; }, () => { filtros.bancas = []; }];
+    for (const passo of passos) {
+        if (idx >= 0) break;
+        passo(); relaxou = true;
+        await rebuildQuestoes(false);
+        idx = achar();
+    }
+    if (idx < 0) { await loadYear(banca, ano, num); showScreen(resolvingScreen); return; }
+    if (limpar) abrirLimpo = { exam: banca, year: ano, num: String(num) };
+    renderAllFilterUI();
+    await carregarQuestao(idx);
+    showScreen(resolvingScreen);
+    if (relaxou) avisoGrifo('Alguns filtros foram removidos para abrir esta questão.');
+}
+
+progressContent.addEventListener('click', async (e) => {
+    if (lpJustOpened) { lpJustOpened = false; return; }
+
+    const grupoBtn = e.target.closest('.refazer-grupo');
+    if (grupoBtn) { handleGrupoBtn(grupoBtn); return; }
+
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    await abrirQuestaoDoGabarito(chip.dataset.exam, chip.dataset.year, chip.dataset.num, chip.classList.contains('gray'));
+});
+
+viewProgressBtn.addEventListener('click', async () => {
     progressFrom = 'home';
     pausarTimer();
-    renderProgress();
+    await garantirDadosGabarito();
+    renderProgressV2();
     showScreen(progressScreen);
 });
 backFromProgressBtn.addEventListener('click', () => {
     if (progressFrom === 'resolving' && currentYear) showScreen(resolvingScreen);
     else { showHome(); showScreen(authScreen); }
+});
+backFromProgressBtn.addEventListener('click', () => {
+    if (iframeDesatualizado && !resolvingScreen.classList.contains('hidden')) { iframeDesatualizado = false; carregarQuestao(questaoAtualIndex); }
 });
 
 /* ============================================================
@@ -981,7 +2380,6 @@ function corDoGrifo(h) {
     return `hsl(${cor.h}, ${cor.s}%, ${lightness}%)`;
 }
 
-/* ---- utilitários ---- */
 const _GRIFO_SKIP = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA']);
 
 function avisoGrifo(msg) {
@@ -998,8 +2396,6 @@ function avisoGrifo(msg) {
 
 function docDaQuestao() { try { return questionFrame.contentDocument || null; } catch { return null; } }
 
-/* Texto "estável" da questão: todos os nós de texto (menos script/style e o editor).
-   Os grifos (<span>) não alteram esse texto, então os deslocamentos continuam válidos. */
 function textosDoDoc(doc) {
     const nodes = []; let pos = 0;
     const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
@@ -1034,7 +2430,7 @@ function offsetDoPonto(doc, T, c, o) {
     r.collapse(true);
     for (const x of T.nodes) {
         const t = doc.createRange(); t.setStart(x.n, 0); t.collapse(true);
-        if (r.compareBoundaryPoints(0, t) <= 0) return x.start;   // 0 = START_TO_START
+        if (r.compareBoundaryPoints(0, t) <= 0) return x.start;
     }
     return T.texto.length;
 }
@@ -1046,7 +2442,7 @@ function envolverIntervalo(doc, T, s, e, h) {
         if (b <= a) continue;
         const lo = a - x.start, hi = b - x.start;
         const fatia = x.n.data.slice(lo, hi);
-        if (!fatia.trim() && /\n/.test(fatia)) continue;          // ignora quebras/indentação entre blocos
+        if (!fatia.trim() && /\n/.test(fatia)) continue;
         let alvo = x.n;
         if (hi < alvo.data.length) alvo.splitText(hi);
         if (lo > 0) alvo = alvo.splitText(lo);
@@ -1059,8 +2455,6 @@ function envolverIntervalo(doc, T, s, e, h) {
     }
 }
 
-/* Reencontra o trecho pelo texto + contexto (antes/depois), perto da posição salva.
-   Assim o grifo continua no lugar mesmo que o texto da página mude (ex.: após confirmar a resposta). */
 function localizarGrifo(h, T, vivos) {
     const alvo = h.bruto || h.texto;
     if (!alvo) return null;
@@ -1099,15 +2493,14 @@ function aplicarGrifosDaQuestaoAtual() {
     const doc = docDaQuestao();
     if (!doc || !doc.body) return;
     const rodar = () => {
-        if (docDaQuestao() !== doc) return;     // o usuário já trocou de questão
+        if (docDaQuestao() !== doc) return;
         grifosDaQuestaoAtual().forEach(g => { try { aplicarGrifo(doc, g); } catch (e) { console.warn('Grifo:', e); } });
     };
     rodar();
-    setTimeout(rodar, 350);     // reaplica os que dependem do estado restaurado (resposta/correção)
+    setTimeout(rodar, 350);
     setTimeout(rodar, 1200);
 }
 
-/* ---- criar / atualizar / remover ---- */
 function criarGrifoDaSelecao() {
     if (!currentRA || !currentExam || !currentYear || !questoes[questaoAtualIndex] || resolvingScreen.classList.contains('hidden')) {
         avisoGrifo('Abra uma questão para grifar.'); return;
@@ -1166,7 +2559,6 @@ function removerGrifo(doc, id) {
     salvarBackup();
 }
 
-/* ---- caixa flutuante (duplo clique no trecho grifado) ---- */
 function fecharEditorGrifo(doc) {
     const box = doc && doc.getElementById('crivoEditor');
     if (box) { if (box._off) box._off(); box.remove(); }
@@ -1183,7 +2575,7 @@ function abrirEditorGrifo(spanEl) {
     const win = questionFrame.contentWindow;
     const rect = spanEl.getBoundingClientRect();
     const boxW = 240, boxH = 108;
-    const sx = win.scrollX || 0, sy = win.scrollY || 0;       // posição no documento: a caixa rola junto com o texto
+    const sx = win.scrollX || 0, sy = win.scrollY || 0;
     const left = Math.min(Math.max(8, rect.left + sx), Math.max(8, doc.documentElement.scrollWidth - boxW - 8));
     let top = rect.top + sy - boxH - 6;
     if (top < sy + 8) top = rect.bottom + sy + 6;
@@ -1233,7 +2625,6 @@ function abrirEditorGrifo(spanEl) {
     };
 }
 
-/* ---- eventos dentro da questão e atalho Ctrl+Alt ---- */
 const _ehCtrlAlt = e => !e.repeat && ((e.key === 'Control' && e.altKey) || (e.key === 'Alt' && e.ctrlKey));
 
 function attachIframeListeners() {
@@ -1241,7 +2632,6 @@ function attachIframeListeners() {
     if (!doc || doc.__crivoListenersAttached) return;
     doc.__crivoListenersAttached = true;
 
-    /* ajustes para telas pequenas / toque dentro da questão */
     if (!doc.getElementById('crivoRespCss')) {
         const st = doc.createElement('style');
         st.id = 'crivoRespCss';
@@ -1251,7 +2641,6 @@ function attachIframeListeners() {
             '.btn-container{flex-wrap:wrap}.submit-btn,.view-correction-btn{padding-left:20px;padding-right:20px}}';
         (doc.head || doc.documentElement).appendChild(st);
     }
-    /* duplo toque em um trecho grifado abre a caixa (celulares/tablets) */
     let ultimoToque = { t: 0, alvo: null };
     doc.addEventListener('touchend', (e) => {
         const alvo = e.target.closest && e.target.closest('.crivo-highlight');
@@ -1276,9 +2665,8 @@ function attachIframeListeners() {
         e.preventDefault(); e.stopPropagation();
         abrirEditorGrifo(alvo);
         const sel = questionFrame.contentWindow.getSelection();
-        if (sel) sel.removeAllRanges();      // tira a palavra selecionada pelo duplo clique
+        if (sel) sel.removeAllRanges();
     });
-    /* Evita que arrastar para selecionar texto, ou clicar num trecho grifado, marque uma alternativa por engano. */
     doc.addEventListener('click', (e) => {
         const t = e.target;
         if (!t || !t.closest || t.closest('#crivoEditor')) return;
@@ -1297,11 +2685,11 @@ document.addEventListener('keydown', (e) => {
     criarGrifoDaSelecao();
 });
 grifarBtn.addEventListener('mousedown', e => e.preventDefault());
-grifarBtn.addEventListener('pointerdown', e => e.preventDefault());   // não perde a seleção ao tocar no botão
+grifarBtn.addEventListener('pointerdown', e => e.preventDefault());
 grifarBtn.addEventListener('click', criarGrifoDaSelecao);
 
 /* ============================================================
-   EXPORTAR ANKI (.txt) — apenas questão atual
+   EXPORTAR ANKI (.txt)
    ============================================================ */
 function escAnki(s) {
     return String(s)
@@ -1315,7 +2703,6 @@ function exportarAnki() {
     if (!currentExam || !currentYear || !q || resolvingScreen.classList.contains('hidden')) {
         avisoGrifo('Abra uma questão para exportar os cartões dela.'); return;
     }
-    // só a questão exibida; ordem do texto
     const grifos = grifosDaQuestaoAtual().slice().sort((a, b) => (a.startOffset || 0) - (b.startOffset || 0));
     const porNumero = {};
     for (const g of grifos) {
@@ -1355,39 +2742,15 @@ function exportarAnki() {
 ankiBtn.addEventListener('click', exportarAnki);
 
 /* ============================================================
-   INICIALIZAÇÃO
-   ============================================================ */
-/* ============================================================
    COMPATIBILIDADE ENTRE VERSÕES DO SITE
-   Objetivo: depois de um novo deploy, o progresso salvo (arquivo .json ou cópia do navegador)
-   continua apontando para as MESMAS questões, mesmo que o manifest.json tenha mudado.
-
-   Como funciona:
-   1) Cada resposta, grifo e "última posição" passa a guardar também o NOME DO ARQUIVO da questão
-      (campo "arquivo"). O número da questão pode mudar entre versões; o arquivo é a identidade.
-   2) Ao carregar o progresso (arquivo, cópia local ou ao ler o manifest), os registros são
-      reposicionados: se o arquivo agora tem outro número no manifest, o progresso o acompanha.
-   3) Nome de prova/edição com acentuação (NFC/NFD) ou caixa diferente é reconhecido como o mesmo.
-   4) Se o gabarito oficial de uma questão mudar, o gabarito salvo é atualizado ao abri-la.
-   5) Se o texto de uma questão mudar e um grifo não puder ser reposicionado, o usuário é avisado
-      (o grifo continua salvo no progresso).
-   As funções existentes não foram alteradas: aqui elas apenas são "envolvidas" por verificações.
    ============================================================ */
 const _nfc = t => String(t).normalize('NFC');
 
-/* lista [{num, filename}] de uma edição (aceita os dois formatos do manifest, como loadYear) */
-function questoesDoManifest(prova, ano) {
-    const y = exams && exams[prova] && exams[prova][ano];
-    if (!y) return null;
-    return Array.isArray(y) ? y.map((f, i) => ({ num: String(i + 1), filename: f }))
-                            : Object.entries(y).map(([n, f]) => ({ num: String(n), filename: f }));
-}
 function arquivoNoManifest(prova, ano, num) {
     const l = questoesDoManifest(prova, ano);
     const q = l && l.find(x => x.num === String(num));
     return q ? q.filename : null;
 }
-/* nome da prova/edição exatamente como está no manifest (tolera acentos NFC/NFD e maiúsculas/minúsculas) */
 function chaveCanonica(obj, nome) {
     const ks = Object.keys(obj || {});
     if (ks.includes(nome)) return nome;
@@ -1397,16 +2760,18 @@ function chaveCanonica(obj, nome) {
     return c.length === 1 ? c[0] : nome;
 }
 
-/* registra o nome do arquivo em tudo que ainda não o tem */
 function carimbarArquivos(p = progress) {
     if (!p || !Object.keys(exams || {}).length) return;
     (p.registro || []).forEach(ev => { if (!ev.arquivo) { const f = arquivoNoManifest(ev.prova, ev.ano, ev.questao); if (f) ev.arquivo = f; } });
     (p.grifados || []).forEach(g => { if (!g.arquivo) { const f = arquivoNoManifest(g.prova, g.ano, g.questao); if (f) g.arquivo = f; } });
+    for (const pr of Object.keys(p.resetados || {})) for (const an of Object.keys(p.resetados[pr] || {})) for (const nm of Object.keys(p.resetados[pr][an] || {})) {
+        const r = p.resetados[pr][an][nm];
+        if (r && !r.arquivo) { const f = arquivoNoManifest(pr, an, nm); if (f) r.arquivo = f; }
+    }
     const u = p.ultimaPosicao;
     if (u && !u.arquivo) { const f = arquivoNoManifest(u.exam, u.year, u.num); if (f) u.arquivo = f; }
 }
 
-/* leva o progresso para o número atual de cada arquivo; retorna quantos registros mudaram */
 function reconciliar(p) {
     if (!p || !Object.keys(exams || {}).length) return 0;
     const resolver = (prova, ano, num, arquivo) => {
@@ -1418,8 +2783,8 @@ function reconciliar(p) {
             const naPos = lista.find(x => x.num === nm);
             if (!naPos || naPos.filename !== arquivo) {
                 const novo = lista.find(x => x.filename === arquivo);
-                if (novo) nm = novo.num;          // o arquivo mudou de número: o progresso o acompanha
-            }                                      // (se o arquivo sumiu/foi renomeado, mantém o número)
+                if (novo) nm = novo.num;
+            }
         }
         return [pv, an, nm];
     };
@@ -1437,32 +2802,46 @@ function reconciliar(p) {
         const [pv, an, nm] = resolver(u.exam, u.year, u.num, u.arquivo);
         if (pv !== u.exam || an !== u.year || nm !== String(u.num)) { u.exam = pv; u.year = an; u.num = nm; mudancas++; }
     }
-    if (mudancas && p.registro && p.registro.length) {      // o estado atual é sempre derivado do registro
+    if (p.resetados && typeof p.resetados === 'object') {
+        const novo = {};
+        for (const prova of Object.keys(p.resetados)) for (const ano of Object.keys(p.resetados[prova] || {})) for (const num of Object.keys(p.resetados[prova][ano] || {})) {
+            const r = p.resetados[prova][ano][num];
+            const [pv, an, nm] = resolver(prova, ano, num, r && r.arquivo);
+            ((novo[pv] ||= {})[an] ||= {})[nm] = r;
+            if (pv !== prova || an !== ano || nm !== String(num)) mudancas++;
+        }
+        p.resetados = novo;
+    }
+    if (mudancas && p.registro && p.registro.length) {
         p.estado = {};
         p.registro.forEach(ev => aplicarEvento(p.estado, ev));
     }
     return mudancas;
 }
 
-/* aceita arquivos de progresso de versões anteriores (sem registro, sem grifados...) */
 function migrarProgresso(d) {
     const x = Object.assign({}, d);
     if (!Array.isArray(x.registro)) x.registro = [];
     if (!Array.isArray(x.grifados)) x.grifados = [];
+    if (!x.resetados || typeof x.resetados !== 'object') x.resetados = {};
     return x;
 }
 
-/* ---- ganchos nas funções existentes (sem modificá-las) ---- */
 const _normalizarOrig = normalizar;
 normalizar = function (d) {
-    const p = _normalizarOrig(migrarProgresso(d));
+    const dm = migrarProgresso(d);
+    const p = _normalizarOrig(dm);
+    p.resetados = dm.resetados || {};
     reconciliar(p); carimbarArquivos(p);
     return p;
 };
 const _lerBackupOrig = lerBackup;
 lerBackup = function (ra) {
     const v = _lerBackupOrig(ra);
-    if (v) { reconciliar(v); carimbarArquivos(v); }
+    if (v) {
+        if (!v.resetados) v.resetados = {};
+        reconciliar(v); carimbarArquivos(v);
+    }
     return v;
 };
 const _salvarBackupOrig = salvarBackup;
@@ -1477,8 +2856,28 @@ loadManifest = async function () {
     return ok;
 };
 
-/* ao abrir uma questão: confere o gabarito oficial e os grifos */
+const _aplicarEventoOrig = aplicarEvento;
+aplicarEvento = function (estado, ev) {
+    if (ev.acao === 'restaurou') {
+        const q = ((estado[ev.prova] ||= {})[ev.ano] ||= {});
+        q[ev.questao] = { selected: ev.opcao, correct: ev.correta, timestamp: ev.data };
+    } else {
+        _aplicarEventoOrig(estado, ev);
+    }
+};
+
+const _getSavedStateOrig = getSavedState;
+getSavedState = function (exam, year, num) {
+    if (isResetada(exam, year, num)) return null;
+    if (abrirLimpo && abrirLimpo.exam === exam && abrirLimpo.year === year && abrirLimpo.num === String(num)) return null;
+    return _getSavedStateOrig(exam, year, num);
+};
+
+const _showScreenOrig = showScreen;
+showScreen = function (sc) { _showScreenOrig(sc); try { updateFabBarButtons(); } catch {} };
+
 questionFrame.addEventListener('load', () => {
+    abrirLimpo = null;
     const doc = docDaQuestao();
     const q = questoes[questaoAtualIndex];
     if (!doc || !q || !currentExam) return;
@@ -1490,7 +2889,8 @@ questionFrame.addEventListener('load', () => {
         let oficial = null;
         try { oficial = questionFrame.contentWindow.eval("typeof correctAnswer !== 'undefined' ? correctAnswer : null"); } catch {}
         if (oficial && /^[A-E]$/.test(oficial) && oficial !== saved.correct) {
-            saveProgressForQuestion(exam, year, num, { selected: saved.selected, correct: oficial });
+            const original = [...progress.registro].reverse().find(e => e.prova === exam && e.ano === year && String(e.questao) === String(num) && e.acao === 'confirmou');
+            saveProgressForQuestion(exam, year, num, { selected: saved.selected, correct: oficial, tempoMs: original?.tempoMs });
             avisoGrifo('O gabarito oficial desta questão foi atualizado no site; o seu progresso foi ajustado.');
         }
     }, 700);
@@ -1501,6 +2901,9 @@ questionFrame.addEventListener('load', () => {
     }, 1800);
 });
 
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
 window.addEventListener('DOMContentLoaded', async () => {
     showLoginForm();
     showScreen(authScreen);
