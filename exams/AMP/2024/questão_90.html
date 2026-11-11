@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 90 - Níveis de Prevenção em Saúde: Prevenção Terciária no Manejo de Complicações do Diabetes Mellitus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Níveis de Prevenção em Saúde: Prevenção Terciária no Manejo de Complicações do Diabetes Mellitus</div>
+        <h1>Questão 90</h1>
+        <div class="question-text">
+            <p>Leopolda, 60 anos, foi diagnosticada com diabetes tipo 2 há dez anos. Apesar de seguir o tratamento prescrito e fazer acompanhamento regular com seu médico, desenvolveu complicações relacionadas à diabetes, incluindo neuropatia periférica e retinopatia diabética, e assim foi encaminhada para a cirurgia de fotocoagulação de retina para tentar reduzir a progressão da cegueira dela. Considerando suas complicações relacionadas à diabetes, qual o nível de prevenção que esse procedimento está tentando atingir?</p>
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Prevenção primária.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Prevenção secundária.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Prevenção terciária.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Prevenção quaternária.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Prevenção quinquenária.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Saúde Coletiva / Medicina de Família e Comunidade / Clínica Médica</p>
+                <p><strong>Tema:</strong> Níveis de prevenção de Leavell e Clark — diferenciação entre prevenção primária, secundária, terciária e quaternária, com aplicação à complicação crônica do diabetes mellitus (retinopatia diabética).</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência, especialmente em Saúde Coletiva e Medicina de Família. A banca costuma cobrar a classificação de ações concretas (vacinação, rastreamento, reabilitação, desprescrição) nos diferentes níveis de prevenção. É frequentemente associado a temas como diabetes, hipertensão, câncer e envelhecimento populacional.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O modelo da História Natural da Doença, proposto por Leavell e Clark, divide a prevenção em três níveis clássicos: primária (antes da doença, com promoção da saúde e proteção específica), secundária (doença já instalada, mas assintomática ou em fase inicial — diagnóstico precoce e tratamento imediato) e terciária (doença já estabelecida com sequelas ou complicações — reabilitação e limitação da invalidez). A prevenção quaternária, conceito posterior, busca evitar danos e medicalização excessiva. No caso de Leopolda, a retinopatia diabética já está estabelecida; a fotocoagulação a laser visa reduzir a progressão da perda visual e limitar a invalidez, o que caracteriza prevenção terciária.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa C:</strong> A fotocoagulação de retina é uma intervenção realizada quando a doença (retinopatia diabética) e suas complicações já estão instaladas, com o objetivo de evitar a progressão para cegueira e limitar a incapacidade. Trata-se, portanto, de prevenção terciária, que engloba reabilitação e limitação da invalidez. Em provas anteriores, ações de reabilitação e limitação da invalidez foram corretamente classificadas como prevenção terciária, o que reforça o gabarito.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. Prevenção primária ocorre antes do surgimento da doença, por meio de promoção da saúde e proteção específica (ex: vacinação, atividade física, alimentação saudável). No caso, a doença e a complicação já existem.</p>
+                <p><strong>Alternativa B</strong> - Errada. Prevenção secundária refere-se ao diagnóstico precoce e tratamento imediato de doença já instalada, mas ainda assintomática ou em fase inicial (ex: rastreamento de retinopatia diabética por fundoscopia). A fotocoagulação não é rastreamento; é tratamento de complicação estabelecida.</p>
+                <p><strong>Alternativa C</strong> - Correta. Prevenção terciária: reabilitação e limitação da invalidez em doença já estabelecida com complicações.</p>
+                <p><strong>Alternativa D</strong> - Errada. Prevenção quaternária busca evitar danos e medicalização excessiva, não se aplicando diretamente à indicação da fotocoagulação, que é uma intervenção com benefício comprovado para reduzir progressão da retinopatia.</p>
+                <p><strong>Alternativa E</strong> - Errada. Prevenção quinquenária não é um nível clássico de Leavell e Clark; trata-se de conceito emergente, sem aplicação consagrada em provas de residência.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Complicações relacionadas à diabetes:</strong> indica que a doença já está estabelecida e evoluindo com complicações.</li>
+                    <li><strong>Neuropatia periférica e retinopatia diabética:</strong> complicações crônicas microvasculares já instaladas.</li>
+                    <li><strong>Fotocoagulação de retina:</strong> tratamento para reduzir progressão da perda visual, típico de prevenção terciária.</li>
+                    <li><strong>Reduzir a progressão da cegueira:</strong> objetivo de limitar a invalidez e reabilitar, caracterizando prevenção terciária.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar se a doença está presente antes da intervenção. Se não, prevenção primária.</li>
+                    <li><strong>Segundo:</strong> Se a doença está presente, mas assintomática ou em fase inicial, e a intervenção é diagnóstico precoce ou tratamento imediato: prevenção secundária.</li>
+                    <li><strong>Terceiro:</strong> Se a doença já está estabelecida com complicações ou sequelas e a intervenção visa reabilitar ou limitar a invalidez: prevenção terciária.</li>
+                    <li><strong>Quarto:</strong> Se a intervenção visa evitar danos decorrentes de medicalização excessiva: prevenção quaternária.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de classificação de níveis de prevenção.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> prevenção primária = antes da doença; secundária = doença presente, diagnóstico precoce/tratamento imediato; terciária = doença estabelecida com complicações, reabilitação/limitação da invalidez; quaternária = evitar danos da medicalização.</li>
+                    <li><strong>Números e doses:</strong> não se aplica a esta questão.</li>
+                    <li><strong>Mnemônicos:</strong> “Primária previne, secundária detecta, terciária reabilita, quaternária protege do dano”.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável. O tema já foi cobrado em 2014, 2015, 2017, 2018, 2021 e 2025.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Prevenção primária</td>
+                            <td>Doença ausente; fatores de risco presentes.</td>
+                            <td>Avaliação de risco.</td>
+                            <td>Vacinação, atividade física, alimentação saudável.</td>
+                        </tr>
+                        <tr>
+                            <td>Prevenção secundária</td>
+                            <td>Doença presente, assintomática ou inicial.</td>
+                            <td>Rastreamento (ex: fundoscopia, mamografia, Papanicolau).</td>
+                            <td>Diagnóstico precoce e tratamento imediato.</td>
+                        </tr>
+                        <tr>
+                            <td>Prevenção terciária (correta)</td>
+                            <td>Doença estabelecida com complicações/sequelas.</td>
+                            <td>Avaliação de complicações.</td>
+                            <td>Reabilitação, limitação da invalidez (ex: fotocoagulação).</td>
+                        </tr>
+                        <tr>
+                            <td>Prevenção quaternária</td>
+                            <td>Risco de dano por intervenção médica excessiva.</td>
+                            <td>Revisão de indicações.</td>
+                            <td>Desprescrição, evitar sobrediagnóstico/sobretratamento.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a classificação de ações em diferentes níveis de prevenção.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão pedisse prevenção primária:</strong> exemplos seriam vacinação, promoção de atividade física e alimentação saudável.</li>
+                    <li><strong>Se pedisse prevenção secundária:</strong> exemplos seriam rastreamento de retinopatia por fundoscopia, mamografia e Papanicolau.</li>
+                    <li><strong>Se pedisse prevenção quaternária:</strong> exemplos seriam desprescrição de AAS sem indicação e evitar PSA em baixo risco.</li>
+                    <li><strong>Se pedisse reabilitação:</strong> a resposta seria prevenção terciária.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2014 – Q1</td>
+                            <td>Ações preventivas de nível secundário segundo Leavell e Clark; uma das alternativas era triagem de erros inatos do metabolismo.</td>
+                            <td>Classificação de ações no modelo de Leavell e Clark.</td>
+                            <td>A</td>
+                            <td>Fornece base conceitual dos níveis de prevenção aplicada a exemplos.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q57</td>
+                            <td>Associação entre ações sanitárias e níveis de prevenção (identificar paciente em risco de intervenção invasiva, antibiótico para amigdalite, reabilitação respiratória, educação sexual).</td>
+                            <td>Classificação de ações nos níveis primário, secundário, terciário e quaternário.</td>
+                            <td>B</td>
+                            <td>Aplicação direta da classificação que a questão atual exige.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q82</td>
+                            <td>Rastreamento do câncer de colo de útero e sexo seguro: níveis de prevenção.</td>
+                            <td>Classificação de ações (secundária e primária).</td>
+                            <td>D</td>
+                            <td>Reforça a diferenciação entre primária e secundária.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q95</td>
+                            <td>Leavell e Clark: reabilitação, proteção específica, limitação da invalidez, promoção da saúde, diagnóstico precoce.</td>
+                            <td>Associação entre ações e níveis de prevenção.</td>
+                            <td>C</td>
+                            <td>Confirma que reabilitação e limitação da invalidez são prevenção terciária.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q42</td>
+                            <td>Realização de mamografia e imunização: níveis de prevenção.</td>
+                            <td>Classificação de ações (secundária e primária).</td>
+                            <td>D</td>
+                            <td>Demonstra a cobrança recorrente da classificação de ações.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q58</td>
+                            <td>Mamografia, citopatológico e suspensão de AAS sem indicação.</td>
+                            <td>Prevenção secundária e prevenção quaternária.</td>
+                            <td>C</td>
+                            <td>Introduz a prevenção quaternária como distrator conceitual.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q57</td>
+                            <td>Associação entre ações e níveis de prevenção (quaternária, secundária, terciária, primária).</td>
+                            <td>Classificação de ações nos quatro níveis.</td>
+                            <td>B</td>
+                            <td>Confirma o padrão de cobrança e a inclusão da prevenção quaternária.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 7 das provas analisadas. A banca alterna entre cobrar o conceito de Leavell e Clark, classificar ações concretas (vacinação, rastreamento, reabilitação) e introduzir a prevenção quaternária como distrator.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A aplicação da prevenção terciária a uma complicação específica de doença crônica (retinopatia diabética tratada com fotocoagulação para limitar a invalidez) ainda não havia sido cobrada de forma direta. Pode surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2014 e 2015, a questão era mais conceitual e classificatória; em 2021 e 2025, a banca passou a incluir a prevenção quaternária como distrator, exigindo diferenciação conceitual mais fina. Em 2024, avança para a aplicação clínica em complicação do diabetes.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Esperar questões que exijam diferenciar prevenção terciária (reabilitação/limitação da invalidez) de prevenção quaternária (evitar dano iatrogênico), especialmente em cenários de doenças crônicas com complicações.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Níveis de prevenção ↔ Diabetes Mellitus: rastreamento de complicações (secundária) e tratamento de complicações estabelecidas (terciária).</li>
+                    <li><strong>Conexão 2:</strong> Níveis de prevenção ↔ Envelhecimento e doenças crônicas: reabilitação e limitação da invalidez ganham relevância com o aumento da prevalência de doenças crônicas.</li>
+                    <li><strong>Conexão 3:</strong> Níveis de prevenção ↔ Prevenção quaternária: evitar intervenções desnecessárias em pacientes com doenças crônicas.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o erro mais provável é de <strong>confusão conceitual</strong> entre prevenção secundária e terciária, ou entre terciária e quaternária. Também pode ter havido <strong>erro de leitura/interpretação</strong> ao não perceber que a retinopatia já está estabelecida. A ação corretiva é revisar o modelo de Leavell e Clark com exemplos concretos e treinar a classificação de ações em cada nível.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, a prevenção terciária é fundamental no manejo de doenças crônicas com complicações. No diabetes, isso inclui rastreamento e tratamento de retinopatia, nefropatia e neuropatia, além de reabilitação e prevenção de novas complicações. O médico deve identificar o nível de prevenção de cada intervenção para planejar o cuidado de forma integrada e evitar tanto a omissão quanto a medicalização excessiva.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>História Natural da Doença e níveis de prevenção de Leavell e Clark.</li>
+                    <li>Prevenção quaternária: definição e exemplos.</li>
+                    <li>Rastreamento e diagnóstico precoce de complicações do diabetes.</li>
+                    <li>Reabilitação e limitação da invalidez em doenças crônicas.</li>
+                    <li>Sobrediagnóstico e sobretratamento.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Leavell HR, Clark EG. Preventive Medicine for the Doctor in his Community. New York: McGraw-Hill, 1965.</p>
+                <p>2. Brasil. Ministério da Saúde. Diretrizes da Sociedade Brasileira de Diabetes. São Paulo: Editora Clannad, 2019.</p>
+                <p>3. Gusso GDF, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. 2. ed. Porto Alegre: Artmed, 2019.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>
