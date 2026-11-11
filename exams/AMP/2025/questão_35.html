@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 35 - Obstetrícia: Restrição de Crescimento Intrauterino – Dopplerfluxometria e Função Placentária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstetrícia: Restrição de Crescimento Intrauterino – Dopplerfluxometria e Função Placentária</div>
+        <h1>Questão 35</h1>
+        <div class="question-text">
+            Paula, uma gestante de 30 anos, compareceu ao pré-natal na 30 semana de gestação com queixas de diminuição da movimentação fetal. No exame físico sua pressão arterial estava normal, mas o seu peso estava abaixo do esperado para a idade gestacional, com aumento total de 5 kg desde o inicio da gravidez. O ultrassom revelou um feto de peso esperado de 1200 g, correspondente ao percentil 5, indicando restrição de crescimento intrauterino (RCIU). Na restrição de crescimento a doppler fluxometria tem papel importante tanto no diagnóstico como no prognóstico. Qual dos vasos abaixo representa a função placentária?
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Veia umbilical.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Artéria umbilical.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Artéria iliaca fetal.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Ducto venoso fetal.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Artéria uterina materna.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia</p>
+                <p><strong>Tema:</strong> Restrição de crescimento intrauterino (RCIU) – dopplerfluxometria e função placentária</p>
+                <p><strong>Contextualização:</strong> A RCIU é uma das principais complicações da gestação, associada a elevados índices de morbimortalidade perinatal e a doenças cardiovasculares e metabólicas na vida adulta. A dopplerfluxometria é ferramenta fundamental na avaliação da RCIU, permitindo diferenciar o feto pequeno constitucional do feto com restrição patológica, avaliar o grau de insuficiência placentária e definir o momento ideal do parto. A banca cobra com frequência os conceitos de RCIU, os vasos avaliados no Doppler e a interpretação dos achados. Esta questão explora especificamente qual vaso representa a função placentária.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A RCIU é definida como o crescimento fetal abaixo do esperado para a idade gestacional, geralmente abaixo do percentil 10, utilizando-se curvas-padrão específicas de cada população. A forma patológica está associada à insuficiência placentária, que pode ser identificada pela dopplerfluxometria. A artéria umbilical é o vaso que melhor representa a função placentária, pois seu território de resistência é o leito placentário. Em gestações normais, a artéria umbilical apresenta fluxo diastólico positivo e baixa resistência, refletindo a abundante vascularização placentária. Na insuficiência placentária, há aumento da resistência ao fluxo na artéria umbilical, com redução do fluxo diastólico, que pode evoluir para fluxo diastólico ausente ou reverso – achados que indicam gravidade e risco de hipóxia fetal. A artéria uterina, por sua vez, representa a circulação materna do lado placentário, e suas alterações podem preceder as alterações da artéria umbilical. A veia umbilical transporta sangue oxigenado da placenta para o feto e seu fluxo é contínuo, sendo avaliada principalmente em casos de insuficiência cardíaca fetal. O ducto venoso conecta a veia umbilical à veia cava inferior e reflete a função cardíaca e o status ácido-básico fetal, sendo um marcador mais tardio de deterioração fetal. A artéria ilíaca fetal não é utilizada rotineiramente na avaliação da vitalidade fetal.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa B está correta. A artéria umbilical é o vaso que representa a função placentária, pois seu Doppler reflete a resistência vascular do leito placentário. O aumento do índice de pulsatilidade e a redução do fluxo diastólico na artéria umbilical são os primeiros sinais de insuficiência placentária na RCIU. A progressão para fluxo diastólico ausente ou reverso indica comprometimento grave e necessidade de resolução da gestação conforme idade gestacional. Em provas anteriores, a dopplerfluxometria foi cobrada em questões sobre RCIU (2014 Q27, 2016 Q18, 2019 Q93, 2021 Q37) e sobre o seguimento de gestações com RCIU (2008 Q33, 2012 Q33), sempre valorizando o papel da artéria umbilical na avaliação da função placentária.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A veia umbilical transporta sangue oxigenado da placenta para o feto. Seu fluxo é contínuo e não reflete a resistência placentária. A avaliação da veia umbilical é útil em casos de insuficiência cardíaca fetal e em situações de comprometimento hemodinâmico grave, mas não é o vaso que representa a função placentária na RCIU.</p>
+                <p><strong>Alternativa B</strong> - Correta. A artéria umbilical é o vaso que representa a função placentária, pois seu território de resistência é o leito placentário. O aumento da resistência ao fluxo na artéria umbilical é o principal marcador de insuficiência placentária na RCIU.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. A artéria ilíaca fetal não é utilizada rotineiramente na avaliação da vitalidade fetal ou da função placentária. Não faz parte do protocolo de dopplerfluxometria na RCIU.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. O ducto venoso é um vaso fetal que conecta a veia umbilical à veia cava inferior. Ele reflete a função cardíaca e o status ácido-básico fetal, sendo um marcador mais tardio de deterioração fetal. Não representa a função placentária em si.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A artéria uterina representa a circulação materna do lado placentário. Suas alterações podem preceder as alterações da artéria umbilical e são úteis no rastreamento de pré-eclâmpsia e RCIU, mas não representam a função placentária no sentido de resistência do leito placentário. Em provas anteriores (2007 Q78, 2021 Q35), a artéria uterina foi cobrada em contextos de síndromes hipertensivas e colagenoses, mas não como representante da função placentária na RCIU.</p>
+
+                <h4>2.5 Palavras-Chave e &quot;Pistas&quot; no Enunciado</h4>
+                <ul>
+                    <li><strong>30 semanas de gestação:</strong> momento em que a RCIU pode ser diagnosticada e a dopplerfluxometria é útil para avaliação da vitalidade fetal.</li>
+                    <li><strong>Peso abaixo do esperado e aumento de apenas 5 kg:</strong> sugere comprometimento do crescimento fetal.</li>
+                    <li><strong>Peso fetal estimado de 1200 g (percentil 5):</strong> confirma a RCIU.</li>
+                    <li><strong>Dopplerfluxometria:</strong> ferramenta que avalia a resistência vascular e a função placentária.</li>
+                    <li><strong>Função placentária:</strong> direciona para o vaso que reflete a resistência do leito placentário, que é a artéria umbilical.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> confirmar o diagnóstico de RCIU (peso fetal &lt; percentil 10 para a idade gestacional).</li>
+                    <li><strong>Segundo:</strong> avaliar a etiologia (fetal, placentária, materna) e a presença de malformações ou infecções congênitas.</li>
+                    <li><strong>Terceiro:</strong> realizar dopplerfluxometria para avaliar a função placentária, iniciando pela artéria umbilical.</li>
+                    <li><strong>Quarto:</strong> se alterações na artéria umbilical, avaliar a artéria cerebral média (centralização fetal) e o ducto venoso (comprometimento cardíaco).</li>
+                    <li><strong>Quinto:</strong> definir o momento do parto conforme a idade gestacional, a gravidade das alterações do Doppler e as condições materno-fetais.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de &quot;conduta inicial&quot; e &quot;próximo passo&quot;.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> RCIU = peso fetal &lt; percentil 10; artéria umbilical representa a função placentária; fluxo diastólico ausente ou reverso na artéria umbilical indica insuficiência placentária grave.</li>
+                    <li><strong>Números e doses:</strong> percentil 10 como limite para RCIU; artéria umbilical com índice de pulsatilidade elevado é o primeiro sinal de insuficiência placentária; ducto venoso com onda a invertida é marcador tardio de hipóxia.</li>
+                    <li><strong>Mnemônicos:</strong> &quot;Artéria umbilical = leito placentário = função placentária&quot;; &quot;Ducto venoso = função cardíaca e acidose fetal&quot;.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Vaso</th>
+                            <th>O que representa</th>
+                            <th>Alterações na RCIU</th>
+                            <th>Utilidade clínica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Artéria umbilical (correta)</td>
+                            <td>Resistência do leito placentário (função placentária)</td>
+                            <td>Aumento do índice de pulsatilidade; redução do fluxo diastólico; fluxo ausente ou reverso em casos graves</td>
+                            <td>Principal marcador de insuficiência placentária e de gravidade na RCIU</td>
+                        </tr>
+                        <tr>
+                            <td>Artéria uterina</td>
+                            <td>Circulação materna do lado placentário</td>
+                            <td>Aumento da resistência; incisura protodiastólica persistente</td>
+                            <td>Rastreamento de pré-eclâmpsia e RCIU; alterações podem preceder as da artéria umbilical</td>
+                        </tr>
+                        <tr>
+                            <td>Artéria cerebral média</td>
+                            <td>Circulação cerebral fetal</td>
+                            <td>Redução do índice de pulsatilidade (centralização fetal)</td>
+                            <td>Mecanismo de adaptação à hipóxia; marcador de comprometimento fetal</td>
+                        </tr>
+                        <tr>
+                            <td>Ducto venoso</td>
+                            <td>Função cardíaca e status ácido-básico fetal</td>
+                            <td>Onda a ausente ou invertida</td>
+                            <td>Marcador tardio de deterioração fetal; indicação de parto iminente</td>
+                        </tr>
+                        <tr>
+                            <td>Veia umbilical</td>
+                            <td>Transporte de sangue oxigenado da placenta ao feto</td>
+                            <td>Fluxo pulsátil em casos de insuficiência cardíaca fetal</td>
+                            <td>Avaliação de comprometimento hemodinâmico grave</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico de RCIU:</strong> peso fetal &lt; percentil 10 para a idade gestacional.</li>
+                    <li><strong>Se a questão fosse sobre qual vaso representa a função placentária:</strong> artéria umbilical (como nesta questão).</li>
+                    <li><strong>Se a questão fosse sobre progressão do comprometimento fetal:</strong> artéria umbilical → artéria cerebral média → ducto venoso.</li>
+                    <li><strong>Se a questão fosse sobre conduta:</strong> acompanhamento de vitalidade fetal, corticoterapia e definição do momento do parto conforme Doppler e idade gestacional.</li>
+                    <li><strong>Se a questão fosse sobre diferença entre RCIU e feto pequeno constitucional:</strong> Doppler normal favorece feto constitucional; Doppler alterado indica RCIU patológica.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q78</td>
+                            <td>Dopplervelocimetria das artérias uterinas em gestantes; indicação e alterações precoces em colagenoses.</td>
+                            <td>Doppler de artérias uterinas e umbilicais.</td>
+                            <td>C</td>
+                            <td>Mostra que a artéria uterina é usada no rastreamento, enquanto a artéria umbilical avalia a função placentária.</td>
+                        </tr>
+                        <tr>
+                            <td>2008 – Q33</td>
+                            <td>Gestante de 31 semanas com feto abaixo do percentil 10 e Doppler sem sinais de hipóxia.</td>
+                            <td>Seguimento de RCIU com Doppler normal.</td>
+                            <td>C</td>
+                            <td>Reforça que o Doppler da artéria umbilical é usado para avaliar hipóxia e orientar conduta.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q33</td>
+                            <td>Mesmo caso de 2008 Q33: RCIU com Doppler sem sinais de hipóxia.</td>
+                            <td>Seguimento de RCIU.</td>
+                            <td>C</td>
+                            <td>Repetição do padrão de cobrança sobre Doppler e conduta na RCIU.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q27</td>
+                            <td>RCF: definição, fatores de risco, Doppler e conduta.</td>
+                            <td>Conceitos de RCF e dopplervelocimetria.</td>
+                            <td>B (afirmativa incorreta)</td>
+                            <td>Afirma que a dopplervelocimetria permite diferenciar feto patológico do constitucional e avaliar insuficiência placentária.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q18</td>
+                            <td>RCF: definição, fatores de risco e Doppler.</td>
+                            <td>Conceitos de RCF.</td>
+                            <td>B (afirmativa incorreta)</td>
+                            <td>Reforça que o crescimento fetal diminuído está relacionado a doenças cardiovasculares e metabólicas na idade adulta.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q93</td>
+                            <td>RCF: definição, fatores de risco e Doppler.</td>
+                            <td>Conceitos de RCF.</td>
+                            <td>B (afirmativa incorreta)</td>
+                            <td>Repetição do padrão de cobrança sobre RCF.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q37</td>
+                            <td>RCF: fatores de risco, relação com doenças na vida adulta, tratamento e Doppler.</td>
+                            <td>Conceitos de RCF e dopplervelocimetria.</td>
+                            <td>A (I e IV corretas)</td>
+                            <td>Afirma que a dopplervelocimetria permite diferenciar feto patológico do constitucional e avaliar insuficiência placentária.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q38</td>
+                            <td>Perfil biofísico fetal: marcadores agudos e crônicos.</td>
+                            <td>Avaliação da vitalidade fetal.</td>
+                            <td>D (todas corretas)</td>
+                            <td>Complementa a avaliação da vitalidade fetal, mas não aborda diretamente a artéria umbilical.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 8 das provas anteriores analisadas (2007 a 2022). A banca alterna entre cobrar conceitos de RCIU (2014, 2016, 2019, 2021), seguimento com Doppler (2008, 2012) e avaliação da vitalidade fetal (2022). A pergunta específica sobre qual vaso representa a função placentária é uma abordagem mais direta e aplicada, que explora o conhecimento dos territórios vasculares avaliados no Doppler.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A diferenciação detalhada entre os vasos avaliados no Doppler (artéria umbilical, artéria cerebral média, ducto venoso, artéria uterina) e seus respectivos significados clínicos é uma abordagem que pode ser mais explorada em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam conceitos e seguimento; as mais recentes têm cobrado a interpretação dos achados do Doppler e a aplicação clínica dos diferentes vasos.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> memorizar que a artéria umbilical representa a função placentária e que suas alterações (aumento de resistência, fluxo diastólico ausente/reverso) indicam insuficiência placentária e gravidade na RCIU. Revisar também a sequência de comprometimento fetal: artéria umbilical → artéria cerebral média → ducto venoso.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros. &quot;Se você viu X, lembre-se de Y&quot;. Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> A RCIU se conecta à pré-eclâmpsia, pois ambas compartilham a fisiopatologia da insuficiência placentária e da disfunção endotelial. A artéria umbilical é um dos vasos avaliados no Doppler de gestações com pré-eclâmpsia.</li>
+                    <li><strong>Conexão 2:</strong> Se conecta à prematuridade iatrogênica, pois a RCIU grave com alterações no Doppler pode indicar a necessidade de resolução da gestação antes do termo.</li>
+                    <li><strong>Conexão 3:</strong> Se conecta às doenças cardiovasculares e metabólicas na vida adulta, pois o ambiente intrauterino adverso da RCIU está associado a programação fetal e maior risco futuro de hipertensão, diabetes e doença coronariana.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+                <p>Se o usuário escolheu a alternativa E (artéria uterina), houve confusão conceitual entre a circulação materna (artéria uterina) e a circulação fetal-placentária (artéria umbilical). A artéria uterina reflete a resistência do lado materno da placenta, enquanto a artéria umbilical reflete a resistência do leito placentário fetal. Se escolheu a alternativa D (ducto venoso), houve confusão sobre o significado desse vaso, que reflete a função cardíaca e o status ácido-básico fetal, e não a função placentária. Se escolheu A (veia umbilical), houve confusão entre vaso de transporte (veia) e vaso de resistência (artéria). A ação corretiva é memorizar: artéria umbilical = leito placentário = função placentária; artéria uterina = circulação materna; ducto venoso = função cardíaca fetal.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática obstétrica, diante de uma gestante com RCIU, a dopplerfluxometria da artéria umbilical é o primeiro passo para avaliar a função placentária. O aumento do índice de pulsatilidade e a redução do fluxo diastólico indicam insuficiência placentária e exigem vigilância mais intensa. A progressão para fluxo diastólico ausente ou reverso é um sinal de gravidade que pode indicar a necessidade de corticoterapia para maturação pulmonar e de resolução da gestação, conforme a idade gestacional e as condições materno-fetais. A avaliação complementar da artéria cerebral média (centralização fetal) e do ducto venoso (comprometimento cardíaco) permite estratificar o risco e definir o momento ideal do parto, reduzindo a morbimortalidade perinatal.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Definição e classificação da RCIU</li>
+                    <li>Dopplerfluxometria: artéria umbilical, artéria cerebral média, ducto venoso e artéria uterina</li>
+                    <li>Sequência de comprometimento fetal na insuficiência placentária</li>
+                    <li>Conduta na RCIU: corticoterapia, vigilância e momento do parto</li>
+                    <li>Relação entre RCIU e doenças cardiovasculares na vida adulta</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Restrição de Crescimento Intrauterino – Protocolo de Assistência.</p>
+                <p>2. Brasil. Ministério da Saúde. Manual de Gestação de Alto Risco.</p>
+                <p>3. Cunningham FG, Leveno KJ, Bloom SL, et al. Williams Obstetrics. 26. ed. McGraw-Hill, 2022.</p>
+                <p>4. ACOG Practice Bulletin No. 204: Fetal Growth Restriction. Obstetrics &amp; Gynecology, 2020.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

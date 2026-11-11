@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 95 - Cirurgia Geral / Vias Biliares: Colelitíase Sintomática e Semiologia da Dor Biliar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Geral / Vias Biliares: Colelitíase Sintomática e Semiologia da Dor Biliar</div>
+        <h1>Questão 95</h1>
+        <div class="question-number">Questão 95</div>
+        <div class="question-text">
+            Mulher, 48 anos, sem comorbidades, vem a consulta ambulatorial com queixa de dor em abdome superior, mais em epigástrio e hipocôndrio direito, com cerca de 3 meses de evolução. Relaciona o sintoma com ingesta de alimentos gordurosos. Realizou ultrassonografia de abdome que demonstrou esteatose hepática moderada, colelitíase e colesterolose. Em relação a este caso clínico, assinale a assertiva correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Aumentos dos níveis séricos de fosfatase alcalina, bilirrubina e transaminase só ocorrem quando há obstrução da árvore biliar.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Esta paciente pode ser tratada através da realização de colangiopancreatografia endoscópica retrógrada.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A tomografia computadorizada de abdome com contraste endovenoso é o exame de eleição para o diagnóstico das principais complicações desta doença.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A cessação voluntária da respiração durante a inspiração, quando o examinador exerce constante pressão sob a margem costal direita, conhecida como sinal de Murphy, sugere colecistite aguda.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Esta paciente pode ser tratada de maneira expectante com medidas de modificação de hábito de vida, com restrição de alimentos hiperlipídicos, atividade física e terapia oral com sal biliar.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Geral / Vias Biliares</p>
+                <p><strong>Tema:</strong> Colelitíase sintomática (cólica biliar) — semiologia, diagnóstico e sinais clínicos.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, pois a colelitíase é uma das doenças digestivas mais prevalentes. Costuma ser cobrado em conjunto com colecistite aguda, coledocolitíase, colangite, pancreatite biliar, exame de imagem (USG), sinal de Murphy, tratamento cirúrgico e complicações. A banca explora com frequência o diagnóstico diferencial entre cólica biliar, colecistite e coledocolitíase, o exame de escolha e a conduta.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A colelitíase é a presença de cálculos na vesícula biliar, na maioria das vezes de colesterol. A forma <strong>sintomática (cólica biliar)</strong> manifesta-se por dor em hipocôndrio direito ou epigástrio, geralmente de início súbito, relacionada à ingestão de alimentos gordurosos, com duração de minutos a horas, sem febre ou icterícia. A ultrassonografia abdominal é o exame de escolha, com sensibilidade superior a 95% para cálculos vesicais. O tratamento padrão da colelitíase sintomática é a <strong>colecistectomia laparoscópica eletiva</strong>. Os sais biliares (ácido ursodesoxicólico) não são eficazes para cálculos sintomáticos e não substituem a cirurgia. A CPRE/ERCP está indicada para coledocolitíase, colangite ou pancreatite biliar, não para colelitíase não complicada. O sinal de Murphy é a cessação involuntária da inspiração à compressão do hipocôndrio direito e sugere colecistite aguda.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>: a descrição do sinal de Murphy está adequada (cessação voluntária da respiração durante a inspiração quando o examinador exerce pressão sob a margem costal direita) e ele é um sinal clássico de colecistite aguda. As demais alternativas são incorretas: A) enzimas hepáticas podem se alterar em várias condições (hepatopatias, colestase, obstrução, etc.), não só na obstrução biliar; B) a CPRE não trata colelitíase não complicada; C) o exame de escolha para diagnóstico é a ultrassonografia, e não a TC; E) a paciente tem colelitíase sintomática, cujo tratamento é a colecistectomia, e não tratamento expectante com sais biliares.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Transaminases, fosfatase alcalina e bilirrubina podem se elevar em hepatites virais, doenças hepatocelulares, esteatose, colestase intra-hepática, entre outras causas, não apenas na obstrução biliar. Em colelitíase não complicada, as enzimas costumam ser normais.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A CPRE é indicada na coledocolitíase, colangite, pancreatite biliar e disfunção do esfíncter de Oddi, não para tratamento de colelitíase sem complicações. Tratamento: colecistectomia.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. A ultrassonografia abdominal é o exame de eleição inicial. A TC pode ser útil para complicações (colecistite, abscesso, perfuração), mas não é o exame de escolha para o diagnóstico.</p>
+                <p><strong>Alternativa D</strong> - Correta. Descreve corretamente o sinal de Murphy e sua associação com colecistite aguda.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A colelitíase sintomática é indicação de colecistectomia eletiva; tratamento expectante com sais biliares não é eficaz nem indicado.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Dor em epigástrio/hipocôndrio direito:</strong> localização típica da dor biliar.</li>
+                    <li><strong>Relação com alimentos gordurosos:</strong> desencadeante clássico da cólica biliar.</li>
+                    <li><strong>USG com colelitíase e colesterolose:</strong> confirma o diagnóstico.</li>
+                    <li><strong>Sinal de Murphy:</strong> termo-chave da assertiva correta.</li>
+                    <li><strong>Sem febre ou icterícia:</strong> sugere cólica biliar simples, sem colecistite ou coledocolitíase.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer a síndrome de dor biliar (dor em HD/epigástrio, pós-prandial, sem febre/icterícia).</li>
+                    <li><strong>Segundo:</strong> solicitar USG abdominal (exame de escolha) — confirma colelitíase.</li>
+                    <li><strong>Terceiro:</strong> diferenciar cólica biliar de colecistite aguda (febre, dor persistente, Murphy positivo) e de coledocolitíase (icterícia, colúria, dilatação de vias biliares).</li>
+                    <li><strong>Quarto:</strong> na colelitíase sintomática não complicada, indicar colecistectomia laparoscópica eletiva.</li>
+                    <li><strong>Quinto:</strong> reservar CPRE/ERCP para coledocolitíase/colangite; TC para complicações.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> cólica biliar = dor pós-prandial em HD/epigástrio, sem febre; colecistite aguda = dor persistente + febre + sinal de Murphy.</li>
+                    <li><strong>Números e doses:</strong> USG é o exame inicial com sensibilidade &gt;95% para cálculos vesicais.</li>
+                    <li><strong>Mnemônicos:</strong> "Dor gordurosa + cálculo na vesícula = colelitíase sintomática; tratar com cirurgia, não com sal biliar."</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Cólica biliar (colelitíase sintomática)</td><td>Dor em HD/epigástrio pós-prandial, sem febre, sem icterícia</td><td>USG abdominal</td><td>Colecistectomia laparoscópica eletiva</td></tr>
+                        <tr><td>Colecistite aguda</td><td>Dor persistente &gt;6h, febre, Murphy positivo, leucocitose</td><td>USG + clínica</td><td>Colecistectomia (precoce ou eletiva) + antibiótico</td></tr>
+                        <tr><td>Coledocolitíase</td><td>Icterícia, colúria, dilatação de vias biliares, enzimas colestáticas elevadas</td><td>USG + colangio-RM/CPRE</td><td>CPRE + colecistectomia</td></tr>
+                        <tr><td>Colangite</td><td>Tríade de Charcot (dor + febre + icterícia); pentada de Reynolds</td><td>Clínica + USG/TC + laboratório</td><td>Antibiótico + drenagem (CPRE)</td></tr>
+                        <tr><td>Pancreatite biliar</td><td>Dor epigástrica irradiada ao dorso, amilase/lipase elevadas</td><td>TC/USG + enzimas</td><td>Suporte + tratar causa</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse o exame de escolha:</strong> USG abdominal (2016 Q71; 2015 Q76).</li>
+                    <li><strong>Se pedisse o tratamento da colelitíase sintomática:</strong> colecistectomia laparoscópica eletiva (2012 Q93).</li>
+                    <li><strong>Se pedisse o tratamento de colecistite aguda:</strong> colecistectomia + antibiótico (2015 Q76; 2016 Q71).</li>
+                    <li><strong>Se pedisse indicação de CPRE:</strong> coledocolitíase/colangite (2019 Q52).</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2012 – Q93</td>
+                            <td>Doenças das vias biliares: tratamento padrão da colelitíase sintomática</td>
+                            <td>Tratamento da colelitíase sintomática</td>
+                            <td>D) Colecistectomia laparoscópica eletiva</td>
+                            <td>Base direta para descartar a assertiva E (expectante/sal biliar).</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q76</td>
+                            <td>Homem 42 anos, dor em HD, náuseas; provável diagnóstico, melhor exame e tratamento</td>
+                            <td>Colecistite aguda calculosa; USG; colecistectomia</td>
+                            <td>E) Colecistite aguda calculosa; ecografia abdominal; colecistectomia</td>
+                            <td>Reforça USG e colecistectomia; diferencia de cólica biliar.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q71</td>
+                            <td>Mulher 70 anos, dor em HD, náuseas; provável diagnóstico e exame inicial</td>
+                            <td>Colecistite aguda; USG</td>
+                            <td>C) Colecistite aguda calculosa - Ecografia abdominal total</td>
+                            <td>Reforça o USG como exame de escolha.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q52</td>
+                            <td>Mulher 63 anos com dor em HD, icterícia e febre após colecistectomia há 3 semanas</td>
+                            <td>Coledocolitíase residual</td>
+                            <td>C) Coledocolitíase residual</td>
+                            <td>Diferencia coledocolitíase (indicação de CPRE) de colelitíase simples.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q53</td>
+                            <td>Homem 72 anos em UTI, dor em HD, vesícula dilatada sem cálculos</td>
+                            <td>Colecistite aguda alitiásica</td>
+                            <td>C) Colecistite aguda alitiásica</td>
+                            <td>Complementa o espectro das doenças biliares.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q54</td>
+                            <td>Mulher 69 anos, cisto biliar, junção pancreático-biliar anômala, cisto coledociano tipo I</td>
+                            <td>Cisto de colédoco e risco de malignização</td>
+                            <td>B) Ressecção cirúrgica por ser condição pré-maligna</td>
+                            <td>Complementa o entendimento das doenças biliares.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q55</td>
+                            <td>Mulher 58 anos com prurido e icterícia, colecistectomia há 5 anos</td>
+                            <td>Colestase — investigação</td>
+                            <td>E) F - F - V - F - F</td>
+                            <td>Reforça o raciocínio sobre icterícia e vias biliares.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q95</td>
+                            <td>Questão atual: mulher 48 anos com dor biliar e colelitíase</td>
+                            <td>Semiologia da dor biliar e sinal de Murphy</td>
+                            <td>D) Sinal de Murphy sugere colecistite aguda</td>
+                            <td>Questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em várias provas, alternando entre diagnóstico (USG), tratamento cirúrgico e diferenciação entre as síndromes biliares (cólica biliar, colecistite, coledocolitíase, colangite).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> complicações da colecistectomia (lesão de via biliar, fístula biliar), colecistite enfisematosa, pancreatite biliar e síndrome de Mirizzi.</p>
+                <p><strong>Evolução da cobrança:</strong> de questões de diagnóstico e tratamento para questões de semiologia e conduta em cenários específicos.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar complicações da colelitíase, síndrome de Mirizzi, colecistite enfisematosa e lesão de via biliar.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Colecistite aguda — o sinal de Murphy e a USG são essenciais (2015 Q76; 2016 Q71).</li>
+                    <li><strong>Conexão 2:</strong> Coledocolitíase e colangite — indicação de CPRE e antibiótico (2019 Q52).</li>
+                    <li><strong>Conexão 3:</strong> Pancreatite biliar — complicação da colelitíase, com dor epigástrica irradiada e enzimas elevadas.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Erro comum: acreditar que o tratamento expectante com sais biliares é adequado para colelitíase sintomática, ou que a CPRE/TC são exames/tratamentos de primeira linha. Trata-se de lacuna de conhecimento sobre o manejo da colelitíase e sobre a semiologia do sinal de Murphy. Estratégia: memorizar que a colecistectomia é o tratamento da colelitíase sintomática, que a USG é o exame de escolha e que o sinal de Murphy indica colecistite aguda. Revisar as questões 2012 Q93, 2015 Q76 e 2016 Q71.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o médico de pronto-socorro e o cirurgião devem distinguir cólica biliar de colecistite aguda: a primeira é manejada eletivamente (colecistectomia), a segunda exige internação, antibiótico e cirurgia. A ultrassonografia é o exame inicial em ambos os cenários, e a CPRE é reservada para coledocolitíase/colangite.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Sinal de Murphy e sua interpretação</li>
+                    <li>Ultrassonografia abdominal nas doenças biliares</li>
+                    <li>Indicações de colecistectomia (eletiva e urgente)</li>
+                    <li>Indicações de CPRE</li>
+                    <li>Diferenciação entre cólica biliar, colecistite, coledocolitíase e colangite</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery, 23ª edição.</p>
+                <p>2. Diretrizes da Sociedade Brasileira de Cirurgia do Aparelho Digestivo (SBCAD).</p>
+                <p>3. Tokyo Guidelines (TG18) para colecistite e colangite agudas.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedOption = null;
+        const correctAnswer = 'D';
+        const isInIframe = window.parent !== window;
+
+        function notifyParent(type, payload, silent) {
+            if (silent || !isInIframe) return;
+            try {
+                window.parent.postMessage({ type, payload }, '*');
+            } catch (e) { }
+        }
+
+        function selectOption(option, silent = false) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            const input = document.querySelector(`.option input[value="${option}"]`);
+            if (!input) return;
+            const wrapper = input.parentElement;
+            wrapper.classList.add('selected');
+            input.checked = true;
+            selectedOption = option;
+            notifyParent('OPTION_SELECTED', { selected: option }, silent);
+        }
+
+        function checkAnswer(silent = false) {
+            if (!selectedOption) {
+                if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+                return;
+            }
+            const submitBtn = document.getElementById('submitBtn');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+            document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.style.display = 'block';
+
+            if (selectedOption === correctAnswer) {
+                submitBtn.textContent = 'Resposta Correta!';
+                submitBtn.classList.add('correct');
+            } else {
+                submitBtn.textContent = 'Confirmar Resposta';
+                submitBtn.classList.remove('correct');
+            }
+            viewCorrectionBtn.style.display = 'inline-block';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+            notifyParent('QUESTION_ANSWERED',
+                { selected: selectedOption, correct: correctAnswer }, silent);
+
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showCorrection() {
+            const correctionContent = document.getElementById('correctionContent');
+            const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+            if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+                correctionContent.style.display = 'block';
+                viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+            } else {
+                correctionContent.style.display = 'none';
+                viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+            }
+        }
+
+        function resetQuiz() {
+            selectedOption = null;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+            document.getElementById('viewCorrectionBtn').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('message', (event) => {
+            if (!isInIframe) return;
+            if (event.source !== window.parent) return;
+            if (event.data?.type !== 'RESTORE_STATE') return;
+
+            const { selected, correct } = event.data.payload || {};
+            if (selected) {
+                selectOption(selected, true);
+                if (correct) {
+                    checkAnswer(true);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

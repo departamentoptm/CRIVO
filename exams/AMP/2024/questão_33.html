@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 33 - Ciclo Menstrual: Fase Lútea, Corpo Lúteo e Regressão Angiogênica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ciclo Menstrual: Fase Lútea, Corpo Lúteo e Regressão Angiogênica</div>
+        <h1>Questão 33</h1>
+        <div class="question-text">
+            A fase lútea do ciclo menstrual requer um folículo pré-ovulatório bem desenvolvido, com boa estimulação de FSH e liberação contínua de LH. A fase inicial é marcada por ativa angiogênese estimulada pelo fator de crescimento endotelial vascular. A regressão do corpo lúteo está associada à diminuição deste fator de crescimento e ao efeito direto do aumento da expressão da
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - estradiol.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - inibina A.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - progesterona.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - angiopoetina 2.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - gonadotrofina coriônica humana.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Fisiologia do Ciclo Menstrual / Endocrinologia Ginecológica.</p>
+                <p><strong>Tema:</strong> Fase lútea do ciclo menstrual, formação e regressão do corpo lúteo, angiogênese luteal e papel da angiopoetina 2 na regressão vascular.</p>
+                <p><strong>Contextualização:</strong> Tema de incidência moderada a alta em provas de residência, geralmente cobrado em conjunto com a fisiologia do eixo hipotálamo-hipófise-ovariano, fases do ciclo menstrual, ovulação, corpo lúteo, amenorreia e sangramento uterino anormal. A banca costuma cobrar a regulação hormonal da fase lútea, a manutenção do corpo lúteo pela hCG e os mecanismos de regressão luteal.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Após a ovulação, o folículo rompido transforma-se em corpo lúteo, que secreta progesterona e estrogênio. A fase lútea depende de estimulação contínua de LH e de um folículo pré-ovulatório bem desenvolvido. A angiogênese é intensa no corpo lúteo em formação, mediada principalmente pelo fator de crescimento endotelial vascular (VEGF), essencial para o aporte de oxigênio e substratos à intensa atividade esteroidogênica.</p>
+                <p>Na ausência de gestação, o corpo lúteo regride. Essa regressão envolve diminuição do VEGF e aumento da expressão de angiopoetina 2, que promove desestabilização e apoptose das células endoteliais, regressão vascular e involução do corpo lúteo. Com isso, ocorre queda de progesterona e estrogênio, descamação endometrial e menstruação. A hCG, quando presente na gestação, mantém o corpo lúteo e sustenta a produção de progesterona.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>. A regressão do corpo lúteo está associada à diminuição do VEGF e ao aumento da expressão da angiopoetina 2, que atua como fator pró-angioêntico negativo, promovendo desestabilização vascular, apoptose endotelial e regressão do corpo lúteo. O estradiol, a inibina A e a progesterona são produtos da atividade luteal, mas não são o fator diretamente responsável pela regressão angiogênica descrita no enunciado. A hCG é o hormônio que mantém o corpo lúteo na gestação, e não o que induz sua regressão.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. O estradiol é produzido pelo corpo lúteo e participa da regulação endometrial, mas não é o principal fator associado ao aumento de expressão que promove a regressão vascular do corpo lúteo.</p>
+                <p><strong>Alternativa B</strong> - Errada. A inibina A é produzida pelo corpo lúteo e exerce retroalimentação negativa sobre o FSH, mas não é o mediador direto da regressão angiogênica luteal descrita.</p>
+                <p><strong>Alternativa C</strong> - Errada. A progesterona é o principal hormônio da fase lútea. Sua queda é consequência da regressão do corpo lúteo, e não a causa direta do aumento da expressão de um fator angiogênico que promove a regressão vascular.</p>
+                <p><strong>Alternativa D</strong> - Correta. A angiopoetina 2 é um fator que promove desestabilização vascular e apoptose endotelial, participando da regressão do corpo lúteo.</p>
+                <p><strong>Alternativa E</strong> - Errada. A gonadotrofina coriônica humana (hCG) mantém o corpo lúteo e prolonga sua função na gestação; ela não induz a regressão luteal.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Fase lútea:</strong> direciona para o corpo lúteo e para a ação da progesterona.</li>
+                    <li><strong>Angiogênese estimulada pelo VEGF:</strong> aponta para a vascularização luteal e para os fatores que regulam a regressão vascular.</li>
+                    <li><strong>Regressão do corpo lúteo:</strong> indica o processo de involução luteal e queda hormonal.</li>
+                    <li><strong>Diminuição do VEGF e aumento da expressão:</strong> sugere um fator pró-regressão vascular, que é a angiopoetina 2.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Reconhecer que a fase lútea depende de LH e de angiogênese mediada por VEGF.</li>
+                    <li><strong>Segundo:</strong> Entender que a regressão do corpo lúteo ocorre na ausência de hCG.</li>
+                    <li><strong>Terceiro:</strong> Associar a regressão vascular luteal à queda do VEGF e ao aumento da angiopoetina 2.</li>
+                    <li><strong>Quarto:</strong> Diferenciar fatores que mantêm o corpo lúteo (hCG) dos que promovem sua regressão (angiopoetina 2).</li>
+                    <li><strong>Quinto:</strong> Concluir que a alternativa D é a que corresponde ao mecanismo descrito.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> O corpo lúteo é mantido pelo LH e, na gestação, pela hCG; sua regressão envolve queda do VEGF e aumento da angiopoetina 2.</li>
+                    <li><strong>Números e doses:</strong> A fase lútea dura cerca de 14 dias; a regressão luteal leva à queda de progesterona e à menstruação.</li>
+                    <li><strong>Mnemônicos:</strong> "VEGF constrói; angiopoetina 2 desmonta" — VEGF estimula angiogênese; angiopoetina 2 promove regressão vascular.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fase lútea normal</td>
+                            <td>Ciclo regular, progesterona adequada, endométrio secretor</td>
+                            <td>Dosagem de progesterona na fase lútea média; ultrassonografia</td>
+                            <td>Observação; investigar infertilidade se falha de fase lútea</td>
+                        </tr>
+                        <tr>
+                            <td>Insuficiência lútea</td>
+                            <td>Fase lútea curta, sangramento precoce, infertilidade</td>
+                            <td>Progesterona sérica baixa na fase lútea média; biópsia endometrial (quando indicada)</td>
+                            <td>Suplementação de progesterona ou indução da ovulação conforme causa</td>
+                        </tr>
+                        <tr>
+                            <td>Gestação inicial</td>
+                            <td>hCG mantém o corpo lúteo; progesterona permanece elevada</td>
+                            <td>Beta-hCG sérico; ultrassonografia transvaginal</td>
+                            <td>Seguimento pré-natal</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão foi sobre fisiologia:</strong> como seria sobre patologia? sobre tratamento? sobre infertilidade?</li>
+                    <li><strong>Exemplo:</strong> Se a questão pedisse o hormônio que mantém o corpo lúteo, a resposta seria hCG. Se pedisse o principal hormônio da fase lútea, seria progesterona. Se pedisse o fator que promove a regressão vascular luteal, seria angiopoetina 2. Se pedisse a consequência da regressão luteal, seria queda de progesterona e menstruação.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2025 que abordaram o mesmo tema:</strong> não há questão idêntica sobre angiogênese luteal e angiopoetina 2. Há, porém, diversas questões correlatas sobre fisiologia do ciclo menstrual, amenorreia, pico de LH, testes de progesterona/estrogênio e síndrome dos ovários policísticos.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2012 – Q55</td>
+                            <td>Adolescente com oligomenorreia, hirsutismo e ovários micropolicísticos</td>
+                            <td>Critérios de Roterdã e SOP</td>
+                            <td>A</td>
+                            <td>Relaciona-se à fisiologia ovulatória e à fase lútea</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q56</td>
+                            <td>Escolha de método contraceptivo e critérios de elegibilidade</td>
+                            <td>Contracepção e ciclo menstrual</td>
+                            <td>—</td>
+                            <td>Conecta-se à regulação hormonal do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q17</td>
+                            <td>Sangramento genital em menopausa com endométrio de 2,67 mm</td>
+                            <td>Atrofia endometrial e sangramento</td>
+                            <td>D</td>
+                            <td>Relaciona-se à fase lútea e à ação da progesterona no endométrio</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q20</td>
+                            <td>Amenorreia secundária e teste de progesterona positivo</td>
+                            <td>Compartimentos da amenorreia</td>
+                            <td>E</td>
+                            <td>Conecta-se aos testes hormonais do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q1</td>
+                            <td>Amenorreia primária após quimioterapia e radioterapia</td>
+                            <td>Falência ovariana e compartimentos</td>
+                            <td>C</td>
+                            <td>Relaciona-se à fisiologia do eixo HPO</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q2</td>
+                            <td>FSH e estradiol em paciente com sangramento genital</td>
+                            <td>Interpretação hormonal no climatério</td>
+                            <td>D</td>
+                            <td>Conecta-se à regulação hormonal do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q42</td>
+                            <td>Contracepção hormonal e risco de trombose</td>
+                            <td>Contracepção e ciclo</td>
+                            <td>D</td>
+                            <td>Relaciona-se à modulação hormonal do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q44</td>
+                            <td>Amenorreia com testes de progesterona e estrogênio</td>
+                            <td>Investigação da amenorreia</td>
+                            <td>D</td>
+                            <td>Conecta-se diretamente aos testes hormonais do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q45</td>
+                            <td>Amenorreia secundária com FSH elevado</td>
+                            <td>Falência ovariana precoce</td>
+                            <td>C</td>
+                            <td>Relaciona-se à fisiologia do eixo HPO</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q21</td>
+                            <td>Testes de progesterona e estrogênio na amenorreia</td>
+                            <td>Compartimentos da amenorreia</td>
+                            <td>D</td>
+                            <td>Conecta-se aos testes hormonais do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q23</td>
+                            <td>Eventos associados ao pico ovulatório do LH</td>
+                            <td>Ovulação e fase lútea</td>
+                            <td>A</td>
+                            <td>Relaciona-se diretamente à transição para a fase lútea</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q84</td>
+                            <td>Amenorreia secundária com testes hormonais</td>
+                            <td>Investigação da amenorreia</td>
+                            <td>C</td>
+                            <td>Conecta-se à fisiologia do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q35</td>
+                            <td>Eventos associados ao pico ovulatório do LH</td>
+                            <td>Ovulação e fase lútea</td>
+                            <td>B</td>
+                            <td>Relaciona-se à fase lútea e ao corpo lúteo</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q21</td>
+                            <td>Testes de progesterona e estrogênio na amenorreia</td>
+                            <td>Investigação da amenorreia</td>
+                            <td>B</td>
+                            <td>Conecta-se aos testes hormonais do ciclo</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q23</td>
+                            <td>Eventos do pico ovulatório do LH</td>
+                            <td>Ovulação e fase lútea</td>
+                            <td>C</td>
+                            <td>Relaciona-se à transição para a fase lútea</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema correlato apareceu em pelo menos 15 questões das provas de 2006_2025. A banca alterna entre cobrar fisiologia do eixo HPO, pico de LH, testes de progesterona/estrogênio, amenorreia e SOP.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A regulação molecular da angiogênese luteal e o papel da angiopoetina 2 na regressão do corpo lúteo não haviam sido cobrados diretamente. Essa é uma abordagem que pode surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos mais antigos, a banca cobrava mais amenorreia e SOP. Em anos recentes, passou a cobrar eventos do pico ovulatório e mecanismos fisiológicos mais detalhados.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a fisiologia da fase lútea, a manutenção do corpo lúteo pela hCG, a regressão luteal mediada por queda do VEGF e aumento da angiopoetina 2, e a relação com a queda de progesterona e a menstruação.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros (ex: bronquiolite → asma → pneumonia). "Se você viu X, lembre-se de Y". Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Fase lútea e corpo lúteo conectam-se à ovulação e ao pico de LH.</li>
+                    <li><strong>Conexão 2:</strong> Regressão do corpo lúteo conecta-se à queda de progesterona, à descamação endometrial e à menstruação.</li>
+                    <li><strong>Conexão 3:</strong> hCG e manutenção do corpo lúteo conectam-se à gestação inicial e ao diagnóstico de gravidez.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Caso tenha errado, o erro mais provável é de <strong>lacuna de conhecimento</strong> sobre a regulação angiogênica do corpo lúteo ou <strong>confusão conceitual</strong> entre os hormônios que mantêm e os que promovem a regressão luteal. A ação corretiva é memorizar: VEGF estimula a angiogênese luteal; angiopoetina 2 promove regressão vascular; hCG mantém o corpo lúteo; a queda de progesterona é consequência da regressão.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o conhecimento da fisiologia luteal é importante para a investigação de infertilidade, insuficiência lútea, sangramento uterino anormal e para a compreensão do ciclo menstrual. Também auxilia na interpretação de dosagens hormonais e na escolha de tratamentos de indução da ovulação e suplementação de progesterona.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Fases do ciclo menstrual e eixo hipotálamo-hipófise-ovariano.</li>
+                    <li>Pico de LH e ovulação.</li>
+                    <li>Corpo lúteo: formação, função e regressão.</li>
+                    <li>VEGF e angiopoetina 2 na angiogênese e regressão vascular.</li>
+                    <li>hCG e manutenção do corpo lúteo na gestação.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Speroff L, Fritz MA. Clinical Gynecologic Endocrinology and Infertility. Lippincott Williams & Wilkins.</p>
+                <p>2. Williams Gynecology. McGraw-Hill.</p>
+                <p>3. Rezende Filho J. Obstetrícia. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>4. Montenegro CAB, Rezende Filho J. Obstetrícia Fundamental. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>5. Sociedade Brasileira de Reprodução Humana. Diretrizes em reprodução assistida.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 36 - Obstetrícia: Diabetes Mellitus Gestacional – Critérios Diagnósticos no TOTG 75g</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstetrícia: Diabetes Mellitus Gestacional – Critérios Diagnósticos no TOTG 75g</div>
+        <h1>Questão 36</h1>
+        <div class="question-text">
+            Joana, uma gestante de 29 anos, compareceu ao pré-natal na 24 semana de gestação e relatou aumento de sede e frequente necessidade de urinar. Sem histórico prévio de diabetes na familia, foi realizada triagem para diabetes gestacional. Joana foi submetida ao teste oral de tolerância à glicose (TOTG) de 75g. Após a ingestão da solução de glicose foram coletadas amostras de sangue em três momentos: jejum, uma hora e duas horas. Qual é a resposta correta em relação aos valores para considerar diabetes gestacional?
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - 90/185/145 com um ponto da curva atingido ou ultrapassado.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - 92/180/145 com dois pontos da curva atingido ou ultrapassado.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - 95/184/153 com um ponto da curva atingido ou ultrapassado.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - 92/180/153 com um ponto da curva atingido ou ultrapassado.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - 92/185/153 com dois pontos da curva atingido ou ultrapassado.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia</p>
+                <p><strong>Tema:</strong> Diabetes mellitus gestacional (DMG) – critérios diagnósticos no TOTG 75g</p>
+                <p><strong>Contextualização:</strong> O DMG é um dos distúrbios metabólicos mais frequentes na gestação e tema de alta incidência em provas de residência. A banca costuma cobrar rastreamento, critérios diagnósticos, fatores de risco, complicações materno-fetais e manejo. Esta questão explora diretamente os valores do TOTG 75g e o número de pontos necessários para o diagnóstico, conforme as recomendações atuais (IADPSG/OMS e diretrizes brasileiras).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Na gestação, ocorre aumento progressivo da resistência à insulina, mediado principalmente por hormônios placentários, como o lactogênio placentário humano, cortisol, progesterona e prolactina. A resistência à insulina é compensada por hiperinsulinemia; quando a reserva pancreática é insuficiente, surge hiperglicemia. O DMG é definido como intolerância a carboidratos de gravidade variável, com início ou primeiro reconhecimento durante a gestação. O TOTG 75g é o teste diagnóstico padrão, realizado entre 24 e 28 semanas na ausência de diagnóstico precoce. Os valores de corte adotados no Brasil e alinhados ao consenso IADPSG são: jejum ≥ 92 mg/dL, 1 hora ≥ 180 mg/dL e 2 horas ≥ 153 mg/dL. O diagnóstico é feito quando um ou mais valores atingem ou ultrapassam esses limites.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa D está correta. Os valores de corte do TOTG 75g para diagnóstico de DMG são: jejum 92 mg/dL, 1 hora 180 mg/dL e 2 horas 153 mg/dL. Basta que um único ponto da curva atinja ou ultrapasse o valor de referência para confirmar o diagnóstico. A alternativa D reproduz exatamente esses valores e o critério de um ponto. Em provas anteriores, o tema DMG foi cobrado em questões sobre rastreamento (2009 Q71), hormônios diabetogênicos (2010 Q17), classificação de Priscilla White (2012 Q48) e exames do pré-natal (2018 Q35), mas os critérios exatos do TOTG 75g não haviam sido cobrados diretamente até esta questão.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Os valores 90/185/145 não correspondem aos pontos de corte recomendados. Além disso, o valor de 1 hora (185) e o de 2 horas (145) estão incorretos. O critério de um ponto está correto, mas os limites não.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. O valor de 2 horas (145 mg/dL) está abaixo do ponto de corte (153 mg/dL). Além disso, a alternativa exige dois pontos da curva, enquanto o critério atual permite diagnóstico com apenas um ponto.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. Os valores de jejum (95) e de 1 hora (184) estão acima dos pontos de corte reais, e o valor de 2 horas (153) está correto. No entanto, os limites de jejum e 1 hora estão errados, e o critério de um ponto não compensa essa incorreção.</p>
+                <p><strong>Alternativa D</strong> - Correta. Apresenta os valores 92/180/153 e o critério de um ponto, exatamente como recomendado.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. O valor de 1 hora (185 mg/dL) está acima do ponto de corte (180 mg/dL), e a alternativa exige dois pontos da curva, contrariando o critério de um ponto. Em provas anteriores, a banca já cobrou a diferença entre rastreamento e diagnóstico (2009 Q71), reforçando que o TOTG 75g é o teste diagnóstico e que o critério de um ponto é aceito.</p>
+
+                <h4>2.5 Palavras-Chave e &quot;Pistas&quot; no Enunciado</h4>
+                <ul>
+                    <li><strong>24 semanas de gestação:</strong> faixa ideal para rastreamento e diagnóstico do DMG (24 a 28 semanas).</li>
+                    <li><strong>Aumento de sede e frequente necessidade de urinar:</strong> sintomas sugestivos de hiperglicemia, embora o DMG seja frequentemente assintomático.</li>
+                    <li><strong>TOTG 75g:</strong> teste diagnóstico padrão, com coleta em jejum, 1 hora e 2 horas.</li>
+                    <li><strong>Valores para considerar diabetes gestacional:</strong> direciona para os pontos de corte e o número de pontos necessários.</li>
+                    <li><strong>Um ponto da curva atingido ou ultrapassado:</strong> critério diagnóstico atual, que deve ser lembrado.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> identificar a idade gestacional e os fatores de risco para DMG.</li>
+                    <li><strong>Segundo:</strong> realizar rastreamento entre 24 e 28 semanas; na presença de fatores de risco, pode-se rastrear mais precocemente.</li>
+                    <li><strong>Terceiro:</strong> solicitar TOTG 75g com dosagens de glicose em jejum, 1 hora e 2 horas.</li>
+                    <li><strong>Quarto:</strong> aplicar os pontos de corte: jejum ≥ 92 mg/dL, 1 hora ≥ 180 mg/dL e 2 horas ≥ 153 mg/dL.</li>
+                    <li><strong>Quinto:</strong> confirmar DMG se um ou mais valores estiverem atingidos ou ultrapassados; iniciar manejo com mudanças de estilo de vida, monitorização glicêmica e, se necessário, farmacoterapia.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de &quot;conduta inicial&quot; e &quot;próximo passo&quot;.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> DMG é diagnosticado pelo TOTG 75g entre 24 e 28 semanas; um único ponto alterado é suficiente.</li>
+                    <li><strong>Números e doses:</strong> jejum ≥ 92 mg/dL; 1 hora ≥ 180 mg/dL; 2 horas ≥ 153 mg/dL. O teste de rastreamento com 50g (1 hora ≥ 130 ou 140 mg/dL) não é diagnóstico.</li>
+                    <li><strong>Mnemônicos:</strong> &quot;92-180-153, um ponto basta&quot;.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Diabetes mellitus gestacional (correta)</td>
+                            <td>Hiperglicemia de intensidade variável, iniciada ou reconhecida na gestação; frequentemente assintomático.</td>
+                            <td>TOTG 75g entre 24 e 28 semanas: jejum ≥ 92, 1h ≥ 180, 2h ≥ 153 mg/dL; um ponto basta.</td>
+                            <td>Mudanças de estilo de vida, monitorização glicêmica, metformina ou insulina conforme controle.</td>
+                        </tr>
+                        <tr>
+                            <td>Diabetes pré-gestacional</td>
+                            <td>Hiperglicemia diagnosticada antes da gestação ou na primeira consulta pré-natal.</td>
+                            <td>Glicemia de jejum ≥ 126 mg/dL, HbA1c ≥ 6,5% ou TOTG 75g com critérios de diabetes fora da gestação.</td>
+                            <td>Controle glicêmico rigoroso, insulinoterapia conforme necessidade, avaliação de complicações.</td>
+                        </tr>
+                        <tr>
+                            <td>Intolerância à glicose / pré-diabetes</td>
+                            <td>Glicemia de jejum entre 100 e 125 mg/dL ou TOTG 75g com valores intermediários fora da gestação.</td>
+                            <td>Glicemia de jejum, HbA1c, TOTG 75g.</td>
+                            <td>Mudanças de estilo de vida, monitorização, prevenção de progressão.</td>
+                        </tr>
+                        <tr>
+                            <td>Diabetes monogênico (MODY)</td>
+                            <td>História familiar forte, início em idade jovem, ausência de autoanticorpos.</td>
+                            <td>Testes genéticos, avaliação clínica e laboratorial.</td>
+                            <td>Manejo individualizado conforme subtipo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre rastreamento:</strong> teste de 50g entre 24 e 28 semanas; se alterado, complementar com TOTG 75g.</li>
+                    <li><strong>Se a questão fosse sobre critérios diagnósticos:</strong> 92/180/153 e um ponto.</li>
+                    <li><strong>Se a questão fosse sobre manejo:</strong> mudanças de estilo de vida, metformina e insulina conforme controle.</li>
+                    <li><strong>Se a questão fosse sobre complicações:</strong> macrossomia, distocia de ombro, pré-eclâmpsia, polidrâmnio, hipoglicemia neonatal e maior risco de diabetes tipo 2 pós-parto.</li>
+                    <li><strong>Se a questão fosse sobre classificação de Priscilla White:</strong> diferenciar DMG A1/A2 de diabetes pré-gestacional classes B, C, D, F, H, R.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2009 – Q71</td>
+                            <td>DMG – assinale a incorreta; alternativa E afirmava que o teste inicial recomendado era glicemia 1h após 50g entre 12 e 16 semanas.</td>
+                            <td>Rastreamento do DMG.</td>
+                            <td>E</td>
+                            <td>Mostra que o rastreamento não é diagnóstico e deve ser feito entre 24 e 28 semanas; a questão atual cobra o teste diagnóstico e seus critérios.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q17</td>
+                            <td>Hormônios diabetogênicos responsáveis pelo aumento da resistência à insulina na gestação.</td>
+                            <td>Fisiopatologia do DMG.</td>
+                            <td>B (lactogênio placentário e cortisol)</td>
+                            <td>Complementa a compreensão da fisiopatologia que leva à hiperglicemia e à necessidade de diagnóstico.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q48</td>
+                            <td>Classificação modificada de Priscilla White para diabetes mellitus.</td>
+                            <td>Classificação do diabetes na gestação.</td>
+                            <td>E</td>
+                            <td>Diferencia DMG de diabetes pré-gestacional; a questão atual foca nos critérios diagnósticos do DMG.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q28</td>
+                            <td>Gestante de 31 semanas com TOTG 75g 83-153-120 e polidrâmnio.</td>
+                            <td>Interpretação do TOTG e complicações.</td>
+                            <td>E</td>
+                            <td>Mostra valores normais de TOTG (jejum &lt;92, 1h &lt;180, 2h &lt;153) e reforça a necessidade de conhecer os pontos de corte.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q35</td>
+                            <td>Exames laboratoriais do pré-natal; qual não deve ser solicitado na primeira consulta.</td>
+                            <td>Rotina do pré-natal.</td>
+                            <td>D (perfil glicêmico e TOTG)</td>
+                            <td>Reforça que o TOTG não é exame de primeira consulta de rotina, mas sim de rastreamento entre 24 e 28 semanas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 5 das provas anteriores analisadas, com abordagens sobre rastreamento (2009), fisiopatologia (2010), classificação (2012), interpretação de valores (2014) e rotina do pré-natal (2018). A cobrança direta dos pontos de corte do TOTG 75g e do critério de um ponto não havia ocorrido até esta questão.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A aplicação dos critérios exatos do TOTG 75g (92/180/153) e a regra de um único ponto alterado são abordagens que podem surgir novamente em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores abordaram o DMG de forma indireta; esta questão cobra diretamente os critérios diagnósticos, exigindo memorização precisa dos valores.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> memorizar os valores 92/180/153 e o critério de um ponto; revisar a diferença entre teste de rastreamento (50g) e teste diagnóstico (75g); e revisar o manejo do DMG e suas complicações.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros. &quot;Se você viu X, lembre-se de Y&quot;. Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> O DMG se conecta à obesidade e ao ganho de peso excessivo na gestação, que são fatores de risco importantes e devem ser abordados no pré-natal.</li>
+                    <li><strong>Conexão 2:</strong> Se conecta à pré-eclâmpsia, pois o DMG aumenta o risco de distúrbios hipertensivos da gestação e de complicações materno-fetais.</li>
+                    <li><strong>Conexão 3:</strong> Se conecta à macrossomia fetal e à distocia de ombro, complicações do controle glicêmico inadequado.</li>
+                    <li><strong>Conexão 4:</strong> Se conecta ao diabetes tipo 2 pós-parto, pois mulheres com DMG têm maior risco de desenvolver diabetes ao longo da vida e devem ser reavaliadas após o parto.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+                <p>Se o usuário escolheu a alternativa B, houve confusão sobre o ponto de corte de 2 horas (145 em vez de 153) e sobre o número de pontos necessários (dois em vez de um). Se escolheu a alternativa E, houve erro no ponto de corte de 1 hora (185 em vez de 180) e no critério de dois pontos. Se escolheu a alternativa C, houve erro nos valores de jejum e 1 hora. A ação corretiva é memorizar ativamente a tríade 92/180/153 e a regra de um ponto, associando ao conceito de que o TOTG 75g é teste diagnóstico e não de rastreamento.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática obstétrica, o diagnóstico correto do DMG permite instituir manejo adequado, com mudanças de estilo de vida, monitorização glicêmica e, quando necessário, metformina ou insulina. O controle glicêmico reduz o risco de macrossomia, distocia de ombro, pré-eclâmpsia, polidrâmnio, morte fetal e complicações neonatais. Além disso, a identificação do DMG possibilita o acompanhamento pós-parto para prevenção de diabetes tipo 2. O conhecimento preciso dos critérios do TOTG 75g evita tanto o subdiagnóstico quanto o sobrediagnóstico, garantindo intervenções oportunas e baseadas em evidências.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Rastreamento e diagnóstico do DMG</li>
+                    <li>Fisiopatologia da resistência à insulina na gestação</li>
+                    <li>Classificação de Priscilla White</li>
+                    <li>Complicações materno-fetais do DMG</li>
+                    <li>Manejo do DMG: dieta, exercício, metformina e insulina</li>
+                    <li>Reavaliação pós-parto e prevenção de diabetes tipo 2</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Diabetes Mellitus Gestacional – Protocolo de Assistência.</p>
+                <p>2. Brasil. Ministério da Saúde. Manual de Gestação de Alto Risco.</p>
+                <p>3. International Association of Diabetes and Pregnancy Study Groups (IADPSG). Recommendations on the diagnosis and classification of hyperglycemia in pregnancy. Diabetes Care, 2010.</p>
+                <p>4. American Diabetes Association. Standards of Care in Diabetes – Gestational Diabetes Mellitus. Diabetes Care, 2024.</p>
+                <p>5. Cunningham FG, Leveno KJ, Bloom SL, et al. Williams Obstetrics. 26. ed. McGraw-Hill, 2022.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

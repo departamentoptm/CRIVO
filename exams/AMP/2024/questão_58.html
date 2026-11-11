@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 58 - Cirurgia Vascular / Hematologia: Profilaxia e Tratamento da Trombose Venosa Profunda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Vascular / Hematologia: Profilaxia e Tratamento da Trombose Venosa Profunda</div>
+        <h1>Questão 58</h1>
+        <div class="question-text">
+            Com relação à profilaxia e ao tratamento da trombose venosa profunda, assinale a alternativa verdadeira.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - O tempo de tratamento mínimo de uma trombose venosa profunda é de 30 dias e no máximo de 3 meses após o início dos sintomas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - A heparina não fracionada na dose de 5000 UI de 12/12h é considerada o método ideal de profilaxia para pacientes de risco moderado e alto.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A anticoagulação oral com warfarina é o método de escolha para o tratamento da trombose venosa profunda em gestação de alto risco.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Os novos anticoagulantes orais como rivaroxabana e dabigatrana se tornaram as primeiras escolhas para a profilaxia de pacientes de baixo e médio risco.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Em pacientes com trombose venosa profunda que apresentam um estado de hipercoagulabilidade, devem ser anticoagulados por toda a vida, na ausência de contraindicações.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Vascular / Hematologia / Clínica Médica.</p>
+                <p><strong>Tema:</strong> Trombose Venosa Profunda (TVP) — profilaxia, tratamento e situações especiais (gestação, estados de hipercoagulabilidade).</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência médica, sobretudo em Cirurgia Geral, Cirurgia Vascular, Clínica Médica e Ginecologia e Obstetrícia. A banca costuma cobrar a tríade de Virchow, os fatores de risco (cirurgia, imobilização, câncer, trombofilias, gestação, uso de estrogênio), a profilaxia (mecânica e farmacológica), o tratamento (HBPM, DOACs, varfarina) e as situações especiais (gestação, trombofilias, SAF, câncer). É tema recorrente em questões que envolvem pós-operatório, gestação e estados de hipercoagulabilidade.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A TVP é a formação de trombo no sistema venoso profundo, geralmente em membros inferiores, e resulta da interação dos três fatores da tríade de Virchow: estase venosa, lesão endotelial e hipercoagulabilidade. As principais complicações são a embolia pulmonar (TEP) e a síndrome pós-trombótica. O tratamento da TVP visa prevenir a progressão do trombo, a embolia pulmonar e a recorrência. Em geral, a anticoagulação é mantida por pelo menos 3 meses; em situações de risco persistente (estados de hipercoagulabilidade, trombofilias, SAF, câncer ativo, TVP recorrente idiopática), a anticoagulação prolongada ou indefinida está indicada na ausência de contraindicações. Na gestação, os anticoagulantes de escolha são as heparinas de baixo peso molecular (HBPM), pois a varfarina é teratogênica e os DOACs não são recomendados. A profilaxia do risco moderado e alto no ambiente hospitalar é feita preferencialmente com HBPM em dose profilática, e não com HNF em dose fixa.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>E</strong>: em pacientes com TVP que apresentam estado de hipercoagulabilidade, a anticoagulação deve ser mantida por tempo indefinido (por toda a vida), na ausência de contraindicações. Isso se aplica a trombofilias maiores (deficiência de antitrombina, proteína C ou S, mutação do fator V de Leiden em homozigose, mutação do gene da protrombina em homozigose), síndrome antifosfolípide e TVP recorrente idiopática. As demais alternativas contêm erros: o tempo mínimo de tratamento é de 3 meses (não 30 dias); a HNF em dose fixa não é o método ideal de profilaxia de risco moderado/alto (prefere-se HBPM); a varfarina é contraindicada na gestação; e os DOACs não são primeira escolha para profilaxia de baixo/médio risco (são usados para tratamento e situações específicas).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. O tempo mínimo de tratamento é de 3 meses, não 30 dias; e não há "máximo de 3 meses", pois muitos pacientes precisam de anticoagulação prolongada ou indefinida. O prazo de 30 dias não corresponde a nenhuma recomendação atual.</p>
+                <p><strong>Alternativa B</strong> - Errada. A HNF 5000 UI a cada 12 horas é uma profilaxia de baixo risco (usada em pacientes clínicos de baixo risco). Para risco moderado e alto, prefere-se HBPM (ex.: enoxaparina 40 mg SC/dia) em dose profilática, ou HNF 5000 UI a cada 8 horas, ajustada a fatores de risco, não a dose fixa de 12/12h.</p>
+                <p><strong>Alternativa C</strong> - Errada. A varfarina é contraindicada na gestação por ser teratogênica (categoria X) e associada a embriopatia varfarínica. A anticoagulação na gestação é feita com HBPM (enoxaparina), que não atravessa a placenta.</p>
+                <p><strong>Alternativa D</strong> - Errada. Os DOACs (rivaroxabana, dabigatrana, apixabana) NÃO são as primeiras escolhas para profilaxia de baixo/médio risco. A profilaxia padrão no ambiente hospitalar é com HBPM ou HNF; DOACs têm indicações específicas (pós-artroplastia de quadril/joelho, tratamento de TVP/TEP).</p>
+                <p><strong>Alternativa E</strong> - Correta. Em estados de hipercoagulabilidade, a anticoagulação prolongada/indefinida é a conduta recomendada, na ausência de contraindicações, para prevenção de recorrência.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>"Profilaxia e tratamento da TVP":</strong> divide a questão em duas partes — a alternativa correta precisa refletir conduta adequada.</li>
+                    <li><strong>"Tempo de tratamento mínimo":</strong> palavra-chave que remete aos 3 meses de anticoagulação mínima.</li>
+                    <li><strong>"Heparina não fracionada 5000 UI 12/12h":</strong> dose de profilaxia de baixo risco; para risco moderado/alto, prefere-se HBPM.</li>
+                    <li><strong>"Warfarina em gestação de alto risco":</strong> termo que sinaliza alternativa falsa, pois a varfarina é teratogênica.</li>
+                    <li><strong>"Estados de hipercoagulabilidade":</strong> pista central — indica anticoagulação prolongada/indefinida.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> confirmar o diagnóstico de TVP por ultrassonografia com Doppler (método de escolha) e avaliar a presença de fatores de risco transitórios (cirurgia, imobilização, trauma) ou persistentes (câncer, trombofilia, SAF).</li>
+                    <li><strong>Segundo:</strong> definir a duração do tratamento: mínimo de 3 meses; se risco transitório, 3 meses; se risco persistente ou idiopático, considerar prolongada/indefinida com reavaliação periódica do risco de sangramento.</li>
+                    <li><strong>Terceiro:</strong> escolher o anticoagulante: HBPM, DOACs (apixabana, rivaroxabana) ou varfarina (com RNI alvo 2,0-3,0) para tratamento; a varfarina é contraindicada na gestação, sendo HBPM a escolha.</li>
+                    <li><strong>Quarto:</strong> para profilaxia no ambiente hospitalar: HBPM em dose profilática (ex.: enoxaparina 40 mg SC/dia), HNF 5000 UI 8/8h ou 12/12h conforme risco, e métodos mecânicos (compressão pneumática) em pacientes com contraindicação à anticoagulação.</li>
+                    <li><strong>Quinto:</strong> em pacientes com hipercoagulabilidade comprovada, manter anticoagulação por tempo indefinido, na ausência de contraindicações, com monitoramento periódico.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> tempo mínimo de anticoagulação na TVP = 3 meses; em estados de hipercoagulabilidade, anticoagulação indefinida.</li>
+                    <li><strong>Profilaxia de risco moderado/alto:</strong> HBPM em dose profilática (ex.: enoxaparina 40 mg SC/dia) ou HNF 5000 UI 8/8h; HNF 5000 UI 12/12h é profilaxia de baixo risco.</li>
+                    <li><strong>Gestação:</strong> HBPM é o anticoagulante de escolha; varfarina é contraindicada (teratogênica); DOACs não são recomendados.</li>
+                    <li><strong>RNI alvo com varfarina no tratamento da TVP:</strong> 2,0-3,0.</li>
+                    <li><strong>Mnemônico:</strong> "3 meses é o mínimo; hipercoagulabilidade = indefinido; gestação = HBPM, nunca varfarina".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TVP não provocada (idiopática)</td><td>Sem fator de risco transitório identificável; pode estar associada a trombofilia</td><td>US Doppler; pesquisa de trombofilia em casos selecionados</td><td>Anticoagulação por tempo prolongado ou indefinido, com reavaliação</td></tr>
+                        <tr><td>TVP provocada por fator transitório</td><td>Cirurgia recente, imobilização, trauma, uso de estrogênio</td><td>US Doppler</td><td>3 meses de anticoagulação</td></tr>
+                        <tr><td>TVP associada a câncer</td><td>Neoplasia ativa em tratamento ou diagnóstico recente</td><td>US Doppler; investigação oncológica</td><td>HBPM ou DOAC por tempo prolongado/indefinido</td></tr>
+                        <tr><td>Síndrome antifosfolípide</td><td>Eventos trombóticos recorrentes, anticorpos antifosfolípides persistentes</td><td>Anticoagulante lúpico, anticardiolipina, anti-β2-glicoproteína I</td><td>Varfarina com RNI 2,0-3,0 por tempo indefinido</td></tr>
+                        <tr><td>TVP em gestação</td><td>Gestante com dor e edema em membro inferior</td><td>US Doppler</td><td>HBPM (enoxaparina) por tempo prolongado, sem varfarina</td></tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse o tempo mínimo de anticoagulação:</strong> 3 meses.</li>
+                    <li><strong>Se pedisse o anticoagulante de escolha na gestação:</strong> HBPM (enoxaparina).</li>
+                    <li><strong>Se pedisse a duração em hipercoagulabilidade:</strong> indefinida, na ausência de contraindicações.</li>
+                    <li><strong>Se pedisse a profilaxia de risco moderado/alto:</strong> HBPM em dose profilática ou HNF 5000 UI 8/8h.</li>
+                    <li><strong>Se pedisse o RNI alvo na varfarina:</strong> 2,0-3,0.</li>
+                    <li><strong>Se pedisse o exame de escolha para diagnóstico de TVP:</strong> ultrassonografia com Doppler.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2017 – Q39</td>
+                            <td>Pós-operatório de colectomia com dor e edema em panturrilha; tríade de Virchow e profilaxia.</td>
+                            <td>Fatores de risco e diagnóstico</td>
+                            <td>D</td>
+                            <td>Reforça a tríade de Virchow (estase, lesão endotelial, hipercoagulabilidade) e a profilaxia no pós-operatório.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q40</td>
+                            <td>PSA elevado e câncer de próstata; uso de anticoagulante.</td>
+                            <td>Anticoagulação em contexto oncológico</td>
+                            <td>C</td>
+                            <td>Relaciona-se ao tratamento prolongado da TVP em pacientes com câncer.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q94</td>
+                            <td>Tromboembolismo venoso na gestação; exames e anticoagulação.</td>
+                            <td>Manejo na gestação</td>
+                            <td>C</td>
+                            <td>Corrobora que HBPM é a escolha na gestação e que a varfarina é contraindicada.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q81</td>
+                            <td>Tríade de Virchow: estase, lesão endotelial e hipercoagulabilidade.</td>
+                            <td>Fisiopatologia da TVP</td>
+                            <td>D</td>
+                            <td>Complementa a base fisiopatológica da questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q22</td>
+                            <td>TVP em paciente jovem; conduta e investigação de trombofilia.</td>
+                            <td>Investigação etiológica</td>
+                            <td>D</td>
+                            <td>Reforça a necessidade de pesquisa de estados de hipercoagulabilidade.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q95</td>
+                            <td>Pós-operatório de artroplastia; profilaxia de TVP.</td>
+                            <td>Profilaxia farmacológica</td>
+                            <td>E</td>
+                            <td>Mostra o uso de HBPM na profilaxia de risco moderado/alto, contrapondo-se à HNF 12/12h.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 provas anteriores (2017, 2019, 2020, 2021). A banca alterna entre cobrar fisiopatologia (tríade de Virchow), fatores de risco, profilaxia, tratamento, gestação e investigação de trombofilia.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Duração da anticoagulação conforme risco (transitório vs. persistente), uso de DOACs para tratamento, RNI alvo em SAF e conduta em trombose de sítios incomuns.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais fisiopatologia e diagnóstico; em provas recentes, tem cobrado conduta terapêutica, duração da anticoagulação e situações especiais (gestação, hipercoagulabilidade).</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar o tempo mínimo de anticoagulação (3 meses), a indicação de anticoagulação indefinida em estados de hipercoagulabilidade, o uso de HBPM na gestação e a profilaxia com HBPM em risco moderado/alto.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Tromboembolismo pulmonar (TEP) — complicação direta da TVP, com risco de morte; a anticoagulação é o pilar do tratamento.</li>
+                    <li><strong>Conexão 2:</strong> Gestação — mudanças fisiológicas da coagulação aumentam o risco de TVP; HBPM é o anticoagulante de escolha.</li>
+                    <li><strong>Conexão 3:</strong> Síndrome antifosfolípide — trombofilia adquirida que exige anticoagulação prolongada/indefinida com varfarina.</li>
+                    <li><strong>Conexão 4:</strong> Cirurgia e imobilização — fatores de risco transitórios clássicos, com indicação de profilaxia com HBPM.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é de leitura/interpretação ao aceitar afirmações com números incorretos (30 dias, HNF 12/12h como ideal para risco moderado/alto, varfarina na gestação). Estratégia: memorizar as regras básicas — 3 meses de anticoagulação mínima, HBPM em gestação, HBPM em profilaxia de risco moderado/alto e anticoagulação indefinida em estados de hipercoagulabilidade.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente com TVP deve ter o diagnóstico confirmado por US Doppler, receber anticoagulação plena (HBPM, DOAC ou varfarina com RNI 2,0-3,0) e ser avaliado quanto a fatores de risco. Em estados de hipercoagulabilidade, a anticoagulação prolongada/indefinida é a regra. Na gestação, a HBPM substitui a varfarina. A profilaxia no ambiente hospitalar deve ser feita com HBPM em dose profilática (enoxaparina 40 mg SC/dia) ou HNF 5000 UI 8/8h, e não com HNF em dose fixa de 12/12h.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Tríade de Virchow e fatores de risco para TVP.</li>
+                    <li>Duração da anticoagulação (3 meses vs. prolongada/indefinida).</li>
+                    <li>Escolha do anticoagulante (HBPM, DOACs, varfarina).</li>
+                    <li>Anticoagulação na gestação e puerpério.</li>
+                    <li>Trombofilias hereditárias e adquiridas (SAF).</li>
+                    <li>Profilaxia farmacológica e mecânica no ambiente hospitalar.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Diretrizes da Sociedade Brasileira de Angiologia e de Cirurgia Vascular (SBACV) para tromboembolismo venoso.</p>
+                <p>2. American College of Chest Physicians (ACCP). Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report.</p>
+                <p>3. UpToDate: Treatment, prognosis, and follow-up of acute pulmonary embolism in adults; Deep vein thrombosis: Treatment and prevention of recurrence.</p>
+                <p>4. Harrison's Principles of Internal Medicine, 21ª edição.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

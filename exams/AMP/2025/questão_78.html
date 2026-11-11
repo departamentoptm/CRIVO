@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 78 - Fibrilação Atrial: Controle de Frequência vs Ritmo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Fibrilação Atrial: Controle de Frequência vs Ritmo</div>
+        <h1>Questão 78</h1>
+        <div class="question-text">
+            Um paciente de 68 anos, hipertenso e com histórico de insuficiência cardíaca controlada, chega à emergência com palpitações, falta de ar e sensação de cansaço. Ao exame, apresenta frequência cardíaca de 130 bpm, irregular, e pressão arterial de 140/90 mmHg. O eletrocardiograma (ECG) mostra ausência de ondas P e presença de ritmo irregular, compatível com fibrilação atrial (FA). O ecocardiograma revela fração de ejeção preservada (60%). Considerando o diagnóstico de fibrilação atrial, qual a conduta inicial mais apropriada para este paciente?
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Parâmetro</th>
+                    <th>Valor</th>
+                    <th>Interpretação Clínica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Frequência cardíaca</td>
+                    <td>130 bpm, irregular</td>
+                    <td>Resposta ventricular rápida</td>
+                </tr>
+                <tr>
+                    <td>Pressão arterial</td>
+                    <td>140/90 mmHg</td>
+                    <td>Estabilidade hemodinâmica (sem choque ou hipotensão)</td>
+                </tr>
+                <tr>
+                    <td>ECG</td>
+                    <td>Ausência de ondas P, ritmo irregular</td>
+                    <td>Confirma fibrilação atrial</td>
+                </tr>
+                <tr>
+                    <td>Fração de ejeção</td>
+                    <td>60%</td>
+                    <td>Função ventricular preservada (FEp)</td>
+                </tr>
+                <tr>
+                    <td>Sintomas</td>
+                    <td>Palpitações, dispneia, fadiga</td>
+                    <td>Paciente sintomático, mas estável</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Realizar cardioversão elétrica de emergência, independentemente da duração da fibrilação atrial.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Administrar um beta-bloqueador para controle da frequência cardíaca, considerando a função ventricular preservada.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Iniciar imediatamente anticoagulação oral, sem necessidade de avaliar o risco tromboembólico.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Realizar controle do ritmo com antiarrítmicos orais, como amiodarona, visando reverter a fibrilação atrial.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Prescrever digitalis para controle da frequência, uma vez que o paciente apresenta insuficiência cardíaca.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cardiologia / Clínica Médica.</p>
+                <p><strong>Tema:</strong> Fibrilação atrial (FA) — abordagem inicial no paciente estável: controle de frequência vs controle de ritmo.</p>
+                <p><strong>Contextualização:</strong> A fibrilação atrial é a arritmia sustentada mais comum na prática clínica, com prevalência crescente com a idade. É tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com insuficiência cardíaca, hipertensão arterial e prevenção de acidente vascular cerebral. A banca costuma avaliar a sequência de decisão: instabilidade hemodinâmica → cardioversão; estabilidade → controle de frequência/ritmo; e anticoagulação conforme risco tromboembólico.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A fibrilação atrial é uma arritmia supraventricular caracterizada por ativação atrial desorganizada, com ausência de ondas P no ECG e resposta ventricular irregular. A fisiopatologia do controle de frequência baseia-se em reduzir a resposta ventricular para melhorar o enchimento diastólico, aliviar sintomas e prevenir taquicardiomiopatia. Em pacientes com fração de ejeção preservada, os beta-bloqueadores e os bloqueadores dos canais de cálcio não diidropiridínicos (verapamil, diltiazem) são primeira linha para controle de frequência. A digital é menos eficaz no controle de frequência durante o esforço e é reservada para casos selecionados, especialmente quando há insuficiência cardíaca com fração de ejeção reduzida.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>B</strong>. O paciente encontra-se hemodinamicamente estável (PA 140/90 mmHg, sem sinais de choque, isquemia ou edema agudo de pulmão) e sintomático com resposta ventricular rápida (FC 130 bpm). Nessa situação, a conduta inicial é o controle da frequência cardíaca, sendo os beta-bloqueadores a primeira escolha, sobretudo porque a fração de ejeção está preservada (60%). O controle de frequência alivia palpitações, melhora a dispneia e previne taquicardiomiopatia. A anticoagulação deve ser avaliada pelo escore CHA2DS2-VASc, não sendo iniciada de forma indiscriminada. A cardioversão elétrica de emergência fica reservada para instabilidade hemodinâmica.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - A cardioversão elétrica de emergência está indicada apenas em pacientes com instabilidade hemodinâmica (hipotensão, choque, isquemia miocárdica, edema agudo de pulmão) ou pré-excitação. O paciente está estável, com PA 140/90 mmHg. Além disso, a duração da FA é desconhecida, e a cardioversão sem anticoagulação adequada aumenta o risco de tromboembolismo.</p>
+                <p><strong>Alternativa B</strong> - Correta. Beta-bloqueador para controle de frequência em paciente estável com FA de resposta rápida e FE preservada.</p>
+                <p><strong>Alternativa C</strong> - A anticoagulação é indicada conforme estratificação de risco tromboembólico (CHA2DS2-VASc), não de forma imediata e indiscriminada. O paciente tem hipertensão e insuficiência cardíaca, provavelmente com escore elevado, mas a decisão deve ser individualizada e não é a conduta imediata para controle dos sintomas.</p>
+                <p><strong>Alternativa D</strong> - O controle de ritmo com antiarrítmicos não é primeira linha no paciente estável com FA de resposta rápida, especialmente com história de insuficiência cardíaca. A amiodarona é reservada para casos selecionados e não é a conduta inicial na emergência sem instabilidade.</p>
+                <p><strong>Alternativa E</strong> - A digital é segunda linha no controle de frequência, com menor eficácia durante o esforço, e é preferida em pacientes com insuficiência cardíaca e fração de ejeção reduzida. Aqui, a FE é 60% (preservada), tornando o beta-bloqueador a escolha mais adequada.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>PA 140/90 mmHg:</strong> estabilidade hemodinâmica — não há indicação de cardioversão elétrica de emergência.</li>
+                    <li><strong>FC 130 bpm irregular:</strong> resposta ventricular rápida, justificando controle de frequência.</li>
+                    <li><strong>FE 60%:</strong> função ventricular preservada — beta-bloqueadores são seguros e primeira linha.</li>
+                    <li><strong>Palpitações, dispneia, fadiga:</strong> paciente sintomático, mas sem sinais de gravidade.</li>
+                    <li><strong>Ausência de ondas P e ritmo irregular:</strong> confirmação eletrocardiográfica de FA.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar estabilidade hemodinâmica (PA, perfusão, nível de consciência, dor torácica, edema pulmonar).</li>
+                    <li><strong>Segundo:</strong> se instável (choque, isquemia, edema agudo de pulmão) → cardioversão elétrica de emergência.</li>
+                    <li><strong>Terceiro:</strong> se estável e sintomático → controle de frequência com beta-bloqueador ou bloqueador de canal de cálcio não diidropiridínico.</li>
+                    <li><strong>Quarto:</strong> avaliar indicação de anticoagulação pelo CHA2DS2-VASc e risco de sangramento pelo HAS-BLED.</li>
+                    <li><strong>Quinto:</strong> reavaliar resposta e considerar controle de ritmo se sintomas persistentes ou taquicardiomiopatia.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> FA = ausência de ondas P + RR irregular; controle de frequência na FA estável; cardioversão apenas se instável.</li>
+                    <li><strong>Números e doses:</strong> metoprolol 2,5–5 mg EV em bolus (repetível); CHA2DS2-VASc ≥ 2 em homens e ≥ 3 em mulheres indica anticoagulação.</li>
+                    <li><strong>Mnemônicos:</strong> "Estável → controla frequência; Instável → choca". CHA2DS2-VASc: ICC, HAS, idade ≥ 75 (2), DM, AVC (2), doença vascular, idade 65–74, sexo feminino.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em provas anteriores, especialmente a indicação de anticoagulação e os critérios de gravidade.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FA com resposta rápida (caso)</td>
+                            <td>Palpitações, RR irregular, ausência de P, PA estável</td>
+                            <td>ECG</td>
+                            <td>Controle de frequência (beta-bloqueador) + anticoagulação conforme risco</td>
+                        </tr>
+                        <tr>
+                            <td>Flutter atrial</td>
+                            <td>Ondas F em "dente de serra", ritmo regular ou irregular</td>
+                            <td>ECG</td>
+                            <td>Controle de frequência ou ablação; anticoagulação semelhante à FA</td>
+                        </tr>
+                        <tr>
+                            <td>Taquicardia sinusal</td>
+                            <td>Ondas P presentes, início e término graduais</td>
+                            <td>ECG</td>
+                            <td>Tratar causa de base</td>
+                        </tr>
+                        <tr>
+                            <td>Taquicardia ventricular</td>
+                            <td>QRS largo, instabilidade frequente</td>
+                            <td>ECG</td>
+                            <td>Cardioversão elétrica se instável</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre anticoagulação:</strong> a resposta seria baseada no CHA2DS2-VASc, com preferência por DOACs na maioria dos casos.</li>
+                    <li><strong>Se fosse sobre instabilidade:</strong> a resposta seria cardioversão elétrica imediata.</li>
+                    <li><strong>Se fosse sobre FA com FE reduzida:</strong> a resposta poderia envolver digital ou amiodarona, conforme o caso.</li>
+                    <li><strong>Se fosse sobre prevenção de AVC:</strong> a resposta envolveria anticoagulação plena, não antiagregação.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2015 – Q31</td>
+                            <td>Paciente de 76 anos com IC sistólica e diabetes, ECG com FA, FC 74 bpm, assintomático.</td>
+                            <td>Conduta na FA com resposta ventricular controlada.</td>
+                            <td>A (anticoagulação com varfarina)</td>
+                            <td>Mesma doença; foco em anticoagulação quando FC está controlada.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q55</td>
+                            <td>Fatores de maior risco para AVC na fibrilação atrial.</td>
+                            <td>Estratificação de risco tromboembólico.</td>
+                            <td>D (idade &gt; 60 anos não é o principal fator listado)</td>
+                            <td>Fundamenta a decisão de anticoagulação após controle de frequência.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q69</td>
+                            <td>Pulso venoso jugular na fibrilação atrial.</td>
+                            <td>Semiologia da FA.</td>
+                            <td>E</td>
+                            <td>Reforça o exame físico da FA.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q35</td>
+                            <td>Paciente de 76 anos com IC sistólica, diabetes e FA, FC 74 bpm.</td>
+                            <td>Conduta na FA estável com FC controlada.</td>
+                            <td>A (anticoagulação com varfarina)</td>
+                            <td>Mesma doença; destaca a importância da anticoagulação.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q63</td>
+                            <td>Mulher de 67 anos, palpitações, FA, PA 160/90, episódios paroxísticos.</td>
+                            <td>Indicação de anticoagulação crônica na FA.</td>
+                            <td>C</td>
+                            <td>Mostra que a banca cobra anticoagulação conforme risco.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 das provas anteriores. A banca alterna entre cobrar semiologia/ECG da FA, fatores de risco para AVC, anticoagulação e conduta inicial (controle de frequência vs ritmo).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> uso rotineiro de DOACs vs varfarina, detalhamento do CHA2DS2-VASc e do HAS-BLED, e controle de frequência com beta-bloqueador especificamente. Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2015/2021, a questão focava em anticoagulação em paciente com FC controlada. Em 2024, focou em anticoagulação crônica em FA paroxística. Em 2025, foca no controle de frequência inicial no paciente estável. A banca parece valorizar a estabilidade hemodinâmica como determinante da conduta inicial.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar CHA2DS2-VASc, critérios de instabilidade (cardioversão elétrica), sequência terapêutica e diferenças entre controle de frequência e ritmo.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Insuficiência cardíaca — a FA pode descompensar a IC, e o controle de frequência é essencial.</li>
+                    <li><strong>Conexão 2:</strong> Hipertensão arterial — principal fator de risco para FA e para AVC cardioembólico.</li>
+                    <li><strong>Conexão 3:</strong> Anticoagulação e prevenção de AVC — tema central no manejo da FA.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é confundir estabilidade hemodinâmica e indicar cardioversão elétrica de emergência, ou iniciar anticoagulação sem estratificar o risco. Trata-se de <strong>confusão conceitual</strong> e <strong>erro de estratégia</strong>. A ação corretiva é memorizar o algoritmo: instável → cardioversão; estável → controle de frequência (beta-bloqueador/CCB) e anticoagulação conforme CHA2DS2-VASc.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na emergência, o médico deve rapidamente avaliar a estabilidade do paciente com FA. Se estável, iniciar controle de frequência com beta-bloqueador EV ou oral, monitorar resposta e programar anticoagulação conforme risco. A prevenção de AVC é tão importante quanto o controle dos sintomas.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Escore CHA2DS2-VASc e HAS-BLED.</li>
+                    <li>Critérios de instabilidade na FA (hipotensão, isquemia, edema agudo de pulmão).</li>
+                    <li>Controle de frequência vs controle de ritmo.</li>
+                    <li>Indicações de cardioversão elétrica.</li>
+                    <li>Anticoagulação na FA: DOACs vs varfarina.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Diretrizes Brasileiras de Fibrilação Atrial — Sociedade Brasileira de Cardiologia.</p>
+                <p>2. 2024 ESC Guidelines for the management of atrial fibrillation.</p>
+                <p>3. 2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation.</p>
+                <p>4. Harrison, Princípios de Medicina Interna.</p>
+                <p>5. UpToDate: Atrial fibrillation — rate control versus rhythm control.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 46 - Queimaduras: Cuidados Locais e Escolha de Curativos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Queimaduras: Cuidados Locais e Escolha de Curativos</div>
+        <h1>Questão 46</h1>
+        <div class="question-text">
+            Masculino, 28 anos, dá entrada no pronto socorro, trazido pelo serviço pré-hospitalar, vítima de queimadura ao acender uma churrasqueira. Apresenta queimaduras de segundo grau em face, tronco anterior e membro superior direito face anterior e posterior. Encontra-se lúcido, taquicárdico e normotenso. Em relação a conduta a ser adotada a este paciente, assinale a assertiva correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Curativos oclusivos devem sempre ser utilizados na face, utilizando-se sulfadiazina de prata.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Curativos oclusivos devem sempre ser utilizados no períneo devido ao alto risco de contaminação na região.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Em áreas de segundo grau superficial, curativos de membrana de celulose são ótimas alternativas para auxiliar na cicatrização.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Devemos frequentemente deixar as lesões abertas para que cicatrizem mais rapidamente, entretanto, pode ser necessária analgesia mais intensa.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Devemos cobrir as lesões com chumaços de algodão e ataduras de crepe e utilizar antibióticos de amplo espectro durante a resolução das áreas queimadas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Geral / Cirurgia Plástica / Queimaduras</p>
+                <p><strong>Tema:</strong> Cuidados locais em queimaduras de segundo grau e escolha de curativos</p>
+                <p><strong>Contextualização:</strong> As queimaduras são uma das principais causas de trauma e morbimortalidade em todo o mundo. O manejo local (limpeza, escolha de curativos e prevenção de infecção) é tema de grande importância e recorrência em provas de residência. A questão atual aborda a escolha de curativos em queimaduras de segundo grau superficial, tema frequentemente cobrado em conjunto com o cálculo da superfície corporal queimada, reposição volêmica e classificação das queimaduras. A questão já apareceu em 2014 (Q46) com o mesmo enunciado e gabarito, evidenciando a importância do tema.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A queimadura de segundo grau superficial (espessura parcial) acomete epiderme e derme papilar, com preservação dos anexos cutâneos. Apresenta-se com vesículas, dor intensa, base rósea e úmida. A cicatrização ocorre por reepitelização a partir dos anexos, em cerca de 2 a 3 semanas, geralmente sem cicatriz hipertrófica. O objetivo do tratamento local é: limpeza adequada, prevenção de infecção, controle da dor, manutenção de ambiente úmido e favorecimento da reepitelização. Curativos de membrana de celulose (como o Biobrane) são alternativas excelentes para áreas de segundo grau superficial, pois atuam como barreira protetora, mantêm ambiente úmido, são transparentes (permitindo visualização da ferida), não aderem e reduzem a necessidade de trocas frequentes. A face, de forma geral, deve ter curativos individualizados — sulfadiazina de prata não é escolha ideal em face pela possibilidade de impregnação e manchas. O períneo também não necessita rotineiramente de curativos oclusivos. Chumaços de algodão são contraindicados por deixar fiapos que atuam como corpo estranho e favorecem infecção. Antibióticos sistêmicos profiláticos não estão indicados em queimaduras de segundo grau.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>. Os curativos de membrana de celulose (como o Biobrane) são uma excelente alternativa em queimaduras de segundo grau superficial, pois: (1) mantêm ambiente úmido, favorável à reepitelização; (2) atuam como barreira protetora contra contaminação; (3) permitem visualização da ferida sem necessidade de remoção; (4) reduzem a frequência de trocas de curativo e a dor associada. São especialmente úteis em áreas como face, mãos e articulações. O tema já foi cobrado em 2014 (Q46) — questão idêntica, com gabarito C — e em outras provas que abordaram o manejo de queimaduras (2007 Q50; 2010 Q99; 2012 Q36; 2013 Q2; 2018 Q52; 2021 Q11; 2021 Q98; 2025 Q8 e Q89).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Falsa. A sulfadiazina de prata não é escolha ideal para a face, pois pode impregnar e manchar a pele, além de exigir trocas frequentes. Em face, prefere-se curativos transparentes, não aderentes, ou apenas limpeza e proteção. Além disso, a afirmativa generaliza ("sempre") o que é incorreto.</p>
+                <p><strong>Alternativa B</strong> - Falsa. O períneo não requer curativo oclusivo rotineiro. A região é de difícil oclusão, mas a limpeza e a exposição (quando possível) são preferíveis. A generalização ("sempre") também torna a alternativa incorreta.</p>
+                <p><strong>Alternativa D</strong> - Falsa. Deixar as lesões abertas não é recomendação rotineira em queimaduras de segundo grau; a exposição pode ressecar a ferida e aumentar o risco de infecção. A escolha do curativo depende do local e da profundidade, mas a afirmação "devemos frequentemente deixar as lesões abertas" é incorreta.</p>
+                <p><strong>Alternativa E</strong> - Falsa. Chumaços de algodão são contraindicados porque deixam fiapos que atuam como corpo estranho na ferida, favorecendo infecção. Antibióticos sistêmicos de amplo espectro não são indicados de rotina em queimaduras — apenas em casos de infecção comprovada. Esse distrator explora erros comuns no manejo de queimaduras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Queimadura ao acender uma churrasqueira”:</strong> mecanismo típico de queimadura por chama/explosão; sugere possível inalação (avaliar via aérea).</li>
+                    <li><strong>“Segundo grau em face, tronco anterior e membro superior direito”:</strong> face exige cuidado especial; tronco e membro superior são áreas de fácil manejo com curativos.</li>
+                    <li><strong>“Lúcido, taquicárdico e normotenso”:</strong> taquicardia sugere dor e perda volêmica; normotensão indica estabilidade hemodinâmica inicial.</li>
+                    <li><strong>“Conduta a ser adotada”:</strong> foco no manejo local, não na reposição volêmica.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Avaliar via aérea (queimadura em face e possível inalação) e estabilidade hemodinâmica.</li>
+                    <li><strong>Segundo:</strong> Calcular a superfície corporal queimada (regra dos nove ou Lund-Browder) e a necessidade de reposição volêmica (fórmula de Parkland).</li>
+                    <li><strong>Terceiro:</strong> Realizar limpeza das feridas com soro fisiológico e/ou clorexidina aquosa; desbridar bolhas rompidas e tecido desvitalizado.</li>
+                    <li><strong>Quarto:</strong> Escolher o curativo conforme local e profundidade: face → curativo transparente/não aderente; tronco e membros → curativos de membrana de celulose, sulfadiazina de prata (com cautela) ou outros; evitar algodão.</li>
+                    <li><strong>Quinto:</strong> Analgesia adequada, profilaxia de tétano e monitorização de infecção.</li>
+                    <li><strong>Sexto:</strong> Não indicar antibiótico sistêmico profilático; reservar para infecção comprovada.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Queimadura de segundo grau superficial acomete epiderme e derme papilar, com vesículas, dor e base rósea; cicatriza em 2-3 semanas.</li>
+                    <li><strong>Fatos que definem:</strong> Curativos de membrana de celulose são ótimos para áreas de segundo grau superficial: mantêm ambiente úmido, protegem, permitem visualização e reduzem trocas.</li>
+                    <li><strong>Fatos que definem:</strong> Chumaços de algodão são contraindicados em feridas por deixar fiapos; preferir gazes e curativos não aderentes.</li>
+                    <li><strong>Fatos que definem:</strong> Antibiótico sistêmico profilático não é indicado em queimaduras; reservar para infecção comprovada.</li>
+                    <li><strong>Números e doses:</strong> Fórmula de Parkland: 2 a 4 mL/kg/% SCQ de cristaloide nas primeiras 24h (metade nas primeiras 8h).</li>
+                    <li><strong>Números e doses:</strong> Regra dos nove: cabeça 9%, cada membro superior 9%, cada membro inferior 18%, tronco anterior 18%, tronco posterior 18%, períneo 1%.</li>
+                    <li><strong>Mnemônico:</strong> "Face não é lugar de prata; algodão não é curativo; antibiótico não é profilaxia em queimadura."</li>
+                </ul>
+                <p>Esses dados já foram cobrados em provas anteriores: 2006 (Q26 — superfície corporal), 2007 (Q50 — conduta), 2010 (Q99 — cuidados pré-hospitalares), 2013 (Q2 — queimaduras em crianças), 2018 (Q52 — atendimento pré-hospitalar), 2021 (Q98 — paciente queimada), 2025 (Q89 — queimado adulto).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Profundidade</th>
+                            <th>Sinais/Sintomas</th>
+                            <th>Curativo de escolha</th>
+                            <th>Conduta geral</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1º grau</td>
+                            <td>Eritema, dor leve, sem bolhas; epiderme apenas.</td>
+                            <td>Hidratação, analgesia; sem necessidade de curativo oclusivo.</td>
+                            <td>Ambulatorial.</td>
+                        </tr>
+                        <tr>
+                            <td>2º grau superficial</td>
+                            <td>Bolhas, base rósea e úmida, dor intensa; derme papilar.</td>
+                            <td>Membrana de celulose, gaze não aderente; sulfadiazina com cautela.</td>
+                            <td>Limpeza, analgesia, prevenção de infecção.</td>
+                        </tr>
+                        <tr>
+                            <td>2º grau profundo</td>
+                            <td>Bolhas, base pálida, menos dolorosa; derme reticular.</td>
+                            <td>Sulfadiazina de prata, curativos com prata nanocristalina; avaliar enxertia.</td>
+                            <td>Internação, desbridamento, enxertia.</td>
+                        </tr>
+                        <tr>
+                            <td>3º grau</td>
+                            <td>Pele seca, coriácea, indolor, vasos trombosados.</td>
+                            <td>Desbridamento cirúrgico e enxertia; escarotomia se necessário.</td>
+                            <td>Internação em centro de queimados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre reposição volêmica:</strong> a resposta envolveria a fórmula de Parkland e o momento de início.</li>
+                    <li><strong>Se fosse sobre queimadura de via aérea:</strong> a resposta abordaria rouquidão, estridor, fuligem em orofaringe e intubação precoce.</li>
+                    <li><strong>Se fosse sobre síndrome do choque tóxico:</strong> a resposta envolveria S. aureus, febre, exantema e choque em criança queimada.</li>
+                    <li><strong>Se fosse sobre analgesia:</strong> a resposta envolveria opioides endovenosos titulados, não intramusculares.</li>
+                    <li><strong>Se fosse sobre antibioticoterapia:</strong> a resposta reforçaria que não há indicação profilática.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q26</td>
+                            <td>Estimativa de superfície corporal queimada em criança.</td>
+                            <td>Cálculo da SCQ</td>
+                            <td>D</td>
+                            <td>Complementa a avaliação inicial da queimadura.</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q50</td>
+                            <td>Paciente com queimadura de 35% com vesículas, fundo róseo e dor.</td>
+                            <td>Classificação e conduta</td>
+                            <td>D</td>
+                            <td>Aborda classificação e manejo de queimadura de 2º grau.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q99</td>
+                            <td>Tratamento inicial pré-hospitalar de queimaduras.</td>
+                            <td>Cuidados pré-hospitalares</td>
+                            <td>E</td>
+                            <td>Relaciona-se ao manejo local e remoção de adornos.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q36</td>
+                            <td>Atendimento inicial à criança queimada.</td>
+                            <td>Conduta inicial</td>
+                            <td>C</td>
+                            <td>Reforça que não se indica antibiótico profilático e a dieta precoce.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q2</td>
+                            <td>Queimaduras em crianças: internação, hidratação, jejum e antibiótico.</td>
+                            <td>Manejo da criança queimada</td>
+                            <td>C</td>
+                            <td>Relaciona-se ao manejo geral e à não indicação de antibiótico profilático.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q46</td>
+                            <td>Queimadura ao acender churrasqueira (mesmo caso atual).</td>
+                            <td>Escolha de curativos em 2º grau superficial</td>
+                            <td>C</td>
+                            <td>Questão idêntica; repetição em 2024.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q52</td>
+                            <td>Atendimento pré-hospitalar de queimado.</td>
+                            <td>Rouquidão como sinal de obstrução</td>
+                            <td>D</td>
+                            <td>Complementa o manejo inicial e a avaliação de via aérea.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q11</td>
+                            <td>Queimaduras na infância: infecção, jejum e regra dos nove.</td>
+                            <td>Manejo da criança queimada</td>
+                            <td>A</td>
+                            <td>Aborda princípios gerais do manejo de queimaduras.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q98</td>
+                            <td>Mulher de 35 anos com queimadura por líquido aquecido.</td>
+                            <td>Classificação e conduta</td>
+                            <td>C</td>
+                            <td>Reforça cuidado local com curativos oclusivos seriados.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q43</td>
+                            <td>Criança com queimadura e síndrome do choque tóxico.</td>
+                            <td>Complicação infecciosa</td>
+                            <td>E</td>
+                            <td>Complementa o manejo de queimaduras e complicações.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q18</td>
+                            <td>Pré-escolar com queimadura e síndrome do choque tóxico.</td>
+                            <td>Complicação infecciosa</td>
+                            <td>E</td>
+                            <td>Reforça a não indicação de antibiótico profilático.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q14</td>
+                            <td>Manejo da queimadura na criança.</td>
+                            <td>Hidratação, coloides e nutrição enteral precoce</td>
+                            <td>B</td>
+                            <td>Complementa o manejo geral de queimaduras.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q8</td>
+                            <td>Queimaduras na infância: escaldaduras, hidratação e água gelada.</td>
+                            <td>Manejo inicial</td>
+                            <td>A</td>
+                            <td>Reforça as prioridades no manejo de queimaduras.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q89</td>
+                            <td>Homem de 30 anos com queimadura e avaliação de via aérea e membros.</td>
+                            <td>Manejo local e avaliação de gravidade</td>
+                            <td>A</td>
+                            <td>Reforça o cuidado local e a avaliação de complicações.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 14 provas anteriores. A banca alterna entre cálculo de superfície corporal, classificação das queimaduras, manejo inicial (hidratação, analgesia, via aérea), escolha de curativos, complicações (síndrome do choque tóxico, infecção) e cuidados pré-hospitalares. A questão atual (repetida de 2014) cobra a escolha de curativos em queimaduras de segundo grau superficial.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A indicação precisa de enxertia em queimaduras de segundo grau profundo, o papel da prata nanocristalina, a escarotomia em queimaduras circulares e o uso de dersani/colagenase em queimaduras ainda podem surgir.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em classificação e cálculo de superfície; as mais recentes integram manejo, complicações e escolha de curativos. A repetição de questões (2014/2024) mostra a importância do tema.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar as opções de curativos por profundidade e local, a contraindicação de algodão, a não indicação de antibiótico profilático e a importância da avaliação de via aérea em queimaduras de face.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Reposição volêmica na queimadura (fórmula de Parkland) — fundamental nas primeiras 24h.</li>
+                    <li><strong>Conexão 2:</strong> Queimadura de via aérea — rouquidão, estridor e fuligem exigem intubação precoce.</li>
+                    <li><strong>Conexão 3:</strong> Síndrome do choque tóxico — complicação infecciosa em crianças queimadas.</li>
+                    <li><strong>Conexão 4:</strong> Infecção de ferida e sepse em queimados.</li>
+                    <li><strong>Conexão 5:</strong> Analgesia em queimados — preferir opioides endovenosos titulados.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é escolher a alternativa A (sulfadiazina de prata "sempre" na face) ou E (algodão e antibiótico). A classificação do erro é de lacuna de conhecimento sobre escolha de curativos e sobre as contraindicações do algodão e do antibiótico profilático. A ação corretiva é revisar os tipos de curativos por profundidade e local, memorizando que a face não deve receber sulfadiazina de prata rotineiramente, que o algodão é contraindicado e que não se usa antibiótico profilático em queimaduras.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o manejo local de queimaduras exige limpeza, desbridamento de bolhas e tecido desvitalizado, escolha de curativo individualizada e controle da dor. A escolha errada do curativo pode atrasar a cicatrização, aumentar a dor e favorecer infecção. O uso de curativos de membrana de celulose em áreas de segundo grau superficial reduz trocas, diminui a dor e melhora a reepitelização. A face exige cuidado especial estético e funcional.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Classificação das queimaduras</li>
+                    <li>Cálculo da superfície corporal queimada</li>
+                    <li>Fórmula de Parkland</li>
+                    <li>Curativos por profundidade e local</li>
+                    <li>Queimadura de via aérea</li>
+                    <li>Síndrome do choque tóxico em queimados</li>
+                    <li>Analgesia em queimados</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>2. Herndon DN. Total Burn Care. 5ª edição.</p>
+                <p>3. Sociedade Brasileira de Queimaduras (SBQ). Diretrizes de Manejo de Queimaduras.</p>
+                <p>4. Ministério da Saúde. Manual de Tratamento de Queimaduras.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

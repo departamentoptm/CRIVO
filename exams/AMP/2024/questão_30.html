@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 30 - Câncer de Mama: Terapias Sistêmicas Adjuvantes no Câncer Inicial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Câncer de Mama: Terapias Sistêmicas Adjuvantes no Câncer Inicial</div>
+        <h1>Questão 30</h1>
+        <div class="question-text">
+            Com relação às recomendações sobre as terapias sistêmicas para o câncer de mama inicial, analise as alternativas abaixo.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Os fatores a serem considerados ao decidir se uma paciente deve receber quimioterapia sistêmica incluem idade, estágio, perfil de biomarcador e resultados de ensaios genômicos, com o Oncotype DX ou MammaPrint.</div>
+            <div class="statement"><strong>II</strong> - O câncer de mama com receptor hormonal positivo deve ser tratado com inibidor da aromatase adjuvante em pacientes na pós-menopausa. Em pacientes na pré-menopausa o tamoxifeno deve ser administrado ou a supressão ovariana deve ser administrada em conjunto com inibidor da aromatase em pacientes de alto risco.</div>
+            <div class="statement"><strong>III</strong> - O câncer de mama HER 2 positivo deve ser tratado com terapias direcionados ao HER2, como transtuzumabe e pertuzumabe.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As afirmativas I e II são verdadeiras. A afirmativa III é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As afirmativas I e III são verdadeiras. A afirmativa II é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - As afirmativas II e III são verdadeiras. A afirmativa I é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - As afirmativas I, II e III são verdadeiras.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As afirmativas I, II e III são falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Mastologia / Oncologia Mamária.</p>
+                <p><strong>Tema:</strong> Câncer de mama inicial: indicação de quimioterapia adjuvante, hormonioterapia adjuvante conforme status menopausal e terapia anti-HER2.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência. A banca costuma cobrar a integração entre estadiamento, biologia tumoral (receptores hormonais e HER2), testes genômicos (Oncotype DX, MammaPrint) e escolha da terapia sistêmica adjuvante. Também é frequente a cobrança da hormonioterapia conforme status menopausal e do tratamento anti-HER2 com trastuzumabe e pertuzumabe.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O câncer de mama é uma doença biologicamente heterogênea. A decisão sobre terapia sistêmica adjuvante baseia-se em três pilares: (1) risco de recidiva, estimado por idade, estágio (TNM), grau histológico, invasão linfovascular e número de linfonodos acometidos; (2) biologia tumoral, definida por receptores de estrogênio (RE) e progesterona (RP) e por expressão/amplificação de HER2; e (3) assinaturas genômicas, como Oncotype DX e MammaPrint, que refinam a indicação de quimioterapia em tumores RE-positivos/HER2-negativos.</p>
+                <p>Em tumores com receptores hormonais positivos, a hormonioterapia adjuvante é a base do tratamento sistêmico. Na pós-menopausa, inibidores da aromatase são preferíveis ao tamoxifeno em muitos cenários; na pré-menopausa, o tamoxifeno é padrão, e a supressão ovariana associada a inibidor da aromatase pode ser considerada em pacientes de alto risco. Em tumores HER2-positivos, o bloqueio duplo com trastuzumabe e pertuzumabe, associado à quimioterapia, é o padrão em doença inicial de alto risco.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>. Todas as três afirmativas estão corretas. A afirmativa I está correta porque a decisão de quimioterapia adjuvante considera idade, estágio, biomarcadores (RE, RP, HER2) e testes genômicos como Oncotype DX e MammaPrint. A afirmativa II está correta porque, no câncer de mama RH-positivo, a pós-menopausa favorece inibidores da aromatase; na pré-menopausa, o tamoxifeno é padrão, e a supressão ovariana com inibidor da aromatase é opção em alto risco. A afirmativa III está correta porque tumores HER2-positivos devem receber terapia anti-HER2, incluindo trastuzumabe e pertuzumabe em cenários de alto risco.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada porque nega a afirmativa III, que é verdadeira. O tratamento anti-HER2 com trastuzumabe e pertuzumabe é padrão em câncer de mama HER2-positivo inicial de alto risco.</p>
+                <p><strong>Alternativa B</strong> - Errada porque nega a afirmativa II, que é verdadeira. A hormonioterapia adjuvante conforme status menopausal é conceito consolidado.</p>
+                <p><strong>Alternativa C</strong> - Errada porque nega a afirmativa I, que é verdadeira. Os testes genômicos e o perfil de biomarcadores integram a decisão de quimioterapia adjuvante.</p>
+                <p><strong>Alternativa D</strong> - Correta: I, II e III verdadeiras.</p>
+                <p><strong>Alternativa E</strong> - Errada porque todas as afirmativas são verdadeiras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Oncotype DX / MammaPrint:</strong> aponta para assinaturas genômicas que refinam a indicação de quimioterapia em RH+/HER2-.</li>
+                    <li><strong>Receptor hormonal positivo:</strong> direciona para hormonioterapia adjuvante e para a diferença de conduta conforme status menopausal.</li>
+                    <li><strong>HER2 positivo:</strong> sinaliza a necessidade de terapia anti-HER2, como trastuzumabe e pertuzumabe.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Determinar o estágio e o perfil biológico (RE, RP, HER2) do tumor.</li>
+                    <li><strong>Segundo:</strong> Em tumores RH+/HER2-, avaliar risco clínico e, quando indicado, solicitar teste genômico (Oncotype DX ou MammaPrint) para decidir quimioterapia.</li>
+                    <li><strong>Terceiro:</strong> Definir hormonioterapia: inibidor da aromatase na pós-menopausa; tamoxifeno na pré-menopausa, com supressão ovariana + inibidor da aromatase em alto risco.</li>
+                    <li><strong>Quarto:</strong> Em HER2-positivo, indicar terapia anti-HER2 (trastuzumabe e pertuzumabe em alto risco) associada à quimioterapia.</li>
+                    <li><strong>Quinto:</strong> Individualizar conforme idade, comorbidades e preferências da paciente.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> A decisão de quimioterapia adjuvante é multifatorial: idade, estágio, biomarcadores e assinaturas genômicas.</li>
+                    <li><strong>Números e doses:</strong> Oncotype DX e MammaPrint são indicados principalmente em tumores RH+/HER2- para refinar a indicação de quimioterapia. Trastuzumabe e pertuzumabe são anticorpos monoclonais anti-HER2.</li>
+                    <li><strong>Mnemônicos:</strong> "RH+ → hormonioterapia; HER2+ → anti-HER2; risco intermediário RH+/HER2- → teste genômico".</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Câncer de mama RH+/HER2-</td>
+                            <td>Tumor com expressão de RE e/ou RP, HER2 negativo</td>
+                            <td>Imuno-histoquímica; teste genômico (Oncotype DX/MammaPrint) em casos selecionados</td>
+                            <td>Hormonioterapia adjuvante; quimioterapia conforme risco clínico e genômico</td>
+                        </tr>
+                        <tr>
+                            <td>Câncer de mama HER2-positivo</td>
+                            <td>Tumor com hiperexpressão/amplificação de HER2</td>
+                            <td>Imuno-histoquímica 3+ ou FISH positivo</td>
+                            <td>Quimioterapia + terapia anti-HER2 (trastuzumabe ± pertuzumabe)</td>
+                        </tr>
+                        <tr>
+                            <td>Câncer de mama triplo-negativo</td>
+                            <td>RE-, RP-, HER2-</td>
+                            <td>Imuno-histoquímica</td>
+                            <td>Quimioterapia adjuvante; imunoterapia em cenários selecionados</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão foi sobre tratamento:</strong> como seria sobre diagnóstico? sobre complicações? sobre prevenção?</li>
+                    <li><strong>Exemplo:</strong> Se a questão pedisse o exame diagnóstico inicial de nódulo mamário suspeito, a resposta seria mamografia e ultrassonografia com biópsia. Se pedisse a complicação do trastuzumabe, seria cardiotoxicidade com disfunção ventricular. Se pedisse a contraindicação à hormonioterapia, poderia incluir gravidez e trombose venosa recente.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2025 que abordaram o mesmo tema:</strong> o arquivo de provas anteriores disponibiliza enunciados até 2025; a prova de 2026 consta apenas como gabarito, sem enunciado, portanto não foi possível detalhar questão de 2026 sobre o tema.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q90</td>
+                            <td>Carcinoma ductal de 1,2 cm, RH negativo, axila negativa</td>
+                            <td>Conduta cirúrgica inicial</td>
+                            <td>E (cirurgia conservadora com linfonodo sentinela)</td>
+                            <td>Relaciona-se ao tratamento local no câncer inicial</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q70</td>
+                            <td>Carcinoma ductal de 3 cm com retração de pele e axila positiva</td>
+                            <td>Tratamento inicial</td>
+                            <td>E (quimioterapia neoadjuvante)</td>
+                            <td>Conecta-se à terapia sistêmica no câncer de mama</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q66</td>
+                            <td>Tratamento adjuvante sistêmico do câncer de mama</td>
+                            <td>Adjuvância e estratificação de risco</td>
+                            <td>E</td>
+                            <td>Relaciona-se diretamente à afirmativa I (decisão de quimioterapia)</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q51</td>
+                            <td>Células tumorais isoladas e micrometástases axilares</td>
+                            <td>Prognóstico</td>
+                            <td>E</td>
+                            <td>Reforça a estratificação de risco e adjuvância</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q61</td>
+                            <td>Linfonodo supraclavicular ipsilateral positivo</td>
+                            <td>Estadiamento</td>
+                            <td>B (N3)</td>
+                            <td>Conecta-se ao estágio usado na decisão adjuvante</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q62</td>
+                            <td>Estadiamento do câncer de mama</td>
+                            <td>Exames e marcadores</td>
+                            <td>E (CEA e CA 15-3 não indicados nos estádios I e II)</td>
+                            <td>Relaciona-se à inutilidade dos marcadores séricos na adjuvância</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q64</td>
+                            <td>Câncer de mama e ovário hereditários</td>
+                            <td>BRCA1/BRCA2</td>
+                            <td>E</td>
+                            <td>Conecta-se à biologia tumoral e ao prognóstico</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q32</td>
+                            <td>Oncotype DX no câncer de mama</td>
+                            <td>Teste genômico e adjuvância</td>
+                            <td>C</td>
+                            <td>Relaciona-se diretamente à afirmativa I</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q47</td>
+                            <td>Toxicidades tardias do tratamento adjuvante</td>
+                            <td>Efeitos adversos da adjuvância</td>
+                            <td>E</td>
+                            <td>Conecta-se às terapias sistêmicas</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q48</td>
+                            <td>Indicação de teste genético BRCA1/BRCA2</td>
+                            <td>Hereditariedade</td>
+                            <td>C</td>
+                            <td>Conecta-se aos fatores de risco e prognóstico</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q87</td>
+                            <td>Paciente com câncer de mama em tamoxifeno e depressão</td>
+                            <td>Interação medicamentosa</td>
+                            <td>A (citalopram)</td>
+                            <td>Relaciona-se à hormonioterapia adjuvante</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q39</td>
+                            <td>Nódulo mamário de 2 cm, BI-RADS III à mamografia e IV à ecografia</td>
+                            <td>Investigação de nódulo</td>
+                            <td>A (punção biópsia)</td>
+                            <td>Relaciona-se ao diagnóstico que antecede a adjuvância</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q21</td>
+                            <td>Mamografia BI-RADS 3</td>
+                            <td>Conduta no rastreamento</td>
+                            <td>D (controle semestral)</td>
+                            <td>Conecta-se ao diagnóstico precoce</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q22</td>
+                            <td>Lesão mamária com semelhança de tumor benigno</td>
+                            <td>Diagnóstico diferencial</td>
+                            <td>B (carcinoma mucinoso)</td>
+                            <td>Relaciona-se à biologia tumoral</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q36</td>
+                            <td>BI-RADS com achado suspeito</td>
+                            <td>Rastreamento e conduta</td>
+                            <td>D (BI-RADS 4)</td>
+                            <td>Conecta-se ao diagnóstico precoce</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q37</td>
+                            <td>Estadiamento do câncer de mama</td>
+                            <td>Estadiamento e exames</td>
+                            <td>D</td>
+                            <td>Reforça o TNM como pilar prognóstico e de adjuvância</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q27</td>
+                            <td>Predisposição aos cânceres hereditários de mama e ovário</td>
+                            <td>Critérios de investigação genética</td>
+                            <td>C (II e III verdadeiras; I falsa)</td>
+                            <td>Conecta-se aos fatores prognósticos e hereditários</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q29</td>
+                            <td>Cirurgia conservadora versus mastectomia; marcadores tumorais; rastreamento</td>
+                            <td>Tratamento local e conceitos gerais</td>
+                            <td>B (I e III verdadeiras; II falsa)</td>
+                            <td>Complementa a questão atual no manejo do câncer inicial</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q25</td>
+                            <td>Descarga papilar sanguinolenta uniductal</td>
+                            <td>Investigação de derrame papilar</td>
+                            <td>E</td>
+                            <td>Relaciona-se ao diagnóstico diferencial</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 19 questões das provas de 2006_2025. A banca alterna entre estadiamento, tratamento local, decisão de adjuvância, testes genômicos, terapia anti-HER2 e hormonioterapia. Nos últimos anos, tem cobrado de forma mais integrada a biologia tumoral e as recomendações específicas de adjuvância.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A comparação formal entre inibidor da aromatase na pós-menopausa e tamoxifeno/supressão ovariana na pré-menopausa em forma de afirmativa, bem como a menção explícita ao bloqueio duplo anti-HER2 (trastuzumabe + pertuzumabe) como padrão em alto risco. Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos mais antigos, a banca cobrava mais condutas cirúrgicas e fatores de risco. Ao longo dos anos, passou a cobrar biologia tumoral, testes genômicos, adjuvância conforme receptores hormonais e HER2, com questões mais aplicadas à tomada de decisão individualizada.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os critérios de indicação de quimioterapia adjuvante (idade, estágio, biomarcadores e testes genômicos), a hormonioterapia conforme status menopausal (inibidor da aromatase na pós-menopausa; tamoxifeno na pré-menopausa; supressão ovariana + inibidor da aromatase em alto risco) e o tratamento anti-HER2 com trastuzumabe e pertuzumabe.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros (ex: bronquiolite → asma → pneumonia). "Se você viu X, lembre-se de Y". Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Estadiamento TNM e biologia tumoral (RE, RP, HER2) conectam-se diretamente à indicação de terapia adjuvante e ao prognóstico.</li>
+                    <li><strong>Conexão 2:</strong> Testes genômicos (Oncotype DX e MammaPrint) conectam-se à decisão de quimioterapia em tumores RH+/HER2-.</li>
+                    <li><strong>Conexão 3:</strong> Hormonioterapia adjuvante conecta-se ao manejo de efeitos adversos (tromboembolismo, câncer de endométrio, sintomas vasomotores) e às interações medicamentosas (tamoxifeno e inibidores da CYP2D6).</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Caso tenha errado, o erro mais provável é de <strong>lacuna de conhecimento</strong> sobre as recomendações atuais de adjuvância ou <strong>confusão conceitual</strong> entre as classes de terapia sistêmica (quimioterapia, hormonioterapia e anti-HER2). A ação corretiva é revisar os pilares de decisão da adjuvância no câncer de mama inicial, memorizar que: (1) a decisão de quimioterapia inclui idade, estágio, biomarcadores e testes genômicos; (2) RH-positivo recebe hormonioterapia, com inibidor da aromatase na pós-menopausa e tamoxifeno/supressão ovariana na pré-menopausa; (3) HER2-positivo recebe terapia anti-HER2, incluindo trastuzumabe e pertuzumabe em alto risco.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a paciente com câncer de mama inicial deve ser discutida em contexto multidisciplinar. A escolha da terapia sistêmica adjuvante considera o risco de recidiva, a biologia tumoral e as comorbidades. O teste genômico (Oncotype DX ou MammaPrint) ajuda a evitar quimioterapia desnecessária em tumores RH+/HER2- de risco intermediário. A hormonioterapia é prolongada (5 a 10 anos) e exige monitoramento de efeitos adversos. A terapia anti-HER2 requer vigilância de cardiotoxicidade.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Receptores hormonais (RE/RP) e HER2 na decisão adjuvante.</li>
+                    <li>Oncotype DX e MammaPrint: indicações e interpretação.</li>
+                    <li>Hormonioterapia adjuvante conforme status menopausal.</li>
+                    <li>Terapia anti-HER2: trastuzumabe, pertuzumabe e trastuzumabe entansina.</li>
+                    <li>Efeitos adversos e monitoramento das terapias sistêmicas.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Instituto Nacional de Câncer (INCA). Diretrizes para a detecção precoce do câncer de mama no Brasil. Rio de Janeiro: INCA.</p>
+                <p>2. Ministério da Saúde. Caderno de Atenção Básica: Controle do Câncer de Mama. Brasília: Ministério da Saúde.</p>
+                <p>3. Sabiston Textbook of Surgery. 23ª edição. Capítulos de mama e oncologia cirúrgica.</p>
+                <p>4. Diretrizes da Sociedade Brasileira de Mastologia e Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO).</p>
+                <p>5. NCCN Clinical Practice Guidelines in Oncology: Breast Cancer.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

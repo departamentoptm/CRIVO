@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 52 - Gastroenterologia: Doença do Refluxo Gastroesofágico (DRGE)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Gastroenterologia: Doença do Refluxo Gastroesofágico (DRGE)</div>
+        <h1>Questão 52</h1>
+        <div class="question-text">
+            A doença do refluxo gastroesofágico (DRGE) é a condição médica benigna mais comum ocorrida no estômago e esôfago e seus sintomas se apresentam frequentemente em pacientes ambulatoriais. Em relação a esta doença, analise as assertivas abaixo.
+            <br><br>
+            I) Pirose e regurgitação são os sintomas típicos da DRGE, porém a dor epigástrica e a dispepsia são os sintomas mais frequentes.
+            <br><br>
+            II) É frequente o achado de linfonodomegalia cervical nos pacientes com DRGE e seu achado demonstra progressão da doença, associado a sintomas extra esofágicos.
+            <br><br>
+            III) Uma endoscopia digestiva alta normal para DRGE, ou seja, sem esofagite de refluxo, descarta este diagnóstico.
+            <br><br>
+            IV) O diagnóstico da DRGE baseia-se na presença de sintomas típicos e na melhoria destes sintomas com terapia com inibidor da bomba de prótons.
+            <br><br>
+            Estão corretas as assertivas
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - apenas a IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - apenas a II e III.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - apenas as I e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - apenas as I, III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - todas estão corretas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Gastroenterologia / Clínica Médica / Cirurgia Geral.</p>
+                <p><strong>Tema:</strong> Doença do Refluxo Gastroesofágico (DRGE) — definição, sintomas típicos, diagnóstico e limitações da endoscopia.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência médica. A banca costuma cobrar a diferença entre sintomas típicos (pirose e regurgitação) e atípicos/extraesofágicos, os sinais de alarme que indicam endoscopia, o conceito de DRGE não erosiva (NERD) — em que a endoscopia é normal —, o teste terapêutico com inibidor de bomba de prótons e as indicações cirúrgicas. É tema recorrente em questões de Clínica Médica, Cirurgia Geral e Gastroenterologia.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A DRGE é definida pelo refluxo do conteúdo gástrico para o esôfago, causando sintomas incômodos e/ou complicações. O sintoma típico é a pirose (queimação retroesternal) associada ou não à regurgitação. A fisiopatologia envolve relaxamentos transitórios do esfíncter esofágico inferior (EEI), hipotonia do EEI, hérnia hiatal, alterações da depuração esofágica e atraso do esvaziamento gástrico. Importante: a endoscopia normal NÃO exclui DRGE — muitos pacientes têm a forma não erosiva (NERD), em que a mucosa é macroscopicamente normal, mas o refluxo patológico é documentado por pHmetria ou teste terapêutico. O diagnóstico clínico baseia-se em sintomas típicos e na resposta à terapia antissecretora (teste terapêutico com IBP).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>A</strong> (apenas a IV). A assertiva IV está correta: o diagnóstico de DRGE baseia-se na presença de sintomas típicos (pirose e regurgitação) e na melhoria destes sintomas com IBP (teste terapêutico). A assertiva I está errada porque, apesar de pirose e regurgitação serem os sintomas típicos, eles também são os MAIS FREQUENTES — a afirmação de que dor epigástrica e dispepsia seriam "mais frequentes" inverte a hierarquia. A assertiva II está errada: linfonodomegalia cervical não é achado da DRGE e não indica progressão da doença. A assertiva III está errada: endoscopia normal não descarta DRGE, pois existe a forma não erosiva (NERD).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Correta: apenas a IV é verdadeira.</p>
+                <p><strong>Alternativa B</strong> - Errada: II e III são falsas; linfonodomegalia não é achado da DRGE e endoscopia normal não descarta o diagnóstico.</p>
+                <p><strong>Alternativa C</strong> - Errada: I é falsa, pois pirose e regurgitação são os sintomas mais frequentes, não dor epigástrica e dispepsia.</p>
+                <p><strong>Alternativa D</strong> - Errada: I e III são falsas.</p>
+                <p><strong>Alternativa E</strong> - Errada: apenas a IV está correta.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>"Pirose e regurgitação":</strong> sintomas típicos e mais frequentes da DRGE.</li>
+                    <li><strong>"Endoscopia normal":</strong> não exclui DRGE — lembrar da DRGE não erosiva (NERD).</li>
+                    <li><strong>"Teste terapêutico com IBP":</strong> ferramenta diagnóstica aceita na ausência de sinais de alarme.</li>
+                    <li><strong>"Linfonodomegalia cervical":</strong> não faz parte do quadro de DRGE; deve levantar outras hipóteses.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> identificar sintomas típicos (pirose e regurgitação) e ausência de sinais de alarme.</li>
+                    <li><strong>Segundo:</strong> na ausência de sinais de alarme, pode-se realizar teste terapêutico empírico com IBP por 4 a 8 semanas.</li>
+                    <li><strong>Terceiro:</strong> se houver sinais de alarme (disfagia, odinofagia, perda ponderal, anemia, sangramento, vômitos persistentes, história familiar de câncer gástrico), indicar endoscopia digestiva alta.</li>
+                    <li><strong>Quarto:</strong> endoscopia normal NÃO exclui DRGE — considerar pHmetria, pH-impedanciometria ou manometria em casos selecionados.</li>
+                    <li><strong>Quinto:</strong> considerar cirurgia (fundoplicatura) em pacientes refratários, dependentes de IBP ou com lesões graves (úlcera, estenose, Barrett).</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> pirose e regurgitação são os sintomas típicos e mais frequentes da DRGE; endoscopia normal não exclui o diagnóstico (NERD).</li>
+                    <li><strong>Sinais de alarme:</strong> disfagia, odinofagia, perda ponderal, anemia, sangramento digestivo, vômitos persistentes, massa epigástrica, história familiar de câncer gástrico — indicam endoscopia.</li>
+                    <li><strong>Números e doses:</strong> IBP em dose plena por 4 a 8 semanas para teste terapêutico; efeito máximo do IBP após cerca de 4 dias de uso contínuo.</li>
+                    <li><strong>Mnemônico:</strong> "Pirose + regurgitação = típico; endoscopia normal ≠ sem DRGE (NERD)".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>DRGE típica</td><td>Pirose e regurgitação, sem sinais de alarme</td><td>Clínico; teste terapêutico com IBP; pHmetria se dúvida</td><td>MEV + IBP</td></tr>
+                        <tr><td>DRGE não erosiva (NERD)</td><td>Sintomas típicos com endoscopia normal</td><td>pHmetria ou pH-impedanciometria; teste terapêutico</td><td>IBP, MEV, considerar cirurgia se refratário</td></tr>
+                        <tr><td>Esofagite eosinofílica</td><td>Disfagia, impactação alimentar, história de atopia</td><td>Endoscopia com biópsia (≥15 eos/campo)</td><td>Corticoide tópico, dieta, dilatação</td></tr>
+                        <tr><td>Acalasia</td><td>Disfagia progressiva para sólidos e líquidos, regurgitação</td><td>Manometria, esofagograma</td><td>Dilatação, miotomia de Heller, POEM</td></tr>
+                        <tr><td>Neoplasia esofágica</td><td>Disfagia progressiva, perda ponderal, anemia, sinais de alarme</td><td>Endoscopia com biópsia</td><td>Estadiamento e tratamento oncológico</td></tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse o padrão-ouro diagnóstico:</strong> pHmetria de 24 horas (para refluxo ácido) ou pH-impedanciometria (para refluxo não ácido).</li>
+                    <li><strong>Se pedisse a indicação de endoscopia:</strong> presença de sinais de alarme, refratariedade ao tratamento ou suspeita de Barrett.</li>
+                    <li><strong>Se pedisse a complicação mais temida:</strong> esôfago de Barrett com adenocarcinoma.</li>
+                    <li><strong>Se pedisse a cirurgia de escolha:</strong> fundoplicatura de Nissen (360°).</li>
+                    <li><strong>Se pedisse o efeito máximo do IBP:</strong> aproximadamente 4 dias de uso contínuo.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2016 – Q68</td>
+                            <td>Tratamento da DRGE: cessação do tabagismo, IBP x bloqueadores H2, indicação cirúrgica em lesão grave e técnica de Nissen.</td>
+                            <td>Tratamento e indicações cirúrgicas</td>
+                            <td>A (I e II)</td>
+                            <td>Complementa a assertiva IV sobre IBP e contextualiza o tratamento da DRGE.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q33</td>
+                            <td>Paciente com pirose e regurgitação; indicação de EDA na presença de anemia, anorexia ou perda ponderal.</td>
+                            <td>Sinais de alarme e indicação de endoscopia</td>
+                            <td>A</td>
+                            <td>Reforça que a EDA é indicada na presença de sinais de alarme, e não rotineiramente; alinhada à assertiva III.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q91</td>
+                            <td>Pirose e regurgitação; afirmativas sobre diagnóstico e conduta (incorreta: hérnia hiatal é essencial para o diagnóstico).</td>
+                            <td>Diagnóstico clínico e limitações</td>
+                            <td>B</td>
+                            <td>Mostra que hérnia hiatal NÃO é essencial; análoga à assertiva III (endoscopia normal não descarta).</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q49</td>
+                            <td>Efeito máximo do IBP na DRGE.</td>
+                            <td>Farmacologia do IBP</td>
+                            <td>B (4 dias)</td>
+                            <td>Complementa a assertiva IV sobre resposta ao IBP.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q50</td>
+                            <td>Hérnia hiatal mais associada a incompetência da cárdia.</td>
+                            <td>Anatomia e fisiopatologia</td>
+                            <td>E (deslizamento)</td>
+                            <td>Contextualiza mecanismo de refluxo, ligado aos sintomas típicos.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q49</td>
+                            <td>DRGE de longa data com esôfago de Barrett; conduta conforme displasia.</td>
+                            <td>Complicação e seguimento</td>
+                            <td>C (III e IV)</td>
+                            <td>Demonstra a importância da endoscopia em casos selecionados e a definição de Barrett por metaplasia intestinal.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q84</td>
+                            <td>Paciente com DRGE de longa data e disfagia; provável causa (processo inflamatório esofágico).</td>
+                            <td>Complicação da DRGE</td>
+                            <td>D</td>
+                            <td>Reforça que a DRGE pode evoluir com disfagia por inflamação/estenose, contextualizando sinais de alarme.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q47</td>
+                            <td>Sinais de alarme, tratamento empírico sem EDA na ausência de alarme e papel da manometria em candidatos à cirurgia.</td>
+                            <td>Diagnóstico empírico e investigação</td>
+                            <td>A (I e II)</td>
+                            <td>Reforça o teste terapêutico e a não obrigatoriedade de EDA sem sinais de alarme, alinhada à assertiva IV.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 8 provas anteriores. A banca alterna entre cobrar sintomas típicos, sinais de alarme, papel da endoscopia (e suas limitações), teste terapêutico com IBP, complicações (Barrett, estenose) e cirurgia (Nissen).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> DRGE refratária e critérios de encaminhamento cirúrgico, pH-impedanciometria para refluxo não ácido, e DRGE em populações especiais (gestantes, idosos, pacientes com doenças pulmonares).</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais o tratamento e complicações (Barrett); em provas recentes, tem cobrado o diagnóstico clínico, o teste terapêutico com IBP e as limitações da endoscopia, que é exatamente o foco da questão atual.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar as formas de apresentação (típica, atípica, extraesofágica), os sinais de alarme e a lógica do teste terapêutico com IBP como ferramenta diagnóstica.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Asma e tosse crônica — DRGE é causa frequente de tosse crônica e de difícil controle, exigindo investigação e tratamento do refluxo.</li>
+                    <li><strong>Conexão 2:</strong> Esôfago de Barrett e adenocarcinoma esofágico — complicações da DRGE de longa data, reforçando a importância do seguimento.</li>
+                    <li><strong>Conexão 3:</strong> Hérnia hiatal — condição frequentemente associada à DRGE (especialmente a hérnia por deslizamento) e que pode agravar o refluxo.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é de leitura/interpretação ao aceitar afirmações absolutas como "endoscopia normal descarta DRGE" ou ao valorizar achados que não fazem parte do quadro (linfonodomegalia cervical). Estratégia: memorizar que a forma não erosiva (NERD) é comum, que pirose e regurgitação são os sintomas mais frequentes e que o teste terapêutico com IBP é parte do diagnóstico.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente com pirose e regurgitação típicas, sem sinais de alarme, pode ser tratado empiricamente com IBP por 4 a 8 semanas, sem necessidade de endoscopia inicial. Se houver resposta, o diagnóstico de DRGE é reforçado. A endoscopia está indicada em sinais de alarme, refratariedade ou suspeita de Barrett. Endoscopia normal não exclui o diagnóstico e não deve ser usada isoladamente para descartá-lo.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Sintomas típicos e atípicos da DRGE.</li>
+                    <li>Sinais de alarme e indicação de endoscopia digestiva alta.</li>
+                    <li>DRGE não erosiva (NERD) e limitações da endoscopia.</li>
+                    <li>Teste terapêutico com IBP e pHmetria/pH-impedanciometria.</li>
+                    <li>Complicações: esofagite, estenose, Barrett e adenocarcinoma.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Diretrizes da Federação Brasileira de Gastroenterologia (FBG) para DRGE.</p>
+                <p>2. American College of Gastroenterology (ACG) Clinical Guideline for the Diagnosis and Management of GERD.</p>
+                <p>3. UpToDate: Clinical manifestations and diagnosis of gastroesophageal reflux disease in adults.</p>
+                <p>4. Harrison's Principles of Internal Medicine, 21ª edição.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

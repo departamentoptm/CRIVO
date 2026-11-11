@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 47 - Cirurgia Plástica Reparadora: Tipos de Retalhos e Zetaplastia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Plástica Reparadora: Tipos de Retalhos e Zetaplastia</div>
+        <h1>Questão 47</h1>
+        <div class="question-text">
+            A cirurgia plástica reparadora emprega com muita frequência o uso de retalhos que podem ser cutâneos, musculares, musculocutâneos, fasciocutâneos, perfurantes e até microcirúrgicos. Assinale a alternativa correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Os retalhos rombóides aproveitam a frouxidão da pele adjacente para transferir o tecido em V-Y.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Os retalhos cutâneos de avanço são retangulares ou quadrados e giram lateralmente para alcançar o defeito a ser reconstruído.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - O insucesso ou necrose de um retalho cutâneo não pode ser resultado do comprometimento mecânico extrínseco ao seu pedículo.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Os retalhos de rotação movem-se diretamente para frente e aproveitam a elasticidade da pele para alcançar e preencher o defeito.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - A zetaplastia ou retalho em Z consiste na transposição de dois retalhos triangulares interdigitados sem tensão a fim de produzir um ganho no comprimento ao longo do eixo comum do Z.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Plástica / Cirurgia Geral / Técnica Operatória</p>
+                <p><strong>Tema:</strong> Retalhos em cirurgia plástica reparadora — conceitos básicos e zetaplastia</p>
+                <p><strong>Contextualização:</strong> O uso de retalhos é fundamental na cirurgia plástica reparadora para reconstrução de defeitos cutâneos e de tecidos moles. O tema é recorrente em provas de residência que cobram tanto o reconhecimento dos tipos de retalhos (avanço, rotação, transposição, zetaplastia) quanto os fatores que influenciam seu sucesso ou insucesso. A questão atual cobra a definição correta de zetaplastia e o reconhecimento de erros conceituais em relação aos outros tipos de retalhos. Tema já cobrado em 2008 (Q92 — enxertos e retalhos), 2020 (Q52 — retalho do peitoral maior) e 2023 (Q42 — TRAM).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Retalhos são tecidos transferidos de uma região doadora para uma região receptora mantendo seu suprimento sanguíneo (pedículo). Classificam-se conforme a composição (cutâneos, fasciocutâneos, musculares, musculocutâneos, perfurantes, microcirúrgicos) e conforme o movimento (avanço, rotação, transposição, interpolação). A sobrevida do retalho depende da perfusão adequada através do pedículo; qualquer comprometimento mecânico extrínseco (compressão, tensão, torção, dobra excessiva, hematoma) pode causar congestão venosa, isquemia e necrose. A zetaplastia é um retalho de transposição em forma de Z, formado por dois retalhos triangulares interdigitados que se movem para posições opostas; sua finalidade é redistribuir a tensão e ganhar comprimento ao longo do eixo central do Z, sendo útil em contraturas cicatriciais e em áreas de tensão.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>E</strong>. A zetaplastia é um retalho de transposição que consiste em dois retalhos triangulares interdigitados, posicionados de forma oposta, sem tensão, com o objetivo de alongar o eixo central do Z e redistribuir as forças. A definição descrita na alternativa E está correta e alinhada com a literatura clássica de cirurgia plástica (e.g., Sabiston, Converse). O tema já apareceu em provas anteriores: 2008 (Q92), que cobrou conceitos de enxertos e retalhos; 2020 (Q52), que abordou o retalho do músculo peitoral maior na reconstrução esternal; e 2023 (Q42), que cobrou o TRAM como opção de reconstrução mamária.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Falsa. Os retalhos rombóides (como o de Limberg) são retalhos de transposição que utilizam a frouxidão da pele adjacente para fechar defeitos losangulares, mas não transferem tecido em V-Y. A técnica V-Y é um tipo de retalho de avanço. Erro conceitual ao confundir retalho rombóide com retalho V-Y.</p>
+                <p><strong>Alternativa B</strong> - Falsa. Os retalhos de avanço movem-se diretamente para frente, sem girar lateralmente; os retalhos que giram lateralmente são os de rotação. Erro de confusão entre tipos de retalhos.</p>
+                <p><strong>Alternativa C</strong> - Falsa. O insucesso ou necrose de um retalho cutâneo PODE ser resultado de comprometimento mecânico extrínseco ao seu pedículo (compressão, tensão, torção, dobra, hematoma). A afirmação nega essa possibilidade, o que é incorreto.</p>
+                <p><strong>Alternativa D</strong> - Falsa. Os retalhos de rotação giram em torno de um ponto de pivô para cobrir o defeito, não se movem diretamente para frente. Os retalhos que se movem diretamente para frente são os de avanço. Erro de confusão conceitual.</p>
+                <p><strong>Alternativa E</strong> - Correta. Descrição precisa da zetaplastia: dois retalhos triangulares interdigitados, sem tensão, com ganho de comprimento ao longo do eixo do Z.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Retalhos cutâneos, musculares, musculocutâneos, fasciocutâneos, perfurantes e até microcirúrgicos”:</strong> enfatiza a diversidade de retalhos e a importância de conhecer cada tipo.</li>
+                    <li><strong>“Assinale a alternativa correta”:</strong> pede a definição correta entre conceitos frequentemente confundidos.</li>
+                    <li><strong>“Zetaplastia”:</strong> palavra-chave que direciona para a alternativa E.</li>
+                    <li><strong>“Ganho no comprimento ao longo do eixo comum do Z”:</strong> finalidade clássica da zetaplastia.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Recordar que retalhos de avanço movem-se diretamente para frente (não giram).</li>
+                    <li><strong>Segundo:</strong> Recordar que retalhos de rotação giram em torno de um ponto de pivô (não se movem diretamente).</li>
+                    <li><strong>Terceiro:</strong> Reconhecer que o retalho rombóide é um retalho de transposição losangular, não V-Y.</li>
+                    <li><strong>Quarto:</strong> Lembrar que o pedículo do retalho pode ser comprometido por fatores mecânicos extrínsecos (compressão, tensão, torção) levando à necrose.</li>
+                    <li><strong>Quinto:</strong> Identificar a definição precisa da zetaplastia: dois retalhos triangulares interdigitados, ganho de comprimento.</li>
+                    <li><strong>Sexto:</strong> Concluir que a alternativa E é a correta.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Retalhos de avanço movem-se diretamente para frente; retalhos de rotação giram em torno de um pivô; retalhos de transposição movem-se lateralmente para cobrir defeitos.</li>
+                    <li><strong>Fatos que definem:</strong> A zetaplastia ganha comprimento ao longo do eixo do Z e redistribui a tensão cicatricial.</li>
+                    <li><strong>Fatos que definem:</strong> O comprometimento mecânico do pedículo (compressão, tensão, torção, hematoma) é uma das principais causas de necrose de retalhos.</li>
+                    <li><strong>Números e doses:</strong> Não há dose; a questão é conceitual.</li>
+                    <li><strong>Mnemônico:</strong> "Z de Zetaplastia = dois triângulos Z-onados que aumentam o comprimento."</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2008 (Q92, sobre enxertos e retalhos) e em 2020 (Q52, sobre retalho do peitoral maior).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo de retalho</th>
+                            <th>Conceito</th>
+                            <th>Indicação típica</th>
+                            <th>Observações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Avanço</td>
+                            <td>Movimento direto para frente</td>
+                            <td>Defeitos pequenos em áreas de frouxidão</td>
+                            <td>Pode ser V-Y, U, retangular</td>
+                        </tr>
+                        <tr>
+                            <td>Rotação</td>
+                            <td>Giro em torno de um pivô</td>
+                            <td>Defeitos em couro cabeludo, face</td>
+                            <td>Deixa área doadora que pode precisar de enxerto</td>
+                        </tr>
+                        <tr>
+                            <td>Transposição</td>
+                            <td>Movimento lateral para cobrir defeito</td>
+                            <td>Defeitos faciais, rombóide (Limberg)</td>
+                            <td>Zetaplastia é um exemplo</td>
+                        </tr>
+                        <tr>
+                            <td>Zetaplastia</td>
+                            <td>Dois retalhos triangulares interdigitados</td>
+                            <td>Contraturas cicatriciais, áreas de tensão</td>
+                            <td>Ganha comprimento ao longo do eixo do Z</td>
+                        </tr>
+                        <tr>
+                            <td>Interpolação</td>
+                            <td>Retalho levado sobre ou sob uma ponte de pele</td>
+                            <td>Defeitos nasais, reconstrução de face</td>
+                            <td>Pode necessitar de segunda cirurgia para secção do pedículo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre reconstrução mamária:</strong> a resposta poderia envolver TRAM, retalho do grande dorsal ou prótese (2023 Q42).</li>
+                    <li><strong>Se fosse sobre retalhos musculares:</strong> a resposta poderia envolver o retalho do peitoral maior na reconstrução esternal (2020 Q52).</li>
+                    <li><strong>Se fosse sobre cicatrizes hipertróficas e queloides:</strong> a resposta poderia envolver bandagens de compressão, infiltração de corticoides e zetaplastia em contraturas (2025 Q84).</li>
+                    <li><strong>Se fosse sobre enxertos:</strong> a resposta poderia envolver a diferença entre enxerto e retalho (2008 Q92).</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 – Q92</td>
+                            <td>Assinale a alternativa correta sobre enxertos e retalhos cutâneos.</td>
+                            <td>Conceitos de enxerto e retalho; cicatrização</td>
+                            <td>C</td>
+                            <td>Aborda fundamentos de retalhos e enxertos, base para a questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q52</td>
+                            <td>Reconstrução de ferida esternal após esternotomia com retalho muscular.</td>
+                            <td>Retalho do peitoral maior e suas características</td>
+                            <td>E</td>
+                            <td>Complementa o conhecimento sobre retalhos musculares e sua vascularização.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q42</td>
+                            <td>Reconstrução mamária com TRAM; afirmações sobre retalhos.</td>
+                            <td>TRAM pediculado ou microcirúrgico</td>
+                            <td>A</td>
+                            <td>Reforça que retalhos podem ser pediculados ou microcirúrgicos, conforme a classificação.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q84</td>
+                            <td>Cicatriz hipertrófica/queloide; estratégia para reduzir a recidiva.</td>
+                            <td>Bandagem pós-operatória de compressão</td>
+                            <td>D</td>
+                            <td>Relacionada à zetaplastia em contraturas cicatriciais.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q47</td>
+                            <td>Questão atual: tipos de retalhos e zetaplastia.</td>
+                            <td>Definição de zetaplastia e conceitos básicos</td>
+                            <td>E</td>
+                            <td>Integra os conhecimentos de retalhos das provas anteriores.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 4 provas anteriores. A banca alterna entre conceitos gerais de enxertos e retalhos (2008), retalhos musculares específicos (2020), retalhos microcirúrgicos e TRAM (2023) e cicatrização/queloides (2025). A questão atual foca na zetaplastia e nos conceitos básicos de tipos de retalhos.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A vascularização dos retalhos (axial versus random), a classificação de Mathes-Nahai, o retalho de Limberg e o retalho de avanço em V-Y ainda podem surgir em provas futuras. Também pode aparecer uma questão sobre complicações de retalhos (sofrimento vascular, necrose parcial, infecção).</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores eram mais generalistas e focadas em tipos específicos; a questão atual testa o conhecimento conceitual sobre tipos de movimento e zetaplastia.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar a classificação dos retalhos por movimento (avanço, rotação, transposição, zetaplastia, interpolação) e a definição precisa da zetaplastia. Revisar também a diferença entre enxerto e retalho, a vascularização e as complicações.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Cicatrização e queloides — zetaplastia é usada em contraturas cicatriciais; bandagem de compressão em queloides (2025 Q84).</li>
+                    <li><strong>Conexão 2:</strong> Reconstrução mamária — TRAM (retalho do músculo reto abdominal) e retalho do grande dorsal (2023 Q42).</li>
+                    <li><strong>Conexão 3:</strong> Reconstrução de parede torácica — retalho do peitoral maior (2020 Q52).</li>
+                    <li><strong>Conexão 4:</strong> Feridas complexas e retalhos em trauma — princípios de reconstrução.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é escolher a alternativa D (retalhos de rotação movem-se diretamente para frente) ou B (retalhos de avanço giram lateralmente), por confusão entre os tipos de retalho. A classificação do erro é de lacuna de conhecimento sobre classificação de retalhos e confusão conceitual entre avanço, rotação e transposição. A ação corretiva é revisar a classificação por movimento e memorizar os conceitos-chave de cada tipo.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática cirúrgica, a escolha do tipo de retalho depende do defeito, da região, da vascularização local e da disponibilidade de tecido. A zetaplastia é muito usada em contraturas cicatriciais (pescoço, dedos, axila) por alongar o tecido e redistribuir a tensão. O conhecimento dos tipos de retalhos e de suas complicações permite planejar reconstruções mais seguras e com melhores resultados estéticos e funcionais.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Classificação de retalhos (composição e movimento)</li>
+                    <li>Zetaplastia e suas indicações</li>
+                    <li>Retalho de Limberg (rombóide)</li>
+                    <li>Retalho de avanço V-Y</li>
+                    <li>Vascularização de retalhos (axial e random)</li>
+                    <li>Complicações de retalhos (sofrimento vascular, necrose)</li>
+                    <li>Retalhos musculares e musculocutâneos (TRAM, grande dorsal, peitoral maior)</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>2. Converse JM. Reconstructive Plastic Surgery.</p>
+                <p>3. Mathes SJ, Nahai F. Reconstructive Surgery: Principles, Anatomy and Technique.</p>
+                <p>4. Sociedade Brasileira de Cirurgia Plástica (SBCP). Manual de Retalhos.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 38 - Apresentações Cefálicas Defletidas: Graus, Mecanismo de Parto e Conduta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Apresentações Cefálicas Defletidas: Graus, Mecanismo de Parto e Conduta</div>
+        <h1>Questão 38</h1>
+        <div class="question-text">
+            As apresentações cefálicas defletidas geralmente derivam de cefálicas fletidas. A deflexão do polo cefálico fetal origina determinada variedade de posição contralateral às posições fletidas anômalas. Sobre a apresentação cefálica defletida analise as afirmativas abaixo.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Acredita-se que grande parte das apresentações defletidas de primeiro grau decorra de deflexão discreta das fletidas occipitoposteriores.</div>
+            <div class="statement"><strong>II</strong> - As defletidas de segundo grau são extremamente raras e, a não ser em fetos muito pequenos ou macerados, não é possível a evolução para parto vaginal.</div>
+            <div class="statement"><strong>III</strong> - Na cefálica defletida de terceiro grau o fator materno mais importante é a multiparidade. Em razão da menor extensão dos diâmetros insinuados, o parto nas apresentações de face costuma não apresentar dificuldades.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As afirmativas I e II são verdadeiras. A afirmativa III é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As afirmativas I e III são verdadeiras. A afirmativa II é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - As afirmativas II e III são verdadeiras. A afirmativa I é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - As afirmativas I, II e III são verdadeiras.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As afirmativas I, II e III são falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia / Mecanismo de Parto / Distocias de Apresentação.</p>
+                <p><strong>Tema:</strong> Apresentações cefálicas defletidas (bregmática, fronte e face): origem, graus de deflexão, diâmetros insinuados, possibilidade de parto vaginal e conduta obstétrica.</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência. A banca costuma cobrar a classificação das apresentações cefálicas, os diâmetros insinuados, as variedades de posição, o mecanismo de parto e as indicações de cesárea. Integra-se com distocias, assistência ao trabalho de parto e fórceps.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Na apresentação cefálica fletida (occipital), o polo cefálico insinua-se com o menor diâmetro (suboccipitobregmático, 9,5 cm). Nas apresentações defletidas, ocorre extensão progressiva da cabeça fetal, aumentando o diâmetro de insinuação. Classificam-se em três graus: primeiro grau (bregmática), segundo grau (fronte) e terceiro grau (face).</p>
+                <p>Na bregmática (1º grau), o diâmetro insinuado é o occipitofrontal (10 cm). Acredita-se que grande parte decorra de deflexão discreta das apresentações occipitoposteriores, podendo evoluir para parto vaginal. Na fronte (2º grau), o diâmetro é o mento-occipital (13,5 cm), incompatível com o estreito superior da bacia em fetos de tamanho normal; por isso, é extremamente rara e geralmente indica cesárea, exceto em fetos muito pequenos ou macerados. Na face (3º grau), o diâmetro é o submentobregmático (9,5 cm), que, apesar da deflexão máxima, é relativamente menor que o mento-occipital, permitindo parto vaginal, especialmente em multíparas.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>. As três afirmativas estão corretas. A afirmativa I é verdadeira: as defletidas de primeiro grau (bregmáticas) frequentemente derivam de deflexão discreta das occipitoposteriores. A afirmativa II é verdadeira: as defletidas de segundo grau (fronte) são extremamente raras e, exceto em fetos muito pequenos ou macerados, não permitem parto vaginal, pois o diâmetro mento-occipital (13,5 cm) é incompatível com a bacia. A afirmativa III é verdadeira: na apresentação de face (3º grau), a multiparidade é o fator materno mais importante e, pela menor extensão dos diâmetros insinuados (submentobregmático, 9,5 cm), o parto costuma não apresentar dificuldades.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada porque nega a afirmativa III, que é verdadeira. A apresentação de face pode evoluir para parto vaginal, especialmente em multíparas.</p>
+                <p><strong>Alternativa B</strong> - Errada porque nega a afirmativa II, que é verdadeira. As defletidas de segundo grau (fronte) são raras e geralmente incompatíveis com parto vaginal.</p>
+                <p><strong>Alternativa C</strong> - Errada porque nega a afirmativa I, que é verdadeira. As bregmáticas frequentemente derivam de occipitoposteriores.</p>
+                <p><strong>Alternativa D</strong> - Correta: I, II e III verdadeiras.</p>
+                <p><strong>Alternativa E</strong> - Errada porque todas as afirmativas são verdadeiras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Cefálicas defletidas:</strong> direciona para os três graus (bregmática, fronte e face).</li>
+                    <li><strong>Deflexão discreta das occipitoposteriores:</strong> aponta para a origem das bregmáticas.</li>
+                    <li><strong>Fetos muito pequenos ou macerados:</strong> indica a exceção à impossibilidade de parto vaginal na apresentação de fronte.</li>
+                    <li><strong>Multiparidade e menor extensão dos diâmetros:</strong> aponta para a apresentação de face.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Recordar os três graus de deflexão cefálica e seus diâmetros insinuados: bregmática (occipitofrontal, 10 cm), fronte (mento-occipital, 13,5 cm) e face (submentobregmático, 9,5 cm).</li>
+                    <li><strong>Segundo:</strong> Avaliar a origem: as bregmáticas derivam de occipitoposteriores que defletem discretamente.</li>
+                    <li><strong>Terceiro:</strong> Avaliar a fronte: diâmetro mento-occipital incompatível com a bacia, exceto em fetos muito pequenos ou macerados.</li>
+                    <li><strong>Quarto:</strong> Avaliar a face: diâmetro submentobregmático permite parto vaginal, especialmente em multíparas.</li>
+                    <li><strong>Quinto:</strong> Concluir que I, II e III são verdadeiras, correspondendo à alternativa D.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Bregmática (1º grau) → occipitofrontal (10 cm); fronte (2º grau) → mento-occipital (13,5 cm), incompatível com parto vaginal; face (3º grau) → submentobregmático (9,5 cm), permite parto vaginal.</li>
+                    <li><strong>Números e doses:</strong> Diâmetro mento-occipital 13,5 cm; submentobregmático 9,5 cm; occipitofrontal 10 cm.</li>
+                    <li><strong>Mnemônicos:</strong> "Bregma 10, Fronte 13,5 (não passa), Face 9,5 (passa)".</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cefálica fletida (occipital)</td>
+                            <td>Menor diâmetro (suboccipitobregmático, 9,5 cm), ponto de referência occipital</td>
+                            <td>Exame obstétrico (toque)</td>
+                            <td>Parto vaginal na maioria dos casos</td>
+                        </tr>
+                        <tr>
+                            <td>Bregmática (1º grau)</td>
+                            <td>Fontanela bregmática como ponto de referência, occipitofrontal (10 cm)</td>
+                            <td>Toque vaginal</td>
+                            <td>Pode evoluir para parto vaginal; monitorar</td>
+                        </tr>
+                        <tr>
+                            <td>Fronte (2º grau)</td>
+                            <td>Ponto de referência na fronte, mento-occipital (13,5 cm), rara</td>
+                            <td>Toque vaginal, ultrassonografia</td>
+                            <td>Cesárea, exceto fetos muito pequenos ou macerados</td>
+                        </tr>
+                        <tr>
+                            <td>Face (3º grau)</td>
+                            <td>Mento como ponto de referência, submentobregmático (9,5 cm), comum em multíparas</td>
+                            <td>Toque vaginal</td>
+                            <td>Parto vaginal possível; avaliar mento anterior/posterior</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão foi sobre diagnóstico:</strong> como seria sobre conduta? sobre complicações? sobre fórceps?</li>
+                    <li><strong>Exemplo:</strong> Se a questão pedisse o diâmetro da apresentação de fronte, seria mento-occipital (13,5 cm). Se pedisse a conduta na apresentação de fronte em feto a termo, seria cesárea. Se pedisse a manobra para cabeça derradeira em apresentação pélvica, seria Mauriceau/Liverpool. Se pedisse o fórceps para face mento anterior, seria Piper ou Simpson, conforme o caso.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2025 que abordaram o mesmo tema:</strong> o arquivo de provas anteriores disponibiliza enunciados até 2025; a prova de 2026 consta apenas como gabarito, sem enunciado.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q99</td>
+                            <td>Gestante em trabalho de parto com dilatação total em OTD e plano +3 de DeLee</td>
+                            <td>Conduta com fórceps em variedade de posição</td>
+                            <td>D (fórceps de Kielland)</td>
+                            <td>Relaciona-se ao mecanismo de parto e às variedades de posição</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q80</td>
+                            <td>Parturiente com feto em apresentação pélvica e cabeça derradeira</td>
+                            <td>Manobras para liberação da cabeça derradeira</td>
+                            <td>C (Mauriceau e Liverpool-McRoberts)</td>
+                            <td>Conecta-se às manobras e distocias de apresentação</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q74</td>
+                            <td>Mecanismo de parto: situação, apresentação, procúbito, atitude</td>
+                            <td>Conceitos de mecânica do parto</td>
+                            <td>C</td>
+                            <td>Complementa o conhecimento de apresentações e variedades</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q55</td>
+                            <td>Fórceps indicado para cabeça derradeira encravada em apresentações pélvicas</td>
+                            <td>Escolha do tipo de fórceps</td>
+                            <td>A (Piper)</td>
+                            <td>Relaciona-se à assistência em distocias de apresentação</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q53</td>
+                            <td>Diagnóstico de trabalho de parto: contrações, dilatação e esvaecimento</td>
+                            <td>Conceitos de trabalho de parto</td>
+                            <td>D (não se deve considerar isoladamente)</td>
+                            <td>Conecta-se ao mecanismo e à evolução do parto</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q54</td>
+                            <td>Relações útero-fetais: atitude, situação, apresentação e posição</td>
+                            <td>Conceitos de mecânica do parto</td>
+                            <td>C</td>
+                            <td>Relaciona-se diretamente às apresentações cefálicas e defletidas</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q26</td>
+                            <td>Teorias do determinismo do parto</td>
+                            <td>Fisiologia do parto</td>
+                            <td>E (da expansibilidade)</td>
+                            <td>Conecta-se ao trabalho de parto e às distocias</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q27</td>
+                            <td>Relações útero-fetais: atitude, situação, apresentação e posição</td>
+                            <td>Conceitos de mecânica do parto</td>
+                            <td>D</td>
+                            <td>Complementa o conhecimento de apresentações</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q31</td>
+                            <td>Tipos de fórceps e indicações (Simpson-Braun, Kielland, Luikart, Piper)</td>
+                            <td>Escolha do fórceps em distocias</td>
+                            <td>A</td>
+                            <td>Relaciona-se ao manejo de apresentações anômalas</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q31</td>
+                            <td>Técnica de aplicação do fórceps, pegas diretas e oblíquas</td>
+                            <td>Regras de aplicação das colheres</td>
+                            <td>D</td>
+                            <td>Conecta-se ao mecanismo de parto e às variedades de posição</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q38</td>
+                            <td>Apresentações cefálicas defletidas: graus, origem e conduta</td>
+                            <td>Classificação e manejo das defletidas</td>
+                            <td>D (I, II e III verdadeiras)</td>
+                            <td>Questão atual</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema de mecânica do parto e distocias de apresentação apareceu em pelo menos 10 questões das provas de 2006_2025. A banca alterna entre cobrar conceitos de situação/apresentação/posição, escolha de fórceps, manobras em cabeça derradeira e conduta nas variedades de posição. A classificação específica das cefálicas defletidas em graus, como nesta questão, foi cobrada de forma direta em 2024.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A comparação detalhada dos diâmetros insinuados em cada grau de deflexão e a conduta específica na apresentação de fronte e face, como nesta questão, podem surgir novamente na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca priorizou conceitos de mecânica do parto e escolha de fórceps. Em 2024, a cobrança foi mais detalhada, exigindo a classificação das defletidas, seus diâmetros e a possibilidade de parto vaginal.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os três graus de deflexão cefálica, seus pontos de referência e diâmetros insinuados (occipitofrontal 10 cm, mento-occipital 13,5 cm e submentobregmático 9,5 cm), a origem das bregmáticas a partir de occipitoposteriores e as indicações de cesárea na apresentação de fronte.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros (ex: bronquiolite → asma → pneumonia). "Se você viu X, lembre-se de Y". Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Apresentações defletidas conectam-se à mecânica do parto, variedades de posição e assistência ao trabalho de parto.</li>
+                    <li><strong>Conexão 2:</strong> Conectam-se à escolha do fórceps e às manobras obstétricas em distocias.</li>
+                    <li><strong>Conexão 3:</strong> Conectam-se às indicações de cesárea em distocias de apresentação.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Caso tenha errado, o erro mais provável é de <strong>lacuna de conhecimento</strong> sobre os graus de deflexão e seus diâmetros ou <strong>confusão conceitual</strong> entre as apresentações de fronte e face. A ação corretiva é memorizar: bregmática (occipitofrontal, 10 cm, parto vaginal possível); fronte (mento-occipital, 13,5 cm, cesárea exceto fetos muito pequenos/macerados); face (submentobregmático, 9,5 cm, parto vaginal possível, especialmente em multíparas).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o reconhecimento da apresentação e da variedade de posição é fundamental para a condução do trabalho de parto. A apresentação de fronte é uma distocia que geralmente indica cesárea, enquanto a apresentação de face pode evoluir para parto vaginal, especialmente em multíparas. O diagnóstico correto evita intervenções inadequadas e reduz a morbimortalidade materna e fetal.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Mecânica do parto: situação, apresentação, atitude e variedade de posição.</li>
+                    <li>Diâmetros cefálicos e insinuação.</li>
+                    <li>Apresentações cefálicas defletidas: bregmática, fronte e face.</li>
+                    <li>Indicações de cesárea em distocias de apresentação.</li>
+                    <li>Fórceps e manobras obstétricas.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Rezende Filho J. Obstetrícia. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>2. Montenegro CAB, Rezende Filho J. Obstetrícia Fundamental. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>3. Cunningham FG et al. Williams Obstetrics. McGraw-Hill.</p>
+                <p>4. Ministério da Saúde. Diretrizes Nacionais de Assistência ao Parto Normal. Brasília: Ministério da Saúde.</p>
+                <p>5. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Protocolos assistenciais.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

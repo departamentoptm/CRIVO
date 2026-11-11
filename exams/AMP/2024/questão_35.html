@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 35 - Estrógenos Fetoplacentários: Efeitos na Retenção Hídrica, Lactogênese e Sistema Renina-Angiotensina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Estrógenos Fetoplacentários: Efeitos na Retenção Hídrica, Lactogênese e Sistema Renina-Angiotensina</div>
+        <h1>Questão 35</h1>
+        <div class="question-text">
+            Durante a gestação a placenta produz de modo crescente e progressivo grande quantidade de estrógenos. Sobre os efeitos dos estrógenos fetoplacentários analise as afirmativas abaixo.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Inibem a despolimerização dos mucopolissacarídeos no tecido intersticial, reduzindo a retenção hídrica e a embebição gravídica.</div>
+            <div class="statement"><strong>II</strong> - Estimulam a formação da prolactina hipofisária, bloqueiam a ação dela nos receptores mamários e inibem a lactogênese durante a gestação.</div>
+            <div class="statement"><strong>III</strong> - Atuam na produção de substrato de renina, colaborando para o aumento da atividade do sistema renina-angiotensina-aldosterona.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As afirmativas I e II são verdadeiras. A afirmativa III é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As afirmativas I e III são verdadeiras. A afirmativa II é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - As afirmativas II e III são verdadeiras. A afirmativa I é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - As afirmativas I, II e III são verdadeiras.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As afirmativas I, II e III são falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia / Fisiologia da Gestação / Endocrinologia Placentária.</p>
+                <p><strong>Tema:</strong> Efeitos dos estrógenos fetoplacentários sobre a retenção hídrica, a lactogênese e o sistema renina-angiotensina-aldosterona durante a gestação.</p>
+                <p><strong>Contextualização:</strong> Tema de incidência moderada em provas de residência, frequentemente cobrado em conjunto com adaptações fisiológicas da gestação, hormonologia placentária, lactogênese, hipertensão gestacional e pré-eclâmpsia. A banca costuma cobrar a integração entre os hormônios placentários e as alterações sistêmicas da gestação.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Durante a gestação, a placenta produz grandes quantidades de estrógenos (estriol, estradiol e estrona), que exercem múltiplos efeitos sistêmicos. Os estrógenos aumentam a retenção hídrica e sódica, contribuindo para a expansão do volume plasmático e para a formação de edema, por aumentarem a síntese e a despolimerização de mucopolissacarídeos no tecido intersticial. Portanto, a afirmativa I está incorreta: os estrógenos aumentam, e não reduzem, a retenção hídrica e a embebição gravídica.</p>
+                <p>Os estrógenos estimulam a síntese e a liberação de prolactina pela hipófise materna, mas bloqueiam sua ação nos receptores mamários, impedindo a lactogênese durante a gestação. A progesterona também contribui para esse bloqueio. Após o parto, com a queda dos estrogênios e da progesterona, a prolactina pode atuar nos receptores mamários e iniciar a lactação. A afirmativa II está correta.</p>
+                <p>Os estrógenos também aumentam a produção hepática de angiotensinogênio (substrato de renina), favorecendo o aumento da atividade do sistema renina-angiotensina-aldosterona, com maior retenção de sódio e água e vasoconstrição relativa. A afirmativa III está correta.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>. As afirmativas II e III são verdadeiras, e a afirmativa I é falsa. Os estrógenos fetoplacentários estimulam a formação de prolactina e bloqueiam sua ação mamária, inibindo a lactogênese durante a gestação (II verdadeira); atuam na produção de substrato de renina, aumentando a atividade do sistema renina-angiotensina-aldosterona (III verdadeira); e promovem retenção hídrica e embebição gravídica, ao contrário do que afirma a afirmativa I, que diz que eles reduzem esse fenômeno (I falsa).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada porque considera a afirmativa I verdadeira. Os estrógenos aumentam a retenção hídrica e a embebição gravídica, e não as reduzem.</p>
+                <p><strong>Alternativa B</strong> - Errada porque considera a afirmativa I verdadeira e a II falsa. A afirmativa I é falsa, e a II é verdadeira.</p>
+                <p><strong>Alternativa C</strong> - Correta: II e III verdadeiras; I falsa.</p>
+                <p><strong>Alternativa D</strong> - Errada porque considera a afirmativa I verdadeira, quando ela é falsa.</p>
+                <p><strong>Alternativa E</strong> - Errada porque nega as afirmativas II e III, que são verdadeiras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Estrógenos fetoplacentários:</strong> direciona para os efeitos sistêmicos dos estrogênios produzidos pela placenta.</li>
+                    <li><strong>Retenção hídrica e embebição gravídica:</strong> aponta para o efeito dos estrógenos sobre o tecido intersticial; eles aumentam esse fenômeno.</li>
+                    <li><strong>Lactogênese:</strong> direciona para o bloqueio da ação da prolactina nos receptores mamários.</li>
+                    <li><strong>Sistema renina-angiotensina-aldosterona:</strong> aponta para o aumento do substrato de renina (angiotensinogênio).</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Recordar que os estrógenos aumentam a retenção de água e sódio, contribuindo para o edema gravídico.</li>
+                    <li><strong>Segundo:</strong> Avaliar a afirmativa I: ela afirma o contrário (redução da retenção hídrica), portanto é falsa.</li>
+                    <li><strong>Terceiro:</strong> Recordar que os estrógenos estimulam a prolactina, mas bloqueiam sua ação mamária, inibindo a lactogênese.</li>
+                    <li><strong>Quarto:</strong> Recordar que os estrógenos aumentam o angiotensinogênio hepático e ativam o sistema renina-angiotensina-aldosterona.</li>
+                    <li><strong>Quinto:</strong> Concluir que II e III são verdadeiras e I é falsa, correspondendo à alternativa C.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Estrógenos aumentam retenção hídrica, estimulam prolactina e bloqueiam sua ação mamária, e aumentam o angiotensinogênio.</li>
+                    <li><strong>Números e doses:</strong> A produção de estrogênios aumenta progressivamente ao longo da gestação, com predomínio do estriol.</li>
+                    <li><strong>Mnemônicos:</strong> "Estrogênio retém, estimula prolactina e segura a lactação; e aumenta o angiotensinogênio".</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Adaptação fisiológica da gestação</td>
+                            <td>Edema leve, aumento do volume plasmático, hiperpigmentação, alterações do sistema renina-angiotensina</td>
+                            <td>Avaliação clínica e laboratorial de rotina do pré-natal</td>
+                            <td>Acompanhamento pré-natal; orientar sinais de alerta</td>
+                        </tr>
+                        <tr>
+                            <td>Pré-eclâmpsia</td>
+                            <td>Hipertensão após 20 semanas, proteinúria, edema, cefaleia, alterações visuais</td>
+                            <td>Pressão arterial, proteinúria, exames laboratoriais</td>
+                            <td>Internação, sulfatação, controle pressórico e interrupção conforme gravidade</td>
+                        </tr>
+                        <tr>
+                            <td>Galactorreia / hiperprolactinemia</td>
+                            <td>Secreção láctea fora do puerpério, amenorreia, infertilidade</td>
+                            <td>Dosagem de prolactina, ressonância de sela túrcica</td>
+                            <td>Investigar causa; tratar conforme etiologia</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão foi sobre fisiologia:</strong> como seria sobre patologia? sobre tratamento? sobre complicações?</li>
+                    <li><strong>Exemplo:</strong> Se a questão pedisse o hormônio que suprime a lactação durante a gestação, a resposta poderia ser estrogênio ou progesterona. Se pedisse o hormônio que mantém o corpo lúteo, seria hCG. Se pedisse a alteração do sistema renina-angiotensina na gestação, seria o aumento do angiotensinogênio. Se pedisse a complicação do edema gravídico excessivo, poderia incluir pré-eclâmpsia.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2025 que abordaram o mesmo tema:</strong> o arquivo de provas anteriores disponibiliza enunciados até 2025; a prova de 2026 consta apenas como gabarito, sem enunciado.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2010 – Q12</td>
+                            <td>Repercussões da gravidez no organismo materno; expansão volêmica, aumento da necessidade de ferro e hiperpigmentação</td>
+                            <td>Adaptações fisiológicas da gestação</td>
+                            <td>B</td>
+                            <td>Relaciona-se aos efeitos sistêmicos dos hormônios da gestação, incluindo estrogênios</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q24</td>
+                            <td>Hormônio que suprime a lactação durante a gestação</td>
+                            <td>Lactogênese e hormônios</td>
+                            <td>B (estrogênio)</td>
+                            <td>Relaciona-se diretamente à afirmativa II</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q42</td>
+                            <td>Assistência pré-natal; sintomas e alterações fisiológicas</td>
+                            <td>Adaptações da gestação</td>
+                            <td>C</td>
+                            <td>Conecta-se às alterações fisiológicas gestacionais</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q57</td>
+                            <td>DHEG: conceitos e fatores de risco</td>
+                            <td>Hipertensão na gestação e sistema renina-angiotensina</td>
+                            <td>E</td>
+                            <td>Relaciona-se à afirmativa III, sobre o sistema renina-angiotensina</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q97</td>
+                            <td>Repercussões da gravidez no organismo materno</td>
+                            <td>Adaptações fisiológicas</td>
+                            <td>C</td>
+                            <td>Conecta-se aos efeitos dos estrogênios</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q17</td>
+                            <td>Hormônios diabetogênicos e resistência à insulina na gestação</td>
+                            <td>Hormônios placentários e metabolismo</td>
+                            <td>B</td>
+                            <td>Relaciona-se à hormonologia placentária</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q35</td>
+                            <td>Efeitos dos estrógenos fetoplacentários: retenção hídrica, lactogênese e sistema renina-angiotensina</td>
+                            <td>Fisiologia dos estrogênios na gestação</td>
+                            <td>C (II e III verdadeiras; I falsa)</td>
+                            <td>Questão atual</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema correlato apareceu em pelo menos 6 questões das provas de 2006_2025. A banca alterna entre cobrar adaptações fisiológicas da gestação, lactogênese, hormônios diabetogênicos e hipertensão gestacional.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A descrição detalhada dos efeitos dos estrogênios sobre a despolimerização de mucopolissacarídeos e a retenção hídrica, como nesta questão, não havia sido cobrada de forma direta. Também pode surgir a integração entre estrogênios, sistema renina-angiotensina e pré-eclâmpsia.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais lactogênese e adaptações gerais da gestação. Em 2024, a cobrança foi mais fisiológica e detalhada, exigindo a integração de múltiplos efeitos dos estrogênios.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os efeitos dos estrogênios fetoplacentários sobre a retenção hídrica, a lactogênese (bloqueio da prolactina nos receptores mamários) e o sistema renina-angiotensina-aldosterona (aumento do angiotensinogênio), além das adaptações fisiológicas gerais da gestação.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros (ex: bronquiolite → asma → pneumonia). "Se você viu X, lembre-se de Y". Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Estrógenos e lactogênese conectam-se à amamentação e ao puerpério, quando a queda hormonal permite a lactação.</li>
+                    <li><strong>Conexão 2:</strong> Estrógenos e sistema renina-angiotensina conectam-se à pré-eclâmpsia e à hipertensão gestacional.</li>
+                    <li><strong>Conexão 3:</strong> Estrógenos e retenção hídrica conectam-se ao edema gravídico e às adaptações do volume plasmático.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Caso tenha errado, o erro mais provável é de <strong>lacuna de conhecimento</strong> sobre os efeitos dos estrogênios ou <strong>confusão conceitual</strong> entre a ação estimuladora da prolactina e o bloqueio da lactogênese. A ação corretiva é memorizar: estrogênios aumentam retenção hídrica; estimulam a prolactina, mas bloqueiam sua ação mamária; e aumentam o angiotensinogênio, ativando o sistema renina-angiotensina-aldosterona.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática obstétrica, a compreensão dos efeitos dos estrogênios é importante para entender o edema gravídico, a ausência de lactação durante a gestação e as adaptações do sistema cardiovascular e renal. Também auxilia na interpretação de alterações hipertensivas da gestação e no manejo da amamentação.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Hormônios placentários: estrogênios, progesterona e hCG.</li>
+                    <li>Lactogênese e ação da prolactina.</li>
+                    <li>Sistema renina-angiotensina-aldosterona na gestação.</li>
+                    <li>Adaptações fisiológicas da gestação: volume plasmático, edema e alterações cardiovasculares.</li>
+                    <li>Pré-eclâmpsia e hipertensão gestacional.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Rezende Filho J. Obstetrícia. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>2. Montenegro CAB, Rezende Filho J. Obstetrícia Fundamental. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>3. Cunningham FG et al. Williams Obstetrics. McGraw-Hill.</p>
+                <p>4. Speroff L, Fritz MA. Clinical Gynecologic Endocrinology and Infertility. Lippincott Williams & Wilkins.</p>
+                <p>5. Ministério da Saúde. Gestação de Alto Risco: Manual Técnico. Brasília: Ministério da Saúde.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>
