@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1a2a6c">
 <title>CRIVO - UNIOESTE</title>
 <style>
     * { box-sizing: border-box; }
@@ -397,564 +396,65 @@
     }
     @media (max-width: 400px) and (pointer: coarse) { .nav-btn { min-height: 44px; } }
 
-/* ============================================================
-   CAMADA VISUAL (apenas aparência — nenhuma função alterada)
-   ============================================================ */
-:root {
-    --navy-950:#0c1440; --navy-900:#111c55; --navy:#1a2a6c; --navy-600:#2b3f9a;
-    --magenta:#A63268; --magenta-600:#c2417f;
-    --bg:#f3f5fb; --surface:#ffffff; --line:#e3e8f4; --line-strong:#d3dbee;
-    --ink:#1b2445; --muted:#66708f;
-    --ok:#16a34a; --bad:#dc2626; --warn:#ea8a0c;
-    --sh-sm:0 1px 2px rgba(17,28,85,.06), 0 2px 8px rgba(17,28,85,.05);
-    --sh-md:0 4px 14px rgba(17,28,85,.10), 0 2px 4px rgba(17,28,85,.05);
-    --sh-lg:0 28px 70px rgba(8,14,50,.40);
-    --ring:0 0 0 4px rgba(43,63,154,.18);
-    --ease:cubic-bezier(.2,.7,.2,1);
-    --chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-}
-html { scroll-behavior: smooth; }
-body {
-    background: var(--bg); color: var(--ink);
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-}
-input[type="checkbox"], input[type="radio"] { accent-color: var(--navy-600); }
-::selection { background: rgba(166,50,104,.25); }
-button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-visible {
-    outline: 3px solid rgba(255,255,255,.85); outline-offset: 2px;
-    box-shadow: 0 0 0 5px rgba(43,63,154,.55);
-}
-.auth-card input:focus-visible, .bottom-nav input:focus-visible, .gab-filters select:focus-visible {
-    outline: none; box-shadow: var(--ring);
-}
-
-/* ---- animações ---- */
-@keyframes screenIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes cardIn   { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
-@keyframes popIn    { from { opacity: 0; transform: scale(.96) translateY(4px); } to { opacity: 1; transform: none; } }
-@keyframes dropIn   { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-@keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
-@keyframes floatA   { from { transform: translate(0,0) scale(1); } to { transform: translate(6rem,4rem) scale(1.15); } }
-@keyframes floatB   { from { transform: translate(0,0) scale(1); } to { transform: translate(-5rem,-4rem) scale(1.12); } }
-.screen:not(.hidden) { animation: screenIn .35s ease both; }
-
-/* ============================================================
-   TELA DE ACESSO
-   ============================================================ */
-#authScreen {
-    position: relative; overflow: hidden;
-    background: linear-gradient(135deg, #0c1440 0%, #1a2a6c 38%, #A63268 100%);
-    background-size: 200% 200%;
-}
-#authScreen::before, #authScreen::after {
-    content: ''; position: absolute; border-radius: 50%; pointer-events: none;
-    filter: blur(60px); opacity: .5;
-}
-#authScreen::before {
-    width: 34rem; height: 34rem; left: -10rem; top: -12rem;
-    background: radial-gradient(circle, #5b78ff, transparent 65%);
-    animation: floatA 15s ease-in-out infinite alternate;
-}
-#authScreen::after {
-    width: 30rem; height: 30rem; right: -9rem; bottom: -12rem;
-    background: radial-gradient(circle, #ff6aa9, transparent 65%);
-    animation: floatB 17s ease-in-out infinite alternate;
-}
-.auth-card {
-    position: relative; z-index: 1;
-    background: linear-gradient(90deg, var(--navy), var(--magenta)) top / 100% 5px no-repeat, #fff;
-    border-radius: 1.5rem;
-    box-shadow: var(--sh-lg), 0 0 0 1px rgba(255,255,255,.25);
-    animation: cardIn .6s var(--ease) both;
-    scrollbar-width: thin;
-}
-.brand-mark {
-    width: 4rem; height: 4rem; margin: .4rem auto 1rem; border-radius: 1.2rem;
-    display: grid; place-items: center;
-    background: linear-gradient(135deg, var(--navy-600), var(--magenta));
-    box-shadow: 0 10px 24px rgba(166,50,104,.35), inset 0 1px 0 rgba(255,255,255,.35);
-}
-.brand-mark svg { width: 2.3rem; height: 2.3rem; display: block; }
-.auth-title {
-    font-weight: 800; letter-spacing: .06em;
-    background: linear-gradient(90deg, var(--navy), var(--magenta));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; color: transparent;
-}
-.auth-lead { color: var(--muted); font-size: .95rem; margin: 0 0 .15rem; }
-.welcome-hello { color: var(--muted); font-size: .95rem; margin: 0 0 .25rem; }
-.welcome-name { font-size: 1.35rem; font-weight: 700; color: var(--navy); margin: 0 0 1.4rem; line-height: 1.25; }
-.auth-input {
-    background: #f7f9fe; color: var(--ink);
-    border: 2px solid var(--line); border-radius: .8rem;
-    transition: border-color .2s, box-shadow .2s, background .2s;
-}
-.auth-input::placeholder { color: #98a1bd; }
-.auth-input:hover { border-color: var(--line-strong); }
-.auth-input:focus { background: #fff; border-color: var(--navy-600); box-shadow: var(--ring); }
-.auth-msg { font-weight: 500; }
-.auth-btn {
-    background: linear-gradient(90deg, var(--navy), var(--magenta));
-    box-shadow: 0 6px 16px rgba(26,42,108,.25);
-    letter-spacing: .01em;
-    transition: transform .2s var(--ease), box-shadow .2s, filter .2s;
-}
-.auth-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(166,50,104,.35); filter: brightness(1.06); }
-.auth-btn:active:not(:disabled) { transform: translateY(0); box-shadow: 0 3px 8px rgba(26,42,108,.25); }
-.auth-btn:disabled { opacity: .55; box-shadow: none; }
-.home-buttons { gap: .75rem; }
-.home-btn-start {
-    background: linear-gradient(90deg, #16a34a, #0f9f7a);
-    box-shadow: 0 8px 20px rgba(22,163,74,.35);
-}
-.home-btn-start:hover:not(:disabled) { box-shadow: 0 12px 26px rgba(22,163,74,.45); }
-.home-btn-secondary {
-    background: #f2f5fc; color: var(--navy);
-    box-shadow: inset 0 0 0 1.5px var(--line-strong);
-}
-.home-btn-secondary:hover:not(:disabled) { background: #e8edfa; box-shadow: inset 0 0 0 1.5px var(--navy-600), 0 6px 16px rgba(26,42,108,.12); filter: none; }
-.home-btn-danger {
-    background: #fff; color: #c02a3a;
-    box-shadow: inset 0 0 0 1.5px #f3c2c8;
-}
-.home-btn-danger:hover:not(:disabled) { background: #fff0f2; box-shadow: inset 0 0 0 1.5px #e5737f, 0 6px 16px rgba(220,38,38,.12); filter: none; }
-.auth-link { color: var(--navy-600); }
-
-/* ============================================================
-   BARRA SUPERIOR
-   ============================================================ */
-.top-bar {
-    background: linear-gradient(100deg, var(--navy-950) 0%, var(--navy) 55%, #4b2a70 100%);
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 6px 20px rgba(12,20,64,.28);
-}
-.icon-btn {
-    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16);
-    transition: background .2s, transform .2s var(--ease);
-}
-.icon-btn:hover { background: rgba(255,255,255,.28); transform: translateY(-1px); }
-.icon-btn:active { transform: scale(.94); }
-
-.top-bar .multiselect-btn, .top-bar .disciplina-select {
-    background-color: rgba(255,255,255,.10); color: #fff;
-    border: 1px solid rgba(255,255,255,.22);
-    font-weight: 600;
-    transition: background-color .2s, border-color .2s;
-    -webkit-appearance: none; appearance: none;
-    background-image: var(--chev); background-repeat: no-repeat;
-    background-position: right .7rem center; background-size: .7rem;
-    padding-right: 1.9rem; text-align: left;
-}
-.top-bar .multiselect-btn:hover, .top-bar .disciplina-select:hover {
-    background-color: rgba(255,255,255,.22); border-color: rgba(255,255,255,.4);
-}
-.multiselect-panel {
-    border: 1px solid var(--line); border-radius: .9rem;
-    box-shadow: 0 16px 40px rgba(12,20,64,.28), 0 2px 6px rgba(12,20,64,.08);
-    padding: .4rem; color: var(--ink);
-    animation: dropIn .16s var(--ease) both; scrollbar-width: thin;
-}
-.multiselect-panel label { padding: .45rem .55rem; border-radius: .55rem; transition: background .15s; }
-.multiselect-panel label:hover { background: #eef2fc; }
-.multiselect-panel hr { border-top-color: var(--line); margin: .3rem .3rem; }
-
-.nav-container {
-    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);
-    padding: .2rem; border-radius: 2rem;
-}
-.lbl-q { padding-left: .6rem; font-weight: 600; letter-spacing: .02em; }
-.go-to-input { border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.12); }
-.go-to-input:focus { background: rgba(255,255,255,.2); box-shadow: 0 0 0 3px rgba(255,255,255,.2); }
-.go-btn {
-    background: linear-gradient(90deg, #16a34a, #14b8a6);
-    box-shadow: 0 3px 10px rgba(0,0,0,.2);
-}
-.go-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.28); filter: brightness(1.08); }
-
-/* botões de ação (cores por função preservadas) */
-.action-btn { --c: #16a34a; }
-.action-btn.unsaved       { --c: #ea8a0c; }
-.action-btn.grifar-fab    { --c: #ea8a0c; }
-.action-btn.anki-fab      { --c: #6f42c1; }
-.action-btn.refazer-fab   { --c: #f2661c; }
-.action-btn.historico-fab { --c: #0e93ac; }
-.action-btn, .action-btn.unsaved, .action-btn.grifar-fab, .action-btn.anki-fab,
-.action-btn.refazer-fab, .action-btn.historico-fab {
-    background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 60%), var(--c);
-    border: 1px solid rgba(255,255,255,.35);
-    box-shadow: 0 2px 8px rgba(0,0,0,.22);
-    font-weight: 700; letter-spacing: .01em;
-    transition: transform .18s var(--ease), box-shadow .18s, filter .18s;
-}
-.action-btn:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0,0,0,.3); }
-.action-btn:active { transform: translateY(0); box-shadow: 0 1px 4px rgba(0,0,0,.25); }
-.action-btn.unsaved { animation: pulseSave 2.2s ease-in-out infinite; }
-@keyframes pulseSave {
-    0%,100% { box-shadow: 0 2px 8px rgba(0,0,0,.22), 0 0 0 0 rgba(234,138,12,.55); }
-    50%     { box-shadow: 0 2px 8px rgba(0,0,0,.22), 0 0 0 7px rgba(234,138,12,0); }
-}
-
-/* ============================================================
-   BARRA INFERIOR
-   ============================================================ */
-.bottom-nav {
-    background: rgba(255,255,255,.94);
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-    border-top: 1px solid var(--line);
-    box-shadow: 0 -6px 22px rgba(17,28,85,.08);
-}
-.nav-btn {
-    background: linear-gradient(135deg, var(--navy-600), var(--magenta));
-    box-shadow: 0 5px 14px rgba(43,63,154,.30);
-    transition: transform .2s var(--ease), box-shadow .2s, filter .2s;
-}
-.nav-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 9px 20px rgba(166,50,104,.35); filter: brightness(1.05); }
-.nav-btn:active:not(:disabled) { transform: translateY(0); }
-.nav-btn:disabled { background: #d5d9e6; color: #f6f7fb; box-shadow: none; }
-.arr { display: inline-block; transition: transform .2s var(--ease); }
-#prevBtn:hover:not(:disabled) .arr { transform: translateX(-3px); }
-#nextBtn:hover:not(:disabled) .arr { transform: translateX(3px); }
-
-.timer-container {
-    background: #f1f4fc; border: 1px solid var(--line); border-radius: 2rem;
-    padding: .25rem .8rem;
-}
-.timer { color: var(--navy); font-weight: 800; letter-spacing: .02em; }
-.max-time-label { color: var(--muted); }
-.max-time-input, .bottom-filters input[type="number"] {
-    background: #fff; border: 1px solid var(--line-strong); border-radius: .55rem; color: var(--ink);
-    transition: border-color .2s, box-shadow .2s;
-}
-.max-time-input:focus, .bottom-filters input[type="number"]:focus { outline: none; border-color: var(--navy-600); box-shadow: var(--ring); }
-.bottom-filters label { color: #3d4666; font-weight: 500; }
-.pos-indicator {
-    background: linear-gradient(135deg, #e9edfb, #f6e8f0); color: var(--navy);
-    border: 1px solid var(--line); font-variant-numeric: tabular-nums; font-weight: 800;
-}
-.iframe-container { background: #fff; }
-
-/* ============================================================
-   TELA DE PROGRESSO / GABARITO
-   ============================================================ */
-#progressScreen { background: linear-gradient(180deg, #f5f7fc, #edf0f9); }
-.progress-header {
-    background: linear-gradient(100deg, var(--navy-950) 0%, var(--navy) 55%, #4b2a70 100%);
-    box-shadow: 0 6px 20px rgba(12,20,64,.25);
-}
-.progress-header h1 { font-weight: 800; letter-spacing: .01em; }
-.back-btn {
-    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); font-weight: 600;
-    transition: background .2s, transform .2s var(--ease);
-}
-.back-btn:hover { background: rgba(255,255,255,.28); transform: translateX(-2px); }
-.progress-content { scrollbar-width: thin; scrollbar-color: #c5cde4 transparent; }
-.progress-content::-webkit-scrollbar { width: 10px; }
-.progress-content::-webkit-scrollbar-thumb { background: #c5cde4; border-radius: 10px; border: 2px solid transparent; background-clip: content-box; }
-.multiselect-panel::-webkit-scrollbar, .auth-card::-webkit-scrollbar { width: 8px; }
-.multiselect-panel::-webkit-scrollbar-thumb, .auth-card::-webkit-scrollbar-thumb { background: #c5cde4; border-radius: 8px; }
-
-.gab-filters {
-    background: #fff; border: 1px solid var(--line); border-radius: 1rem; box-shadow: var(--sh-sm);
-}
-.gab-filters select {
-    background: #f7f9fe; color: var(--ink); border: 1px solid var(--line-strong); border-radius: .65rem;
-    transition: border-color .2s, box-shadow .2s, background .2s; cursor: pointer;
-}
-.gab-filters select:hover { border-color: var(--navy-600); background: #fff; }
-.gab-filters label { color: #3d4666; font-weight: 500; }
-
-.summary-stats .stat-card {
-    position: relative; overflow: hidden;
-    border: 1px solid var(--line); border-left: 4px solid var(--navy-600); border-radius: 1rem;
-    background: radial-gradient(circle at 100% 0, rgba(43,63,154,.10), transparent 60%), #fff;
-    box-shadow: var(--sh-sm); transition: transform .2s var(--ease), box-shadow .2s;
-}
-.summary-stats .stat-card:hover { transform: translateY(-2px); box-shadow: var(--sh-md); }
-.summary-stats .stat-card:nth-child(2) { border-left-color: var(--ok); background: radial-gradient(circle at 100% 0, rgba(22,163,74,.12), transparent 60%), #fff; }
-.summary-stats .stat-card:nth-child(2) .stat-number { color: var(--ok); }
-.summary-stats .stat-card:nth-child(3) { border-left-color: var(--magenta); background: radial-gradient(circle at 100% 0, rgba(166,50,104,.12), transparent 60%), #fff; }
-.summary-stats .stat-card:nth-child(3) .stat-number { color: var(--magenta); }
-.stat-number { font-weight: 800; letter-spacing: -.01em; }
-.stat-label { font-weight: 600; color: var(--muted); }
-
-.legend {
-    background: #fff; border: 1px solid var(--line); border-radius: .75rem;
-    padding: .6rem .85rem; color: var(--muted); line-height: 1.45;
-}
-.exam-block > .group-header {
-    padding-bottom: .55rem; margin-bottom: .9rem; border-bottom: 2px solid transparent;
-    border-image: linear-gradient(90deg, var(--navy), var(--magenta), rgba(166,50,104,0)) 1;
-}
-.exam-title { font-weight: 800; letter-spacing: .005em; }
-.year-block {
-    border: 1px solid var(--line); border-radius: 1rem; box-shadow: var(--sh-sm);
-    transition: box-shadow .2s;
-}
-.year-block:hover { box-shadow: var(--sh-md); }
-.sub-block { border-left: 3px solid transparent; border-image: linear-gradient(180deg, var(--navy-600), var(--magenta)) 1; }
-.sub-title { font-weight: 700; }
-.group-header .counts {
-    background: #eef2fc; color: #4b5578; padding: .12rem .55rem; border-radius: .7rem; font-weight: 600;
-}
-.group-header .tempo-counts { background: #f6eef3; color: #7a2b58; font-weight: 600; }
-.refazer-grupo {
-    background: #6b7694; border-radius: 1rem; font-weight: 600;
-    transition: background .2s, transform .2s var(--ease), box-shadow .2s;
-}
-.refazer-grupo:hover { background: #576080; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,.18); }
-.refazer-grupo.restaurar-grupo { background: var(--ok); }
-.refazer-grupo.restaurar-grupo:hover { background: #12843c; }
-
-.chip {
-    border: 2px solid var(--line-strong); border-radius: .75rem; box-shadow: 0 1px 2px rgba(17,28,85,.06);
-    transition: transform .18s var(--ease), box-shadow .18s, border-color .18s;
-}
-.chip:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(17,28,85,.16); border-color: var(--navy-600); }
-.chip:active { transform: translateY(0) scale(.97); }
-.chip .qn { font-weight: 600; }
-.chip .ans { font-weight: 800; }
-.chip.ok  { border-color: #3fbf6d; background: linear-gradient(180deg, #f0fbf4, #dcf5e6); }
-.chip.ok:hover  { border-color: var(--ok); box-shadow: 0 8px 18px rgba(22,163,74,.25); }
-.chip.ok .ans, .chip.ok .fix  { color: var(--ok); font-weight: 700; }
-.chip.bad { border-color: #ef6b6b; background: linear-gradient(180deg, #fff4f4, #fde3e5); }
-.chip.bad:hover { border-color: var(--bad); box-shadow: 0 8px 18px rgba(220,38,38,.25); }
-.chip.bad .ans, .chip.bad .fix { color: var(--bad); font-weight: 700; }
-.chip.gray { background: #f4f6fb; border-color: #e1e6f2; box-shadow: none; }
-.chip.gray:hover { background: #fff; border-color: var(--navy-600); }
-.chip.gray .qn { color: #7d87a6; }
-.empty-msg {
-    background: #fff; border: 2px dashed var(--line-strong); border-radius: 1rem; color: var(--muted);
-}
-
-/* ============================================================
-   MENU DE CHIP, MODAL E AVISOS
-   ============================================================ */
-.chip-menu {
-    border: 1px solid var(--line); border-radius: .9rem; padding: .35rem;
-    box-shadow: 0 16px 40px rgba(12,20,64,.30), 0 2px 6px rgba(12,20,64,.08);
-    transform-origin: top left; animation: popIn .14s var(--ease) both;
-}
-.chip-menu button { border-radius: .55rem; color: var(--ink); transition: background .15s; }
-.chip-menu button:hover { background: #eef2fc; }
-.modal-overlay {
-    background: rgba(12,20,64,.55);
-    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-    animation: fadeIn .2s ease both;
-}
-.modal {
-    border-radius: 1.2rem; box-shadow: 0 30px 80px rgba(8,14,50,.45);
-    border-top: 5px solid transparent; border-image: linear-gradient(90deg, var(--navy), var(--magenta)) 1;
-    animation: popIn .22s var(--ease) both; scrollbar-width: thin;
-}
-.modal h3 { font-weight: 800; }
-.modal-item { border-bottom-color: var(--line); }
-#crivoToast {
-    background: linear-gradient(90deg, var(--navy-900), #4b2a70) !important;
-    border: 1px solid rgba(255,255,255,.18);
-    border-radius: 2rem !important; font-weight: 600; letter-spacing: .01em;
-    padding: .6rem 1.2rem !important;
-    box-shadow: 0 10px 28px rgba(12,20,64,.4) !important;
-}
-
-/* ============================================================
-   AJUSTES RESPONSIVOS DA CAMADA VISUAL
-   ============================================================ */
-@media (max-width: 700px) {
-    .nav-container { padding: .15rem; }
-    .auth-card { border-radius: 1.25rem; }
-}
-@media (max-width: 560px) {
-    .timer-container { padding: .2rem .55rem; }
-    .brand-mark { width: 3.4rem; height: 3.4rem; border-radius: 1rem; }
-    .brand-mark svg { width: 1.9rem; height: 1.9rem; }
-}
-@media (max-height: 640px) {
-    .brand-mark { width: 3rem; height: 3rem; margin-bottom: .6rem; border-radius: .9rem; }
-    .brand-mark svg { width: 1.7rem; height: 1.7rem; }
-}
-@media (max-height: 520px) {
-    .brand-mark { display: none; }
-    .welcome-name { margin-bottom: .6rem; }
-}
-@media (min-width: 701px) {
-    .top-bar .multiselect-btn, .top-bar .disciplina-select { max-width: 13rem; }
-}
-@media (max-width: 700px) {
-    .top-bar .multiselect-btn, .top-bar .disciplina-select { padding-right: 1.6rem; background-position: right .55rem center; }
-}
-@media (max-width: 560px) {
-    .summary-stats .stat-card { min-width: 0; padding-left: .7rem; padding-right: .5rem; }
-    .stat-label { font-size: .58rem; letter-spacing: .02em; overflow-wrap: anywhere; }
-}
-.auth-card .brand-mark { border-radius: 50%; }
-.auth-card .brand-mark svg { width: 100%; height: 100%; }
-
-/* ============================================================
-   TEMPO (modos), BARRAS OCULTÁVEIS, CAMPOS E GABARITO
-   ============================================================ */
-@keyframes dropUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
-/* botão de modo do tempo + lista vertical */
-.timer-container { position: relative; }
-.tempo-modo-btn {
-    background: none; border: 0; margin: 0; padding: .15rem .35rem; font: inherit;
-    font-size: .875rem; font-weight: 600; color: var(--muted); cursor: pointer;
-    border-radius: .5rem; white-space: nowrap; display: inline-flex; align-items: center; gap: .2rem;
-    transition: background .15s, color .15s;
-}
-.tempo-modo-btn::after { content: '▾'; font-size: .85em; opacity: .7; }
-.tempo-modo-btn:hover, .tempo-modo-btn[aria-expanded="true"] { background: #e2e8f8; color: var(--navy); }
-.tempo-menu {
-    position: absolute; left: 0; bottom: calc(100% + .55rem); z-index: 400;
-    display: flex; flex-direction: column; min-width: 11.5rem; max-width: 90vw;
-    background: #fff; border: 1px solid var(--line); border-radius: .9rem; padding: .35rem;
-    box-shadow: 0 -12px 36px rgba(12,20,64,.25), 0 2px 6px rgba(12,20,64,.08);
-    animation: dropUp .16s var(--ease) both;
-}
-.tempo-menu button {
-    display: flex; align-items: center; gap: .5rem; width: 100%; text-align: left;
-    background: none; border: 0; font: inherit; font-size: .9rem; color: var(--ink);
-    padding: .55rem .75rem; border-radius: .55rem; cursor: pointer; transition: background .15s;
-}
-.tempo-menu button::before { content: ''; display: inline-block; width: .9rem; text-align: center; font-weight: 800; color: var(--navy-600); }
-.tempo-menu button:hover { background: #eef2fc; }
-.tempo-menu button.sel { font-weight: 700; color: var(--navy); background: #eef2fc; }
-.tempo-menu button.sel::before { content: '✓'; }
-.timer-container:not([data-modo="questao"]) .mt-extra { display: none; }
-.timer-container[data-modo="off"] .timer { display: none; }
-
-/* botões de ocultar/mostrar: discretos e na cor de cada barra */
-.icon-btn.bar-toggle {
-    width: 1.7rem; height: 1.7rem; min-width: 1.7rem; padding: 0; flex-shrink: 0;
-    font-size: .72rem; font-weight: 600; line-height: 1; box-shadow: none; filter: none;
-    background: rgba(255,255,255,.10); color: rgba(255,255,255,.82);
-    border: 1px solid rgba(255,255,255,.20);
-    transition: background .2s, color .2s, border-color .2s;
-}
-.icon-btn.bar-toggle:hover { background: rgba(255,255,255,.22); color: #fff; border-color: rgba(255,255,255,.4); transform: none; filter: none; }
-.icon-btn.bar-toggle[aria-pressed="true"] { opacity: .6; }
-.icon-btn.bar-toggle[aria-pressed="true"]:hover { opacity: 1; }
-/* barra inferior (clara) */
-.icon-btn.bar-toggle#toggleBottomBtn { background: #eef1fa; color: #5b6690; border: 1px solid var(--line-strong); }
-.icon-btn.bar-toggle#toggleBottomBtn:hover { background: #e2e8f8; color: var(--navy); border-color: #b9c3e2; }
-/* flutuantes quando a barra está oculta */
-body.topo-oculto .icon-btn.bar-toggle#toggleTopBtn {
-    background: rgba(26,42,108,.82); color: rgba(255,255,255,.9); border-color: rgba(255,255,255,.35);
-    box-shadow: 0 2px 8px rgba(12,20,64,.35);
-}
-body.rodape-oculto .icon-btn.bar-toggle#toggleBottomBtn {
-    background: rgba(255,255,255,.94); border-color: var(--line-strong); box-shadow: 0 2px 8px rgba(12,20,64,.25);
-}
-
-/* filtros ocultos (banca, edição, disciplina) */
-body.filtros-ocultos .top-bar-left > .multiselect,
-body.filtros-ocultos .top-bar-left > .disciplina-select { display: none; }
-
-/* barra superior oculta: só os botões de ação flutuam */
-body.topo-oculto .top-bar {
-    position: fixed; top: calc(env(safe-area-inset-top, 0px) + .35rem); right: .35rem; left: auto;
-    width: auto; max-width: calc(100% - .7rem); min-height: 0; padding: 0; gap: 0;
-    background: none; border: 0; box-shadow: none; z-index: 500; pointer-events: none;
-}
-body.topo-oculto .top-bar-left { flex: 0 1 auto; justify-content: flex-end; gap: .3rem; pointer-events: none; }
-body.topo-oculto .top-bar-left > *:not(.action-btn):not(#toggleTopBtn) { display: none !important; }
-body.topo-oculto .nav-container { display: none; }
-body.topo-oculto .action-btn, body.topo-oculto #toggleTopBtn { pointer-events: auto; }
-body.topo-oculto .action-btn { min-height: 0; padding: .3rem .5rem; box-shadow: 0 3px 10px rgba(12,20,64,.4); }
-body.topo-oculto .action-btn .lbl { display: none; }
-
-/* barra inferior oculta: só avançar/voltar, contagem e relógio flutuam */
-body.rodape-oculto .bottom-nav {
-    position: fixed; left: 0; right: 0; bottom: env(safe-area-inset-bottom, 0px);
-    min-height: 0; padding: .35rem .5rem; gap: .4rem; flex-wrap: nowrap;
-    background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
-    z-index: 500; pointer-events: none;
-}
-body.rodape-oculto .bottom-center { flex: 1 1 auto; flex-wrap: nowrap; gap: .35rem; pointer-events: none; }
-body.rodape-oculto .bottom-filters { gap: 0; flex-wrap: nowrap; }
-body.rodape-oculto .bottom-filters > :not(.pos-indicator) { display: none !important; }
-body.rodape-oculto .timer-container > :not(.timer) { display: none !important; }
-body.rodape-oculto .timer-container[data-modo="off"] { display: none; }
-body.rodape-oculto .nav-btn {
-    pointer-events: auto; min-height: 0; min-width: 0; padding: .35rem .8rem; font-size: 1.15rem; line-height: 1;
-    box-shadow: 0 4px 14px rgba(12,20,64,.4);
-}
-body.rodape-oculto .nav-btn .lbl { display: none; }
-body.rodape-oculto .pos-indicator, body.rodape-oculto .timer-container, body.rodape-oculto #toggleBottomBtn { pointer-events: auto; }
-body.rodape-oculto .pos-indicator, body.rodape-oculto .timer-container { box-shadow: 0 3px 12px rgba(12,20,64,.35); background-color: rgba(255,255,255,.96); }
-body.rodape-oculto .timer-container { padding: .1rem .7rem; }
-
-/* campo "Limitar a" */
-.max-q { gap: .3rem; }
-.max-q-txt { color: #3d4666; font-weight: 500; white-space: nowrap; }
-
-/* campos numéricos adaptáveis ao zoom */
-.go-to-input, .max-time-input, .bottom-filters input[type="number"] {
-    -moz-appearance: textfield; appearance: textfield;
-}
-.go-to-input::-webkit-outer-spin-button, .go-to-input::-webkit-inner-spin-button,
-.max-time-input::-webkit-outer-spin-button, .max-time-input::-webkit-inner-spin-button,
-.bottom-filters input[type="number"]::-webkit-outer-spin-button,
-.bottom-filters input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.lbl-q { font-size: .8rem; opacity: .9; white-space: nowrap; }
-.nav-container { flex-wrap: nowrap; min-width: 0; max-width: 100%; }
-.go-to-input {
-    width: calc(4ch + 1.2rem); min-width: 2.8rem; max-width: 6rem; padding-left: .3rem; padding-right: .3rem;
-    box-sizing: content-box; font-variant-numeric: tabular-nums;
-}
-@supports (field-sizing: content) {
-    .go-to-input { field-sizing: content; width: auto; min-width: 2.8rem; box-sizing: content-box; }
-}
-.go-btn { white-space: nowrap; flex-shrink: 0; }
-
-/* gabarito: contagens */
-.group-header .counts.c-total { background: #eef2fc; color: #3a4570; }
-.group-header .counts.c-ok { background: #e1f5e8; color: #12843c; }
-.group-header .counts.c-bad { background: #fde6e8; color: #b91c1c; }
-
-/* celular: ícones e controles miniaturizados */
-@media (max-width: 560px) {
-    .top-bar { padding: .25rem .35rem; gap: .25rem; }
-    .top-bar-left { gap: .25rem; }
-    .icon-btn { width: 2rem; height: 2rem; min-width: 2rem; font-size: .9rem; }
-    .action-btn { min-height: 2rem; min-width: 2rem; padding: .2rem .45rem; font-size: .85rem; border-radius: .8rem; }
-    .top-bar .multiselect-btn, .top-bar .disciplina-select { min-height: 0; height: 2rem; font-size: .7rem; padding-top: .15rem; padding-bottom: .15rem; }
-    .nav-container { gap: .2rem; padding: .1rem; }
-    .go-to-input { min-height: 0; padding-top: .2rem; padding-bottom: .2rem; }
-    .go-btn { min-height: 0; padding: .3rem .6rem; }
-    .bottom-nav { padding: .3rem .5rem; min-height: 0; }
-    .nav-btn { min-height: 2.3rem; min-width: 2.6rem; padding: .25rem .7rem; font-size: 1.15rem; }
-    .timer { font-size: 1.1rem; }
-    .timer-container { gap: .25rem; }
-    .tempo-modo-btn { font-size: .75rem; padding: .1rem .25rem; }
-    .max-time-input, .bottom-filters input[type="number"] { min-height: 0; padding: .15rem; }
-    .bottom-filters label, .max-q-txt { font-size: .7rem; }
-    .pos-indicator { font-size: .72rem; padding: .2rem .5rem; }
-    body.topo-oculto .action-btn { padding: .2rem .4rem; }
-}
-@media (max-width: 400px) {
-    .tempo-modo-btn { display: inline-flex; font-size: .68rem; }
-}
-@media (max-width: 560px) {
-    .bottom-nav { justify-content: space-between; }
-    .bottom-center { order: -1; flex: 1 1 100%; }
-    body.rodape-oculto .bottom-center { order: 0; flex: 1 1 auto; }
-}
-
-/* campo de tempo máximo total */
-.timer-container:not([data-modo="todas"]) .mt-todas { display: none; }
-
-/* setas de navegação com borda branca */
-.nav-btn, .nav-btn:disabled { border: 2px solid #fff; }
-.nav-btn { box-shadow: 0 0 0 1px rgba(26,42,108,.28), 0 5px 14px rgba(43,63,154,.30); }
-.nav-btn:hover:not(:disabled) { box-shadow: 0 0 0 1px rgba(26,42,108,.35), 0 9px 20px rgba(166,50,104,.35); }
-.nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.12); }
-body.rodape-oculto .nav-btn { box-shadow: 0 0 0 1px rgba(26,42,108,.35), 0 4px 14px rgba(12,20,64,.4); }
-body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18), 0 2px 8px rgba(12,20,64,.2); }
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
+    /* ===== Barras ocultáveis, cronômetro em modos, campo Questão ===== */
+    .filtros-grupo, .acoes-grupo { display: contents; }
+    .filtros-grupo.oculto { display: none; }
+    .top-bar.oculta { min-height: 0; height: 0; padding: 0; border: 0; box-shadow: none; background: transparent; overflow: visible; }
+    .top-bar.oculta .top-bar-left > :not(.acoes-grupo), .top-bar.oculta .nav-container { display: none; }
+    .top-bar.oculta .acoes-grupo {
+        display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .3rem; position: fixed; z-index: 1500;
+        top: calc(env(safe-area-inset-top, 0px) + .35rem); right: calc(env(safe-area-inset-right, 0px) + .4rem);
+        max-width: calc(100vw - 1rem);
+    }
+    .top-bar.oculta .action-btn { box-shadow: 0 2px 8px rgba(0,0,0,.35); opacity: .93; }
+    .view-fab { background: #495057; }
+    .view-menu {
+        position: fixed; z-index: 2500; background: #fff; color: #333; border: 1px solid #ddd; border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,.25); padding: .4rem .7rem; font-size: .85rem;
+    }
+    .view-menu label { display: flex; align-items: center; gap: .4rem; padding: .3rem 0; cursor: pointer; white-space: nowrap; }
+    .mini-btn { background: #e9ecef; border: none; border-radius: 50%; width: 1.7rem; height: 1.7rem; cursor: pointer; font-size: .9rem; line-height: 1; color: #495057; }
+    .lbl-q { font-size: .8rem; opacity: .8; white-space: nowrap; }
+    .nav-container { flex-wrap: nowrap; min-width: 0; }
+    .go-to-input { width: 4.5em; font-size: max(16px, .875rem); text-align: center; -moz-appearance: textfield; appearance: textfield; }
+    .go-to-input::-webkit-outer-spin-button, .go-to-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .timer-wrap { position: relative; }
+    .timer-mode-btn { background: none; border: none; padding: .1rem .2rem; font: inherit; font-size: .875rem; color: #6c757d; cursor: pointer; text-decoration: underline dotted; white-space: nowrap; }
+    .timer-menu {
+        position: absolute; bottom: calc(100% + .4rem); left: 0; z-index: 300; display: flex; flex-direction: column;
+        background: #fff; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.25); padding: .25rem 0; min-width: 10.5rem;
+    }
+    .timer-menu[hidden] { display: none; }
+    .timer-menu button { text-align: left; padding: .5rem .9rem; border: none; background: none; font: inherit; font-size: .85rem; cursor: pointer; white-space: nowrap; }
+    .timer-menu button:hover { background: #f0f0f0; }
+    .timer-menu button.ativo { font-weight: bold; color: #1a2a6c; }
+    .timer-menu button.ativo::before { content: '✓ '; }
+    .max-time-field { display: flex; align-items: center; gap: .3rem; }
+    .timer-container[data-modo="todas"] .max-time-field, .timer-container[data-modo="off"] .max-time-field, .timer-container[data-modo="off"] .timer { display: none; }
+    .bottom-nav.compacta { min-height: 0; padding-top: .25rem; padding-bottom: .25rem; }
+    .bottom-nav.compacta .bottom-filters label { display: none; }
+    .bottom-nav.compacta .timer-wrap, .bottom-nav.compacta .max-time-field { display: none; }
+    .bottom-nav.compacta .timer-container[data-modo="off"] { display: none; }
+    .bottom-nav.compacta .timer-container {
+        position: fixed; z-index: 1400; right: calc(env(safe-area-inset-right, 0px) + .5rem); bottom: calc(env(safe-area-inset-bottom, 0px) + 3.6rem);
+        background: rgba(255,255,255,.94); border: 1px solid #dee2e6; border-radius: 1rem; padding: .1rem .7rem; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    .bottom-nav.compacta .timer { font-size: 1.15rem; }
+    @media (max-width: 700px) {
+        .icon-btn { width: 1.9rem; height: 1.9rem; min-width: 1.9rem; font-size: .85rem; }
+        .action-btn { min-height: 0; min-width: 0; padding: .2rem .4rem; font-size: .75rem; border-radius: .8rem; }
+        .go-btn { min-height: 0; padding: .3rem .6rem; font-size: .75rem; }
+        .nav-btn { min-height: 0; min-width: 2.4rem; padding: .35rem .8rem; font-size: 1.05rem; }
+        .multiselect-btn, .disciplina-select { font-size: .7rem; padding: .25rem .5rem; min-height: 0; }
+        .pos-indicator { font-size: .7rem; padding: .2rem .5rem; }
+        .bottom-filters label { font-size: .68rem; }
+        .timer { font-size: 1.05rem; }
+        .max-time-label, .timer-mode-btn { font-size: .7rem; }
+        .max-time-input { min-height: 0; width: 2.6rem; padding: .15rem; }
+        .go-to-input { min-height: 0; padding: .25rem .3rem; width: 3.6em; }
+        .top-bar, .bottom-nav { min-height: 0; padding: .25rem .5rem; }
+        .mini-btn { width: 1.6rem; height: 1.6rem; font-size: .8rem; }
+    }
 </style>
 </head>
 <body>
@@ -962,49 +462,18 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
 
     <div id="authScreen" class="screen">
         <div class="auth-card">
-            <div class="brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="24" r="1.012" fill="#fff"/>
-                    <circle cx="24.000" cy="15.200" r="2.024" fill="#fff"/>
-                    <circle cx="24.000" cy="6.400" r="3.036" fill="#fff"/>
-                    <circle cx="28.090" cy="16.208" r="2.024" fill="#fff"/>
-                    <circle cx="32.179" cy="8.416" r="3.036" fill="#fff"/>
-                    <circle cx="31.242" cy="19.001" r="2.024" fill="#fff"/>
-                    <circle cx="38.485" cy="14.002" r="3.036" fill="#fff"/>
-                    <circle cx="32.736" cy="22.939" r="2.024" fill="#fff"/>
-                    <circle cx="41.472" cy="21.879" r="3.036" fill="#fff"/>
-                    <circle cx="32.228" cy="27.121" r="2.024" fill="#fff"/>
-                    <circle cx="40.456" cy="30.241" r="3.036" fill="#fff"/>
-                    <circle cx="29.835" cy="30.587" r="2.024" fill="#fff"/>
-                    <circle cx="35.671" cy="37.174" r="3.036" fill="#fff"/>
-                    <circle cx="26.106" cy="32.544" r="2.024" fill="#fff"/>
-                    <circle cx="28.212" cy="41.089" r="3.036" fill="#fff"/>
-                    <circle cx="21.894" cy="32.544" r="2.024" fill="#fff"/>
-                    <circle cx="19.788" cy="41.089" r="3.036" fill="#fff"/>
-                    <circle cx="18.165" cy="30.587" r="2.024" fill="#fff"/>
-                    <circle cx="12.329" cy="37.174" r="3.036" fill="#fff"/>
-                    <circle cx="15.772" cy="27.121" r="2.024" fill="#fff"/>
-                    <circle cx="7.544" cy="30.241" r="3.036" fill="#fff"/>
-                    <circle cx="15.264" cy="22.939" r="2.024" fill="#fff"/>
-                    <circle cx="6.528" cy="21.879" r="3.036" fill="#fff"/>
-                    <circle cx="16.758" cy="19.001" r="2.024" fill="#fff"/>
-                    <circle cx="9.515" cy="14.002" r="3.036" fill="#fff"/>
-                    <circle cx="19.910" cy="16.208" r="2.024" fill="#fff"/>
-                    <circle cx="15.821" cy="8.416" r="3.036" fill="#fff"/>
-                </svg>
-            </div>
             <div class="auth-title">CRIVO - UNIOESTE</div>
 
             <div id="loginArea" class="auth-form">
-                <p class="auth-lead">Informe o seu RA para entrar</p>
+                <p style="color:#6c757d;font-size:14px;">Informe o seu RA para entrar</p>
                 <input type="text" id="raInput" class="auth-input" placeholder="RA (somente números)" inputmode="numeric" autocomplete="off">
                 <div class="auth-msg" id="loginMsg"></div>
                 <button class="auth-btn" id="loginBtn">Entrar</button>
             </div>
 
             <div id="homeArea" style="display:none">
-                <p class="welcome-hello">Bem-vindo(a),</p>
-                <p class="welcome-name" id="welcomeName"></p>
+                <p style="color:#6c757d;margin-bottom:5px;">Bem-vindo(a),</p>
+                <p style="font-size:20px;font-weight:bold;color:#1a2a6c;margin-bottom:25px;" id="welcomeName"></p>
                 <div class="auth-msg" id="homeMsg"></div>
                 <div class="home-buttons">
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
@@ -1021,7 +490,7 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
             <div class="top-bar-left">
                 <button class="icon-btn" id="homeBtn" title="Início">⌂</button>
                 <button class="icon-btn" id="progressBtnResolving" title="Meu Progresso">📊</button>
-                <button class="icon-btn bar-toggle" id="toggleFiltrosBtn" type="button" title="Mostrar/ocultar banca, edição e disciplina" aria-label="Mostrar ou ocultar filtros" aria-pressed="false">≡</button>
+                <div class="filtros-grupo" id="filtrosGrupo">
                 <div class="multiselect">
                     <button class="multiselect-btn" id="bancaMultiBtn" title="Bancas">Bancas: todas</button>
                     <div class="multiselect-panel" id="bancaMultiPanel" hidden></div>
@@ -1033,18 +502,21 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                 <select id="disciplinaSelector" class="disciplina-select" title="Disciplina">
                     <option value="">Todas as disciplinas</option>
                 </select>
+                </div>
+                <div class="acoes-grupo">
+                <button class="action-btn view-fab" id="viewBtn" title="Exibição: ocultar filtros e barras" aria-label="Exibição"><span class="ico">👁</span></button>
                 <button class="action-btn refazer-fab" id="refazerBtn" title="Refazer questão atual" aria-label="Refazer questão" hidden><span class="ico">🔄</span><span class="lbl"> Refazer</span></button>
                 <button class="action-btn historico-fab" id="historicoBtn" title="Histórico de respostas" aria-label="Histórico" hidden><span class="ico">📜</span><span class="lbl"> Histórico</span></button>
                 <button class="action-btn grifar-fab" id="grifarBtn" title="Grifar seleção (Ctrl+Alt)" aria-label="Grifar"><span class="ico">🖍️</span><span class="lbl"> Grifar</span></button>
                 <button class="action-btn" id="saveBtn" title="Baixar um arquivo com todo o seu progresso" aria-label="Salvar progresso"><span class="ico">💾</span><span class="lbl"> Salvar</span></button>
                 <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
+                </div>
                 <select id="examSelector" hidden></select>
                 <select id="yearSelector" hidden></select>
-                <button class="icon-btn bar-toggle" id="toggleTopBtn" type="button" title="Ocultar barra superior" aria-label="Ocultar barra superior">▴</button>
             </div>
             <div class="nav-container">
-                <span class="lbl-q">Questão:</span>
-                <input type="number" id="goToInput" class="go-to-input" min="1" placeholder="X" inputmode="numeric" enterkeyhint="go" aria-label="Número da questão">
+                <label class="lbl-q" for="goToInput">Questão:</label>
+                <input type="number" id="goToInput" class="go-to-input" min="1" placeholder="X" inputmode="numeric">
                 <button class="go-btn" id="goBtn">Ir</button>
             </div>
         </div>
@@ -1052,28 +524,36 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
         <div class="bottom-nav">
             <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr">←</span><span class="lbl"> Anterior</span></button>
             <div class="bottom-center">
-                <button class="icon-btn bar-toggle" id="toggleBottomBtn" type="button" title="Ocultar barra inferior" aria-label="Ocultar barra inferior">▾</button>
                 <div class="bottom-filters">
                     <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
-                    <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
-                    <span class="pos-indicator" id="posIndicator" title="Questão atual / total">0/0</span>
+                    <label class="limite-lbl" title="Limitar o nº de questões da lista (vazio = todas)">Limite: <input type="number" id="maxQuestoesInput" placeholder="todas" min="0"></label>
+                    <span class="pos-indicator" id="posIndicator">0/0</span>
+                    <button type="button" class="mini-btn" id="bottomToggleBtn" title="Ocultar/mostrar barra inferior" aria-label="Barra inferior">⌄</button>
                 </div>
-                <div class="timer-container">
-                    <button type="button" class="tempo-modo-btn" id="tempoModoBtn" aria-haspopup="true" aria-expanded="false" title="Escolher modo de contagem do tempo">Tempo máx.:</button>
-                    <div class="tempo-menu" id="tempoMenu" role="menu" hidden>
-                        <button type="button" role="menuitemradio" data-modo="todas">Todas as questões</button>
-                        <button type="button" role="menuitemradio" data-modo="questao">Por questão</button>
-                        <button type="button" role="menuitemradio" data-modo="off">Desativado</button>
+                <div class="timer-container" id="timerContainer" data-modo="questao">
+                    <div class="timer-wrap">
+                        <button type="button" class="timer-mode-btn" id="timerModeBtn" title="Escolher o modo do cronômetro">Tempo máx.:</button>
+                        <div class="timer-menu" id="timerMenu" hidden>
+                            <button type="button" data-modo="todas">Todas as questões</button>
+                            <button type="button" data-modo="questao">Por questão</button>
+                            <button type="button" data-modo="off">Desativado</button>
+                        </div>
                     </div>
-                    <input type="number" id="maxTimeInput" class="max-time-input mt-extra" min="1" value="1">
-                    <span class="max-time-label mt-extra">min</span>
-                    <input type="number" id="maxTimeTodasInput" class="max-time-input mt-todas" min="1" value="60" inputmode="numeric" aria-label="Tempo máximo total, em minutos" title="Tempo máximo total (todas as questões)">
-                    <span class="max-time-label mt-todas">min</span>
+                    <span class="max-time-field" id="maxTimeField">
+                        <input type="number" id="maxTimeInput" class="max-time-input" min="1" value="1">
+                        <span class="max-time-label">min</span>
+                    </span>
                     <div class="timer" id="timer">00:00</div>
                 </div>
             </div>
             <button class="nav-btn" id="nextBtn" disabled aria-label="Próxima questão"><span class="lbl">Próxima </span><span class="arr">→</span></button>
         </div>
+    </div>
+
+    <div class="view-menu" id="viewMenu" hidden>
+        <label><input type="checkbox" data-vista="filtros"> Banca, edição e disciplina</label>
+        <label><input type="checkbox" data-vista="topo"> Barra superior</label>
+        <label><input type="checkbox" data-vista="base"> Barra inferior</label>
     </div>
 
     <div id="progressScreen" class="screen hidden">
@@ -1101,8 +581,8 @@ let questaoStartTime = null;      // tempo entre início da questão e confirma�
 let pausedElapsedMs = 0;
 let isTimerRunning = false;
 let maxTime = 1;
-let modoTempo = 'questao';   // 'questao' | 'todas' | 'off'
-let limiteTotalAvisado = false;
+let timerMode = 'questao'; // 'todas' | 'questao' | 'off'
+try { const m = localStorage.getItem('crivo_timer_modo'); if (['todas', 'questao', 'off'].includes(m)) timerMode = m; } catch {}
 let currentBlobUrl = null;
 let progressFrom = 'home';
 let loadingYear = false;
@@ -1912,6 +1392,76 @@ const BRIDGE_SCRIPT = `<script>
     try { window.selectOption(p.selected); if (p.correct) window.checkAnswer(); } finally { restoring = false; }
   });
 })();
+<\/script><script>
+(function(){
+  /* Oculta "Resposta correta" da tabela da seção 2.10 até o usuário desativar */
+  var hs = document.getElementsByTagName('h4'), titulo = null, i;
+  for (i = 0; i < hs.length; i++) {
+    var tx = (hs[i].textContent || '').replace(/\\s+/g, ' ').trim().toLowerCase();
+    if (tx.indexOf('2.10') === 0 && tx.indexOf('hist') > -1) { titulo = hs[i]; break; }
+  }
+  if (!titulo) return;
+  var tabela = titulo.nextElementSibling;
+  while (tabela && tabela.tagName !== 'TABLE' && tabela.tagName !== 'H4') tabela = tabela.nextElementSibling;
+  if (!tabela || tabela.tagName !== 'TABLE') return;
+  var cab = tabela.querySelector('tr'), col = -1;
+  if (!cab) return;
+  for (i = 0; i < cab.children.length; i++) {
+    if ((cab.children[i].textContent || '').toLowerCase().indexOf('resposta correta') > -1) { col = i; break; }
+  }
+  if (col < 0) return;
+  var celulas = [], linhas = tabela.querySelectorAll('tr');
+  for (i = 0; i < linhas.length; i++) {
+    if (linhas[i] === cab) continue;
+    var c = linhas[i].children[col];
+    if (c) celulas.push(c);
+  }
+  var KEY = 'crivo_ocultar_resp_hist', ativo = true, tm = null;
+  try { if (sessionStorage.getItem(KEY) === '0') ativo = false; } catch (e) {}
+  var st = document.createElement('style');
+  st.textContent =
+    '.crivo-resp-oculta{color:transparent !important;text-shadow:none !important;-webkit-user-select:none;user-select:none}' +
+    '.crivo-oc-wrap{position:relative;display:inline-block;margin-left:8px;vertical-align:middle;line-height:1}' +
+    '.crivo-oc-btn{width:20px;height:20px;padding:0;border-radius:50%;border:1px solid rgba(0,0,0,.25);background:rgba(255,255,255,.9);cursor:pointer;opacity:.55;transition:opacity .15s;display:inline-flex;align-items:center;justify-content:center;font-size:11px;line-height:1}' +
+    '.crivo-oc-btn:hover,.crivo-oc-btn:focus-visible{opacity:1}' +
+    '.crivo-oc-btn::before{content:"🙈"}' +
+    '.crivo-oc-btn.off::before{content:"👁"}' +
+    '.crivo-oc-wrap::after{content:attr(data-dica);display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:50;width:max-content;max-width:min(240px,70vw);background:#333;color:#fff;font:normal 12px/1.35 sans-serif;text-transform:none;letter-spacing:normal;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3);white-space:normal}' +
+    '.crivo-oc-wrap.dica::after{display:block}' +
+    '.crivo-oc-wrap.dica-dir::after{left:auto;right:0}';
+  document.head.appendChild(st);
+  /* sem nós de texto no botão/dica: não altera os offsets dos grifos */
+  var wrap = document.createElement('span'), btn = document.createElement('button');
+  wrap.className = 'crivo-oc-wrap';
+  btn.type = 'button';
+  btn.className = 'crivo-oc-btn';
+  btn.setAttribute('aria-label', 'Ocultar respostas corretas de outras provas');
+  wrap.appendChild(btn);
+  titulo.appendChild(wrap);
+  function aplicar() {
+    for (var j = 0; j < celulas.length; j++) celulas[j].classList[ativo ? 'add' : 'remove']('crivo-resp-oculta');
+    btn.classList[ativo ? 'remove' : 'add']('off');
+    btn.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+  }
+  function esconderDica() { wrap.classList.remove('dica'); clearTimeout(tm); }
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    ativo = !ativo;
+    try { sessionStorage.setItem(KEY, ativo ? '1' : '0'); } catch (x) {}
+    aplicar();
+    wrap.setAttribute('data-dica', ativo
+      ? 'Este botão oculta as respostas corretas de outras provas. Ocultas: clique para mostrar.'
+      : 'Este botão oculta as respostas corretas de outras provas. Visíveis: clique para ocultar.');
+    wrap.classList.remove('dica-dir');
+    wrap.classList.add('dica');
+    if (window.innerWidth - wrap.getBoundingClientRect().left < 260) wrap.classList.add('dica-dir');
+    clearTimeout(tm);
+    tm = setTimeout(esconderDica, 4000);
+  });
+  document.addEventListener('click', esconderDica);
+  window.addEventListener('scroll', esconderDica, true);
+  aplicar();
+})();
 <\/script>`;
 
 async function carregarQuestao(index) {
@@ -1955,23 +1505,26 @@ async function carregarQuestao(index) {
    ============================================================ */
 function formatTime(ms) {
     const s = Math.floor(ms / 1000), m = Math.floor(s / 60);
-    if (m >= 60) return `${Math.floor(m / 60)}:${String(m % 60).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
     return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
 }
 function reiniciarTimer() {
     if (timerInterval) clearInterval(timerInterval);
     if (expirationTimer) clearTimeout(expirationTimer);
     timerInterval = null; expirationTimer = null;
-    if (modoTempo === 'off') { pausedElapsedMs = 0; isTimerRunning = false; return; }
-    if (modoTempo !== 'todas') pausedElapsedMs = 0;
-    isTimerRunning = true; startTime = Date.now();
-    timerDisplay.textContent = formatTime(pausedElapsedMs);
+    if (timerMode === 'off') { isTimerRunning = false; return; }
+    if (timerMode === 'todas') { // contagem contínua entre questões, sem avanço automático
+        if (!isTimerRunning) { startTime = Date.now(); isTimerRunning = true; }
+        timerInterval = setInterval(() => { timerDisplay.textContent = formatTime(pausedElapsedMs + (Date.now() - startTime)); }, 500);
+        timerDisplay.textContent = formatTime(pausedElapsedMs + (Date.now() - startTime));
+        return;
+    }
+    pausedElapsedMs = 0; isTimerRunning = true; startTime = Date.now();
+    timerDisplay.textContent = '00:00';
     timerInterval = setInterval(() => {
         const el = pausedElapsedMs + (Date.now() - startTime);
         timerDisplay.textContent = formatTime(el);
-        checarLimiteTotal(el);
     }, 500);
-    if (modoTempo === 'questao') expirationTimer = setTimeout(() => {
+    expirationTimer = setTimeout(() => {
         if (questaoAtualIndex < questoes.length - 1) {
             alert('Tempo máximo atingido. Pulando para a próxima.');
             carregarQuestao(questaoAtualIndex + 1);
@@ -1980,7 +1533,8 @@ function reiniciarTimer() {
         }
     }, maxTime * 60 * 1000);
 }
-function pausarTimer() {
+function pausarTimer(force) {
+    if (timerMode === 'todas' && !force) return; // no modo "todas" só pausa ao sair da resolução
     if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
     if (expirationTimer) { clearTimeout(expirationTimer); expirationTimer = null; }
     if (isTimerRunning && startTime) {
@@ -2336,9 +1890,8 @@ function renderHierarchy(questions, keys, depth = 0) {
         const wrap = depth === 0 ? 'exam-block' : folha ? 'year-block' : 'sub-block';
         let tempoHtml = '';
         if (tempoStats) {
-            tempoHtml = `<span class="tempo-counts" title="Média ± variação (desvio padrão), com base em ${tempoStats.n} confirmação(ões)">⏱ Tempo médio por questão: ${fmtTempo(tempoStats.mean)} ± ${fmtTempo(tempoStats.std)}</span>`;
+            tempoHtml = `<span class="tempo-counts" title="Tempo médio por questão ± desvio padrão, com base em ${tempoStats.n} confirmação(ões)">⏱ Tempo médio por questão: ${fmtTempo(tempoStats.mean)} ± ${fmtTempo(tempoStats.std)}</span>`;
         }
-        const erros = qs.filter(q => q.status === 'bad').length;
         let btn = '';
         if (depth === 0) {
             const gid = 'g' + (++gabGrupoSeq);
@@ -2349,7 +1902,7 @@ function renderHierarchy(questions, keys, depth = 0) {
             </div>`;
         }
         const inner = folha ? renderChipsBlock(qs) : renderHierarchy(qs, keys.slice(1), depth + 1);
-        html += `<div class="${wrap}"><div class="group-header"><${tag} class="${depth === 0 ? 'exam-title' : 'sub-title'}">${icon} ${escapeHtml(v)}</${tag}><span class="counts c-total">Total realizado: ${conf}</span><span class="counts c-ok">Nº de acertos: ${hits}</span><span class="counts c-bad">Nº de erros: ${erros}</span>${tempoHtml}${btn}</div>${inner}</div>`;
+        html += `<div class="${wrap}"><div class="group-header"><${tag} class="${depth === 0 ? 'exam-title' : 'sub-title'}">${icon} ${escapeHtml(v)}</${tag}><span class="counts">Nº de erros: ${conf - hits} · Nº de acertos: ${hits} · Total realizado: ${conf}</span>${tempoHtml}${btn}</div>${inner}</div>`;
     }
     return html;
 }
@@ -3057,6 +2610,76 @@ getSavedState = function (exam, year, num) {
 const _showScreenOrig = showScreen;
 showScreen = function (sc) { _showScreenOrig(sc); try { updateFabBarButtons(); } catch {} };
 
+/* ============================================================
+   CRONÔMETRO EM MODOS + VISIBILIDADE DAS BARRAS
+   ============================================================ */
+const timerContainer = document.getElementById('timerContainer');
+const timerModeBtn = document.getElementById('timerModeBtn');
+const timerMenu = document.getElementById('timerMenu');
+const topBarEl = resolvingScreen.querySelector('.top-bar');
+const bottomNavEl = resolvingScreen.querySelector('.bottom-nav');
+const filtrosGrupo = document.getElementById('filtrosGrupo');
+const viewBtn = document.getElementById('viewBtn');
+const viewMenu = document.getElementById('viewMenu');
+const bottomToggleBtn = document.getElementById('bottomToggleBtn');
+
+const _showScreenTimer = showScreen;
+showScreen = function (sc) {
+    _showScreenTimer(sc);
+    if (timerMode !== 'todas') return;
+    if (sc === resolvingScreen) { if (currentRA && questoes.length) reiniciarTimer(); }
+    else { pausarTimer(true); if (!currentRA) pausedElapsedMs = 0; }
+};
+
+function aplicarModoTimer(modo, salvar = true) {
+    timerMode = modo;
+    if (salvar) { try { localStorage.setItem('crivo_timer_modo', modo); } catch {} }
+    timerContainer.dataset.modo = modo;
+    timerMenu.querySelectorAll('button').forEach(b => b.classList.toggle('ativo', b.dataset.modo === modo));
+    if (timerInterval) clearInterval(timerInterval);
+    if (expirationTimer) clearTimeout(expirationTimer);
+    timerInterval = null; expirationTimer = null; isTimerRunning = false; pausedElapsedMs = 0;
+    timerDisplay.textContent = '00:00';
+    if (modo !== 'off' && questoes.length && !resolvingScreen.classList.contains('hidden')) reiniciarTimer();
+}
+timerModeBtn.addEventListener('click', (e) => { e.stopPropagation(); timerMenu.hidden = !timerMenu.hidden; });
+timerMenu.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-modo]');
+    if (!b) return;
+    timerMenu.hidden = true;
+    aplicarModoTimer(b.dataset.modo);
+});
+aplicarModoTimer(timerMode, false);
+
+let vista = { filtros: true, topo: true, base: true };
+try { Object.assign(vista, JSON.parse(localStorage.getItem('crivo_vista')) || {}); } catch {}
+function aplicarVista(salvar = true) {
+    filtrosGrupo.classList.toggle('oculto', !vista.filtros);
+    topBarEl.classList.toggle('oculta', !vista.topo);
+    bottomNavEl.classList.toggle('compacta', !vista.base);
+    bottomToggleBtn.textContent = vista.base ? '⌄' : '⌃';
+    viewMenu.querySelectorAll('input[data-vista]').forEach(i => { i.checked = !!vista[i.dataset.vista]; });
+    if (salvar) { try { localStorage.setItem('crivo_vista', JSON.stringify(vista)); } catch {} }
+}
+viewBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!viewMenu.hidden) { viewMenu.hidden = true; return; }
+    const r = viewBtn.getBoundingClientRect();
+    viewMenu.style.top = (r.bottom + 6) + 'px';
+    viewMenu.style.right = Math.max(8, window.innerWidth - r.right) + 'px';
+    viewMenu.hidden = false;
+});
+viewMenu.addEventListener('change', (e) => {
+    const k = e.target.dataset.vista;
+    if (k) { vista[k] = e.target.checked; aplicarVista(); }
+});
+bottomToggleBtn.addEventListener('click', () => { vista.base = !vista.base; aplicarVista(); });
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.timer-wrap')) timerMenu.hidden = true;
+    if (!e.target.closest('#viewMenu') && !e.target.closest('#viewBtn')) viewMenu.hidden = true;
+});
+aplicarVista(false);
+
 questionFrame.addEventListener('load', () => {
     abrirLimpo = null;
     const doc = docDaQuestao();
@@ -3096,133 +2719,6 @@ window.addEventListener('beforeunload', (e) => {
     if (dirty) { e.preventDefault(); e.returnValue = ''; return ''; }
     pausarTimer();
     if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-});
-
-/* ============================================================
-   MODOS DO TEMPO E VISIBILIDADE DAS BARRAS
-   ============================================================ */
-const tempoContainer = document.querySelector('.timer-container');
-const tempoModoBtn = document.getElementById('tempoModoBtn');
-const tempoMenu = document.getElementById('tempoMenu');
-const toggleFiltrosBtn = document.getElementById('toggleFiltrosBtn');
-const toggleTopBtn = document.getElementById('toggleTopBtn');
-const toggleBottomBtn = document.getElementById('toggleBottomBtn');
-const UI_KEY = 'crivo_ui';
-const ROTULO_TEMPO = { todas: 'Tempo máx. total:', questao: 'Tempo máx.:', off: 'Tempo: desativado' };
-let uiPrefs = { modoTempo: 'questao', filtros: false, topo: false, rodape: false, maxTodas: 60 };
-try {
-    const v = JSON.parse(localStorage.getItem(UI_KEY));
-    if (v && typeof v === 'object') {
-        if (ROTULO_TEMPO[v.modoTempo]) uiPrefs.modoTempo = v.modoTempo;
-        uiPrefs.filtros = !!v.filtros; uiPrefs.topo = !!v.topo; uiPrefs.rodape = !!v.rodape;
-        if (parseInt(v.maxTodas) > 0) uiPrefs.maxTodas = parseInt(v.maxTodas);
-    }
-} catch {}
-function salvarUi() { try { localStorage.setItem(UI_KEY, JSON.stringify(uiPrefs)); } catch {} }
-
-function aplicarUi() {
-    document.body.classList.toggle('filtros-ocultos', uiPrefs.filtros);
-    document.body.classList.toggle('topo-oculto', uiPrefs.topo);
-    document.body.classList.toggle('rodape-oculto', uiPrefs.rodape);
-    toggleFiltrosBtn.setAttribute('aria-pressed', String(uiPrefs.filtros));
-    toggleFiltrosBtn.title = uiPrefs.filtros ? 'Mostrar banca, edição e disciplina' : 'Ocultar banca, edição e disciplina';
-    toggleTopBtn.textContent = uiPrefs.topo ? '▾' : '▴';
-    { const t = uiPrefs.topo ? 'Mostrar barra superior' : 'Ocultar barra superior'; toggleTopBtn.title = t; toggleTopBtn.setAttribute('aria-label', t); }
-    toggleBottomBtn.textContent = uiPrefs.rodape ? '▴' : '▾';
-    { const t = uiPrefs.rodape ? 'Mostrar barra inferior' : 'Ocultar barra inferior'; toggleBottomBtn.title = t; toggleBottomBtn.setAttribute('aria-label', t); }
-    bancaMultiPanel.hidden = true; anoMultiPanel.hidden = true; tempoMenu.hidden = true;
-    tempoModoBtn.setAttribute('aria-expanded', 'false');
-}
-toggleFiltrosBtn.addEventListener('click', () => { uiPrefs.filtros = !uiPrefs.filtros; salvarUi(); aplicarUi(); });
-toggleTopBtn.addEventListener('click', () => { uiPrefs.topo = !uiPrefs.topo; salvarUi(); aplicarUi(); });
-toggleBottomBtn.addEventListener('click', () => { uiPrefs.rodape = !uiPrefs.rodape; salvarUi(); aplicarUi(); });
-
-function aplicarModoTempo(m, semTimer) {
-    if (!ROTULO_TEMPO[m]) m = 'questao';
-    modoTempo = m; uiPrefs.modoTempo = m; salvarUi();
-    tempoContainer.dataset.modo = m;
-    tempoModoBtn.textContent = ROTULO_TEMPO[m];
-    tempoMenu.querySelectorAll('button[data-modo]').forEach(b => {
-        const on = b.dataset.modo === m;
-        b.classList.toggle('sel', on);
-        b.setAttribute('aria-checked', String(on));
-    });
-    if (semTimer) return;
-    pausarTimer();
-    pausedElapsedMs = 0; limiteTotalAvisado = false;
-    timerDisplay.textContent = '00:00';
-    if (m !== 'off' && questoes.length && !resolvingScreen.classList.contains('hidden')) reiniciarTimer();
-}
-function fecharTempoMenu() { tempoMenu.hidden = true; tempoModoBtn.setAttribute('aria-expanded', 'false'); }
-tempoModoBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const abrir = tempoMenu.hidden;
-    bancaMultiPanel.hidden = true; anoMultiPanel.hidden = true;
-    tempoMenu.hidden = !abrir;
-    tempoModoBtn.setAttribute('aria-expanded', String(abrir));
-});
-tempoMenu.addEventListener('click', (e) => {
-    const b = e.target.closest('button[data-modo]');
-    if (!b) return;
-    e.stopPropagation();
-    fecharTempoMenu();
-    aplicarModoTempo(b.dataset.modo);
-});
-document.addEventListener('click', (e) => { if (!e.target.closest('.timer-container')) fecharTempoMenu(); });
-window.addEventListener('blur', fecharTempoMenu);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fecharTempoMenu(); });
-
-/* No modo "Todas as questões" o relógio retoma ao voltar do gabarito */
-backFromProgressBtn.addEventListener('click', () => {
-    if (progressFrom === 'resolving' && currentYear && modoTempo === 'todas' && !isTimerRunning && questoes.length) {
-        if (timerInterval) clearInterval(timerInterval);
-        isTimerRunning = true; startTime = Date.now();
-        timerInterval = setInterval(() => { const el = pausedElapsedMs + (Date.now() - startTime); timerDisplay.textContent = formatTime(el); checarLimiteTotal(el); }, 500);
-    }
-});
-/* Ao sair, zera o tempo acumulado */
-logoutBtn.addEventListener('click', () => { pausedElapsedMs = 0; limiteTotalAvisado = false; timerDisplay.textContent = '00:00'; });
-
-aplicarUi();
-aplicarModoTempo(uiPrefs.modoTempo, true);
-
-/* ============================================================
-   TEMPO MÁXIMO TOTAL (modo "Todas as questões")
-   ============================================================ */
-const maxTimeTodasInput = document.getElementById('maxTimeTodasInput');
-maxTimeTodasInput.value = uiPrefs.maxTodas;
-function checarLimiteTotal(el) {
-    if (modoTempo !== 'todas' || limiteTotalAvisado || !(uiPrefs.maxTodas > 0)) return;
-    if (el >= uiPrefs.maxTodas * 60000) {
-        limiteTotalAvisado = true;
-        setTimeout(() => alert('Tempo máximo total atingido (' + uiPrefs.maxTodas + ' min).'), 0);
-    }
-}
-maxTimeTodasInput.addEventListener('change', () => {
-    const v = parseInt(maxTimeTodasInput.value);
-    if (!isNaN(v) && v > 0) { uiPrefs.maxTodas = v; limiteTotalAvisado = false; salvarUi(); }
-    else maxTimeTodasInput.value = uiPrefs.maxTodas;
-});
-
-/* ============================================================
-   NAVEGAÇÃO PELO TECLADO (← e →)
-   ============================================================ */
-function navTecla(e) {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey || e.repeat) return;
-    if (resolvingScreen.classList.contains('hidden')) return;
-    if (document.getElementById('historicoModalOverlay')) return;
-    const a = e.target;
-    if (a && (a.isContentEditable || /^(TEXTAREA|SELECT)$/.test(a.tagName))) return;
-    if (a && a.tagName === 'INPUT' && !/^(radio|checkbox|button|submit)$/.test(a.type)) return;
-    const btn = e.key === 'ArrowLeft' ? prevBtn : nextBtn;
-    e.preventDefault();
-    if (!btn.disabled) btn.click();
-}
-document.addEventListener('keydown', navTecla);
-questionFrame.addEventListener('load', () => {
-    const d = docDaQuestao();
-    if (d && !d.__crivoKeyNav) { d.__crivoKeyNav = true; d.addEventListener('keydown', navTecla); }
 });
 </script>
 </body>
