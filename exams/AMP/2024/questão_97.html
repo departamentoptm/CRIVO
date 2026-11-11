@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 97 - Princípios Doutrinários do SUS e Atributos da Atenção Primária: Integralidade e Coordenação do Cuidado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Princípios Doutrinários do SUS e Atributos da Atenção Primária: Integralidade e Coordenação do Cuidado</div>
+        <h1>Questão 97</h1>
+        <div class="question-text">
+            <p>Um homem, de 67 anos, vem à consulta médica na Unidade Básica de Saúde, queixando-se de incontinência urinária há cerca de 5 anos. Além do quadro urológico, também acompanha na UBS sua hipertensão arterial, toma suas vacinas e faz exames de rotina e quando necessário. Participa do grupo de caminhada, onde convive com vizinhos, que o ajudam quando precisa, pois mora sozinho e a família mora no interior. Devido ao quadro urológico de longa data, refratário ao tratamento adequado, foi encaminhado ao Ambulatório de Especialidades de referência, para prosseguir investigação. Qual das alternativas descreve, respectivamente, um princípio doutrinário do SUS e um atributo da atenção primária predominantes neste caso?</p>
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Equidade e baixo custo.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Igualdade e longitudinalidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Universalidade e porta de entrada.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Participação popular e integralidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Integralidade e coordenação do cuidado.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Saúde Coletiva</p>
+                <p><strong>Tema:</strong> Princípios doutrinários do SUS e atributos da Atenção Primária à Saúde (APS), com ênfase na integralidade e na coordenação do cuidado em um caso de paciente idoso com múltiplas necessidades e encaminhamento ao especialista.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência, especialmente em Medicina de Família e Comunidade e Saúde Coletiva. A banca costuma cobrar os princípios do SUS (universalidade, integralidade, equidade), os atributos da APS segundo Barbara Starfield (acesso/primeiro contato, longitudinalidade, integralidade, coordenação, orientação familiar, orientação comunitária, competência cultural) e a organização da rede de atenção. É frequentemente associado a casos clínicos de pacientes com doenças crônicas, idosos e necessidades de encaminhamento.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Os princípios doutrinários do SUS são universalidade (saúde como direito de todos), integralidade (atenção integral, considerando prevenção, promoção, cura e reabilitação) e equidade (tratar desigualmente os desiguais, priorizando quem mais precisa). Os atributos da APS, segundo Starfield, incluem: porta de entrada (primeiro contato), longitudinalidade (vínculo ao longo do tempo), integralidade (atenção abrangente), coordenação do cuidado (integração entre níveis de atenção), orientação familiar, orientação comunitária e competência cultural. No caso, o paciente é acompanhado longitudinalmente na UBS (hipertensão, vacinas, grupo de caminhada), e, quando necessita de investigação especializada, é encaminhado ao ambulatório de referência. Esse encaminhamento é coordenado pela APS, garantindo a integralidade do cuidado e a coordenação entre os níveis de atenção.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa E:</strong> A integralidade é o princípio doutrinário do SUS que assegura atenção integral, incluindo ações de promoção, prevenção, cura e reabilitação, bem como o acesso a serviços especializados quando necessário. A coordenação do cuidado é o atributo da APS que garante a integração entre os níveis de atenção, assegurando continuidade e articulação do cuidado. No caso, o paciente é acompanhado na UBS e, ao precisar de investigação especializada, é encaminhado de forma coordenada, o que caracteriza a integralidade (princípio) e a coordenação do cuidado (atributo). Em provas anteriores, os atributos da APS foram cobrados em 2013, 2019, 2021, 2022, 2023 e 2024, e os princípios do SUS em 2007, 2011, 2018 e 2021, reforçando a importância do tema.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. Equidade é um princípio doutrinário do SUS, mas “baixo custo” não é um atributo da APS. A APS não se define por baixo custo, e sim por atributos como acesso, longitudinalidade, integralidade e coordenação.</p>
+                <p><strong>Alternativa B</strong> - Errada. Igualdade é um princípio constitucional, mas, na prática do SUS, é operacionalizado como equidade. Longitudinalidade é um atributo da APS, mas o caso enfatiza mais a integralidade e a coordenação do cuidado no encaminhamento ao especialista.</p>
+                <p><strong>Alternativa C</strong> - Errada. Universalidade é um princípio do SUS e porta de entrada é um atributo da APS, mas o caso não enfatiza o primeiro contato; enfatiza a continuidade e a articulação entre níveis de atenção.</p>
+                <p><strong>Alternativa D</strong> - Errada. Participação popular é um princípio do SUS, mas não é o princípio predominante no caso; integralidade é um atributo da APS, não um princípio doutrinário (embora também seja princípio do SUS). A combinação está invertida.</p>
+                <p><strong>Alternativa E</strong> - Correta. Integralidade (princípio do SUS) e coordenação do cuidado (atributo da APS) são os predominantes no caso.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Acompanha na UBS hipertensão, vacinas, exames e grupo de caminhada:</strong> longitudinalidade e vínculo com a APS.</li>
+                    <li><strong>Encaminhado ao Ambulatório de Especialidades:</strong> articulação entre níveis de atenção, caracterizando coordenação do cuidado.</li>
+                    <li><strong>Quadro urológico refratário:</strong> necessidade de atenção especializada, garantida pela integralidade.</li>
+                    <li><strong>Mora sozinho, família no interior:</strong> vulnerabilidade social que reforça a importância da integralidade e da coordenação.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar no caso os elementos de acompanhamento longitudinal na APS (vínculo, grupo de caminhada, vacinas, controle de hipertensão).</li>
+                    <li><strong>Segundo:</strong> Identificar a necessidade de atenção especializada (investigação da incontinência urinária refratária).</li>
+                    <li><strong>Terceiro:</strong> Relacionar o encaminhamento coordenado à integralidade (princípio) e à coordenação do cuidado (atributo).</li>
+                    <li><strong>Quarto:</strong> Concluir que a alternativa E é a que melhor descreve os conceitos predominantes.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conceito" e "aplicação" em políticas de saúde.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> princípios do SUS: universalidade, integralidade, equidade; atributos da APS: acesso/primeiro contato, longitudinalidade, integralidade, coordenação, orientação familiar, orientação comunitária e competência cultural.</li>
+                    <li><strong>Números e doses:</strong> não se aplica.</li>
+                    <li><strong>Mnemônicos:</strong> “UÍE” para princípios (Universalidade, Integralidade, Equidade) e “PALCO” para atributos (Primeiro contato, Acesso, Longitudinalidade, Coordenação, Orientação).</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável. Os atributos da APS foram cobrados em 2013, 2019, 2021, 2022, 2023 e 2024.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Conceito</th>
+                            <th>Definição</th>
+                            <th>Exemplo no caso</th>
+                            <th>Nível</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Integralidade (princípio)</td>
+                            <td>Atenção integral, com prevenção, promoção, cura e reabilitação; acesso a serviços especializados.</td>
+                            <td>Encaminhamento ao Ambulatório de Especialidades para investigação da incontinência.</td>
+                            <td>Princípio doutrinário do SUS.</td>
+                        </tr>
+                        <tr>
+                            <td>Coordenação do cuidado (atributo)</td>
+                            <td>Integração e articulação entre níveis de atenção, garantindo continuidade do cuidado.</td>
+                            <td>A UBS coordena o encaminhamento e mantém o acompanhamento do paciente.</td>
+                            <td>Atributo da APS.</td>
+                        </tr>
+                        <tr>
+                            <td>Longitudinalidade</td>
+                            <td>Vínculo ao longo do tempo entre equipe e paciente.</td>
+                            <td>Acompanhamento de hipertensão, vacinas e grupo de caminhada.</td>
+                            <td>Atributo da APS.</td>
+                        </tr>
+                        <tr>
+                            <td>Universalidade</td>
+                            <td>Saúde como direito de todos.</td>
+                            <td>Acesso do paciente à UBS e ao especializado.</td>
+                            <td>Princípio do SUS.</td>
+                        </tr>
+                        <tr>
+                            <td>Equidade</td>
+                            <td>Tratar desigualmente os desiguais, priorizando quem mais precisa.</td>
+                            <td>Atenção ao idoso que mora sozinho e tem vulnerabilidade social.</td>
+                            <td>Princípio do SUS.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a diferenciação entre princípios e atributos.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão pedisse apenas atributos da APS:</strong> a resposta incluiria primeiro contato, longitudinalidade, integralidade e coordenação.</li>
+                    <li><strong>Se pedisse apenas princípios do SUS:</strong> a resposta incluiria universalidade, integralidade e equidade.</li>
+                    <li><strong>Se pedisse o atributo relacionado ao acompanhamento ao longo do tempo:</strong> a resposta seria longitudinalidade.</li>
+                    <li><strong>Se pedisse o princípio relacionado à articulação entre níveis de atenção:</strong> a resposta seria integralidade.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q3</td>
+                            <td>Igualdade e equidade como princípios do SUS.</td>
+                            <td>Princípios doutrinários.</td>
+                            <td>A</td>
+                            <td>Contextualiza a discussão sobre princípios do SUS.</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q28</td>
+                            <td>Orientações do SUS: atendimento integral, participação, descentralização, saúde como direito, equidade.</td>
+                            <td>Princípios e diretrizes.</td>
+                            <td>B</td>
+                            <td>Reforça a integralidade como princípio.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q98</td>
+                            <td>Barbara Starfield: atributos da APS e sistemas integrados de saúde.</td>
+                            <td>Atributos da APS.</td>
+                            <td>C</td>
+                            <td>Base conceitual para a coordenação do cuidado.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q99</td>
+                            <td>Alternativa que contém apenas atributos da APS.</td>
+                            <td>Atributos da APS (primeiro contato, longitudinalidade, coordenação).</td>
+                            <td>D</td>
+                            <td>Confirma a lista de atributos.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q91</td>
+                            <td>Orientações do SUS (integralidade, participação, descentralização, universalidade, equidade).</td>
+                            <td>Princípios e diretrizes.</td>
+                            <td>B</td>
+                            <td>Reforça a integralidade como orientação do SUS.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q39</td>
+                            <td>Atributo da APS: competência cultural.</td>
+                            <td>Atributos da APS.</td>
+                            <td>D</td>
+                            <td>Complementa a lista de atributos.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q60</td>
+                            <td>Atributos da APS contemplados em telemedicina: acesso e longitudinalidade.</td>
+                            <td>Atributos da APS.</td>
+                            <td>B</td>
+                            <td>Aplicação prática dos atributos.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q98</td>
+                            <td>Atributo da APS não contemplado em caso de sepse: acesso.</td>
+                            <td>Atributos da APS.</td>
+                            <td>C</td>
+                            <td>Reforça a diferenciação entre atributos.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q97</td>
+                            <td>Acompanhamento ao longo do tempo: longitudinalidade.</td>
+                            <td>Atributo da APS.</td>
+                            <td>C</td>
+                            <td>Confirma a definição de longitudinalidade.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q86</td>
+                            <td>Definição de APS por Starfield; alternativa correta.</td>
+                            <td>Conceito e atributos da APS.</td>
+                            <td>C</td>
+                            <td>Base conceitual para a questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 10 das provas analisadas. A banca alterna entre conceitos de princípios do SUS, atributos da APS, aplicação prática e diferenciação entre eles.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A combinação explícita de um princípio doutrinário (integralidade) com um atributo da APS (coordenação do cuidado) em um caso de encaminhamento ao especialista ainda não havia sido cobrada de forma direta. Pode surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2007 e 2011, o foco era em princípios; em 2013, nos atributos; em 2019 e 2022, na aplicação prática; em 2023 e 2024, na definição e diferenciação. Em 2024, a banca avança para a integração entre princípios e atributos em um caso clínico.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Esperar questões que exijam diferenciar princípios do SUS e atributos da APS, aplicando-os a casos clínicos de encaminhamento, acompanhamento longitudinal e coordenação do cuidado.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Integralidade ↔ Redes de Atenção à Saúde: a articulação entre níveis é essencial para a integralidade.</li>
+                    <li><strong>Conexão 2:</strong> Coordenação do cuidado ↔ Atributos da APS: a APS deve coordenar o cuidado mesmo quando o paciente é encaminhado ao especialista.</li>
+                    <li><strong>Conexão 3:</strong> Longitudinalidade ↔ Doenças crônicas: o acompanhamento ao longo do tempo melhora o controle e a adesão.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o erro mais provável é de <strong>confusão conceitual</strong> entre princípios do SUS e atributos da APS, ou de <strong>erro de leitura/interpretação</strong> ao não perceber que o encaminhamento ao especialista está relacionado à integralidade e à coordenação. A ação corretiva é revisar as listas de princípios e atributos, com exemplos práticos.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, a APS deve oferecer atenção integral, coordenar o cuidado e garantir a continuidade mesmo quando o paciente necessita de atenção especializada. O médico de família deve conhecer os princípios do SUS e os atributos da APS para organizar o cuidado de forma eficiente e equitativa.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Princípios doutrinários do SUS: universalidade, integralidade e equidade.</li>
+                    <li>Atributos da APS segundo Starfield.</li>
+                    <li>Coordenação do cuidado e redes de atenção.</li>
+                    <li>Longitudinalidade e vínculo.</li>
+                    <li>Integralidade e acesso a serviços especializados.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Starfield B. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO/Ministério da Saúde, 2002.</p>
+                <p>2. Brasil. Ministério da Saúde. Política Nacional de Atenção Básica. Brasília: Ministério da Saúde, 2017.</p>
+                <p>3. Gusso GDF, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. 2. ed. Porto Alegre: Artmed, 2019.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 93 - Testagem Rápida para HIV e Janela Imunológica na Atenção Primária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Testagem Rápida para HIV e Janela Imunológica na Atenção Primária</div>
+        <h1>Questão 93</h1>
+        <div class="question-text">
+            <p>Um homem de 32 anos comparece à consulta de rotina com seu Médico de Família e Comunidade. Trabalha como motorista de aplicativo e mora sozinho, em uma comunidade próxima à Unidade Básica de Saúde. Identifica-se enquanto homem cisgênero, homossexual. Tem parceiro fixo há 4 anos, que convive com HIV há cerca de 8 anos, mantendo carga viral indetectável há pelo menos 5 anos. Tem relações anais receptivas, maior parte com preservativo peniano.</p>
+            <p>O paciente comunica durante a consulta o desejo de realizar o teste rápido para HIV, pois teve uma relação extraconjugal e desprotegida, com parceiro com status sorológico desconhecido há 2 dias. Qual das orientações deve ser feita ao paciente antes de solicitar e realizar o teste?</p>
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - O teste pode apresentar resultado falso-positivo, por conta do período de "janela imunológica".</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - O teste pode apresentar resultado falso-negativo, por conta do período de "janela imunológica".</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - O teste deve ser feito até 72 horas após a relação desprotegida, para aumentar a sua sensibilidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - O teste deve ser feito até 72 horas após a relação desprotegida, para aumentar a sua especificidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - O teste deve ser feito até 72 horas após a relação desprotegida, para aumentar a sensibilidade e especificidade.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Infectologia / Saúde Coletiva</p>
+                <p><strong>Tema:</strong> Testagem rápida para HIV, janela imunológica e aconselhamento pré-teste na Atenção Primária à Saúde.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, especialmente em Medicina de Família e Comunidade, Infectologia e Saúde Coletiva. A banca costuma cobrar interpretação de testes rápidos, janela imunológica, indicação de PEP, PrEP e aconselhamento pré e pós-teste. No caso, o paciente teve exposição sexual desprotegida há 2 dias e solicita teste rápido de HIV, exigindo do médico o conhecimento sobre o período de janela imunológica e a conduta adequada.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A janela imunológica é o período entre a infecção pelo HIV e a produção de anticorpos detectáveis pelos testes sorológicos convencionais. Nos testes rápidos que detectam anticorpos (imunocromatografia), a janela pode durar de 3 a 4 semanas, chegando a até 30 dias em alguns casos. Durante essa janela, a pessoa pode estar infectada e transmitir o vírus, mas o teste pode ser negativo (falso-negativo). Por isso, um teste realizado 2 dias após a exposição tem baixa utilidade diagnóstica e pode gerar falsa segurança. A conduta correta é orientar sobre o risco de falso-negativo, avaliar a indicação de PEP (em até 72 horas) e repetir o teste após o período de janela (geralmente 30 dias, com testes de 4ª geração).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa B:</strong> O teste rápido realizado 2 dias após a exposição pode ser falso-negativo devido à janela imunológica. O paciente deve ser informado de que um resultado negativo nesse momento não exclui infecção recente e que será necessário repetir o teste após o período de janela. Além disso, deve-se avaliar a indicação de PEP para HIV, que é mais eficaz quando iniciada o mais precocemente possível, idealmente nas primeiras horas e no máximo até 72 horas após a exposição. Em provas anteriores, o diagnóstico laboratorial do HIV e a interpretação de testes já foram cobrados, reforçando a importância do tema.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. A janela imunológica está associada a resultados falso-negativos, e não falso-positivos. Testes rápidos podem ter reações cruzadas, mas o problema clássico da janela é a ausência de anticorpos detectáveis.</p>
+                <p><strong>Alternativa B</strong> - Correta. A janela imunológica pode levar a resultado falso-negativo.</p>
+                <p><strong>Alternativa C</strong> - Errada. O teste não precisa ser feito em até 72 horas para aumentar a sensibilidade; na verdade, realizá-lo muito precocemente aumenta o risco de falso-negativo. O prazo de 72 horas refere-se à janela de oportunidade para PEP, não para testagem.</p>
+                <p><strong>Alternativa D</strong> - Errada. O prazo de 72 horas não aumenta a especificidade do teste; refere-se à indicação de PEP.</p>
+                <p><strong>Alternativa E</strong> - Errada. O prazo de 72 horas não aumenta sensibilidade nem especificidade; é o limite para início da PEP.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Relação extraconjugal e desprotegida:</strong> exposição sexual de risco recente, com indicação de avaliação para PEP.</li>
+                    <li><strong>Há 2 dias:</strong> tempo muito curto para testagem sorológica; período de janela imunológica.</li>
+                    <li><strong>Desejo de realizar teste rápido:</strong> demanda do paciente que exige aconselhamento pré-teste.</li>
+                    <li><strong>Parceiro com status sorológico desconhecido:</strong> risco de exposição ao HIV e outras ISTs.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Acolher a demanda do paciente e realizar aconselhamento pré-teste, explicando o que é a janela imunológica e suas implicações.</li>
+                    <li><strong>Segundo:</strong> Avaliar o risco da exposição e a indicação de PEP para HIV (iniciar o mais precocemente possível, no máximo até 72 horas).</li>
+                    <li><strong>Terceiro:</strong> Realizar o teste rápido se o paciente desejar, informando que um resultado negativo nesse momento não exclui infecção recente.</li>
+                    <li><strong>Quarto:</strong> Agendar retestagem após o período de janela (geralmente 30 dias) e orientar sobre prevenção, incluindo preservativo e PrEP.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "aconselhamento" em testagem de HIV.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> janela imunológica é o período entre a infecção e a detecção de anticorpos; testes rápidos podem ser falso-negativos nesse período.</li>
+                    <li><strong>Números e doses:</strong> PEP para HIV: iniciar em até 72 horas, por 28 dias; reteste após 30 dias; testes de 4ª geração reduzem a janela.</li>
+                    <li><strong>Mnemônicos:</strong> “72 horas para PEP, 30 dias para reteste” — lembrar dos prazos fundamentais.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável. HIV foi cobrado em 2006, 2007, 2011 e 2023.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Teste rápido negativo em janela imunológica (correta)</td>
+                            <td>Exposição recente (2 dias), sem sintomas.</td>
+                            <td>Teste rápido (pode ser negativo).</td>
+                            <td>Aconselhar sobre falso-negativo, avaliar PEP e agendar reteste.</td>
+                        </tr>
+                        <tr>
+                            <td>Infecção aguda pelo HIV</td>
+                            <td>Síndrome retroviral aguda: febre, linfadenopatia, rash, faringite.</td>
+                            <td>Carga viral detectável, teste rápido pode ser negativo.</td>
+                            <td>Investigar com carga viral e encaminhar para TARV.</td>
+                        </tr>
+                        <tr>
+                            <td>Exposição sem risco</td>
+                            <td>Relação protegida, parceiro sabidamente negativo.</td>
+                            <td>Teste rápido pode ser suficiente.</td>
+                            <td>Aconselhar e manter prevenção.</td>
+                        </tr>
+                        <tr>
+                            <td>PEP indicada</td>
+                            <td>Exposição de risco em até 72 horas.</td>
+                            <td>Avaliação clínica e testagem basal.</td>
+                            <td>Iniciar PEP o mais precocemente possível.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram diagnóstico diferencial e conduta em exposição ao HIV.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão pedisse interpretação de teste:</strong> resposta envolveria janela imunológica e falso-negativo.</li>
+                    <li><strong>Se pedisse conduta após exposição:</strong> resposta incluiria PEP em até 72 horas, testagem basal e reteste.</li>
+                    <li><strong>Se pedisse prevenção:</strong> resposta incluiria preservativo, PrEP e testagem regular.</li>
+                    <li><strong>Se pedisse aconselhamento:</strong> resposta incluiria explicação sobre janela, riscos e reteste.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q3</td>
+                            <td>Epidemiologia da AIDS no Brasil; notificações e tendências.</td>
+                            <td>Epidemiologia do HIV/AIDS.</td>
+                            <td>D</td>
+                            <td>Contextualiza a relevância do HIV e da testagem.</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q67</td>
+                            <td>Paciente de 22 anos assintomática com ELISA positivo para HIV; conduta diagnóstica.</td>
+                            <td>Diagnóstico laboratorial do HIV e confirmação.</td>
+                            <td>A</td>
+                            <td>Reforça a necessidade de conhecer os testes e seus algoritmos.</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q47</td>
+                            <td>Epidemiologia da infecção pelo HIV/AIDS no Brasil.</td>
+                            <td>Epidemiologia e prevenção.</td>
+                            <td>B</td>
+                            <td>Mostra a importância da prevenção e do diagnóstico precoce.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q1</td>
+                            <td>HIV/AIDS na infância; transmissão vertical, infecções bacterianas e vacinação.</td>
+                            <td>Prevenção e manejo do HIV.</td>
+                            <td>A</td>
+                            <td>Demonstra a cobrança de prevenção e manejo em HIV.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema HIV/AIDS apareceu em pelo menos 4 provas (2006, 2007, 2011, 2023). A banca alterna entre epidemiologia, diagnóstico, prevenção e vacinação. A interpretação da janela imunológica em testagem rápida é uma aplicação nova.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A interpretação da janela imunológica e a conduta de aconselhamento pré-teste em exposição recente ainda não haviam sido cobradas de forma direta. Pode surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2006 e 2011, a questão era epidemiológica; em 2007 e 2023, diagnóstica. Em 2024, a banca avança para a interpretação de teste rápido e aconselhamento.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Esperar questões que exijam interpretar testes rápidos, conhecer a janela imunológica e indicar condutas de PEP e reteste.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Testagem de HIV ↔ PEP: a exposição recente exige avaliação de PEP em até 72 horas.</li>
+                    <li><strong>Conexão 2:</strong> Testagem de HIV ↔ PrEP: pacientes com risco contínuo devem ser avaliados para PrEP.</li>
+                    <li><strong>Conexão 3:</strong> Testagem de HIV ↔ Aconselhamento: o aconselhamento pré e pós-teste é fundamental para interpretar resultados e evitar falsa segurança.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o erro mais provável é de <strong>confusão conceitual</strong> entre janela imunológica e falso-positivo, ou entre o prazo de 72 horas para PEP e o prazo para testagem. Também pode ter havido <strong>erro de leitura/interpretação</strong> ao não perceber que o teste foi realizado muito precocemente. A ação corretiva é revisar o conceito de janela imunológica, os prazos de PEP e reteste e o aconselhamento pré-teste.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, o médico de família deve acolher o paciente, realizar aconselhamento pré-teste, avaliar o risco da exposição, indicar PEP quando cabível e agendar reteste. É fundamental explicar que um teste negativo na janela imunológica não exclui infecção e que o paciente deve manter prevenção. O acompanhamento deve ser longitudinal, com testagem regular e oferta de PrEP se indicado.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Janela imunológica do HIV.</li>
+                    <li>Testes rápidos e testes de 4ª geração.</li>
+                    <li>PEP e PrEP para HIV.</li>
+                    <li>Aconselhamento pré e pós-teste.</li>
+                    <li>Diagnóstico laboratorial do HIV.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Brasil. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Profilaxia Pós-Exposição (PEP) de Risco à Infecção pelo HIV. Brasília: Ministério da Saúde.</p>
+                <p>2. Brasil. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Profilaxia Pré-Exposição (PrEP) de Risco à Infecção pelo HIV. Brasília: Ministério da Saúde.</p>
+                <p>3. Brasil. Ministério da Saúde. Manual Técnico para Diagnóstico da Infecção pelo HIV em Adultos e Crianças. Brasília: Ministério da Saúde.</p>
+                <p>4. Gusso GDF, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. 2. ed. Porto Alegre: Artmed, 2019.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

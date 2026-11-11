@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 91 - Ferramentas do Médico de Família e Comunidade: Prevenção Quaternária diante de Demanda por Rastreamento sem Indicação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ferramentas do Médico de Família e Comunidade: Prevenção Quaternária diante de Demanda por Rastreamento sem Indicação</div>
+        <h1>Questão 91</h1>
+        <div class="question-text">
+            <p>Observe o registro clínico de uma consulta na Unidade Básica de Saúde. Subjetivo: Mulher, 37 anos, solicita mamografia. Está muito preocupada, pois viu em um programa de televisão que o câncer de mama é o segundo câncer mais comum em mulheres. Nega comorbidades ou problemas de saúde na família. Nega parentes de primeiro grau com câncer de mama. Última coleta de colpocitologia oncótica há 5 anos. Objetivo: Inspeção mamária estática e dinâmica sem alterações. Sem alterações de pele ou deformidades. Palpação das mamas sem nódulos palpáveis nos quatro quadrantes, bilateralmente. Axilas livres. Avaliação: (CIAP2: X26) - Medo de câncer de mama Plano: Tranquilizo paciente sobre a baixa incidência de câncer de mama na faixa etária abaixo dos 50 anos, em pessoas sem fatores de risco; Explico indicações de rastreio populacional do câncer de mama a partir dos 50 anos; Converso sobre emancipação feminina e conhecimento do próprio corpo; Ofereço coleta de colpocitologia oncótica. Qual das ferramentas da prática do Médico de Família e Comunidade predomina neste atendimento?</p>
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Escuta ativa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Sobrediagnóstico.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Educação em saúde.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Pactuação de agenda.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Prevenção quaternária.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Saúde Coletiva</p>
+                <p><strong>Tema:</strong> Ferramentas do Médico de Família e Comunidade — prevenção quaternária, comunicação de riscos e manejo da demanda por rastreamento sem indicação.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência em Medicina de Família e Comunidade, Saúde Coletiva e Clínica Médica. A prevenção quaternária é frequentemente cobrada com casos de pacientes que solicitam exames ou tratamentos sem indicação, exigindo do médico informação de riscos, acolhimento e decisão compartilhada. Também aparece associada a sobrediagnóstico, sobretratamento, desprescrição, medicina baseada em evidências e princípios do SUS.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A prevenção quaternária é o conjunto de ações que visa identificar pacientes ou populações em risco de medicalização excessiva, sobrediagnóstico ou sobretratamento, protegendo-os de intervenções desnecessárias ou potencialmente danosas. No caso descrito, a paciente de 37 anos, sem fatores de risco e assintomática, solicita mamografia por medo, mas o rastreamento populacional do câncer de mama não está indicado nessa faixa etária. A conduta correta é acolher a preocupação, explicar a baixa incidência na faixa etária, informar as indicações de rastreamento (a partir dos 50 anos) e oferecer o exame que está indicado (citopatológico do colo do útero, atrasado há 5 anos). Isso configura prevenção quaternária: evitar um exame desnecessário e seus potenciais danos (falso-positivos, ansiedade, biópsias desnecessárias, sobrediagnóstico).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa E:</strong> O registro clínico mostra que o médico acolheu a paciente, explicou os riscos e as indicações de rastreamento e ofereceu o exame efetivamente indicado, evitando a mamografia sem indicação. Essa é a essência da prevenção quaternária: proteger o paciente de intervenções médicas desnecessárias e potencialmente danosas, com informação e decisão compartilhada. A literatura de Medicina de Família e Comunidade define essa conduta como prevenção quaternária, e a banca já cobrou o conceito e suas aplicações em provas anteriores.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. A escuta ativa é uma ferramenta importante e está presente na consulta, mas não é a ferramenta predominante que caracteriza a conduta descrita. O que define o manejo do caso é a proteção contra intervenção desnecessária (prevenção quaternária).</p>
+                <p><strong>Alternativa B</strong> - Errada. Sobrediagnóstico é justamente o dano que se quer evitar. A conduta do médico foi evitar o sobrediagnóstico, não praticá-lo.</p>
+                <p><strong>Alternativa C</strong> - Errada. Educação em saúde é parte da consulta, mas o aspecto central é a prevenção quaternária, que inclui informação e proteção contra medicalização excessiva. A educação em saúde é um meio, não o fim predominante.</p>
+                <p><strong>Alternativa D</strong> - Errada. Pactuação de agenda é uma ferramenta de gestão do acesso, não o que predomina na conduta clínica descrita.</p>
+                <p><strong>Alternativa E</strong> - Correta. A conduta descrita é exemplo clássico de prevenção quaternária.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Solicita mamografia / muito preocupada:</strong> demanda por exame sem indicação, movida por medo e informação midiática.</li>
+                    <li><strong>Nega fatores de risco / 37 anos:</strong> ausência de indicação para rastreamento populacional, que começa aos 50 anos.</li>
+                    <li><strong>Tranquilizo / explico indicações / ofereço o exame indicado:</strong> conduta típica de prevenção quaternária.</li>
+                    <li><strong>CIAP2 X26 — medo de câncer de mama:</strong> código que indica a natureza da demanda.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Acolher a preocupação da paciente e compreender o motivo da solicitação (medo do câncer de mama).</li>
+                    <li><strong>Segundo:</strong> Avaliar se há indicação clínica para o exame solicitado. No caso, não há: paciente de 37 anos, sem fatores de risco, assintomática.</li>
+                    <li><strong>Terceiro:</strong> Informar de forma clara sobre a baixa incidência na faixa etária e sobre as indicações de rastreamento populacional (a partir dos 50 anos).</li>
+                    <li><strong>Quarto:</strong> Oferecer o exame que está efetivamente indicado (citopatológico do colo do útero) e manter o seguimento, evitando a intervenção desnecessária.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" em cenários de prevenção quaternária.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> prevenção quaternária é a ação de evitar danos potenciais e medicalização excessiva decorrentes do intervencionismo biomédico, protegendo o paciente de intervenções desnecessárias.</li>
+                    <li><strong>Números e doses:</strong> rastreamento populacional do câncer de mama no Brasil: 50 a 69 anos, mamografia a cada 2 anos (Ministério da Saúde).</li>
+                    <li><strong>Mnemônicos:</strong> “Primum non nocere” — primeiro, não causar dano — é o princípio que embasa a prevenção quaternária.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável. O conceito já foi cobrado em 2018, e a relação com o princípio hipocrático em 2025.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Prevenção quaternária (conduta correta)</td>
+                            <td>Paciente assintomática, sem fatores de risco, solicitando exame sem indicação.</td>
+                            <td>Avaliação clínica e das indicações.</td>
+                            <td>Informar riscos/benefícios, evitar intervenção desnecessária e oferecer o que é indicado.</td>
+                        </tr>
+                        <tr>
+                            <td>Prevenção secundária</td>
+                            <td>Doença presente, assintomática, com indicação de rastreamento.</td>
+                            <td>Exame de rastreamento (ex: mamografia na faixa etária indicada).</td>
+                            <td>Realizar o rastreamento conforme protocolo.</td>
+                        </tr>
+                        <tr>
+                            <td>Sobrediagnóstico</td>
+                            <td>Diagnóstico de condição que não evoluiria para doença clínica.</td>
+                            <td>Exames sensíveis, mas com risco de sobrediagnóstico.</td>
+                            <td>Evitar rastreamento sem indicação e discutir riscos.</td>
+                        </tr>
+                        <tr>
+                            <td>Educação em saúde</td>
+                            <td>Ação educativa sobre prevenção e autocuidado.</td>
+                            <td>Consulta e orientação.</td>
+                            <td>Informar e empoderar o paciente, sem necessariamente evitar intervenção.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial conceitual, não apenas a conduta em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão pedisse o conceito:</strong> a resposta seria “evitar danos potenciais e medicalização excessiva decorrentes do intervencionismo biomédico”.</li>
+                    <li><strong>Se pedisse um exemplo:</strong> poderia ser “não solicitar PSA em paciente de baixo risco” ou “não realizar mamografia em paciente de 37 anos sem fatores de risco”.</li>
+                    <li><strong>Se pedisse a relação ética:</strong> a resposta envolveria “primum non nocere” e decisão compartilhada.</li>
+                    <li><strong>Se pedisse a conduta em paciente que solicita exame sem indicação:</strong> a resposta seria acolher, informar e evitar a intervenção desnecessária.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2018 – Q86</td>
+                            <td>Define prevenção quaternária como ação para evitar danos potenciais e medicalização excessiva decorrentes do intervencionismo biomédico.</td>
+                            <td>Conceito de prevenção quaternária.</td>
+                            <td>E</td>
+                            <td>Fornece a base conceitual aplicada nesta questão.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q58</td>
+                            <td>Caso de paciente em uso de AAS sem indicação; solicitação de mamografia e citopatológico; suspensão do AAS.</td>
+                            <td>Níveis de prevenção: prevenção secundária e prevenção quaternária.</td>
+                            <td>C</td>
+                            <td>Mostra a prevenção quaternária aplicada à desprescrição e ao excesso de intervenção.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q89</td>
+                            <td>Maria, 45 anos, com insônia e ansiedade, preocupada com dependência de medicamentos.</td>
+                            <td>Prevenção quaternária e decisão compartilhada.</td>
+                            <td>D</td>
+                            <td>Outra aplicação prática da prevenção quaternária em contexto de demanda por intervenção.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q90</td>
+                            <td>Fotocoagulação de retina para retinopatia diabética.</td>
+                            <td>Níveis de prevenção (terciária).</td>
+                            <td>C</td>
+                            <td>Ajuda a diferenciar prevenção quaternária dos demais níveis.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q51</td>
+                            <td>Relação entre prevenção quaternária e o princípio hipocrático “primum non nocere”.</td>
+                            <td>Fundamento ético da prevenção quaternária.</td>
+                            <td>D</td>
+                            <td>Reforça o embasamento ético da conduta descrita nesta questão.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q47</td>
+                            <td>Princípios de prevenção e detecção precoce do câncer; testes de rastreamento.</td>
+                            <td>Rastreamento com benefício comprovado e prevenção primária.</td>
+                            <td>C</td>
+                            <td>Contextualiza a discussão sobre indicação de rastreamento.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 6 das provas analisadas. A banca alterna entre cobrar o conceito, exemplos de desprescrição/rastreamento, a relação ética com “primum non nocere” e a aplicação prática em demandas por intervenção.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A aplicação da prevenção quaternária a uma demanda explícita por rastreamento oncológico sem indicação, com oferta de exame efetivamente indicado e acolhimento do medo, ainda não havia sido cobrada de forma direta. Pode surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2018, a questão era conceitual; em 2021, foi aplicada à desprescrição; em 2024, foi aplicada à decisão compartilhada e agora à demanda por rastreamento; em 2025, foi relacionada ao princípio ético. A tendência é de aplicação prática crescente.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Esperar questões que exijam identificar condutas de prevenção quaternária em cenários de pacientes que solicitam exames ou tratamentos sem indicação, com ênfase em comunicação de riscos, decisão compartilhada e oferta do que é realmente indicado.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Prevenção quaternária ↔ Medicina Baseada em Evidências: é preciso conhecer a magnitude dos benefícios e riscos para informar o paciente e evitar intervenções sem suporte.</li>
+                    <li><strong>Conexão 2:</strong> Prevenção quaternária ↔ Rastreamento de câncer: indicações, faixas etárias e riscos de sobrediagnóstico.</li>
+                    <li><strong>Conexão 3:</strong> Prevenção quaternária ↔ Comunicação de riscos: informar de forma clara e compartilhar decisões com o paciente.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, o erro mais provável é de <strong>confusão conceitual</strong> entre prevenção quaternária e prevenção secundária, ou entre prevenção quaternária e educação em saúde. Também pode ter havido <strong>erro de leitura/interpretação</strong> ao não perceber que o exame solicitado não era indicado e que a conduta médica foi protegê-la de intervenção desnecessária. A ação corretiva é revisar a definição de prevenção quaternária, diferenciar os níveis de prevenção e treinar decisão compartilhada em cenários de demanda por exames.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, a prevenção quaternária é fundamental para evitar medicalização excessiva. Diante de pacientes que solicitam exames ou tratamentos por medo ou informação midiática, o médico deve acolher, informar com base em evidências, explicar riscos e benefícios e oferecer o que é realmente indicado. No caso de rastreamento de câncer de mama, é importante conhecer as faixas etárias e periodicidades recomendadas, além de reconhecer o risco de sobrediagnóstico e de danos associados a exames desnecessários.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Prevenção quaternária: definição e exemplos.</li>
+                    <li>Níveis de prevenção de Leavell e Clark.</li>
+                    <li>Sobrediagnóstico e sobretratamento.</li>
+                    <li>Rastreamento do câncer de mama: indicações e periodicidade.</li>
+                    <li>Decisão compartilhada e comunicação de riscos.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Jamoulle M. Quaternary prevention: a new term for a new concept. Disponível em: https://www.ph3c.org/.</p>
+                <p>2. Gusso GDF, Lopes JMC. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. 2. ed. Porto Alegre: Artmed, 2019.</p>
+                <p>3. Brasil. Ministério da Saúde. Diretrizes para a detecção precoce do câncer de mama no Brasil. Rio de Janeiro: INCA, 2015.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>
