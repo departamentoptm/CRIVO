@@ -789,6 +789,145 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
 }
 .auth-card .brand-mark { border-radius: 50%; }
 .auth-card .brand-mark svg { width: 100%; height: 100%; }
+
+/* ============================================================
+   TEMPO (modos), BARRAS OCULTÁVEIS, CAMPOS E GABARITO
+   ============================================================ */
+@keyframes dropUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* botão de modo do tempo + lista vertical */
+.timer-container { position: relative; }
+.tempo-modo-btn {
+    background: none; border: 0; margin: 0; padding: .15rem .35rem; font: inherit;
+    font-size: .875rem; font-weight: 600; color: var(--muted); cursor: pointer;
+    border-radius: .5rem; white-space: nowrap; display: inline-flex; align-items: center; gap: .2rem;
+    transition: background .15s, color .15s;
+}
+.tempo-modo-btn::after { content: '▾'; font-size: .85em; opacity: .7; }
+.tempo-modo-btn:hover, .tempo-modo-btn[aria-expanded="true"] { background: #e2e8f8; color: var(--navy); }
+.tempo-menu {
+    position: absolute; left: 0; bottom: calc(100% + .55rem); z-index: 400;
+    display: flex; flex-direction: column; min-width: 11.5rem; max-width: 90vw;
+    background: #fff; border: 1px solid var(--line); border-radius: .9rem; padding: .35rem;
+    box-shadow: 0 -12px 36px rgba(12,20,64,.25), 0 2px 6px rgba(12,20,64,.08);
+    animation: dropUp .16s var(--ease) both;
+}
+.tempo-menu button {
+    display: flex; align-items: center; gap: .5rem; width: 100%; text-align: left;
+    background: none; border: 0; font: inherit; font-size: .9rem; color: var(--ink);
+    padding: .55rem .75rem; border-radius: .55rem; cursor: pointer; transition: background .15s;
+}
+.tempo-menu button::before { content: ''; display: inline-block; width: .9rem; text-align: center; font-weight: 800; color: var(--navy-600); }
+.tempo-menu button:hover { background: #eef2fc; }
+.tempo-menu button.sel { font-weight: 700; color: var(--navy); background: #eef2fc; }
+.tempo-menu button.sel::before { content: '✓'; }
+.timer-container:not([data-modo="questao"]) .mt-extra { display: none; }
+.timer-container[data-modo="off"] .timer { display: none; }
+
+/* botões de ocultar/mostrar */
+.icon-btn.bar-toggle, .icon-btn.bar-toggle:hover {
+    background: linear-gradient(135deg, var(--navy-600), var(--magenta)); color: #fff;
+    border: 1.5px solid rgba(255,255,255,.6); box-shadow: 0 2px 8px rgba(0,0,0,.28);
+    font-size: .85rem; font-weight: 700; padding: 0; flex-shrink: 0;
+}
+.icon-btn.bar-toggle:hover { filter: brightness(1.12); }
+.icon-btn.bar-toggle[aria-pressed="true"] { opacity: .7; }
+.icon-btn.bar-toggle[aria-pressed="true"]:hover { opacity: 1; }
+
+/* filtros ocultos (banca, edição, disciplina) */
+body.filtros-ocultos .top-bar-left > .multiselect,
+body.filtros-ocultos .top-bar-left > .disciplina-select { display: none; }
+
+/* barra superior oculta: só os botões de ação flutuam */
+body.topo-oculto .top-bar {
+    position: fixed; top: calc(env(safe-area-inset-top, 0px) + .35rem); right: .35rem; left: auto;
+    width: auto; max-width: calc(100% - .7rem); min-height: 0; padding: 0; gap: 0;
+    background: none; border: 0; box-shadow: none; z-index: 500; pointer-events: none;
+}
+body.topo-oculto .top-bar-left { flex: 0 1 auto; justify-content: flex-end; gap: .3rem; pointer-events: none; }
+body.topo-oculto .top-bar-left > *:not(.action-btn):not(#toggleTopBtn) { display: none !important; }
+body.topo-oculto .nav-container { display: none; }
+body.topo-oculto .action-btn, body.topo-oculto #toggleTopBtn { pointer-events: auto; }
+body.topo-oculto .action-btn { min-height: 0; padding: .3rem .5rem; box-shadow: 0 3px 10px rgba(12,20,64,.4); }
+body.topo-oculto .action-btn .lbl { display: none; }
+
+/* barra inferior oculta: só avançar/voltar, contagem e relógio flutuam */
+body.rodape-oculto .bottom-nav {
+    position: fixed; left: 0; right: 0; bottom: env(safe-area-inset-bottom, 0px);
+    min-height: 0; padding: .35rem .5rem; gap: .4rem; flex-wrap: nowrap;
+    background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+    z-index: 500; pointer-events: none;
+}
+body.rodape-oculto .bottom-center { flex: 1 1 auto; flex-wrap: nowrap; gap: .35rem; pointer-events: none; }
+body.rodape-oculto .bottom-filters { gap: 0; flex-wrap: nowrap; }
+body.rodape-oculto .bottom-filters > :not(.pos-indicator) { display: none !important; }
+body.rodape-oculto .timer-container > :not(.timer) { display: none !important; }
+body.rodape-oculto .timer-container[data-modo="off"] { display: none; }
+body.rodape-oculto .nav-btn {
+    pointer-events: auto; min-height: 0; min-width: 0; padding: .35rem .8rem; font-size: 1.15rem; line-height: 1;
+    box-shadow: 0 4px 14px rgba(12,20,64,.4);
+}
+body.rodape-oculto .nav-btn .lbl { display: none; }
+body.rodape-oculto .pos-indicator, body.rodape-oculto .timer-container, body.rodape-oculto #toggleBottomBtn { pointer-events: auto; }
+body.rodape-oculto .pos-indicator, body.rodape-oculto .timer-container { box-shadow: 0 3px 12px rgba(12,20,64,.35); background-color: rgba(255,255,255,.96); }
+body.rodape-oculto .timer-container { padding: .1rem .7rem; }
+
+/* campo "Limitar a" */
+.max-q { gap: .3rem; }
+.max-q-txt { color: #3d4666; font-weight: 500; white-space: nowrap; }
+
+/* campos numéricos adaptáveis ao zoom */
+.go-to-input, .max-time-input, .bottom-filters input[type="number"] {
+    -moz-appearance: textfield; appearance: textfield;
+}
+.go-to-input::-webkit-outer-spin-button, .go-to-input::-webkit-inner-spin-button,
+.max-time-input::-webkit-outer-spin-button, .max-time-input::-webkit-inner-spin-button,
+.bottom-filters input[type="number"]::-webkit-outer-spin-button,
+.bottom-filters input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.lbl-q { font-size: .8rem; opacity: .9; white-space: nowrap; }
+.nav-container { flex-wrap: nowrap; min-width: 0; max-width: 100%; }
+.go-to-input {
+    width: calc(4ch + 1.2rem); min-width: 2.8rem; max-width: 6rem; padding-left: .3rem; padding-right: .3rem;
+    box-sizing: content-box; font-variant-numeric: tabular-nums;
+}
+@supports (field-sizing: content) {
+    .go-to-input { field-sizing: content; width: auto; min-width: 2.8rem; box-sizing: content-box; }
+}
+.go-btn { white-space: nowrap; flex-shrink: 0; }
+
+/* gabarito: contagens */
+.group-header .counts.c-total { background: #eef2fc; color: #3a4570; }
+.group-header .counts.c-ok { background: #e1f5e8; color: #12843c; }
+.group-header .counts.c-bad { background: #fde6e8; color: #b91c1c; }
+
+/* celular: ícones e controles miniaturizados */
+@media (max-width: 560px) {
+    .top-bar { padding: .25rem .35rem; gap: .25rem; }
+    .top-bar-left { gap: .25rem; }
+    .icon-btn { width: 2rem; height: 2rem; min-width: 2rem; font-size: .9rem; }
+    .action-btn { min-height: 2rem; min-width: 2rem; padding: .2rem .45rem; font-size: .85rem; border-radius: .8rem; }
+    .top-bar .multiselect-btn, .top-bar .disciplina-select { min-height: 0; height: 2rem; font-size: .7rem; padding-top: .15rem; padding-bottom: .15rem; }
+    .nav-container { gap: .2rem; padding: .1rem; }
+    .go-to-input { min-height: 0; padding-top: .2rem; padding-bottom: .2rem; }
+    .go-btn { min-height: 0; padding: .3rem .6rem; }
+    .bottom-nav { padding: .3rem .5rem; min-height: 0; }
+    .nav-btn { min-height: 2.3rem; min-width: 2.6rem; padding: .25rem .7rem; font-size: 1.15rem; }
+    .timer { font-size: 1.1rem; }
+    .timer-container { gap: .25rem; }
+    .tempo-modo-btn { font-size: .75rem; padding: .1rem .25rem; }
+    .max-time-input, .bottom-filters input[type="number"] { min-height: 0; padding: .15rem; }
+    .bottom-filters label, .max-q-txt { font-size: .7rem; }
+    .pos-indicator { font-size: .72rem; padding: .2rem .5rem; }
+    body.topo-oculto .action-btn { padding: .2rem .4rem; }
+}
+@media (max-width: 400px) {
+    .tempo-modo-btn { display: inline-flex; font-size: .68rem; }
+}
+@media (max-width: 560px) {
+    .bottom-nav { justify-content: space-between; }
+    .bottom-center { order: -1; flex: 1 1 100%; }
+    body.rodape-oculto .bottom-center { order: 0; flex: 1 1 auto; }
+}
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -858,6 +997,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
             <div class="top-bar-left">
                 <button class="icon-btn" id="homeBtn" title="Início">⌂</button>
                 <button class="icon-btn" id="progressBtnResolving" title="Meu Progresso">📊</button>
+                <button class="icon-btn bar-toggle" id="toggleFiltrosBtn" type="button" title="Mostrar/ocultar banca, edição e disciplina" aria-label="Mostrar ou ocultar filtros" aria-pressed="false">🎚️</button>
                 <div class="multiselect">
                     <button class="multiselect-btn" id="bancaMultiBtn" title="Bancas">Bancas: todas</button>
                     <div class="multiselect-panel" id="bancaMultiPanel" hidden></div>
@@ -876,10 +1016,11 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
                 <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
                 <select id="examSelector" hidden></select>
                 <select id="yearSelector" hidden></select>
+                <button class="icon-btn bar-toggle" id="toggleTopBtn" type="button" title="Ocultar barra superior" aria-label="Ocultar barra superior">▲</button>
             </div>
             <div class="nav-container">
-                <span class="lbl-q" style="font-size:13px;opacity:0.8;">Questão:</span>
-                <input type="number" id="goToInput" class="go-to-input" min="1" placeholder="X">
+                <span class="lbl-q">Questão:</span>
+                <input type="number" id="goToInput" class="go-to-input" min="1" placeholder="X" inputmode="numeric" enterkeyhint="go" aria-label="Número da questão">
                 <button class="go-btn" id="goBtn">Ir</button>
             </div>
         </div>
@@ -887,15 +1028,21 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
         <div class="bottom-nav">
             <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr">←</span><span class="lbl"> Anterior</span></button>
             <div class="bottom-center">
+                <button class="icon-btn bar-toggle" id="toggleBottomBtn" type="button" title="Ocultar barra inferior" aria-label="Ocultar barra inferior">▼</button>
                 <div class="bottom-filters">
                     <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
-                    <input type="number" id="maxQuestoesInput" placeholder="máx" min="0">
-                    <span class="pos-indicator" id="posIndicator">0/0</span>
+                    <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
+                    <span class="pos-indicator" id="posIndicator" title="Questão atual / total">0/0</span>
                 </div>
                 <div class="timer-container">
-                    <span class="max-time-label">Tempo máx.:</span>
-                    <input type="number" id="maxTimeInput" class="max-time-input" min="1" value="1">
-                    <span class="max-time-label">min</span>
+                    <button type="button" class="tempo-modo-btn" id="tempoModoBtn" aria-haspopup="true" aria-expanded="false" title="Escolher modo de contagem do tempo">Tempo máx.:</button>
+                    <div class="tempo-menu" id="tempoMenu" role="menu" hidden>
+                        <button type="button" role="menuitemradio" data-modo="todas">Todas as questões</button>
+                        <button type="button" role="menuitemradio" data-modo="questao">Por questão</button>
+                        <button type="button" role="menuitemradio" data-modo="off">Desativado</button>
+                    </div>
+                    <input type="number" id="maxTimeInput" class="max-time-input mt-extra" min="1" value="1">
+                    <span class="max-time-label mt-extra">min</span>
                     <div class="timer" id="timer">00:00</div>
                 </div>
             </div>
@@ -928,6 +1075,7 @@ let questaoStartTime = null;      // tempo entre início da questão e confirma�
 let pausedElapsedMs = 0;
 let isTimerRunning = false;
 let maxTime = 1;
+let modoTempo = 'questao';   // 'questao' | 'todas' | 'off'
 let currentBlobUrl = null;
 let progressFrom = 'home';
 let loadingYear = false;
@@ -1780,18 +1928,22 @@ async function carregarQuestao(index) {
    ============================================================ */
 function formatTime(ms) {
     const s = Math.floor(ms / 1000), m = Math.floor(s / 60);
+    if (m >= 60) return `${Math.floor(m / 60)}:${String(m % 60).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
     return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
 }
 function reiniciarTimer() {
     if (timerInterval) clearInterval(timerInterval);
     if (expirationTimer) clearTimeout(expirationTimer);
-    pausedElapsedMs = 0; isTimerRunning = true; startTime = Date.now();
-    timerDisplay.textContent = '00:00';
+    timerInterval = null; expirationTimer = null;
+    if (modoTempo === 'off') { pausedElapsedMs = 0; isTimerRunning = false; return; }
+    if (modoTempo !== 'todas') pausedElapsedMs = 0;
+    isTimerRunning = true; startTime = Date.now();
+    timerDisplay.textContent = formatTime(pausedElapsedMs);
     timerInterval = setInterval(() => {
         const el = pausedElapsedMs + (Date.now() - startTime);
         timerDisplay.textContent = formatTime(el);
     }, 500);
-    expirationTimer = setTimeout(() => {
+    if (modoTempo === 'questao') expirationTimer = setTimeout(() => {
         if (questaoAtualIndex < questoes.length - 1) {
             alert('Tempo máximo atingido. Pulando para a próxima.');
             carregarQuestao(questaoAtualIndex + 1);
@@ -2156,8 +2308,9 @@ function renderHierarchy(questions, keys, depth = 0) {
         const wrap = depth === 0 ? 'exam-block' : folha ? 'year-block' : 'sub-block';
         let tempoHtml = '';
         if (tempoStats) {
-            tempoHtml = `<span class="tempo-counts" title="Baseado em ${tempoStats.n} confirmação(ões)">⏱ média ${fmtTempo(tempoStats.mean)} · σ ${fmtTempo(tempoStats.std)}</span>`;
+            tempoHtml = `<span class="tempo-counts" title="Média ± variação (desvio padrão), com base em ${tempoStats.n} confirmação(ões)">⏱ Tempo médio por questão: ${fmtTempo(tempoStats.mean)} ± ${fmtTempo(tempoStats.std)}</span>`;
         }
+        const erros = qs.filter(q => q.status === 'bad').length;
         let btn = '';
         if (depth === 0) {
             const gid = 'g' + (++gabGrupoSeq);
@@ -2168,7 +2321,7 @@ function renderHierarchy(questions, keys, depth = 0) {
             </div>`;
         }
         const inner = folha ? renderChipsBlock(qs) : renderHierarchy(qs, keys.slice(1), depth + 1);
-        html += `<div class="${wrap}"><div class="group-header"><${tag} class="${depth === 0 ? 'exam-title' : 'sub-title'}">${icon} ${escapeHtml(v)}</${tag}><span class="counts">${hits} acertos em ${conf} confirmadas</span>${tempoHtml}${btn}</div>${inner}</div>`;
+        html += `<div class="${wrap}"><div class="group-header"><${tag} class="${depth === 0 ? 'exam-title' : 'sub-title'}">${icon} ${escapeHtml(v)}</${tag}><span class="counts c-total">Total realizado: ${conf}</span><span class="counts c-ok">Nº de acertos: ${hits}</span><span class="counts c-bad">Nº de erros: ${erros}</span>${tempoHtml}${btn}</div>${inner}</div>`;
     }
     return html;
 }
@@ -2916,6 +3069,93 @@ window.addEventListener('beforeunload', (e) => {
     pausarTimer();
     if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
 });
+
+/* ============================================================
+   MODOS DO TEMPO E VISIBILIDADE DAS BARRAS
+   ============================================================ */
+const tempoContainer = document.querySelector('.timer-container');
+const tempoModoBtn = document.getElementById('tempoModoBtn');
+const tempoMenu = document.getElementById('tempoMenu');
+const toggleFiltrosBtn = document.getElementById('toggleFiltrosBtn');
+const toggleTopBtn = document.getElementById('toggleTopBtn');
+const toggleBottomBtn = document.getElementById('toggleBottomBtn');
+const UI_KEY = 'crivo_ui';
+const ROTULO_TEMPO = { todas: 'Tempo total:', questao: 'Tempo máx.:', off: 'Tempo: desativado' };
+let uiPrefs = { modoTempo: 'questao', filtros: false, topo: false, rodape: false };
+try {
+    const v = JSON.parse(localStorage.getItem(UI_KEY));
+    if (v && typeof v === 'object') {
+        if (ROTULO_TEMPO[v.modoTempo]) uiPrefs.modoTempo = v.modoTempo;
+        uiPrefs.filtros = !!v.filtros; uiPrefs.topo = !!v.topo; uiPrefs.rodape = !!v.rodape;
+    }
+} catch {}
+function salvarUi() { try { localStorage.setItem(UI_KEY, JSON.stringify(uiPrefs)); } catch {} }
+
+function aplicarUi() {
+    document.body.classList.toggle('filtros-ocultos', uiPrefs.filtros);
+    document.body.classList.toggle('topo-oculto', uiPrefs.topo);
+    document.body.classList.toggle('rodape-oculto', uiPrefs.rodape);
+    toggleFiltrosBtn.setAttribute('aria-pressed', String(uiPrefs.filtros));
+    toggleFiltrosBtn.title = uiPrefs.filtros ? 'Mostrar banca, edição e disciplina' : 'Ocultar banca, edição e disciplina';
+    toggleTopBtn.textContent = uiPrefs.topo ? '▼' : '▲';
+    { const t = uiPrefs.topo ? 'Mostrar barra superior' : 'Ocultar barra superior'; toggleTopBtn.title = t; toggleTopBtn.setAttribute('aria-label', t); }
+    toggleBottomBtn.textContent = uiPrefs.rodape ? '▲' : '▼';
+    { const t = uiPrefs.rodape ? 'Mostrar barra inferior' : 'Ocultar barra inferior'; toggleBottomBtn.title = t; toggleBottomBtn.setAttribute('aria-label', t); }
+    bancaMultiPanel.hidden = true; anoMultiPanel.hidden = true; tempoMenu.hidden = true;
+    tempoModoBtn.setAttribute('aria-expanded', 'false');
+}
+toggleFiltrosBtn.addEventListener('click', () => { uiPrefs.filtros = !uiPrefs.filtros; salvarUi(); aplicarUi(); });
+toggleTopBtn.addEventListener('click', () => { uiPrefs.topo = !uiPrefs.topo; salvarUi(); aplicarUi(); });
+toggleBottomBtn.addEventListener('click', () => { uiPrefs.rodape = !uiPrefs.rodape; salvarUi(); aplicarUi(); });
+
+function aplicarModoTempo(m, semTimer) {
+    if (!ROTULO_TEMPO[m]) m = 'questao';
+    modoTempo = m; uiPrefs.modoTempo = m; salvarUi();
+    tempoContainer.dataset.modo = m;
+    tempoModoBtn.textContent = ROTULO_TEMPO[m];
+    tempoMenu.querySelectorAll('button[data-modo]').forEach(b => {
+        const on = b.dataset.modo === m;
+        b.classList.toggle('sel', on);
+        b.setAttribute('aria-checked', String(on));
+    });
+    if (semTimer) return;
+    pausarTimer();
+    pausedElapsedMs = 0;
+    timerDisplay.textContent = '00:00';
+    if (m !== 'off' && questoes.length && !resolvingScreen.classList.contains('hidden')) reiniciarTimer();
+}
+function fecharTempoMenu() { tempoMenu.hidden = true; tempoModoBtn.setAttribute('aria-expanded', 'false'); }
+tempoModoBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const abrir = tempoMenu.hidden;
+    bancaMultiPanel.hidden = true; anoMultiPanel.hidden = true;
+    tempoMenu.hidden = !abrir;
+    tempoModoBtn.setAttribute('aria-expanded', String(abrir));
+});
+tempoMenu.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-modo]');
+    if (!b) return;
+    e.stopPropagation();
+    fecharTempoMenu();
+    aplicarModoTempo(b.dataset.modo);
+});
+document.addEventListener('click', (e) => { if (!e.target.closest('.timer-container')) fecharTempoMenu(); });
+window.addEventListener('blur', fecharTempoMenu);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fecharTempoMenu(); });
+
+/* No modo "Todas as questões" o relógio retoma ao voltar do gabarito */
+backFromProgressBtn.addEventListener('click', () => {
+    if (progressFrom === 'resolving' && currentYear && modoTempo === 'todas' && !isTimerRunning && questoes.length) {
+        if (timerInterval) clearInterval(timerInterval);
+        isTimerRunning = true; startTime = Date.now();
+        timerInterval = setInterval(() => { timerDisplay.textContent = formatTime(pausedElapsedMs + (Date.now() - startTime)); }, 500);
+    }
+});
+/* Ao sair, zera o tempo acumulado */
+logoutBtn.addEventListener('click', () => { pausedElapsedMs = 0; timerDisplay.textContent = '00:00'; });
+
+aplicarUi();
+aplicarModoTempo(uiPrefs.modoTempo, true);
 </script>
 </body>
 </html>
