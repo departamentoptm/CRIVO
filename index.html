@@ -824,15 +824,28 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
 .timer-container:not([data-modo="questao"]) .mt-extra { display: none; }
 .timer-container[data-modo="off"] .timer { display: none; }
 
-/* botões de ocultar/mostrar */
-.icon-btn.bar-toggle, .icon-btn.bar-toggle:hover {
-    background: linear-gradient(135deg, var(--navy-600), var(--magenta)); color: #fff;
-    border: 1.5px solid rgba(255,255,255,.6); box-shadow: 0 2px 8px rgba(0,0,0,.28);
-    font-size: .85rem; font-weight: 700; padding: 0; flex-shrink: 0;
+/* botões de ocultar/mostrar: discretos e na cor de cada barra */
+.icon-btn.bar-toggle {
+    width: 1.7rem; height: 1.7rem; min-width: 1.7rem; padding: 0; flex-shrink: 0;
+    font-size: .72rem; font-weight: 600; line-height: 1; box-shadow: none; filter: none;
+    background: rgba(255,255,255,.10); color: rgba(255,255,255,.82);
+    border: 1px solid rgba(255,255,255,.20);
+    transition: background .2s, color .2s, border-color .2s;
 }
-.icon-btn.bar-toggle:hover { filter: brightness(1.12); }
-.icon-btn.bar-toggle[aria-pressed="true"] { opacity: .7; }
+.icon-btn.bar-toggle:hover { background: rgba(255,255,255,.22); color: #fff; border-color: rgba(255,255,255,.4); transform: none; filter: none; }
+.icon-btn.bar-toggle[aria-pressed="true"] { opacity: .6; }
 .icon-btn.bar-toggle[aria-pressed="true"]:hover { opacity: 1; }
+/* barra inferior (clara) */
+.icon-btn.bar-toggle#toggleBottomBtn { background: #eef1fa; color: #5b6690; border: 1px solid var(--line-strong); }
+.icon-btn.bar-toggle#toggleBottomBtn:hover { background: #e2e8f8; color: var(--navy); border-color: #b9c3e2; }
+/* flutuantes quando a barra está oculta */
+body.topo-oculto .icon-btn.bar-toggle#toggleTopBtn {
+    background: rgba(26,42,108,.82); color: rgba(255,255,255,.9); border-color: rgba(255,255,255,.35);
+    box-shadow: 0 2px 8px rgba(12,20,64,.35);
+}
+body.rodape-oculto .icon-btn.bar-toggle#toggleBottomBtn {
+    background: rgba(255,255,255,.94); border-color: var(--line-strong); box-shadow: 0 2px 8px rgba(12,20,64,.25);
+}
 
 /* filtros ocultos (banca, edição, disciplina) */
 body.filtros-ocultos .top-bar-left > .multiselect,
@@ -928,6 +941,17 @@ body.rodape-oculto .timer-container { padding: .1rem .7rem; }
     .bottom-center { order: -1; flex: 1 1 100%; }
     body.rodape-oculto .bottom-center { order: 0; flex: 1 1 auto; }
 }
+
+/* campo de tempo máximo total */
+.timer-container:not([data-modo="todas"]) .mt-todas { display: none; }
+
+/* setas de navegação com borda branca */
+.nav-btn, .nav-btn:disabled { border: 2px solid #fff; }
+.nav-btn { box-shadow: 0 0 0 1px rgba(26,42,108,.28), 0 5px 14px rgba(43,63,154,.30); }
+.nav-btn:hover:not(:disabled) { box-shadow: 0 0 0 1px rgba(26,42,108,.35), 0 9px 20px rgba(166,50,104,.35); }
+.nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.12); }
+body.rodape-oculto .nav-btn { box-shadow: 0 0 0 1px rgba(26,42,108,.35), 0 4px 14px rgba(12,20,64,.4); }
+body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18), 0 2px 8px rgba(12,20,64,.2); }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -997,7 +1021,7 @@ body.rodape-oculto .timer-container { padding: .1rem .7rem; }
             <div class="top-bar-left">
                 <button class="icon-btn" id="homeBtn" title="Início">⌂</button>
                 <button class="icon-btn" id="progressBtnResolving" title="Meu Progresso">📊</button>
-                <button class="icon-btn bar-toggle" id="toggleFiltrosBtn" type="button" title="Mostrar/ocultar banca, edição e disciplina" aria-label="Mostrar ou ocultar filtros" aria-pressed="false">🎚️</button>
+                <button class="icon-btn bar-toggle" id="toggleFiltrosBtn" type="button" title="Mostrar/ocultar banca, edição e disciplina" aria-label="Mostrar ou ocultar filtros" aria-pressed="false">≡</button>
                 <div class="multiselect">
                     <button class="multiselect-btn" id="bancaMultiBtn" title="Bancas">Bancas: todas</button>
                     <div class="multiselect-panel" id="bancaMultiPanel" hidden></div>
@@ -1016,7 +1040,7 @@ body.rodape-oculto .timer-container { padding: .1rem .7rem; }
                 <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
                 <select id="examSelector" hidden></select>
                 <select id="yearSelector" hidden></select>
-                <button class="icon-btn bar-toggle" id="toggleTopBtn" type="button" title="Ocultar barra superior" aria-label="Ocultar barra superior">▲</button>
+                <button class="icon-btn bar-toggle" id="toggleTopBtn" type="button" title="Ocultar barra superior" aria-label="Ocultar barra superior">▴</button>
             </div>
             <div class="nav-container">
                 <span class="lbl-q">Questão:</span>
@@ -1028,7 +1052,7 @@ body.rodape-oculto .timer-container { padding: .1rem .7rem; }
         <div class="bottom-nav">
             <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr">←</span><span class="lbl"> Anterior</span></button>
             <div class="bottom-center">
-                <button class="icon-btn bar-toggle" id="toggleBottomBtn" type="button" title="Ocultar barra inferior" aria-label="Ocultar barra inferior">▼</button>
+                <button class="icon-btn bar-toggle" id="toggleBottomBtn" type="button" title="Ocultar barra inferior" aria-label="Ocultar barra inferior">▾</button>
                 <div class="bottom-filters">
                     <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
                     <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
@@ -1043,6 +1067,8 @@ body.rodape-oculto .timer-container { padding: .1rem .7rem; }
                     </div>
                     <input type="number" id="maxTimeInput" class="max-time-input mt-extra" min="1" value="1">
                     <span class="max-time-label mt-extra">min</span>
+                    <input type="number" id="maxTimeTodasInput" class="max-time-input mt-todas" min="1" value="60" inputmode="numeric" aria-label="Tempo máximo total, em minutos" title="Tempo máximo total (todas as questões)">
+                    <span class="max-time-label mt-todas">min</span>
                     <div class="timer" id="timer">00:00</div>
                 </div>
             </div>
@@ -1076,6 +1102,7 @@ let pausedElapsedMs = 0;
 let isTimerRunning = false;
 let maxTime = 1;
 let modoTempo = 'questao';   // 'questao' | 'todas' | 'off'
+let limiteTotalAvisado = false;
 let currentBlobUrl = null;
 let progressFrom = 'home';
 let loadingYear = false;
@@ -1942,6 +1969,7 @@ function reiniciarTimer() {
     timerInterval = setInterval(() => {
         const el = pausedElapsedMs + (Date.now() - startTime);
         timerDisplay.textContent = formatTime(el);
+        checarLimiteTotal(el);
     }, 500);
     if (modoTempo === 'questao') expirationTimer = setTimeout(() => {
         if (questaoAtualIndex < questoes.length - 1) {
@@ -3080,13 +3108,14 @@ const toggleFiltrosBtn = document.getElementById('toggleFiltrosBtn');
 const toggleTopBtn = document.getElementById('toggleTopBtn');
 const toggleBottomBtn = document.getElementById('toggleBottomBtn');
 const UI_KEY = 'crivo_ui';
-const ROTULO_TEMPO = { todas: 'Tempo total:', questao: 'Tempo máx.:', off: 'Tempo: desativado' };
-let uiPrefs = { modoTempo: 'questao', filtros: false, topo: false, rodape: false };
+const ROTULO_TEMPO = { todas: 'Tempo máx. total:', questao: 'Tempo máx.:', off: 'Tempo: desativado' };
+let uiPrefs = { modoTempo: 'questao', filtros: false, topo: false, rodape: false, maxTodas: 60 };
 try {
     const v = JSON.parse(localStorage.getItem(UI_KEY));
     if (v && typeof v === 'object') {
         if (ROTULO_TEMPO[v.modoTempo]) uiPrefs.modoTempo = v.modoTempo;
         uiPrefs.filtros = !!v.filtros; uiPrefs.topo = !!v.topo; uiPrefs.rodape = !!v.rodape;
+        if (parseInt(v.maxTodas) > 0) uiPrefs.maxTodas = parseInt(v.maxTodas);
     }
 } catch {}
 function salvarUi() { try { localStorage.setItem(UI_KEY, JSON.stringify(uiPrefs)); } catch {} }
@@ -3097,9 +3126,9 @@ function aplicarUi() {
     document.body.classList.toggle('rodape-oculto', uiPrefs.rodape);
     toggleFiltrosBtn.setAttribute('aria-pressed', String(uiPrefs.filtros));
     toggleFiltrosBtn.title = uiPrefs.filtros ? 'Mostrar banca, edição e disciplina' : 'Ocultar banca, edição e disciplina';
-    toggleTopBtn.textContent = uiPrefs.topo ? '▼' : '▲';
+    toggleTopBtn.textContent = uiPrefs.topo ? '▾' : '▴';
     { const t = uiPrefs.topo ? 'Mostrar barra superior' : 'Ocultar barra superior'; toggleTopBtn.title = t; toggleTopBtn.setAttribute('aria-label', t); }
-    toggleBottomBtn.textContent = uiPrefs.rodape ? '▲' : '▼';
+    toggleBottomBtn.textContent = uiPrefs.rodape ? '▴' : '▾';
     { const t = uiPrefs.rodape ? 'Mostrar barra inferior' : 'Ocultar barra inferior'; toggleBottomBtn.title = t; toggleBottomBtn.setAttribute('aria-label', t); }
     bancaMultiPanel.hidden = true; anoMultiPanel.hidden = true; tempoMenu.hidden = true;
     tempoModoBtn.setAttribute('aria-expanded', 'false');
@@ -3120,7 +3149,7 @@ function aplicarModoTempo(m, semTimer) {
     });
     if (semTimer) return;
     pausarTimer();
-    pausedElapsedMs = 0;
+    pausedElapsedMs = 0; limiteTotalAvisado = false;
     timerDisplay.textContent = '00:00';
     if (m !== 'off' && questoes.length && !resolvingScreen.classList.contains('hidden')) reiniciarTimer();
 }
@@ -3148,14 +3177,53 @@ backFromProgressBtn.addEventListener('click', () => {
     if (progressFrom === 'resolving' && currentYear && modoTempo === 'todas' && !isTimerRunning && questoes.length) {
         if (timerInterval) clearInterval(timerInterval);
         isTimerRunning = true; startTime = Date.now();
-        timerInterval = setInterval(() => { timerDisplay.textContent = formatTime(pausedElapsedMs + (Date.now() - startTime)); }, 500);
+        timerInterval = setInterval(() => { const el = pausedElapsedMs + (Date.now() - startTime); timerDisplay.textContent = formatTime(el); checarLimiteTotal(el); }, 500);
     }
 });
 /* Ao sair, zera o tempo acumulado */
-logoutBtn.addEventListener('click', () => { pausedElapsedMs = 0; timerDisplay.textContent = '00:00'; });
+logoutBtn.addEventListener('click', () => { pausedElapsedMs = 0; limiteTotalAvisado = false; timerDisplay.textContent = '00:00'; });
 
 aplicarUi();
 aplicarModoTempo(uiPrefs.modoTempo, true);
+
+/* ============================================================
+   TEMPO MÁXIMO TOTAL (modo "Todas as questões")
+   ============================================================ */
+const maxTimeTodasInput = document.getElementById('maxTimeTodasInput');
+maxTimeTodasInput.value = uiPrefs.maxTodas;
+function checarLimiteTotal(el) {
+    if (modoTempo !== 'todas' || limiteTotalAvisado || !(uiPrefs.maxTodas > 0)) return;
+    if (el >= uiPrefs.maxTodas * 60000) {
+        limiteTotalAvisado = true;
+        setTimeout(() => alert('Tempo máximo total atingido (' + uiPrefs.maxTodas + ' min).'), 0);
+    }
+}
+maxTimeTodasInput.addEventListener('change', () => {
+    const v = parseInt(maxTimeTodasInput.value);
+    if (!isNaN(v) && v > 0) { uiPrefs.maxTodas = v; limiteTotalAvisado = false; salvarUi(); }
+    else maxTimeTodasInput.value = uiPrefs.maxTodas;
+});
+
+/* ============================================================
+   NAVEGAÇÃO PELO TECLADO (← e →)
+   ============================================================ */
+function navTecla(e) {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey || e.repeat) return;
+    if (resolvingScreen.classList.contains('hidden')) return;
+    if (document.getElementById('historicoModalOverlay')) return;
+    const a = e.target;
+    if (a && (a.isContentEditable || /^(TEXTAREA|SELECT)$/.test(a.tagName))) return;
+    if (a && a.tagName === 'INPUT' && !/^(radio|checkbox|button|submit)$/.test(a.type)) return;
+    const btn = e.key === 'ArrowLeft' ? prevBtn : nextBtn;
+    e.preventDefault();
+    if (!btn.disabled) btn.click();
+}
+document.addEventListener('keydown', navTecla);
+questionFrame.addEventListener('load', () => {
+    const d = docDaQuestao();
+    if (d && !d.__crivoKeyNav) { d.__crivoKeyNav = true; d.addEventListener('keydown', navTecla); }
+});
 </script>
 </body>
 </html>
