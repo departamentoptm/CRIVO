@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 43 - Cirurgia Vascular: Insuficiência Venosa Crônica — Fatores de Risco e Sintomas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Vascular: Insuficiência Venosa Crônica — Fatores de Risco e Sintomas</div>
+        <h1>Questão 43</h1>
+        <div class="question-text">
+            Com relação aos fatores de risco e sintomas da Insuficiência venosa primária, assinale a alternativa correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As dores são geralmente tipo pontada e ocorrem mais frequentemente pela manhã.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Hormônios como estrogênio e progesterona não tem relação com o desenvolvimento das veias varicosas.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Hipertensão arterial, diabetes e sexo feminino são fatores importantes para o desenvolvimento da hipertensão venosa crônica.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Homens apresentam mais hipertensão venosa crônica que as mulheres por exercerem trabalhos mais pesados durante a vida laborativa.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Claudicação venosa é quando o paciente relata cãibras que ocorrem durante ou após o exercício físico e aliviam com repouso e elevação da perna. É uma manifestação clínica de obstrução do efluxo venoso.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Vascular / Angiologia.</p>
+                <p><strong>Tema:</strong> Insuficiência venosa primária — fatores de risco, sintomas e diferenciação da claudicação arterial.</p>
+                <p><strong>Contextualização:</strong> A insuficiência venosa crônica (IVC) é uma das doenças vasculares mais prevalentes na população adulta e tema recorrente em provas de residência. A banca costuma cobrar o reconhecimento dos sintomas típicos (dor com piora ao final do dia e alívio com elevação), dos sinais cutâneos (hiperpigmentação, eczema, lipodermatoesclerose, úlcera medial) e, sobretudo, a distinção entre <em>claudicação intermitente</em> (doença arterial) e <em>claudicação venosa</em> (obstrução do efluxo venoso). Os fatores de risco clássicos incluem sexo feminino, gestação, obesidade, ortostatismo prolongado, história familiar e idade avançada.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A IVC primária decorre de incompetência valvular e refluxo venoso, gerando hipertensão venosa ambulatorial. Isso leva a extravasamento de hemácias e hemossiderina (hiperpigmentação), inflamação crônica (eczema e lipodermatoesclerose) e, nos casos avançados, úlcera de localização medial (região perimaleolar interna). A dor venosa típica é em peso, queimação ou cansaço, com piora ao longo do dia, no ortostatismo e com calor, e alívio com repouso e elevação do membro. Já a <strong>claudicação venosa</strong> é uma dor em queimação ou câimbra desencadeada pelo exercício e aliviada pelo repouso e pela elevação da perna, sendo manifestação de <strong>obstrução do efluxo venoso</strong> (por exemplo, trombose iliofemoral, sequela pós-trombótica, síndrome de May-Thurner).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>E</strong>. A descrição corresponde exatamente à definição clássica de claudicação venosa: cãibras ou dor em queimação que surgem durante ou após o exercício físico e aliviam com repouso e elevação do membro, traduzindo obstrução do efluxo venoso proximal (iliofemoral). Esse é um sintoma menos frequente que a claudicação intermitente arterial, mas muito valorizado em provas por permitir diferenciar a origem arterial da venosa da dor aos esforços.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A dor da IVC tipicamente piora ao final do dia e com o ortostatismo prolongado, melhorando com repouso e elevação. Dor que piora pela manhã e em repouso é mais sugestiva de doença arterial periférica (dor isquêmica de repouso) ou de quadros inflamatórios.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Estrogênio e progesterona influenciam o tônus e a complacência venosa; gestação, uso de contraceptivos hormonais combinados e terapia hormonal estão classicamente associados ao desenvolvimento e à piora de varizes.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. O sexo feminino é fator de risco reconhecido para IVC. Entretanto, hipertensão arterial e diabetes mellitus não são fatores de risco clássicos da insuficiência venosa <em>primária</em>; estão mais relacionados à doença arterial periférica e à microangiopatia diabética. A associação de três elementos faz a alternativa ficar incorreta.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. As mulheres apresentam maior prevalência de IVC e de varizes do que os homens. Trabalhos com ortostatismo prolongado e esforço físico são fatores de risco para ambos os sexos, mas não invertem a prevalência.</p>
+                <p><strong>Alternativa E</strong> - Correta. Define com precisão a claudicação venosa e sua relação com a obstrução do efluxo venoso.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Fatores de risco e sintomas”:</strong> o enunciado pede o reconhecimento simultâneo de epidemiologia e clínica, o que exige atenção à alternativa que contenha a combinação correta.</li>
+                    <li><strong>“Insuficiência venosa primária”:</strong> direciona para a doença venosa crônica sem causa secundária evidente (não pós-trombótica).</li>
+                    <li><strong>“Claudicação venosa”:</strong> termo-chave que remete à obstrução do efluxo venoso e diferencia da claudicação intermitente arterial.</li>
+                    <li><strong>“Repouso e elevação da perna”:</strong> pista clássica do alívio da dor venosa.</li>
+                    <li><strong>“Cãibras durante ou após o exercício”:</strong> descrição típica da claudicação venosa, contrapondo-se à dor arterial que alivia apenas com a interrupção do esforço.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> caracterizar o ritmo da dor. Dor venosa piora ao longo do dia, com ortostatismo, e melhora com elevação; dor arterial piora com o exercício e alivia com o repouso, sem relação com a posição.</li>
+                    <li><strong>Segundo:</strong> pesquisar sinais cutâneos de IVC (hiperpigmentação, eczema, lipodermatoesclerose, úlcera medial) e comparar com sinais arteriais (pele fina, brilhante, ausência de pelos, úlcera em pontos de pressão, pulsos reduzidos).</li>
+                    <li><strong>Terceiro:</strong> revisar os fatores de risco clássicos da IVC (sexo feminino, gestação, obesidade, ortostatismo prolongado, história familiar, idade) e não confundir com fatores de risco arteriais (tabagismo, diabetes, dislipidemia).</li>
+                    <li><strong>Quarto:</strong> classificar a doença pelo CEAP e definir a conduta (compressão elástica, flebotônicos, escleroterapia, cirurgia, tratamento de úlcera).</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões que misturam epidemiologia e diferenciação clínica entre doenças arteriais e venosas.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> dor venosa piora ao final do dia e melhora com elevação; úlcera venosa é medial; claudicação venosa = dor/cãibra ao exercício por obstrução do efluxo, aliviada com repouso e elevação.</li>
+                    <li><strong>Números e doses:</strong> não se aplica diretamente.</li>
+                    <li><strong>Mnemônicos:</strong> “Venoso = fim do dia + elevação; Arterial = exercício + repouso”. “Claudicação intermitente é arterial; claudicação venosa é obstrutiva do efluxo”.</li>
+                </ul>
+                <p>Esses dados são frequentemente cobrados em questões de cirurgia vascular e já foram explorados em provas anteriores.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Insuficiência venosa crônica (correta)</td>
+                            <td>Dor em peso/queimação com piora no fim do dia e ortostatismo; melhora com elevação; hiperpigmentação, eczema, lipodermatoesclerose, úlcera medial.</td>
+                            <td>Clínico + eco-Doppler venoso; classificação CEAP.</td>
+                            <td>Compressão elástica, flebotônicos, cuidados de pele, escleroterapia/cirurgia conforme CEAP.</td>
+                        </tr>
+                        <tr>
+                            <td>Doença arterial periférica</td>
+                            <td>Claudicação intermitente (dor ao exercício, alívio com repouso); dor de repouso noturna; pele fina, sem pelos, pulsos reduzidos, úlcera em pontos de pressão.</td>
+                            <td>Índice tornozelo-braquial (ITB); eco-Doppler; angiografia quando indicada.</td>
+                            <td>Cessação do tabagismo, exercício supervisionado, antiagregação, revascularização.</td>
+                        </tr>
+                        <tr>
+                            <td>Claudicação venosa</td>
+                            <td>Dor/cãibra ao exercício com alívio por repouso e elevação; história de TVP ou obstrução iliofemoral.</td>
+                            <td>Eco-Doppler venoso; flebografia/RM quando necessário.</td>
+                            <td>Compressão, tratamento da obstrução (stent venoso em casos selecionados).</td>
+                        </tr>
+                        <tr>
+                            <td>Síndrome pós-trombótica</td>
+                            <td>História de TVP; edema, hiperpigmentação, úlcera; sintomas obstrutivos e refluxo.</td>
+                            <td>Eco-Doppler venoso; classificação CEAP.</td>
+                            <td>Compressão elástica, tratamento de úlcera, intervenção em obstruções selecionadas.</td>
+                        </tr>
+                        <tr>
+                            <td>Linfedema</td>
+                            <td>Edema duro, fóvea tardia, sinal de Stemmer positivo, dedos em forma de “quadrado”.</td>
+                            <td>Clínico; linfocintilografia em casos selecionados.</td>
+                            <td>Fisioterapia complexa descongestiva, compressão, cuidados de pele.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre edemas e dores de membros inferiores.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta poderia envolver a classificação CEAP e os critérios clínicos.</li>
+                    <li><strong>Se fosse sobre tratamento:</strong> a resposta poderia envolver compressão elástica, flebotônicos, escleroterapia, cirurgia e tratamento de úlcera.</li>
+                    <li><strong>Se fosse sobre diferenciação arterial/venosa:</strong> a resposta poderia envolver claudicação intermitente versus venosa, úlcera medial versus lateral, e perfis de dor.</li>
+                    <li><strong>Se fosse sobre complicações:</strong> a resposta poderia envolver úlcera venosa, tromboflebite superficial e síndrome pós-trombótica.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2022 – Q64</td>
+                            <td>Sintomas da insuficiência venosa crônica; cãibras ao exercício que aliviam com repouso e elevação como claudicação venosa.</td>
+                            <td>Definição de claudicação venosa e sintomas da IVC.</td>
+                            <td>C</td>
+                            <td>Praticamente o mesmo conceito cobrado na questão atual; a alternativa correta descreve a claudicação venosa.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q58</td>
+                            <td>Sinais ao exame físico na insuficiência venosa crônica (eczema, hiperpigmentação, lipodermatoesclerose, úlcera).</td>
+                            <td>Reconhecimento dos sinais cutâneos da IVC.</td>
+                            <td>A (conforme gabarito oficial da prova)</td>
+                            <td>Complementa o reconhecimento clínico da IVC, cobrado indiretamente na questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q81</td>
+                            <td>Classificação CEAP da doença venosa crônica.</td>
+                            <td>Classificação CEAP (C4 = eczema, lipodermatoesclerose, pigmentação).</td>
+                            <td>D</td>
+                            <td>Mostra que a banca cobra classificação e estadiamento da doença venosa.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q82</td>
+                            <td>Tratamento da trombose venosa profunda; anticoagulação prolongada em trombofilias.</td>
+                            <td>Manejo da TVP e estados de hipercoagulabilidade.</td>
+                            <td>A</td>
+                            <td>Relaciona-se à principal causa secundária de IVC (síndrome pós-trombótica).</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q80</td>
+                            <td>Paciente com varizes CEAP IV; melhor orientação (tratamento clínico, encaminhamento vascular, eco-Doppler).</td>
+                            <td>Conduta na doença venosa crônica.</td>
+                            <td>D (II, IV e I)</td>
+                            <td>Reforça a abordagem prática da IVC cobrada em provas anteriores.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q57</td>
+                            <td>Fator de risco cuja modificação melhora o prognóstico na insuficiência arterial crônica.</td>
+                            <td>Fatores de risco da doença arterial periférica.</td>
+                            <td>D (Tabagismo)</td>
+                            <td>Serve de contraste: o tabagismo é o principal fator de risco arterial, não venoso.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q43</td>
+                            <td>Classificação de Rutherford da doença arterial periférica.</td>
+                            <td>Classificação da DAP.</td>
+                            <td>E (grau 3 = claudicação intermitente grave)</td>
+                            <td>Contraste importante para diferenciar a claudicação intermitente arterial da claudicação venosa.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema da insuficiência venosa crônica apareceu em pelo menos 5 questões das provas de 2006_2026, alternando entre definição de claudicação venosa, sinais cutâneos, classificação CEAP, tratamento da TVP e conduta na doença venosa avançada. A banca também explora o contraste com a doença arterial periférica (fatores de risco e classificação de Rutherford).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Fisiopatologia detalhada da hipertensão venosa ambulatorial; papel das trombofilias na IVC; indicações de stent venoso na obstrução iliofemoral; tratamento endovascular de varizes (laser, espuma); prevenção primária da IVC; complicações da escleroterapia.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas abordavam principalmente a insuficiência arterial (tabagismo, claudicação intermitente, classificação de Fontaine/Rutherford). As questões mais recentes têm ampliado o foco para a doença venosa crônica, com ênfase em sintomas, classificação CEAP e manejo.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a diferenciação clínica entre dor arterial e venosa, a definição de claudicação venosa, os sinais cutâneos da IVC e a classificação CEAP. Também vale revisar a principal causa secundária de IVC (síndrome pós-trombótica) e a relação com a TVP.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Trombose venosa profunda e síndrome pós-trombótica — a principal causa secundária de insuficiência venosa crônica, com sintomas obstrutivos e refluxo.</li>
+                    <li><strong>Conexão 2:</strong> Doença arterial periférica — o principal diagnóstico diferencial da dor aos esforços (claudicação intermitente versus claudicação venosa).</li>
+                    <li><strong>Conexão 3:</strong> Úlceras de perna — a úlcera venosa (medial) deve ser diferenciada da úlcera arterial (pontos de pressão, pulsos reduzidos) e da neuropática (maléolo lateral, diabetes).</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se você marcou outra alternativa, o erro mais provável foi de <strong>confusão entre claudicação intermitente (arterial) e claudicação venosa</strong>, ou de <strong>desconhecimento dos fatores de risco clássicos da IVC</strong> (sexo feminino, gestação, obesidade, ortostatismo, história familiar, idade). Para não errar novamente: fixe que a dor venosa piora ao final do dia e melhora com elevação, enquanto a dor arterial piora com o exercício e alivia com o repouso; e que hipertensão arterial e diabetes são fatores de risco arteriais, não venosos primários.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente com IVC costuma relatar peso e cansaço nas pernas ao final do dia, com piora no calor e no ortostatismo, além de varizes visíveis. O exame físico deve buscar sinais de hipertensão venosa (hiperpigmentação, eczema, lipodermatoesclerose, úlcera medial) e palpar pulsos distais para excluir doença arterial concomitante antes de indicar compressão elástica. A classificação CEAP orienta a conduta, e o eco-Doppler venoso é o exame de escolha para mapear refluxo e obstrução.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Classificação CEAP da doença venosa crônica.</li>
+                    <li>Claudicação intermitente (arterial) versus claudicação venosa (obstrutiva).</li>
+                    <li>Sinais cutâneos da insuficiência venosa crônica.</li>
+                    <li>Síndrome pós-trombótica e TVP.</li>
+                    <li>Indicações e contraindicações da compressão elástica.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>2. Rutherford's Vascular Surgery and Endovascular Therapy. 10ª edição.</p>
+                <p>3. Diretrizes da Sociedade Brasileira de Angiologia e Cirurgia Vascular (SBACV) sobre insuficiência venosa crônica.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
