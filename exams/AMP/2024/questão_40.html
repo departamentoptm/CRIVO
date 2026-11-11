@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 40 - Cesariana: Fatores Associados ao Aumento das Taxas e Complicações</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cesariana: Fatores Associados ao Aumento das Taxas e Complicações</div>
+        <h1>Questão 40</h1>
+        <div class="question-text">
+            A operação cesariana é uma das cirurgias mais antigas na história da medicina. Na atualidade o aumento nas taxas de cesáreas vem alertando a comunidade científica. Sobre esta situação assinale a alternativa correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - A idade materna avançada não é um fator de risco para aumento das taxas de cesáreas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Os partos de fetos em apresentação pélvica são realizados por cesárea em metade dos casos.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Sua incidência é crescente nos países subdesenvolvidos, fato não observado nos países desenvolvidos.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Em consequência da obesidade os partos operatórios são significativamente mais incidentes e suas complicações são de maior monta.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - A indução do parto não tem se associado ao aumento do risco de cesárea em muitas circunstâncias, mesmo em nulíparas com colo desfavorável.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia</p>
+                <p><strong>Tema:</strong> Cesariana — fatores associados ao aumento das taxas e complicações</p>
+                <p><strong>Contextualização:</strong> O aumento das taxas de cesárea é um tema de grande relevância na obstetrícia contemporânea, sendo cobrado recorrentemente em provas de residência. A banca costuma abordar indicações, fatores de risco, complicações e aspectos socioeconômicos. Esta questão específica já apareceu na prova de 2022 (Q40) com o mesmo enunciado e gabarito, evidenciando a importância do tema. O foco está na relação entre obesidade, cesariana e complicações.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A cesariana é uma cirurgia com riscos maternos e fetais significativos. A obesidade materna é um fator de risco importante para cesárea porque aumenta a probabilidade de distócia de progressão (trabalho de parto prolongado por menor eficiência contrátil e maior resistência dos tecidos pélvicos), macrossomia fetal (associada a diabetes gestacional), diabetes gestacional e pré-eclâmpsia — todas condições que elevam a indicação de cesárea. Além disso, a obesidade dificulta a técnica cirúrgica, aumenta o tempo operatório e eleva o risco de complicações como infecção de ferida operatória, trombose venosa profunda, hemorragia pós-parto, complicações anestésicas e deiscência de sutura. Estudos demonstram que o risco de cesárea aumenta progressivamente com o IMC, e as complicações são proporcionalmente maiores.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa <strong>D</strong> está correta. A obesidade é um fator de risco bem estabelecido para cesariana e para complicações cirúrgicas. Mulheres obesas apresentam maior incidência de partos operatórios e, quando submetidas à cesárea, têm risco aumentado de infecção de ferida operatória, trombose venosa profunda, hemorragia, complicações anestésicas, dificuldade de cicatrização e maior tempo de internação. A afirmação de que "os partos operatórios são significativamente mais incidentes e suas complicações são de maior monta" reflete com precisão a realidade clínica e a literatura obstétrica. O tema já foi cobrado em 2022 (mesma questão) e indiretamente em 2015 (fatores associados ao aumento de cesarianas).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Falsa. A idade materna avançada é um fator de risco consolidado para cesárea, tanto por maior prevalência de comorbidades (hipertensão, diabetes) quanto por questões de decisão obstétrica e preferência materna. Distrator que nega um fator de risco clássico.</p>
+                <p><strong>Alternativa B</strong> - Falsa. A apresentação pélvica é uma indicação frequente de cesárea, mas afirmar que "metade dos casos" é impreciso. A conduta depende de critérios como paridade, estimativa de peso fetal, tipo de apresentação pélvica (franca, completa, incompleta), condições do serviço e preferência materna. Em alguns cenários, o parto vaginal pélvico ainda é possível. Distrator que supergeneraliza uma conduta.</p>
+                <p><strong>Alternativa C</strong> - Falsa. A incidência de cesáreas é crescente tanto em países desenvolvidos quanto em desenvolvimento. Nos Estados Unidos, por exemplo, a taxa chega a cerca de 32%, e no Brasil, especialmente no setor privado, ultrapassa 80%. Distrator que cria uma falsa dicotomia entre países.</p>
+                <p><strong>Alternativa E</strong> - Falsa. A indução do parto em nulíparas com colo desfavorável (Bishop baixo) está associada a aumento do risco de cesárea, pois a probabilidade de falha na indução é maior. Distrator que inverte a relação entre indução e risco de cesárea.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>"Aumento nas taxas de cesáreas":</strong> direciona para fatores associados ao aumento, não apenas indicações clínicas.</li>
+                    <li><strong>"Obesidade":</strong> palavra-chave que conecta a alternativa D ao tema central; a obesidade é um dos principais fatores de risco modificáveis.</li>
+                    <li><strong>"Partos operatórios":</strong> sinônimo de cesariana; indica que a questão aborda a via de parto.</li>
+                    <li><strong>"Complicações de maior monta":</strong> sugere que a obesidade não só aumenta a incidência de cesárea, mas também a gravidade das complicações.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar os fatores de risco para cesárea: idade materna avançada, obesidade, diabetes gestacional, pré-eclâmpsia, macrossomia, apresentação pélvica, cesárea prévia, indução do parto com colo desfavorável.</li>
+                    <li><strong>Segundo:</strong> Reconhecer que a obesidade é um fator de risco independente para cesárea e para complicações cirúrgicas.</li>
+                    <li><strong>Terceiro:</strong> Avaliar as complicações associadas à obesidade: infecção de ferida, trombose, hemorragia, dificuldades técnicas e anestésicas.</li>
+                    <li><strong>Quarto:</strong> Planejar assistência pré-natal e ao parto com equipe multidisciplinar, incluindo anestesiologista e obstetra experiente.</li>
+                    <li><strong>Quinto:</strong> Prevenir complicações com profilaxia de trombose, antibioticoprofilaxia, controle glicêmico e cuidados com a ferida operatória.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> A obesidade é fator de risco para cesárea e para complicações maternas e fetais.</li>
+                    <li><strong>Fatos que definem:</strong> A idade materna avançada é fator de risco para cesárea.</li>
+                    <li><strong>Fatos que definem:</strong> A indução do parto em nulíparas com colo desfavorável aumenta o risco de cesárea.</li>
+                    <li><strong>Números e doses:</strong> No Brasil, a taxa de cesáreas no setor privado ultrapassa 80%; no SUS, cerca de 40%. A OMS recomenda taxas entre 10% e 15%, embora esse limite seja questionado.</li>
+                    <li><strong>Mnemônico:</strong> "OBESIDADE = mais cesárea, mais complicação" — associação direta e progressiva com o IMC.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em provas anteriores: a obesidade como fator de risco foi tema da questão atual (2022/2024), e os fatores socioeconômicos foram cobrados em 2015.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fator/Condição</th>
+                            <th>Relação com cesárea</th>
+                            <th>Complicações associadas</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Obesidade</td>
+                            <td>Aumenta incidência e complicações</td>
+                            <td>Infecção, trombose, hemorragia, dificuldade técnica</td>
+                            <td>Pré-natal de risco, profilaxia, equipe experiente</td>
+                        </tr>
+                        <tr>
+                            <td>Idade materna avançada</td>
+                            <td>Aumenta risco de cesárea</td>
+                            <td>Comorbidades, maior tempo de recuperação</td>
+                            <td>Aconselhamento, rastreamento de aneuploidias</td>
+                        </tr>
+                        <tr>
+                            <td>Apresentação pélvica</td>
+                            <td>Indicação frequente de cesárea</td>
+                            <td>Prolapso de cordão, dificuldade de extração</td>
+                            <td>Avaliar versão externa, cesárea programada</td>
+                        </tr>
+                        <tr>
+                            <td>Indução com colo desfavorável</td>
+                            <td>Aumenta risco de falha e cesárea</td>
+                            <td>Trabalho de parto prolongado, corioamnionite</td>
+                            <td>Preparo cervical antes da indução</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre indicações absolutas de cesárea:</strong> a resposta incluiria placenta prévia oclusiva, apresentação pélvica, sofrimento fetal agudo, cesárea prévia com contraindicação a VBAC, entre outras.</li>
+                    <li><strong>Se fosse sobre complicações da cesárea:</strong> a resposta abordaria infecção, hemorragia, trombose, lesão de vísceras, ruptura uterina em gestação futura, placenta acreta.</li>
+                    <li><strong>Se fosse sobre VBAC:</strong> a resposta abordaria taxa de sucesso (60-80%), critérios de elegibilidade e risco de ruptura uterina (0,5-1%).</li>
+                    <li><strong>Se fosse sobre fatores socioeconômicos:</strong> a resposta incluiria remuneração médica, conveniência do obstetra, medicalização do parto e cultura da cesárea.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 – Q40</td>
+                            <td>Indicações absolutas para parto cesariano, exceto.</td>
+                            <td>Indicações de cesárea</td>
+                            <td>D (Gemelar com ambos cefálicos)</td>
+                            <td>Aborda o outro lado do tema: quando indicar cesárea.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q75</td>
+                            <td>São indicações de cesarianas, exceto.</td>
+                            <td>Indicações de cesárea</td>
+                            <td>E (Gestantes com uma cesárea prévia)</td>
+                            <td>Reforça que uma cesárea prévia não é indicação absoluta (VBAC possível).</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q51</td>
+                            <td>Fatores socioeconômicos associados ao aumento de cesarianas no Brasil.</td>
+                            <td>Fatores não obstétricos</td>
+                            <td>B (Remuneração similar)</td>
+                            <td>Complementa a questão atual ao abordar fatores socioeconômicos.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q40</td>
+                            <td>Mesma questão atual (cesariana e obesidade).</td>
+                            <td>Fatores de risco e complicações</td>
+                            <td>D</td>
+                            <td>Questão idêntica; confirma a recorrência do tema.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q40</td>
+                            <td>Morbidades da cesárea, VBAC e cesárea a pedido.</td>
+                            <td>Complicações e conduta</td>
+                            <td>B (I e III verdadeiras)</td>
+                            <td>Aborda complicações da cesárea e VBAC.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q40</td>
+                            <td>Mesma questão atual (cesariana e obesidade).</td>
+                            <td>Fatores de risco e complicações</td>
+                            <td>D</td>
+                            <td>Repetição da questão de 2022; tema de alta incidência.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 provas anteriores. A banca alterna entre cobrar indicações absolutas (2008, 2013), fatores socioeconômicos (2015), fatores de risco e complicações (2022, 2024) e morbidades/VBAC (2023). A questão atual é uma repetição literal da de 2022, o que demonstra a importância do tema e a tendência de reutilização de questões.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A prevenção da primeira cesárea (estratégias para redução de taxas), o parto vaginal após cesárea (VBAC) com critérios detalhados e as complicações da cesárea em gestações futuras (acretismo, ruptura uterina) ainda podem ser explorados de forma mais aprofundada.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em indicações formais; as mais recentes abordam fatores de risco modificáveis (obesidade) e complicações, refletindo a mudança do paradigma obstétrico para a prevenção e a humanização do parto.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar os fatores de risco para cesárea (especialmente obesidade e idade materna avançada), as complicações associadas e as estratégias de prevenção. Revisar VBAC e indicações absolutas.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Diabetes gestacional e macrossomia fetal — ambas aumentam o risco de cesárea e complicações.</li>
+                    <li><strong>Conexão 2:</strong> Pré-eclâmpsia — indicação frequente de cesárea e associada a maior morbimortalidade.</li>
+                    <li><strong>Conexão 3:</strong> Obesidade e gestação — tema transversal que impacta pré-natal, parto e puerpério.</li>
+                    <li><strong>Conexão 4:</strong> VBAC (parto vaginal após cesárea) — tema relacionado à redução de cesáreas repetidas.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é escolher a alternativa A (negar que a idade materna é fator de risco) ou B (superestimar a resolução de apresentações pélvicas por cesárea). A classificação do erro é de lacuna de conhecimento sobre fatores de risco e de confusão conceitual sobre indicações. A ação corretiva é revisar os fatores de risco para cesárea e as indicações absolutas, além de memorizar que a obesidade é um fator de risco independente e progressivo.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, identificar mulheres com fatores de risco para cesárea no pré-natal permite planejar a assistência adequada, discutir vias de parto e prevenir complicações. A obesidade deve ser abordada com mudanças de estilo de vida, controle de ganho de peso e rastreamento de comorbidades. No momento do parto, a equipe deve estar preparada para lidar com as dificuldades técnicas e as complicações associadas à obesidade.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Indicações absolutas e relativas de cesárea</li>
+                    <li>Parto vaginal após cesárea (VBAC)</li>
+                    <li>Complicações maternas e fetais da cesárea</li>
+                    <li>Obesidade e gestação</li>
+                    <li>Indução do parto e maturação cervical</li>
+                    <li>Fatores socioeconômicos e culturais do parto</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. FEBRASGO. Manual de Assistência ao Parto e Nascimento.</p>
+                <p>2. Ministério da Saúde. Diretrizes Nacionais de Assistência ao Parto Normal.</p>
+                <p>3. Williams Obstetrics. 26ª edição.</p>
+                <p>4. Organização Mundial da Saúde (OMS). Declaração da OMS sobre Taxas de Cesáreas, 2015.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

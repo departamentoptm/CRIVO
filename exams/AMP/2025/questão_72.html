@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 72 - Endocardite infecciosa: vegetação, epidemiologia e critérios de Duke</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Endocardite infecciosa: vegetação, epidemiologia e critérios de Duke</div>
+        <h1>Questão 72</h1>
+        <div class="question-text">
+            A Endocardite Infecciosa (EI) quando não tratada tem alta mortalidade e sua incidência apresenta aumento progressivo nas últimas décadas. Analise as assertivas relacionadas à EI:
+
+            I. A lesão típica da EI é a vegetação, que consiste em uma massa de plaquetas, fibrina, microrganismos e escassas células inflamatórias.
+            II. Entre as causas predisponentes da EI observa-se aumento dos casos associados às doenças valvares reumáticas, ao uso de drogas injetáveis e às doenças degenerativas das valvas.
+            III. Dispositivos eletrônicos implantáveis podem ser sítio da EI, sendo mais frequentes em marca-passos implantáveis do que em dispositivos de ressincronização e desfibriladores implantáveis.
+            IV. Entre os critérios maiores para o diagnóstico da EI (Critérios de Duke modificados) destacam-se os achados ecocardiográficos que incluem: presença de vegetação, ou abscesso, ou nova deiscência parcial em valva protética, ou uma nova regurgitação valvar.
+
+            Escolha entre as alternativas abaixo, as assertivas corretas.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - I e II apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - I e IV apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - II e III apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - III e IV apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - I, II e IV apenas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Infectologia / Cardiologia / Clínica Médica</p>
+                <p><strong>Tema:</strong> Endocardite infecciosa — fisiopatologia da vegetação, epidemiologia e critérios diagnósticos de Duke.</p>
+                <p><strong>Contextualização:</strong> A endocardite infecciosa é uma doença grave, com alta mortalidade e incidência crescente em grupos específicos, como usuários de drogas injetáveis, portadores de próteses valvares e dispositivos cardíacos implantáveis. O tema é recorrente em provas de residência por integrar microbiologia, cardiologia e infectologia, além de exigir domínio dos critérios diagnósticos e das mudanças epidemiológicas ao longo das décadas.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A endocardite infecciosa é uma infecção do endocárdio, geralmente valvar, causada pela adesão de microrganismos a uma lesão endotelial prévia. Essa lesão favorece a deposição de plaquetas e fibrina, formando uma vegetação composta por plaquetas, fibrina, microrganismos e escassas células inflamatórias. A vegetação protege os microrganismos da fagocitose e dos antibióticos, explicando a necessidade de antibióticos bactericidas em doses elevadas e por tempo prolongado. Os critérios de Duke modificados combinam achados clínicos, microbiológicos e ecocardiográficos para o diagnóstico. São critérios maiores: hemoculturas positivas típicas e evidência de envolvimento endocárdico ao ecocardiograma (vegetação, abscesso, nova deiscência parcial de prótese ou nova regurgitação valvar).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>B</strong>. A assertiva I está correta: a vegetação é a lesão típica da EI e é composta por plaquetas, fibrina, microrganismos e escassas células inflamatórias. A assertiva IV está correta: os critérios maiores de Duke modificados incluem achados ecocardiográficos como vegetação, abscesso, nova deiscência parcial de valva protética ou nova regurgitação valvar. A assertiva II está incorreta porque, embora a doença valvar reumática ainda seja importante em países em desenvolvimento, a tendência epidemiológica observada nas últimas décadas é de redução relativa dos casos associados à febre reumática e aumento dos casos associados a valvopatias degenerativas, próteses valvares, dispositivos cardíacos e uso de drogas injetáveis. A assertiva III está incorreta porque a infecção de dispositivos eletrônicos implantáveis é mais frequente em dispositivos de ressincronização e desfibriladores implantáveis (CRT-D/ICD) do que em marca-passos convencionais, devido à maior complexidade e ao maior número de eletrodos.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Inclui a assertiva II, que é falsa pela tendência epidemiológica de redução relativa da doença reumática como causa predisponente.</p>
+                <p><strong>Alternativa B</strong> - Correta. Contempla apenas as assertivas I e IV, ambas verdadeiras.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. Inclui as assertivas II e III, ambas falsas.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Inclui a assertiva III, que é falsa, e exclui a assertiva I, que é verdadeira.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Inclui a assertiva II, que é falsa, e exclui a assertiva IV, que é verdadeira.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Vegetação:</strong> lesão típica da EI, composta por plaquetas, fibrina, microrganismos e escassas células inflamatórias.</li>
+                    <li><strong>Doenças valvares reumáticas:</strong> causa ainda importante, mas com redução relativa nas últimas décadas.</li>
+                    <li><strong>Drogas injetáveis:</strong> importante fator de risco crescente, especialmente em jovens.</li>
+                    <li><strong>Doenças degenerativas das valvas:</strong> causa crescente em países desenvolvidos e em idosos.</li>
+                    <li><strong>Dispositivos eletrônicos implantáveis:</strong> risco maior em CRT-D/ICD do que em marca-passos convencionais.</li>
+                    <li><strong>Critérios de Duke modificados:</strong> critérios maiores incluem hemoculturas típicas e achados ecocardiográficos.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Reconhecer a definição e a composição da vegetação na EI.</li>
+                    <li><strong>Segundo:</strong> Conhecer as mudanças epidemiológicas: redução relativa da febre reumática e aumento de casos associados a procedimentos, próteses, dispositivos e drogas injetáveis.</li>
+                    <li><strong>Terceiro:</strong> Identificar os dispositivos eletrônicos com maior risco de infecção: CRT-D e ICD têm risco maior que marca-passos convencionais.</li>
+                    <li><strong>Quarto:</strong> Memorizar os critérios maiores de Duke modificados, incluindo os achados ecocardiográficos.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "diagnóstico" e "epidemiologia" em endocardite infecciosa.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> vegetação = plaquetas + fibrina + microrganismos + escassas células inflamatórias.</li>
+                    <li><strong>Números e doses:</strong> critérios de Duke modificados = 2 maiores ou 1 maior + 3 menores ou 5 menores.</li>
+                    <li><strong>Mnemônicos:</strong> "VAP" para critérios ecocardiográficos maiores: Vegetação, Abscesso, nova Deiscência parcial de prótese (ou nova regurgitação).</li>
+                </ul>
+                <p>Esses dados são fundamentais para o diagnóstico e já foram cobrados indiretamente em provas anteriores, especialmente em questões de febre reumática e valvopatias.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Endocardite infecciosa</td>
+                            <td>Febre, sopro novo, fenômenos embólicos, hemoculturas positivas, vegetação ao eco</td>
+                            <td>Hemoculturas + ecocardiograma (critérios de Duke)</td>
+                            <td>Antibiótico bactericida prolongado; cirurgia em casos selecionados</td>
+                        </tr>
+                        <tr>
+                            <td>Febre reumática</td>
+                            <td>Artralgia/artrite migratória, cardite, nódulos subcutâneos, coreia, eritema marginado</td>
+                            <td>Critérios de Jones + evidência de estreptococo</td>
+                            <td>Penicilina + anti-inflamatório; profilaxia secundária</td>
+                        </tr>
+                        <tr>
+                            <td>Endocardite não infecciosa (marântica)</td>
+                            <td>Vegetações estéreis em pacientes com neoplasia avançada ou estados hipercoaguláveis</td>
+                            <td>Eco + hemoculturas negativas</td>
+                            <td>Tratar doença de base; anticoagulação individualizada</td>
+                        </tr>
+                        <tr>
+                            <td>Bacteremia transitória</td>
+                            <td>Hemoculturas positivas sem vegetação ou sinais de endocardite</td>
+                            <td>Hemoculturas seriadas + eco</td>
+                            <td>Tratar foco; avaliar necessidade de antibiótico</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> critérios de Duke modificados, hemoculturas e ecocardiograma.</li>
+                    <li><strong>Se fosse sobre tratamento:</strong> antibióticos bactericidas por 4–6 semanas, conforme o agente e a valva.</li>
+                    <li><strong>Se fosse sobre profilaxia:</strong> indicação em pacientes de alto risco submetidos a procedimentos dentários invasivos.</li>
+                    <li><strong>Se fosse sobre complicações:</strong> insuficiência cardíaca, embolia sistêmica, abscesso perivalvar, sepse.</li>
+                    <li><strong>Se fosse sobre epidemiologia:</strong> aumento de casos associados a dispositivos, próteses e drogas injetáveis.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>—</td>
+                            <td>Não foram identificadas questões específicas sobre endocardite infecciosa nas provas de 2006–2026 analisadas.</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>Tema não abordado diretamente. Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema não apareceu de forma específica nas provas anteriores analisadas. A banca já cobrou febre reumática e valvopatias, que são diagnósticos diferenciais importantes.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> critérios de Duke modificados, profilaxia de endocardite, endocardite em dispositivos eletrônicos implantáveis e endocardite por Staphylococcus aureus em usuários de drogas injetáveis.</p>
+                <p><strong>Evolução da cobrança:</strong> Como o tema não foi cobrado diretamente, não há evolução identificável. A tendência é que a banca possa explorar a epidemiologia atual e os critérios diagnósticos.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar endocardite infecciosa com ênfase em critérios de Duke, microbiologia, dispositivos implantáveis e profilaxia.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Febre reumática — principal diagnóstico diferencial e causa histórica de valvopatia predisponente à EI.</li>
+                    <li><strong>Conexão 2:</strong> Próteses valvares e dispositivos cardíacos — populações de alto risco para EI, exigindo profilaxia e vigilância.</li>
+                    <li><strong>Conexão 3:</strong> Uso de drogas injetáveis — importante fator de risco crescente, especialmente para endocardite direita (tricúspide).</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou A, C, D ou E, provavelmente houve lacuna de conhecimento sobre a epidemiologia atual da EI ou sobre os critérios ecocardiográficos de Duke. A estratégia é revisar: (1) composição da vegetação; (2) mudanças epidemiológicas (redução relativa da febre reumática); (3) risco de infecção em dispositivos eletrônicos (maior em CRT-D/ICD); (4) critérios maiores de Duke modificados. Classificação do erro: lacuna de conhecimento e erro de leitura/interpretação.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o reconhecimento precoce da EI e a aplicação dos critérios de Duke permitem diagnóstico e tratamento oportunos, reduzindo mortalidade e complicações. A suspeita clínica deve ser alta em pacientes com febre, sopro novo e fatores de risco, e a profilaxia deve ser direcionada aos grupos de alto risco.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios de Duke modificados</li>
+                    <li>Vegetação e fisiopatologia da endocardite</li>
+                    <li>Endocardite em dispositivos eletrônicos implantáveis</li>
+                    <li>Profilaxia de endocardite</li>
+                    <li>Endocardite por Staphylococcus aureus</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Mandell, Douglas, and Bennett's Principles and Practice of Infectious Diseases.</p>
+                <p>2. Harrison Medicina Interna.</p>
+                <p>3. UpToDate. Infective endocarditis: Clinical manifestations and diagnosis.</p>
+                <p>4. Diretriz Brasileira de Endocardite Infecciosa. Sociedade Brasileira de Cardiologia.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

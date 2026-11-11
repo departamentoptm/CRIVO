@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 38 - Obstetrícia: Datação da Idade Gestacional e Conduta no Trabalho de Parto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Obstetrícia: Datação da Idade Gestacional e Conduta no Trabalho de Parto</div>
+        <h1>Questão 38</h1>
+        <div class="question-text">
+            Mariana 32 anos, G4PN3, comparece à maternidade com contrações e perda de tampão mucoso. Está em trabalho de parto com dilatação cervical de 4cm. Pela data da última menstruação a idade gestacional calculada é de 33 semanas. A paciente traz resultado de ultrassonografia realizada com 10 semanas e, com base neste exame, a estimativa é de 38 semanas de idade gestacional. Nesta situação a conduta indicada é
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Realização de cesárea de emergência.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Internar a paciente e iniciar protocolo para inibição do trabalho de parto pré-termo.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Acompanhar a evolução normal do trabalho de parto e realizar a assistência ao parto.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Solicitar ultrassonografia de urgência para avaliar a idade gestacional com maior precisão.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Realizar amniocentese para coleta de liquido amniótico e provas de maturidade fetal.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia</p>
+                <p><strong>Tema:</strong> Datação da idade gestacional e conduta no trabalho de parto</p>
+                <p><strong>Contextualização:</strong> A correta datação da idade gestacional é fundamental para todas as decisões obstétricas, especialmente na prematuridade, no termo e no pós-termo. A ultrassonografia de primeiro trimestre é o método mais acurado para datar a gestação. Quando a data da última menstruação (DUM) e a ultrassonografia precoce divergem, deve-se priorizar a ultrassonografia. A banca costuma cobrar os métodos de datação, a interpretação da DUM versus ultrassonografia e a conduta no trabalho de parto conforme a idade gestacional. Esta questão explora exatamente essa situação clínica.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A datação da gestação pela DUM é imprecisa, especialmente em mulheres com ciclos irregulares, sangramento de implantação ou dificuldade de recordação. A ultrassonografia realizada no primeiro trimestre, por meio da medida do comprimento cabeça-nádega (CCN) entre 7 e 13 semanas, é o método mais acurado, com margem de erro de cerca de 3 a 5 dias. Após 14 semanas, a biometria fetal perde acurácia progressivamente, e após 22 a 24 semanas a datação ultrassonográfica é consideravelmente menos confiável. Portanto, quando há discordância entre DUM e ultrassonografia precoce, prevalece a ultrassonografia. Neste caso, a ultrassonografia de 10 semanas estimou 38 semanas, o que caracteriza gestação a termo. A paciente encontra-se em trabalho de parto ativo (dilatação de 4 cm) e a conduta é acompanhar a evolução normal do trabalho de parto e realizar a assistência ao parto.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa C está correta. A ultrassonografia realizada com 10 semanas é o método mais confiável para datar a gestação, superando a DUM. Assim, a idade gestacional correta é de 38 semanas, ou seja, gestação a termo. A paciente está em trabalho de parto ativo, com dilatação cervical de 4 cm, e não há indicação de cesárea de emergência, inibição do trabalho de parto ou amniocentese para maturidade fetal. A conduta adequada é acompanhar a evolução do trabalho de parto, monitorar a vitalidade fetal e realizar a assistência ao parto. Em provas anteriores, a banca já cobrou a acurácia da ultrassonografia de primeiro trimestre e a perda de acurácia da biometria com o avançar da gestação (2013 Q73, 2016 Q14, 2019 Q99), reforçando a importância desse conceito.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Não há indicação de cesárea de emergência. A paciente está em trabalho de parto a termo, com apresentação e vitalidade a serem avaliadas, mas não há sofrimento fetal ou distocia que justifique cesárea imediata.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A inibição do trabalho de parto (tocolise) está indicada em trabalho de parto pré-termo, para permitir corticoterapia e transporte materno-fetal. Como a idade gestacional correta é 38 semanas (termo), não há indicação de tocolise.</p>
+                <p><strong>Alternativa C</strong> - Correta. Acompanhar a evolução normal do trabalho de parto e realizar a assistência ao parto é a conduta indicada para gestação a termo em trabalho de parto.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. A ultrassonografia de urgência não é necessária, pois já há uma ultrassonografia precoce (10 semanas) que é o método mais acurado para datação. Solicitar novo exame apenas atrasaria a assistência e não mudaria a conduta.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. A amniocentese para provas de maturidade fetal não está indicada em gestação a termo (38 semanas), pois a maturidade pulmonar é esperada. Além disso, é um procedimento invasivo com riscos e não alteraria a conduta no trabalho de parto ativo.</p>
+
+                <h4>2.5 Palavras-Chave e &quot;Pistas&quot; no Enunciado</h4>
+                <ul>
+                    <li><strong>DUM = 33 semanas:</strong> datação imprecisa, que deve ser confrontada com a ultrassonografia precoce.</li>
+                    <li><strong>Ultrassonografia com 10 semanas = 38 semanas:</strong> exame precoce, mais acurado, que deve prevalecer sobre a DUM.</li>
+                    <li><strong>Trabalho de parto com dilatação de 4 cm:</strong> trabalho de parto ativo, que deve ser conduzido conforme a idade gestacional real.</li>
+                    <li><strong>G4PN3:</strong> multiparidade, que costuma evoluir com trabalho de parto mais rápido, reforçando a necessidade de assistência adequada.</li>
+                    <li><strong>Conduta indicada:</strong> direciona para a escolha entre cesárea, tocolise, acompanhamento do parto ou exames adicionais.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> verificar a confiabilidade da DUM (ciclos regulares, recordação, uso de contraceptivos).</li>
+                    <li><strong>Segundo:</strong> comparar a DUM com a ultrassonografia precoce; se houver discordância, priorizar a ultrassonografia de primeiro trimestre.</li>
+                    <li><strong>Terceiro:</strong> definir a idade gestacional correta (neste caso, 38 semanas, termo).</li>
+                    <li><strong>Quarto:</strong> avaliar o estágio do trabalho de parto, a apresentação fetal, a vitalidade e as condições maternas.</li>
+                    <li><strong>Quinto:</strong> conduzir o trabalho de parto conforme protocolo de assistência ao parto a termo, com monitorização materno-fetal e preparo para o parto.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de &quot;conduta inicial&quot; e &quot;próximo passo&quot;.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> a ultrassonografia de primeiro trimestre (CCN entre 7 e 13 semanas) é o método mais acurado para datação; quando DUM e ultrassonografia precoce divergem, prevalece a ultrassonografia.</li>
+                    <li><strong>Números e doses:</strong> margem de erro da CCN é de cerca de 3 a 5 dias; após 22 a 24 semanas a biometria perde acurácia para datação.</li>
+                    <li><strong>Mnemônicos:</strong> &quot;Primeiro trimestre manda na datação; DUM só vale se não houver ultrassonografia precoce confiável&quot;.</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Situação</th>
+                            <th>Características</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Trabalho de parto a termo (correta)</td>
+                            <td>IG ≥ 37 semanas; contrações regulares; dilatação cervical progressiva.</td>
+                            <td>Acompanhar evolução, monitorar vitalidade e assistir ao parto.</td>
+                        </tr>
+                        <tr>
+                            <td>Trabalho de parto pré-termo</td>
+                            <td>IG &lt; 37 semanas; contrações e dilatação; risco de prematuridade.</td>
+                            <td>Avaliar tocolise, corticoterapia e transporte conforme idade gestacional e condições.</td>
+                        </tr>
+                        <tr>
+                            <td>Falso trabalho de parto</td>
+                            <td>Contrações irregulares, sem dilatação progressiva; desconforto lombar.</td>
+                            <td>Observação, hidratação e reavaliação; não indicar intervenção obstétrica imediata.</td>
+                        </tr>
+                        <tr>
+                            <td>Gestação pós-termo</td>
+                            <td>IG ≥ 42 semanas; risco de insuficiência placentária e macrossomia.</td>
+                            <td>Avaliar vitalidade e considerar indução ou resolução conforme protocolo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre datação:</strong> CCN no primeiro trimestre é o melhor parâmetro; biometria após 22-24 semanas perde acurácia.</li>
+                    <li><strong>Se a questão fosse sobre conduta no pré-termo:</strong> tocolise, corticosteroide e antibióticoprofilaxia conforme protocolo.</li>
+                    <li><strong>Se a questão fosse sobre indução do parto:</strong> indicações e contraindicações, como placenta prévia, apresentação pélvica e sofrimento fetal.</li>
+                    <li><strong>Se a questão fosse sobre fases do parto:</strong> primeiro período (dilatação), segundo período (expulsão), terceiro período (dequitação) e quarto período (primeira hora pós-parto).</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2013 – Q73</td>
+                            <td>Ultrassonografia da gestação – assinale a incorreta; alternativa C afirmava que a acurácia da biometria aumenta com a evolução da gestação.</td>
+                            <td>Datação da gestação por ultrassonografia.</td>
+                            <td>C</td>
+                            <td>Reforça que a acurácia da biometria diminui com o avançar da gestação; a ultrassonografia precoce é mais confiável.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q14</td>
+                            <td>Ultrassonografia da gestação – afirmativa incorreta; alternativa B afirmava que o comprimento do fêmur após 28 semanas é o melhor parâmetro isolado para datar a gestação.</td>
+                            <td>Datação da gestação por ultrassonografia.</td>
+                            <td>D</td>
+                            <td>Reforça que o melhor parâmetro de datação é a CCN no primeiro trimestre.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q99</td>
+                            <td>Ecografia obstétrica – afirmativa correta; alternativa C afirmava que o melhor parâmetro de datação é a CCN no primeiro trimestre.</td>
+                            <td>Datação da gestação.</td>
+                            <td>C</td>
+                            <td>Corrobora diretamente o conceito de que a ultrassonografia precoce é o melhor método de datação.</td>
+                        </tr>
+                        <tr>
+                            <td>2010 – Q44</td>
+                            <td>Fases clínicas do parto – assinale a incorreta.</td>
+                            <td>Fases do trabalho de parto.</td>
+                            <td>D</td>
+                            <td>Ajuda a compreender o estágio do trabalho de parto e a conduta adequada.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q44</td>
+                            <td>Fases clínicas do parto – assinale a incorreta.</td>
+                            <td>Fases do trabalho de parto.</td>
+                            <td>D</td>
+                            <td>Complementa o entendimento da evolução normal do parto.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q53</td>
+                            <td>Diagnóstico de trabalho de parto – assinale a exceção.</td>
+                            <td>Critérios diagnósticos de trabalho de parto.</td>
+                            <td>D</td>
+                            <td>Reforça que o diagnóstico de trabalho de parto não deve considerar isoladamente contrações ou dilatação.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q54</td>
+                            <td>Contraindicações para indução do trabalho de parto, exceto.</td>
+                            <td>Indução do trabalho de parto.</td>
+                            <td>E</td>
+                            <td>Mostra que a DHEG não é contraindicação absoluta à indução; a conduta depende da idade gestacional e condições materno-fetais.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 7 das provas anteriores analisadas. A banca alterna entre cobrar datação da gestação (2013, 2016, 2019), fases do trabalho de parto (2010, 2012), diagnóstico de trabalho de parto (2017) e indução do parto (2015). A presente questão integra datação e conduta no trabalho de parto, abordagem que ainda não havia sido cobrada de forma direta.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A comparação prática entre DUM e ultrassonografia precoce para definição da conduta obstétrica, como nesta questão, é uma abordagem que pode surgir novamente. Também pode ser cobrada a conduta no trabalho de parto pré-termo e a indicação de corticoterapia.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores focaram em conceitos isolados de datação e fases do parto; esta questão integra esses conhecimentos em uma situação clínica aplicada.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> memorizar que a ultrassonografia de primeiro trimestre prevalece sobre a DUM e revisar a conduta no trabalho de parto conforme a idade gestacional real.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros. &quot;Se você viu X, lembre-se de Y&quot;. Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Datação da gestação se conecta à prematuridade, pois a definição de trabalho de parto pré-termo depende da idade gestacional correta.</li>
+                    <li><strong>Conexão 2:</strong> Se conecta à indução do parto e à conduta no pós-termo, pois a idade gestacional define o momento e a via de resolução.</li>
+                    <li><strong>Conexão 3:</strong> Se conecta ao rastreamento de aneuploidias e ao cálculo de risco, que dependem da idade gestacional precisa.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+                <p>Se o usuário escolheu a alternativa B, houve confusão sobre a datação: a DUM sugeria 33 semanas, mas a ultrassonografia precoce definia 38 semanas, afastando o trabalho de parto pré-termo. Se escolheu A ou E, houve erro de estratégia, indicando intervenção desnecessária em trabalho de parto a termo. Se escolheu D, houve confusão sobre a necessidade de novo exame, quando a ultrassonografia precoce já é o padrão. A ação corretiva é memorizar que a ultrassonografia de primeiro trimestre é o método mais acurado para datação e que a conduta obstétrica deve se basear nela.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática obstétrica, a datação correta da gestação evita intervenções desnecessárias, como tocolise em gestações a termo ou cesárea sem indicação. A ultrassonografia precoce permite planejar o pré-natal, definir o momento de avaliação de maturidade fetal, indicar corticoterapia em casos de prematuridade e conduzir o trabalho de parto de forma segura. No caso de Mariana, a datação correta (38 semanas) permite acompanhar o trabalho de parto normal e assistir ao parto, garantindo segurança materno-fetal.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Datação da gestação: DUM versus ultrassonografia de primeiro trimestre</li>
+                    <li>Parâmetros ultrassonográficos de datação: CCN, DBP, CA, CF</li>
+                    <li>Diagnóstico e fases do trabalho de parto</li>
+                    <li>Conduta no trabalho de parto pré-termo e a termo</li>
+                    <li>Indicações de indução do parto e de cesárea</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Federação Brasileira das Associações de Ginecologia e Obstetrícia (FEBRASGO). Assistência ao Trabalho de Parto – Protocolo de Assistência.</p>
+                <p>2. Brasil. Ministério da Saúde. Manual de Gestação de Alto Risco.</p>
+                <p>3. Cunningham FG, Leveno KJ, Bloom SL, et al. Williams Obstetrics. 26. ed. McGraw-Hill, 2022.</p>
+                <p>4. ACOG Committee Opinion No. 700: Methods for Estimating the Due Date. Obstetrics &amp; Gynecology, 2017.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

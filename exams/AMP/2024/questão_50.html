@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 50 - Medicina de Emergência (ATLS): Avaliação Inicial das Vias Aéreas no Politraumatizado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Medicina de Emergência (ATLS): Avaliação Inicial das Vias Aéreas no Politraumatizado</div>
+        <h1>Questão 50</h1>
+        <div class="question-text">
+            A distribuição inadequada de sangue oxigenado para o cérebro e outras estruturas vitais é a causa mais rápida de óbito de pacientes politraumatizados. Uma via aérea protegida e desobstruída e ventilação adequada são essenciais para prevenir a hipoxemia. Na verdade, proteger uma via aérea comprometida, fornecer oxigênio e dar suporte à ventilação tem prioridade sobre o gerenciamento de todas as outras condições. Em relação a este tema, avalie as seguintes asserções e a relação proposta entre elas.
+            <br><br>
+            I) A medida de avaliação precoce mais importante é conversar com o paciente e estimular uma resposta verbal. Uma resposta verbal positiva e apropriada, com voz clara, indica que as vias aéreas do paciente estão patentes, a ventilação está intacta e a perfusão cerebral é suficiente, PORTANTO
+            <br><br>
+            II) a obtenção de uma via aérea definitiva é sempre desnecessária naquele paciente vítima de trauma que se encontra consciente e lúcido.
+            <br><br>
+            A respeito destas asserções, assinale a opção correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As duas assertivas são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As duas assertivas são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A primeira assertiva é uma proposição verdadeira, e a segunda é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A primeira assertiva é uma proposição falsa, e a segunda é verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As duas assertivas são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Emergência / Cirurgia Geral (ATLS).</p>
+                <p><strong>Tema:</strong> Avaliação inicial das vias aéreas no politraumatizado e definição de via aérea definitiva.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência médica, especialmente em Cirurgia Geral, Medicina de Emergência e Clínica Médica. A banca costuma cobrar a sequência ABCDE do ATLS, o reconhecimento de via aérea comprometida, a diferença entre manobras de abertura de via aérea e via aérea definitiva, e o momento de indicar intubação orotraqueal ou via aérea cirúrgica. É tema recorrente em questões que envolvem trauma cranioencefálico, trauma maxilofacial, queimaduras e trauma cervical.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A hipoxemia e a obstrução de via aérea são causas rapidamente fatais de óbito no trauma, por isso a via aérea (A) e a ventilação (B) têm prioridade sobre todas as outras condições. O paciente que fala e responde adequadamente tem, no momento da avaliação, via aérea pérvia, ventilação intacta e perfusão cerebral suficiente. Contudo, essa é uma avaliação momentânea: hematomas cervicais em expansão, queimaduras de face e via aérea, trauma maxilofacial grave, sangramentos volumosos e rebaixamento progressivo do nível de consciência podem rapidamente comprometer a via aérea. Portanto, "estar consciente e falando" não torna a via aérea definitiva "sempre desnecessária" — o paciente deve ser continuamente reavaliado e a via aérea definitiva deve ser obtida sempre que houver indicação formal.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A <strong>assertiva I é verdadeira</strong>: conversar com o paciente e estimular uma resposta verbal é a medida de avaliação precoce mais importante, pois uma resposta verbal apropriada e com voz clara indica patência de via aérea, ventilação intacta e perfusão cerebral suficiente. A <strong>assertiva II é falsa</strong>: o termo absoluto "sempre" torna a afirmação incorreta. Mesmo pacientes conscientes e lúcidos podem necessitar de via aérea definitiva, como em queimadura de via aérea, hematoma cervical em expansão, trauma maxilofacial grave, necessidade de sedação para procedimento ou transferência, ou deterioração neurológica iminente. Assim, a segunda assertiva não é justificativa correta da primeira. Gabarito: <strong>C</strong>.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Erra ao considerar a assertiva II verdadeira; a palavra "sempre" é incompatível com a prática clínica, pois há indicações de via aérea definitiva mesmo em pacientes conscientes.</p>
+                <p><strong>Alternativa B</strong> - Erra ao considerar a assertiva II verdadeira; a segunda proposição não é apenas uma justificativa inadequada, ela é falsa.</p>
+                <p><strong>Alternativa C</strong> - Correta: I verdadeira, II falsa.</p>
+                <p><strong>Alternativa D</strong> - Erra ao considerar a assertiva I falsa; conversar com o paciente é, de fato, a avaliação precoce mais importante.</p>
+                <p><strong>Alternativa E</strong> - Erra ao considerar ambas as assertivas falsas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>"Conversar com o paciente" / "resposta verbal":</strong> teste clínico rápido de patência de via aérea, ventilação e perfusão cerebral.</li>
+                    <li><strong>"Via aérea definitiva":</strong> tubo na traqueia com balonete insuflado, conectado a ventilação assistida enriquecida com oxigênio.</li>
+                    <li><strong>"Sempre desnecessária":</strong> termo absoluto que costuma sinalizar alternativa incorreta em provas.</li>
+                    <li><strong>"Politraumatizado":</strong> contexto de risco de deterioração rápida, exigindo reavaliação contínua.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar responsividade e via aérea falando com o paciente; uma resposta verbal apropriada indica via aérea pérvia no momento.</li>
+                    <li><strong>Segundo:</strong> prosseguir para B (ventilação) e demais etapas do ABCDE, mantendo reavaliação contínua.</li>
+                    <li><strong>Terceiro:</strong> identificar indicações formais de via aérea definitiva: Glasgow ≤ 8, queimadura de via aérea, trauma maxilofacial grave, hematoma cervical em expansão, incapacidade de proteger via aérea, necessidade de sedação/transferência.</li>
+                    <li><strong>Quarto:</strong> se via aérea comprometida ou em risco, realizar intubação orotraqueal (sequência rápida com proteção cervical) ou via aérea cirúrgica em caso de falha.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> paciente que fala tem via aérea pérvia no momento, mas isso não exclui deterioração; reavaliação contínua é obrigatória.</li>
+                    <li><strong>Indicações de via aérea definitiva:</strong> Glasgow ≤ 8, queimadura de via aérea, trauma maxilofacial grave, hematoma cervical em expansão, incapacidade de proteger via aérea, necessidade de ventilação mecânica.</li>
+                    <li><strong>Mnemônico:</strong> ABCDE do ATLS (A - Airway com proteção cervical; B - Breathing; C - Circulation; D - Disability; E - Exposure).</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Obstrução por queda da língua</td><td>Rebaixamento de consciência, estridor, esforço respiratório</td><td>Avaliação clínica; manobras de abertura</td><td>Chin lift / jaw thrust com proteção cervical; via aérea definitiva se necessário</td></tr>
+                        <tr><td>Hematoma cervical em expansão</td><td>Trauma cervical penetrante, abaulamento, desvio de traqueia, rouquidão</td><td>Exame clínico; TC de pescoço se estável</td><td>Via aérea definitiva precoce; controle cirúrgico</td></tr>
+                        <tr><td>Queimadura de via aérea</td><td>Estridor, rouquidão, fuligem em orofaringe, queimadura de face</td><td>Clínico; broncoscopia se necessário</td><td>Intubação orotraqueal precoce antes do edema</td></tr>
+                        <tr><td>Trauma maxilofacial grave</td><td>Deformidade, sangramento, obstrução por coágulos/fraturas</td><td>Exame clínico; TC</td><td>Via aérea definitiva; controle de sangramento</td></tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse a definição de via aérea definitiva:</strong> tubo na traqueia com balonete insuflado, conectado a ventilação assistida enriquecida com O2.</li>
+                    <li><strong>Se pedisse a indicação de intubação:</strong> Glasgow ≤ 8, queimadura de via aérea, trauma maxilofacial grave, hematoma cervical em expansão.</li>
+                    <li><strong>Se pedisse conduta em queimadura de face:</strong> intubação orotraqueal precoce.</li>
+                    <li><strong>Se pedisse via aérea cirúrgica:</strong> cricotireoidostomia (por punção ou cirúrgica) em caso de falha da via aérea definitiva.</li>
+                    <li><strong>Se pedisse conduta no paciente que fala:</strong> não postergar avaliação completa; manter reavaliação contínua.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2023 – Q53</td>
+                            <td>Paciente falando normalmente após queda; pode-se direcionar exame para dados vitais e dor abdominal?</td>
+                            <td>Avaliação da via aérea e sequência ABCDE</td>
+                            <td>C</td>
+                            <td>Mesma lógica: estar falando não autoriza pular etapas nem exclui risco de deterioração.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q72</td>
+                            <td>Manobras de abertura de via aérea e restrição de coluna cervical</td>
+                            <td>Manejo de via aérea com proteção cervical</td>
+                            <td>A</td>
+                            <td>Reforça a importância das manobras e da proteção cervical na avaliação inicial.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q97</td>
+                            <td>Estratégias de manejo de via aérea no trauma</td>
+                            <td>Definição de via aérea definitiva e indicações</td>
+                            <td>B</td>
+                            <td>Detalha a definição e as condições que indicam via aérea definitiva, contrapondo-se ao "sempre desnecessária".</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q50</td>
+                            <td>Trauma de face/crânio com rebaixamento e instabilidade</td>
+                            <td>Conduta inicial: intubação orotraqueal</td>
+                            <td>A</td>
+                            <td>Demonstra indicação de via aérea definitiva em paciente com rebaixamento, mesmo em trauma de face.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q62 / 2016 – Q62</td>
+                            <td>Paciente inconsciente, sem verbalização, com sinais torácicos e choque</td>
+                            <td>Conduta inicial: via aérea definitiva</td>
+                            <td>A</td>
+                            <td>Reforça que ausência de verbalização é indicação de via aérea definitiva.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q31</td>
+                            <td>Ferimento torácico com paciente agitado e verborrágico</td>
+                            <td>Conduta inicial: descompressão pleural</td>
+                            <td>D</td>
+                            <td>Mostra que falar não exclui lesão torácica grave; a avaliação deve ser completa e a via aérea reavaliada.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q65 / 2018 – Q46</td>
+                            <td>Politrauma com Glasgow 7, pupilas assimétricas, sinais torácicos</td>
+                            <td>Orotraqueal e bloqueio neuromuscular</td>
+                            <td>A</td>
+                            <td>Reforça intubação e sequência rápida em trauma grave, com proteção da via aérea.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q92</td>
+                            <td>Colisão moto, lúcido, dispneico, murmúrio diminuído à direita</td>
+                            <td>Conduta: descomprimir espaço pleural</td>
+                            <td>A</td>
+                            <td>Lúcido e falando, mas com lesão torácica grave; falar não basta para excluir risco.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q45</td>
+                            <td>Atendimento inicial ao politraumatizado</td>
+                            <td>Contusão pulmonar e necessidade de ventilação</td>
+                            <td>B</td>
+                            <td>Reforça a prioridade de via aérea e ventilação no ABCDE.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 9 provas anteriores. A banca alterna entre reconhecimento de via aérea comprometida, conduta inicial (intubação vs. manobras), definição de via aérea definitiva, proteção cervical e a relação entre estado de consciência e necessidade de via aérea definitiva.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Sequência detalhada de intubação com drogas específicas, algoritmos de via aérea difícil no trauma, uso de dispositivos supraglóticos no trauma e cricotireoidostomia por punção vs. cirúrgica.</p>
+                <p><strong>Evolução da cobrança:</strong> Em provas mais antigas, cobrava-se mais a conduta em situações de trauma grave; mais recentemente, cobra-se a interpretação da avaliação clínica, como o valor do paciente falante e a necessidade de reavaliação contínua.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar as indicações formais de via aérea definitiva e entender que "estar falando" não exclui deterioração iminente.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Trauma raquimedular — toda manobra de via aérea no trauma deve considerar proteção da coluna cervical, especialmente em mecanismo de trauma de alta energia.</li>
+                    <li><strong>Conexão 2:</strong> Trauma torácico — o paciente que fala pode ter pneumotórax hipertensivo, hemotórax ou contusão pulmonar; a avaliação de B (breathing) deve ser imediata após A.</li>
+                    <li><strong>Conexão 3:</strong> Queimaduras — queimadura de face e via aérea superior indicam intubação precoce antes do edema.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é de leitura/interpretação ao valorizar o termo absoluto "sempre", que costuma tornar a alternativa falsa em provas. Também pode haver lacuna de conhecimento sobre as indicações de via aérea definitiva em pacientes conscientes (queimadura de via aérea, hematoma cervical, trauma maxilofacial grave). Estratégia: memorizar as indicações formais de via aérea definitiva e revisar o ABCDE do ATLS.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente politraumatizado que fala deve ser tranquilizado e avaliado de forma sistemática, mas nunca se deve postergar a reavaliação de via aérea. O médico deve estar atento a sinais de deterioração (rouquidão, estridor, aumento de hematoma cervical, rebaixamento de consciência) e proceder à via aérea definitiva quando indicado, mesmo em pacientes inicialmente conscientes.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Sequência ABCDE do ATLS.</li>
+                    <li>Definição e indicações de via aérea definitiva.</li>
+                    <li>Manobras de abertura de via aérea (chin lift, jaw thrust) e proteção cervical.</li>
+                    <li>Indicações de intubação orotraqueal no trauma.</li>
+                    <li>Cricotireoidostomia e traqueostomia no trauma.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. ATLS - Advanced Trauma Life Support, 10ª edição (American College of Surgeons).</p>
+                <p>2. Sabiston Textbook of Surgery, 21ª edição.</p>
+                <p>3. UpToDate: Emergency airway management in the trauma patient.</p>
+                <p>4. Diretrizes da Sociedade Brasileira de Cirurgia Geral / Colégio Brasileiro de Cirurgiões para atendimento inicial ao politraumatizado.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

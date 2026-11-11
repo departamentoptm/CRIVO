@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 32 - Near Miss Materno: Conceito, Importância e Relação com a Mortalidade Materna</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Near Miss Materno: Conceito, Importância e Relação com a Mortalidade Materna</div>
+        <h1>Questão 32</h1>
+        <div class="question-text">
+            Near miss materno ou "quase perda" materna refere-se à situação em que mulheres apresentam complicações potencialmente letais durante a gravidez, o parto ou o puerpério. Sobre esta situação analise as assertivas abaixo.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Essas mulheres às quais se pode atribuir o conceito de near miss são de grande interesse para o estudo da morbidade e da mortalidade materna.</div>
+            <div class="statement"><strong>PORQUE</strong></div>
+            <div class="statement"><strong>II</strong> - Constituem um grupo muito maior e com melhor fonte de informação que os casos de morte materna.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A primeira asserção é uma proposição verdadeira, e a segunda é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A primeira asserção é uma proposição falsa, e a segunda é verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As duas asserções são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Obstetrícia / Saúde Materna / Epidemiologia da Morbimortalidade Materna.</p>
+                <p><strong>Tema:</strong> Near miss materno (quase perda materna): conceito, relevância como indicador de morbidade materna grave e relação com a mortalidade materna.</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em provas de residência, frequentemente cobrado em conjunto com mortalidade materna, morbidade materna grave, indicadores de qualidade da assistência obstétrica e classificação das mortes maternas (direta, indireta e tardia). A banca costuma cobrar a definição de near miss e sua utilidade para o estudo da morbidade e da mortalidade materna.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O near miss materno, ou "quase perda materna", refere-se à mulher que apresentou uma complicação potencialmente letal durante a gravidez, o parto ou o puerpério (até 42 dias após o término da gestação) e sobreviveu por acaso ou em razão do cuidado hospitalar recebido. Não é uma doença específica, mas um desfecho intermediário entre a morbidade materna grave e a morte materna.</p>
+                <p>Do ponto de vista epidemiológico, os casos de near miss são mais numerosos que os óbitos maternos e permitem estudar os fatores associados à gravidade, os atrasos na assistência e as falhas do sistema de saúde. Por isso, constituem fonte de informação mais abundante e com maior possibilidade de análise do que os casos de morte materna.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>A</strong>. A asserção I é verdadeira: mulheres com near miss são de grande interesse para o estudo da morbidade e da mortalidade materna, pois representam o continuum entre a complicação grave e o óbito. A asserção II também é verdadeira: os casos de near miss constituem um grupo numericamente maior e com melhor fonte de informação do que os casos de morte materna. Além disso, a asserção II justifica corretamente a I, pois é exatamente por serem mais numerosos e mais bem documentados que esses casos permitem análises mais robustas sobre determinantes da morbimortalidade materna.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Correta: as duas asserções são verdadeiras e a segunda justifica a primeira.</p>
+                <p><strong>Alternativa B</strong> - Errada porque, embora as duas asserções sejam verdadeiras, a segunda é sim uma justificativa adequada da primeira: o maior número e a melhor documentação dos casos de near miss são a razão pela qual eles são tão úteis para o estudo da morbimortalidade materna.</p>
+                <p><strong>Alternativa C</strong> - Errada porque nega a segunda asserção, que é verdadeira.</p>
+                <p><strong>Alternativa D</strong> - Errada porque nega a primeira asserção, que é verdadeira.</p>
+                <p><strong>Alternativa E</strong> - Errada porque ambas as asserções são verdadeiras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Near miss / quase perda materna:</strong> termo que remete à sobrevivência a uma complicação potencialmente letal.</li>
+                    <li><strong>Complicações potencialmente letais:</strong> indica que não se trata de qualquer morbidade, mas de eventos com risco de morte.</li>
+                    <li><strong>Estudo da morbidade e da mortalidade materna:</strong> direciona para a utilidade epidemiológica do near miss.</li>
+                    <li><strong>Grupo muito maior e melhor fonte de informação:</strong> aponta para a vantagem numérica e documental em relação aos óbitos.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Reconhecer a definição de near miss materno como sobrevivência a uma complicação potencialmente letal na gravidez, parto ou puerpério.</li>
+                    <li><strong>Segundo:</strong> Entender que o near miss é um indicador de morbidade materna grave e de qualidade da assistência.</li>
+                    <li><strong>Terceiro:</strong> Comparar o número de casos de near miss com o de mortes maternas: o primeiro é muito maior.</li>
+                    <li><strong>Quarto:</strong> Concluir que o maior número e a melhor documentação tornam o near miss uma fonte privilegiada para estudar a morbimortalidade materna.</li>
+                    <li><strong>Quinto:</strong> Identificar que a segunda asserção justifica a primeira, correspondendo à alternativa A.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Near miss materno é a mulher que sobreviveu a uma complicação potencialmente letal durante a gravidez, o parto ou o puerpério (até 42 dias).</li>
+                    <li><strong>Números e doses:</strong> O near miss é mais frequente que a morte materna; por isso, permite análises estatísticas mais robustas e identificação de fatores de risco e falhas assistenciais.</li>
+                    <li><strong>Mnemônicos:</strong> "Near miss = quase morte, mas sobreviveu; grupo maior, mais dados, mais aprendizado".</li>
+                </ul>
+                <p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Near miss materno</td>
+                            <td>Complicação potencialmente letal durante gravidez, parto ou puerpério, com sobrevivência</td>
+                            <td>Critérios clínicos, laboratoriais e de intervenção (ex.: transfusão maciça, histerectomia, UTI)</td>
+                            <td>Investigação dos determinantes e das falhas assistenciais; melhoria da qualidade do cuidado</td>
+                        </tr>
+                        <tr>
+                            <td>Morte materna</td>
+                            <td>Óbito durante a gravidez, parto ou até 42 dias após o término, por causas obstétricas diretas ou indiretas</td>
+                            <td>Declaração de óbito, investigação de morte materna</td>
+                            <td>Vigilância do óbito, análise de evitabilidade e medidas de prevenção</td>
+                        </tr>
+                        <tr>
+                            <td>Morbidade materna grave</td>
+                            <td>Complicações graves que não necessariamente ameaçam a vida de imediato</td>
+                            <td>Critérios clínicos e de intervenção</td>
+                            <td>Manejo oportuno e prevenção de progressão para near miss ou óbito</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão foi sobre conceito:</strong> como seria sobre prevenção? sobre vigilância? sobre indicadores?</li>
+                    <li><strong>Exemplo:</strong> Se a questão pedisse um exemplo de condição associada a near miss, poderia citar eclâmpsia, hemorragia pós-parto grave, sepse puerperal ou rotura uterina. Se pedisse a relação com a mortalidade materna, a resposta seria que o near miss é um desfecho intermediário e um indicador de qualidade. Se pedisse a conduta diante de um caso de near miss, seria garantir suporte intensivo e investigar falhas assistenciais.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2025 que abordaram o mesmo tema:</strong> o arquivo de provas anteriores disponibiliza enunciados até 2025; a prova de 2026 consta apenas como gabarito, sem enunciado, portanto não foi possível detalhar questão de 2026 sobre o tema.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2010 – Q11</td>
+                            <td>Morte de mulher de 35 anos por infecção generalizada iniciada em cesariana, 60 dias após a cirurgia</td>
+                            <td>Classificação da morte materna</td>
+                            <td>C (morte materna obstétrica tardia)</td>
+                            <td>Relaciona-se ao continuum morbidade grave–morte materna e à classificação dos óbitos</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q31</td>
+                            <td>Conceitos de período perinatal, coeficiente de mortalidade materna, período neonatal e near miss materno</td>
+                            <td>Definição de near miss materno</td>
+                            <td>A (alternativa incorreta era o período perinatal)</td>
+                            <td>Abordou diretamente a definição de near miss materno</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q96</td>
+                            <td>Morte de mulher de 35 anos por infecção generalizada iniciada em cesariana, 60 dias após a cirurgia</td>
+                            <td>Classificação da morte materna</td>
+                            <td>C (morte materna obstétrica tardia)</td>
+                            <td>Reforça a importância da classificação e da vigilância da morbimortalidade materna</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q32</td>
+                            <td>Near miss materno e sua importância para o estudo da morbidade e mortalidade materna</td>
+                            <td>Conceito, utilidade e relação com a mortalidade materna</td>
+                            <td>A (as duas asserções são verdadeiras e a segunda justifica a primeira)</td>
+                            <td>Questão atual</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 3 questões anteriores (2010, 2018 e 2019), além da questão atual. A banca alterna entre cobrar a classificação das mortes maternas, a definição de near miss e a utilidade dos indicadores de morbidade materna grave.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A relação causal explícita entre o maior número de casos de near miss e sua utilidade como fonte de informação para o estudo da morbimortalidade materna, como nesta questão, não havia sido cobrada de forma tão direta. Também pode surgir a aplicação do near miss como indicador de qualidade da assistência obstétrica.</p>
+                <p><strong>Evolução da cobrança:</strong> Em 2010 e 2019, a banca cobrou a classificação de morte materna tardia. Em 2018, cobrou a definição de near miss. Em 2024, a cobrança foi mais conceitual e epidemiológica, exigindo a compreensão da utilidade do near miss para o estudo da morbimortalidade materna.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a definição de near miss materno, sua relação com a morte materna, os critérios de identificação e sua importância como indicador de qualidade. Também revisar a classificação das mortes maternas (direta, indireta e tardia) e os conceitos de morbidade materna grave.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros (ex: bronquiolite → asma → pneumonia). "Se você viu X, lembre-se de Y". Listar pelo menos 2 conexões.</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Near miss materno conecta-se diretamente à mortalidade materna e à classificação dos óbitos maternos (direta, indireta e tardia).</li>
+                    <li><strong>Conexão 2:</strong> Near miss conecta-se à qualidade da assistência obstétrica e à análise de falhas e atrasos no cuidado.</li>
+                    <li><strong>Conexão 3:</strong> Near miss conecta-se à vigilância epidemiológica da morbidade materna grave e à implementação de comitês de morte materna.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Caso tenha errado, o erro mais provável é de <strong>lacuna de conhecimento</strong> sobre o conceito de near miss ou <strong>confusão conceitual</strong> entre near miss e morte materna. A ação corretiva é memorizar que near miss é a sobrevivência a uma complicação potencialmente letal, que esses casos são mais numerosos que os óbitos e que, por isso, são uma fonte privilegiada de informação para o estudo da morbimortalidade materna.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a identificação de casos de near miss permite avaliar a qualidade da assistência obstétrica, reconhecer falhas e atrasos no cuidado e implementar medidas de melhoria. A análise desses casos complementa a vigilância do óbito materno e fornece informações valiosas para a prevenção da mortalidade materna.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Definição e critérios de near miss materno.</li>
+                    <li>Classificação das mortes maternas: direta, indireta e tardia.</li>
+                    <li>Morbidade materna grave e indicadores de qualidade.</li>
+                    <li>Vigilância do óbito materno e comitês de morte materna.</li>
+                    <li>Atrasos na assistência obstétrica (modelo dos três atrasos).</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. World Health Organization. Evaluating the quality of care for severe pregnancy complications: the WHO near-miss approach for maternal health. Geneva: WHO.</p>
+                <p>2. Ministério da Saúde. Manual de Vigilância do Óbito Materno. Brasília: Ministério da Saúde.</p>
+                <p>3. Rezende Filho J. Obstetrícia. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>4. Montenegro CAB, Rezende Filho J. Obstetrícia Fundamental. Rio de Janeiro: Guanabara Koogan.</p>
+                <p>5. Cunningham FG et al. Williams Obstetrics. McGraw-Hill.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    /* Notifica o resolutor. silent = true quando estamos apenas restaurando
+       o estado e não queremos gerar novos eventos/gravações. */
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Não notificamos o pai no reset para não apagar o histórico. */
+    }
+
+    /* Recebe o estado salvo vindo do resolutor. */
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true); // silent = true (não re-notifica)
+            if (correct) {
+                checkAnswer(true); // silent = true (não re-notifica, mas mostra o resultado)
+            }
+        }
+    });
+</script>
+</body>
+</html>

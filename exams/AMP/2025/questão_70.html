@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 70 - Cirrose descompensada: encefalopatia hepática, ascite e injúria renal aguda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirrose descompensada: encefalopatia hepática, ascite e injúria renal aguda</div>
+        <h1>Questão 70</h1>
+        <div class="question-text">
+            Paciente do sexo masculino, 58 anos, com histórico de cirrose hepática por hepatite C e etilismo crônico, é admitido no pronto-socorro com quadro de confusão mental, sonolência e distensão abdominal progressiva há 3 dias. Refere redução da diurese. Ao exame físico apresenta-se desorientado (Glasgow 13), com abdome globoso, presença de ascite volumosa, edema de membros inferiores e sinais de flapping (asterixis). A pressão arterial é de 90/60 mmHg, frequência cardíaca de 110 bpm e saturação de 97% em ar ambiente. Os exames laboratoriais mostram: Bilirrubina total: 5,4 mg/dL; Albumina: 2,0 g/dL; INR: 2,1; Creatinina: 2,0 mg/dL (nivel basal 1,2 mg/dL). Com base no caso descrito, assinale a alternativa correta com relação a manejo e evolução do paciente.
+        </div>
+
+        <!-- Espaço para tabelas ou dados específicos da questão -->
+        
+
+        <!-- Espaço para afirmativas ou listas específicas da questão -->
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Indicada restrição proteica para minimizar presença de derivados de amônia na circulação.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Deve ser dosado nível sérico de amônia para norte-ar tratamento da encefalopatia.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Deve ser iniciada lactulose oral, paracentese diagnóstica e expansão volêmica cautelosa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Iniciar hemodiálise imediatamente para controle dos sintomas da encefalopatia hepática.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - O paciente tem um bom prognóstico a curto prazo, esperando-se melhora da encefalopatia com restrição hidrica.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Gastroenterologia / Hepatologia / Clínica Médica</p>
+                <p><strong>Tema:</strong> Cirrose hepática descompensada — encefalopatia hepática, ascite e injúria renal aguda.</p>
+                <p><strong>Contextualização:</strong> A cirrose é uma doença crônica de alta morbimortalidade no Brasil, e suas descompensações (encefalopatia, ascite, peritonite bacteriana espontânea, síndrome hepatorrenal) são causa frequente de internação. O tema é recorrente em provas de residência, cobrado tanto no diagnóstico das complicações quanto na conduta inicial e no prognóstico.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A cirrose leva à hipertensão portal e à disfunção hepatocelular. A encefalopatia hepática decorre do acúmulo de substâncias neurotóxicas, especialmente amônia, que atravessa a barreira hematoencefálica e altera a neurotransmissão. A ascite surge da vasodilatação esplâncnica, ativação do sistema renina-angiotensina-aldosterona e retenção de sódio e água. A injúria renal aguda no cirrótico pode ser pré-renal (hipovolemia, sangramento, diuréticos excessivos), intrínseca (necrose tubular aguda, síndrome hepatorrenal) ou pós-renal. Diante de encefalopatia e ascite volumosa, a conduta inicial inclui lactulose para reduzir a amônia, paracentese diagnóstica (para excluir peritonite bacteriana espontânea) e expansão volêmica cautelosa, pois o cirrótico tem risco de sobrecarga e de piora da hiponatremia.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>. O paciente apresenta cirrose descompensada com encefalopatia hepática (confusão, sonolência, asterixis, Glasgow 13), ascite volumosa e injúria renal aguda (creatinina 2,0 mg/dL com basal 1,2 mg/dL). A conduta inicial adequada é: (1) lactulose oral para tratar a encefalopatia, reduzindo a absorção de amônia; (2) paracentese diagnóstica, pois todo cirrótico com ascite de novo ou internado deve ser rastreado para peritonite bacteriana espontânea; (3) expansão volêmica cautelosa, pois o paciente está hipotenso (PA 90/60) e com IRA, mas deve ser feita de forma monitorada para não agravar a ascite/hiponatremia. Essa abordagem é coerente com as recomendações atuais e com o padrão de cobrança da banca.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. A restrição proteica não é recomendada de rotina na encefalopatia hepática; ela pode agravar a desnutrição, que é fator de mau prognóstico. O manejo padrão é a lactulose e a identificação de fatores precipitantes (infecção, sangramento, distúrbios eletrolíticos).</p>
+                <p><strong>Alternativa B</strong> - Incorreta. A dosagem sérica de amônia não deve nortear o tratamento da encefalopatia. O diagnóstico é clínico e o tratamento é iniciado sem aguardar o nível de amônia, que não se correlaciona bem com a gravidade.</p>
+                <p><strong>Alternativa C</strong> - Correta. Lactulose, paracentese diagnóstica e expansão volêmica cautelosa compõem a conduta inicial apropriada no cirrótico com encefalopatia, ascite e IRA.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. A hemodiálise não está indicada de imediato para encefalopatia hepática. Ela é reservada a situações específicas de IRA grave com indicação dialítica (hipercalemia refratária, acidose grave, sobrecarga volêmica, uremia), não sendo o tratamento da encefalopatia em si.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. O prognóstico a curto prazo é reservado em cirrótico com encefalopatia, ascite e IRA, especialmente com hipotensão e INR alargado. A restrição hídrica isolada não é a conduta principal e pode agravar a hipoperfusão renal.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Cirrose por hepatite C e etilismo:</strong> fatores de risco para descompensação.</li>
+                    <li><strong>Confusão, sonolência e asterixis:</strong> encefalopatia hepática.</li>
+                    <li><strong>Ascite volumosa:</strong> hipertensão portal e retenção hidrossalina.</li>
+                    <li><strong>Hipotensão (90/60) e taquicardia:</strong> alerta para hipoperfusão e piora da IRA.</li>
+                    <li><strong>Creatinina 2,0 com basal 1,2:</strong> injúria renal aguda, possivelmente pré-renal ou hepatorrenal.</li>
+                    <li><strong>Albumina 2,0 e INR 2,1:</strong> disfunção hepatocelular avançada.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Estabilizar o paciente: acessos venosos, monitorização, avaliação de volemia.</li>
+                    <li><strong>Segundo:</strong> Tratar a encefalopatia: lactulose oral/enema, identificar e corrigir fatores precipitantes (infecção, sangramento, distúrbios eletrolíticos, constipação).</li>
+                    <li><strong>Terceiro:</strong> Realizar paracentese diagnóstica para excluir peritonite bacteriana espontânea (contagem de polimorfonucleares ≥250/mm³).</li>
+                    <li><strong>Quarto:</strong> Reposição volêmica cautelosa (cristaloide, albumina em casos selecionados) e monitorização da função renal e do débito urinário.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo" na cirrose descompensada.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> encefalopatia hepática é diagnóstico clínico; a paracentese diagnóstica é obrigatória em ascite de novo ou internado.</li>
+                    <li><strong>Números e doses:</strong> lactulose 30–45 mL a cada 8–12 h, ajustando para 2–3 evacuações pastosas/dia; albumina 1,5 g/kg na paracentese de grande volume e 0,5–1 g/kg para prevenção de disfunção circulatória.</li>
+                    <li><strong>Mnemônicos:</strong> lembrar dos fatores precipitantes da encefalopatia (infecção, sangramento, distúrbios eletrolíticos, constipação, medicamentos, desidratação).</li>
+                </ul>
+                <p>Esses dados já foram cobrados em provas anteriores, principalmente no manejo da hemorragia digestiva varicosa e da peritonite bacteriana espontânea.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Encefalopatia hepática</td>
+                            <td>Asterixis, confusão, sonolência, história de cirrose, fatores precipitantes</td>
+                            <td>Clínico; amônia não é obrigatória</td>
+                            <td>Lactulose, tratar precipitantes</td>
+                        </tr>
+                        <tr>
+                            <td>Peritonite bacteriana espontânea</td>
+                            <td>Febre, dor abdominal, piora da encefalopatia, ascite</td>
+                            <td>Paracentese: PMN ≥250/mm³</td>
+                            <td>Antibiótico (cefalosporina de 3ª geração) + albumina</td>
+                        </tr>
+                        <tr>
+                            <td>Síndrome hepatorrenal</td>
+                            <td>IRA com ascite refratária, hipotensão, ausência de resposta a volume</td>
+                            <td>Critérios clínicos e exclusão de outras causas</td>
+                            <td>Vasoconstritores + albumina</td>
+                        </tr>
+                        <tr>
+                            <td>Hiponatremia dilucional</td>
+                            <td>Hiponatremia hipotônica, hipervolêmica, confusão</td>
+                            <td>Sódio sérico, osmolaridade</td>
+                            <td>Restrição hídrica, ajuste de diuréticos</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre encefalopatia:</strong> lactulose, rifaximina, identificar precipitantes.</li>
+                    <li><strong>Se fosse sobre ascite:</strong> paracentese diagnóstica/terapêutica, restrição de sódio, diuréticos (espironolactona + furosemida).</li>
+                    <li><strong>Se fosse sobre peritonite bacteriana espontânea:</strong> PMN ≥250, antibiótico e albumina.</li>
+                    <li><strong>Se fosse sobre síndrome hepatorrenal:</strong> critérios diagnósticos, terlipressina + albumina.</li>
+                    <li><strong>Se fosse sobre hemorragia digestiva varicosa:</strong> vasoconstritor esplâncnico, antibiótico, endoscopia.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2009 – Q19</td>
+                            <td>Hepatite C crônica com ascite tensa e desconforto respiratório; afirmações sobre paracentese e PBE.</td>
+                            <td>Manejo da ascite e peritonite bacteriana espontânea.</td>
+                            <td>A</td>
+                            <td>Reforça a indicação de paracentese e o rastreio de PBE.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q22</td>
+                            <td>Etilista com hematêmese, icterícia, ascite e encefalopatia; assertivas sobre conduta.</td>
+                            <td>Manejo da encefalopatia e hemorragia digestiva varicosa.</td>
+                            <td>D</td>
+                            <td>Amplia a discussão sobre encefalopatia e complicações da cirrose.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q37</td>
+                            <td>Homem com ascite, telangiectasias e ginecomastia; tratamento inicial.</td>
+                            <td>Tratamento da ascite com restrição de sódio e diuréticos.</td>
+                            <td>A</td>
+                            <td>Relaciona-se à abordagem inicial da ascite.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q87</td>
+                            <td>Cirrótico com hematêmese, encefalopatia e instabilidade; assertivas sobre conduta.</td>
+                            <td>Manejo da hemorragia digestiva varicosa e encefalopatia.</td>
+                            <td>A</td>
+                            <td>Complementa o manejo da encefalopatia no cirrótico grave.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q67</td>
+                            <td>Etilista com ascite, icterícia e asterixe; assertivas sobre paracentese e fisiopatologia.</td>
+                            <td>Diagnóstico e manejo da ascite e encefalopatia.</td>
+                            <td>B</td>
+                            <td>Reforça a paracentese diagnóstica e o tratamento da encefalopatia.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q48</td>
+                            <td>Cirrótico com hematêmese e encefalopatia; assertivas sobre via aérea, vasoconstritor e antibiótico.</td>
+                            <td>Manejo da hemorragia digestiva varicosa.</td>
+                            <td>D</td>
+                            <td>Complementa o manejo do cirrótico descompensado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 provas anteriores analisadas, alternando entre manejo da ascite, encefalopatia, peritonite bacteriana espontânea e hemorragia digestiva varicosa. A banca demonstra preferência por questões de conduta e por asserções sobre fisiopatologia e tratamento.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> síndrome hepatorrenal (critérios diagnósticos e tratamento com terlipressina + albumina), hiponatremia dilucional, rifaximina na encefalopatia, e prevenção de recorrência de PBE com norfloxacino.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos mais antigos, a abordagem era mais descritiva (fisiopatologia da ascite e da encefalopatia); nos últimos anos, a banca tem priorizado tomada de decisão e manejo das complicações em cenários agudos.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar cirrose descompensada com ênfase em encefalopatia (lactulose, precipitantes), ascite (paracentese, diuréticos), PBE (PMN ≥250, antibiótico + albumina) e síndrome hepatorrenal.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Hemorragia digestiva varicosa — o sangramento é fator precipitante de encefalopatia e de IRA no cirrótico; o manejo inclui vasoconstritor, antibiótico e endoscopia.</li>
+                    <li><strong>Conexão 2:</strong> Peritonite bacteriana espontânea — deve ser rastreada em todo cirrótico com ascite internado; o tratamento precoce reduz mortalidade.</li>
+                    <li><strong>Conexão 3:</strong> Injúria renal aguda — a distinção entre pré-renal, síndrome hepatorrenal e NTA é essencial para a conduta.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou A, B, D ou E, provavelmente houve lacuna de conhecimento sobre o manejo da cirrose descompensada ou confusão sobre a real indicação de cada intervenção. A estratégia é revisar: (1) tratamento da encefalopatia; (2) indicação de paracentese diagnóstica; (3) manejo da IRA no cirrótico; (4) papel da restrição proteica e da dosagem de amônia; (5) prognóstico da descompensação. Classificação do erro: lacuna de conhecimento e erro de leitura/interpretação.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o cirrótico descompensado exige abordagem sistemática: estabilização, tratamento da encefalopatia, rastreio de PBE, manejo da ascite e da IRA, além da identificação de fatores precipitantes. A precocidade dessas medidas reduz mortalidade e melhora o prognóstico.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Encefalopatia hepática e lactulose</li>
+                    <li>Peritonite bacteriana espontânea</li>
+                    <li>Síndrome hepatorrenal</li>
+                    <li>Hiponatremia dilucional</li>
+                    <li>Hemorragia digestiva varicosa</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. AASLD. Practice Guidance on Ascites, Spontaneous Bacterial Peritonitis, and Hepatorenal Syndrome.</p>
+                <p>2. Harrison Medicina Interna.</p>
+                <p>3. UpToDate. Hepatic encephalopathy in adults: Treatment.</p>
+                <p>4. Sociedade Brasileira de Hepatologia. Diretrizes.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 43 - Feridas Crônicas: Fatores que Interferem na Cicatrização</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Feridas Crônicas: Fatores que Interferem na Cicatrização</div>
+        <h1>Questão 43</h1>
+        <div class="question-text">
+            As feridas crônicas são lesões que não conseguiram prosseguir com um processo reparador de maneira ordenada e cronológica para produzir a integridade anatômica e funcional por um período de 3 meses. Em relação a este tema, analise as assertivas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>I)</strong> As feridas crônicas mais frequentes são as relacionadas a úlceras diabéticas, úlceras crônicas da perna secundárias a insuficiência venosa e úlceras de pressão secundárias a imobilização.</div>
+            <div class="statement"><strong>II)</strong> A infecção da ferida é a causa mais comum de atraso na cicatrização, pois prolonga a fase inflamatória e interfere na epitelização, contração da ferida e deposição do colágeno.</div>
+            <div class="statement"><strong>III)</strong> O tabagismo causa vasoconstricção periférica e uma redução do fluxo sanguíneo na ferida, porém não interfere no tempo de fechamento de feridas cicatrizando por segunda intenção.</div>
+            <div class="statement"><strong>IV)</strong> O diabetes melito prejudica a cicatrização, pois a oclusão de grandes vasos e a microangiopatia de órgãos terminais associados ao diabetes levam a isquemia tecidual e infecção.</div>
+        </div>
+
+        <div class="question-text">
+            Estão corretas as assertivas
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - apenas a IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - apenas a I e II.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - apenas as III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - apenas as I, II e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - todas estão corretas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Geral / Clínica Cirúrgica / Dermatologia</p>
+                <p><strong>Tema:</strong> Feridas crônicas e fatores que interferem na cicatrização</p>
+                <p><strong>Contextualização:</strong> Feridas crônicas são um problema de saúde pública crescente, especialmente em pacientes diabéticos, idosos e com insuficiência venosa. O tema é recorrente em provas de residência porque integra fisiopatologia, prevenção e tratamento. A questão atual cobra o reconhecimento das feridas crônicas mais frequentes e dos fatores que atrasam a cicatrização, com destaque para infecção, tabagismo e diabetes.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A cicatrização normal ocorre em quatro fases: hemostasia, inflamação, proliferação e maturação/remodelamento. A ferida crônica fica presa em uma fase inflamatória persistente, com desequilíbrio entre mediadores pró-inflamatórios e anti-inflamatórios, aumento de proteases, senescência celular e infecção/biofilme. A infecção prolonga a inflamação, destrói tecido e impede a epitelização, a contração e a deposição de colágeno. O tabagismo causa vasoconstrição periférica, hipóxia tecidual, redução da proliferação de fibroblastos e comprometimento da síntese de colágeno, interferindo em qualquer tipo de cicatrização, inclusive por segunda intenção. O diabetes melito promove microangiopatia, neuropatia, disfunção imunológica e hiperglicemia, levando a isquemia, infecção e atraso na cicatrização. As feridas crônicas mais frequentes são as úlceras venosas, as úlceras diabéticas (neuropáticas/isquêmicas) e as úlceras por pressão.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong> — apenas as assertivas I, II e IV estão corretas. A assertiva I está correta: as feridas crônicas mais frequentes incluem úlceras diabéticas, úlceras venosas de perna e úlceras de pressão. A assertiva II está correta: a infecção é uma das principais causas de atraso na cicatrização, prolongando a inflamação e interferindo nas fases seguintes. A assertiva IV está correta: o diabetes melito prejudica a cicatrização por macro e microangiopatia, isquemia e infecção. A assertiva III é falsa porque o tabagismo interfere sim no fechamento de feridas cicatrizando por segunda intenção, ao causar vasoconstrição e hipóxia. O tema já foi cobrado em 2008 (Q95), que listou tabagismo e diabetes como fatores que interferem na cicatrização, e em 2014 (Q94), sobre manejo de feridas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - “apenas a IV” está incorreta porque as assertivas I e II também estão corretas. Distrator que subestima a importância das úlceras diabéticas/venosas/de pressão e da infecção.</p>
+                <p><strong>Alternativa B</strong> - “apenas a I e II” está incorreta porque a assertiva IV também está correta. Distrator que exclui o diabetes como fator de comprometimento da cicatrização.</p>
+                <p><strong>Alternativa C</strong> - “apenas as III e IV” está incorreta porque a assertiva III é falsa e as assertivas I e II são verdadeiras. Distrator que aceita a falsa ideia de que o tabagismo não interfere na cicatrização por segunda intenção.</p>
+                <p><strong>Alternativa D</strong> - Correta: I, II e IV são verdadeiras; III é falsa.</p>
+                <p><strong>Alternativa E</strong> - “todas estão corretas” está incorreta porque a assertiva III é falsa. Distrator que superestima o tabagismo e aceita uma afirmação clinicamente incorreta.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“3 meses”:</strong> critério temporal que define ferida crônica.</li>
+                    <li><strong>“Úlceras diabéticas, úlceras venosas e úlceras de pressão”:</strong> principais causas de feridas crônicas.</li>
+                    <li><strong>“Infecção”:</strong> causa comum de atraso na cicatrização; prolonga a inflamação.</li>
+                    <li><strong>“Tabagismo”:</strong> causa vasoconstrição e reduz fluxo sanguíneo; interfere em todos os tipos de cicatrização.</li>
+                    <li><strong>“Diabetes melito”:</strong> macro/microangiopatia, isquemia e infecção.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Reconhecer que ferida crônica é aquela que não cicatriza em 3 meses.</li>
+                    <li><strong>Segundo:</strong> Identificar as causas mais frequentes: úlcera venosa, úlcera diabética e úlcera de pressão.</li>
+                    <li><strong>Terceiro:</strong> Avaliar fatores que atrasam a cicatrização: infecção, isquemia, tabagismo, diabetes, desnutrição, idade avançada e medicamentos.</li>
+                    <li><strong>Quarto:</strong> Lembrar que o tabagismo interfere em qualquer tipo de cicatrização, inclusive por segunda intenção.</li>
+                    <li><strong>Quinto:</strong> Tratar a causa base, controlar infecção, otimizar perfusão e nutrição e realizar desbridamento quando indicado.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Ferida crônica é a que não cicatriza de forma ordenada em até 3 meses.</li>
+                    <li><strong>Fatos que definem:</strong> As feridas crônicas mais frequentes são úlceras venosas, diabéticas e por pressão.</li>
+                    <li><strong>Fatos que definem:</strong> Infecção prolonga a fase inflamatória e atrasa epitelização, contração e deposição de colágeno.</li>
+                    <li><strong>Fatos que definem:</strong> Tabagismo causa vasoconstrição e hipóxia, prejudicando a cicatrização por primeira e por segunda intenção.</li>
+                    <li><strong>Fatos que definem:</strong> Diabetes melito causa microangiopatia, neuropatia e maior risco de infecção.</li>
+                    <li><strong>Números e doses:</strong> Albumina &lt; 3,5 g/dL é marcador nutricional associado a pior cicatrização (tema da prova de 2008).</li>
+                    <li><strong>Mnemônico:</strong> “DITOS” — Diabetes, Infecção, Tabagismo, Oxigenação/Sangue, Sobrepeso/desnutrição: fatores que atrasam a cicatrização.</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Úlcera venosa</td>
+                            <td>Edema, hiperpigmentação, lipodermatoesclerose, dor que melhora com elevação; região medial da perna.</td>
+                            <td>Clínico; Doppler venoso; excluir arterial.</td>
+                            <td>Compressão, elevação, curativo, tratamento da insuficiência venosa.</td>
+                        </tr>
+                        <tr>
+                            <td>Úlcera arterial</td>
+                            <td>Dor em repouso, claudicação, pulsos reduzidos, pele fria e pálida; região distal.</td>
+                            <td>Índice tornozelo-braquial; angiografia.</td>
+                            <td>Revascularização, controle de risco cardiovascular, curativo.</td>
+                        </tr>
+                        <tr>
+                            <td>Úlcera diabética</td>
+                            <td>Neuropatia, deformidades, pressão plantar, infecção frequente; frequentemente indolor.</td>
+                            <td>Exame neurológico, avaliação vascular, raio-X/RM se osteomielite.</td>
+                            <td>Offloading, controle glicêmico, desbridamento, antibiótico se infecção.</td>
+                        </tr>
+                        <tr>
+                            <td>Úlcera por pressão</td>
+                            <td>Imobilidade, proeminências ósseas, lesão por pressão; estágios I-IV.</td>
+                            <td>Inspeção; estadiamento; avaliação nutricional.</td>
+                            <td>Mudança de decúbito, superfície de alívio, curativo, desbridamento.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre a causa mais comum de atraso na cicatrização:</strong> a resposta seria infecção.</li>
+                    <li><strong>Se fosse sobre fator que NÃO interfere na cicatrização:</strong> seria necessário diferenciar fatores comprovadamente associados (tabagismo, diabetes, desnutrição, idade) de fatores sem evidência.</li>
+                    <li><strong>Se fosse sobre prevenção de úlcera por pressão:</strong> a resposta incluiria mudança de decúbito, superfícies de alívio e avaliação nutricional.</li>
+                    <li><strong>Se fosse sobre úlcera venosa:</strong> a resposta incluiria compressão e tratamento da insuficiência venosa.</li>
+                    <li><strong>Se fosse sobre úlcera diabética:</strong> a resposta incluiria offloading, controle glicêmico e tratamento da infecção.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 – Q95</td>
+                            <td>Fatores que interferem diretamente na cicatrização de feridas, exceto.</td>
+                            <td>Fatores sistêmicos e locais de cicatrização</td>
+                            <td>D</td>
+                            <td>Lista tabagismo e diabetes como fatores que interferem; reforça que a assertiva III é falsa.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q83</td>
+                            <td>Paciente com úlcera por pressão após cirurgia de fratura de fêmur.</td>
+                            <td>Prevenção e classificação de úlceras por pressão</td>
+                            <td>C</td>
+                            <td>Aborda ferida crônica por pressão e medidas preventivas.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q94</td>
+                            <td>Planejamento do fechamento de ferida traumática; conduta incorreta.</td>
+                            <td>Desbridamento, curativo e manejo de feridas</td>
+                            <td>D</td>
+                            <td>Relaciona-se ao tratamento de feridas e fatores que interferem na cicatrização.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q58</td>
+                            <td>Sinais no exame físico de paciente com insuficiência venosa crônica.</td>
+                            <td>Úlcera venosa, lipodermatoesclerose e eczema</td>
+                            <td>C</td>
+                            <td>Úlcera venosa é uma das feridas crônicas mais frequentes citadas na assertiva I.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q67</td>
+                            <td>Úlceras por pressão: estadiamento, prevenção e tratamento.</td>
+                            <td>Feridas crônicas por pressão</td>
+                            <td>B</td>
+                            <td>Reforça a importância das úlceras por pressão entre as feridas crônicas.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q43</td>
+                            <td>Feridas crônicas e fatores que interferem na cicatrização.</td>
+                            <td>Conceito, causas frequentes e fatores de atraso</td>
+                            <td>D</td>
+                            <td>Questão atual; integra os temas das provas anteriores.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 provas anteriores. A banca alterna entre fatores que interferem na cicatrização (2008), prevenção e tratamento de úlceras por pressão (2014, 2022), sinais de insuficiência venosa (2020) e conceito de feridas crônicas (2024).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Fisiopatologia molecular da ferida crônica (biofilme, metaloproteinases, senescência celular), uso de terapia por pressão negativa, classificação de feridas crônicas e papel da nutrição específica ainda podem surgir.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em fatores gerais de cicatrização; as mais recentes integram prevenção, diagnóstico e tratamento de feridas crônicas específicas.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar as causas mais frequentes de feridas crônicas, os fatores que atrasam a cicatrização e as medidas preventivas/terapêuticas para úlceras venosas, diabéticas e por pressão.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Insuficiência venosa crônica — principal causa de úlcera venosa; tratamento com compressão.</li>
+                    <li><strong>Conexão 2:</strong> Diabetes melito e pé diabético — neuropatia, isquemia e infecção; offloading e controle glicêmico.</li>
+                    <li><strong>Conexão 3:</strong> Úlceras por pressão — imobilidade, prevenção com mudança de decúbito e superfícies de alívio.</li>
+                    <li><strong>Conexão 4:</strong> Infecção de sítio cirúrgico e deiscência — fatores locais e sistêmicos de cicatrização.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é marcar a alternativa E (“todas estão corretas”) por não perceber que o tabagismo também interfere na cicatrização por segunda intenção, ou marcar C por aceitar essa falsa premissa. Classificação do erro: lacuna de conhecimento sobre fatores que interferem na cicatrização e erro de leitura/interpretação da assertiva III. Ação corretiva: revisar o impacto do tabagismo em todas as fases da cicatrização e memorizar os fatores de atraso.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o manejo de feridas crônicas exige abordagem multidisciplinar: controle de comorbidades (diabetes, hipertensão, insuficiência venosa), cessação do tabagismo, avaliação nutricional, tratamento de infecção, desbridamento, escolha adequada de curativos e prevenção de úlceras por pressão. A identificação precoce dos fatores de atraso permite intervenções que reduzem morbidade, tempo de internação e custos.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Fases da cicatrização</li>
+                    <li>Fatores locais e sistêmicos que interferem na cicatrização</li>
+                    <li>Úlcera venosa, arterial, diabética e por pressão</li>
+                    <li>Infecção de ferida e biofilme</li>
+                    <li>Desbridamento e curativos</li>
+                    <li>Terapia compressiva e offloading</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>2. Ministério da Saúde. Manual de Tratamento de Feridas.</p>
+                <p>3. Sociedade Brasileira de Angiologia e Cirurgia Vascular (SBACV). Diretrizes de Úlceras Venosas.</p>
+                <p>4. International Working Group on the Diabetic Foot (IWGDF). Guidelines.</p>
+                <p>5. National Pressure Injury Advisory Panel (NPIAP). Prevention and Treatment of Pressure Ulcers/Injuries.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 44 - Apendicite Aguda Perfurada: Manejo Pós-Operatório e Realimentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Apendicite Aguda Perfurada: Manejo Pós-Operatório e Realimentação</div>
+        <h1>Questão 44</h1>
+        <div class="question-text">
+            Paciente masculino, 30 anos, é submetido a laparotomia exploradora por quadro de dor abdominal em flanco direito com cinco dias de evolução. No intra-operatório observa-se grande quantidade de secreção purulenta em toda a cavidade abdominal e apendicite aguda com necrose e perfuração da base do apêndice. Em relação ao tratamento a ser realizado a este paciente, assinale a assertiva correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Deve ser realizada restrição hídrica na reanimação deste paciente, priorizando-se o uso de soluções cristaloides.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - O início da antibioticoterapia deve ser realizado após o resultado da análise da cultura do líquido intracavitário, que vai nortear a escolha do agente.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A antibioticoterapia deve ser iniciada após o término do procedimento cirúrgico com a confirmação do diagnóstico e a definição dos germes envolvidos.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A alimentação oral deste paciente deve ser reiniciada após o retorno dos ruídos intestinais e a eliminação de gases e avançada conforme for tolerada.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - No intra-operatório deve ser realizada irrigação da cavidade abdominal com antibiótico de amplo espectro após a retirada do apêndice e controle da infecção.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Geral / Clínica Cirúrgica / Infectologia Cirúrgica</p>
+                <p><strong>Tema:</strong> Apendicite aguda perfurada com peritonite — manejo pós-operatório, antibioticoterapia e realimentação</p>
+                <p><strong>Contextualização:</strong> A apendicite aguda é a emergência cirúrgica abdominal mais comum e a principal causa de abdome agudo inflamatório. Quando perfurada, evolui com peritonite purulenta, sepse e risco de complicações graves. O tema é recorrente em provas de residência, especialmente no que se refere ao manejo pós-operatório (antibióticos, hidratação, realimentação e cuidados com a cavidade). A questão atual aborda a conduta pós-operatória em apendicite perfurada, com foco na realimentação e antibioticoterapia. O tema já foi cobrado em 2013 (Q54), 2016 (Q64), 2017 (Q23), 2022 (Q80) e 2023 (Q9).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A apendicite aguda perfurada leva à contaminação da cavidade peritoneal por flora polimicrobiana (gram-negativos entéricos, anaeróbios — especialmente Bacteroides fragilis — e, por vezes, cocos gram-positivos). A resposta inflamatória sistêmica causa extravasamento capilar, hipovolemia relativa e desequilíbrios hidroeletrolíticos. A antibioticoterapia deve ser iniciada precocemente, de forma empírica, com cobertura para gram-negativos e anaeróbios, sem aguardar cultura. A irrigação com antibiótico intraperitoneal não é recomendada (a irrigação deve ser feita com soro fisiológico e não há benefício comprovado do antibiótico tópico). A realimentação precoce é preferível; o retorno dos ruídos hidroaéreos e a eliminação de gases são sinais clínicos de retorno da função intestinal, mas a realimentação pode ser iniciada independentemente desses sinais, conforme tolerância. A restrição hídrica é inadequada em paciente séptico, que necessita de reposição volêmica adequada.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>. A realimentação oral precoce é segura e recomendada após cirurgia abdominal, inclusive em apendicite perfurada. A conduta de reiniciar a dieta após o retorno dos ruídos hidroaéreos e a eliminação de gases, avançando conforme a tolerância, é adequada e está alinhada com as diretrizes de cirurgia geral. O tema já foi cobrado em 2017 (Q23) e 2022 (Q80), que abordaram complicações pós-operatórias e conduta em infecção de ferida operatória; e em 2023 (Q9), que tratou da antibioticoterapia na apendicite não complicada. A alternativa D é a única conduta claramente correta entre as apresentadas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Falsa. A restrição hídrica é contraindicada em paciente séptico com peritonite. A reposição volêmica deve ser adequada, com cristaloides balanceados, visando estabilidade hemodinâmica e perfusão tecidual. Esse distrator confunde o manejo do paciente séptico.</p>
+                <p><strong>Alternativa B</strong> - Falsa. A antibioticoterapia empírica deve ser iniciada precocemente, sem aguardar cultura. A cultura do líquido intracavitário pode auxiliar no ajuste posterior, mas não deve atrasar o início do tratamento. Esse distrator explora o conhecimento sobre o tempo de início da antibioticoterapia em sepse abdominal.</p>
+                <p><strong>Alternativa C</strong> - Falsa. A antibioticoterapia deve ser iniciada no pré-operatório (profilática/terapêutica) e mantida no pós-operatório, sem aguardar o término da cirurgia ou a definição dos germes. Esse distrator é semelhante ao B e reforça o erro de postergar o antibiótico.</p>
+                <p><strong>Alternativa E</strong> - Falsa. A irrigação da cavidade com antibiótico de amplo espectro não é recomendada. A irrigação deve ser feita com soro fisiológico; o antibiótico tópico intraperitoneal não traz benefício comprovado e pode causar irritação peritoneal e toxicidade. Esse distrator explora o conhecimento sobre a técnica cirúrgica e o uso racional de antibióticos.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Cinco dias de evolução”:</strong> indica atraso no diagnóstico, maior probabilidade de perfuração e peritonite.</li>
+                    <li><strong>“Grande quantidade de secreção purulenta em toda a cavidade”:</strong> peritonite generalizada, sepse abdominal.</li>
+                    <li><strong>“Necrose e perfuração da base do apêndice”:</strong> apendicite perfurada; foco infeccioso.</li>
+                    <li><strong>“Tratamento a ser realizado”:</strong> foco no manejo pós-operatório e antibioticoterapia.</li>
+                    <li><strong>“Realimentação”:</strong> tema central da alternativa correta.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Estabilizar hemodinamicamente o paciente, com reposição volêmica adequada (cristaloides balanceados).</li>
+                    <li><strong>Segundo:</strong> Iniciar antibioticoterapia empírica precoce com cobertura para gram-negativos e anaeróbios (ex.: ceftriaxona + metronidazol ou piperacilina-tazobactam).</li>
+                    <li><strong>Terceiro:</strong> Realizar laparotomia/laparoscopia para controle do foco (apendicectomia), lavagem da cavidade com soro fisiológico e drenagem se necessário.</li>
+                    <li><strong>Quarto:</strong> Manter antibioticoterapia no pós-operatório conforme gravidade (geralmente 3-7 dias em peritonite).</li>
+                    <li><strong>Quinto:</strong> Reiniciar dieta oral precocemente, conforme tolerância, sem aguardar ruídos hidroaéreos ou eliminação de gases.</li>
+                    <li><strong>Sexto:</strong> Monitorar complicações: infecção de ferida, abscesso intra-abdominal, íleo paralítico, sepse.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Apendicite perfurada causa peritonite polimicrobiana e sepse abdominal.</li>
+                    <li><strong>Fatos que definem:</strong> Antibioticoterapia empírica deve ser iniciada precocemente, sem aguardar cultura.</li>
+                    <li><strong>Fatos que definem:</strong> A irrigação intraperitoneal com antibiótico não é recomendada; usar soro fisiológico.</li>
+                    <li><strong>Fatos que definem:</strong> A realimentação precoce é segura e recomendada em pós-operatório de cirurgia abdominal, inclusive em apendicite perfurada.</li>
+                    <li><strong>Números e doses:</strong> Antibioticoterapia empírica: ceftriaxona 2 g IV 1x/dia + metronidazol 500 mg IV 8/8h; ou piperacilina-tazobactam 4,5 g IV 6/6h.</li>
+                    <li><strong>Mnemônico:</strong> “ABCDE da peritonite: Antibiótico precoce, Balanço hídrico, Controle do foco, Drenagem, Early feeding.”</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Apendicite perfurada</td>
+                            <td>Dor em FID, febre, peritonite, leucocitose, sinais de sepse.</td>
+                            <td>Tomografia/USG; laparoscopia/laparotomia.</td>
+                            <td>Apendicectomia, lavagem, antibiótico.</td>
+                        </tr>
+                        <tr>
+                            <td>Diverticulite perfurada</td>
+                            <td>Dor em FIE, idoso, constipação, febre.</td>
+                            <td>Tomografia.</td>
+                            <td>Antibiótico, cirurgia em casos graves.</td>
+                        </tr>
+                        <tr>
+                            <td>Úlcera péptica perfurada</td>
+                            <td>Dor epigástrica súbita, pneumoperitônio, rigidez de abdome.</td>
+                            <td>Raio-X de tórax (pneumoperitônio), tomografia.</td>
+                            <td>Cirurgia (rafia), IBP, antibiótico.</td>
+                        </tr>
+                        <tr>
+                            <td>Pancreatite aguda grave</td>
+                            <td>Dor epigástrica irradiada ao dorso, amilase/lipase elevadas, SIRS.</td>
+                            <td>Tomografia, enzimas pancreáticas.</td>
+                            <td>Hidratação, analgesia, suporte, cirurgia se necrose infectada.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre antibioticoterapia na apendicite não complicada:</strong> a resposta seria dose pré-operatória única (2023 Q9).</li>
+                    <li><strong>Se fosse sobre complicações pós-operatórias:</strong> a resposta incluiria infecção de ferida, abscesso intra-abdominal, íleo paralítico e sepse (2017 Q23).</li>
+                    <li><strong>Se fosse sobre infecção de ferida operatória:</strong> a resposta seria abertura da ferida e drenagem, com antibiótico apenas em casos de celulite ou infecção sistêmica (2022 Q80).</li>
+                    <li><strong>Se fosse sobre drenagem abdominal:</strong> a resposta envolveria drenagem de abscesso e controle do foco.</li>
+                    <li><strong>Se fosse sobre realimentação precoce:</strong> a resposta seria reiniciar dieta conforme tolerância, sem aguardar ruídos hidroaéreos.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2013 – Q54</td>
+                            <td>Paciente submetido a laparotomia por apendicite; conduta em ferida contaminada.</td>
+                            <td>Fechamento de ferida contaminada</td>
+                            <td>E</td>
+                            <td>Relaciona-se ao manejo da ferida operatória em apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q64</td>
+                            <td>Paciente com obstrução intestinal pós-operatória; conduta inicial.</td>
+                            <td>Obstrução intestinal pós-operatória</td>
+                            <td>C</td>
+                            <td>Aborda complicação pós-operatória de cirurgia abdominal.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q23</td>
+                            <td>Infecção de ferida operatória após apendicectomia; conduta.</td>
+                            <td>Complicação pós-operatória</td>
+                            <td>C</td>
+                            <td>Aborda complicação pós-operatória de apendicectomia.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q80</td>
+                            <td>Pós-operatório de colectomia com dor e distensão; conduta.</td>
+                            <td>Íleo paralítico pós-operatório</td>
+                            <td>D</td>
+                            <td>Relaciona-se ao manejo pós-operatório de cirurgia abdominal.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q9</td>
+                            <td>Apendicite aguda não complicada; antibioticoterapia pós-operatória.</td>
+                            <td>Antibioticoterapia em apendicite não complicada</td>
+                            <td>A</td>
+                            <td>Complementa a questão atual, que aborda apendicite complicada/perfurada.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q44</td>
+                            <td>Apendicite perfurada com peritonite; conduta pós-operatória.</td>
+                            <td>Antibioticoterapia, realimentação e irrigação</td>
+                            <td>D</td>
+                            <td>Questão atual; integra os temas das provas anteriores.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 provas anteriores. A banca alterna entre antibioticoterapia em apendicite não complicada (2023), complicações pós-operatórias (2016, 2017, 2022) e manejo da ferida operatória (2013). A questão atual foca no manejo pós-operatório da apendicite perfurada.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A realimentação precoce (early feeding) em cirurgia abdominal e a não indicação de irrigação com antibiótico intraperitoneal ainda não foram cobradas diretamente. Também pode surgir uma questão sobre duração da antibioticoterapia em peritonite.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam em complicações específicas; as mais recentes abordam o manejo global do paciente com peritonite, incluindo antibioticoterapia, hidratação e realimentação.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar as recomendações de realimentação precoce, antibioticoterapia empírica precoce, contraindicação de irrigação com antibiótico e duração da antibioticoterapia em peritonite.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Sepse abdominal e choque séptico — manejo hemodinâmico e antibioticoterapia.</li>
+                    <li><strong>Conexão 2:</strong> Infecção de sítio cirúrgico — prevenção, diagnóstico e tratamento (2017 Q23, 2022 Q80).</li>
+                    <li><strong>Conexão 3:</strong> Íleo paralítico pós-operatório — fisiopatologia e manejo (2016 Q64, 2022 Q80).</li>
+                    <li><strong>Conexão 4:</strong> Antibioticoterapia em cirurgia — profilática versus terapêutica (2023 Q9).</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é escolher alternativas que propõem irrigação com antibiótico (E) ou que postergam a antibioticoterapia (B e C). Classificação do erro: lacuna de conhecimento sobre o manejo pós-operatório da peritonite e sobre o uso racional de antibióticos. Ação corretiva: revisar as diretrizes de antibioticoterapia empírica, a não indicação de irrigação com antibiótico e os benefícios da realimentação precoce.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente com apendicite perfurada e peritonite exige abordagem multidisciplinar: estabilização hemodinâmica, antibioticoterapia precoce, controle cirúrgico do foco, lavagem da cavidade com soro fisiológico e realimentação precoce. A não adesão a essas medidas aumenta o risco de complicações, tempo de internação e mortalidade. A realimentação precoce reduz o tempo de internação e melhora a recuperação funcional.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Apendicite aguda: diagnóstico e tratamento</li>
+                    <li>Peritonite: fisiopatologia e manejo</li>
+                    <li>Antibioticoterapia empírica em sepse abdominal</li>
+                    <li>Realimentação precoce em cirurgia abdominal</li>
+                    <li>Infecção de sítio cirúrgico</li>
+                    <li>Íleo paralítico pós-operatório</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>2. Diretrizes da Sociedade Brasileira de Infectologia (SBI) para Sepse e Choque Séptico.</p>
+                <p>3. World Society of Emergency Surgery (WSES). Guidelines for Acute Appendicitis.</p>
+                <p>4. American College of Surgeons. Enhanced Recovery After Surgery (ERAS) Guidelines.</p>
+                <p>5. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Sepse.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

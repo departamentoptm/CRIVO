@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 56 - Nutrologia / Cirurgia Bariátrica: Classificação do Estado Nutricional pelo IMC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Nutrologia / Cirurgia Bariátrica: Classificação do Estado Nutricional pelo IMC</div>
+        <h1>Questão 56</h1>
+        <div class="question-text">
+            O Índice de Massa Corporal (IMC) associado a medida da cintura abdominal pode nos trazer informações de suma importância na estratificação de risco metabólico em pacientes acompanhados em Ambulatório especializado de controle de Obesidade e Pré-Operatório de Cirurgia Bariátrica. Baseando-se nos seus conhecimentos sobre a classificação do IMC, você está atendendo um paciente do sexo masculino, 45 anos que apresenta IMC 33,6kg/m2. Assinale a assertiva que contenha a classificação deste paciente.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Eutrófico.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Sobrepeso.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Obesidade grau I.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Obesidade grau II.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Obesidade grau III.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Nutrologia / Clínica Médica / Cirurgia Bariátrica / Medicina de Família e Comunidade.</p>
+                <p><strong>Tema:</strong> Classificação do estado nutricional pelo Índice de Massa Corporal (IMC) segundo a Organização Mundial da Saúde (OMS), com correlação com risco metabólico e indicação de cirurgia bariátrica.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência médica, especialmente em Clínica Médica, Cirurgia Geral, Medicina de Família e Comunidade e Nutrologia. A banca costuma cobrar a classificação do IMC (eutrofia, sobrepeso, obesidade grau I, II e III), os critérios de indicação de cirurgia bariátrica, a relação entre IMC e risco cardiovascular, além da medida da circunferência abdominal como complemento à estratificação de risco. É tema recorrente em questões que envolvem obesidade, síndrome metabólica, diabetes tipo 2 e pré-operatório de cirurgia bariátrica.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O IMC é calculado pela fórmula: IMC = peso (kg) / altura² (m²). Segundo a OMS, a classificação para adultos é: eutrofia (18,5-24,9 kg/m²), sobrepeso (25-29,9 kg/m²), obesidade grau I (30-34,9 kg/m²), obesidade grau II (35-39,9 kg/m²) e obesidade grau III (≥ 40 kg/m²). O IMC 33,6 kg/m², portanto, enquadra-se em obesidade grau I. O IMC é uma medida populacional de triagem, não substituindo a avaliação individual (composição corporal, circunferência abdominal, comorbidades). A circunferência abdominal complementa a estratificação de risco: em homens, ≥ 94 cm indica risco aumentado e ≥ 102 cm risco muito aumentado; em mulheres, ≥ 80 cm e ≥ 88 cm, respectivamente.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong> (Obesidade grau I). O paciente apresenta IMC de 33,6 kg/m², que está no intervalo de 30 a 34,9 kg/m², classificado pela OMS como obesidade grau I. As demais alternativas estão incorretas: eutrofia (18,5-24,9), sobrepeso (25-29,9), obesidade grau II (35-39,9) e obesidade grau III (≥ 40). A questão cobra apenas a classificação, sem necessidade de outros dados clínicos.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Errada. Eutrofia corresponde a IMC entre 18,5 e 24,9 kg/m², muito abaixo do valor do paciente.</p>
+                <p><strong>Alternativa B</strong> - Errada. Sobrepeso corresponde a IMC entre 25 e 29,9 kg/m², também abaixo do valor do paciente.</p>
+                <p><strong>Alternativa C</strong> - Correta. Obesidade grau I corresponde a IMC entre 30 e 34,9 kg/m², onde se encontra o IMC 33,6 kg/m².</p>
+                <p><strong>Alternativa D</strong> - Errada. Obesidade grau II corresponde a IMC entre 35 e 39,9 kg/m², acima do valor do paciente.</p>
+                <p><strong>Alternativa E</strong> - Errada. Obesidade grau III corresponde a IMC ≥ 40 kg/m², muito acima do valor do paciente.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>"IMC 33,6 kg/m²":</strong> valor numérico que deve ser enquadrado na tabela da OMS.</li>
+                    <li><strong>"Sexo masculino, 45 anos":</strong> adulto, portanto aplica-se a classificação da OMS para adultos (não a classificação pediátrica ou geriátrica).</li>
+                    <li><strong>"Pré-operatório de cirurgia bariátrica":</strong> contexto que reforça a importância da classificação do IMC, pois a indicação cirúrgica depende do IMC associado a comorbidades.</li>
+                    <li><strong>"Estratificação de risco metabólico":</strong> lembra que IMC e circunferência abdominal se complementam.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> calcular o IMC pela fórmula peso/altura² (quando não fornecido).</li>
+                    <li><strong>Segundo:</strong> comparar o valor com a tabela da OMS: eutrofia (18,5-24,9), sobrepeso (25-29,9), obesidade grau I (30-34,9), grau II (35-39,9), grau III (≥ 40).</li>
+                    <li><strong>Terceiro:</strong> complementar com a medida da circunferência abdominal para estratificar risco metabólico.</li>
+                    <li><strong>Quarto:</strong> avaliar comorbidades (diabetes, hipertensão, dislipidemia, apneia do sono) para definir conduta e eventual indicação de cirurgia bariátrica.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> IMC 30-34,9 kg/m² = obesidade grau I; 35-39,9 = grau II; ≥ 40 = grau III.</li>
+                    <li><strong>Circunferência abdominal:</strong> homens ≥ 94 cm (risco aumentado) e ≥ 102 cm (risco muito aumentado); mulheres ≥ 80 cm e ≥ 88 cm.</li>
+                    <li><strong>Indicação de cirurgia bariátrica:</strong> IMC ≥ 40 kg/m² ou IMC ≥ 35 kg/m² com comorbidades; em 2017, o CFM passou a permitir cirurgia metabólica em IMC 30-34,9 com diabetes tipo 2 refratário.</li>
+                    <li><strong>Mnemônico:</strong> "30-35 = grau I; 35-40 = grau II; ≥ 40 = grau III".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Condição</th><th>IMC (kg/m²)</th><th>Risco metabólico</th><th>Conduta</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Eutrofia</td><td>18,5-24,9</td><td>Baixo</td><td>Manter hábitos saudáveis</td></tr>
+                        <tr><td>Sobrepeso</td><td>25-29,9</td><td>Aumentado</td><td>MEV; rastrear comorbidades</td></tr>
+                        <tr><td>Obesidade grau I (caso)</td><td>30-34,9</td><td>Moderado a alto</td><td>MEV intensiva; considerar farmacoterapia; cirurgia metabólica se DM2 refratário (IMC 30-34,9)</td></tr>
+                        <tr><td>Obesidade grau II</td><td>35-39,9</td><td>Alto</td><td>MEV + farmacoterapia; cirurgia bariátrica se comorbidades</td></tr>
+                        <tr><td>Obesidade grau III</td><td>≥ 40</td><td>Muito alto</td><td>Cirurgia bariátrica</td></tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse a classificação de IMC 27:</strong> sobrepeso.</li>
+                    <li><strong>Se pedisse a classificação de IMC 37:</strong> obesidade grau II.</li>
+                    <li><strong>Se pedisse a classificação de IMC 42:</strong> obesidade grau III.</li>
+                    <li><strong>Se pedisse a indicação de cirurgia bariátrica:</strong> IMC ≥ 40 ou ≥ 35 com comorbidades; em 2017, cirurgia metabólica para IMC 30-34,9 com DM2 refratário.</li>
+                    <li><strong>Se pedisse a circunferência abdominal de risco:</strong> homens ≥ 94 cm, mulheres ≥ 80 cm.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2014 – Q73</td>
+                            <td>Cirurgia bariátrica: indicação com IMC > 40 e IMC 35-40 com comorbidades; transtornos psiquiátricos controlados não contraindicam.</td>
+                            <td>Critérios de indicação de cirurgia bariátrica</td>
+                            <td>C (I, II e IV)</td>
+                            <td>Complementa a questão: usa o IMC para indicação cirúrgica, reforçando a classificação.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q77</td>
+                            <td>Cirurgia bariátrica: IMC > 40 ou 35-40 com comorbidades; contraindicações (alcoolismo ativo, uso de drogas).</td>
+                            <td>Critérios de indicação e contraindicação</td>
+                            <td>E</td>
+                            <td>Reforça a classificação do IMC como base para indicação cirúrgica.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q45</td>
+                            <td>Síndromes associadas à obesidade (Präder-Willi, Cohen, Cushing, Williams).</td>
+                            <td>Síndromes genéticas e endócrinas da obesidade</td>
+                            <td>E (Williams)</td>
+                            <td>Contextualiza causas de obesidade e a importância da classificação do IMC.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q67</td>
+                            <td>Consequências patológicas da obesidade (apneia do sono, testosterona, bile).</td>
+                            <td>Complicações da obesidade</td>
+                            <td>C</td>
+                            <td>Relaciona a obesidade grau I a comorbidades, reforçando a importância do diagnóstico.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q56</td>
+                            <td>Paciente com IMC 30,7427 e SOP; classificação e conduta.</td>
+                            <td>IMC e síndrome dos ovários policísticos</td>
+                            <td>C</td>
+                            <td>Mostra a classificação de IMC em contexto clínico, similar à questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q36</td>
+                            <td>Paciente com IMC 27,2; indicação de estatina conforme risco cardiovascular.</td>
+                            <td>IMC e risco cardiovascular</td>
+                            <td>A</td>
+                            <td>Reforça a relação entre IMC e estratificação de risco.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q95</td>
+                            <td>Paciente de 79 anos com IMC 26,45; avaliação nutricional no idoso.</td>
+                            <td>IMC no idoso e abordagem nutricional</td>
+                            <td>B</td>
+                            <td>Mostra a aplicação do IMC em outra faixa etária, contrastando com a classificação do adulto.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q74</td>
+                            <td>Paciente com IMC 36, hipertensão e acantose nigricans; diagnóstico de resistência insulínica.</td>
+                            <td>IMC e síndrome metabólica</td>
+                            <td>C</td>
+                            <td>Complementa a relação entre IMC e comorbidades metabólicas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 8 provas anteriores, seja diretamente na classificação de IMC, seja em questões de cirurgia bariátrica, síndrome metabólica ou complicações da obesidade. A banca alterna entre cobrar a classificação do IMC, os critérios de cirurgia bariátrica e a relação com comorbidades.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> IMC em populações especiais (idosos, gestantes, atletas), circunferência abdominal como critério complementar e critérios de cirurgia metabólica para IMC 30-34,9 com DM2 refratário.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais os critérios de cirurgia bariátrica; em provas recentes, tem cobrado classificação direta do IMC e sua relação com síndrome metabólica.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Memorizar a tabela da OMS (eutrofia, sobrepeso, graus I, II e III) e os critérios de cirurgia bariátrica/metabólica.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Síndrome metabólica — o IMC é um dos componentes de avaliação, junto com circunferência abdominal, glicemia, triglicerídeos, HDL e pressão arterial.</li>
+                    <li><strong>Conexão 2:</strong> Diabetes tipo 2 — a obesidade grau I com DM2 refratário pode indicar cirurgia metabólica (IMC 30-34,9).</li>
+                    <li><strong>Conexão 3:</strong> Apneia obstrutiva do sono — complicação frequente da obesidade, que agrava o risco cardiovascular.</li>
+                    <li><strong>Conexão 4:</strong> Cirurgia bariátrica — a classificação do IMC é pré-requisito para indicação cirúrgica.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é de leitura/interpretação ao confundir os intervalos de IMC (por exemplo, considerar 33,6 como obesidade grau II, que se inicia em 35). Estratégia: memorizar a tabela da OMS com os intervalos: 25-29,9 (sobrepeso), 30-34,9 (grau I), 35-39,9 (grau II), ≥ 40 (grau III).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente com IMC 33,6 kg/m² deve ser classificado como obesidade grau I. A conduta inclui mudanças de estilo de vida (dieta e atividade física), rastreamento de comorbidades (diabetes, hipertensão, dislipidemia, apneia do sono) e, em casos selecionados de DM2 refratário, considerar cirurgia metabólica. A circunferência abdominal complementa a avaliação de risco.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Tabela de classificação do IMC da OMS.</li>
+                    <li>Circunferência abdominal e risco metabólico.</li>
+                    <li>Critérios de indicação de cirurgia bariátrica e metabólica.</li>
+                    <li>Síndrome metabólica e comorbidades da obesidade.</li>
+                    <li>Limitações do IMC (não diferencia massa magra de gordura, não reflete composição corporal).</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Organização Mundial da Saúde (OMS). Obesity: preventing and managing the global epidemic. Geneva: WHO, 2000.</p>
+                <p>2. Associação Brasileira para o Estudo da Obesidade e da Síndrome Metabólica (ABESO). Diretrizes Brasileiras de Obesidade, 6ª edição.</p>
+                <p>3. Resolução CFM nº 2.172/2017 — cirurgia metabólica para tratamento de diabetes tipo 2.</p>
+                <p>4. UpToDate: Obesity in adults: Prevalence, screening, and evaluation.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

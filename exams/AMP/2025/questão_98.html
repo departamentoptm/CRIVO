@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 98 - Rastreamento e Diagnóstico do Câncer de Próstata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Rastreamento e Diagnóstico do Câncer de Próstata</div>
+        <h1>Questão 98</h1>
+        <div class="question-text">
+            O câncer de próstata é o câncer mais comum diagnosticado em homens e o terceiro câncer mais comum diagnosticado nos EUA. É um adenocarcinoma e surge das estruturas glandulares dentro do parênquima prostático. Em relação a este tema, analise as assertivas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement">
+                <strong>I)</strong> A triagem de rotina não é recomendada rotineiramente em homens com idade entre 40 e 54 anos e em homens com mais de 70 anos ou menos de 40 anos.
+            </div>
+            <div class="statement">
+                <strong>II)</strong> O câncer de próstata é diagnosticado histologicamente pelo sistema de classificação de Gleason, que avalia o nível de anormalidade nos padrões da arquitetura glandular da próstata em comparação ao normal.
+            </div>
+            <div class="statement">
+                <strong>III)</strong> O exame digital da próstata é opcional na primeira consulta de rastreamento, pois a ecografia de próstata via abdominal pode identificar nódulos suspeitos.
+            </div>
+            <div class="statement">
+                <strong>IV)</strong> Pacientes que têm um nível de PSA total elevado ou achados anormais no exame de toque retal ou ambos devem ser submetidos à biopsia guiada por ultrassonografia transretal da próstata.
+            </div>
+            <div class="statement">
+                <strong>V)</strong> A tomografia computadorizada da pelve com contraste endovenoso visa avaliar a próstata em casos duvidosos de PSA aumentado.
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Apenas a I, II e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Apenas a I, IV e V.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Apenas as II, III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Apenas as III, IV e V.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Todas estão corretas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Urologia; Oncologia; Medicina de Família e Comunidade; Clínica Médica.</p>
+                <p><strong>Tema:</strong> Rastreamento, diagnóstico e classificação histológica do câncer de próstata.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência. O câncer de próstata é a neoplasia mais comum em homens (excetuando-se pele não melanoma) e a segunda causa de morte por câncer na população masculina. A banca costuma cobrar: quem rastrear, quando rastrear, quais exames usar (PSA e toque retal), o papel da biópsia guiada por US transretal, o escore de Gleason e o estadiamento. Nesta questão, o foco é diferenciar o que é recomendação de rastreamento, o que é método diagnóstico e o que é exame de estadiamento/avaliação de extensão.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O adenocarcinoma de próstata origina-se das células glandulares periféricas e, na maioria dos casos, é multifocal. O rastreamento baseia-se na dosagem de PSA total e no toque retal. O PSA é uma glicoproteína produzida pelo epitélio prostático; eleva-se no câncer, mas também na HPB, prostatite, manipulação e ejaculação. Por isso, o PSA tem alta sensibilidade e baixa especificidade — não é teste confirmatório. O diagnóstico definitivo é histológico, obtido por biópsia guiada por ultrassonografia transretal (ou, mais recentemente, por fusão com ressonância magnética). O sistema de Gleason avalia a arquitetura glandular em dois padrões predominantes (1 a 5) e gera um escore de 2 a 10; escores mais altos indicam maior desdiferenciação e pior prognóstico. A TC de pelve não é exame para avaliar a próstata em si, mas sim para pesquisa de linfonodos e metástases à distância em pacientes de alto risco.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>A</strong> (apenas I, II e IV). A assertiva I está correta: as diretrizes atuais não recomendam rastreamento populacional de rotina em homens de 40 a 54 anos nem em maiores de 70 anos; a decisão deve ser individualizada, com discussão de riscos e benefícios, geralmente entre 55 e 69 anos. A assertiva II está correta: o diagnóstico histológico utiliza o sistema de Gleason, que descreve o padrão arquitetural glandular. A assertiva IV está correta: PSA elevado e/ou toque retal alterado são indicações de biópsia guiada por US transretal. A assertiva III é falsa porque o toque retal é parte do rastreamento e não é substituído pela ecografia abdominal. A assertiva V é falsa porque a TC de pelve não tem papel na avaliação diagnóstica da próstata; ela é usada no estadiamento de doença de alto risco.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa B</strong> - Errada. Inclui a assertiva V, que é falsa, e exclui a II, que é verdadeira. A TC de pelve não é exame para avaliar nódulos prostáticos.</p>
+                <p><strong>Alternativa C</strong> - Errada. Inclui a assertiva III, que é falsa, e exclui a I, que é verdadeira. O toque retal não é opcional no rastreamento.</p>
+                <p><strong>Alternativa D</strong> - Errada. Inclui as assertivas III e V, ambas falsas.</p>
+                <p><strong>Alternativa E</strong> - Errada. Considera todas verdadeiras, incluindo as assertivas III e V.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Triagem de rotina”:</strong> remete às recomendações de rastreamento populacional, que não são universais.</li>
+                    <li><strong>“Gleason”:</strong> sistema histológico de padrões arquiteturais, essencial para o diagnóstico e prognóstico.</li>
+                    <li><strong>“Toque retal” e “ecografia via abdominal”:</strong> o toque é parte do exame; a ecografia abdominal não substitui o toque nem a biópsia.</li>
+                    <li><strong>“PSA total elevado ou toque anormal”:</strong> indicação clássica de biópsia transretal.</li>
+                    <li><strong>“Tomografia computadorizada da pelve”:</strong> exame de estadiamento, não de diagnóstico da próstata.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> definir se o paciente tem indicação de rastreamento (idade, expectativa de vida, preferência).</li>
+                    <li><strong>Segundo:</strong> realizar PSA total e toque retal; ambos são complementares.</li>
+                    <li><strong>Terceiro:</strong> se PSA alterado e/ou toque suspeito, indicar biópsia guiada por US transretal (ou fusão com RM).</li>
+                    <li><strong>Quarto:</strong> confirmado o adenocarcinoma, classificar pelo Gleason e estadiar; TC de pelve e cintilografia óssea são reservadas para casos de alto risco.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> o diagnóstico de câncer de próstata é histológico; PSA e toque são ferramentas de rastreamento, não confirmatórias.</li>
+                    <li><strong>Números e doses:</strong> rastreamento individualizado geralmente entre 55 e 69 anos; PSA &gt; 4 ng/mL é tradicionalmente o ponto de corte, mas valores entre 2,5 e 4 exigem estratificação; Gleason 6 = baixo grau, 7 = intermediário, 8–10 = alto grau.</li>
+                    <li><strong>Mnemônicos:</strong> “PSA não é biópsia”; “toque não é opcional”; “TC não diagnostica próstata”.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em provas anteriores, como em 2018 e 2024.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Câncer de próstata</td>
+                            <td>Assintomático no início; obstrução urinária, hematúria, dor óssea em doença avançada; toque com nódulo endurecido</td>
+                            <td>PSA, toque retal, biópsia guiada por US transretal, Gleason</td>
+                            <td>Vigilância ativa, prostatectomia, radioterapia, hormonioterapia conforme risco</td>
+                        </tr>
+                        <tr>
+                            <td>Hiperplasia prostática benigna (HPB)</td>
+                            <td>Sintomas obstrutivos e irritativos, próstata aumentada e fibroelástica, PSA pode estar elevado</td>
+                            <td>IPSS, urofluxometria, US, PSA, toque</td>
+                            <td>Alfa-bloqueadores, inibidores da 5-alfa-redutase, cirurgia se refratário</td>
+                        </tr>
+                        <tr>
+                            <td>Prostatite</td>
+                            <td>Dor perineal, disúria, febre, próstata dolorosa ao toque</td>
+                            <td>Urina, cultura, PSA transitório elevado</td>
+                            <td>Antibióticos, anti-inflamatórios, hidratação</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre rastreamento:</strong> a resposta envolveria faixa etária, expectativa de vida e decisão compartilhada.</li>
+                    <li><strong>Se fosse sobre diagnóstico:</strong> a resposta seria biópsia guiada por US transretal após PSA e/ou toque alterados.</li>
+                    <li><strong>Se fosse sobre prognóstico:</strong> a resposta seria Gleason e estadiamento.</li>
+                    <li><strong>Se fosse sobre estadiamento:</strong> a resposta incluiria TC de pelve, cintilografia óssea e PSMA-PET em alto risco.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2018 – Q60</td>
+                            <td>Paciente vem realizar rastreamento para câncer de próstata; assertivas sobre US, finasterida, idade de rastreamento, PSA e monitorização.</td>
+                            <td>Rastreamento e uso do PSA.</td>
+                            <td>E (PSA não serve somente para rastreamento, servindo também para monitorar resposta à terapia sistêmica)</td>
+                            <td>Reforça que o PSA é ferramenta de rastreamento e seguimento, mas não é diagnóstico isolado.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q98</td>
+                            <td>Assertivas sobre triagem, Gleason, toque retal, biópsia e TC de pelve.</td>
+                            <td>Rastreamento, diagnóstico histológico e estadiamento.</td>
+                            <td>A (apenas I, II e IV)</td>
+                            <td>Praticamente idêntica à questão atual; confirma o padrão de cobrança.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos duas provas anteriores de forma direta. A banca alterna entre cobrar rastreamento, interpretação do PSA, papel do toque retal, biópsia e estadiamento. Em geral, explora o risco de confundir exames de rastreamento com exames diagnósticos e de estadiamento.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> O uso da ressonância magnética multiparamétrica e da biópsia por fusão, o papel do PSMA-PET e a vigilância ativa em doença de baixo risco ainda podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas eram mais descritivas; as recentes são mais aplicadas, com assertivas e casos clínicos, exigindo raciocínio sobre o papel de cada exame.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar as recomendações de rastreamento, a interpretação do PSA, o sistema de Gleason, as indicações de biópsia e o estadiamento do câncer de próstata.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> HPB e câncer de próstata — ambas elevam o PSA e causam sintomas urinários; a diferenciação exige toque, PSA e, muitas vezes, biópsia.</li>
+                    <li><strong>Conexão 2:</strong> Prostatite e PSA — quadros inflamatórios elevam transitatoriamente o PSA; deve-se tratar e reavaliar antes de biópsia em casos selecionados.</li>
+                    <li><strong>Conexão 3:</strong> Câncer de próstata e metástases ósseas — dor óssea e lesões blásticas em homens idosos devem levantar a suspeita.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou B, C, D ou E, provavelmente houve confusão entre os papéis dos exames: considerar a ecografia abdominal ou a TC de pelve como métodos de avaliação diagnóstica da próstata, ou achar que o toque retal é opcional. A estratégia é revisar as diretrizes de rastreamento e o fluxo diagnóstico (PSA + toque → biópsia → Gleason → estadiamento).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o médico da atenção primária deve discutir riscos e benefícios do rastreamento, solicitar PSA e realizar toque retal, encaminhar para biópsia quando indicado e acompanhar o paciente com doença localizada ou avançada. A TC de pelve não deve ser solicitada para “investigar nódulo prostático”; ela é reservada ao estadiamento de alto risco.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Recomendações de rastreamento do câncer de próstata</li>
+                    <li>Interpretação do PSA total e livre</li>
+                    <li>Sistema de Gleason e ISUP</li>
+                    <li>Indicações de biópsia prostática</li>
+                    <li>Estadiamento do câncer de próstata</li>
+                    <li>Vigilância ativa em doença de baixo risco</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Campbell-Walsh Urology, 12ª edição.</p>
+                <p>2. Sabiston Textbook of Surgery, 21ª edição.</p>
+                <p>3. Diretrizes da Sociedade Brasileira de Urologia para Câncer de Próstata.</p>
+                <p>4. NCCN Guidelines — Prostate Cancer.</p>
+                <p>5. American Cancer Society — Prostate Cancer Screening Guidelines.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

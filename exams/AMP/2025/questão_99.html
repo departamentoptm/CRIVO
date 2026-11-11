@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 99 - Hemorragia Digestiva Varicosa em Cirrótico: Via Aérea, Vasoconstritores, TIPS e Coagulopatia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Hemorragia Digestiva Varicosa em Cirrótico: Via Aérea, Vasoconstritores, TIPS e Coagulopatia</div>
+        <h1>Questão 99</h1>
+        <div class="question-text">
+            Paciente de 74 anos, sexo feminino, admitida no pronto socorro com história de vômitos com sangue e fezes enegrecidas há 2 dias. Apresenta como comorbidades hipotireoidismo, diabetes insulinodependente, hipertensão arterial e dislipidemia. Familiares referem história de gordura no fígado há vários anos, com diagnóstico recente de cirrose hepática. À admissão, paciente encontra-se sonolenta, confusa, pouco colaborativa, com presença de sangue em grande quantidade em orofaringe, abertura ocular ao estímulo doloroso e localizando a dor. Abdome globoso, indolor à palpação, com exame físico prejudicado em virtude de obesidade abdominal severa. Dados vitais: FC 98 bpm, PA 88x53 mmHg, Saturação 97% em ar ambiente. Exames laboratoriais da admissão: Hemoglobina 8,8 g/dl, Hematócrito 24%, 48.000 plaquetas, RNI de 2,38, BT de 2,7mg/dL (BD 2,2 mg/dL), TGO 33, TGP 47, Albumina sérica de 2,2 g/dL (VR 3,5-4,5). Em relação a este caso clínico, analise as assertivas abaixo classificando-as em verdadeiro (V) ou falso (F) e assinale a sequência correta.
+        </div>
+
+        <div class="statements">
+            <div class="statement">
+                <strong>( )</strong> A paciente deve ter uma via aérea definitiva assegurada de forma precoce.
+            </div>
+            <div class="statement">
+                <strong>( )</strong> A endoscopia digestiva alta deve ser realizada na primeira hora da admissão, em caráter de urgência, como tratamento inicial.
+            </div>
+            <div class="statement">
+                <strong>( )</strong> O TIPS (transjugular intrahepatic portosystemic shunt) é de grande valia no manejo do sangramento digestivo, tendo limitação em casos de trombose da veia porta.
+            </div>
+            <div class="statement">
+                <strong>( )</strong> Na forte suspeita de hemorragia digestiva varicosa, os vasoconstritores esplâncnicos devem ser instituídos precocemente, antes mesmo do tratamento endoscópico.
+            </div>
+            <div class="statement">
+                <strong>( )</strong> Os distúrbios de coagulação devem ser prontamente corrigidos, com a reposição de plasma fresco congelado na dose de 10 ml/kg e reposição de plaquetas visando manutenção acima de 100.000.
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - F - F - V - V - F.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - F - V - F - V - V.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - V - F - V - V - F.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - V - V - V - F - V.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - F - V - F - F - F.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Gastroenterologia; Cirurgia Geral; Medicina de Emergência; Terapia Intensiva.</p>
+                <p><strong>Tema:</strong> Hemorragia digestiva alta varicosa em paciente cirrótico — manejo inicial, via aérea, vasoconstritores esplâncnicos, antibióticoprofilaxia, TIPS e correção de coagulopatia.</p>
+                <p><strong>Contextualização:</strong> Tema de altíssima incidência em provas de residência, especialmente em cirurgia geral, clínica médica e gastroenterologia. A hemorragia varicosa é a principal causa de morte em cirróticos e exige abordagem sistematizada: estabilização hemodinâmica, proteção de via aérea quando indicada, início precoce de vasoconstritores esplâncnicos, antibióticoprofilaxia, endoscopia dentro de 12–24 h após estabilização, e TIPS de resgate em casos refratários. A banca costuma cobrar o que é prioridade inicial, o que é conduta adjuvante e o que NÃO deve ser feito de rotina.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Na cirrose, a hipertensão portal leva à formação de varizes esofagogástricas. O sangramento ocorre por aumento da pressão no sistema porta e por alterações da parede vascular. A resposta fisiológica ao sangramento inclui ativação do sistema renina-angiotensina-aldosterona, retenção de sódio e água, e piora da ascite. O fígado cirrótico tem síntese reduzida de fatores de coagulação e de albumina, além de plaquetopenia por hiperesplenismo. No entanto, a coagulopatia do cirrótico é complexa e frequentemente reequilibrada; a correção rotineira com PFC e plaquetas não melhora desfechos e pode piorar a sobrecarga volêmica e a pressão portal. A endoscopia é diagnóstica e terapêutica, mas não deve ser feita antes da estabilização inicial. Os vasoconstritores esplâncnicos (terlipressina, octreotida, somatostatina) reduzem o fluxo esplâncnico e a pressão portal, controlando temporariamente o sangramento. O TIPS reduz a pressão portal por meio de uma comunicação porto-hepática, sendo útil em sangramento refratário, mas tem limitações anatômicas, como trombose da veia porta.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>: V – F – V – V – F.</p>
+                <p><strong>I (V):</strong> A paciente está sonolenta, confusa e com grande quantidade de sangue em orofaringe — há risco elevado de aspiração e de comprometimento de via aérea. A proteção precoce com intubação orotraqueal está indicada.</p>
+                <p><strong>II (F):</strong> A endoscopia digestiva alta não precisa ser realizada na primeira hora da admissão. Ela deve ser feita precocemente (idealmente dentro de 12 a 24 horas), mas após estabilização hemodinâmica inicial, início de vasoconstritores e antibióticoprofilaxia.</p>
+                <p><strong>III (V):</strong> O TIPS é uma opção de resgate para sangramento varicoso refratário ou recorrente e tem como limitação a trombose da veia porta, que pode inviabilizar o procedimento.</p>
+                <p><strong>IV (V):</strong> Na forte suspeita de hemorragia varicosa, os vasoconstritores esplâncnicos devem ser iniciados precocemente, antes mesmo da endoscopia, pois reduzem a pressão portal e o sangramento.</p>
+                <p><strong>V (F):</strong> Não se deve corrigir rotineiramente a coagulopatia com PFC e plaquetas visando alvos fixos. A correção é guiada por sangramento ativo, valores críticos (plaquetas &lt; 50.000 em sangramento varicoso; RNI muito elevado com sangramento) e não por “manutenção acima de 100.000”. A reposição indiscriminada piora a sobrecarga volêmica e a pressão portal.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A (F-F-V-V-F)</strong> - Errada. Nega a necessidade de via aérea definitiva, que é justamente uma prioridade no paciente com rebaixamento e sangue em orofaringe.</p>
+                <p><strong>Alternativa B (F-V-F-V-V)</strong> - Errada. Nega a via aérea, aceita a endoscopia na primeira hora e considera que a coagulopatia deve ser prontamente corrigida com PFC e plaquetas acima de 100.000.</p>
+                <p><strong>Alternativa D (V-V-V-F-V)</strong> - Errada. Aceita a endoscopia na primeira hora (falsa) e nega o uso precoce de vasoconstritores (falso), além de aceitar a correção rotineira da coagulopatia.</p>
+                <p><strong>Alternativa E (F-V-F-F-F)</strong> - Errada. Nega a via aérea, aceita a endoscopia na primeira hora e nega o TIPS e os vasoconstritores.</p>
+                <p><strong>Alternativa C (V-F-V-V-F)</strong> - Correta.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Sonolenta, confusa, sangue em orofaringe:</strong> pistas de risco de aspiração e indicação de via aérea definitiva.</li>
+                    <li><strong>Cirrose hepática, plaquetas 48.000, RNI 2,38, albumina 2,2:</strong> quadro de cirrose com hipertensão portal e coagulopatia, mas não indica correção rotineira.</li>
+                    <li><strong>PA 88x53 mmHg e FC 98 bpm:</strong> instabilidade hemodinâmica, que exige reposição volêmica cautelosa e vasoconstritores.</li>
+                    <li><strong>“Primeira hora” e “PFC 10 mL/kg + plaquetas &gt; 100.000”:</strong> distratores clássicos que não correspondem às recomendações atuais.</li>
+                    <li><strong>“Vasoconstritores antes do tratamento endoscópico”:</strong> pista de conduta correta e precoce.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar via aérea e proteção contra aspiração; se rebaixamento, sangue em orofaringe ou incapacidade de proteger via aérea, indicar intubação orotraqueal.</li>
+                    <li><strong>Segundo:</strong> estabilizar hemodinamicamente com acessos calibrosos, reposição volêmica cautelosa (evitar sobrecarga) e início precoce de vasoconstritor esplâncnico (terlipressina ou octreotida/somatostatina).</li>
+                    <li><strong>Terceiro:</strong> iniciar antibióticoprofilaxia (ceftriaxona ou norfloxacino) por 5–7 dias, reduzindo mortalidade e ressangramento.</li>
+                    <li><strong>Quarto:</strong> realizar endoscopia digestiva alta precocemente (idealmente em 12–24 h), com ligadura elástica ou escleroterapia; se refratário, considerar TIPS ou balão de Sengstaken-Blakemore como ponte.</li>
+                    <li><strong>Quinto:</strong> corrigir apenas coagulopatia com sangramento ativo ou plaquetas &lt; 50.000, evitando reposição rotineira de PFC e plaquetas.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “conduta inicial” e “próximo passo”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> hemorragia varicosa é a principal causa de morte em cirróticos; vasoconstritores esplâncnicos devem ser iniciados antes da endoscopia; antibióticoprofilaxia reduz mortalidade e ressangramento.</li>
+                    <li><strong>Números e doses:</strong> terlipressina 2 mg IV a cada 4 h (ou octreotida 50 mcg bolus + 50 mcg/h); ceftriaxona 1 g/dia por 5–7 dias; plaquetas &lt; 50.000 indicam transfusão em sangramento varicoso; PFC não é rotina.</li>
+                    <li><strong>Mnemônicos:</strong> “VIA–VASO–ANTIBIÓTICO–ENDOSCOPIA” (via aérea, vasoconstritor, antibióticoprofilaxia, endoscopia).</li>
+                </ul>
+                <p>Esses dados já foram cobrados em provas anteriores, como em 2020, 2022 e 2024.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hemorragia varicosa</td>
+                            <td>Cirrose, hipertensão portal, hematêmese volumosa, instabilidade, estigmas de doença hepática</td>
+                            <td>Endoscopia digestiva alta</td>
+                            <td>Via aérea, vasoconstritor, antibiótico, ligadura elástica, TIPS se refratário</td>
+                        </tr>
+                        <tr>
+                            <td>Úlcera péptica sangrante</td>
+                            <td>Dor epigástrica, uso de AINE, melena/hematêmese, sem estigmas de cirrose</td>
+                            <td>Endoscopia digestiva alta</td>
+                            <td>IBP, terapia endoscópica, H. pylori, cirurgia se refratário</td>
+                        </tr>
+                        <tr>
+                            <td>Síndrome de Mallory-Weiss</td>
+                            <td>Vômitos repetidos, laceração da junção esofagogástrica, sangramento autolimitado</td>
+                            <td>Endoscopia digestiva alta</td>
+                            <td>Suporte, terapia endoscópica se necessário</td>
+                        </tr>
+                        <tr>
+                            <td>Gastropatia da hipertensão portal</td>
+                            <td>Sangramento difuso da mucosa gástrica, cirrose, hipertensão portal</td>
+                            <td>Endoscopia digestiva alta</td>
+                            <td>Vasoconstritor, betabloqueador, TIPS em casos graves</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre via aérea:</strong> a resposta seria indicar IOT precoce em paciente com rebaixamento e sangue em orofaringe.</li>
+                    <li><strong>Se fosse sobre vasoconstritores:</strong> a resposta seria iniciar antes da endoscopia.</li>
+                    <li><strong>Se fosse sobre antibióticoprofilaxia:</strong> a resposta seria ceftriaxona ou norfloxacino por 5–7 dias.</li>
+                    <li><strong>Se fosse sobre coagulopatia:</strong> a resposta seria não corrigir rotineiramente, reservando PFC/plaquetas para sangramento ativo e valores críticos.</li>
+                    <li><strong>Se fosse sobre endoscopia:</strong> a resposta seria realizar precocemente, mas não na primeira hora.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2016 – Q65</td>
+                            <td>Hemorragia digestiva varicosa; assertivas sobre correção volêmica, coagulopatia, antibiótico e vasoconstritores.</td>
+                            <td>Manejo da hemorragia varicosa.</td>
+                            <td>A (I e II apenas)</td>
+                            <td>Mostra que a banca já cobrava a diferença entre correção volêmica agressiva e coagulopatia, mas com conceitos antigos; hoje a correção rotineira de coagulopatia não é recomendada.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q29</td>
+                            <td>Hemorragia digestiva por hipertensão portal; asserção sobre endoscopia como tratamento inicial.</td>
+                            <td>Tratamento inicial da hemorragia varicosa.</td>
+                            <td>C (primeira verdadeira, segunda falsa)</td>
+                            <td>Reforça que a endoscopia é importante, mas não é a primeira medida isolada.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q46</td>
+                            <td>Etilista com melena/hematêmese; assertivas sobre reserva hepática, escleroterapia, antibiótico, drogas imunossupressoras e controle da hipertensão portal.</td>
+                            <td>Manejo da hemorragia varicosa.</td>
+                            <td>D (F-F-V-F-V)</td>
+                            <td>Confirma que antibióticoprofilaxia e controle da hipertensão portal são pontos-chave.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q70</td>
+                            <td>Paciente com hemorragia digestiva e cirrose; assertivas sobre via aérea, reposição volêmica, etilismo, vasoconstritores e antibiótico.</td>
+                            <td>Manejo inicial da hemorragia digestiva.</td>
+                            <td>B (F-F-F-V-V)</td>
+                            <td>Mostra que a banca já cobrava vasoconstritores antes da endoscopia e antibióticoprofilaxia; a diferença é que, naquele caso, a paciente estava alerta e a via aérea não era prioridade.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q48</td>
+                            <td>Homem de 62 anos com hematêmese/melena e cirrose; assertivas sobre via aérea, vasoconstritores, endoscopia na primeira hora e antibiótico.</td>
+                            <td>Manejo inicial da hemorragia varicosa.</td>
+                            <td>D (I, II e IV corretas; III falsa)</td>
+                            <td>Praticamente idêntica à atual; confirma que endoscopia na primeira hora é distrator falso.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q87</td>
+                            <td>Paciente com vômitos com sangue, cirrose e encefalopatia; assertivas sobre reposição volêmica, translocação bacteriana, endoscopia em 1 hora e Mallory-Weiss.</td>
+                            <td>Manejo inicial da hemorragia digestiva alta.</td>
+                            <td>A (apenas II correta)</td>
+                            <td>Reforça que a endoscopia em 1 hora não é a conduta inicial e que a antibioticoterapia é importante.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos seis provas anteriores de forma direta. A banca alterna entre cobrar via aérea, vasoconstritores, antibióticoprofilaxia, endoscopia, TIPS e correção de coagulopatia. Em geral, explora o risco de medidas excessivas (endoscopia na primeira hora, correção rotineira de coagulopatia) e a importância das medidas precoces (vasoconstritores e antibióticos).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> O uso do balão de Sengstaken-Blakemore como ponte, os critérios do Baveno VII para TIPS precoce (early TIPS) e o papel do betabloqueador na profilaxia secundária ainda podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões mais antigas eram mais descritivas; as recentes usam casos clínicos com assertivas V/F e exigem raciocínio sobre prioridades e evidências.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar o manejo da hemorragia varicosa, via aérea, vasoconstritores, antibióticoprofilaxia, TIPS e correção de coagulopatia. Treinar questões com assertivas e relação de causalidade.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Cirrose e encefalopatia hepática — o sangramento digestivo piora a encefalopatia por aumento da amônia; o tratamento inclui lactulose e rifaximina.</li>
+                    <li><strong>Conexão 2:</strong> Cirrose e peritonite bacteriana espontânea — a hemorragia digestiva favorece translocação bacteriana, e a antibióticoprofilaxia reduz o risco de PBE e ressangramento.</li>
+                    <li><strong>Conexão 3:</strong> Cirrose e síndrome hepatorrenal — a hipovolemia e a infecção podem precipitar lesão renal aguda; a reposição volêmica deve ser cautelosa.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou B, D ou E, provavelmente houve confusão entre prioridades e condutas adjuvantes: aceitar endoscopia na primeira hora, negar via aérea ou acreditar na correção rotineira de coagulopatia. Se marcou A, negou a via aérea. A estratégia é revisar o algoritmo do manejo da hemorragia varicosa e as recomendações atuais sobre coagulopatia no cirrótico.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>No atendimento real, a paciente com hematêmese volumosa, rebaixamento e sangue em orofaringe deve ser intubada, receber vasoconstritor esplâncnico e antibióticoprofilaxia precoces, ser estabilizada e submetida à endoscopia em até 24 horas. A correção de coagulopatia é guiada por sangramento ativo e valores críticos, não por alvos fixos. O TIPS é reservado para falha do tratamento endoscópico e farmacológico.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Hipertensão portal e varizes esofagogástricas</li>
+                    <li>Manejo da hemorragia digestiva varicosa</li>
+                    <li>Vasoconstritores esplâncnicos (terlipressina, octreotida, somatostatina)</li>
+                    <li>Antibióticoprofilaxia na hemorragia varicosa</li>
+                    <li>TIPS e limitações</li>
+                    <li>Coagulopatia no cirrótico</li>
+                    <li>Baveno VII</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery, 21ª edição.</p>
+                <p>2. Baveno VII — Renewing Consensus in Portal Hypertension (2022).</p>
+                <p>3. Diretrizes Brasileiras de Hemorragia Digestiva Varicosa.</p>
+                <p>4. UpToDate — Management of Variceal Hemorrhage.</p>
+                <p>5. European Association for the Study of the Liver (EASL) — Clinical Practice Guidelines on Portal Hypertension.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
