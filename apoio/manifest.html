@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de manifest.json</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 20px; color: #222; }
+  h1 { color: #1a2a6c; }
+  ol { line-height: 1.7; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
+  input[type=file] { padding: 10px; border: 2px dashed #1a2a6c; border-radius: 8px; cursor: pointer; }
+  button { padding: 10px 22px; font-size: 15px; border-radius: 8px; border: none; cursor: pointer;
+           background: #28a745; color: white; font-weight: bold; margin: 10px 0; }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+  textarea { width: 100%; height: 320px; font-family: ui-monospace, monospace; font-size: 13px;
+             border: 1px solid #ccc; border-radius: 8px; padding: 10px; box-sizing: border-box; }
+  .info { padding: 12px; background: #e8f5e9; border-left: 4px solid #28a745; border-radius: 6px; margin: 10px 0; display: none; }
+  .warn { background: #fff3cd; border-left-color: #ffc107; }
+</style>
+</head>
+<body>
+<h1>🔧 Gerador de manifest.json</h1>
+<ol>
+  <li>Clique em <strong>Selecionar pasta</strong> e escolha a pasta <code>exams</code> inteira.</li>
+  <li>Confira o JSON gerado na caixa abaixo.</li>
+  <li>Clique em <strong>Baixar manifest.json</strong> e salve dentro de <code>exams/</code> (substituindo o antigo).</li>
+</ol>
+
+<input type="file" id="folderInput" webkitdirectory directory multiple>
+<div class="info" id="status"></div>
+<textarea id="output" readonly placeholder="O JSON aparecerá aqui depois que você selecionar a pasta..."></textarea>
+<button id="downloadBtn" disabled>📥 Baixar manifest.json</button>
+
+<script>
+const folderInput = document.getElementById('folderInput');
+const output = document.getElementById('output');
+const status = document.getElementById('status');
+const downloadBtn = document.getElementById('downloadBtn');
+
+// Extrai o número APENAS de arquivos no padrão questão_N.html / questao_N.html / qN.html
+function extrairNumero(nome) {
+  const m = nome.match(/(?:quest[ãa]o|q)[ _-]?(\d+)\.html?$/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+folderInput.addEventListener('change', () => {
+  const files = [...folderInput.files];
+  if (!files.length) return;
+
+  // Estrutura esperada: exams/PROVA/ANO/arquivo.html
+  // webkitRelativePath: "exams/ENAMED/2026/questão_1.html"
+  const exams = {};
+  let total = 0;
+  const ignorados = [];
+
+  for (const f of files) {
+    if (!f.name.toLowerCase().endsWith('.html')) continue;
+    const parts = f.webkitRelativePath.split('/');
+    if (parts.length !== 4) continue;
+
+    const [, prova, ano, arquivo] = parts;
+    const num = extrairNumero(arquivo);
+    if (num === null) { ignorados.push(`${prova}/${ano}/${arquivo}`); continue; }
+
+    if (!exams[prova]) exams[prova] = {};
+    if (!exams[prova][ano]) exams[prova][ano] = {};
+    exams[prova][ano][String(num)] = arquivo;
+    total++;
+  }
+
+  // Ordenação: provas A→Z, anos 2026→2006, questões 1→100
+  const final = {};
+  for (const prova of Object.keys(exams).sort()) {
+    final[prova] = {};
+    for (const ano of Object.keys(exams[prova]).sort((a, b) => b.localeCompare(a))) {
+      const nums = Object.keys(exams[prova][ano]).sort((a, b) => parseInt(a) - parseInt(b));
+      final[prova][ano] = {};
+      for (const n of nums) final[prova][ano][n] = exams[prova][ano][n];
+    }
+  }
+
+  output.value = JSON.stringify(final, null, 2);
+  downloadBtn.disabled = false;
+
+  status.style.display = 'block';
+  status.className = 'info' + (ignorados.length ? ' warn' : '');
+  status.innerHTML = `✅ <strong>${total}</strong> questões em <strong>${Object.keys(final).length}</strong> prova(s).` +
+    (ignorados.length
+      ? `<br>⚠️ Ignorados ${ignorados.length} arquivo(s) fora do padrão <code>questão_N.html</code>:<br><small>${ignorados.slice(0, 8).join('<br>')}${ignorados.length > 8 ? '<br>…' : ''}</small>`
+      : '');
+});
+
+downloadBtn.addEventListener('click', () => {
+  const blob = new Blob([output.value], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'manifest.json'; a.click();
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
