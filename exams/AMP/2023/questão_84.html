@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 84 - Gestão em Saúde: Modelos de Remuneração Médica e Pagamento por Desfechos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Gestão em Saúde: Modelos de Remuneração Médica e Pagamento por Desfechos</div>
+        <h1>Questão 84</h1>
+        <div class="question-text">
+            A remuneração do trabalho médico recompensa o esforço realizado e fornece um estímulo para continuar a realizá-lo. Sobre os modelos de remuneração é correto afirmar que
+        </div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - o pagamento por mensuração de desfechos incentiva a qualidade e promove a realização da atenção à saúde de forma mais adequada.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - no assalariamento existe um pagamento fixo em certo período de tempo o que estimula os médicos a prestar cuidados de elevada qualidade.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - no pagamento por capitação o prestador de serviço compartilha risco, e tende a restringir acesso a serviços, melhorando a qualidade assistencial.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - o pagamento por ato (por produção) incentiva a prestação de mais serviços de saúde que também leva a maior qualidade assistencial e segurança do paciente.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - a mensuração de indicadores de desempenho e incentivos relacionados são os únicos instrumentos de melhoria da qualidade disponíveis no sistema de saúde.</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Saúde Coletiva / Gestão em Saúde / Atenção Primária à Saúde.</p>
+            <p><strong>Tema:</strong> Modelos de remuneração médica e incentivos para qualidade assistencial, com ênfase no pagamento por mensuração de desfechos.</p>
+            <p><strong>Contextualização:</strong> A forma de remuneração do trabalho médico influencia o comportamento dos profissionais e a organização dos serviços. O tema é relevante para provas de residência porque articula gestão, economia da saúde, Atenção Primária e qualidade do cuidado. Historicamente, a banca cobra mais financiamento e modelos assistenciais; remuneração por desempenho aparece como desdobramento da discussão sobre gestão clínica e qualidade.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Não se trata de fisiopatologia clínica, mas de lógica de incentivos. Modelos de remuneração são mecanismos de pagamento que podem estimular volume, resolutividade, coordenação, qualidade ou contenção de custos. O pagamento por desfechos (pay-for-performance ou pagamento por desempenho) vincula parte do repasse a indicadores de qualidade e resultados. A alternativa correta é a que reconhece esse modelo como indutor de qualidade, pois alinha incentivo financeiro a desfechos clínicos e assistenciais, e não apenas ao volume de procedimentos.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p><strong>Alternativa A é a correta.</strong> O pagamento por mensuração de desfechos busca valorizar resultados em saúde, como controle de doenças crônicas, acesso, continuidade, segurança e satisfação, e não meramente a quantidade de consultas ou procedimentos. Na Atenção Primária, esse modelo pode favorecer a qualidade e a integralidade, desde que os indicadores sejam bem construídos e não induzam distorções. É uma estratégia de incentivo compatível com a gestão da clínica e com a melhoria do cuidado.</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A</strong> - Correta. O pagamento por desfechos incentiva qualidade e adequação da atenção.</p>
+            <p><strong>Alternativa B</strong> - Incorreta. O assalariamento é pagamento fixo periódico; pode trazer estabilidade, mas não necessariamente estimula elevada qualidade. Pode, ao contrário, não premiar desempenho. Esse tipo de distrator já apareceu em discussões sobre modelos de gestão e remuneração em saúde.</p>
+            <p><strong>Alternativa C</strong> - Incorreta. Na capitação, o prestador recebe por pessoa sob sua responsabilidade e compartilha risco; isso pode estimular prevenção e coordenação, mas também pode levar à restrição de acesso se não houver regulação e monitoramento. A afirmação de que restringir acesso melhora qualidade assistencial é indevida.</p>
+            <p><strong>Alternativa D</strong> - Incorreta. O pagamento por ato ou produção tende a incentivar maior volume de serviços, podendo gerar sobreutilização, procedimentos desnecessários e aumento de custos, sem garantia de maior qualidade ou segurança.</p>
+            <p><strong>Alternativa E</strong> - Incorreta. Indicadores de desempenho e incentivos são instrumentos importantes, mas não os únicos. Educação permanente, protocolos, auditoria, apoio matricial, gestão da clínica, regulação e participação social também são instrumentos de melhoria.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>Remuneração médica:</strong> forma de pagamento do trabalho; direciona o raciocínio para modelos como assalariamento, capitação, pagamento por ato e por desempenho.</li>
+                <li><strong>Mensuração de desfechos:</strong> expressão que remete a pagamento por resultados/qualidade, não por volume.</li>
+                <li><strong>Incentiva a qualidade:</strong> pista para modelos de pay-for-performance e gestão por desempenho.</li>
+                <li><strong>Únicos instrumentos:</strong> termo absoluto na alternativa E, geralmente sinal de erro em questões de gestão.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar que a questão trata de modelos de remuneração e seus incentivos.</li>
+                <li><strong>Segundo:</strong> diferenciar pagamento por volume (ato/produção) de pagamento por risco populacional (capitação) e de pagamento por resultados (desfechos).</li>
+                <li><strong>Terceiro:</strong> reconhecer que assalariamento fixo não garante qualidade e que capitação sem regulação pode restringir acesso.</li>
+                <li><strong>Quarto:</strong> eliminar alternativas com termos absolutos ou generalizações indevidas e selecionar a que associa desfechos à qualidade.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de gestão e de "conduta" em políticas de saúde.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> pagamento por desempenho/desfechos busca alinhar incentivo financeiro à qualidade; pagamento por ato incentiva volume; capitação compartilha risco populacional; assalariamento é pagamento fixo.</li>
+                <li><strong>Números e doses:</strong> não se aplicam diretamente a esta questão. Em gestão, memorizar que indicadores devem ser válidos, confiáveis e não induzir distorções.</li>
+                <li><strong>Mnemônicos:</strong> "ATO = Aumenta Trabalho/Volume Operacional"; "CAPITAÇÃO = Cuidado por Pessoa sob responsabilidade"; "DESFECHO = Resultado em saúde".</li>
+            </ul>
+            <p>Esses conceitos já foram cobrados indiretamente em questões sobre financiamento, publicização e modelos assistenciais.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Modelo</th>
+                        <th>Lógica de incentivo</th>
+                        <th>Risco principal</th>
+                        <th>Uso/conduta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pagamento por desfechos/desempenho</td>
+                        <td>Vincula parte do pagamento a indicadores de qualidade e resultados</td>
+                        <td>Indicadores mal construídos podem gerar distorções</td>
+                        <td>Recomendado com monitoramento e indicadores adequados</td>
+                    </tr>
+                    <tr>
+                        <td>Pagamento por ato/produção</td>
+                        <td>Quanto mais serviços, maior a remuneração</td>
+                        <td>Sobreutilização e aumento de custos</td>
+                        <td>Útil em contextos específicos, mas requer regulação</td>
+                    </tr>
+                    <tr>
+                        <td>Capitação</td>
+                        <td>Valor fixo por pessoa sob responsabilidade</td>
+                        <td>Restrição de acesso se não houver controle</td>
+                        <td>Favorece prevenção e coordenação, com regulação</td>
+                    </tr>
+                    <tr>
+                        <td>Assalariamento</td>
+                        <td>Pagamento fixo periódico</td>
+                        <td>Não premia desempenho; pode desestimular produtividade</td>
+                        <td>Estabilidade, mas exige avaliação e gestão</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram comparação entre modelos de remuneração, não apenas o conceito isolado.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre financiamento:</strong> poderia cobrar participação público/privado e subfinanciamento do SUS.</li>
+                <li><strong>Se fosse sobre gestão:</strong> poderia cobrar gestão da clínica, agenda, acesso e coordenação do cuidado.</li>
+                <li><strong>Se fosse sobre qualidade:</strong> poderia cobrar indicadores, acreditação e segurança do paciente.</li>
+                <li><strong>Exemplo:</strong> "Se pedisse o modelo que incentiva volume, a resposta seria pagamento por ato; se pedisse o que compartilha risco populacional, seria capitação; se pedisse o que valoriza resultados, seria pagamento por desfechos."</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema ou temas correlatos:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2008 - Q4</td>
+                        <td>Análise do gasto em saúde no Brasil e comparação entre gasto público e privado.</td>
+                        <td>Financiamento e participação público/privado no SUS.</td>
+                        <td>B</td>
+                        <td>Contextualiza a discussão sobre alocação de recursos e modelos de pagamento.</td>
+                    </tr>
+                    <tr>
+                        <td>2010 - Q52</td>
+                        <td>Organizações Sociais na saúde e lógica privada na gestão.</td>
+                        <td>Gestão privada, precarização do trabalho e lógica de mercado.</td>
+                        <td>E</td>
+                        <td>Relaciona-se aos modelos de gestão e remuneração do trabalho em saúde.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q30</td>
+                        <td>Publicização da rede assistencial pós-SUS e mudanças público-privadas.</td>
+                        <td>Organização da atenção e participação do setor privado.</td>
+                        <td>E</td>
+                        <td>Ajuda a compreender o debate sobre incentivos e gestão de serviços.</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q4</td>
+                        <td>Gasto total em saúde no Brasil e proporção entre gastos públicos e privados.</td>
+                        <td>Financiamento do sistema de saúde.</td>
+                        <td>B</td>
+                        <td>Fornece base para discutir sustentabilidade e modelos de remuneração.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q93</td>
+                        <td>Modelos assistenciais orientados pela demanda ou pelas necessidades em saúde.</td>
+                        <td>Modelos assistenciais e organização dos serviços.</td>
+                        <td>B</td>
+                        <td>Conecta-se à lógica de incentivos e à organização da atenção.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> Não foi identificada questão anterior diretamente sobre "modelos de remuneração médica" no período 2006_2026. A banca tem cobrado o tema de forma indireta, por meio de financiamento, gestão, publicização e modelos assistenciais.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> Comparação explícita entre pagamento por ato, capitação, assalariamento e pagamento por desempenho; efeitos desses modelos sobre acesso, qualidade, custos e equidade.</p>
+            <p><strong>Evolução da cobrança:</strong> As questões mais antigas focavam financiamento e modelo assistencial; as mais recentes aproximam-se de gestão da clínica, qualidade e organização do cuidado. Isso sugere maior chance de questões aplicadas sobre incentivos e desempenho.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar modelos de remuneração e seus incentivos, especialmente pay-for-performance, capitação e pagamento por ato, articulando com financiamento do SUS e gestão da Atenção Primária.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Financiamento do SUS - a forma de pagamento depende do modelo de financiamento e da regulação pública.</li>
+                <li><strong>Conexão 2:</strong> Gestão da clínica e acesso - modelos de remuneração influenciam agenda, resolutividade, coordenação e continuidade do cuidado.</li>
+                <li><strong>Conexão 3:</strong> Qualidade e segurança do paciente - indicadores de desempenho devem ser usados com cautela para não gerar distorções.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>O erro mais provável é confundir pagamento por ato com pagamento por qualidade, ou achar que assalariamento garante qualidade. Trata-se de lacuna de conhecimento sobre modelos de remuneração e de confusão conceitual entre volume, risco populacional e resultados. Ação corretiva: montar tabela comparativa dos quatro modelos principais, com incentivo, risco e efeito esperado; revisar questões de gestão e financiamento do SUS.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática da Atenção Primária e da gestão, a escolha do modelo de remuneração afeta o comportamento profissional. Pagamento por desempenho pode melhorar controle de hipertensão e diabetes, acesso e continuidade, desde que os indicadores sejam justos e não estimulem seleção de pacientes. O médico deve conhecer esses incentivos para participar da gestão e evitar distorções assistenciais.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Modelos de remuneração: assalariamento, capitação, pagamento por ato e pagamento por desempenho.</li>
+                <li>Financiamento do SUS e participação público-privada.</li>
+                <li>Gestão da clínica, acesso e coordenação do cuidado.</li>
+                <li>Indicadores de qualidade e segurança do paciente.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. GUSSO, G.; LOPES, J. M. C. Tratado de Medicina de Família e Comunidade: princípios, formação e prática. Porto Alegre: Artmed.</p>
+            <p>2. STARFIELD, B. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO/Ministério da Saúde.</p>
+            <p>3. BRASIL. Ministério da Saúde. Política Nacional de Atenção Básica (PNAB).</p>
+            <p>4. MENDES, E. V. Redes de Atenção à Saúde. Brasília: Organização Pan-Americana da Saúde.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
