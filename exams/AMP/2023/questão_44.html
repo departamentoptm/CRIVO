@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 44 - Cirurgia Geral: Complicações Pós-Operatórias da Apendicite Perfurada — Abscesso Intra-Abdominal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Geral: Complicações Pós-Operatórias da Apendicite Perfurada — Abscesso Intra-Abdominal</div>
+        <h1>Questão 44</h1>
+        <div class="question-text">
+            Mulher de 21 anos retorna ao hospital. Foi submetida à apendicectomia videolaparoscópica por apendicite aguda perfurada há sete dias. Está com febre há 24h e houve aumento da dor em quadrante inferior direito. Está sem apetite e tem poucos ruídos hidroaéreos. Os exames laboratoriais apresentam: eritrócitos = 4,1, leucócitos = 14.870; PCR = 10.2; amilase = 120; lípase = 80; glicemia = 99; TGO = 87 e TGP = 90. Está usando ciprofloxacina 500mg de 12/12h. A conduta a ser adotada é
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - solicitar uma TC com contraste para o diagnóstico da complicação.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - indicar uma revisão cirúrgica com nova videolaparoscopia.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - trocar o antibiótico por gentamicina.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - iniciar alimentação parenteral total.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - observar a evolução por 24h.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Geral / Cirurgia do Aparelho Digestivo.</p>
+                <p><strong>Tema:</strong> Complicação pós-operatória de apendicite perfurada — suspeita de abscesso intra-abdominal e papel da tomografia computadorizada com contraste.</p>
+                <p><strong>Contextualização:</strong> A apendicite aguda é a emergência cirúrgica abdominal mais comum e tema onipresente nas provas de residência. A banca cobra desde o diagnóstico clínico e escores (Alvarado) até as complicações pós-operatórias, com destaque para a infecção do sítio cirúrgico e o abscesso intra-abdominal, que é mais frequente justamente após apendicite perfurada. Reconhecer o quadro clínico sugestivo e indicar o exame de imagem correto é habilidade-chave e já foi cobrado em provas anteriores.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Na apendicite perfurada, o extravasamento de conteúdo intestinal e pus para a cavidade peritoneal favorece a formação de coleções intra-abdominais, especialmente em fundo de saco e fossa ilíaca direita. O abscesso intra-abdominal pós-operatório costuma se manifestar entre o 5º e o 10º dia após a cirurgia, com febre persistente, dor abdominal localizada, íleo paralítico (poucos ruídos hidroaéreos, anorexia), leucocitose e elevação da PCR. A tomografia computadorizada com contraste endovenoso é o padrão-ouro para diagnóstico, localização e definição da conduta (drenagem percutânea guiada por imagem versus reoperação).</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>A (solicitar uma TC com contraste para o diagnóstico da complicação)</strong>. Diante de uma paciente no 7º dia pós-apendicectomia por apendicite perfurada, com febre, dor em fossa ilíaca direita, anorexia, íleo e leucocitose com PCR elevada, a principal hipótese é abscesso intra-abdominal. A TC com contraste é o exame de escolha, pois identifica coleções, diferencia de outras causas (flebite, hematoma, infecção de parede) e orienta a drenagem percutânea, evitando reoperação desnecessária.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa B (indicar uma revisão cirúrgica com nova videolaparoscopia)</strong> - Incorreta como conduta inicial. A reoperação não é o primeiro passo diante da suspeita de abscesso; a TC permite confirmar, localizar e, frequentemente, tratar por drenagem percutânea. A cirurgia fica reservada para falha da drenagem, instabilidade, peritonite difusa ou coleções inacessíveis.</p>
+                <p><strong>Alternativa C (trocar o antibiótico por gentamicina)</strong> - Incorreta. Não há justificativa para troca empírica do antibiótico sem identificar o foco e sem cultura. A paciente já está em ciprofloxacino; o passo é diagnosticar a complicação, não modificar aleatoriamente o esquema.</p>
+                <p><strong>Alternativa D (iniciar alimentação parenteral total)</strong> - Incorreta. A nutrição parenteral total não é conduta inicial diante de suspeita de abscesso; se houver íleo prolongado ou impossibilidade de via enteral, pode ser considerada depois, mas não substitui o diagnóstico da complicação.</p>
+                <p><strong>Alternativa E (observar a evolução por 24h)</strong> - Incorreta. A paciente tem febre persistente, dor localizada, leucocitose e PCR elevada em pós-operatório de cirurgia contaminada. Aguardar apenas observando retarda o diagnóstico de uma complicação tratável e aumenta a morbidade.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Apendicectomia... por apendicite aguda perfurada há sete dias”:</strong> cirurgia contaminada, alto risco de coleção intra-abdominal.</li>
+                    <li><strong>“Febre há 24h” e “aumento da dor em quadrante inferior direito”:</strong> foco infeccioso provável na topografia operada.</li>
+                    <li><strong>“Poucos ruídos hidroaéreos” e “sem apetite”:</strong> íleo paralítico, sinal de irritação peritoneal localizada.</li>
+                    <li><strong>“Leucócitos = 14.870; PCR = 10.2”:</strong> resposta inflamatória sistêmica persistente.</li>
+                    <li><strong>“Ciprofloxacina 500 mg 12/12h”:</strong> já está em antibioticoterapia, o que reforça a necessidade de buscar a coleção e drená-la.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer o quadro de febre + dor localizada + íleo + leucocitose no pós-operatório de cirurgia contaminada = suspeita de complicação infecciosa intra-abdominal.</li>
+                    <li><strong>Segundo:</strong> diferenciar infecção superficial da parede (que se manifesta por sinais flogísticos locais) de coleção intra-abdominal (dor profunda, íleo, febre persistente).</li>
+                    <li><strong>Terceiro:</strong> solicitar TC de abdome e pelve com contraste endovenoso para confirmar, localizar e graduar a coleção.</li>
+                    <li><strong>Quarto:</strong> se abscesso confirmado e acessível, indicar drenagem percutânea guiada por imagem; se falha, instabilidade ou peritonite difusa, indicar reoperação.</li>
+                </ol>
+                <p>Esse algoritmo treina a habilidade de resolver questões de “qual o próximo passo” no pós-operatório de cirurgia abdominal.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> abscesso intra-abdominal pós-apendicectomia costuma surgir entre o 5º e o 10º dia; febre persistente + dor localizada + íleo + leucocitose é o quadro típico.</li>
+                    <li><strong>Números e doses:</strong> incidência de abscesso residual aumenta substancialmente após apendicite perfurada; TC com contraste é o método de escolha.</li>
+                    <li><strong>Mnemônicos:</strong> “Febre no 5º-10º dia pós-op de apendicite perfurada = pensar em abscesso intra-abdominal”; “Primeiro imagem, depois drenagem”.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em questões de complicações pós-operatórias e de infecção do sítio cirúrgico.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Abscesso intra-abdominal (correta)</td>
+                            <td>Febre persistente, dor profunda, íleo, leucocitose, PCR elevada.</td>
+                            <td>TC de abdome e pelve com contraste.</td>
+                            <td>Antibioticoterapia + drenagem percutânea guiada por imagem; reoperação se falha ou instabilidade.</td>
+                        </tr>
+                        <tr>
+                            <td>Infecção do sítio cirúrgico superficial</td>
+                            <td>Dor e sinais flogísticos ao redor da incisão, secreção purulenta; febre geralmente baixa.</td>
+                            <td>Clínico; abertura da ferida.</td>
+                            <td>Abertura e drenagem da ferida; antibiótico se celulite, instabilidade ou infecção profunda.</td>
+                        </tr>
+                        <tr>
+                            <td>Flebite do acesso venoso / tromboflebite</td>
+                            <td>Sinais no sítio de punção; febre e dor local.</td>
+                            <td>Clínico; ultrassonografia se dúvida.</td>
+                            <td>Troca de acesso, analgesia, compressa e antibiótico se necessário.</td>
+                        </tr>
+                        <tr>
+                            <td>Atelectasia/pneumonia</td>
+                            <td>Sintomas respiratórios, tosse, estertores, hipoxemia.</td>
+                            <td>Radiografia de tórax/TC.</td>
+                            <td>Fisioterapia, incentivo à deambulação, antibiótico se pneumonia.</td>
+                        </tr>
+                        <tr>
+                            <td>Infecção do trato urinário</td>
+                            <td>Disúria, polaciúria, dor suprapúbica, febre.</td>
+                            <td>Urina tipo 1 e urocultura.</td>
+                            <td>Antibiótico guiado por cultura.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões sobre as principais causas de febre no pós-operatório e o exame correto em cada cenário.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>O mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico inicial:</strong> a resposta poderia envolver o escore de Alvarado e o papel da ultrassonografia/TC.</li>
+                    <li><strong>Se fosse sobre complicação superficial:</strong> a resposta poderia envolver abertura da ferida e ausência de antibiótico de rotina.</li>
+                    <li><strong>Se fosse sobre antibiótico profilático:</strong> a resposta poderia envolver uso apenas na indução anestésica em apendicite não complicada.</li>
+                    <li><strong>Se fosse sobre apendicite perfurada:</strong> a resposta poderia envolver antibiótico prolongado, drenagem e maior risco de abscesso.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q60</td>
+                            <td>Mulher de 20 anos com suspeita de apendicite submetida a laparotomia; apêndice subseroso e retrocecal normal; conduta intraoperatória.</td>
+                            <td>Conduta quando o apêndice é normal na laparotomia por suspeita de apendicite.</td>
+                            <td>C</td>
+                            <td>Reforça a valorização do diagnóstico e das variações anatômicas do apêndice, contexto da apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q90</td>
+                            <td>Paciente com dor em FID, rigidez muscular involuntária; apendicite como diagnóstico diferencial.</td>
+                            <td>Diagnóstico clínico e diferencial do abdome agudo.</td>
+                            <td>C</td>
+                            <td>Reforça a importância do exame físico no diagnóstico da apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q18</td>
+                            <td>Escolar de 7 anos com apendicite; orientação sobre urgência cirúrgica.</td>
+                            <td>Urgência da apendicectomia e atraso aceitável.</td>
+                            <td>E</td>
+                            <td>Contextualiza a evolução natural e as complicações da apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q23</td>
+                            <td>6º pós-operatório de apendicectomia com dor ao redor da ferida e secreção seropurulenta.</td>
+                            <td>Infecção do sítio cirúrgico superficial; conduta.</td>
+                            <td>C</td>
+                            <td>Complementa a questão atual: mostra a diferenciação entre infecção superficial e coleção intra-abdominal.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q43</td>
+                            <td>6º pós-operatório de apendicectomia com febre e dor na ferida; assertivas sobre microbiologia e tratamento.</td>
+                            <td>Infecção do sítio cirúrgico e manejo.</td>
+                            <td>D (I, II e IV)</td>
+                            <td>Reforça o raciocínio de febre pós-operatória e diferenciação do foco.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q7</td>
+                            <td>Apendicite aguda na infância; papel da TC e urgência cirúrgica.</td>
+                            <td>Diagnóstico e conduta na apendicite.</td>
+                            <td>C (II e III verdadeiras)</td>
+                            <td>Contextualiza a evolução diagnóstica e terapêutica da apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q9</td>
+                            <td>Apendicite aguda não complicada, sem peritonite; uso de antibióticos no pós-operatório.</td>
+                            <td>Antibioticoprofilaxia em apendicectomia não complicada.</td>
+                            <td>A (somente na indução anestésica)</td>
+                            <td>Contrasta com a apendicite perfurada da questão atual, em que há indicação de antibiótico terapêutico prolongado.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q4</td>
+                            <td>Menina de 4 anos com suspeita de apendicite; assertivas sobre exames e analgesia.</td>
+                            <td>Diagnóstico e manejo da apendicite na infância.</td>
+                            <td>A (I e II verdadeiras)</td>
+                            <td>Reforça a importância do diagnóstico precoce e da imagem na apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q6</td>
+                            <td>Menino de 7 anos com apendicite; assertivas sobre diagnóstico, perfuração e imagem.</td>
+                            <td>Diagnóstico e manejo da apendicite na infância.</td>
+                            <td>A (I e II corretas)</td>
+                            <td>Mostra que a banca cobra repetidamente o raciocínio diagnóstico da apendicite.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q10</td>
+                            <td>Apendicite aguda; assertivas sobre cirurgia, antibiótico e complicações.</td>
+                            <td>Manejo da apendicite e complicações.</td>
+                            <td>D (I, II e III verdadeiras)</td>
+                            <td>Complementa o tema das complicações pós-operatórias.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q86</td>
+                            <td>Homem de 25 anos com dor em FID, ultrassom normal; próxima conduta.</td>
+                            <td>Indicação de TC quando a ultrassonografia é inconclusiva.</td>
+                            <td>E (solicitar TC)</td>
+                            <td>Reforça o papel da TC na investigação de complicações e diagnósticos duvidosos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema “apendicite” apareceu em pelo menos 11 questões das provas de 2006_2026, alternando entre diagnóstico clínico, indicação de imagem, urgência cirúrgica, antibioticoprofilaxia e complicações pós-operatórias. A banca demonstra preferência por questões de “qual o próximo passo” e por diferenciação entre complicações superficiais e profundas.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Abscesso intra-abdominal especificamente tratado por drenagem percutânea; papel da TC no pós-operatório de apendicectomia; complicações tardias (fístula, estenose); apendicite crônica; apendagite epiploica; tumores do apêndice (carcinoide, mucinoso).</p>
+                <p><strong>Evolução da cobrança:</strong> As questões antigas eram mais focadas no diagnóstico diferencial e em variações anatômicas; as mais recentes têm privilegiado a decisão terapêutica e as complicações, incluindo o papel da TC e da drenagem percutânea.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar as complicações pós-apendicectomia, a diferenciação entre infecção superficial e profunda e a sequência diagnóstica (ultrassom, TC e drenagem). Memorizar que febre no 5º-10º dia pós-operatório de apendicite perfurada deve levantar a hipótese de abscesso intra-abdominal e que a TC com contraste é o exame de escolha.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Infecção do sítio cirúrgico — a diferenciação entre superficial e profunda é decisiva para a conduta.</li>
+                    <li><strong>Conexão 2:</strong> Febre pós-operatória — a investigação sindrômica das “5 causas” (pulmonar, urinária, ferida, acesso venoso, trombose) e a imagem dirigida.</li>
+                    <li><strong>Conexão 3:</strong> Sepse abdominal — o abscesso pode evoluir com disfunção orgânica e necessidade de controle de foco.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se você marcou outra alternativa, o erro mais provável foi de <strong>decisão precipitada por reoperação</strong> (alternativa B) ou de <strong>tratar empiricamente sem diagnosticar a coleção</strong> (alternativas C, D e E). Para não errar novamente: fixe a lógica “febre persistente + dor localizada + íleo + leucocitose = imagem primeiro”. A TC é o exame que confirma a coleção e define a drenagem percutânea como primeiro passo terapêutico, reservando a reoperação para casos de falha ou instabilidade.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a paciente com febre no 7º dia pós-apendicectomia por apendicite perfurada deve ser reavaliada com exame físico dirigido (ferida operatória, abdome, acessos, tórax e urina) e exames laboratoriais. Diante da suspeita de coleção intra-abdominal, a TC com contraste é solicitada e, se confirmada, procede-se à drenagem percutânea guiada por imagem com cobertura antibiótica ajustada, o que reduz tempo de internação, morbidade e necessidade de reoperação.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Infecção do sítio cirúrgico superficial versus profunda.</li>
+                    <li>Causas de febre no pós-operatório.</li>
+                    <li>Indicação e técnica de drenagem percutânea de abscesso.</li>
+                    <li>Antibioticoterapia em apendicite não complicada versus complicada.</li>
+                    <li>Escore de Alvarado e diagnóstico da apendicite.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>2. Schwartz, Princípios de Cirurgia. 11ª edição.</p>
+                <p>3. Diretrizes da Sociedade Brasileira de Cirurgia do Aparelho Digestivo sobre manejo da apendicite aguda e das complicações.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
