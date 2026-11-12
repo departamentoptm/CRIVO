@@ -3406,6 +3406,109 @@ questionFrame.addEventListener('load', () => {
     try { ocultRespIniciar(); } catch (e) { console.warn('ocultResp', e); }
     setTimeout(() => { try { ocultRespIniciar(); } catch {} }, 800);
 });
+
+/* ============================================================
+   TEXTO DA CORREÇÃO: justificado + TABELAS SEM PALAVRAS CORTADAS
+   Verifica sempre (carregamento, redimensionamento, rotação e
+   quando a correção é aberta) e reduz a fonte da tabela até que
+   nenhuma palavra seja cortada ao meio ou escape da célula.
+   ============================================================ */
+const CRIVO_TBL_FONTE_MIN = 8;
+const CRIVO_TXT_CSS =
+    'html body{overflow-wrap:break-word;word-break:normal}' +
+    'html body table,html body th,html body td{overflow-wrap:normal;word-break:normal;-webkit-hyphens:manual;hyphens:manual}' +
+    'html body .explanation,html body #correctionContent{text-align:justify;text-justify:inter-word;-webkit-hyphens:manual;hyphens:manual}' +
+    'html body .explanation h1,html body .explanation h2,html body .explanation h3,html body .explanation h4,' +
+    'html body .explanation h5,html body .explanation h6,html body .explanation th,html body .explanation td{text-align:left}' +
+    'html body table.crivo-tbl-scroll{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}' +
+    '@media (max-width:600px){' +
+    'html body{padding:6px}' +
+    'html body .container{width:100%;padding:10px}' +
+    'html body .result-container{padding:10px 6px}' +
+    'html body .explanation{padding:8px}' +
+    'html body .explanation table{width:calc(100% + 28px)!important;max-width:none!important;margin-left:-14px!important;margin-right:-14px!important}' +
+    'html body table th,html body table td{padding:6px 3px!important}}';
+
+function tblLarguraDisponivel(win, t) {
+    const pai = t.parentElement;
+    if (!pai) return 0;
+    const cs = win.getComputedStyle(pai);
+    const ct = win.getComputedStyle(t);
+    return pai.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0)
+        - (parseFloat(ct.marginLeft) || 0) - (parseFloat(ct.marginRight) || 0);
+}
+
+/* há alguma palavra quebrada ao meio? (quebras em hífen/barra são naturais e ignoradas) */
+function tblPalavraCortada(doc, t) {
+    const rg = doc.createRange();
+    for (const c of t.querySelectorAll('th,td')) {
+        const tw = doc.createTreeWalker(c, 4 /* SHOW_TEXT */);
+        for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+            const re = /\S+/g; let m;
+            while ((m = re.exec(n.nodeValue))) {
+                if (/[-\/–—]/.test(m[0])) continue;
+                rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length);
+                if (rg.getClientRects().length > 1) return true;
+            }
+        }
+    }
+    return false;
+}
+
+function tblAjustar(win, doc, t) {
+    t.classList.remove('crivo-tbl-scroll');
+    t.style.removeProperty('font-size');
+    let fs = parseFloat(win.getComputedStyle(t).fontSize) || 14;
+    const problema = () => {
+        if (t.getBoundingClientRect().width > tblLarguraDisponivel(win, t) + 1) return true;
+        for (const c of t.querySelectorAll('th,td')) if (c.scrollWidth > c.clientWidth + 1) return true;
+        return tblPalavraCortada(doc, t);
+    };
+    while (problema() && fs > CRIVO_TBL_FONTE_MIN) {
+        fs = Math.max(CRIVO_TBL_FONTE_MIN, fs - 0.5);
+        t.style.setProperty('font-size', fs + 'px', 'important');
+    }
+    /* mesmo na fonte mínima não coube: rolagem horizontal, sem cortar palavras */
+    if (problema()) t.classList.add('crivo-tbl-scroll');
+}
+
+function textoCorrecaoIniciar() {
+    const doc = docDaQuestao();
+    if (!doc || !doc.body || doc.__crivoTxtOk) return;
+    doc.__crivoTxtOk = true;
+    const win = doc.defaultView;
+    if (!doc.getElementById('crivoTxtCss')) {
+        const st = doc.createElement('style');
+        st.id = 'crivoTxtCss';
+        st.textContent = CRIVO_TXT_CSS;
+        (doc.head || doc.documentElement).appendChild(st);
+    }
+    const tabelas = [...doc.querySelectorAll('table')];
+    if (!tabelas.length) return;
+    const rodar = (forcar) => tabelas.forEach(t => {
+        if (!t.offsetParent) return;                 /* oculta: verifica quando aparecer */
+        const w = tblLarguraDisponivel(win, t);
+        if (!forcar && t.__crivoW === w) return;
+        t.__crivoW = w;
+        try { tblAjustar(win, doc, t); } catch (e) { console.warn('tblAjustar', e); }
+    });
+    let tm = null;
+    const agendar = (forcar, ms) => { clearTimeout(tm); tm = setTimeout(() => rodar(forcar), ms); };
+    win.addEventListener('resize', () => agendar(true, 150));
+    win.addEventListener('orientationchange', () => agendar(true, 300));
+    doc.addEventListener('click', () => agendar(false, 80));
+    if ('ResizeObserver' in win) {
+        const ro = new win.ResizeObserver(() => agendar(false, 30));
+        tabelas.forEach(t => ro.observe(t));
+        ro.observe(doc.body);
+    }
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(() => agendar(true, 0));
+    rodar(true);
+    setTimeout(() => rodar(false), 500);
+}
+questionFrame.addEventListener('load', () => {
+    try { textoCorrecaoIniciar(); } catch (e) { console.warn('textoCorrecao', e); }
+});
 </script>
 </body>
 </html>
