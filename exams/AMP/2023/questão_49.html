@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 49 - Cirurgia do Trauma: Trauma Torácico Contuso — Contusão Pulmonar e Tórax Instável</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia do Trauma: Trauma Torácico Contuso — Contusão Pulmonar e Tórax Instável</div>
+        <h1>Questão 49</h1>
+        <div class="question-text">
+            Paciente masculino, vítima de queda de nível elevado, dá entrada no pronto socorro com queixa de dor no hemitórax direito. Ao exame físico observa-se um paciente com via aérea pérvia. Hemitórax direito com crepitações à palpação, com expansibilidade diminuída neste lado e ausculta com redução do murmúrio vesicular. O exame abdominal mostra-se sem alterações, além disso, é realizado um ultrassom de abdome com resultado normal. Apresenta-se estável hemodinamicamente e com frequência respiratória de 30 mpm com saturação oxigênio de 94%. Realiza uma tomografia computadorizada de tórax que demonstra fraturas escalonadas de 2º a 7º arcos costais à direita e extensa área de consolidação pulmonar, com atenuação em vidro fosco, nos segmentos inferior e médio, sem sinais de hemotórax ou pneumotórax. Em relação a este caso clínico, analise as assertivas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement">I) A imagem da tomografia é compatível com contusão pulmonar e deve ser tratada com drenagem fechada em selo d'água do hemitórax direito.</div>
+            <div class="statement">II) A ausência de sinais de hemotórax ou pneumotórax nos exames de imagem descartam gravidade nos traumas de tórax e indicam para o tratamento domiciliar dos pacientes.</div>
+            <div class="statement">III) A presença de múltiplas fraturas de arcos costais configura um tórax instável e o paciente deve ser manejado com analgesia, cuidados na hidratação, suplementação de oxigênio e estabelecimento de uma via aérea definitiva se necessário.</div>
+            <div class="statement">IV) A presença da área de contusão pulmonar não possui relação com as fraturas escalonadas e devem ser tratadas de maneiras distintas.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - apenas a III.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - apenas a III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - apenas as I e II.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - apenas as I, III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - todas estão corretas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia do Trauma / Cirurgia Torácica.</p>
+                <p><strong>Tema:</strong> Trauma torácico contuso — contusão pulmonar, fraturas costais múltiplas e tórax instável (flail chest).</p>
+                <p><strong>Contextualização:</strong> O trauma torácico é responsável por cerca de 25% das mortes por trauma e é uma das principais causas de morte evitável no politraumatizado. A banca cobra com frequência o reconhecimento das lesões potencialmente fatais (pneumotórax hipertensivo, hemotórax maciço, tamponamento, tórax instável), a interpretação dos achados de imagem e a conduta adequada em cada cenário. Nesta questão, o foco é a diferenciação entre contusão pulmonar e lesões que exigem drenagem torácica, além do reconhecimento do tórax instável e do manejo conservador inicial da contusão pulmonar.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A <strong>contusão pulmonar</strong> é uma lesão do parênquima pulmonar decorrente da transferência de energia do trauma, caracterizada por edema, hemorragia alveolar e consolidação focal, com atenuação em vidro fosco na tomografia. Não há lesão da pleura visceral nem coleção pleural, portanto <strong>não há indicação de drenagem torácica</strong> para tratar a contusão. Seu tratamento é de suporte: oxigênio, analgesia, fisioterapia respiratória, controle criterioso da hidratação (evitando tanto a hipovolemia quanto a sobrecarga) e, se necessário, suporte ventilatório. O <strong>tórax instável (flail chest)</strong> ocorre quando há fraturas de três ou mais arcos costais em dois ou mais pontos, gerando um segmento com movimento paradoxal. É uma condição de alta morbidade, e seu manejo inclui analgesia eficaz (incluindo bloqueios), oxigenoterapia, ventilação mecânica quando indicada e tratamento da contusão pulmonar subjacente, que é o principal determinante do prognóstico.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>A (apenas a III)</strong>. A assertiva III está correta: as múltiplas fraturas costais escalonadas (2º a 7º arcos) configuram tórax instável, e o manejo inclui analgesia, controle criterioso da hidratação, suplementação de oxigênio e, se necessário, via aérea definitiva. As demais assertivas são falsas: a contusão pulmonar não é tratada com drenagem (I); a ausência de hemotórax ou pneumotórax não descarta gravidade (II); e a contusão pulmonar está diretamente relacionada ao mesmo mecanismo de trauma das fraturas costais, sendo tratadas em conjunto (IV).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A (apenas a III)</strong> - Correta. Apenas a assertiva III está correta.</p>
+                <p><strong>Alternativa B (apenas a III e IV)</strong> - Incorreta. A assertiva IV é falsa: a contusão pulmonar está diretamente relacionada ao trauma que causou as fraturas costais e é tratada em conjunto, não de forma distinta.</p>
+                <p><strong>Alternativa C (apenas as I e II)</strong> - Incorreta. As assertivas I e II são falsas: a contusão pulmonar não é tratada com drenagem, e a ausência de hemotórax/pneumotórax não descarta gravidade.</p>
+                <p><strong>Alternativa D (apenas as I, III e IV)</strong> - Incorreta. As assertivas I e IV são falsas, pelos motivos já expostos.</p>
+                <p><strong>Alternativa E (todas estão corretas)</strong> - Incorreta. Apenas a III está correta.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Queda de nível elevado” e “crepitações à palpação”:</strong> mecanismo de trauma de alta energia e sinal de fraturas costais.</li>
+                    <li><strong>“Consolidação pulmonar com atenuação em vidro fosco”:</strong> descrição típica de contusão pulmonar na tomografia.</li>
+                    <li><strong>“Sem sinais de hemotórax ou pneumotórax”:</strong> pista falsa — não descarta gravidade, mas também não indica drenagem.</li>
+                    <li><strong>“Fraturas escalonadas de 2º a 7º arcos costais”:</strong> múltiplas fraturas costais, compatíveis com tórax instável.</li>
+                    <li><strong>“Estável hemodinamicamente com FR de 30 mpm e SatO2 94%”:</strong> taquipneia e dessaturação leve, indicando gravidade respiratória apesar da estabilidade hemodinâmica.</li>
+                    <li><strong>“Analgesia, cuidados na hidratação, suplementação de oxigênio e via aérea definitiva se necessário”:</strong> conduta correta para contusão pulmonar e tórax instável.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> seguir o ABC do trauma — garantir via aérea, ventilação e circulação, com imobilização cervical.</li>
+                    <li><strong>Segundo:</strong> identificar lesões com indicação cirúrgica imediata (pneumotórax hipertensivo, hemotórax maciço, tamponamento, ferida aspirativa).</li>
+                    <li><strong>Terceiro:</strong> na ausência dessas lesões, avaliar contusão pulmonar e fraturas costais: quanto maior a área de contusão e o número de fraturas, maior a gravidade.</li>
+                    <li><strong>Quarto:</strong> manejar contusão pulmonar e tórax instável com analgesia, oxigenoterapia, fisioterapia, controle hídrico criterioso e suporte ventilatório quando necessário; evitar drenagem torácica se não houver coleção pleural.</li>
+                </ol>
+                <p>Esse algoritmo treina a habilidade de resolver questões de “qual é a conduta” no trauma torácico contuso.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <p>Agrupar em:</p>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> contusão pulmonar não é tratada com drenagem torácica; tórax instável = 3 ou mais arcos costais fraturados em 2 ou mais pontos com movimento paradoxal; a principal causa de morbimortalidade do tórax instável é a contusão pulmonar subjacente.</li>
+                    <li><strong>Números e doses:</strong> drenagem torácica indicada para pneumotórax/hemotórax, não para contusão; evitar sobrecarga hídrica, pois piora o edema pulmonar.</li>
+                    <li><strong>Mnemônicos:</strong> “Contusão = suporte, não dreno”; “Tórax instável = movimento paradoxal + contusão associada”; “Hidratação criteriosa, não liberal”.</li>
+                </ul>
+                <p>Esses dados são frequentemente cobrados em provas de cirurgia do trauma.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Contusão pulmonar (correta)</td>
+                            <td>Dispneia, taquipneia, hipoxemia; opacidades em vidro fosco na TC; mecanismo de trauma de alta energia.</td>
+                            <td>TC de tórax.</td>
+                            <td>Suporte: O2, analgesia, fisioterapia, hidratação criteriosa e ventilação mecânica se necessário.</td>
+                        </tr>
+                        <tr>
+                            <td>Tórax instável (flail chest)</td>
+                            <td>Movimento paradoxal do segmento torácico; fraturas de ≥3 arcos em ≥2 pontos.</td>
+                            <td>Clínico + TC de tórax.</td>
+                            <td>Analgesia eficaz (incluindo bloqueio), O2, fisioterapia, ventilação mecânica se necessário.</td>
+                        </tr>
+                        <tr>
+                            <td>Pneumotórax hipertensivo</td>
+                            <td>Desvio de traqueia, hipertimpanismo, murmúrio abolido, hipotensão.</td>
+                            <td>Clínico; não aguardar imagem.</td>
+                            <td>Descompressão imediata com agulha e drenagem torácica.</td>
+                        </tr>
+                        <tr>
+                            <td>Hemotórax maciço</td>
+                            <td>Macicez, murmúrio abolido, hipotensão, choque hemorrágico.</td>
+                            <td>Radiografia de tórax, FAST, TC em estáveis.</td>
+                            <td>Drenagem torácica; toracotomia se >1500 mL ou >200 mL/h por 2-4 h.</td>
+                        </tr>
+                        <tr>
+                            <td>Pneumotórax simples</td>
+                            <td>Dor torácica, dispneia, murmúrio reduzido; sem instabilidade.</td>
+                            <td>Radiografia de tórax; TC em casos duvidosos.</td>
+                            <td>Drenagem torácica em selo d'água se sintomático ou volumoso.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial das lesões torácicas e a indicação correta de drenagem.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>O mesmo tema pode ser cobrado de formas diferentes:</p>
+                <ul>
+                    <li><strong>Se a questão fosse sobre conduta no pneumotórax:</strong> a resposta poderia envolver a descompressão imediata e a drenagem torácica.</li>
+                    <li><strong>Se fosse sobre contusão pulmonar:</strong> a resposta poderia envolver o suporte clínico e a hidratação criteriosa.</li>
+                    <li><strong>Se fosse sobre tórax instável:</strong> a resposta poderia envolver analgesia, ventilação mecânica e tratamento da contusão associada.</li>
+                    <li><strong>Se fosse sobre hemotórax:</strong> a resposta poderia envolver drenagem torácica e indicação de toracotomia.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2010 – Q21</td>
+                            <td>Vítima de ferimento por arma de fogo no ombro com hipotensão e murmúrio diminuído; raio X e drenagem.</td>
+                            <td>Diagnóstico e conduta no hemotórax/pneumotórax.</td>
+                            <td>A (Reexaminar o tórax)</td>
+                            <td>Reforça a sistemática de avaliação do trauma torácico.</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q88</td>
+                            <td>Paciente de 25 anos após queda de nível com dor torácica e murmúrio vesicular diminuído à direita.</td>
+                            <td>Conduta no trauma torácico com suspeita de hemotórax/pneumotórax.</td>
+                            <td>B (Descomprimir o espaço pleural direito)</td>
+                            <td>Complementa o reconhecimento das lesões torácicas.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q92</td>
+                            <td>Vítima de colisão moto x auto com dispneia e murmúrio diminuído à direita.</td>
+                            <td>Conduta no pneumotórax.</td>
+                            <td>A (Descomprimir o espaço pleural direito)</td>
+                            <td>Reforça a diferenciação entre contusão e pneumotórax.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q46</td>
+                            <td>Ferimento por arma branca em hemitórax direito com murmúrio reduzido e timpanismo.</td>
+                            <td>Pneumotórax hipertensivo e descompressão pleural.</td>
+                            <td>C (Descomprimir o espaço pleural)</td>
+                            <td>Contraste com a contusão pulmonar, que não é tratada com dreno.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q80</td>
+                            <td>Atropelamento com dor torácica, movimento paradoxal, contusão pulmonar e fraturas costais sem pneumotórax/hemotórax.</td>
+                            <td>Manejo do tórax instável com contusão pulmonar.</td>
+                            <td>E (Intubação orotraqueal, ventilação mecânica e analgesia)</td>
+                            <td>Praticamente o mesmo cenário da questão atual — confirma a conduta de suporte.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q31</td>
+                            <td>Ferimento por arma branca em hemitórax anterior direito com hipocoramento e taquidispneia.</td>
+                            <td>Tratamento inicial pré-hospitalar de ferida torácica aspirativa.</td>
+                            <td>D (Toracocentese de descompressão + curativo de três pontas)</td>
+                            <td>Complementa o manejo do trauma torácico penetrante.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q48</td>
+                            <td>Queda de nível elevado com crepitações em hemitórax direito e contusão pulmonar extensa.</td>
+                            <td>Diagnóstico de contusão pulmonar e conduta.</td>
+                            <td>A (apenas a III)</td>
+                            <td>É a própria questão atual, com gabarito já disponível.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q45</td>
+                            <td>Atropelamento com contusão pulmonar bilateral e taquidispneia.</td>
+                            <td>Manejo da contusão pulmonar.</td>
+                            <td>D (Monitorização, oxigenioterapia e analgesia)</td>
+                            <td>Reforça o caráter conservador do tratamento da contusão.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q73</td>
+                            <td>Vítima de queda com dor torácica, contusão pulmonar e fraturas costais.</td>
+                            <td>Manejo da contusão pulmonar e do trauma torácico contuso.</td>
+                            <td>E (II, III e IV)</td>
+                            <td>Complementa o raciocínio sobre o trauma torácico contuso.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q48</td>
+                            <td>Ferimento penetrante torácico com tamponamento cardíaco e hemotórax.</td>
+                            <td>Tríade de Beck, reanimação hemostática.</td>
+                            <td>B (apenas a III)</td>
+                            <td>Contraste: enfatiza a diferença entre lesões com coleção (drenar/cirurgia) e contusão (suporte).</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q96</td>
+                            <td>Ferimento por arma branca em hemitórax direito com enfisema subcutâneo e hipotermia.</td>
+                            <td>Manejo inicial do trauma torácico penetrante.</td>
+                            <td>C (Gasometria, TAP, tipagem e plaquetas)</td>
+                            <td>Reforça a diferença de conduta entre trauma penetrante e contuso.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q96</td>
+                            <td>Ferimento por arma branca em hemitórax direito com extravasamento de ar e enfisema subcutâneo.</td>
+                            <td>Manejo inicial e prioridades no trauma torácico.</td>
+                            <td>C (Exames laboratoriais iniciais)</td>
+                            <td>Complementa a sistemática do trauma torácico.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema "trauma torácico" apareceu em pelo menos 12 questões das provas de 2006_2026, alternando entre trauma penetrante (pneumotórax, hemotórax, tamponamento) e trauma contuso (contusão pulmonar, fraturas costais, tórax instável). A banca demonstra preferência por questões de "qual a conduta" e por cenários com múltiplas lesões associadas.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Detalhes da ventilação mecânica no tórax instável; bloqueios analgésicos regionais (intercostal, serrátil, paravertebral); complicações tardias da contusão (SDRA, pneumonia); manejo da contusão pulmonar grave com ECMO; uso de corticoide na contusão; indicação de fixação cirúrgica de costelas.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões antigas focavam em condutas pontuais (descompressão, drenagem); as mais recentes têm enfatizado a interpretação da TC, a diferenciação entre lesões que exigem dreno e as que exigem suporte, e a compreensão fisiopatológica da contusão pulmonar.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar as indicações de drenagem torácica (pneumotórax, hemotórax) versus o suporte na contusão pulmonar; os critérios diagnósticos de tórax instável; e o manejo integrado da contusão pulmonar com hidratação criteriosa e analgesia eficaz.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <p>Como esse tema se integra com outros:</p>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Politraumatizado — o trauma torácico frequentemente coexiste com TCE, trauma abdominal e fraturas de pelve, exigindo abordagem integrada e priorização do ABC.</li>
+                    <li><strong>Conexão 2:</strong> Insuficiência respiratória e SDRA — a contusão pulmonar extensa é um dos principais fatores de risco para SDRA e necessidade de ventilação mecânica prolongada.</li>
+                    <li><strong>Conexão 3:</strong> Reanimação de controle de danos — no trauma grave com choque, a reanimação hemostática e o controle precoce do sangramento são prioritários, paralelamente ao manejo do trauma torácico.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se você marcou outra alternativa, o erro mais provável foi de <strong>confundir contusão pulmonar com lesões que exigem drenagem torácica</strong> (alternativas C e D) ou de <strong>subestimar a gravidade das fraturas costais múltiplas</strong> (alternativa B). Para não errar novamente: fixe que a contusão pulmonar é tratada com suporte clínico e não com dreno; que múltiplas fraturas costais configuram tórax instável e exigem manejo específico; e que a ausência de hemotórax/pneumotórax não descarta gravidade no trauma torácico contuso.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o paciente com trauma torácico contuso e múltiplas fraturas costais deve ser internado para monitorização, analgesia eficaz, oxigenoterapia e fisioterapia respiratória, com controle criterioso da hidratação. A piora progressiva da contusão pulmonar nas primeiras 24-72 horas é comum e deve ser antecipada. A drenagem torácica só é indicada quando há coleção pleural (hemotórax, pneumotórax) ou ferida aspirativa.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Contusão pulmonar — diagnóstico, manejo e complicações.</li>
+                    <li>Tórax instável — definição, fisiopatologia e manejo.</li>
+                    <li>Indicações de drenagem torácica.</li>
+                    <li>Reanimação de controle de danos no trauma grave.</li>
+                    <li>SDRA e ventilação mecânica protetora.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. ATLS — Advanced Trauma Life Support, 10ª edição.</p>
+                <p>2. Sabiston Textbook of Surgery. 21ª edição.</p>
+                <p>3. Diretrizes da Sociedade Brasileira de Atendimento Integrado ao Traumatizado (SBAIT).</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
