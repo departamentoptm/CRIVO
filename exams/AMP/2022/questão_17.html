@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 17 - Pediatria: Pneumonia Adquirida na Comunidade (Manejo Ambulatorial)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Pneumonia Adquirida na Comunidade (Manejo Ambulatorial)</div>
+        <h1>Questão 17</h1>
+        <div class="question-text">
+            Lactente de 1 ano apresenta-se com febre, tosse e frequência respiratória elevada para a idade. Não apresenta tiragem ou sibilos na ausculta, sem estridor ou alteração do nível de consciência. Relata antecedentes de sintomas de infecção do trato respiratório superior a vários dias. Apresenta anorexia, mas aceitação adequada de líquidos por via oral. Baseado na principal hipótese diagnóstica analise as asserções abaixo e a relação proposta entre elas.
+        </div>
+
+        <div class="statements">
+            <div class="statement">I - Este paciente pode ser medicado com amoxicilina por via oral em domicílio.</div>
+            <div class="statement">II - Não necessita de nenhum exame de imagem ou laboratorial para confirmar o diagnóstico.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As asserções I e II são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Pediatria / Pneumologia Pediátrica / Infectologia Pediátrica</p>
+                <p><strong>Tema:</strong> Pneumonia adquirida na comunidade (PAC) em lactentes — diagnóstico clínico, classificação de gravidade e manejo ambulatorial com antibioticoterapia oral.</p>
+                <p><strong>Contextualização:</strong> A pneumonia é uma das principais causas de morbimortalidade infantil e tema de alta incidência em provas de residência médica em pediatria. A banca costuma cobrar o reconhecimento clínico (febre + tosse + taquipneia), a classificação da OMS (pneumonia sem sinais de gravidade vs. pneumonia grave), os critérios de internação (tiragem subcostal, saturação baixa, incapacidade de ingerir líquidos, alteração do nível de consciência) e o manejo ambulatorial com amoxicilina oral. Integra-se com infectologia, radiologia e atenção primária.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A PAC é a infecção do parênquima pulmonar adquirida fora do ambiente hospitalar. Em lactentes, os principais agentes são vírus (VSR, rinovírus, influenza, parainfluenza) e bactérias, com destaque para Streptococcus pneumoniae. A classificação da OMS baseia-se em sinais clínicos: tosse + taquipneia (FR > 50 irpm em lactentes de 2-12 meses; FR > 40 em 1-5 anos) define pneumonia. A presença de tiragem subcostal, estridor em repouso, incapacidade de ingerir líquidos, convulsões, letargia ou cianose define pneumonia grave, com indicação de internação. O diagnóstico é clínico, e exames de imagem ou laboratoriais não são necessários para casos não graves. O tratamento ambulatorial de escolha é amoxicilina oral na dose de 40-50 mg/kg/dia, dividida em 2-3 tomadas, por 5 a 7 dias. A justificativa para o manejo ambulatorial com antibiótico oral não é a dispensa de exames, mas sim a ausência de sinais de gravidade.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>B</strong>. A asserção I é verdadeira: o lactente de 1 ano com febre, tosse e taquipneia, sem sinais de gravidade (sem tiragem, sem estridor, sem alteração de consciência, aceitando líquidos), preenche critérios para pneumonia não grave e pode ser tratado ambulatorialmente com amoxicilina oral. A asserção II é verdadeira: na pneumonia não grave, o diagnóstico é clínico e não há necessidade de radiografia de tórax ou exames laboratoriais de rotina para confirmar o diagnóstico. Contudo, a asserção II não justifica a I: o que permite o manejo ambulatorial com amoxicilina oral é a ausência de sinais de gravidade, e não a dispensa de exames complementares. Por isso, a II é verdadeira, mas não é uma justificativa da I.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta: reconhece ambas as asserções como verdadeiras, mas coloca a II como justificativa da I. A justificativa para o manejo ambulatorial é a ausência de sinais de gravidade, não a dispensa de exames.</p>
+                <p><strong>Alternativa B</strong> - Correta: I e II verdadeiras, mas II não justifica I.</p>
+                <p><strong>Alternativa C</strong> - Incorreta: considera a asserção II falsa, mas exames de imagem e laboratório não são necessários para casos não graves de PAC.</p>
+                <p><strong>Alternativa D</strong> - Incorreta: considera a asserção I falsa, mas o paciente pode ser tratado ambulatorialmente com amoxicilina oral.</p>
+                <p><strong>Alternativa E</strong> - Incorreta: nega ambas as asserções, que são verdadeiras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Lactente de 1 ano:</strong> faixa etária típica de PAC, com etiologia viral e bacteriana.</li>
+                    <li><strong>Febre, tosse e frequência respiratória elevada:</strong> tríade da pneumonia (critérios da OMS).</li>
+                    <li><strong>Sem tiragem, sem sibilos, sem estridor:</strong> ausência de sinais de gravidade.</li>
+                    <li><strong>Sem alteração do nível de consciência:</strong> ausência de critério de gravidade.</li>
+                    <li><strong>Aceitação adequada de líquidos por via oral:</strong> ausência de critério de gravidade e possibilidade de tratamento domiciliar.</li>
+                    <li><strong>Anorexia:</strong> sintoma comum, mas não contraindica manejo ambulatorial isoladamente.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer a pneumonia pelos critérios clínicos da OMS (tosse + taquipneia).</li>
+                    <li><strong>Segundo:</strong> classificar a gravidade: presença de tiragem subcostal, estridor, incapacidade de ingerir líquidos, letargia, convulsão ou cianose indica internação.</li>
+                    <li><strong>Terceiro:</strong> na ausência de sinais de gravidade, indicar tratamento ambulatorial com amoxicilina oral (40-50 mg/kg/dia).</li>
+                    <li><strong>Quarto:</strong> orientar sinais de alerta para retorno imediato e seguimento ambulatorial; exames complementares não são necessários de rotina.</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões de classificação de gravidade e manejo da PAC.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> PAC = tosse + taquipneia; pneumonia grave = presença de tiragem subcostal, estridor, incapacidade de ingerir líquidos, letargia, convulsão ou cianose.</li>
+                    <li><strong>Números e doses:</strong> amoxicilina oral 40-50 mg/kg/dia, 2-3 tomadas, por 5-7 dias; FR > 50 irpm em lactentes de 2-12 meses; FR > 40 em 1-5 anos.</li>
+                    <li><strong>Manejo ambulatorial:</strong> ausência de sinais de gravidade + aceitação de líquidos + boa condição geral.</li>
+                    <li><strong>Mnemônico:</strong> "PAC não grave: tosse + taquipneia, sem tiragem → amoxicilina VO em casa".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PAC não grave</td>
+                            <td>Febre, tosse, taquipneia, sem sinais de gravidade, aceitando líquidos</td>
+                            <td>Clínico (OMS)</td>
+                            <td>Amoxicilina oral + seguimento ambulatorial</td>
+                        </tr>
+                        <tr>
+                            <td>PAC grave</td>
+                            <td>Tiragem subcostal, estridor, incapacidade de ingerir, letargia, cianose</td>
+                            <td>Clínico + radiografia + avaliação de internação</td>
+                            <td>Internação + antibiótico parenteral</td>
+                        </tr>
+                        <tr>
+                            <td>Bronquiolite viral aguda</td>
+                            <td>Lactente < 1 ano, pródromos virais, sibilos, hiperinsuflação</td>
+                            <td>Clínico</td>
+                            <td>Suporte; sem antibiótico de rotina</td>
+                        </tr>
+                        <tr>
+                            <td>Crise asmática</td>
+                            <td>Sibilância, tosse, dispneia, atopia, resposta a broncodilatador</td>
+                            <td>Clínico + espirometria</td>
+                            <td>Broncodilatador + corticoide</td>
+                        </tr>
+                        <tr>
+                            <td>Corpo estranho em via aérea</td>
+                            <td>Início súbito, tosse paroxística, estridor, unilateral</td>
+                            <td>Radiografia + broncoscopia</td>
+                            <td>Broncoscopia</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram diagnóstico diferencial das infecções respiratórias na infância.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> o diagnóstico é clínico (tosse + taquipneia), sem necessidade de radiografia de rotina em casos não graves.</li>
+                    <li><strong>Se fosse sobre gravidade:</strong> a presença de tiragem subcostal indica pneumonia grave e necessidade de internação.</li>
+                    <li><strong>Se fosse sobre tratamento:</strong> amoxicilina oral é a primeira escolha para PAC não grave.</li>
+                    <li><strong>Se fosse sobre exames:</strong> exames de imagem e laboratoriais não são necessários para o manejo ambulatorial.</li>
+                    <li><strong>Se fosse sobre prevenção:</strong> vacinação contra pneumococo e influenza reduz a incidência de PAC.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2008 – Q52</td>
+                            <td>Melhor sensibilidade/especificidade no diagnóstico de pneumonia em crianças.</td>
+                            <td>Diagnóstico clínico</td>
+                            <td>A (aumento da frequência respiratória)</td>
+                            <td>Reforça que a taquipneia é o sinal mais útil para o diagnóstico clínico de PAC.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q19</td>
+                            <td>Crianças entre 2 meses e 5 anos com tiragem, sem sinais de gravidade; antibiótico inicial.</td>
+                            <td>Classificação de gravidade e tratamento</td>
+                            <td>A (penicilina cristalina)</td>
+                            <td>Complementa o manejo da PAC, com foco na internação e antibioticoterapia parenteral.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q13</td>
+                            <td>Criança com febre e tosse; fator que mais fortemente indicaria internação.</td>
+                            <td>Critério de gravidade</td>
+                            <td>D (tiragem subcostal)</td>
+                            <td>Corrobora que a ausência de tiragem é critério para manejo ambulatorial.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q14</td>
+                            <td>Criança com febre, tosse e tiragem; melhor opção terapêutica.</td>
+                            <td>Tratamento da pneumonia grave</td>
+                            <td>D (penicilina cristalina)</td>
+                            <td>Complementa a distinção entre manejo ambulatorial e hospitalar.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q18</td>
+                            <td>Lactente de 1 ano com consolidação lobar; asserções sobre tratamento ambulatorial e necessidade de internação.</td>
+                            <td>Manejo ambulatorial vs. hospitalar</td>
+                            <td>E (ambas falsas)</td>
+                            <td>Confirma que a consolidação isolada não indica internação; o critério é a gravidade clínica.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q17</td>
+                            <td>Questão atual: PAC não grave em lactente, manejo ambulatorial com amoxicilina e ausência de necessidade de exames.</td>
+                            <td>Classificação, tratamento e exames</td>
+                            <td>B</td>
+                            <td>Integra os principais eixos de cobrança do tema.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 das provas anteriores analisadas. A banca alterna entre cobrar o diagnóstico clínico (taquipneia como sinal mais sensível), os critérios de gravidade (tiragem subcostal como principal indicador de internação), a escolha do antibiótico (amoxicilina oral para casos não graves; penicilina cristalina para casos graves) e a (des)necessidade de exames complementares.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Duração exata do tratamento (5 vs. 7 vs. 10 dias), esquemas com amoxicilina em dose dobrada para pneumococo resistente, vacinação antipneumocócica como prevenção e manejo da PAC em crianças com comorbidades são temas que podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos mais antigos, a banca cobrava o diagnóstico e o tratamento isoladamente; em provas mais recentes, tem integrado classificação de gravidade, escolha terapêutica, necessidade de exames e relação de causalidade entre asserções.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar as diretrizes da OMS e da Sociedade Brasileira de Pediatria para PAC (critérios de gravidade, doses de amoxicilina, duração do tratamento e indicações de internação).</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> PAC → bronquiolite viral aguda e asma → diagnóstico diferencial das infecções respiratórias na infância, com base na presença de sibilos, resposta a broncodilatador e idade.</li>
+                    <li><strong>Conexão 2:</strong> PAC → sepse e derrame pleural parapneumônico → complicações que indicam internação e antibioticoterapia parenteral.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é escolher a alternativa A, assumindo que a dispensa de exames justifica o manejo ambulatorial. Trata-se de erro de interpretação da relação causal: o que justifica o manejo ambulatorial é a ausência de sinais de gravidade (tiragem, estridor, letargia, incapacidade de ingerir líquidos), e não o fato de exames não serem necessários. Estratégia de correção: revisar os critérios de gravidade da PAC e a lógica do manejo ambulatorial.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática pediátrica e na atenção primária, o lactente com tosse e taquipneia, sem sinais de gravidade, deve ser tratado ambulatorialmente com amoxicilina oral. Exames complementares não são necessários de rotina. O reconhecimento dos sinais de gravidade (tiragem subcostal, estridor, letargia, incapacidade de ingerir líquidos) é fundamental para indicar internação e antibioticoterapia parenteral. A orientação aos pais sobre sinais de alerta é parte essencial do manejo.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios clínicos da OMS para diagnóstico de pneumonia</li>
+                    <li>Sinais de gravidade e indicação de internação</li>
+                    <li>Tratamento ambulatorial com amoxicilina oral (dose e duração)</li>
+                    <li>Diagnóstico diferencial com bronquiolite e asma</li>
+                    <li>Prevenção: vacinação antipneumocócica e anti-influenza</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Kliegman RM, St. Geme JW. Nelson Textbook of Pediatrics. 21ª ed. Elsevier; 2020.</p>
+                <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole; 2022.</p>
+                <p>3. World Health Organization. Revised WHO classification and treatment of childhood pneumonia at health facilities. Geneva: WHO; 2014.</p>
+                <p>4. UpToDate. Community-acquired pneumonia in children: Clinical features and diagnosis; Treatment. Acesso em 2026.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

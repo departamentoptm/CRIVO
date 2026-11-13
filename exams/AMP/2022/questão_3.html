@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 3 - Encefalite Anti-Receptor NMDA na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Neurologia Pediátrica: Encefalite Autoimune Anti-Receptor NMDA</div>
+        <h1>Questão 3</h1>
+        <div class="question-text">
+            Adolescente feminina com 14 anos iniciou há cerca de 2 meses com frases inadequadas, alteração do comportamento, evoluiu com crises convulsivas, discinesias orofaciais e outros movimentos anormais, disfunção autonômica com episódios de taquicardia ou bradicardia, flutuações da pressão arterial, hipoventilação, hipertermia e sialorreia. Líquor com pleiocitose linfocitária e aumento discreto das proteínas, cultura negativa. Tomografia evidencia tumoração ovariana à esquerda. Baseado na sua principal hipótese diagnóstica analise as asserções abaixo e a relação proposta entre elas.
+        </div>
+
+        <div class="statements">
+            <div class="statement">
+                <strong>I</strong> - O tratamento de primeira linha é realizado com corticosteroides, imunoglobulinas ou plasmaferese.
+            </div>
+            <div class="statement">
+                <strong>PORQUE</strong>
+            </div>
+            <div class="statement">
+                <strong>II</strong> - A remoção tumoral não mostra evidências de melhora no resultado do quadro.
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As asserções I e II são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Neurologia Pediátrica / Pediatria</p>
+                <p><strong>Tema:</strong> Encefalite autoimune anti-receptor NMDA (anti-NMDAR) associada a teratoma ovariano</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em neurologia pediátrica e em provas de residência, pois integra psiquiatria, neurologia, oncologia e terapia intensiva. A encefalite anti-NMDAR é a encefalite autoimune mais comum em crianças e adolescentes, frequentemente associada a teratoma ovariano em mulheres jovens. Costuma ser cobrada em conjunto com quadros convulsivos, alterações psiquiátricas agudas, disautonomia e diagnóstico diferencial de encefalites virais e ADEM.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A encefalite anti-NMDAR é causada por anticorpos IgG dirigidos contra a subunidade NR1 do receptor NMDA, levando à internalização desses receptores e a uma disfunção da neurotransmissão glutamatérgica. O quadro típico evolui em fases: pródromo viral, fase psiquiátrica (alteração de comportamento, frases inadequadas, psicose), fase convulsiva, fase de movimentos anormais (discinesias orofaciais, coreoatetose), disautonomia (taquicardia/bradicardia, flutuações pressóricas, hipertermia, sialorreia) e hipoventilação central. O líquor pode mostrar pleiocitose linfocitária e proteinorraquia discreta, com culturas negativas. Em mulheres jovens, a associação com teratoma ovariano é clássica. A fisiopatologia explica por que a remoção do tumor (quando presente) é parte essencial do tratamento: o teratoma funciona como gatilho antigênico, e sua retirada melhora o desfecho.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>. A asserção I é verdadeira: o tratamento de primeira linha da encefalite anti-NMDAR inclui corticosteroides, imunoglobulina intravenosa (IVIG) e/plasmaferese, geralmente associados. A asserção II é falsa: a remoção do teratoma ovariano é indicada e está associada a melhor desfecho e menor taxa de recidiva; portanto, a afirmação de que a remoção tumoral não mostra evidências de melhora é incorreta.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Reconhece a asserção II como verdadeira, mas a remoção tumoral é benéfica e faz parte do manejo.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Reconhece a asserção II como verdadeira (embora não justificativa), errando ao não identificar sua falsidade.</p>
+                <p><strong>Alternativa C</strong> - Correta. A asserção I é verdadeira e a asserção II é falsa.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Inverte os conceitos: a asserção I é verdadeira e a II é falsa.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Considera ambas falsas, mas a asserção I é verdadeira.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Adolescente feminina de 14 anos:</strong> faixa etária e sexo típicos da encefalite anti-NMDAR e do teratoma ovariano.</li>
+                    <li><strong>Frases inadequadas e alteração do comportamento:</strong> fase psiquiátrica inicial, pista clássica.</li>
+                    <li><strong>Crises convulsivas:</strong> fase neurológica precoce.</li>
+                    <li><strong>Discinesias orofaciais e movimentos anormais:</strong> achado muito característico da encefalite anti-NMDAR.</li>
+                    <li><strong>Disautonomia (taquicardia/bradicardia, flutuações pressóricas, hipertermia, sialorreia):</strong> pista forte para anti-NMDAR.</li>
+                    <li><strong>Hipoventilação:</strong> indica gravidade e necessidade de suporte intensivo.</li>
+                    <li><strong>Líquor com pleiocitose linfocitária e cultura negativa:</strong> padrão inflamatório não bacteriano.</li>
+                    <li><strong>Tumoração ovariana:</strong> associação clássica com teratoma ovariano.</li>
+                    <li><strong>Relação I ↔ II:</strong> testa se o candidato sabe que a retirada do tumor melhora o prognóstico.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer o quadro neuropsiquiátrico agudo em adolescente feminina com convulsões, movimentos anormais e disautonomia.</li>
+                    <li><strong>Segundo:</strong> suspeitar de encefalite autoimune, especialmente anti-NMDAR, e solicitar anticorpos anti-NMDAR no líquor e no soro.</li>
+                    <li><strong>Terceiro:</strong> investigar teratoma ovariano com ultrassom pélvico e/ou ressonância magnética; a presença de tumor confirma a associação e indica remoção.</li>
+                    <li><strong>Quarto:</strong> iniciar imunoterapia de primeira linha (corticosteroide, IVIG e/ou plasmaferese) e programar ressecção tumoral; suporte intensivo para hipoventilação e disautonomia.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de "próximo passo" e de manejo de encefalites autoimunes.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> Encefalite anti-NMDAR é a encefalite autoimune mais comum em crianças/adolescentes; associação com teratoma ovariano é clássica em mulheres jovens; a tríade comportamental-convulsiva-dissinética é típica.</li>
+                    <li><strong>Números e doses:</strong> Primeira linha: metilprednisolona (pulsoterapia), IVIG 2 g/kg e/ou plasmaferese; segunda linha: rituximabe e ciclofosfamida, conforme resposta.</li>
+                    <li><strong>Mnemônico:</strong> "PSI-CON-DIS" — Psiquiátrico, Convulsões e DIScinesias/disautonomia para lembrar o espectro clínico.</li>
+                </ul>
+                <p>Esses dados são importantes porque a banca costuma cobrar a identificação do quadro e a conduta inicial.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Encefalite anti-NMDAR (correta)</td>
+                            <td>Fase psiquiátrica, convulsões, discinesias orofaciais, disautonomia, hipoventilação, teratoma ovariano</td>
+                            <td>Anticorpos anti-NMDAR no líquor/soro; imagem pélvica; líquor com pleiocitose linfocitária</td>
+                            <td>Corticosteroide, IVIG/plasmaferese e ressecção tumoral</td>
+                        </tr>
+                        <tr>
+                            <td>Encefalite viral por HSV</td>
+                            <td>Febre, cefaleia, convulsões, alteração de comportamento; líquor com pleiocitose; PCR HSV positivo</td>
+                            <td>PCR HSV no líquor; ressonância com envolvimento temporal</td>
+                            <td>Aciclovir intravenoso</td>
+                        </tr>
+                        <tr>
+                            <td>ADEM</td>
+                            <td>Quadro pós-infeccioso, déficits multifocais, encefalopatia; RM com lesões desmielinizantes</td>
+                            <td>RM de crânio e medula; líquor</td>
+                            <td>Corticosteroide em pulsoterapia; IVIG/plasmaferese em casos refratários</td>
+                        </tr>
+                        <tr>
+                            <td>Encefalite por outros autoanticorpos</td>
+                            <td>Quadro variável; anti-LGI1, anti-GABA, etc.</td>
+                            <td>Painel de anticorpos</td>
+                            <td>Imunoterapia conforme protocolo</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial das encefalites.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> a resposta seria pesquisa de anticorpos anti-NMDAR no líquor/soro.</li>
+                    <li><strong>Se fosse sobre tratamento inicial:</strong> a resposta seria corticosteroide + IVIG/plasmaferese.</li>
+                    <li><strong>Se fosse sobre a importância do tumor:</strong> a resposta destacaria que a ressecção do teratoma melhora o prognóstico.</li>
+                    <li><strong>Se fosse sobre complicação:</strong> a resposta poderia envolver hipoventilação central e necessidade de ventilação mecânica.</li>
+                    <li><strong>Se fosse sobre recidiva:</strong> a resposta destacaria seguimento prolongado e risco de recaída.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2019 – Q6</td>
+                            <td>Pré-escolar com quadro pós-infeccioso, alteração de consciência, sinais focais, ataxia e lesões desmielinizantes.</td>
+                            <td>Diagnóstico de ADEM (encefalomielite disseminada aguda).</td>
+                            <td>D</td>
+                            <td>Diferencial próximo de encefalite autoimune; ajuda a diferenciar ADEM de anti-NMDAR.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q7</td>
+                            <td>Mesmo caso de ADEM; tratamento com pulsoterapia de metilprednisolona.</td>
+                            <td>Tratamento do ADEM.</td>
+                            <td>C</td>
+                            <td>Reforça o uso de corticosteroide em doenças desmielinizantes/autoimunes do SNC.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q12</td>
+                            <td>Escolar com perda visual, ataxia, déficits motores e sensitivos, lesões multifocais em RM, melhora com metilprednisolona.</td>
+                            <td>ADEM e seguimento com RM.</td>
+                            <td>A</td>
+                            <td>Diferencial de encefalite autoimune; destaca o papel da imunoterapia.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q3</td>
+                            <td>Adolescente feminina com alteração comportamental, convulsões, discinesias orofaciais, disautonomia e teratoma ovariano.</td>
+                            <td>Encefalite anti-NMDAR e papel da remoção tumoral.</td>
+                            <td>C</td>
+                            <td>Questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema encefalites autoimunes não havia sido cobrado diretamente antes; as provas anteriores cobraram ADEM como principal doença desmielinizante do SNC na infância. A banca alterna entre quadros pós-infecciosos (ADEM) e, agora, encefalite autoimune com componente psiquiátrico e tumoral.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A associação com teratoma ovariano e a importância da ressecção tumoral nunca haviam sido cobradas; é uma lacuna que pode ser explorada em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores eram mais descritivas sobre ADEM; esta questão exige reconhecimento de um fenótipo clínico complexo e integração com oncologia.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar encefalite anti-NMDAR, encefalites virais (HSV), ADEM, painel de anticorpos e protocolos de imunoterapia.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Encefalites virais (HSV) → encefalites autoimunes → ADEM. Se você viu convulsão + alteração de comportamento + líquor inflamatório, pense em HSV e anti-NMDAR.</li>
+                    <li><strong>Conexão 2:</strong> Teratoma ovariano → encefalite anti-NMDAR → ressecção tumoral e imunoterapia. A presença de tumor muda o prognóstico e a conduta.</li>
+                    <li><strong>Conexão 3:</strong> Disautonomia e hipoventilação → necessidade de UTI → suporte ventilatório e monitorização. O reconhecimento precoce evita morbimortalidade.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, os tipos de erro mais prováveis são: (1) lacuna de conhecimento sobre encefalite anti-NMDAR; (2) confusão conceitual, ao achar que a remoção tumoral não melhora o desfecho; ou (3) erro de leitura, ao não perceber que a asserção II é falsa. A estratégia corretiva é memorizar o espectro clínico (psiquiátrico, convulsivo, discinético, disautonômico), o tratamento de primeira linha e a importância da ressecção do teratoma.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, adolescentes com quadro psiquiátrico agudo, convulsões e movimentos anormais devem ter encefalite anti-NMDAR no diferencial. A investigação inclui anticorpos anti-NMDAR, líquor, EEG, RM e imagem pélvica. O tratamento precoce com imunoterapia e a ressecção do teratoma, quando presente, melhoram o prognóstico. A disautonomia e a hipoventilação exigem monitorização intensiva.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Encefalite anti-NMDAR: clínica, diagnóstico e tratamento.</li>
+                    <li>Teratoma ovariano e sua associação com encefalite autoimune.</li>
+                    <li>ADEM e outras doenças desmielinizantes do SNC.</li>
+                    <li>Encefalite herpética e papel do aciclovir.</li>
+                    <li>Painel de anticorpos em encefalites autoimunes.</li>
+                    <li>Imunoterapia: corticosteroides, IVIG, plasmaferese, rituximabe e ciclofosfamida.</li>
+                    <li>Suporte intensivo na disautonomia e hipoventilação central.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Nelson Textbook of Pediatrics. 21st ed. Elsevier.</p>
+                <p>2. Harrison’s Principles of Internal Medicine. 21st ed. McGraw-Hill.</p>
+                <p>3. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole.</p>
+                <p>4. Dalmau J, et al. Anti-NMDA-receptor encephalitis: case series and analysis of the effects of antibodies. Lancet Neurol.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+    </script>
+</body>
+</html>

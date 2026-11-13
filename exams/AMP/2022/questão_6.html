@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 6 - Cetoacidose Diabética na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Endocrinologia Pediátrica: Cetoacidose Diabética na Infância</div>
+        <h1>Questão 6</h1>
+        <div class="question-text">
+            Escolar de 8 anos apresenta quadro de dor abdominal, náuseas e vômitos, fraqueza e diminuição do nível de consciência há 2 dias. Nas últimas semanas refere quadro de aumento de apetite e sede excessiva, acompanhado de poliúria. Ao exame afebril, frequência cardíaca de 100 bpm, pressão arterial normal para idade, respiração pesada e rápida, sem sons adventícios. Exames mostram uma glicemia de 450, sódio 155, potássio 4,1, gasometria com pH 7,01, pCO2 20, pO2 120, bicarbonato 9, urina com glicosúria e cetonúria. Baseado na principal hipótese diagnóstica analise as asserções abaixo e a relação proposta entre elas.
+        </div>
+
+        <div class="statements">
+            <div class="statement">
+                <strong>I</strong> - Depois de medidas iniciais de ressuscitação, mesmo estando com quadro de hiperosmolaridade sérica, a infusão de insulina deve ser iniciada sem um bôlus e a reidratação deve ser cautelosa para não haver correção muito rápida da osmolaridade.
+            </div>
+            <div class="statement">
+                <strong>PORQUE</strong>
+            </div>
+            <div class="statement">
+                <strong>II</strong> - A correção rápida da osmolaridade está relacionada com risco aumentado de desenvolver edema cerebral, que é a principal causa de mortalidade nestes pacientes.
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As asserções I e II são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Pediatria / Endocrinologia Pediátrica</p>
+                <p><strong>Tema:</strong> Cetoacidose diabética (CAD) na infância — manejo da insulinoterapia e da reidratação com prevenção de edema cerebral</p>
+                <p><strong>Contextualização:</strong> Tema de alta relevância em emergência pediátrica e em provas de residência, pois a CAD é a principal causa de morbimortalidade em crianças com diabetes mellitus tipo 1. Costuma ser cobrada em conjunto com distúrbios hidroeletrolíticos, distúrbios acidobásicos, coma e edema cerebral. A complicação mais temida em pediatria é o edema cerebral.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A cetoacidose diabética resulta da deficiência absoluta ou relativa de insulina associada ao excesso de hormônios contrarreguladores (glucagon, catecolaminas, cortisol e GH). Ocorre hiperglicemia, glicosúria, diurese osmótica, desidratação, lipólise, cetogênese e acidose metabólica com ânion-gap elevado. O quadro clínico típico inclui poliúria, polidipsia, perda ponderal, desidratação, respiração de Kussmaul, hálito cetônico, dor abdominal, vômitos e alteração do nível de consciência. No manejo, a reposição volêmica inicial com solução isotônica é prioritária, seguida de insulinoterapia contínua sem bolus, para evitar quedas abruptas da osmolaridade e do volume intracelular. A correção rápida da osmolaridade e da glicemia está associada a edema cerebral, que é a principal causa de mortalidade em crianças com CAD.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>A</strong>. A asserção I é verdadeira: após a ressuscitação inicial, a insulina deve ser iniciada em infusão contínua, sem bolus, e a reidratação deve ser cautelosa para evitar correção muito rápida da osmolaridade. A asserção II é verdadeira e justifica a conduta: a correção rápida da osmolaridade está associada ao edema cerebral, que é a principal causa de mortalidade na CAD pediátrica. Portanto, a prevenção da queda abrupta da osmolaridade é a razão pela qual se evita bolus de insulina e se faz reidratação cautelosa.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Correta. Reconhece I e II como verdadeiras e a II como justificativa da I.</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Reconhece I e II como verdadeiras, mas nega a relação de justificativa; no entanto, II é exatamente a razão fisiopatológica de I.</p>
+                <p><strong>Alternativa C</strong> - Incorreta. Reconhece I como verdadeira, mas considera II falsa; II é verdadeira e embasa a conduta.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Considera I falsa, mas a conduta de evitar bolus e reidratar de forma cautelosa está correta.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Considera ambas falsas, contrariando as recomendações atuais.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Dor abdominal, náuseas e vômitos:</strong> sintomas frequentes na CAD e que podem simular abdome agudo.</li>
+                    <li><strong>Fraqueza e diminuição do nível de consciência:</strong> sugerem gravidade e risco de edema cerebral.</li>
+                    <li><strong>Aumento de apetite, sede excessiva e poliúria:</strong> tríade clássica do diabetes descompensado.</li>
+                    <li><strong>Respiração pesada e rápida:</strong> respiração de Kussmaul, típica da acidose metabólica.</li>
+                    <li><strong>Glicemia 450, pH 7,01, bicarbonato 9, cetonúria:</strong> confirmam CAD grave.</li>
+                    <li><strong>Hiperosmolaridade (Na 155):</strong> reforça o risco de edema cerebral com correção rápida.</li>
+                    <li><strong>Relação I ↔ II:</strong> testa se o candidato conhece a fisiopatologia do edema cerebral na CAD.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer CAD grave (glicemia &gt;250, pH &lt;7,1, bicarbonato &lt;10, cetonúria) com desidratação e risco de edema cerebral.</li>
+                    <li><strong>Segundo:</strong> realizar expansão volêmica inicial com solução salina isotônica (10–20 mL/kg) e corrigir distúrbios hidroeletrolíticos.</li>
+                    <li><strong>Terceiro:</strong> iniciar insulina regular em infusão contínua (0,05–0,1 U/kg/h) sem bolus; não iniciar insulina antes da expansão inicial.</li>
+                    <li><strong>Quarto:</strong> monitorar glicemia, eletrólitos, osmolaridade e nível de consciência; evitar correção rápida da osmolaridade e da glicemia; tratar edema cerebral com manitol ou solução salina hipertônica se suspeita.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de conduta inicial e de manejo de complicações em emergências pediátricas.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> CAD é uma emergência metabólica com hiperglicemia, acidose e cetose; o edema cerebral é a principal causa de morte em crianças com CAD.</li>
+                    <li><strong>Números e doses:</strong> Insulina regular em infusão contínua 0,05–0,1 U/kg/h, sem bolus; expansão inicial com SF 0,9% 10–20 mL/kg; manitol 0,5–1 g/kg ou NaCl 3% para edema cerebral.</li>
+                    <li><strong>Mnemônico:</strong> “CAD pediátrica = sem bolus + reidratação cautelosa + vigilância de edema cerebral”.</li>
+                </ul>
+                <p>Esses dados são importantes porque a banca costuma cobrar a conduta inicial e a principal complicação.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CAD (correta)</td>
+                            <td>Hiperglicemia, acidose, cetose, dor abdominal, respiração de Kussmaul, desidratação</td>
+                            <td>Gasometria, glicemia, cetonúria/sérica, eletrólitos</td>
+                            <td>Expansão volêmica, insulina contínua sem bolus, reidratação cautelosa</td>
+                        </tr>
+                        <tr>
+                            <td>Estado hiperosmolar hiperglicêmico</td>
+                            <td>Glicemia muito elevada, osmolaridade alta, ausência de cetose significativa, desidratação grave</td>
+                            <td>Gasometria, osmolaridade, cetonas</td>
+                            <td>Reidratação cautelosa e insulina</td>
+                        </tr>
+                        <tr>
+                            <td>Acidose lática</td>
+                            <td>Acidose sem cetose, contexto de hipoperfusão ou uso de metformina</td>
+                            <td>Lactato, gasometria</td>
+                            <td>Tratar causa e suporte</td>
+                        </tr>
+                        <tr>
+                            <td>Abdome agudo</td>
+                            <td>Dor abdominal localizada, sinais peritoneais, febre</td>
+                            <td>Exame físico, imagem</td>
+                            <td>Investigação cirúrgica</td>
+                        </tr>
+                        <tr>
+                            <td>Intoxicação por salicilato</td>
+                            <td>Acidose, taquipneia, história de ingestão</td>
+                            <td>Dosagem sérica</td>
+                            <td>Lavagem, alcalinização, diálise</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial de acidoses metabólicas e de dor abdominal na infância.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre a complicação mais temida:</strong> a resposta seria edema cerebral.</li>
+                    <li><strong>Se fosse sobre o uso de insulina:</strong> a resposta seria infusão contínua sem bolus.</li>
+                    <li><strong>Se fosse sobre a correção volêmica:</strong> a resposta destacaria a expansão inicial com isotônico e a reidratação cautelosa.</li>
+                    <li><strong>Se fosse sobre o bicarbonato:</strong> a resposta destacaria que seu uso é reservado para pH muito baixo e casos selecionados.</li>
+                    <li><strong>Se fosse sobre monitorização:</strong> a resposta envolveria glicemia, eletrólitos, osmolaridade e nível de consciência.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q100</td>
+                            <td>Escolar com náuseas, vômitos, dor abdominal, poliúria, polidipsia, glicemia 380, pH 6,95, bicarbonato 4; condutas inadequadas na CAD.</td>
+                            <td>Manejo da CAD e identificação de condutas inadequadas</td>
+                            <td>B</td>
+                            <td>Reforça a importância da reidratação e da insulinoterapia correta.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q49</td>
+                            <td>Paciente com cirrose e alteração neurológica; não é CAD, mas aborda distúrbios metabólicos.</td>
+                            <td>Distúrbios metabólicos e encefalopatia</td>
+                            <td>D</td>
+                            <td>Complementa o raciocínio sobre alteração do nível de consciência.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q80</td>
+                            <td>Paciente com síndrome de Cushing e distúrbios metabólicos.</td>
+                            <td>Endocrinologia e distúrbios metabólicos</td>
+                            <td>D</td>
+                            <td>Complementa o raciocínio endocrinológico.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q6</td>
+                            <td>Escolar com CAD grave, hiperosmolaridade e necessidade de insulina sem bolus e reidratação cautelosa.</td>
+                            <td>CAD pediátrica e prevenção de edema cerebral</td>
+                            <td>A</td>
+                            <td>Questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema CAD apareceu de forma direta em 2007 (identificação de condutas inadequadas) e retorna agora com foco na fisiopatologia do edema cerebral e nas escolhas terapêuticas (insulina sem bolus, reidratação cautelosa). A banca alterna entre aspectos de manejo e de complicações.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A relação entre hiperosmolaridade, velocidade de correção e edema cerebral não havia sido cobrada de forma explícita; é uma lacuna que pode surgir em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> A questão de 2007 era mais descritiva sobre condutas inadequadas; a atual exige raciocínio fisiopatológico e interpretação de asserções.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar critérios diagnósticos de CAD, manejo hidroeletrolítico, insulinoterapia sem bolus, complicações (edema cerebral, hipocalemia) e uso de bicarbonato.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Diabetes mellitus tipo 1 → CAD → edema cerebral. Se você viu poliúria, polidipsia e acidose, pense em CAD e nas complicações do tratamento.</li>
+                    <li><strong>Conexão 2:</strong> Distúrbios acidobásicos → ânion-gap elevado → CAD. A interpretação da gasometria é essencial para o diagnóstico.</li>
+                    <li><strong>Conexão 3:</strong> Distúrbios hidroeletrolíticos → hipocalemia → arritmias. A reposição de potássio é parte do manejo da CAD.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, os tipos de erro mais prováveis são: (1) lacuna de conhecimento sobre o risco de edema cerebral na CAD pediátrica; (2) confusão conceitual, ao achar que bolus de insulina é necessário; ou (3) erro de leitura, ao não perceber que a asserção II justifica a asserção I. A estratégia corretiva é memorizar que a CAD pediátrica é tratada com insulina contínua sem bolus e reidratação cautelosa justamente para evitar edema cerebral.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a CAD pediátrica exige monitorização rigorosa e correção gradual da osmolaridade. O edema cerebral deve ser suspeitado em caso de cefaleia, bradicardia, hipertensão, alteração do nível de consciência ou convulsões durante o tratamento. A conduta inclui manitol ou solução salina hipertônica e redução da velocidade de infusão.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios diagnósticos de CAD.</li>
+                    <li>Manejo hidroeletrolítico na CAD pediátrica.</li>
+                    <li>Insulinoterapia sem bolus e taxa de infusão.</li>
+                    <li>Edema cerebral: fisiopatologia, prevenção e tratamento.</li>
+                    <li>Distúrbios acidobásicos e ânion-gap.</li>
+                    <li>Reposição de potássio e monitorização.</li>
+                    <li>Uso de bicarbonato na CAD.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Nelson Textbook of Pediatrics. 21st ed. Elsevier.</p>
+                <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole.</p>
+                <p>3. Sociedade Brasileira de Diabetes. Diretrizes de Cetoacidose Diabética.</p>
+                <p>4. ISPAD Clinical Practice Consensus Guidelines. Diabetic Ketoacidosis.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+    let selectedOption = null;
+    const correctAnswer = 'A';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+    </script>
+</body>
+</html>

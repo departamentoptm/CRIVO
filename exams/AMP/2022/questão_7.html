@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 7 - Apendicite Aguda na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Cirurgia Pediátrica: Apendicite Aguda na Infância</div>
+        <h1>Questão 7</h1>
+        <div class="question-text">
+            A apendicite aguda continua a ser o quadro cirúrgico agudo mais comum em crianças e a principal causa de morbidade infantil. Sobre a apendicite aguda na infância assinale a opção correta.
+        </div>
+
+        <div class="statements">
+            <div class="statement">
+                <strong>I</strong> - A tomografia de abdome em nosso meio tem sido o exame de escolha para confirmação diagnóstica.
+            </div>
+            <div class="statement">
+                <strong>II</strong> - A cirurgia de emergência (no meio da noite) raramente é indicada e a maioria dos pacientes necessita de medidas de suporte pré-operatório para estabilizar os sinais vitais e garantir a segurança do procedimento.
+            </div>
+            <div class="statement">
+                <strong>III</strong> - Em pacientes nos quais a perfuração é identificada no momento do diagnóstico, a cirurgia é ainda menos urgente e a conduta pré operatória apropriada é mais crítica.
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As afirmativas I e II são verdadeiras. A afirmativa III é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As afirmativas I e III são verdadeiras. A afirmativa II é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - As afirmativas II e III são verdadeiras. A afirmativa I é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - As afirmativas I, II e III são verdadeiras.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As afirmativas I, II e III são falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Cirurgia Pediátrica / Pediatria</p>
+                <p><strong>Tema:</strong> Apendicite aguda na infância — diagnóstico por imagem, urgência cirúrgica e manejo pré-operatório</p>
+                <p><strong>Contextualização:</strong> A apendicite aguda é a urgência cirúrgica mais comum na infância e tema de alta incidência em provas de residência. Costuma ser cobrada em conjunto com dor abdominal aguda, diagnóstico diferencial de abdome agudo e manejo de sepse abdominal. A banca explora desde o diagnóstico clínico e por imagem até o momento cirúrgico ideal e o manejo da apendicite complicada.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A apendicite aguda resulta da obstrução do lúmen apendicular (fecalito, hiperplasia linfoide, corpo estranho), levando à distensão, isquemia da parede, proliferação bacteriana e inflamação. Evolui da forma simples (não perfurada) para perfurada, com risco de peritonite e abscesso. Na criança, o omento é mais curto e a capacidade de conter a infecção é menor, o que facilita a progressão. O diagnóstico é clínico, baseado em anamnese e exame físico, com exames de imagem complementares em casos duvidosos. No Brasil, a ultrassonografia é o exame inicial de escolha pela disponibilidade, ausência de radiação e boa acurácia, enquanto a tomografia é reservada para casos de dúvida diagnóstica. O momento da cirurgia não se correlaciona com o risco de perfuração ou morbidade quando realizada dentro de 24 horas; a maioria dos pacientes pode ser estabilizada antes do procedimento, e a cirurgia “no meio da noite” raramente é necessária, exceto em situações de instabilidade ou sepse. Na apendicite perfurada, a prioridade é a estabilização clínica e a antibioticoterapia antes da cirurgia.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>. A afirmativa I é falsa: em nosso meio, a ultrassonografia é o exame inicial de escolha, e a tomografia é reservada para casos duvidosos ou complicados. A afirmativa II é verdadeira: a cirurgia de emergência noturna raramente é indicada; a maioria dos pacientes necessita de estabilização pré-operatória. A afirmativa III é verdadeira: na perfuração diagnosticada, a cirurgia é ainda menos urgente do ponto de vista temporal, e a conduta pré-operatória (reposição volêmica, antibióticos) é mais crítica.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Reconhece I como verdadeira (é falsa) e III como falsa (é verdadeira).</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Reconhece I como verdadeira (é falsa) e II como falsa (é verdadeira).</p>
+                <p><strong>Alternativa C</strong> - Correta. II e III são verdadeiras e I é falsa.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Considera I verdadeira, mas a tomografia não é o exame de escolha em nosso meio.</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Considera todas falsas, mas II e III são verdadeiras.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Exame de escolha em nosso meio”:</strong> pista de que se trata de contexto brasileiro, onde a ultrassonografia é preferida.</li>
+                    <li><strong>“Cirurgia de emergência no meio da noite”:</strong> pista de que a apendicite não é uma emergência absoluta; o momento cirúrgico pode ser planejado dentro de 24h.</li>
+                    <li><strong>“Perfuração identificada no momento do diagnóstico”:</strong> pista de que a estabilização pré-operatória é mais crítica.</li>
+                    <li><strong>“Principal causa de morbidade infantil”:</strong> reforça a importância do tema.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> suspeitar de apendicite em criança com dor abdominal migratória para FID, febre baixa, anorexia e sinais peritoneais.</li>
+                    <li><strong>Segundo:</strong> realizar exames de imagem em casos duvidosos, preferindo ultrassonografia no contexto brasileiro; tomografia é reservada para dúvida diagnóstica.</li>
+                    <li><strong>Terceiro:</strong> estabilizar o paciente (hidratação, analgesia, antibióticos) antes da cirurgia.</li>
+                    <li><strong>Quarto:</strong> programar apendicectomia dentro de até 24 horas; na apendicite perfurada, priorizar estabilização e antibióticos antes da cirurgia.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões sobre “próximo passo” e “momento cirúrgico”.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> A apendicite é a urgência cirúrgica mais comum na infância; o diagnóstico é clínico; a ultrassonografia é o exame inicial de escolha no Brasil; o atraso cirúrgico dentro de 24h não aumenta a perfuração.</li>
+                    <li><strong>Números e doses:</strong> Antibioticoterapia pré-operatória em dose única para apendicite não perfurada; em apendicite perfurada, manter antibiótico por 2–3 dias ou conforme evolução.</li>
+                    <li><strong>Mnemônico:</strong> “Apendicite: clínico, USG primeiro, cirurgia em até 24h, sem emergência noturna”.</li>
+                </ul>
+                <p>Esses dados são importantes porque a banca costuma cobrar tanto diagnóstico quanto conduta.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Apendicite aguda (correta)</td>
+                            <td>Dor migratória para FID, febre baixa, anorexia, Blumberg positivo, leucocitose</td>
+                            <td>Clínico + USG; TC em casos duvidosos</td>
+                            <td>Estabilização e apendicectomia em até 24h</td>
+                        </tr>
+                        <tr>
+                            <td>Gastroenterite</td>
+                            <td>Diarreia, vômitos, dor difusa, sem sinais peritoneais localizados</td>
+                            <td>Clínico, coprocultura</td>
+                            <td>Hidratação e suporte</td>
+                        </tr>
+                        <tr>
+                            <td>Adenite mesentérica</td>
+                            <td>Dor periumbilical ou em FID, febre, linfonodos aumentados ao USG</td>
+                            <td>USG, clínico</td>
+                            <td>Tratamento sintomático</td>
+                        </tr>
+                        <tr>
+                            <td>Torção ovariana</td>
+                            <td>Dor pélvica súbita, massa anexial ao USG, meninas</td>
+                            <td>USG com Doppler</td>
+                            <td>Cirurgia de urgência</td>
+                        </tr>
+                        <tr>
+                            <td>Infecção urinária</td>
+                            <td>Disúria, polaciúria, febre, urina alterada</td>
+                            <td>Urina tipo 1, urocultura</td>
+                            <td>Antibióticos</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial de dor abdominal na infância.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre o exame de escolha:</strong> a resposta seria ultrassonografia em nosso meio.</li>
+                    <li><strong>Se fosse sobre o momento cirúrgico:</strong> a resposta destacaria que a cirurgia pode ser programada em até 24h.</li>
+                    <li><strong>Se fosse sobre apendicite perfurada:</strong> a resposta destacaria a estabilização pré-operatória e antibióticos.</li>
+                    <li><strong>Se fosse sobre profilaxia antibiótica:</strong> a resposta seria dose pré-operatória de cefalosporina de 3ª geração em apendicite não perfurada.</li>
+                    <li><strong>Se fosse sobre faixa etária:</strong> a resposta destacaria maior taxa de perfuração em crianças pequenas.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2019 – Q18</td>
+                            <td>Escolar com dor abdominal migratória, febre baixa e Blumberg positivo; uso de opioides.</td>
+                            <td>Diagnóstico clínico e analgesia na apendicite</td>
+                            <td>E</td>
+                            <td>Complementa a discussão sobre diagnóstico clínico e analgesia.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q19</td>
+                            <td>Mesmo caso com USG sugestiva; conduta cirúrgica.</td>
+                            <td>Indicação de apendicectomia</td>
+                            <td>A</td>
+                            <td>Reforça a conduta cirúrgica após confirmação.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q68</td>
+                            <td>Pré-escolar com dor em FID e hipótese de apendicite; febre no início.</td>
+                            <td>Apresentação clínica e diagnóstico</td>
+                            <td>B</td>
+                            <td>Complementa o conhecimento sobre apresentação em crianças.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q4</td>
+                            <td>Menina de 4 anos com dor abdominal e hipótese de apendicite; USG como primeiro exame.</td>
+                            <td>Exame de imagem inicial e urgência cirúrgica</td>
+                            <td>A</td>
+                            <td>Corrobora que a USG é o exame de escolha inicial.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q10</td>
+                            <td>Apendicite aguda na infância; correlação entre momento cirúrgico e perfuração; antibióticos.</td>
+                            <td>Momento cirúrgico e antibioticoterapia</td>
+                            <td>D</td>
+                            <td>Reforça que o momento cirúrgico não altera desfecho se dentro de 24h.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q7</td>
+                            <td>Apendicite aguda na infância: exame de escolha, urgência cirúrgica e apendicite perfurada.</td>
+                            <td>Diagnóstico por imagem, urgência e conduta pré-operatória</td>
+                            <td>C</td>
+                            <td>Questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apendicite pediátrica apareceu em pelo menos 5 provas anteriores, com foco em diagnóstico clínico, exames de imagem, analgesia, momento cirúrgico e antibioticoterapia. A banca alterna entre questões clínicas (apresentação) e questões cirúrgicas (conduta e timing).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A relação explícita entre contexto brasileiro e escolha da USG como primeiro exame, bem como a ideia de que a cirurgia noturna raramente é necessária, não havia sido cobrada de forma direta; é lacuna que pode surgir em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores eram mais clínicas (casos); esta questão exige análise crítica de afirmações e conhecimento do contexto nacional e do timing cirúrgico.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar diagnóstico clínico e por imagem, escolha de exames no contexto brasileiro, momento cirúrgico, apendicite perfurada e antibioticoterapia.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Abdome agudo → apendicite → diagnóstico diferencial com gastroenterite e adenite mesentérica.</li>
+                    <li><strong>Conexão 2:</strong> USG × TC → escolha do exame → radiação e disponibilidade.</li>
+                    <li><strong>Conexão 3:</strong> Apendicite perfurada → sepse abdominal → estabilização e antibióticos.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, os tipos de erro mais prováveis são: (1) lacuna de conhecimento sobre o exame de escolha no Brasil (USG); (2) confusão conceitual sobre a urgência cirúrgica; ou (3) erro de leitura, ao não perceber que a afirmativa III fala de perfuração. A estratégia corretiva é memorizar que a USG é o exame inicial, que a cirurgia pode ser programada em até 24h e que na apendicite perfurada a estabilização é prioritária.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o diagnóstico de apendicite é clínico e a USG ajuda em casos duvidosos. A criança deve ser estabilizada antes da cirurgia, que não precisa ocorrer de madrugada na maioria dos casos. A apendicite perfurada exige reposição volêmica, antibióticos e cirurgia após estabilização.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Diagnóstico clínico de apendicite em crianças.</li>
+                    <li>USG × TC no diagnóstico de apendicite.</li>
+                    <li>Momento cirúrgico e correlação com perfuração.</li>
+                    <li>Apendicite perfurada e manejo pré-operatório.</li>
+                    <li>Antibioticoterapia na apendicite simples e complicada.</li>
+                    <li>Diagnóstico diferencial de dor abdominal na infância.</li>
+                    <li>Uso de analgesia e opioides na apendicite.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Nelson Textbook of Pediatrics. 21st ed. Elsevier.</p>
+                <p>2. Sabiston Textbook of Surgery. 21st ed. Elsevier.</p>
+                <p>3. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole.</p>
+                <p>4. Sociedade Brasileira de Cirurgia Pediátrica. Diretrizes de Apendicite Aguda.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+    </script>
+</body>
+</html>

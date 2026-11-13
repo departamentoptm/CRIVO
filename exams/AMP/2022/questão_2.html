@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 2 - Tuberculose Pleural e Abdominal na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Infectologia Pediátrica: Tuberculose Pleural e Abdominal na Infância</div>
+        <h1>Questão 2</h1>
+        <div class="question-text">
+            Menino de 11 anos com história de febre prolongada, com vômitos e diarreia nas últimas semanas, perda de 10 quilos no período. Ao exame presença de ascite volumosa, linfonodomegalia supraclavicular esquerda, consolidação pulmonar direita com extenso derrame pleural ipsilateral. Tomografia abdominal com espessamento de íleo distal, múltiplos linfonodos abdominais e sinais de hiperplasia nodular linfoide. Na história familiar a mãe relata ser usuária de drogas injetáveis e pai encontra-se preso. Baseado na principal hipótese diagnóstica analise as asserções abaixo e a relação proposta entre elas.
+        </div>
+
+        <div class="statements">
+            <div class="statement">
+                <strong>I</strong> - No caso apresentado o exame do líquido pleural e da membrana pleural é importante para auxiliar no diagnóstico.
+            </div>
+            <div class="statement">
+                <strong>PORQUE</strong>
+            </div>
+            <div class="statement">
+                <strong>II</strong> - As culturas do líquido pleural são positivas na maioria dos casos.
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As asserções I e II são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Pediatria / Infectologia</p>
+                <p><strong>Tema:</strong> Tuberculose Pleural e Abdominal na Infância — diagnóstico do derrame pleural tuberculoso</p>
+                <p><strong>Contextualização:</strong> A tuberculose permanece como importante problema de saúde pública no Brasil e é tema de alta incidência em provas de residência. A forma extrapulmonar, especialmente a pleural, é frequentemente cobrada em pediatria, geralmente associada a quadros de febre prolongada, perda ponderal e epidemiologia de risco. Costuma ser cobrada em conjunto com TB pulmonar, TB ganglionar, TB intestinal e diagnóstico diferencial de derrames pleurais.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>O quadro clínico descrito é altamente sugestivo de tuberculose disseminada, com envolvimento pulmonar, pleural, ganglionar e abdominal (intestinal/peritoneal). A epidemiologia familiar (mãe usuária de drogas injetáveis e pai encarcerado) reforça a exposição ao <em>Mycobacterium tuberculosis</em>. No derrame pleural tuberculoso, a fisiopatologia envolve uma reação de hipersensibilidade tardia aos antígenos do bacilo no espaço pleural, gerando um exsudato com predomínio linfocitário e elevação da adenosina desaminase (ADA). Como a carga bacilar no líquido pleural é baixa (doença paucibacilar), a cultura e a baciloscopia frequentemente são negativas, o que explica por que a cultura do líquido pleural é positiva apenas na minoria dos casos.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C</strong>. A asserção I é verdadeira: a análise do líquido pleural (celularidade, bioquímica, ADA, pesquisa de BAAR e cultura) e, quando necessário, a biópsia da membrana pleural, são ferramentas importantes para o diagnóstico da tuberculose pleural. A asserção II é falsa: as culturas do líquido pleural são positivas apenas em uma minoria dos casos (geralmente menos de 25–30%), porque a TB pleural é paucibacilar; portanto, a cultura negativa não exclui o diagnóstico.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta. Reconhece a asserção II como verdadeira, mas ela é falsa (cultura pleural positiva na minoria dos casos).</p>
+                <p><strong>Alternativa B</strong> - Incorreta. Reconhece a asserção II como verdadeira (embora não justificativa), errando ao não identificar sua falsidade.</p>
+                <p><strong>Alternativa C</strong> - Correta. A asserção I é verdadeira e a asserção II é falsa, exatamente como descrito.</p>
+                <p><strong>Alternativa D</strong> - Incorreta. Inverte os conceitos: considera a asserção I falsa (ela é verdadeira) e a II verdadeira (ela é falsa).</p>
+                <p><strong>Alternativa E</strong> - Incorreta. Considera ambas as asserções falsas, mas a asserção I é verdadeira.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Febre prolongada:</strong> pista para TB, neoplasia e doenças inflamatórias crônicas.</li>
+                    <li><strong>Perda de 10 kg:</strong> emagrecimento importante, típico de síndrome consumptiva (TB, linfoma, neoplasia).</li>
+                    <li><strong>Ascite volumosa + espessamento de íleo distal + linfonodos abdominais:</strong> sugere TB intestinal/peritoneal.</li>
+                    <li><strong>Linfonodomegalia supraclavicular:</strong> acometimento ganglionar, compatível com TB ganglionar.</li>
+                    <li><strong>Consolidação pulmonar + derrame pleural:</strong> TB pulmonar com envolvimento pleural.</li>
+                    <li><strong>Mãe usuária de drogas injetáveis e pai preso:</strong> epidemiologia de risco para TB e outras infecções.</li>
+                    <li><strong>Relação I ↔ II:</strong> testa o conhecimento de que a cultura pleural é frequentemente negativa (paucibacilar).</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer síndrome consumptiva com febre prolongada e epidemiologia de risco, levantando a hipótese de tuberculose disseminada.</li>
+                    <li><strong>Segundo:</strong> identificar os múltiplos sítios de acometimento (pulmonar, pleural, ganglionar, abdominal).</li>
+                    <li><strong>Terceiro:</strong> no derrame pleural, realizar toracocentese diagnóstica com análise bioquímica, celularidade, ADA, BAAR e cultura; considerar biópsia pleural se necessário.</li>
+                    <li><strong>Quarto:</strong> interpretar a cultura negativa com cautela — a TB pleural é paucibacilar e a cultura negativa não exclui o diagnóstico; iniciar tratamento conforme escore clínico-epidemiológico.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de diagnóstico em TB extrapulmonar e de interpretação de exames complementares.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> A TB pleural é uma forma paucibacilar; a cultura do líquido pleural é positiva em menos de 25–30% dos casos; a ADA elevada (&gt; 40 U/L) e o predomínio linfocitário no exsudato sugerem TB.</li>
+                    <li><strong>Números e doses:</strong> Esquema básico RIPE (rifampicina, isoniazida, pirazinamida e etambutol) por 6 meses (2RHZE + 4RH) para TB pleural e outras formas extrapulmonares, salvo indicações específicas.</li>
+                    <li><strong>Mnemônico:</strong> "TB pleural: ADA alto, cultura baixa" — lembra que a cultura é pouco sensível e que a ADA é útil no diagnóstico.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em questões de TB pulmonar, TB infantil e quimioprofilaxia.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tuberculose pleural (correta)</td>
+                            <td>Febre prolongada, perda ponderal, epidemiologia de risco, exsudato linfocitário com ADA elevado</td>
+                            <td>Toracocentese com ADA, cultura e biópsia pleural; cultura frequentemente negativa (paucibacilar)</td>
+                            <td>Esquema RIPE por 6 meses</td>
+                        </tr>
+                        <tr>
+                            <td>Derrame pleural parapneumônico</td>
+                            <td>Quadro agudo de pneumonia, febre, tosse produtiva, exsudato com predomínio de neutrófilos</td>
+                            <td>Análise do líquido (pH, glicose, LDH, Gram/cultura)</td>
+                            <td>Antibioticoterapia e drenagem se critérios</td>
+                        </tr>
+                        <tr>
+                            <td>Linfoma</td>
+                            <td>Febre prolongada, perda ponderal, linfonodomegalia, hepatoesplenomegalia, derrame quiloso ou linfocitário</td>
+                            <td>Biópsia de linfonodo ou de medula óssea, imagem</td>
+                            <td>Encaminhamento oncológico</td>
+                        </tr>
+                        <tr>
+                            <td>Tuberculose peritoneal</td>
+                            <td>Ascite, dor abdominal, febre, espessamento de íleo, linfonodos abdominais</td>
+                            <td>Paracentese com ADA, cultura, biópsia peritoneal</td>
+                            <td>Esquema RIPE</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre tratamento:</strong> a resposta seria o esquema RIPE por 6 meses.</li>
+                    <li><strong>Se fosse sobre o valor da ADA:</strong> a resposta destacaria ADA elevada como marcador útil, com ponto de corte em torno de 40 U/L.</li>
+                    <li><strong>Se fosse sobre diagnóstico diferencial do derrame:</strong> a resposta envolveria os critérios de Light (transudato vs. exsudato).</li>
+                    <li><strong>Se fosse sobre a bacteriologia:</strong> a resposta seria que a TB pleural é paucibacilar e a cultura é frequentemente negativa.</li>
+                    <li><strong>Se fosse sobre prevenção:</strong> a resposta envolveria vacina BCG, quimioprofilaxia e rastreamento de contatos.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q12</td>
+                            <td>Paciente com tosse produtiva e baciloscopia positiva para BAAR; orientações sobre quimioprofilaxia de comunicantes.</td>
+                            <td>Conduta na TB e quimioprofilaxia</td>
+                            <td>D</td>
+                            <td>Complementa o conhecimento sobre manejo da TB e contatos.</td>
+                        </tr>
+                        <tr>
+                            <td>2007 – Q12</td>
+                            <td>Paciente com tosse crônica e baciloscopia positiva; orientações sobre quimioprofilaxia.</td>
+                            <td>Quimioprofilaxia em TB</td>
+                            <td>D</td>
+                            <td>Reforça o manejo de contatos, relevante na epidemiologia familiar do caso atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q1</td>
+                            <td>RN filho de mãe com TB em atividade; orientações sobre BCG e amamentação.</td>
+                            <td>TB materna e conduta no RN</td>
+                            <td>D</td>
+                            <td>Relaciona-se à transmissão e à importância da epidemiologia familiar.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q37</td>
+                            <td>Paciente com TB; assertivas sobre quimioprofilaxia e teste tuberculínico.</td>
+                            <td>Quimioprofilaxia e investigação de contatos</td>
+                            <td>C</td>
+                            <td>Complementa o conhecimento sobre rastreamento de contatos.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q9</td>
+                            <td>Paciente com tosse produtiva, perda ponderal e cavitação em lobo superior; asserções sobre fisiopatologia da TB.</td>
+                            <td>TB pulmonar e fisiopatologia</td>
+                            <td>A</td>
+                            <td>Reforça a fisiopatologia e a apresentação clínica da TB.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q53 / 2025 – Q53</td>
+                            <td>Diagnóstico de TB em crianças; escore clínico-epidemiológico e limitações da bacterioscopia/cultura.</td>
+                            <td>Diagnóstico de TB infantil</td>
+                            <td>E</td>
+                            <td>Complementa o diagnóstico pediátrico e as limitações dos exames microbiológicos.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q2</td>
+                            <td>Menino com febre prolongada, perda ponderal, ascite, linfonodomegalia e derrame pleural; epidemiologia de risco.</td>
+                            <td>TB pleural/abdominal e limitações da cultura pleural</td>
+                            <td>C</td>
+                            <td>Questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema tuberculose apareceu em múltiplas provas, com foco predominante em quimioprofilaxia, diagnóstico em crianças e TB pulmonar. A forma pleural/abdominal especificamente não havia sido cobrada de forma direta, mas o raciocínio sobre limitações dos exames microbiológicos já apareceu na questão de TB infantil (2021/2025).</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> O conceito de que a TB pleural é paucibacilar e a cultura do líquido pleural é frequentemente negativa não havia sido cobrado especificamente; é uma lacuna que pode ser explorada em provas futuras.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões anteriores tendiam a cobrar condutas e quimioprofilaxia; esta questão exige raciocínio diagnóstico e interpretação de exames complementares, refletindo uma cobrança mais aplicada.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar TB pleural e abdominal, valores de ADA, critérios de Light, limitações da cultura e baciloscopia, e esquema de tratamento da TB extrapulmonar.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> TB pulmonar → TB pleural → TB miliar/disseminada. Se você viu TB pulmonar com cavitação, lembre-se de que a forma pleural pode coexistir e que a cultura pleural é pouco sensível.</li>
+                    <li><strong>Conexão 2:</strong> Diagnóstico de TB infantil (escore clínico-epidemiológico) → exames bacteriológicos → tratamento empírico. A dificuldade de confirmação microbiológica na criança é semelhante à da TB pleural paucibacilar.</li>
+                    <li><strong>Conexão 3:</strong> Epidemiologia de risco (contatos, vulnerabilidade social) → rastreamento de contatos → quimioprofilaxia. A história familiar do caso reforça a importância da investigação de comunicantes.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário errou, os tipos de erro mais prováveis são: (1) confusão conceitual, ao superestimar a positividade da cultura do líquido pleural; (2) lacuna de conhecimento sobre a natureza paucibacilar da TB pleural; ou (3) erro de leitura, ao não perceber que a asserção II afirma que a cultura é positiva na "maioria" dos casos, o que é falso. A estratégia corretiva é memorizar que a TB pleural é paucibacilar, que a cultura pleural é positiva em minoria dos casos e que a ADA tem papel importante no diagnóstico.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, a suspeita de TB pleural deve ser levantada em crianças com febre prolongada, perda ponderal e epidemiologia de risco. A toracocentese é essencial, mas o médico deve saber que a cultura negativa não exclui o diagnóstico. A biópsia pleural e o tratamento empírico conforme escore clínico-epidemiológico são condutas importantes. Além disso, a investigação de contatos e a notificação são obrigatórias.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Adenosina desaminase (ADA) no líquido pleural: valor de corte e interpretação.</li>
+                    <li>Critérios de Light para diferenciar transudato e exsudato.</li>
+                    <li>TB paucibacilar e limitações da cultura.</li>
+                    <li>Esquema RIPE no tratamento da TB pleural e extrapulmonar.</li>
+                    <li>Escore clínico-epidemiológico para diagnóstico de TB infantil.</li>
+                    <li>Quimioprofilaxia e rastreamento de contatos.</li>
+                    <li>Diagnóstico diferencial de derrame pleural (parapneumônico, neoplásico, linfoma).</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Nelson Textbook of Pediatrics. 21st ed. Elsevier.</p>
+                <p>2. Harrison’s Principles of Internal Medicine. 21st ed. McGraw-Hill.</p>
+                <p>3. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole.</p>
+                <p>4. Brasil. Ministério da Saúde. Manual de Recomendações para o Controle da Tuberculose no Brasil. 2ª ed. Brasília, 2019.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+    <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+    </script>
+</body>
+</html>
