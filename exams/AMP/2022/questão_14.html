@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 14 - Pediatria: Osteomielite Aguda Hematogênica na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Osteomielite Aguda Hematogênica na Infância</div>
+        <h1>Questão 14</h1>
+        <div class="question-text">
+            Infecções ósseas são relativamente comuns em crianças. A osteomielite aguda hematogênica tem início súbito e sintomas exuberantes como febre alta, dor intensa e queda do estado geral. Sobre esta situação selecione a opção correta.
+        </div>
+
+        <div class="statements">
+            <div class="statement">I - O Staphylococcus aureus é o organismo infeccioso mais comum na osteomielite entre todas as faixas etárias, exceto nos recém nascidos.</div>
+            <div class="statement">II - O tratamento antimicrobiano deve ser realizado por um período mínimo de 21 a 28 dias, por via intravenosa por todo o período.</div>
+            <div class="statement">III - A drenagem cirúrgica deve ser reservada para os casos em que a antibioticoterapia se mostrar ineficaz.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As afirmativas I e II são verdadeiras. A afirmativa III é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As afirmativas I e III são verdadeiras. A afirmativa II é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - As afirmativas II e III são verdadeiras. A afirmativa I é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - As afirmativas I, II e III são verdadeiras.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As afirmativas I, II e III são falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Pediatria / Infectologia Pediátrica / Ortopedia Pediátrica</p>
+                <p><strong>Tema:</strong> Osteomielite aguda hematogênica na infância — etiologia, antibioticoterapia e indicação de drenagem cirúrgica.</p>
+                <p><strong>Contextualização:</strong> As infecções osteoarticulares são temas recorrentes em provas de residência médica em pediatria. A banca costuma cobrar o agente etiológico mais frequente por faixa etária (Staphylococcus aureus em todas as idades, inclusive recém-nascidos, em que também se destacam estreptococos do grupo B e Gram-negativos), a duração e a via da antibioticoterapia (esquemas modernos com encurtamento do tempo de via intravenosa e total de 3 a 4 semanas) e as indicações de drenagem cirúrgica (presença de abscesso subperiosteal, coleção, falha terapêutica, instabilidade ou comprometimento articular). Integra-se com infectologia, ortopedia e imagem (ressonância magnética).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A osteomielite aguda hematogênica é a infecção do osso por disseminação bacteriana via corrente sanguínea, com predileção pelas metáfises de ossos longos (fêmur, tíbia e úmero) em crianças, devido à rica vascularização e à lentidão do fluxo capilar nessa região. O Staphylococcus aureus é o agente mais frequente em todas as faixas etárias, inclusive no período neonatal, em que também são importantes o Streptococcus agalactiae (grupo B) e enterobactérias. O quadro clínico é de febre alta, dor óssea localizada, recusa em usar o membro, edema e, por vezes, sinais flogísticos. O diagnóstico é clínico-laboratorial, com hemocultura e cultura do material ósseo (quando obtido); a ressonância magnética é o exame de imagem mais sensível. O tratamento antimicrobiano tem duração total de 3 a 4 semanas, mas a via intravenosa não precisa ser mantida por todo o período: esquemas atuais recomendam 2 a 7 dias de via intravenosa (ou até melhora clínica) seguidos de via oral, desde que haja boa adesão, agente suscetível e evolução favorável. A drenagem cirúrgica não é reservada apenas para falha do antibiótico: está indicada quando há abscesso subperiosteal ou coleção, em lactentes jovens com quadros graves, quando há comprometimento articular ou quando não há resposta clínica em 48 a 72 horas.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>E</strong>. A afirmativa I é falsa porque o Staphylococcus aureus é o agente mais comum em todas as faixas etárias, incluindo os recém-nascidos (ainda que, nessa faixa, estreptococos do grupo B e Gram-negativos também sejam relevantes). A afirmativa II é falsa porque a via intravenosa não precisa ser mantida por todo o período de 21 a 28 dias: esquemas atuais com transição precoce para via oral são eficazes e seguros em crianças selecionadas. A afirmativa III é falsa porque a drenagem cirúrgica está indicada sempre que houver coleção/abscesso subperiosteal ou comprometimento articular, não sendo reservada apenas para casos de falha antibiótica. Portanto, as três afirmativas são falsas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta: considera I e II verdadeiras, mas ambas são falsas.</p>
+                <p><strong>Alternativa B</strong> - Incorreta: considera I e III verdadeiras, mas ambas são falsas.</p>
+                <p><strong>Alternativa C</strong> - Incorreta: considera II e III verdadeiras, mas ambas são falsas.</p>
+                <p><strong>Alternativa D</strong> - Incorreta: considera as três verdadeiras, mas todas são falsas.</p>
+                <p><strong>Alternativa E</strong> - Correta: as três afirmativas são falsas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Osteomielite aguda hematogênica:</strong> infecção óssea por disseminação sanguínea, típica da infância.</li>
+                    <li><strong>Início súbito, febre alta, dor intensa:</strong> quadro clássico de osteomielite aguda.</li>
+                    <li><strong>Staphylococcus aureus:</strong> agente mais frequente em todas as faixas etárias.</li>
+                    <li><strong>Antibioticoterapia:</strong> duração total de 3 a 4 semanas, com transição precoce para via oral em casos selecionados.</li>
+                    <li><strong>Drenagem cirúrgica:</strong> indicada quando há coleção/abscesso subperiosteal ou falha terapêutica, não sendo apenas "último recurso".</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> suspeitar de osteomielite aguda em criança com febre, dor óssea localizada, recusa em deambular ou usar o membro.</li>
+                    <li><strong>Segundo:</strong> colher hemocultura (e cultura do material ósseo, se disponível) antes do antibiótico, sem atrasar o início do tratamento.</li>
+                    <li><strong>Terceiro:</strong> iniciar antibiótico empírico com cobertura para S. aureus (oxacilina ou cefalosporina de 1ª geração; vancomicina se suspeita de MRSA).</li>
+                    <li><strong>Quarto:</strong> solicitar ressonância magnética (ou ultrassonografia para avaliar coleção) e indicar drenagem se houver abscesso subperiosteal ou comprometimento articular.</li>
+                    <li><strong>Quinto:</strong> manter tratamento total de 3 a 4 semanas; considerar transição precoce para via oral conforme evolução clínica e laboratorial.</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões de diagnóstico, conduta inicial e duração do tratamento.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> osteomielite aguda hematogênica → febre + dor óssea localizada + claudicação/recusa em usar o membro.</li>
+                    <li><strong>Agente mais comum:</strong> Staphylococcus aureus em todas as faixas etárias; em neonatos também considerar estreptococos do grupo B e Gram-negativos.</li>
+                    <li><strong>Duração do tratamento:</strong> total de 3 a 4 semanas; via intravenosa inicial (2 a 7 dias) com transição precoce para oral em casos selecionados.</li>
+                    <li><strong>Exame de imagem de escolha:</strong> ressonância magnética (mais sensível); ultrassonografia útil para detectar coleção.</li>
+                    <li><strong>Indicação de drenagem:</strong> abscesso subperiosteal, coleção, comprometimento articular, falha de resposta em 48-72h.</li>
+                    <li><strong>Mnemônico:</strong> "Osteomielite: S. aureus em todas as idades, IV curto + VO longo, drenar se coleção".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Osteomielite aguda hematogênica</td>
+                            <td>Febre, dor óssea localizada, claudicação, edema</td>
+                            <td>Clínica + hemocultura + RM</td>
+                            <td>Antibiótico (3-4 semanas, IV curto + VO) + drenagem se coleção</td>
+                        </tr>
+                        <tr>
+                            <td>Artrite séptica</td>
+                            <td>Dor articular intensa, limitação completa da mobilidade, derrame articular</td>
+                            <td>Artrocentese + cultura do líquido sinovial</td>
+                            <td>Drenagem articular + antibiótico IV</td>
+                        </tr>
+                        <tr>
+                            <td>Celulite / erisipela</td>
+                            <td>Eritema e edema de pele, sem dor óssea localizada</td>
+                            <td>Clínica; imagem se dúvida</td>
+                            <td>Antibiótico sistêmico</td>
+                        </tr>
+                        <tr>
+                            <td>Febre reumática</td>
+                            <td>Poliartrite migratória, cardite, critérios de Jones</td>
+                            <td>Critérios clínicos + ASO + ecocardiograma</td>
+                            <td>Penicilina + AAS + corticoide se cardite</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram diagnóstico diferencial das infecções osteoarticulares na infância.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre agente:</strong> S. aureus é o mais comum em todas as idades.</li>
+                    <li><strong>Se fosse sobre duração:</strong> 3 a 4 semanas no total, com transição precoce para via oral.</li>
+                    <li><strong>Se fosse sobre imagem:</strong> ressonância magnética é o exame mais sensível.</li>
+                    <li><strong>Se fosse sobre cirurgia:</strong> drenagem indicada quando há abscesso subperiosteal ou comprometimento articular.</li>
+                    <li><strong>Se fosse sobre complicações:</strong> artrite séptica, abscesso subperiosteal e osteomielite crônica são as principais.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2010 – Q37</td>
+                            <td>Principal agente da artrite séptica no lactente.</td>
+                            <td>Etiologia das infecções osteoarticulares</td>
+                            <td>A (S. aureus)</td>
+                            <td>Corrobora que S. aureus é o principal agente, inclusive em lactentes.</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q82</td>
+                            <td>Tratamento da osteomielite bacteriana da coluna vertebral.</td>
+                            <td>Duração do tratamento</td>
+                            <td>B (6 a 8 semanas)</td>
+                            <td>Mostra que a duração depende da localização e da gravidade; na forma hematogênica aguda pediátrica, 3-4 semanas é o padrão.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q15</td>
+                            <td>Lactente de 18 meses com osteomielite aguda: melhor exame (RM), necessidade de culturas e duração de 21-28 dias IV.</td>
+                            <td>Diagnóstico e duração do tratamento</td>
+                            <td>B (I e II verdadeiras, III falsa)</td>
+                            <td>Mesma base da afirmativa II desta questão: 21-28 dias de via intravenosa por todo o período é falso.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q14</td>
+                            <td>Questão atual: agente em todas as faixas etárias, duração IV e drenagem cirúrgica.</td>
+                            <td>Etiologia, duração do tratamento e indicação cirúrgica</td>
+                            <td>E (todas falsas)</td>
+                            <td>Integra os três eixos mais cobrados do tema.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q11</td>
+                            <td>Menino de 6 anos com suspeita de osteomielite aguda; agente mais frequente.</td>
+                            <td>Etiologia</td>
+                            <td>B (S. aureus)</td>
+                            <td>Reforça a hegemonia do S. aureus em todas as faixas etárias.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 das provas anteriores analisadas. A banca alterna entre cobrar o agente etiológico (S. aureus em todas as idades), a duração e a via da antibioticoterapia (com ênfase na transição precoce para oral) e a indicação de drenagem cirúrgica.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Uso de ressonância magnética como exame de escolha, esquemas empíricos específicos (oxacilina, vancomicina para MRSA), artrite séptica do quadril e osteomielite crônica são temas que podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos mais antigos, a banca cobrava etiologia isolada; mais recentemente, tem integrado etiologia, duração de tratamento e indicação cirúrgica em uma mesma questão.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar as diretrizes de osteomielite aguda pediátrica, com foco na transição precoce para via oral e nas indicações de drenagem cirúrgica.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Osteomielite aguda → artrite séptica → quadros com dor articular e limitação funcional; diagnóstico diferencial e manejo conjunto (drenagem articular + antibiótico).</li>
+                    <li><strong>Conexão 2:</strong> Osteomielite → infecções por S. aureus → infecções de pele (impetigo, ectima) e bacteremia; integra-se com infectologia pediátrica e uso racional de antibióticos.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é classificar a afirmativa I como verdadeira, assumindo que S. aureus não é o agente mais comum em recém-nascidos. Trata-se de erro de conhecimento (lacuna): o S. aureus permanece o agente mais frequente em todas as faixas etárias, inclusive no período neonatal, em que também se destacam estreptococos do grupo B e Gram-negativos. Outro erro possível é assumir que a via intravenosa precisa ser mantida por todo o período de 21-28 dias, quando as diretrizes atuais recomendam transição precoce para via oral. Estratégia de correção: revisar a etiologia das infecções osteoarticulares por idade e os esquemas modernos de antibioticoterapia.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática pediátrica, toda criança com febre e dor óssea localizada deve ser investigada para osteomielite aguda. A hemocultura deve ser colhida antes do antibiótico, sem atrasar o tratamento. A ressonância magnética é o exame de imagem mais sensível. O tratamento total é de 3 a 4 semanas, com transição precoce para via oral em casos selecionados (boa evolução clínica, agente suscetível e boa adesão). A drenagem cirúrgica não é "último recurso": está indicada sempre que houver abscesso subperiosteal, coleção ou comprometimento articular.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Etiologia das infecções osteoarticulares por faixa etária</li>
+                    <li>Diagnóstico diferencial entre osteomielite e artrite séptica</li>
+                    <li>Duração e via da antibioticoterapia na osteomielite aguda</li>
+                    <li>Indicações de drenagem cirúrgica</li>
+                    <li>Ressonância magnética e ultrassonografia no diagnóstico</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Kliegman RM, St. Geme JW. Nelson Textbook of Pediatrics. 21ª ed. Elsevier; 2020.</p>
+                <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole; 2022.</p>
+                <p>3. Peltola H, Pääkkönen M. Acute osteomyelitis in children. N Engl J Med. 2014;370(4):352-360.</p>
+                <p>4. UpToDate. Hematogenous osteomyelitis in children: Clinical features, diagnosis, and management. Acesso em 2026.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

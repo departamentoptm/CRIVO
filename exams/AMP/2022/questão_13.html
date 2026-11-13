@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 13 - Pediatria: Traumatismo Cranioencefálico Grave na Infância</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Traumatismo Cranioencefálico Grave na Infância</div>
+        <h1>Questão 13</h1>
+        <div class="question-text">
+            O traumatismo cranioencefálico (TCE) é a principal causa de morte por trauma na população pediátrica. A marca registrada do TCE grave é o coma e Escala de Coma de Glasgow (ECG) com escore entre 3-8. Sobre esta situação selecione a opção correta.
+        </div>
+
+        <div class="statements">
+            <div class="statement">I - Na estabilização inicial a euvolemia é o alvo, e líquidos hipotônicos devem ser rigorosamente evitados; a solução salina isotônica é o líquido de escolha.</div>
+            <div class="statement">II - A terapia de primeira linha inclui a elevação da cabeceira do leito, garantindo o posicionamento da linha média da cabeça, ventilação mecânica controlada, sedação e analgesia.</div>
+            <div class="statement">III - O principal sinal de que um paciente esteja evoluindo para herniação transtentorial ou deterioração neurológica é o aprofundamento de três ou mais pontos na ECG, qualquer que seja a pontuação inicial.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As afirmativas I e II são verdadeiras. A afirmativa III é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As afirmativas I e III são verdadeiras. A afirmativa II é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - As afirmativas II e III são verdadeiras. A afirmativa I é falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - As afirmativas I, II e III são verdadeiras.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As afirmativas I, II e III são falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Pediatria / Neuropediatria / Terapia Intensiva Pediátrica</p>
+                <p><strong>Tema:</strong> Traumatismo cranioencefálico grave na infância — estabilização inicial, metas de ressuscitação, manejo da hipertensão intracraniana e sinais de deterioração neurológica.</p>
+                <p><strong>Contextualização:</strong> O TCE é a principal causa de morte por trauma na população pediátrica e tema de alta incidência em provas de residência médica. A banca costuma cobrar a classificação de gravidade pela Escala de Coma de Glasgow, as metas de estabilização inicial (euvolemia, evitar hipotônicos), a terapia de primeira linha para hipertensão intracraniana (cabeceira elevada, linha média, sedação, analgesia, ventilação controlada) e o reconhecimento precoce de deterioração neurológica. Integra-se com neurocirurgia, terapia intensiva e emergências pediátricas.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Após o trauma craniano, ocorre a lesão primária (impacto) e, subsequentemente, a lesão secundária, uma cascata de eventos que inclui edema cerebral, isquemia, excitotoxicidade, inflamação e disfunção da barreira hematoencefálica. O objetivo do manejo é prevenir a lesão secundária, mantendo pressão de perfusão cerebral adequada e evitando hipotensão e hipóxia. A euvolemia é o alvo; líquidos hipotônicos (como soro glicosado 5% ou soluções com sódio < 0,9%) podem agravar o edema cerebral por reduzir a osmolaridade plasmática e devem ser rigorosamente evitados. A solução salina isotônica (0,9%) é o líquido de escolha para expansão. A terapia de primeira linha para hipertensão intracraniana inclui elevação da cabeceira a 30°, cabeça na linha média (para evitar obstrução do retorno venoso jugular), ventilação mecânica controlada (com normocapnia, evitando hiperventilação profilática), sedação e analgesia. A deterioração neurológica é sinalizada por queda na ECG, especialmente de 3 ou mais pontos, independentemente da pontuação inicial, além de alterações pupilares e sinais de herniação transtentorial.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>. A afirmativa I é verdadeira: a euvolemia é o alvo na estabilização inicial, líquidos hipotônicos devem ser evitados e a solução salina isotônica é o líquido de escolha. A afirmativa II é verdadeira: a terapia de primeira linha inclui elevação da cabeceira do leito, posicionamento da cabeça na linha média, ventilação mecânica controlada, sedação e analgesia. A afirmativa III é verdadeira: uma queda de três ou mais pontos na ECG, qualquer que seja a pontuação inicial, é um dos principais sinais de deterioração neurológica e de risco de herniação transtentorial, exigindo reavaliação imediata e conduta agressiva. Portanto, as três afirmativas estão corretas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta: classifica a afirmativa III como falsa, mas a queda de 3 ou mais pontos na ECG é, de fato, um sinal importante de deterioração neurológica.</p>
+                <p><strong>Alternativa B</strong> - Incorreta: classifica a afirmativa II como falsa, mas a elevação da cabeceira, linha média, ventilação controlada, sedação e analgesia compõem a terapia de primeira linha para HIC no TCE grave.</p>
+                <p><strong>Alternativa C</strong> - Incorreta: classifica a afirmativa I como falsa, mas a euvolemia com salina isotônica é a conduta correta e a evitação de hipotônicos é fundamental.</p>
+                <p><strong>Alternativa D</strong> - Correta: as três afirmativas são verdadeiras.</p>
+                <p><strong>Alternativa E</strong> - Incorreta: nega todas as afirmativas, mas todas estão corretas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>TCE grave (ECG 3-8):</strong> define o grupo de pacientes com maior risco de lesão secundária e morte.</li>
+                    <li><strong>Euvolemia:</strong> alvo hemodinâmico na estabilização inicial.</li>
+                    <li><strong>Líquidos hipotônicos:</strong> devem ser evitados para não agravar o edema cerebral.</li>
+                    <li><strong>Solução salina isotônica:</strong> líquido de escolha para expansão volêmica.</li>
+                    <li><strong>Elevação da cabeceira e linha média:</strong> medidas para facilitar o retorno venoso e reduzir a PIC.</li>
+                    <li><strong>Queda de 3 ou mais pontos na ECG:</strong> sinal de deterioração neurológica e risco de herniação.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> avaliar a ECG e classificar o TCE (leve 13-15, moderado 9-12, grave 3-8).</li>
+                    <li><strong>Segundo:</strong> garantir via aérea, ventilação e oxigenação adequadas; evitar hipoxemia e hipercapnia (normocapnia).</li>
+                    <li><strong>Terceiro:</strong> manter euvolemia com solução salina isotônica, evitando hipotônicos e hipotensão.</li>
+                    <li><strong>Quarto:</strong> instituir medidas de primeira linha para HIC: cabeceira a 30°, cabeça na linha média, sedação e analgesia.</li>
+                    <li><strong>Quinto:</strong> monitorar sinais de deterioração (queda de 3+ pontos na ECG, pupilas, padrão respiratório) e tratar HIC refratária com terapia hiperosmolar (salina hipertônica 3% ou manitol) e, se necessário, craniectomia descompressiva.</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões de conduta inicial e de manejo do TCE grave.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> TCE grave = ECG 3-8; a lesão secundária é o principal alvo terapêutico.</li>
+                    <li><strong>Metas de estabilização:</strong> euvolemia, salina isotônica 0,9%, evitar hipotônicos.</li>
+                    <li><strong>Terapia de primeira linha para HIC:</strong> cabeceira 30°, linha média, ventilação controlada (normocapnia), sedação e analgesia.</li>
+                    <li><strong>Terapia hiperosmolar:</strong> salina hipertônica 3% (com melhores evidências que manitol em pediatria).</li>
+                    <li><strong>Sinal de deterioração:</strong> queda de 3 ou mais pontos na ECG, qualquer que seja a pontuação inicial.</li>
+                    <li><strong>Mnemônico:</strong> "TCE grave: hidrate com salina, eleve a cabeceira, seda e analgésico, e vigie a ECG".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TCE grave (ECG 3-8)</td>
+                            <td>Coma, deterioração neurológica, risco de herniação</td>
+                            <td>ECG + tomografia de crânio</td>
+                            <td>Euvolemia, salina isotônica, cabeceira 30°, sedação, analgesia, terapia hiperosmolar, craniectomia se refratário</td>
+                        </tr>
+                        <tr>
+                            <td>Hematoma epidural</td>
+                            <td>Intervalo lúcido seguido de deterioração, pupilas assimétricas</td>
+                            <td>Tomografia de crânio (lesão biconvexa)</td>
+                            <td>Drenagem cirúrgica de urgência</td>
+                        </tr>
+                        <tr>
+                            <td>Hematoma subdural</td>
+                            <td>Deterioração progressiva, idosos e crianças</td>
+                            <td>Tomografia de crânio (lesão em crescente)</td>
+                            <td>Drenagem cirúrgica conforme gravidade</td>
+                        </tr>
+                        <tr>
+                            <td>SIADH pós-TCE</td>
+                            <td>Hiponatremia, oligúria, sódio urinário elevado</td>
+                            <td>Sódio sérico e urinário, osmolaridade</td>
+                            <td>Restrição hídrica e monitorização</td>
+                        </tr>
+                        <tr>
+                            <td>Síndrome cerebral perdedora de sal</td>
+                            <td>Hiponatremia, poliúria, desidratação</td>
+                            <td>Sódio urinário elevado, hipovolemia</td>
+                            <td>Reposição volêmica com salina isotônica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram diagnóstico diferencial e complicações do TCE.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre classificação:</strong> TCE grave = ECG 3-8.</li>
+                    <li><strong>Se fosse sobre terapia hiperosmolar:</strong> salina hipertônica 3% tem melhores evidências que manitol em pediatria.</li>
+                    <li><strong>Se fosse sobre cirurgia:</strong> craniectomia descompressiva é considerada em HIC refratária ou sinais de herniação em evolução.</li>
+                    <li><strong>Se fosse sobre complicações:</strong> SIADH e síndrome cerebral perdedora de sal são diferenciais importantes.</li>
+                    <li><strong>Se fosse sobre prognóstico:</strong> hipotensão, hipóxia, hiperglicemia, coagulopatia e convulsão precoce são fatores de mau prognóstico.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006 – Q35</td>
+                            <td>Escolar de 11 anos vítima de atropelamento com TCE fechado, ECG 7; condutas no PS.</td>
+                            <td>Conduta inicial no TCE grave</td>
+                            <td>B</td>
+                            <td>Aborda a estabilização inicial e a identificação de condutas inadequadas.</td>
+                        </tr>
+                        <tr>
+                            <td>2006 – Q36</td>
+                            <td>Mesmo paciente na UTI; condutas no manejo da HIC.</td>
+                            <td>Manejo da HIC</td>
+                            <td>E</td>
+                            <td>Relaciona-se à terapia de primeira linha e às medidas para controle da PIC.</td>
+                        </tr>
+                        <tr>
+                            <td>2008 – Q56</td>
+                            <td>Criança com TCE que evolui com hiponatremia; diagnóstico diferencial entre SIADH e síndrome cerebral perdedora de sal.</td>
+                            <td>Complicação metabólica do TCE</td>
+                            <td>C</td>
+                            <td>Complementa o conhecimento sobre complicações do TCE.</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q46</td>
+                            <td>Criança politraumatizada com ECG 7; identificar condutas inadequadas.</td>
+                            <td>Conduta no TCE grave</td>
+                            <td>D</td>
+                            <td>Reforça a importância da euvolemia e da evitação de hipotônicos.</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q47</td>
+                            <td>Fatores de mau prognóstico no TCE pediátrico.</td>
+                            <td>Prognóstico</td>
+                            <td>B</td>
+                            <td>Relaciona-se ao reconhecimento de deterioração e gravidade.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q7</td>
+                            <td>Criança com TCE e HIC sustentada; conduta com melhor resultado.</td>
+                            <td>Terapia hiperosmolar</td>
+                            <td>B</td>
+                            <td>Confirma a superioridade da salina hipertônica 3% em relação ao manitol.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q18</td>
+                            <td>Craniectomia descompressiva no TCE grave pediátrico.</td>
+                            <td>Cirurgia na HIC refratária</td>
+                            <td>B</td>
+                            <td>Complementa o manejo da HIC refratária.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q13</td>
+                            <td>Questão atual: estabilização, terapia de primeira linha e sinais de deterioração.</td>
+                            <td>Manejo global do TCE grave</td>
+                            <td>D</td>
+                            <td>Integra os principais eixos de cobrança do tema.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q11</td>
+                            <td>Manejo do TCE grave: monitorização da PIC, hiperventilação profilática e salina hipertônica 3%.</td>
+                            <td>Manejo da HIC</td>
+                            <td>B</td>
+                            <td>Complementa e corrobora as medidas de primeira linha e a terapia hiperosmolar.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q100</td>
+                            <td>Homem de 28 anos com TCE grave após queda; anisocoria à direita; conduta inicial.</td>
+                            <td>Conduta inicial no TCE grave</td>
+                            <td>B</td>
+                            <td>Reforça a prioridade de via aérea definitiva e estabilização.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 10 das provas anteriores analisadas. A banca alterna entre cobrar classificação de gravidade, conduta inicial, metas de ressuscitação (euvolemia e salina isotônica), terapia de primeira linha para HIC, terapia hiperosmolar, complicações metabólicas (SIADH) e prognóstico.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Critérios de indicação de monitorização da PIC, uso de EEG contínuo, alvos de PaCO2 e PaO2, e manejo da hipotermia terapêutica são temas que podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos mais antigos, a banca cobrava a conduta inicial de forma mais descritiva; mais recentemente, tem integrado classificação, metas de estabilização, terapia de primeira linha e sinais de deterioração em uma mesma questão.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar as diretrizes de TCE grave em pediatria (metas de euvolemia, salina isotônica, cabeceira 30°, linha média, sedação/analgesia, normocapnia, terapia hiperosmolar e indicação de craniectomia), bem como o reconhecimento de deterioração neurológica.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> TCE grave → distúrbios hidroeletrolíticos → SIADH vs. síndrome cerebral perdedora de sal; o manejo volêmico é crucial para evitar piora do edema cerebral.</li>
+                    <li><strong>Conexão 2:</strong> TCE grave → hipertensão intracraniana refratária → terapia hiperosmolar e craniectomia descompressiva; integra-se com neurocirurgia e terapia intensiva.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é classificar a afirmativa III como falsa, subestimando a importância da queda da ECG como sinal de deterioração. Trata-se de erro de interpretação clínica: uma queda de 3 ou mais pontos na ECG é um sinal clássico de herniação transtentorial iminente e exige reavaliação imediata. Estratégia de correção: revisar os sinais de deterioração neurológica no TCE grave (ECG, pupilas, padrão respiratório e postura) e não menosprezar quedas na pontuação da ECG.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática de pronto-socorro e terapia intensiva pediátrica, o paciente com TCE grave deve ser estabilizado com euvolemia, salina isotônica, cabeceira elevada, linha média, sedação e analgesia. A monitorização contínua da ECG e das pupilas é essencial para detectar deterioração precoce. A terapia hiperosmolar (salina hipertônica 3%) é preferível ao manitol em pediatria, e a craniectomia descompressiva é reservada para HIC refratária. O reconhecimento precoce dos sinais de herniação reduz mortalidade e melhora o prognóstico neurológico.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Escala de Coma de Glasgow pediátrica e classificação de gravidade do TCE</li>
+                    <li>Metas de estabilização inicial no TCE grave (euvolemia, salina isotônica, evitar hipotônicos)</li>
+                    <li>Terapia de primeira linha para hipertensão intracraniana</li>
+                    <li>Terapia hiperosmolar: salina hipertônica 3% vs. manitol</li>
+                    <li>Craniectomia descompressiva: indicações</li>
+                    <li>SIADH e síndrome cerebral perdedora de sal no TCE</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Kliegman RM, St. Geme JW. Nelson Textbook of Pediatrics. 21ª ed. Elsevier; 2020.</p>
+                <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole; 2022.</p>
+                <p>3. Kochanek PM, et al. Guidelines for the Management of Pediatric Severe Traumatic Brain Injury, Third Edition. Pediatr Crit Care Med. 2019;20(3S):S1-S82.</p>
+                <p>4. UpToDate. Severe traumatic brain injury in children: Initial management and prognosis. Acesso em 2026.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

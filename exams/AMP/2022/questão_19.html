@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 19 - Pediatria: Meningite na Infância e Interpretação do Líquor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Pediatria: Meningite na Infância e Interpretação do Líquor</div>
+        <h1>Questão 19</h1>
+        <div class="question-text">
+            Pré-escolar de 2 anos e meio apresenta-se com quadro de cefaleia, náusea, vômitos, anorexia, agitação, alteração do estado de consciência e irritabilidade. Ao exame apresenta elevação da temperatura, fotofobia, dor à mobilização cervical e obnubilação. É realizada punção lombar e a análise do líquor demonstra a presença de 550 leucócitos com predomínio de polimorfonucleares, proteinorraquia de 120mg dL e glicorraquia de 60mg dL. Analise as asserções abaixo e a relação proposta entre elas.
+        </div>
+
+        <div class="statements">
+            <div class="statement">I - A etiologia viral fica descartada neste caso.</div>
+            <div class="statement">II - O predomínio de polimorfonucleares confirma a etiologia bacteriana do caso.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - As asserções I e II são proposições falsas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Pediatria / Infectologia Pediátrica / Neurologia Pediátrica</p>
+                <p><strong>Tema:</strong> Meningite na infância — interpretação do líquor, distinção entre etiologia viral e bacteriana e limitações do padrão citológico.</p>
+                <p><strong>Contextualização:</strong> A meningite é uma das emergências infecciosas mais importantes em pediatria e tema de altíssima incidência em provas de residência médica. A banca cobra frequentemente a interpretação do líquor (celularidade, predomínio celular, proteína, glicose), as diferenças entre meningite viral e bacteriana, os esquemas de antibioticoterapia empírica, o papel dos corticosteroides, a quimioprofilaxia e a duração do tratamento. Esta questão, em particular, explora um erro clássico: a suposição de que o predomínio de polimorfonucleares confirma etiologia bacteriana e descarta a viral.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Na meningite bacteriana, o líquor típico apresenta pleiocitose intensa (geralmente > 1000 células/mm³), predomínio de polimorfonucleares (neutrófilos), proteinorraquia elevada, glicorraquia reduzida (hipoglicorraquia, relação glicose líquor/sérica < 0,4) e bacterioscopia/cultura positivas. Na meningite viral, o padrão clássico é de pleiocitose moderada (10-500 células), predomínio linfomononuclear, proteinorraquia normal ou discretamente elevada e glicose normal. Contudo, essa distinção não é absoluta: nas primeiras 24 a 48 horas de meningite viral (sobretudo por enterovírus), o líquor pode apresentar predomínio de polimorfonucleares, mimetizando a meningite bacteriana, e só evolui para linfocitose em uma segunda punção. Da mesma forma, na meningite bacteriana parcialmente tratada ou em fases iniciais, o predomínio pode ser linfomononuclear. Na questão, o paciente apresenta 550 leucócitos com predomínio de PMN, proteína 120 mg/dL (elevada) e glicose 60 mg/dL (que, sem a glicemia sérica, não pode ser interpretada como hipoglicorraquia — a relação glicose/líquor depende da glicemia). O quadro clínico (febre, cefaleia, fotofobia, rigidez de nuca, alteração de consciência) é compatível tanto com etiologia viral quanto bacteriana. Portanto, o predomínio de polimorfonucleares não confirma etiologia bacteriana nem descarta a viral.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>E</strong>. A asserção I é falsa: a etiologia viral NÃO fica descartada apenas pelo predomínio de polimorfonucleares, pois meningites virais (enterovírus) podem cursar com predomínio de neutrófilos nas primeiras 24-48 horas. A asserção II é falsa: o predomínio de polimorfonucleares, isoladamente, não confirma etiologia bacteriana; é necessário correlacionar com o quadro clínico, glicose sérica simultânea, bacterioscopia, cultura, PCR e, eventualmente, repetir a punção lombar. Portanto, ambas as asserções são falsas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta: assume I e II verdadeiras e com relação de justificativa, mas ambos os raciocínios são falhos.</p>
+                <p><strong>Alternativa B</strong> - Incorreta: assume ambas verdadeiras, mas nega a justificativa; mesmo assim, ambas são falsas.</p>
+                <p><strong>Alternativa C</strong> - Incorreta: assume I verdadeira, mas a etiologia viral não pode ser descartada apenas pelo predomínio de PMN.</p>
+                <p><strong>Alternativa D</strong> - Incorreta: assume II verdadeira, mas PMN não confirma bacteriana.</p>
+                <p><strong>Alternativa E</strong> - Correta: ambas as asserções são falsas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>550 leucócitos:</strong> pleiocitose moderada, compatível com viral e com bacteriana parcialmente tratada.</li>
+                    <li><strong>Predomínio de polimorfonucleares:</strong> achado que, isoladamente, NÃO diferencia viral de bacteriana (viral precoce pode ter PMN).</li>
+                    <li><strong>Proteína 120 mg/dL:</strong> elevada; pode ocorrer em ambas.</li>
+                    <li><strong>Glicose 60 mg/dL:</strong> sem glicemia sérica simultânea, não permite afirmar hipoglicorraquia.</li>
+                    <li><strong>Febre, fotofobia, rigidez de nuca, alteração de consciência:</strong> quadro clínico sobreponível entre as etiologias.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> diante de suspeita de meningite, estabilizar o paciente e iniciar antibioticoterapia empírica precoce sem aguardar exames.</li>
+                    <li><strong>Segundo:</strong> colher líquor (quando não houver contraindicação) e solicitar citologia, bioquímica, bacterioscopia, cultura e PCR.</li>
+                    <li><strong>Terceiro:</strong> interpretar o líquor em conjunto com quadro clínico, glicemia sérica simultânea e epidemiológica, sabendo que o predomínio de PMN pode ocorrer em virais precoces e o predomínio linfocitário em bacterianas parcialmente tratadas.</li>
+                    <li><strong>Quarto:</strong> em casos duvidosos, considerar repetir a punção lombar em 12-24 horas e manter cobertura antibiótica até afastar bacteriana.</li>
+                </ol>
+                <p>Esse raciocínio treina a habilidade de resolver questões de interpretação do líquor e de segurança na condução de meningites.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> meningite viral pode ter PMN nas primeiras 24-48h; meningite bacteriana pode ter linfócitos em fases iniciais ou parcialmente tratada.</li>
+                    <li><strong>Padrão clássico bacteriano:</strong> > 1000 células, PMN, proteína alta, glicose baixa (relação < 0,4).</li>
+                    <li><strong>Padrão clássico viral:</strong> 10-500 células, linfomononuclear, proteína normal/levemente elevada, glicose normal.</li>
+                    <li><strong>Duração do tratamento da meningite meningocócica:</strong> 5 dias (cobrado em 2012, Q26).</li>
+                    <li><strong>Mnemônico:</strong> "Líquor não é bula: PMN pode ser viral, linfócito pode ser bacteriana".</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Meningite bacteriana</td>
+                            <td>Quadro grave, petéquias (meningococo), bacterioscopia/cultura positivas, hipoglicorraquia</td>
+                            <td>Líquor + cultura + PCR</td>
+                            <td>Antibiótico empírico precoce (ceftriaxona, associada a vancomicina em suspeita de pneumococo)</td>
+                        </tr>
+                        <tr>
+                            <td>Meningite viral (enterovírus)</td>
+                            <td>Sazonalidade, pródromos, PMN nas primeiras 24-48h, evolução benigna</td>
+                            <td>PCR viral no líquor</td>
+                            <td>Suporte; aciclovir se suspeita de herpes</td>
+                        </tr>
+                        <tr>
+                            <td>Meningite por herpes simples</td>
+                            <td>Alteração comportamental, convulsões, lesão temporal em neuroimagem, pleiocitose linfocítica</td>
+                            <td>PCR HSV no líquor + neuroimagem</td>
+                            <td>Aciclovir IV precoce</td>
+                        </tr>
+                        <tr>
+                            <td>Meningite tuberculosa</td>
+                            <td>Subaguda, proteinorraquia muito elevada, glicose baixa, história de contato</td>
+                            <td>Líquor + IGRA/cultura + neuroimagem</td>
+                            <td>Esquema RIPE + corticoide</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram diagnóstico diferencial das meningites na infância.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre tratamento empírico:</strong> ceftriaxona associada a vancomicina em suspeita de pneumococo resistente.</li>
+                    <li><strong>Se fosse sobre duração:</strong> meningococo = 5 dias; pneumococo = 10-14 dias; hemófilo = 7-10 dias.</li>
+                    <li><strong>Se fosse sobre corticoide:</strong> benefício comprovado em meningite por H. influenzae e pneumococo; menos claro em meningococo.</li>
+                    <li><strong>Se fosse sobre quimioprofilaxia:</strong> rifampicina para contatos íntimos de meningococo e hemófilo.</li>
+                    <li><strong>Se fosse sobre herpes:</strong> aciclovir IV empírico em quadro neurológico com lesão temporal.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2009 – Q3</td>
+                            <td>Jovem com lesão temporal, pleiocitose linfocitária; conduta.</td>
+                            <td>Meningite herpética</td>
+                            <td>C (aciclovir)</td>
+                            <td>Mostra que a banca cobra interpretação do líquor + neuroimagem.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q26</td>
+                            <td>Duração média do tratamento da meningite meningocócica.</td>
+                            <td>Duração do tratamento</td>
+                            <td>A (5 dias)</td>
+                            <td>Complementa o manejo da meningite bacteriana.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q11</td>
+                            <td>Meningite bacteriana na infância: afirmação sobre corticoterapia.</td>
+                            <td>Papel dos corticosteroides</td>
+                            <td>C (estudos de países desenvolvidos são inconclusivos)</td>
+                            <td>Complementa o conhecimento do manejo.</td>
+                        </tr>
+                        <tr>
+                            <td>2015 – Q20</td>
+                            <td>Escolar com meningite: análise de afirmativas sobre líquor, restrição hídrica, penicilina, corticoide e hemocultura.</td>
+                            <td>Manejo global da meningite</td>
+                            <td>C (I, III e V)</td>
+                            <td>Complementa o conhecimento sobre corticoide e quimioprofilaxia.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q7</td>
+                            <td>Lactente com meningite: agente e esquema empírico.</td>
+                            <td>Tratamento empírico</td>
+                            <td>C (ceftriaxona + vancomicina; pneumococo)</td>
+                            <td>Complementa o manejo empírico.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q1</td>
+                            <td>Lactente com líquor 30 células monomorfonucleares e lesão temporal; conduta.</td>
+                            <td>Meningite herpética</td>
+                            <td>B (aciclovir)</td>
+                            <td>Reforça que o padrão linfocitário pode ser herpético/viral.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q19</td>
+                            <td>Questão atual: predomínio de PMN em líquor NÃO confirma bacteriana nem descarta viral.</td>
+                            <td>Interpretação do líquor</td>
+                            <td>E (ambas falsas)</td>
+                            <td>Explora o erro clássico do predomínio de PMN.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q15</td>
+                            <td>Lactente com líquor 1200 células e diplococos gram negativos; afirmações sobre duração, corticoide e quimioprofilaxia.</td>
+                            <td>Manejo da meningite meningocócica</td>
+                            <td>B (I e III verdadeiras, II falsa)</td>
+                            <td>Complementa o manejo do meningococo.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q11</td>
+                            <td>Meningite bacteriana na infância: afirmações sobre empírico em &lt; 60 dias, prognóstico e corticoide.</td>
+                            <td>Manejo da meningite bacteriana</td>
+                            <td>D (I, II e III verdadeiras)</td>
+                            <td>Complementa o manejo em diferentes faixas etárias.</td>
+                        </tr>
+                        <tr>
+                            <td>2025 – Q17</td>
+                            <td>Meningites bacterianas na infância: afirmações sobre duração, vancomicina, dexametasona, empírico em neonatos e agentes a partir de 2 meses.</td>
+                            <td>Manejo da meningite bacteriana</td>
+                            <td>E (a partir de 2 meses principais agentes são meningococo, hemófilo e pneumococo; meningocócica tem melhor prognóstico)</td>
+                            <td>Complementa o conhecimento global das meningites.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 10 das provas anteriores analisadas. A banca alterna entre cobrar manejo empírico, duração do tratamento, papel dos corticosteroides, quimioprofilaxia, interpretação do líquor e diagnóstico diferencial entre viral e bacteriana.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A PCR como ferramenta de distinção viral/bacteriana, a interpretação formal da relação glicose líquor/sérica e o valor do lactato no líquor são temas que podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> As provas mais antigas cobravam manejo e tratamento; as mais recentes têm explorado nuances da interpretação do líquor, como neste caso do predomínio de PMN em meningite viral precoce.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar o padrão clássico do líquor nas meningites, as exceções (PMN em viral precoce e linfócitos em bacteriana parcialmente tratada), o manejo empírico e a duração do tratamento.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Meningite → interpretação do líquor → diagnóstico diferencial com encefalite herpética e meningite tuberculosa; cada uma tem padrão de líquor e conduta específicos.</li>
+                    <li><strong>Conexão 2:</strong> Meningite → manejo da sepse → estabilização, antibiótico precoce e suporte; a meningite bacteriana pode evoluir com choque séptico.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é marcar A, assumindo que predomínio de PMN confirma bacteriana e que a viral está descartada. Trata-se de erro conceitual clássico, muito explorado pela banca: a meningite viral precoce (enterovírus) pode cursar com predomínio de polimorfonucleares nas primeiras 24-48h. Estratégia de correção: memorizar que o padrão citológico do líquor não é absoluto; correlacionar com clínica, glicemia sérica, bacterioscopia, cultura e PCR.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática de pronto-socorro e enfermaria pediátrica, o paciente com suspeita de meningite deve ser estabilizado e receber antibioticoterapia empírica precoce, sem aguardar exames. A interpretação do líquor deve ser cautelosa: o predomínio de PMN não exclui viral, e o predomínio linfocitário não exclui bacteriana. A repetição da punção em 12-24 horas pode ajudar em casos duvidosos, mantendo a cobertura antibiótica até afastar bacteriana com segurança.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Padrão clássico do líquor nas meningites viral e bacteriana</li>
+                    <li>Exceções: PMN em viral precoce e linfócitos em bacteriana parcialmente tratada</li>
+                    <li>Antibioticoterapia empírica e duração por agente</li>
+                    <li>Corticosteroides na meningite bacteriana</li>
+                    <li>Quimioprofilaxia de contatos</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Kliegman RM, St. Geme JW. Nelson Textbook of Pediatrics. 21ª ed. Elsevier; 2020.</p>
+                <p>2. Sociedade Brasileira de Pediatria. Tratado de Pediatria. 5ª ed. Manole; 2022.</p>
+                <p>3. Feigin RD, et al. Textbook of Pediatric Infectious Diseases. 7ª ed. Elsevier; 2014.</p>
+                <p>4. UpToDate. Bacterial meningitis in children: Clinical features and diagnosis; Viral meningitis in children: Clinical features and diagnosis. Acesso em 2026.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { /* ignorar */ }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
