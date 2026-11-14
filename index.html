@@ -952,6 +952,11 @@ body.rodape-oculto .timer-container { padding: .1rem .7rem; }
 .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.12); }
 body.rodape-oculto .nav-btn { box-shadow: 0 0 0 1px rgba(26,42,108,.35), 0 4px 14px rgba(12,20,64,.4); }
 body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18), 0 2px 8px rgba(12,20,64,.2); }
+
+#authScreen { overflow: hidden; overflow: clip; }
+/* sincronização com o Drive */
+.drive-status { font-size: .8rem; color: var(--muted); text-align: center; margin-top: .75rem; min-height: 1.1em; line-height: 1.35; }
+.drive-status.erro { color: #c02a3a; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -1010,8 +1015,10 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
                     <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
                     <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
+                    <button class="auth-btn home-btn-secondary" id="driveBtnHome" type="button" title="Salva e carrega o seu progresso na sua conta Google Drive">☁️ Sincronizar com Google Drive</button>
                     <button class="auth-btn home-btn-danger" id="logoutBtn">Sair</button>
                 </div>
+                <div class="drive-status" id="driveStatus" aria-live="polite"></div>
             </div>
         </div>
     </div>
@@ -3509,6 +3516,244 @@ function textoCorrecaoIniciar() {
 questionFrame.addEventListener('load', () => {
     try { textoCorrecaoIniciar(); } catch (e) { console.warn('textoCorrecao', e); }
 });
+
+/* ============================================================
+   SINCRONIZAÇÃO COM O GOOGLE DRIVE (pasta "CRIVO - Progresso")
+   O aluno autoriza uma vez; o site lê, mescla e grava o arquivo.
+   Escopo drive.file: o site só enxerga o que ele mesmo criou.
+   ============================================================ */
+/* >>> COLE AQUI o "ID do cliente OAuth" criado no Google Cloud <<< */
+const DRIVE_CLIENT_ID = '500615111789-t1ho7i5jaglgcb7c8ptfes0opf6gea8c.apps.googleusercontent.com';
+const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
+const DRIVE_PASTA = 'CRIVO - Progresso';
+const driveBtnHome = document.getElementById('driveBtnHome');
+const driveStatusEl = document.getElementById('driveStatus');
+let driveTok = null, driveTokExp = 0, driveClient = null, driveGisPromise = null;
+let driveResolver = null, driveRejeitar = null;
+let driveSincronizando = false, driveRepetir = false, driveAtivo = false, driveTimer = null, drivePastaId = null;
+const driveFlagKey = ra => 'crivo_drive_ativo_' + ra;
+const driveConfigurado = () => !/COLE_AQUI/.test(DRIVE_CLIENT_ID);
+
+function driveMsg(texto, erro) {
+    driveStatusEl.textContent = texto || '';
+    driveStatusEl.classList.toggle('erro', !!erro);
+}
+
+function driveCarregarGis() {
+    if (driveGisPromise) return driveGisPromise;
+    driveGisPromise = new Promise((res, rej) => {
+        if (window.google && google.accounts && google.accounts.oauth2) return res();
+        const sc = document.createElement('script');
+        sc.src = 'https://accounts.google.com/gsi/client';
+        sc.async = true;
+        sc.onload = () => res();
+        sc.onerror = () => { driveGisPromise = null; rej(new Error('gis')); };
+        document.head.appendChild(sc);
+    });
+    return driveGisPromise;
+}
+
+function driveObterToken(interativo) {
+    if (driveTok && Date.now() < driveTokExp - 60000) return Promise.resolve(driveTok);
+    return driveCarregarGis().then(() => new Promise((res, rej) => {
+        if (!driveClient) {
+            driveClient = google.accounts.oauth2.initTokenClient({
+                client_id: DRIVE_CLIENT_ID,
+                scope: DRIVE_SCOPE,
+                callback: (r) => driveResolver && driveResolver(r),
+                error_callback: (e) => driveRejeitar && driveRejeitar(new Error('auth')),
+            });
+        }
+        driveResolver = (r) => {
+            if (!r || r.error || !r.access_token) return rej(new Error('auth'));
+            driveTok = r.access_token;
+            driveTokExp = Date.now() + (parseInt(r.expires_in) || 3600) * 1000;
+            res(driveTok);
+        };
+        driveRejeitar = rej;
+        driveClient.requestAccessToken(interativo ? {} : { prompt: 'none' });
+    }));
+}
+
+async function driveFetch(url, opts = {}) {
+    const r = await fetch(url, Object.assign({}, opts, {
+        headers: Object.assign({ Authorization: 'Bearer ' + driveTok }, opts.headers || {})
+    }));
+    if (r.status === 401) { driveTok = null; throw new Error('auth'); }
+    if (!r.ok) { const e = new Error('HTTP ' + r.status); e.status = r.status; throw e; }
+    return r;
+}
+const DRIVE_API = 'https://www.googleapis.com/drive/v3/files';
+const DRIVE_UP = 'https://www.googleapis.com/upload/drive/v3/files';
+
+async function driveAcharOuCriarPasta() {
+    if (drivePastaId) return drivePastaId;
+    const q = `mimeType='application/vnd.google-apps.folder' and name='${DRIVE_PASTA}' and trashed=false`;
+    const r = await driveFetch(`${DRIVE_API}?q=${encodeURIComponent(q)}&fields=files(id,name)&spaces=drive`);
+    const j = await r.json();
+    if (j.files && j.files.length) return (drivePastaId = j.files[0].id);
+    const c = await driveFetch(`${DRIVE_API}?fields=id`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: DRIVE_PASTA, mimeType: 'application/vnd.google-apps.folder' })
+    });
+    return (drivePastaId = (await c.json()).id);
+}
+async function driveAcharArquivo(pastaId, nome) {
+    const q = `name='${nome}' and '${pastaId}' in parents and trashed=false`;
+    const r = await driveFetch(`${DRIVE_API}?q=${encodeURIComponent(q)}&fields=files(id,modifiedTime)&spaces=drive&orderBy=modifiedTime desc`);
+    const j = await r.json();
+    return (j.files && j.files[0]) || null;
+}
+async function driveLer(id) { return (await driveFetch(`${DRIVE_API}/${id}?alt=media`)).text(); }
+async function driveGravar(pastaId, nome, existente, conteudo) {
+    if (existente) {
+        await driveFetch(`${DRIVE_UP}/${existente.id}?uploadType=media&fields=id`, {
+            method: 'PATCH', headers: { 'Content-Type': 'application/json; charset=UTF-8' }, body: conteudo
+        });
+        return existente.id;
+    }
+    const b = 'crivo' + Math.random().toString(36).slice(2);
+    const meta = { name: nome, parents: [pastaId], mimeType: 'application/json' };
+    const body = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n` +
+                 `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${conteudo}\r\n--${b}--`;
+    const r = await driveFetch(`${DRIVE_UP}?uploadType=multipart&fields=id`, {
+        method: 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + b }, body
+    });
+    return (await r.json()).id;
+}
+
+/* ---- mescla o progresso local com o da nuvem (nunca apaga respostas) ---- */
+function _driveChaveEv(e) { return [e.data, e.prova, e.ano, e.questao, e.acao, e.opcao, e.correta || ''].join('|'); }
+function mesclarProgresso(a, b) {
+    const mapa = new Map();
+    [...(a.registro || []), ...(b.registro || [])].forEach(e => { if (e && e.data) { const k = _driveChaveEv(e); if (!mapa.has(k)) mapa.set(k, e); } });
+    const registro = [...mapa.values()].sort((x, y) => new Date(x.data) - new Date(y.data));
+
+    const gm = new Map(), grifados = [];
+    [...(a.grifados || []), ...(b.grifados || [])].forEach(g => {
+        if (!g) return;
+        if (!g.id) { grifados.push(g); return; }
+        if (!gm.has(g.id)) { gm.set(g.id, g); grifados.push(g); }
+    });
+
+    const ultimo = {};
+    registro.forEach(e => { if (e.acao === 'confirmou' || e.acao === 'restaurou') ultimo[[e.prova, e.ano, e.questao].join('|')] = e.data; });
+    const resetados = {};
+    [a.resetados || {}, b.resetados || {}].forEach(rs => {
+        for (const pr of Object.keys(rs)) for (const an of Object.keys(rs[pr] || {})) for (const nm of Object.keys(rs[pr][an] || {})) {
+            const r = rs[pr][an][nm];
+            const atual = (((resetados[pr] || {})[an]) || {})[nm];
+            if (atual && r && atual.quando && r.quando && new Date(atual.quando) >= new Date(r.quando)) continue;
+            const u = ultimo[[pr, an, nm].join('|')];
+            if (u && r && r.quando && new Date(u) > new Date(r.quando)) continue;   /* respondida depois do reset */
+            ((resetados[pr] ||= {})[an] ||= {})[nm] = r;
+        }
+    });
+
+    const dUlt = (p) => { const r = p.registro || []; return r.length ? Math.max(...r.map(e => +new Date(e.data) || 0)) : 0; };
+    const ultimaPosicao = (dUlt(b) > dUlt(a) && b.ultimaPosicao) ? b.ultimaPosicao : (a.ultimaPosicao || b.ultimaPosicao || null);
+    return { registro, grifados, resetados, ultimaPosicao };
+}
+
+function driveDadosParaNuvem() {
+    return JSON.stringify({
+        formato: 'crivo-progresso', versao: 2,
+        aluno: { ra: currentRA, nome: currentUser },
+        exportadoEm: new Date().toISOString(),
+        ultimaPosicao: progress.ultimaPosicao,
+        estado: progress.estado,
+        registro: progress.registro,
+        grifados: progress.grifados || [],
+        resetados: progress.resetados || {}
+    });
+}
+
+async function sincronizarDrive(interativo) {
+    if (!currentRA) return;
+    if (!driveConfigurado()) { driveMsg('Sincronização ainda não configurada: defina DRIVE_CLIENT_ID no código.', true); return; }
+    if (driveSincronizando) { driveRepetir = true; return; }
+    driveSincronizando = true;
+    const ra = currentRA;
+    try {
+        driveMsg('☁️ Sincronizando com o Google Drive…');
+        await driveObterToken(interativo);
+        const pasta = await driveAcharOuCriarPasta();
+        const nome = `crivo_progresso_${ra}.json`;
+        let arq = await driveAcharArquivo(pasta, nome);
+        if (ra !== currentRA) return;
+        let remoto = null;
+        if (arq) {
+            try { remoto = JSON.parse(await driveLer(arq.id)); } catch (e) { if (e.status) throw e; remoto = false; }
+            if (remoto === false || !remoto || remoto.formato !== 'crivo-progresso') throw new Error('invalido');
+            if (remoto.aluno && String(remoto.aluno.ra).replace(/\D/g, '') !== ra) throw new Error('outro');
+        }
+        if (ra !== currentRA) return;
+        if (remoto) {
+            const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao };
+            progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
+            salvarBackup();
+        }
+        try { await driveGravar(pasta, nome, arq, driveDadosParaNuvem()); }
+        catch (e) {
+            if (e.status === 404 && arq) { await driveGravar(pasta, nome, null, driveDadosParaNuvem()); }   /* arquivo apagado no Drive */
+            else throw e;
+        }
+        driveAtivo = true;
+        try { localStorage.setItem(driveFlagKey(ra), '1'); } catch {}
+        setDirty(false);
+        try { updateFabBarButtons(); } catch {}
+        const hh = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        driveMsg(`☁️ Sincronizado com o Google Drive às ${hh}.`);
+    } catch (e) {
+        const m = String(e && e.message);
+        if (m === 'auth') driveMsg('Não foi possível entrar na conta Google (permissão negada ou janela fechada).', true);
+        else if (m === 'gis') driveMsg('Não foi possível carregar o login do Google. Verifique a conexão.', true);
+        else if (m === 'invalido') driveMsg('O arquivo de progresso no Drive está inválido. Nada foi sobrescrito.', true);
+        else if (m === 'outro') driveMsg('O arquivo no Drive pertence a outro aluno. Nada foi alterado.', true);
+        else driveMsg('Falha ao sincronizar (' + m + '). Seu progresso continua salvo neste aparelho.', true);
+        if (interativo) throw e;
+    } finally {
+        driveSincronizando = false;
+        if (driveRepetir) { driveRepetir = false; agendarUploadDrive(); }
+    }
+}
+
+/* envio automático (agrupado) enquanto houver autorização válida */
+function agendarUploadDrive() {
+    if (!currentRA || !driveAtivo || !driveConfigurado()) return;
+    if (driveSincronizando) { driveRepetir = true; return; }
+    if (!driveTok || Date.now() > driveTokExp - 60000) {
+        driveMsg('☁️ Há alterações só neste aparelho. Toque em “Sincronizar com Google Drive” na tela inicial.');
+        return;
+    }
+    clearTimeout(driveTimer);
+    driveTimer = setTimeout(() => { sincronizarDrive(false).catch(() => {}); }, 15000);
+}
+const _salvarBackupDrive = salvarBackup;
+salvarBackup = function () { _salvarBackupDrive(); try { agendarUploadDrive(); } catch {} };
+
+driveBtnHome.addEventListener('click', async () => {
+    driveBtnHome.disabled = true;
+    try { await sincronizarDrive(true); } catch {} finally { driveBtnHome.disabled = false; }
+});
+
+const _loginWithRADrive = loginWithRA;
+loginWithRA = async function (ra) {
+    const ok = await _loginWithRADrive(ra);
+    if (ok) {
+        try { driveAtivo = localStorage.getItem(driveFlagKey(currentRA)) === '1'; } catch { driveAtivo = false; }
+        drivePastaId = null;
+        driveMsg(driveAtivo ? '☁️ Toque em “Sincronizar com Google Drive” para atualizar este aparelho.'
+                            : '☁️ Guarde o progresso na sua conta Google para usá-lo em outros aparelhos.');
+    }
+    return ok;
+};
+logoutBtn.addEventListener('click', () => {
+    clearTimeout(driveTimer);
+    driveTok = null; driveTokExp = 0; driveAtivo = false; drivePastaId = null;
+    driveMsg('');
+});
+if (driveConfigurado()) setTimeout(() => { driveCarregarGis().catch(() => {}); }, 1500);
 </script>
 </body>
 </html>
