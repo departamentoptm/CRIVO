@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 96 - Geriatria e Farmacologia Clínica: Polifarmácia e Desprescrição no Idoso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Geriatria e Farmacologia Clínica: Polifarmácia e Desprescrição no Idoso</div>
+        <h1>Questão 96</h1>
+        <div class="question-text">
+            Considerando os riscos decorrentes de polifarmácia e os benefícios da suspensão ativa de medicamentos, assinale os itens a seguir como verdadeiros (V) ou falsos (F).
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Cada pessoa que utiliza cinco ou mais fármacos deveria ter revisão de seu plano terapêutico para avaliar a possibilidade de suspensão de fármacos e/ou redução de doses.</div>
+            <div class="statement"><strong>II</strong> - Bifosfonados têm efeito que se estende além do momento em que são suspensos, sendo razoável considerar sua desprescrição após 5 anos de uso.</div>
+            <div class="statement"><strong>III</strong> - A levotiroxina de uso contínuo deve ter sua dose ajustada, mas não suspensa em pacientes idosos, mesmo em caso de hipotireoidismo subclínico.</div>
+            <div class="statement"><strong>IV</strong> - Em pacientes que se encontram em quadros de menor expectativa de vida, é recomendado priorizar os fármacos preventivos em reavaliações visando desprescrição.</div>
+            <div class="statement"><strong>V</strong> - Como a suspensão de inibidores de bomba de prótons não causa rebote, pode-se encerrar seu uso de forma súbita, independentemente da dose, quando atingido o prazo indicado.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - V, V, V, F, F</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - V, V, F, V, F</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - V, F, V, F, V</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - F, V, F, V, V</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - F, F, V, V, V</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Geriatria / Farmacologia Clínica / Medicina de Família e Comunidade.</p>
+                <p><strong>Tema:</strong> Polifarmácia, desprescrição e uso racional de medicamentos em idosos.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com prevenção quaternária, medicina baseada em evidências, envelhecimento populacional e princípios do SUS. A banca costuma exigir o conhecimento de critérios para revisão de prescrições, o conceito de polifarmácia e as particularidades da desprescrição de classes específicas, como bifosfonados, levotiroxina e inibidores de bomba de prótons.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A polifarmácia é classicamente definida pelo uso de cinco ou mais medicamentos, associada a maior risco de interações, reações adversas, quedas, hospitalização e mortalidade. A desprescrição é o processo de suspender ou reduzir medicamentos cujo risco supera o benefício, especialmente em idosos frágeis e com expectativa de vida limitada. Cada classe tem particularidades: bifosfonados têm efeito residual nos ossos e podem ser suspensos após cerca de 5 anos em determinados pacientes; a levotiroxina em idosos com hipotireoidismo subclínico pode ser considerada para desprescrição; a suspensão abrupta de inibidores de bomba de prótons pode causar rebote de hipersecreção ácida, exigindo desmame gradual.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>B — V, V, F, V, F</strong>.</p>
+                <ul>
+                    <li><strong>I — Verdadeira:</strong> pessoas que usam cinco ou mais fármacos (polifarmácia) devem ter o plano terapêutico revisado periodicamente, considerando suspensão ou redução de doses.</li>
+                    <li><strong>II — Verdadeira:</strong> os bifosfonados têm efeito que persiste após a suspensão, pois se ligam à matriz óssea e permanecem no tecido ósseo por anos. É razoável considerar a desprescrição após cerca de 5 anos de uso em pacientes de baixo risco.</li>
+                    <li><strong>III — Falsa:</strong> a levotiroxina em idosos com hipotireoidismo subclínico pode ser considerada para desprescrição, especialmente quando TSH &lt; 10 mUI/L e o paciente é assintomático, não sendo verdade que deve ser sempre mantida.</li>
+                    <li><strong>IV — Verdadeira:</strong> em pacientes com menor expectativa de vida, recomenda-se priorizar a desprescrição de fármacos preventivos, pois o benefício pode não se concretizar no tempo de vida restante.</li>
+                    <li><strong>V — Falsa:</strong> a suspensão abrupta de inibidores de bomba de prótons pode desencadear rebote de hipersecreção ácida; portanto, o desmame gradual é recomendado, especialmente em usuários de longo prazo e de doses elevadas.</li>
+                </ul>
+                <p>Em provas anteriores, a banca já cobrou polifarmácia e desprescrição em 2018 — Q85, uso racional de medicamentos em 2019 — Q28 e prevenção quaternária em 2021 — Q58.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A — V, V, V, F, F:</strong> incorreta, pois considera a afirmativa III verdadeira e a IV falsa. Na verdade, III é falsa (levotiroxina pode ser desprescrita no hipotireoidismo subclínico) e IV é verdadeira (prioriza-se desprescrever preventivos em menor expectativa de vida).</p>
+                <p><strong>Alternativa C — V, F, V, F, V:</strong> incorreta, pois inverte II (que é verdadeira) e III (que é falsa), além de marcar V como verdadeira (suspensão abrupta de IBP).</p>
+                <p><strong>Alternativa D — F, V, F, V, V:</strong> incorreta, pois marca I como falsa e V como verdadeira.</p>
+                <p><strong>Alternativa E — F, F, V, V, V:</strong> incorreta, pois marca I e II como falsas e III e V como verdadeiras, contrariando as recomendações.</p>
+                <p>Esses distratores são típicos de questões V/F com cinco afirmativas, nas quais a banca testa o conhecimento detalhado sobre classes farmacológicas. Formato semelhante foi usado em 2018 — Q85 e 2019 — Q24.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“polifarmácia”:</strong> remete ao uso de cinco ou mais medicamentos e à necessidade de revisão periódica.</li>
+                    <li><strong>“suspensão ativa”:</strong> pista para o conceito de desprescrição.</li>
+                    <li><strong>“bifosfonados”:</strong> pista para o efeito residual nos ossos e possibilidade de suspensão após 5 anos.</li>
+                    <li><strong>“levotiroxina... hipotireoidismo subclínico”:</strong> pista para a possibilidade de desprescrição em idosos, especialmente com TSH &lt; 10 mUI/L.</li>
+                    <li><strong>“menor expectativa de vida... fármacos preventivos”:</strong> pista para priorizar a desprescrição de fármacos preventivos nesse cenário.</li>
+                    <li><strong>“inibidores de bomba de prótons... não causa rebote”:</strong> pista falsa, pois pode causar rebote e exige desmame gradual.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> identificar o conceito de polifarmácia (5 ou mais fármacos) e a necessidade de revisão periódica.</li>
+                    <li><strong>Segundo:</strong> lembrar as particularidades dos bifosfonados (efeito residual no osso, possível desprescrição após 5 anos).</li>
+                    <li><strong>Terceiro:</strong> reconhecer que a levotiroxina pode ser desprescrita em idosos com hipotireoidismo subclínico de baixo risco.</li>
+                    <li><strong>Quarto:</strong> entender que, em menor expectativa de vida, prioriza-se a desprescrição de fármacos preventivos.</li>
+                    <li><strong>Quinto:</strong> lembrar que a suspensão abrupta de IBP pode causar rebote, exigindo desmame gradual.</li>
+                    <li><strong>Sexto:</strong> montar a sequência: V, V, F, V, F.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de desprescrição e uso racional de medicamentos em idosos.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> polifarmácia é o uso de cinco ou mais medicamentos; desprescrição é a suspensão planejada de fármacos com risco &gt; benefício.</li>
+                    <li><strong>Números e doses:</strong> bifosfonados podem ser suspensos após ~5 anos; levotiroxina pode ser desprescrita em hipotireoidismo subclínico com TSH &lt; 10 mUI/L; IBP exige desmame gradual.</li>
+                    <li><strong>Mnemônicos:</strong> “5+ = polifarmácia”; “bifosfonado: 5 anos e para”; “IBP: desmame, não corte abrupto”.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2018 — Q85 e 2021 — Q58.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Classe</th>
+                            <th>Particularidade da desprescrição</th>
+                            <th>Recomendação</th>
+                            <th>Erro comum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bifosfonados</td>
+                            <td>Efeito residual nos ossos</td>
+                            <td>Considerar suspensão após ~5 anos</td>
+                            <td>Manter por tempo indeterminado</td>
+                        </tr>
+                        <tr>
+                            <td>Levotiroxina</td>
+                            <td>Pode ser suspensa em hipotireoidismo subclínico de baixo risco</td>
+                            <td>Individualizar; TSH &lt; 10 mUI/L e assintomático</td>
+                            <td>Manter sempre por tempo indeterminado</td>
+                        </tr>
+                        <tr>
+                            <td>Inibidores de bomba de prótons</td>
+                            <td>Risco de rebote ácido na suspensão abrupta</td>
+                            <td>Desmame gradual, especialmente em uso prolongado</td>
+                            <td>Suspender abruptamente</td>
+                        </tr>
+                        <tr>
+                            <td>Fármacos preventivos (estatinas, AAS, etc.)</td>
+                            <td>Benefício depende do tempo de vida restante</td>
+                            <td>Priorizar desprescrição em menor expectativa de vida</td>
+                            <td>Manter indefinidamente sem reavaliar</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre classes farmacológicas e suas particularidades de desprescrição.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre conceito:</strong> poderia pedir a definição de polifarmácia (5+ fármacos).</li>
+                    <li><strong>Se fosse sobre bifosfonados:</strong> poderia cobrar efeito residual e tempo de suspensão.</li>
+                    <li><strong>Se fosse sobre levotiroxina:</strong> poderia pedir critérios para desprescrição no hipotireoidismo subclínico.</li>
+                    <li><strong>Se fosse sobre IBP:</strong> poderia cobrar o desmame gradual e o risco de rebote.</li>
+                    <li><strong>Se fosse sobre prevenção quaternária:</strong> poderia abordar o conceito e sua relação com a desprescrição.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2018 – Q85</td>
+                            <td>Desprescrição em idosos frágeis e polifarmácia.</td>
+                            <td>V/F sobre desprescrição e evidências.</td>
+                            <td>D — F, V, V, F.</td>
+                            <td>Questão muito próxima; cobra o conceito e a aplicação da desprescrição.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q28</td>
+                            <td>Senhora 72 anos com múltiplas comorbidades e polifarmácia.</td>
+                            <td>Risco de reações adversas e benefício da desprescrição.</td>
+                            <td>E — I, II e III.</td>
+                            <td>Reforça a importância da revisão do plano terapêutico.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q99</td>
+                            <td>Idosa com dispneia e tosse; manejo inicial.</td>
+                            <td>Rastreamento e tratamento no idoso.</td>
+                            <td>D — RX de tórax e ECG e iniciar furosemida.</td>
+                            <td>Relaciona-se ao cuidado integral no idoso.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q58</td>
+                            <td>Sônia, 52 anos, exames preventivos e desprescrição de AAS.</td>
+                            <td>Prevenção secundária e quaternária.</td>
+                            <td>C — prevenção secundária e quaternária.</td>
+                            <td>Relaciona-se ao conceito de prevenção quaternária.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q51</td>
+                            <td>Sobre a prevenção quaternária.</td>
+                            <td>Definição de prevenção quaternária.</td>
+                            <td>D — identificar paciente em risco de supermedicalização.</td>
+                            <td>Reforça o conceito ligado à desprescrição.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 5 questões mapeadas de 2006–2026. A banca alterna entre cobrar o conceito de polifarmácia, os benefícios da desprescrição, classes farmacológicas específicas e prevenção quaternária.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> critérios de Beers e STOPP/START, ferramentas de desprescrição, e particularidades de outras classes (benzodiazepínicos, antipsicóticos, anticolinérgicos). Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais o conceito amplo de polifarmácia e seus riscos. Mais recentemente, passou a cobrar particularidades de classes específicas e a relação com prevenção quaternária.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar critérios de Beers, STOPP/START e as particularidades de desprescrição de IBP, benzodiazepínicos e antipsicóticos.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Prevenção quaternária — a desprescrição é uma das principais ferramentas para evitar danos da medicalização excessiva.</li>
+                    <li><strong>Conexão 2:</strong> Segurança do paciente — reações adversas e interações medicamentosas são mais frequentes na polifarmácia.</li>
+                    <li><strong>Conexão 3:</strong> Envelhecimento e fragilidade — a expectativa de vida e a funcionalidade influenciam as decisões terapêuticas.</li>
+                    <li><strong>Conexão 4:</strong> Medicina baseada em evidências — a revisão de prescrições deve considerar o balanço risco-benefício individualizado.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou alternativa diferente de B, o erro mais provável é desconhecer as particularidades de desprescrição de classes específicas (bifosfonados, levotiroxina e IBP) ou confundir os critérios de priorização em menor expectativa de vida. A ação corretiva é revisar essas particularidades e resolver questões anteriores, como 2018 — Q85 e 2021 — Q51.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o médico deve revisar periodicamente as prescrições de idosos, especialmente em polifarmácia, considerando critérios como os de Beers e STOPP/START. A desprescrição deve ser individualizada, com desmame gradual quando necessário, priorizando a qualidade de vida e evitando danos. Bifosfonados podem ser suspensos após cerca de 5 anos; levotiroxina pode ser desprescrita em hipotireoidismo subclínico de baixo risco; e IBP exige desmame gradual.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Definição de polifarmácia (5+ fármacos).</li>
+                    <li>Conceito de desprescrição e prevenção quaternária.</li>
+                    <li>Particularidades de bifosfonados, levotiroxina e IBP.</li>
+                    <li>Critérios de Beers e STOPP/START.</li>
+                    <li>Priorização em menor expectativa de vida.</li>
+                    <li>Desmame gradual de fármacos com risco de rebote.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. American Geriatrics Society. Beers Criteria for Potentially Inappropriate Medication Use in Older Adults.</p>
+                <p>2. O'Mahony D, et al. STOPP/START criteria for potentially inappropriate prescribing in older people.</p>
+                <p>3. Scott IA, et al. Reducing inappropriate polypharmacy: the process of deprescribing. JAMA Intern Med. 2015.</p>
+                <p>4. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed.</p>
+                <p>5. Ministério da Saúde. Caderno de Atenção Básica — Envelhecimento e Saúde da Pessoa Idosa.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

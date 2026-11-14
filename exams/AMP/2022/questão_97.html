@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 97 - Saúde da População Trans e Infecções do Trato Genital Inferior: Vaginose Bacteriana e Rastreamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Saúde da População Trans e Infecções do Trato Genital Inferior: Vaginose Bacteriana e Rastreamento</div>
+        <h1>Questão 97</h1>
+        <div class="question-text">
+            Daniel, 35 anos, é um homem transsexual e veio à consulta queixando-se de corrimento vaginal amarelo-acinzentado, abundante e com odor fétido, há cerca de cinco dias, sem dor e sem prurido, que iniciou alguns dias após o período menstrual. É casado e tem parceira fixa há dez anos. Está um pouco ansioso em relação ao atendimento, pois nunca realizou nenhuma avaliação ginecológica e quer aproveitar para esclarecer dúvidas em relação a isso, pois apesar de se identificar como homem, nunca fez nenhum procedimento cirúrgico de redesignação de gênero. Considerando a situação exposta, analise as afirmativas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Se o teste com KOH a 10% for positivo e o pH vaginal maior que 4,5, confirma-se o diagnóstico de vaginose bacteriana e o tratamento com metronidazol ou clindamicina está indicado.</div>
+            <div class="statement"><strong>II</strong> - Não há recomendação de realizar colpocitologia oncótica como rastreio de câncer de colo uterino, por tratar-se um homem trans.</div>
+            <div class="statement"><strong>III</strong> - A vaginose pode ser transmitida na relação sexual entre genitálias femininas, embora não seja considerada uma IST.</div>
+            <div class="statement"><strong>IV</strong> - Os índices de depressão, suicídio e ansiedade são mais elevados nessa população, devendo o profissional de saúde oportunizar o momento da consulta para realizar o rastreamento de tais condições.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Apenas I, II, III.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Apenas I</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Apenas I e II.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Apenas I, III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - I, II, III e IV.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia / Medicina de Família e Comunidade / Saúde Coletiva.</p>
+                <p><strong>Tema:</strong> Saúde da população trans, diagnóstico e tratamento da vaginose bacteriana e rastreamento de câncer de colo uterino em homens trans.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com infecções do trato genital inferior, saúde da mulher, princípios do SUS e cuidado centrado na pessoa. A banca costuma exigir o conhecimento dos critérios de Amsel, do rastreamento de câncer de colo uterino em populações específicas e das particularidades do atendimento à população trans.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A vaginose bacteriana é uma disbiose da flora vaginal, com redução de lactobacilos e supercrescimento de bactérias anaeróbias (Gardnerella vaginalis, Mobiluncus, Bacteroides, entre outras). O diagnóstico clínico baseia-se nos critérios de Amsel: corrimento homogêneo acinzentado, pH vaginal > 4,5, teste das aminas (KOH 10%) positivo e presença de clue cells. O tratamento é feito com metronidazol ou clindamicina. Homens trans que mantêm colo uterino (não histerectomizados) devem realizar rastreamento de câncer de colo uterino conforme as diretrizes, independentemente da identidade de gênero. A população trans apresenta maior prevalência de sofrimento mental, incluindo depressão, ansiedade e suicídio, exigindo acolhimento e rastreamento oportunístico.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D — Apenas I, III e IV</strong>.</p>
+                <ul>
+                    <li><strong>I — Verdadeira:</strong> teste de KOH positivo (teste das aminas/Whiff) e pH > 4,5, associados ao corrimento homogêneo, são critérios de Amsel que confirmam vaginose bacteriana. O tratamento com metronidazol ou clindamicina está indicado.</li>
+                    <li><strong>II — Falsa:</strong> homens trans que possuem colo uterino devem realizar colpocitologia oncótica para rastreamento de câncer de colo uterino, conforme as diretrizes, independentemente da identidade de gênero. A afirmativa está incorreta ao dizer que não há recomendação.</li>
+                    <li><strong>III — Verdadeira:</strong> a vaginose bacteriana pode ser transmitida entre parceiras sexuais com genitália feminina, embora não seja classicamente classificada como IST. É importante orientar sobre a possibilidade de transmissão.</li>
+                    <li><strong>IV — Verdadeira:</strong> a população trans apresenta índices elevados de depressão, ansiedade e suicídio. O profissional de saúde deve oportunizar o rastreamento e o acolhimento durante a consulta.</li>
+                </ul>
+                <p>Em provas anteriores, a banca já cobrou vaginose bacteriana em 2012 — Q60, 2014 — Q18, 2017 — Q41, 2020 — Q23, 2021 — Q30; e rastreamento de câncer de colo uterino em 2019 — Q92 e 2020 — Q92. Temas de saúde mental e populações vulneráveis também já foram abordados em 2018 — Q87 e 2019 — Q97.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A — Apenas I, II, III:</strong> incorreta, pois considera a afirmativa II verdadeira. Homens trans com colo uterino devem realizar rastreamento de câncer de colo uterino, portanto a afirmativa II é falsa.</p>
+                <p><strong>Alternativa B — Apenas I:</strong> incorreta, pois desconsidera as afirmativas III e IV, que também são verdadeiras.</p>
+                <p><strong>Alternativa C — Apenas I e II:</strong> incorreta, pois considera a afirmativa II verdadeira e exclui as afirmativas III e IV, que são verdadeiras.</p>
+                <p><strong>Alternativa E — I, II, III e IV:</strong> incorreta, pois considera a afirmativa II verdadeira. A afirmativa II é falsa.</p>
+                <p>Esses distratores são típicos de questões com afirmativas múltiplas, em que a banca testa a completude do conhecimento. Em 2011 — Q22 e 2019 — Q24, a banca usou formato semelhante com combinações de afirmativas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“homem transsexual”:</strong> remete às particularidades do cuidado à população trans e à necessidade de não presumir identidade de gênero.</li>
+                    <li><strong>“corrimento amarelo-acinzentado... odor fétido”:</strong> pista para vaginose bacteriana.</li>
+                    <li><strong>“KOH a 10%... pH vaginal maior que 4,5”:</strong> pista para os critérios de Amsel.</li>
+                    <li><strong>“nunca fez nenhum procedimento cirúrgico de redesignação de gênero”:</strong> indica que mantém colo uterino e deve realizar rastreamento de câncer de colo uterino.</li>
+                    <li><strong>“índices de depressão, suicídio e ansiedade mais elevados”:</strong> pista para o rastreamento de sofrimento mental na população trans.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> reconhecer o quadro clínico de vaginose bacteriana pelos critérios de Amsel (corrimento, pH, KOH, clue cells).</li>
+                    <li><strong>Segundo:</strong> confirmar que o tratamento com metronidazol ou clindamicina está indicado.</li>
+                    <li><strong>Terceiro:</strong> verificar se o paciente mantém colo uterino; se sim, há indicação de rastreamento de câncer de colo uterino.</li>
+                    <li><strong>Quarto:</strong> avaliar a possibilidade de transmissão entre parceiras sexuais e orientar adequadamente.</li>
+                    <li><strong>Quinto:</strong> oportunizar o rastreamento de sofrimento mental na população trans.</li>
+                    <li><strong>Sexto:</strong> concluir que I, III e IV são verdadeiras e II é falsa.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de saúde da população trans e infecções genitais.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> critérios de Amsel para vaginose bacteriana: corrimento homogêneo, pH > 4,5, teste das aminas positivo e clue cells.</li>
+                    <li><strong>Números e doses:</strong> tratamento com metronidazol 500 mg VO 12/12h por 7 dias ou clindamicina 300 mg VO 12/12h por 7 dias.</li>
+                    <li><strong>Mnemônicos:</strong> “Amsel: Corrimento, pH, Aminas, Clue cells”; “Homem trans com colo = rastreamento de colo”.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2017 — Q41 (teste de aminas), 2020 — Q23 (vaginose bacteriana) e 2021 — Q30 (vaginose bacteriana).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vaginose bacteriana</td>
+                            <td>Corrimento cinza homogêneo, odor fétido, pH > 4,5, KOH positivo</td>
+                            <td>Critérios de Amsel; clue cells</td>
+                            <td>Metronidazol ou clindamicina</td>
+                        </tr>
+                        <tr>
+                            <td>Candidíase vulvovaginal</td>
+                            <td>Prurido intenso, corrimento grumoso branco, pH normal</td>
+                            <td>Exame a fresco; cultura</td>
+                            <td>Fluconazol, nistatina, isoconazol</td>
+                        </tr>
+                        <tr>
+                            <td>Tricomoníase</td>
+                            <td>Corrimento amarelo-esverdeado bolhoso, prurido, colpite focal</td>
+                            <td>Exame a fresco; teste de Whiff positivo</td>
+                            <td>Metronidazol, tinidazol; tratar parceiro</td>
+                        </tr>
+                        <tr>
+                            <td>Cervicite por clamídia/gonococo</td>
+                            <td>Corrimento mucopurulento, sangramento pós-coito</td>
+                            <td>Bacterioscopia; PCR</td>
+                            <td>Ceftriaxona + azitromicina</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre as infecções genitais, não apenas o diagnóstico em si.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre diagnóstico:</strong> poderia cobrar os critérios de Amsel isoladamente.</li>
+                    <li><strong>Se fosse sobre tratamento:</strong> poderia cobrir metronidazol versus clindamicina.</li>
+                    <li><strong>Se fosse sobre rastreamento de câncer:</strong> poderia abordar as diretrizes em populações específicas (homens trans, mulheres cis, histerectomizadas).</li>
+                    <li><strong>Se fosse sobre saúde mental:</strong> poderia cobrar instrumentos de rastreamento e acolhimento.</li>
+                    <li><strong>Se fosse sobre saúde trans:</strong> poderia abordar hormonização, cuidado ginecológico e outras particularidades.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2012 – Q60</td>
+                            <td>Caso de sífilis primária, vaginose bacteriana e eversão cervical.</td>
+                            <td>Diagnóstico diferencial e tratamento de vaginose.</td>
+                            <td>B — sequência de afirmações.</td>
+                            <td>Reforça critérios de vaginose bacteriana.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q18</td>
+                            <td>Corrimento e úlcera dolorosa em paciente com medroxiprogesterona.</td>
+                            <td>Vaginose bacteriana e diagnóstico de úlceras.</td>
+                            <td>E — II, III e V.</td>
+                            <td>Reforça o diagnóstico de vaginose.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q41</td>
+                            <td>Teste das aminas (Whiff) e sintomas.</td>
+                            <td>Mecanismo das aminas e correlação clínica.</td>
+                            <td>B — I, II, II, III.</td>
+                            <td>Relaciona-se aos critérios de Amsel.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q25</td>
+                            <td>Corrimento com conteúdo cinza-esverdeado do canal cervical.</td>
+                            <td>Diagnóstico diferencial entre vaginose e cervicite.</td>
+                            <td>E — tratar cervicite e investigar IST.</td>
+                            <td>Reforça a importância do exame clínico.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q23</td>
+                            <td>Corrimento amarelado fétido com teste de Whiff positivo.</td>
+                            <td>Identificação de patógenos da comunidade vaginal.</td>
+                            <td>(sem gabarito).</td>
+                            <td>Reforça vaginose bacteriana.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q30</td>
+                            <td>Vaginose bacteriana em homem trans (não esta questão, mas tema correlato).</td>
+                            <td>Diagnóstico e tratamento.</td>
+                            <td>A — 1, 2 e 3.</td>
+                            <td>Reforça critérios e tratamento.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q92</td>
+                            <td>Rastreamento de câncer de colo uterino.</td>
+                            <td>Indicações e periodicidade.</td>
+                            <td>(sem gabarito).</td>
+                            <td>Relaciona-se ao rastreamento em populações específicas.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q87</td>
+                            <td>Depressão na Atenção Primária.</td>
+                            <td>Rastreamento e manejo.</td>
+                            <td>B — PHQ-2 com especificidade e sensibilidade.</td>
+                            <td>Reforça o rastreamento de saúde mental.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 8 questões mapeadas de 2006–2026. A banca alterna entre cobrar critérios diagnósticos, tratamento, rastreamento e particularidades populacionais.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> saúde da população trans de forma ampla, incluindo hormonização, cuidado ginecológico e diretrizes de rastreamento específicas. Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais o diagnóstico e tratamento de infecções genitais. Mais recentemente, passou a contextualizar em populações específicas e a valorizar o cuidado centrado na pessoa.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar saúde da população trans, rastreamento de câncer de colo uterino em populações específicas e critérios de vaginose bacteriana.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Rastreamento de câncer de colo uterino — deve ser oferecido a todas as pessoas com colo uterino, independentemente da identidade de gênero.</li>
+                    <li><strong>Conexão 2:</strong> Saúde mental — a população trans apresenta maior prevalência de depressão, ansiedade e suicídio, exigindo acolhimento e rastreamento.</li>
+                    <li><strong>Conexão 3:</strong> Infecções sexualmente transmissíveis — a vaginose bacteriana não é classicamente IST, mas pode ser transmitida entre parceiras.</li>
+                    <li><strong>Conexão 4:</strong> Cuidado centrado na pessoa — respeitar a identidade de gênero e evitar presunções é essencial no atendimento.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou alternativa diferente de D, o erro mais provável é desconhecer que homens trans com colo uterino devem realizar rastreamento de câncer de colo uterino, ou não reconhecer a importância do rastreamento de saúde mental nessa população. A ação corretiva é revisar as diretrizes de rastreamento em populações específicas e resolver questões anteriores sobre vaginose bacteriana, como 2017 — Q41 e 2020 — Q23.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o atendimento à população trans deve ser acolhedor e livre de preconceitos. O médico deve usar o nome social e os pronomes corretos, realizar anamnese e exame físico respeitosos e oferecer os rastreamentos indicados conforme os órgãos presentes (mama, colo uterino, próstata). A vaginose bacteriana deve ser diagnosticada pelos critérios de Amsel e tratada adequadamente, com orientação sobre a possibilidade de transmissão entre parceiras.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios de Amsel para vaginose bacteriana.</li>
+                    <li>Diagnóstico diferencial das infecções genitais.</li>
+                    <li>Rastreamento de câncer de colo uterino em populações específicas.</li>
+                    <li>Saúde da população trans e cuidado centrado na pessoa.</li>
+                    <li>Rastreamento de depressão, ansiedade e suicídio.</li>
+                    <li>Direitos da população trans no SUS.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Atenção Integral às Pessoas com Infecções Sexualmente Transmissíveis (IST).</p>
+                <p>2. Ministério da Saúde. Política Nacional de Saúde Integral de Lésbicas, Gays, Bissexuais, Travestis e Transexuais.</p>
+                <p>3. Amsel R, et al. Nonspecific vaginitis: diagnostic criteria and microbial and epidemiologic associations. Am J Med. 1983.</p>
+                <p>4. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed.</p>
+                <p>5. World Professional Association for Transgender Health (WPATH). Standards of Care for the Health of Transsexual, Transgender, and Gender Nonconforming People.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

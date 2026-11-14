@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 92 - Epidemiologia: Desenhos de Estudo Epidemiológico - Ensaios Clínicos Randomizados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Epidemiologia: Desenhos de Estudo Epidemiológico - Ensaios Clínicos Randomizados</div>
+        <h1>Questão 92</h1>
+        <div class="question-text">
+            A única forma de erradicar ou reduzir a propagação de uma virose epidêmica, a exemplo da Covid-19, é pela vacinação abrangente da população. Para testar as vacinas, o melhor desenho de estudo é o
+        </div>
+
+    <div class="options">
+        <div class="option" onclick="selectOption('A')">
+            <input type="radio" name="answer" id="optionA" value="A">
+            <label for="optionA"><strong>A</strong> - transversal.</label>
+        </div>
+        <div class="option" onclick="selectOption('B')">
+            <input type="radio" name="answer" id="optionB" value="B">
+            <label for="optionB"><strong>B</strong> - caso-controle.</label>
+        </div>
+        <div class="option" onclick="selectOption('C')">
+            <input type="radio" name="answer" id="optionC" value="C">
+            <label for="optionC"><strong>C</strong> - de coorte.</label>
+        </div>
+        <div class="option" onclick="selectOption('D')">
+            <input type="radio" name="answer" id="optionD" value="D">
+            <label for="optionD"><strong>D</strong> - ensaio clínico.</label>
+        </div>
+        <div class="option" onclick="selectOption('E')">
+            <input type="radio" name="answer" id="optionE" value="E">
+            <label for="optionE"><strong>E</strong> - populacional (ecológico).</label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+        <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+        <h2 class="result-title">Resultado da Questão</h2>
+        <div class="correct-answer">
+            <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+        </div>
+        <div class="user-answer">
+            <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+        </div>
+        <div class="explanation" id="correctionContent">
+            <h3>Correção da Questão</h3>
+
+            <h4>2.1 Tema Central e Contextualização</h4>
+            <p><strong>Disciplina:</strong> Epidemiologia / Medicina Preventiva e Social.</p>
+            <p><strong>Tema:</strong> Desenhos de estudo epidemiológico e escolha do delineamento para testar intervenções, especificamente vacinas.</p>
+            <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com medidas de associação, validade de testes diagnósticos, vieses e medicina baseada em evidências. A banca costuma pedir a distinção entre estudos observacionais e experimentais e associar o desenho ao tipo de pergunta clínica.</p>
+
+            <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+            <p>Para testar uma vacina, é necessário comparar grupos que recebem a intervenção com grupos que não a recebem, com alocação controlada pelo investigador. O ensaio clínico randomizado é o delineamento experimental que permite essa comparação, reduzindo o viés de seleção e o confundimento por meio da randomização, além de permitir cegamento e análise por intenção de tratar. Estudos observacionais, como transversal, caso-controle, coorte e ecológico, não testam intervenção ativa; eles apenas observam exposições e desfechos.</p>
+
+            <h4>2.3 Justificativa da Resposta Correta</h4>
+            <p>A alternativa correta é a <strong>D - ensaio clínico</strong>. O ensaio clínico é o desenho experimental em que o pesquisador aloca a intervenção (vacina ou placebo/controle), acompanha os participantes prospectivamente e compara a incidência do desfecho (infecção, doença grave, hospitalização, morte ou desfechos imunológicos). É o padrão para avaliar eficácia e segurança de vacinas. Em provas anteriores, a banca já cobrou características de ensaios clínicos randomizados e medidas de efeito, como RAR, RRR e NNT (2011 - Q24; 2013 - Q83; 2015 - Q84; 2016 - Q84; 2020 - Q98).</p>
+
+            <h4>2.4 Análise dos Distratores</h4>
+            <p><strong>Alternativa A - transversal:</strong> estudo observacional que mede exposição e desfecho em um único momento, útil para prevalência e associações, mas não para testar vacina. Já apareceu em 2006 - Q5, em que o estudo transversal foi o adequado para prevalência de hanseníase.</p>
+            <p><strong>Alternativa B - caso-controle:</strong> parte do desfecho e busca exposições passadas; é útil para doenças raras, mas não testa intervenção. A banca já cobrou suas limitações e vieses em 2009 - Q81 e 2011 - Q23.</p>
+            <p><strong>Alternativa C - coorte:</strong> parte da exposição e acompanha desfechos; é observacional, embora possa estimar risco. Não substitui o ensaio clínico para testar vacina. Já foi cobrada como melhor desenho para fatores prognósticos em 2006 - Q17.</p>
+            <p><strong>Alternativa E - ecológico:</strong> compara grupos populacionais, não indivíduos, e não permite randomização individual; sujeito à falácia ecológica. Já apareceu em 2006 - Q15 e 2014 - Q14.</p>
+
+            <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+            <ul>
+                <li><strong>“testar as vacinas”:</strong> indica intervenção ativa e necessidade de comparar grupos com e sem vacina.</li>
+                <li><strong>“melhor desenho de estudo”:</strong> pede o delineamento mais adequado para estabelecer eficácia, não apenas associação.</li>
+                <li><strong>“erradicar ou reduzir a propagação”:</strong> remete a desfechos de intervenção em saúde pública, avaliados em ensaios clínicos e programas de imunização.</li>
+                <li><strong>“virose epidêmica”:</strong> contexto de urgência sanitária, no qual ensaios clínicos randomizados são necessários para demonstrar eficácia e segurança.</li>
+            </ul>
+
+            <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+            <ol>
+                <li><strong>Primeiro:</strong> identificar se a pergunta envolve intervenção ativa (vacina, medicamento, programa). Se sim, pensar em estudo experimental.</li>
+                <li><strong>Segundo:</strong> excluir desenhos observacionais: transversal, caso-controle, coorte e ecológico não alocam a intervenção.</li>
+                <li><strong>Terceiro:</strong> reconhecer que o ensaio clínico randomizado compara grupos com e sem a intervenção e mede desfechos prospectivamente.</li>
+                <li><strong>Quarto:</strong> confirmar a alternativa que nomeia o ensaio clínico.</li>
+            </ol>
+            <p>Isso treina a habilidade de resolver questões de “melhor desenho” e “conduta inicial” em epidemiologia.</p>
+
+            <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+            <ul>
+                <li><strong>Fatos que definem:</strong> ensaio clínico é experimental, prospectivo, com alocação da intervenção pelo pesquisador; coorte é observacional, parte da exposição; caso-controle parte do desfecho; transversal mede prevalência; ecológico compara grupos.</li>
+                <li><strong>Números e medidas:</strong> RAR, RRR, NNT e razão de chances são medidas frequentemente cobradas; a banca já usou NNT em 2020 - Q98 e medidas de teste em 2019 - Q29.</li>
+                <li><strong>Mnemônicos:</strong> “Ensaio Clínico = Experimental com Randomização”; “Coorte = Observa exposição”; “Caso-controle = Olha para trás a partir do desfecho”; “Transversal = Fotografia”.</li>
+            </ul>
+            <p>Esses dados já foram cobrados em provas anteriores, sobretudo na distinção entre desenhos e nas medidas de associação.</p>
+
+            <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Delineamento</th>
+                        <th>Característica que diferencia</th>
+                        <th>Medida principal</th>
+                        <th>Uso típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ensaio clínico</td>
+                        <td>Intervenção alocada pelo investigador; randomização e controle</td>
+                        <td>Risco relativo, RAR, NNT, eficácia</td>
+                        <td>Testar vacinas, medicamentos e intervenções</td>
+                    </tr>
+                    <tr>
+                        <td>Coorte</td>
+                        <td>Observacional; parte da exposição e segue para o desfecho</td>
+                        <td>Incidência, risco relativo</td>
+                        <td>Fatores de risco e prognóstico</td>
+                    </tr>
+                    <tr>
+                        <td>Caso-controle</td>
+                        <td>Observacional; parte do desfecho e busca exposição passada</td>
+                        <td>Odds ratio</td>
+                        <td>Doenças raras e surtos</td>
+                    </tr>
+                    <tr>
+                        <td>Transversal</td>
+                        <td>Observacional; exposição e desfecho no mesmo momento</td>
+                        <td>Prevalência, razão de prevalência</td>
+                        <td>Inquéritos e prevalência</td>
+                    </tr>
+                    <tr>
+                        <td>Ecológico</td>
+                        <td>Observacional; unidade de análise é o grupo/população</td>
+                        <td>Correlação ecológica</td>
+                        <td>Comparações populacionais e hipóteses</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre desenhos, não apenas o nome do estudo.</p>
+
+            <h4>2.9 Variações de Abordagem em Provas</h4>
+            <ul>
+                <li><strong>Se a questão fosse sobre diagnóstico:</strong> poderia pedir validação de teste diagnóstico, com sensibilidade, especificidade e valores preditivos.</li>
+                <li><strong>Se fosse sobre doença rara:</strong> a resposta poderia ser caso-controle.</li>
+                <li><strong>Se fosse sobre prevalência:</strong> a resposta poderia ser transversal.</li>
+                <li><strong>Se fosse sobre prognóstico:</strong> a resposta poderia ser coorte.</li>
+                <li><strong>Se fosse sobre comparação de grupos populacionais:</strong> a resposta poderia ser ecológico.</li>
+            </ul>
+
+            <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+            <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ano/Questão</th>
+                        <th>Enunciado resumido</th>
+                        <th>O que foi cobrado</th>
+                        <th>Resposta correta</th>
+                        <th>Relação com a questão atual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2006 - Q5</td>
+                        <td>Estudo de prevalência de hanseníase em área de abrangência.</td>
+                        <td>Escolha do delineamento para prevalência.</td>
+                        <td>C - estudo transversal.</td>
+                        <td>Reforça que transversal é observacional e não serve para testar vacina.</td>
+                    </tr>
+                    <tr>
+                        <td>2006 - Q15</td>
+                        <td>Mortalidade por leucemia e industrialização em regiões.</td>
+                        <td>Reconhecimento de estudo ecológico.</td>
+                        <td>B - estudo ecológico.</td>
+                        <td>Mostra que ecológico compara grupos populacionais.</td>
+                    </tr>
+                    <tr>
+                        <td>2006 - Q16</td>
+                        <td>Viés de informação por entrevistadores em caso-controle.</td>
+                        <td>Controle de viés.</td>
+                        <td>D - cegamento do entrevistador.</td>
+                        <td>Relaciona-se ao cegamento, também importante em ensaios clínicos.</td>
+                    </tr>
+                    <tr>
+                        <td>2006 - Q17</td>
+                        <td>Melhor método para fatores prognósticos.</td>
+                        <td>Escolha de coorte.</td>
+                        <td>E - estudos de coorte.</td>
+                        <td>Diferencia coorte de ensaio clínico.</td>
+                    </tr>
+                    <tr>
+                        <td>2007 - Q4</td>
+                        <td>Valor preditivo positivo maior em ambulatório especializado.</td>
+                        <td>Prevalência e valor preditivo.</td>
+                        <td>A - prevalência mais elevada eleva o VPP.</td>
+                        <td>Ajuda a interpretar testes em ensaios vacinais.</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q81</td>
+                        <td>Estudo caso-controle sobre álcool e lábio leporino.</td>
+                        <td>Viés de memória.</td>
+                        <td>E - viés de memória.</td>
+                        <td>Limitação de estudos observacionais.</td>
+                    </tr>
+                    <tr>
+                        <td>2009 - Q83</td>
+                        <td>Ressonância em prematuros: melhor método e medidas.</td>
+                        <td>Estudo longitudinal de validação.</td>
+                        <td>B - sensibilidade, especificidade e VPP.</td>
+                        <td>Distingue teste diagnóstico de intervenção.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q23</td>
+                        <td>Características de caso-controle.</td>
+                        <td>Delineamento observacional retrospectivo.</td>
+                        <td>D - F, V, V, F, F.</td>
+                        <td>Reforça que caso-controle não testa vacina.</td>
+                    </tr>
+                    <tr>
+                        <td>2011 - Q24</td>
+                        <td>Ensaios clínicos randomizados.</td>
+                        <td>Medidas de efeito e randomização.</td>
+                        <td>B - afirmação incorreta sobre razão de prevalências.</td>
+                        <td>Mostra que a banca cobra ensaio clínico e suas medidas.</td>
+                    </tr>
+                    <tr>
+                        <td>2012 - Q6</td>
+                        <td>Análise de estudos epidemiológicos.</td>
+                        <td>Medidas e testes estatísticos.</td>
+                        <td>E - seccional, coorte e caso clínico podem usar qui-quadrado.</td>
+                        <td>Relaciona desenho e análise.</td>
+                    </tr>
+                    <tr>
+                        <td>2013 - Q83</td>
+                        <td>Características de coorte, caso-controle, ensaio clínico e seccional.</td>
+                        <td>Identificação do estudo experimental.</td>
+                        <td>D - 4, 1, 2, 3.</td>
+                        <td>Confirma ensaio clínico como experimental.</td>
+                    </tr>
+                    <tr>
+                        <td>2014 - Q14</td>
+                        <td>Diferenciação entre delineamentos.</td>
+                        <td>Estudo ecológico compara grupos.</td>
+                        <td>A - ecológico compara grupos populacionais.</td>
+                        <td>Distingue ecológico de ensaio clínico.</td>
+                    </tr>
+                    <tr>
+                        <td>2015 - Q84</td>
+                        <td>Combinação entre tipos de estudo e características.</td>
+                        <td>Ensaio clínico prospectivo para intervenção.</td>
+                        <td>C - sequência de combinações.</td>
+                        <td>Reforça o ensaio clínico como intervenção.</td>
+                    </tr>
+                    <tr>
+                        <td>2016 - Q84</td>
+                        <td>Combinação entre tipos de estudo e características.</td>
+                        <td>Delineamentos e medidas.</td>
+                        <td>E - sequência de combinações.</td>
+                        <td>Mostra recorrência do tema.</td>
+                    </tr>
+                    <tr>
+                        <td>2018 - Q81</td>
+                        <td>Estudos que estabeleceram associação entre tabagismo e câncer.</td>
+                        <td>Casos-controles e coortes.</td>
+                        <td>D - caso-controles e coortes.</td>
+                        <td>Diferencia observacionais de experimentais.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q29</td>
+                        <td>Teste ergométrico e valor preditivo positivo.</td>
+                        <td>Cálculo e interpretação de VPP.</td>
+                        <td>A - 20%.</td>
+                        <td>Ajuda na leitura de desfechos de ensaios.</td>
+                    </tr>
+                    <tr>
+                        <td>2019 - Q30</td>
+                        <td>Riscos relativos de IAM e AVC em enxaqueca.</td>
+                        <td>Cálculo de risco relativo.</td>
+                        <td>B - 1,47; 1,80; 1,83.</td>
+                        <td>Medida usada em ensaios e coortes.</td>
+                    </tr>
+                    <tr>
+                        <td>2020 - Q98</td>
+                        <td>NNT em sinusite aguda.</td>
+                        <td>Interpretação de NNT.</td>
+                        <td>E - 93,3% tratados desnecessariamente.</td>
+                        <td>Medida frequente em ensaios clínicos.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 18 questões mapeadas de 2006-2026. A banca alterna entre cobrar definição dos desenhos, escolha do delineamento adequado, medidas de associação e interpretação de testes. Há recorrência de questões que distinguem estudos observacionais de experimentais.</p>
+            <p><strong>Abordagem ainda não cobrada:</strong> detalhes operacionais de randomização, alocação sigilosa, cegamento, análise por intenção de tratar, fases de ensaios vacinais, eficácia versus efetividade e eventos adversos. Essas abordagens podem surgir na próxima prova.</p>
+            <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais a definição e a identificação do desenho. Mais recentemente, passou a cobrar medidas de efeito, NNT, valores preditivos e aplicação prática. A questão atual é mais aplicada e contextualizada em saúde pública.</p>
+            <p><strong>O que isso sugere para a próxima prova:</strong> revisar não apenas os nomes dos desenhos, mas também randomização, cegamento, intenção de tratar, medidas de efeito e diferenças entre eficácia e efetividade.</p>
+
+            <h4>2.11 Conexão com Outros Temas</h4>
+            <ul>
+                <li><strong>Conexão 1:</strong> Validade de testes diagnósticos - sensibilidade, especificidade e valores preditivos são frequentemente cobrados junto com desenhos de estudo.</li>
+                <li><strong>Conexão 2:</strong> Vieses e confundimento - randomização e cegamento são estratégias para controlar vieses em ensaios clínicos.</li>
+                <li><strong>Conexão 3:</strong> Medicina baseada em evidências e NNT - interpretar resultados de ensaios clínicos é essencial para decisões terapêuticas.</li>
+                <li><strong>Conexão 4:</strong> Imunizações e saúde coletiva - ensaios clínicos são a base para aprovação e incorporação de vacinas no SUS.</li>
+            </ul>
+
+            <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+            <p>Se o usuário marcou outra alternativa, o erro mais provável é confusão entre desenhos observacionais e experimentais ou lacuna sobre o papel do ensaio clínico. A ação corretiva é treinar a pergunta-chave: “há intervenção alocada pelo pesquisador?”. Se sim, pensar em ensaio clínico. Revisar as diferenças entre transversal, caso-controle, coorte e ecológico e resolver questões de provas anteriores sobre o tema.</p>
+
+            <h4>2.13 Conexão com a Prática</h4>
+            <p>Na prática, o ensaio clínico randomizado é o desenho que permite afirmar se uma vacina reduz infecção, hospitalização ou morte com menor risco de viés. A decisão de incorporar vacinas em programas de imunização depende de evidências de eficácia, segurança e custo-efetividade. O médico deve saber interpretar esses estudos para orientar pacientes e gestores.</p>
+
+            <h4>2.14 Conceitos Relacionados para Revisar</h4>
+            <ul>
+                <li>Randomização e alocação sigilosa.</li>
+                <li>Cegamento e análise por intenção de tratar.</li>
+                <li>Eficácia versus efetividade.</li>
+                <li>Fases de ensaios clínicos.</li>
+                <li>Medidas de efeito: risco relativo, RAR, RRR e NNT.</li>
+                <li>Validade de testes diagnósticos e valores preditivos.</li>
+            </ul>
+
+            <h4>2.15 Listagem das Referências</h4>
+            <p>1. Fletcher RH, Fletcher SW, Wagner EH. Epidemiologia Clínica: elementos essenciais. Porto Alegre: Artes Médicas.</p>
+            <p>2. Gordis L. Epidemiologia. Rio de Janeiro: Elsevier.</p>
+            <p>3. Rouquayrol MZ, Almeida Filho N. Epidemiologia e Saúde. Rio de Janeiro: MEDSI.</p>
+            <p>4. Ministério da Saúde. Diretrizes e recomendações para estudos de eficácia e segurança de vacinas.</p>
+            <p>5. CONSORT Statement. Recomendações para relato de ensaios clínicos randomizados.</p>
+        </div>
+        <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+    </div>
+</div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

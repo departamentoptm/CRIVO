@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 93 - Epidemiologia: Validade de Testes Diagnósticos — Sensibilidade, Especificidade, Valores Preditivos e Acurácia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Epidemiologia: Validade de Testes Diagnósticos — Sensibilidade, Especificidade, Valores Preditivos e Acurácia</div>
+        <h1>Questão 93</h1>
+        <div class="question-text">
+            Quanto à capacidade diagnóstica de um exame, analise as afirmativas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - A especificidade de 70% permitirá 30% de falsos positivos.</div>
+            <div class="statement"><strong>II</strong> - O valor preditivo depende da prevalência ou probabilidade pré-teste de um agravo.</div>
+            <div class="statement"><strong>III</strong> - A alta sensibilidade é útil para afastar determinada suspeita clínica, se o exame for negativo.</div>
+            <div class="statement"><strong>IV</strong> - A acurácia é uma qualidade do exame, independente da frequência da doença.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Apenas a III.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Apenas I e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Apenas I, II, III.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - apenas II, III e IV.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Todas as alternativas são corretas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Epidemiologia / Medicina Preventiva e Social.</p>
+                <p><strong>Tema:</strong> Capacidade diagnóstica de um exame — sensibilidade, especificidade, valores preditivos, acurácia e relação com a prevalência.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com interpretação de testes diagnósticos, rastreamento, valores preditivos e medicina baseada em evidências. A banca costuma exigir o domínio das definições e a compreensão de como a prevalência modifica os valores preditivos sem alterar sensibilidade e especificidade.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Os testes diagnósticos são avaliados por propriedades intrínsecas e extrínsecas. A <strong>sensibilidade</strong> é a proporção de verdadeiros positivos entre os doentes; a <strong>especificidade</strong> é a proporção de verdadeiros negativos entre os não doentes. Ambas são propriedades intrínsecas do teste e, em geral, não variam com a prevalência. Já os <strong>valores preditivos positivo (VPP) e negativo (VPN)</strong> dependem diretamente da prevalência ou probabilidade pré-teste. A <strong>acurácia</strong> é a proporção global de acertos do teste (verdadeiros positivos + verdadeiros negativos dividido pelo total), expressando a capacidade discriminatória global. A relação entre falsos positivos e especificidade é direta: falsos positivos = 1 − especificidade.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>E — Todas as alternativas são corretas</strong>.</p>
+                <ul>
+                    <li><strong>Afirmativa I:</strong> correta. Se a especificidade é 70%, isso significa que 70% dos não doentes têm teste negativo; portanto, 30% dos não doentes terão teste positivo, ou seja, 30% de falsos positivos.</li>
+                    <li><strong>Afirmativa II:</strong> correta. Os valores preditivos positivo e negativo dependem da prevalência (probabilidade pré-teste). Quanto maior a prevalência, maior o VPP e menor o VPN, para um mesmo teste.</li>
+                    <li><strong>Afirmativa III:</strong> correta. Um teste com alta sensibilidade, quando negativo, tem alto valor preditivo negativo e é útil para afastar a doença (regra <em>SnNout</em>).</li>
+                    <li><strong>Afirmativa IV:</strong> correta. A acurácia é uma qualidade global do exame, expressando sua capacidade de classificar corretamente doentes e não doentes. Embora seu valor numérico possa variar conforme a prevalência, a capacidade discriminatória do teste é uma propriedade que caracteriza sua qualidade diagnóstica.</li>
+                </ul>
+                <p>Em provas anteriores, a banca já cobrou a relação entre especificidade e falsos positivos (2014 — Q15) e a influência da prevalência sobre os valores preditivos (2007 — Q4; 2011 — Q22; 2019 — Q29).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A — Apenas a III:</strong> incorreta, pois ignora que as afirmativas I, II e IV também estão corretas. A afirmativa III é verdadeira, mas não é a única.</p>
+                <p><strong>Alternativa B — Apenas I e IV:</strong> incorreta, pois desconsidera as afirmativas II e III, que também são verdadeiras.</p>
+                <p><strong>Alternativa C — Apenas I, II, III:</strong> incorreta, pois exclui a afirmativa IV, que também é correta.</p>
+                <p><strong>Alternativa D — apenas II, III e IV:</strong> incorreta, pois exclui a afirmativa I, que também é correta.</p>
+                <p>Esses distratores são típicos de questões com afirmativas múltiplas em que a banca testa a completude do conhecimento. Em 2011 — Q22, a banca usou formato semelhante com cinco afirmativas e combinações de respostas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“capacidade diagnóstica”:</strong> remete às propriedades do teste — sensibilidade, especificidade, valores preditivos e acurácia.</li>
+                    <li><strong>“especificidade de 70%”:</strong> pista para o cálculo de falsos positivos (1 − especificidade).</li>
+                    <li><strong>“valor preditivo depende da prevalência”:</strong> pista para a relação entre probabilidade pré-teste e VPP/VPN.</li>
+                    <li><strong>“alta sensibilidade... se o exame for negativo”:</strong> pista para a regra <em>SnNout</em> (sensibilidade alta, negativo afasta).</li>
+                    <li><strong>“acurácia... independente da frequência”:</strong> pista para a discussão sobre propriedades intrínsecas versus extrínsecas.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> lembrar as definições — sensibilidade = VP/(VP+FN); especificidade = VN/(VN+FP); falsos positivos = 1 − especificidade.</li>
+                    <li><strong>Segundo:</strong> verificar se a afirmativa trata de propriedade intrínseca (sensibilidade/especificidade) ou extrínseca (VPP/VPN/acurácia).</li>
+                    <li><strong>Terceiro:</strong> aplicar as regras mnemônicas: <em>SnNout</em> (alta sensibilidade, negativo afasta) e <em>SpPin</em> (alta especificidade, positivo confirma).</li>
+                    <li><strong>Quarto:</strong> avaliar a influência da prevalência sobre os valores preditivos e sobre a acurácia.</li>
+                    <li><strong>Quinto:</strong> confirmar todas as afirmativas verdadeiras e escolher a alternativa que as contempla integralmente.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de “afirmativas corretas” em epidemiologia diagnóstica.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> sensibilidade e especificidade são propriedades intrínsecas do teste; VPP e VPN dependem da prevalência; acurácia é a proporção global de acertos.</li>
+                    <li><strong>Fórmulas:</strong> Sensibilidade = VP/(VP+FN); Especificidade = VN/(VN+FP); VPP = VP/(VP+FP); VPN = VN/(VN+FN); Acurácia = (VP+VN)/total; Falsos positivos = 1 − especificidade.</li>
+                    <li><strong>Mnemônicos:</strong> <em>SnNout</em> — teste sensível, negativo afasta; <em>SpPin</em> — teste específico, positivo confirma.</li>
+                    <li><strong>Relação com prevalência:</strong> quanto maior a prevalência, maior o VPP e menor o VPN, mantendo sensibilidade e especificidade constantes.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2007 — Q4 (VPP e prevalência), 2011 — Q22 (validade dos testes), 2014 — Q15 (VPP e especificidade) e 2019 — Q29 (VPP do teste ergométrico).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Propriedade</th>
+                            <th>Definição</th>
+                            <th>Depende da prevalência?</th>
+                            <th>Uso clínico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sensibilidade</td>
+                            <td>Proporção de verdadeiros positivos entre os doentes</td>
+                            <td>Não (propriedade intrínseca)</td>
+                            <td>Rastreamento; negativo afasta (SnNout)</td>
+                        </tr>
+                        <tr>
+                            <td>Especificidade</td>
+                            <td>Proporção de verdadeiros negativos entre os não doentes</td>
+                            <td>Não (propriedade intrínseca)</td>
+                            <td>Confirmação; positivo confirma (SpPin)</td>
+                        </tr>
+                        <tr>
+                            <td>VPP</td>
+                            <td>Probabilidade de doença dado teste positivo</td>
+                            <td>Sim (aumenta com prevalência)</td>
+                            <td>Decisão clínica após teste positivo</td>
+                        </tr>
+                        <tr>
+                            <td>VPN</td>
+                            <td>Probabilidade de ausência de doença dado teste negativo</td>
+                            <td>Sim (diminui com prevalência)</td>
+                            <td>Decisão clínica após teste negativo</td>
+                        </tr>
+                        <tr>
+                            <td>Acurácia</td>
+                            <td>Proporção global de acertos do teste</td>
+                            <td>Pode variar com a prevalência</td>
+                            <td>Avaliação global da qualidade diagnóstica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram o diagnóstico diferencial entre as propriedades do teste, não apenas uma definição isolada.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre rastreamento:</strong> poderia pedir a escolha de teste com alta sensibilidade.</li>
+                    <li><strong>Se fosse sobre confirmação diagnóstica:</strong> poderia pedir teste com alta especificidade.</li>
+                    <li><strong>Se fosse sobre interpretação de resultado positivo:</strong> poderia cobrar o VPP e a influência da prevalência.</li>
+                    <li><strong>Se fosse sobre interpretação de resultado negativo:</strong> poderia cobrar o VPN e a regra <em>SnNout</em>.</li>
+                    <li><strong>Se fosse sobre comparação de testes:</strong> poderia usar curva ROC e área sob a curva.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007 – Q4</td>
+                            <td>Pesquisa multicêntrica sobre teste diagnóstico para lúpus, com VPP maior em ambulatórios especializados.</td>
+                            <td>Relação entre prevalência e valor preditivo positivo.</td>
+                            <td>A — prevalência mais elevada eleva o VPP.</td>
+                            <td>Reforça a afirmativa II da questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2009 – Q83</td>
+                            <td>Estudo para avaliar ressonância magnética em prematuros.</td>
+                            <td>Melhor método e medidas: sensibilidade, especificidade e VPP.</td>
+                            <td>B — estudo longitudinal prospectivo com sensibilidade, especificidade e VPP.</td>
+                            <td>Relaciona-se às propriedades dos testes diagnósticos.</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q22</td>
+                            <td>Validade dos testes diagnósticos: especificidade, testes em série, VPP em rastreamento, sensibilidade/prevalência.</td>
+                            <td>Definições e influência da prevalência nos valores preditivos.</td>
+                            <td>C — II, III e IV verdadeiras.</td>
+                            <td>Questão muito próxima, cobrando as mesmas propriedades.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q15</td>
+                            <td>Simulação de mamografia com prevalência de 1%, sensibilidade 80% e falsos positivos 9,6%.</td>
+                            <td>Cálculo de VPP e especificidade.</td>
+                            <td>E — VPP de 7,7%, pois a especificidade é de 90,3%.</td>
+                            <td>Demonstra a relação entre especificidade e falsos positivos (afirmativa I).</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q29</td>
+                            <td>Teste ergométrico com tabela de resultados.</td>
+                            <td>Cálculo e interpretação do valor preditivo positivo.</td>
+                            <td>A — 20%.</td>
+                            <td>Reforça a importância do VPP e da prevalência.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q98</td>
+                            <td>Revisão sistemática sobre antibióticos em sinusite aguda (NNT = 15).</td>
+                            <td>Interpretação de NNT e tratados desnecessariamente.</td>
+                            <td>E — 93,3% tratados desnecessariamente.</td>
+                            <td>Relaciona-se às medidas de efeito e à interpretação de estudos.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q91</td>
+                            <td>Ensaio clínico com fluvoxamina na Covid-19.</td>
+                            <td>Cálculo de risco relativo, redução absoluta e relativa do risco.</td>
+                            <td>C — 0,68; 5% e 0,32.</td>
+                            <td>Mostra a aplicação de medidas em ensaios clínicos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 7 questões mapeadas de 2006–2026. A banca alterna entre cobrar definições (sensibilidade, especificidade, VPP, VPN), relação com prevalência e interpretação de medidas de efeito.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> curva ROC e área sob a curva, razão de verossimilhança, testes em paralelo versus série, e interpretação de testes com resultados inconclusivos. Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais definições isoladas. Mais recentemente, passou a cobrar interpretação de cenários clínicos, cálculo de VPP e relação com prevalência, como em 2014 — Q15 e 2019 — Q29.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar não apenas as definições, mas também a aplicação em cenários de rastreamento e confirmação, além de cálculo de VPP, VPN e acurácia.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Desenhos de estudo — ensaios clínicos e estudos de validação diagnóstica usam sensibilidade, especificidade e valores preditivos.</li>
+                    <li><strong>Conexão 2:</strong> Rastreamento populacional — a escolha de testes depende da prevalência e das consequências de falsos positivos e falsos negativos.</li>
+                    <li><strong>Conexão 3:</strong> Medicina baseada em evidências — interpretar testes diagnósticos é essencial para decisões clínicas.</li>
+                    <li><strong>Conexão 4:</strong> Saúde pública — programas de rastreamento (mama, colo uterino, próstata) são avaliados com essas propriedades.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou alternativa diferente de E, o erro mais provável é lacuna sobre a definição de acurácia ou confusão entre propriedades intrínsecas e extrínsecas. A ação corretiva é revisar as definições e resolver questões de provas anteriores sobre o tema, especialmente 2011 — Q22 e 2014 — Q15. Também é útil treinar a aplicação das regras <em>SnNout</em> e <em>SpPin</em>.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática clínica, o médico deve interpretar um teste diagnóstico considerando a probabilidade pré-teste do paciente. Um mesmo teste pode ter VPP alto em ambiente especializado e baixo em rastreamento populacional. Compreender a relação entre sensibilidade, especificidade e prevalência evita erros de interpretação e condutas inadequadas.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Sensibilidade e especificidade.</li>
+                    <li>Valores preditivos positivo e negativo.</li>
+                    <li>Acurácia e curva ROC.</li>
+                    <li>Razão de verossimilhança.</li>
+                    <li>Testes em paralelo e em série.</li>
+                    <li>Regras <em>SnNout</em> e <em>SpPin</em>.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Fletcher RH, Fletcher SW, Wagner EH. Epidemiologia Clínica: elementos essenciais. Porto Alegre: Artes Médicas.</p>
+                <p>2. Gordis L. Epidemiologia. Rio de Janeiro: Elsevier.</p>
+                <p>3. Rouquayrol MZ, Almeida Filho N. Epidemiologia e Saúde. Rio de Janeiro: MEDSI.</p>
+                <p>4. Sackett DL, Haynes RB, Guyatt GH, Tugwell P. Clinical Epidemiology: a basic science for clinical medicine.</p>
+                <p>5. Ministério da Saúde. Diretrizes para avaliação de testes diagnósticos.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
