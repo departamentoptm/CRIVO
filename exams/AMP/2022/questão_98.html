@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 98 - Atenção Primária à Saúde: Atributos Essenciais — Acesso de Primeiro Contato</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Atenção Primária à Saúde: Atributos Essenciais — Acesso de Primeiro Contato</div>
+        <h1>Questão 98</h1>
+        <div class="question-text">
+            Joana, 38 anos, portadora de hipertensão e diabetes, procurou a unidade de saúde por estar com disúria, dor supra-púbica e polaciúria há dois dias. Passou pela recepção e foi informada que não havia consulta para o dia, pois a agenda do médico estava cheia e recebeu um comprovante de consulta para a semana seguinte. No entanto, evoluiu com piora da dor, febre com temperatura axilar de 39ºC e hipotensão, precisando ficar internada por sepse de foco urinário. Levando em conta os Atributos da Atenção Primária a Saúde, qual deles não foi contemplado na situação acima?
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Longitudinalidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Integralidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Acesso.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Equidade.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Coordenação do Cuidado.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Saúde Coletiva.</p>
+                <p><strong>Tema:</strong> Atributos essenciais da Atenção Primária à Saúde (APS), com ênfase no acesso de primeiro contato.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com os atributos de Barbara Starfield, princípios do SUS, organização da atenção básica e saúde da família. A banca costuma pedir a identificação do atributo comprometido em uma situação clínica concreta.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>Barbara Starfield descreveu quatro atributos essenciais da APS: acesso de primeiro contato, longitudinalidade, integralidade e coordenação do cuidado; e três atributos derivados: orientação familiar, orientação comunitária e competência cultural. O <strong>acesso de primeiro contato</strong> refere-se à possibilidade de o usuário utilizar a APS como porta de entrada preferencial do sistema sempre que necessitar, incluindo atendimento de demandas agudas. Quando a unidade nega atendimento imediato a uma usuária com sintomas agudos (disúria, dor suprapúbica, polaciúria) e a agenda está cheia, sem acolhimento ou alternativa de acesso, o atributo comprometido é o acesso. A <strong>longitudinalidade</strong> é o vínculo ao longo do tempo; a <strong>integralidade</strong> é o conjunto de ações de promoção, prevenção, cura e reabilitação; a <strong>coordenação</strong> é a integração entre níveis de atenção; a <strong>equidade</strong> é um princípio doutrinário do SUS, não um atributo starfieldiano.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>C — Acesso</strong>. Joana procurou a unidade de saúde com sintomas agudos de infecção urinária e foi informada de que não havia consulta no dia, recebendo retorno apenas para a semana seguinte. Não houve acolhimento com avaliação de risco, nem alternativa de acesso (consulta de urgência, teleorientação, encaminhamento imediato). Esse cenário compromete o <strong>acesso de primeiro contato</strong>, pois a APS deixou de funcionar como porta de entrada resolutiva e acessível. A evolução para sepse reforça a consequência clínica da barreira de acesso. Em provas anteriores, a banca já cobrou atributos da APS em 2013 — Q98, Q99 e Q100; 2014 — Q9; 2019 — Q39; 2021 — Q60; 2022 — Q98 (esta questão).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A — Longitudinalidade:</strong> atributo que se refere ao vínculo contínuo entre equipe e usuário ao longo do tempo. Embora o caso não evidencie continuidade, o problema principal descrito é a impossibilidade de atendimento no momento da necessidade, o que caracteriza falha de acesso, não de longitudinalidade.</p>
+                <p><strong>Alternativa B — Integralidade:</strong> refere-se ao conjunto de ações de promoção, prevenção, cura e reabilitação. Não é o atributo diretamente comprometido na situação descrita.</p>
+                <p><strong>Alternativa D — Equidade:</strong> é um princípio doutrinário do SUS, que implica tratar desigualmente os desiguais, priorizando quem mais precisa. Não é um atributo starfieldiano da APS, e não é o foco do caso.</p>
+                <p><strong>Alternativa E — Coordenação do Cuidado:</strong> refere-se à integração entre níveis de atenção e à continuidade informacional. O caso não descreve falha de coordenação, mas de acesso no primeiro contato.</p>
+                <p>Esses distratores são típicos de questões sobre atributos da APS, em que a banca mistura atributos essenciais, derivados e princípios do SUS. Em 2013 — Q99, a banca cobrou os atributos essenciais (primeiro contato, longitudinalidade e coordenação).</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“procurou a unidade de saúde por estar com disúria, dor supra-púbica e polaciúria há dois dias”:</strong> demanda aguda que deveria ser acolhida.</li>
+                    <li><strong>“não havia consulta para o dia, pois a agenda do médico estava cheia”:</strong> barreira de acesso.</li>
+                    <li><strong>“recebeu um comprovante de consulta para a semana seguinte”:</strong> ausência de acolhimento e de alternativa de acesso.</li>
+                    <li><strong>“evoluiu com piora da dor, febre... e hipotensão, precisando ficar internada por sepse”:</strong> consequência clínica da falha de acesso.</li>
+                    <li><strong>“Atributos da Atenção Primária a Saúde”:</strong> pista para o referencial de Starfield.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> identificar a situação concreta — usuária com demanda aguda não atendida no momento da procura.</li>
+                    <li><strong>Segundo:</strong> recordar os atributos essenciais da APS: acesso de primeiro contato, longitudinalidade, integralidade e coordenação.</li>
+                    <li><strong>Terceiro:</strong> relacionar a situação ao atributo comprometido: a impossibilidade de atendimento imediato caracteriza falha de acesso.</li>
+                    <li><strong>Quarto:</strong> excluir equidade, que é princípio doutrinário do SUS, não atributo starfieldiano.</li>
+                    <li><strong>Quinto:</strong> concluir que o atributo não contemplado é o acesso.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões que aplicam conceitos de APS a situações clínicas.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> atributos essenciais da APS (Starfield): acesso de primeiro contato, longitudinalidade, integralidade e coordenação do cuidado; derivados: orientação familiar, orientação comunitária e competência cultural.</li>
+                    <li><strong>Números e doses:</strong> não aplicável.</li>
+                    <li><strong>Mnemônicos:</strong> “ALIC” — Acesso, Longitudinalidade, Integralidade, Coordenação.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2013 — Q98, Q99 e Q100; 2014 — Q9; 2019 — Q39; 2021 — Q60.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Atributo/princípio</th>
+                            <th>Definição</th>
+                            <th>Situação que o compromete</th>
+                            <th>Conduta esperada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Acesso de primeiro contato</td>
+                            <td>APS como porta de entrada preferencial, acessível a todas as demandas</td>
+                            <td>Negar atendimento imediato a demanda aguda por agenda cheia</td>
+                            <td>Acolhimento com avaliação de risco e atendimento ou encaminhamento imediato</td>
+                        </tr>
+                        <tr>
+                            <td>Longitudinalidade</td>
+                            <td>Vínculo contínuo ao longo do tempo entre equipe e usuário</td>
+                            <td>Alta rotatividade de profissionais, atendimento episódico</td>
+                            <td>Garantir continuidade do cuidado e vínculo</td>
+                        </tr>
+                        <tr>
+                            <td>Integralidade</td>
+                            <td>Conjunto de ações de promoção, prevenção, cura e reabilitação</td>
+                            <td>Oferta apenas de ações curativas isoladas</td>
+                            <td>Ampliar o escopo de ações ofertadas</td>
+                        </tr>
+                        <tr>
+                            <td>Coordenação do cuidado</td>
+                            <td>Integração entre níveis de atenção e continuidade informacional</td>
+                            <td>Encaminhamentos sem contrarreferência ou sem comunicação</td>
+                            <td>Organizar fluxos e sistemas de informação integrados</td>
+                        </tr>
+                        <tr>
+                            <td>Equidade</td>
+                            <td>Princípio doutrinário do SUS: tratar desigualmente os desiguais</td>
+                            <td>Ausência de priorização de grupos vulneráveis</td>
+                            <td>Priorizar quem mais precisa</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a distinção entre atributos da APS e princípios do SUS.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre longitudinalidade:</strong> poderia descrever alta rotatividade de profissionais ou atendimento episódico.</li>
+                    <li><strong>Se fosse sobre integralidade:</strong> poderia cobrar a oferta apenas de ações curativas.</li>
+                    <li><strong>Se fosse sobre coordenação:</strong> poderia cobrar encaminhamentos sem contrarreferência.</li>
+                    <li><strong>Se fosse sobre equidade:</strong> poderia cobrar a priorização de grupos vulneráveis.</li>
+                    <li><strong>Se fosse sobre acesso:</strong> poderia cobrar acolhimento e avaliação de risco em demandas agudas.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2013 – Q98</td>
+                            <td>Barbara Starfield e a atenção primária abrangente.</td>
+                            <td>Atributos da APS.</td>
+                            <td>C — sistemas com porta de entrada obrigatória são menos onerosos.</td>
+                            <td>Reforça o referencial de Starfield.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q99</td>
+                            <td>Atributos da atenção primária.</td>
+                            <td>Identificação de atributos essenciais.</td>
+                            <td>D — primeiro contato, longitudinalidade e coordenação.</td>
+                            <td>Mostra os atributos essenciais.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q100</td>
+                            <td>Programa Saúde da Família.</td>
+                            <td>Implantação e características.</td>
+                            <td>A — implantação mais acelerada em municípios pequenos.</td>
+                            <td>Contextualiza a ESF na APS.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q9</td>
+                            <td>Atributos da ESF em comparação a outras formas de atenção básica.</td>
+                            <td>Atributos da APS.</td>
+                            <td>D — integralidade e coordenação.</td>
+                            <td>Reforça atributos essenciais.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q39</td>
+                            <td>Atributo da Atenção Primária à Saúde.</td>
+                            <td>Competência cultural.</td>
+                            <td>D — competência cultural.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q60</td>
+                            <td>Atributos da APS em teleconsulta durante a pandemia.</td>
+                            <td>Acesso e longitudinalidade.</td>
+                            <td>B — acesso e longitudinalidade.</td>
+                            <td>Mostra aplicação dos atributos em situações concretas.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q98</td>
+                            <td>Joana, 38 anos, com disúria e febre, não atendida na UBS.</td>
+                            <td>Identificação do atributo não contemplado.</td>
+                            <td>C — acesso.</td>
+                            <td>É a questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 7 questões mapeadas de 2006–2026. A banca alterna entre cobrar definições dos atributos, distinção entre atributos e princípios do SUS, e aplicação em situações concretas.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> atributos derivados (orientação familiar, orientação comunitária e competência cultural) e o atributo de coordenação de forma detalhada. Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais definições e comparações entre modelos. Mais recentemente, passou a cobrar aplicação em situações clínicas concretas, como em 2021 — Q60 e nesta questão.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar os quatro atributos essenciais, os três derivados e a distinção entre atributos da APS e princípios doutrinários do SUS.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Princípios do SUS — universalidade, integralidade, equidade, descentralização, regionalização, hierarquização e participação social.</li>
+                    <li><strong>Conexão 2:</strong> Acolhimento e avaliação de risco — ferramentas para garantir acesso e resolutividade na APS.</li>
+                    <li><strong>Conexão 3:</strong> Estratégia Saúde da Família — modelo que organiza a APS no Brasil.</li>
+                    <li><strong>Conexão 4:</strong> Redes de atenção à saúde — coordenação do cuidado e integração entre níveis.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou alternativa diferente de C, o erro mais provável é confundir atributos da APS com princípios do SUS ou não reconhecer que a negativa de atendimento a uma demanda aguda compromete o acesso de primeiro contato. A ação corretiva é revisar os atributos de Starfield e resolver questões anteriores, como 2013 — Q99 e 2021 — Q60.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a APS deve garantir acolhimento com avaliação de risco a todas as pessoas que procuram a unidade, especialmente em demandas agudas. A agenda não pode ser uma barreira intransponível: é necessário haver fluxos para atendimento no mesmo dia, teleorientação, encaminhamento imediato ou outras estratégias que assegurem o acesso. A falha nesse ponto pode levar a desfechos graves, como a sepse descrita no caso.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Atributos essenciais da APS (Starfield).</li>
+                    <li>Atributos derivados da APS.</li>
+                    <li>Princípios doutrinários do SUS.</li>
+                    <li>Acolhimento com avaliação de risco.</li>
+                    <li>Estratégia Saúde da Família.</li>
+                    <li>Redes de atenção à saúde e coordenação do cuidado.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Starfield B. Atenção Primária: equilíbrio entre necessidades de saúde, serviços e tecnologia. Brasília: UNESCO/Ministério da Saúde, 2002.</p>
+                <p>2. Ministério da Saúde. Política Nacional de Atenção Básica (PNAB).</p>
+                <p>3. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed.</p>
+                <p>4. Brasil. Constituição Federal de 1988 — Seção II, Da Saúde.</p>
+                <p>5. Brasil. Lei 8.080/1990 — Lei Orgânica da Saúde.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

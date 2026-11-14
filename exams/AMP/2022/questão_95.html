@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 95 - Geriatria e Nutrição: Avaliação Nutricional e Suplementação no Idoso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Geriatria e Nutrição: Avaliação Nutricional e Suplementação no Idoso</div>
+        <h1>Questão 95</h1>
+        <div class="question-text">
+            Lucilene, 79 anos, veio à consulta preocupada com sua alimentação, especialmente por acreditar que consome poucas vitaminas e por não conseguir perder peso, apesar de ter aumentado suas caminhadas para 40 minutos cinco dias por semana. Hoje está com 81kg e 1,75m (IMC= 26,45). Para conduzir esta consulta, analise as afirmativas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>I</strong> - Nessa faixa etária, esse IMC não é um foco para ser enfatizado nos cuidados de saúde.</div>
+            <div class="statement"><strong>II</strong> - Antes de apresentar recomendações dietéticas, é necessário averiguar qual o tipo de processamento de alimentos ela habitualmente consome.</div>
+            <div class="statement"><strong>III</strong> - Caso o recordatório alimentar sugira consumo de cálcio inferior à recomendação diária, é necessário garantir suplementação, por ser mais efetiva e mais segura.</div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - Todas: I, II e III.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - Apenas I e II.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - Apenas a I.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - Apenas a II.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - Apenas a III.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Geriatria / Nutrição / Medicina de Família e Comunidade.</p>
+                <p><strong>Tema:</strong> Avaliação nutricional no idoso, interpretação do IMC na terceira idade, classificação de alimentos por processamento e indicação racional de suplementação de cálcio.</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de residência, frequentemente cobrado em conjunto com prevenção quaternária, rastreamento, envelhecimento populacional e uso racional de suplementos. A banca costuma pedir a interpretação do IMC em idosos, a priorização de alimentos sobre suplementos e a avaliação do grau de processamento alimentar.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>No idoso, o IMC deve ser interpretado com pontos de corte diferentes do adulto jovem. A faixa considerada adequada é aproximadamente 22 a 27 kg/m² (Lipschitz) ou 23 a 28 kg/m² (OPAS), pois valores mais altos conferem proteção contra desnutrição e fragilidade. IMC de 26,45 kg/m², portanto, situa-se dentro da faixa adequada para a idade, e o sobrepeso leve não deve ser o foco principal. A avaliação dietética deve começar pela classificação dos alimentos segundo o grau de processamento (NOVA): in natura, minimamente processados, processados e ultraprocessados, pois o consumo de ultraprocessados está associado a pior qualidade da dieta. Quanto ao cálcio, a prioridade é a ingestão por fontes alimentares; a suplementação não é automaticamente mais efetiva ou segura e deve ser individualizada conforme ingestão, risco de fratura e comorbidades.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>B — Apenas I e II</strong>.</p>
+                <ul>
+                    <li><strong>I — Verdadeira:</strong> na faixa etária de 79 anos, o IMC de 26,45 kg/m² está dentro da faixa adequada para idosos (22–27 kg/m²). O sobrepeso leve não é o foco; a preocupação maior é evitar desnutrição, sarcopenia e fragilidade.</li>
+                    <li><strong>II — Verdadeira:</strong> antes de recomendar dieta, é fundamental avaliar o padrão alimentar, incluindo o grau de processamento dos alimentos (in natura, minimamente processados, processados, ultraprocessados), pois essa informação orienta as recomendações e identifica riscos.</li>
+                    <li><strong>III — Falsa:</strong> a suplementação de cálcio não é, por definição, mais efetiva e segura que a ingestão alimentar. A prioridade é a obtenção de cálcio por alimentos; a suplementação deve ser considerada de forma individualizada, conforme ingestão, risco de fratura, função renal e outras comorbidades.</li>
+                </ul>
+                <p>Em provas anteriores, a banca já cobrou temas correlatos, como suplementação de ferro em lactentes (2009 — Q42), orientação alimentar em lactentes (2011 — Q4), definições de aleitamento (2014 — Q23; 2019 — Q89) e desprescrição/polifarmácia em idosos (2018 — Q85).</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A — Todas: I, II e III:</strong> incorreta, pois a afirmativa III é falsa. A suplementação não é automaticamente mais efetiva e segura que a alimentação.</p>
+                <p><strong>Alternativa C — Apenas a I:</strong> incorreta, pois exclui a afirmativa II, que também é verdadeira. A avaliação do processamento alimentar é etapa essencial antes das recomendações.</p>
+                <p><strong>Alternativa D — Apenas a II:</strong> incorreta, pois exclui a afirmativa I, que é verdadeira. O IMC de 26,45 em idosa está adequado e não é foco prioritário.</p>
+                <p><strong>Alternativa E — Apenas a III:</strong> incorreta, pois a afirmativa III é falsa e as afirmativas I e II são verdadeiras.</p>
+                <p>Esses distratores são típicos de questões com afirmativas múltiplas, em que a banca testa a completude do conhecimento. Em 2011 — Q22 e 2019 — Q24, a banca usou formato semelhante com combinações de afirmativas.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“79 anos”:</strong> remete às particularidades do idoso, incluindo pontos de corte específicos de IMC e risco de desnutrição.</li>
+                    <li><strong>“IMC= 26,45”:</strong> pista para interpretar o sobrepeso leve como adequado na terceira idade.</li>
+                    <li><strong>“consome poucas vitaminas”:</strong> indica preocupação com qualidade da dieta, que deve ser avaliada antes de suplementar.</li>
+                    <li><strong>“tipo de processamento de alimentos”:</strong> pista para a classificação NOVA e para a avaliação do padrão alimentar.</li>
+                    <li><strong>“suplementação... mais efetiva e mais segura”:</strong> pista para a priorização de fontes alimentares e individualização da suplementação.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> interpretar o IMC conforme faixa etária; em idosos, 22–27 kg/m² é adequado. IMC 26,45 não é foco prioritário.</li>
+                    <li><strong>Segundo:</strong> avaliar o padrão alimentar, incluindo o grau de processamento dos alimentos (NOVA), antes de recomendar dieta.</li>
+                    <li><strong>Terceiro:</strong> verificar ingestão de micronutrientes; priorizar fontes alimentares antes de suplementar.</li>
+                    <li><strong>Quarto:</strong> individualizar a suplementação de cálcio conforme ingestão, risco de fratura e comorbidades.</li>
+                    <li><strong>Quinto:</strong> concluir que I e II são verdadeiras e III é falsa.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de avaliação nutricional no idoso e uso racional de suplementos.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> no idoso, a faixa de IMC adequada é aproximadamente 22–27 kg/m² (Lipschitz) ou 23–28 kg/m² (OPAS); sobrepeso leve pode ser protetor.</li>
+                    <li><strong>Números e doses:</strong> a recomendação de cálcio em idosos é cerca de 1.200 mg/dia, preferencialmente por alimentos; a suplementação deve ser individualizada.</li>
+                    <li><strong>Mnemônicos:</strong> “Idoso: IMC mais alto, menos risco”; “Alimento antes do suplemento”; “NOVA classifica o processamento”.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2009 — Q42 (suplementação em lactentes) e 2018 — Q85 (desprescrição em idosos).</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Situação</th>
+                            <th>Característica que diferencia</th>
+                            <th>Conduta</th>
+                            <th>Erro comum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Idosa com IMC 26,45</td>
+                            <td>Faixa adequada para idoso (22–27)</td>
+                            <td>Não focar em perda de peso; avaliar qualidade da dieta</td>
+                            <td>Tratar como sobrepeso de adulto jovem</td>
+                        </tr>
+                        <tr>
+                            <td>Baixa ingestão de vitaminas</td>
+                            <td>Preocupação com qualidade alimentar</td>
+                            <td>Avaliar padrão alimentar e processamento antes de suplementar</td>
+                            <td>Suplementar sem avaliação</td>
+                        </tr>
+                        <tr>
+                            <td>Baixa ingestão de cálcio</td>
+                            <td>Possível risco ósseo</td>
+                            <td>Priorizar alimentos; suplementar se necessário e individualizado</td>
+                            <td>Assumir que suplemento é sempre melhor</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a interpretação do IMC no idoso e a escolha entre alimento e suplemento.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão fosse sobre rastreamento:</strong> poderia cobrar densitometria óssea e prevenção de fraturas.</li>
+                    <li><strong>Se fosse sobre suplementação:</strong> poderia pedir a indicação de cálcio e vitamina D em idosos.</li>
+                    <li><strong>Se fosse sobre IMC:</strong> poderia comparar pontos de corte em adulto e idoso.</li>
+                    <li><strong>Se fosse sobre alimentação:</strong> poderia cobrar a classificação NOVA e o consumo de ultraprocessados.</li>
+                    <li><strong>Se fosse sobre prevenção quaternária:</strong> poderia abordar o excesso de suplementos e exames.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2009 – Q42</td>
+                            <td>Lactente amamentado exclusivamente não deve receber suplementação de ferro.</td>
+                            <td>Racionalidade da suplementação e priorização do alimento.</td>
+                            <td>C — saturação da lactoferrina.</td>
+                            <td>Reforça a lógica de priorizar alimentos e individualizar suplementos.</td>
+                        </tr>
+                        <tr>
+                            <td>2011 – Q4</td>
+                            <td>Orientação incorreta sobre alimentação do lactente.</td>
+                            <td>Fitatos, zinco e introdução alimentar.</td>
+                            <td>D — fitatos elevados.</td>
+                            <td>Mostra a importância da avaliação dietética antes de recomendar.</td>
+                        </tr>
+                        <tr>
+                            <td>2012 – Q13</td>
+                            <td>Aconselhamento pré-concepcional com ácido fólico.</td>
+                            <td>Suplementação com indicação específica.</td>
+                            <td>C — apenas I e IV.</td>
+                            <td>Relaciona-se ao uso racional de suplementos.</td>
+                        </tr>
+                        <tr>
+                            <td>2014 – Q23</td>
+                            <td>Definições de aleitamento materno.</td>
+                            <td>Classificação alimentar.</td>
+                            <td>B — definição incorreta.</td>
+                            <td>Contextualiza a avaliação da alimentação.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q85</td>
+                            <td>Desprescrição em idosos frágeis.</td>
+                            <td>Polifarmácia e uso racional de medicamentos/suplementos.</td>
+                            <td>D — F, V, V, F.</td>
+                            <td>Reforça a prevenção quaternária no idoso.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q89</td>
+                            <td>Definições de aleitamento materno.</td>
+                            <td>Classificação alimentar.</td>
+                            <td>B — definição incorreta.</td>
+                            <td>Avaliação do padrão alimentar.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q100</td>
+                            <td>Controle periódico de saúde em assintomáticos.</td>
+                            <td>Rastreamento e exames.</td>
+                            <td>A — LDL pela fórmula de Friedewald.</td>
+                            <td>Contextualiza a avaliação periódica do idoso.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q58</td>
+                            <td>Prevenção quaternária e desprescrição de AAS.</td>
+                            <td>Uso racional de intervenções.</td>
+                            <td>C — prevenção secundária e quaternária.</td>
+                            <td>Relaciona-se ao uso racional de suplementos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 8 questões correlatas de 2006–2026. A banca alterna entre cobrar suplementação, avaliação dietética, classificação de alimentos e uso racional de intervenções no idoso.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> pontos de corte específicos de IMC no idoso (Lipschitz e OPAS), classificação NOVA de alimentos, sarcopenia e suplementação individualizada de cálcio e vitamina D. Essas abordagens podem surgir na próxima prova.</p>
+                <p><strong>Evolução da cobrança:</strong> Em anos anteriores, a banca cobrava mais definições de aleitamento e suplementação em crianças. Mais recentemente, passou a cobrar prevenção quaternária e uso racional de suplementos em idosos.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar pontos de corte de IMC no idoso, classificação NOVA e critérios para suplementação de cálcio e vitamina D.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Prevenção quaternária — evitar suplementação e exames desnecessários.</li>
+                    <li><strong>Conexão 2:</strong> Envelhecimento e fragilidade — risco de desnutrição e sarcopenia.</li>
+                    <li><strong>Conexão 3:</strong> Saúde pública — prevenção de quedas e fraturas.</li>
+                    <li><strong>Conexão 4:</strong> Medicina baseada em evidências — escolha de intervenções com benefício comprovado.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>Se o usuário marcou alternativa diferente de B, o erro mais provável é interpretar o IMC de 26,45 como sobrepeso a ser tratado, ou considerar a suplementação de cálcio como sempre superior à alimentação. A ação corretiva é revisar os pontos de corte de IMC no idoso e a lógica de priorizar alimentos antes de suplementos. Resolver questões anteriores, como 2009 — Q42 e 2018 — Q85, ajuda a fixar o padrão.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, o médico deve evitar tratar o idoso como adulto jovem em relação ao peso. A avaliação nutricional deve incluir qualidade da dieta, grau de processamento dos alimentos e ingestão de micronutrientes. A suplementação deve ser individualizada e baseada em evidências, priorizando fontes alimentares sempre que possível.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Pontos de corte de IMC no idoso.</li>
+                    <li>Classificação NOVA de alimentos.</li>
+                    <li>Suplementação de cálcio e vitamina D.</li>
+                    <li>Sarcopenia e fragilidade.</li>
+                    <li>Prevenção quaternária e desprescrição.</li>
+                    <li>Avaliação nutricional em grupos especiais.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Lipschitz DA. Screening for nutritional status in the elderly. Prim Care. 1994.</p>
+                <p>2. Organização Pan-Americana da Saúde (OPAS). Avaliação nutricional do idoso.</p>
+                <p>3. Ministério da Saúde. Caderno de Atenção Básica — Envelhecimento e Saúde da Pessoa Idosa.</p>
+                <p>4. Monteiro CA, et al. Classificação NOVA de alimentos.</p>
+                <p>5. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
