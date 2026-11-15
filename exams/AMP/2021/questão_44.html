@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 44 - História das Políticas de Saúde no Brasil: A 6ª Conferência Nacional de Saúde (1977)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">História das Políticas de Saúde no Brasil: A 6ª Conferência Nacional de Saúde (1977)</div>
+        <h1>Questão 44</h1>
+        <div class="question-text">
+            A 6ª Conferência Nacional de Saúde, entre outros temas, discutiu a situação das grandes endemias, a operacionalização de novas leis aprovadas pelo governo federal no campo da saúde e a interiorização dos serviços de saúde. Essa conferência representou
+        </div>
+
+        
+
+        
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+  <input type="radio" name="answer" id="optionA" value="A">
+  <label for="optionA"><strong>A</strong> - um fortalecimento da agenda de saúde do Ministério da Previdência e Assistência Social.</label>
+</div>
+<div class="option" onclick="selectOption('B')">
+  <input type="radio" name="answer" id="optionB" value="B">
+  <label for="optionB"><strong>B</strong> - um sistema de saúde organizado em bases de seguridade social, universal e tendo como um dos princípios a equidade.</label>
+</div>
+<div class="option" onclick="selectOption('C')">
+  <input type="radio" name="answer" id="optionC" value="C">
+  <label for="optionC"><strong>C</strong> - a nacionalização do setor industrial farmacêutico e enfraquecimento do capital internacional.</label>
+</div>
+<div class="option" onclick="selectOption('D')">
+  <input type="radio" name="answer" id="optionD" value="D">
+  <label for="optionD"><strong>D</strong> - uma tentativa de regulamentação do sistema nacional de saúde no Ministério da Saúde.</label>
+</div>
+<div class="option" onclick="selectOption('E')">
+  <input type="radio" name="answer" id="optionE" value="E">
+  <label for="optionE"><strong>E</strong> - a extinção dos Institutos de Aposentadoria e Pensões e substituição pelo Instituto Nacional de Previdência Social.</label>
+</div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Saúde Coletiva / História das Políticas de Saúde no Brasil</p>
+                <p><strong>Tema:</strong> A 6ª Conferência Nacional de Saúde (1977) e seu papel na tentativa de regulamentação do sistema nacional de saúde no âmbito do Ministério da Saúde.</p>
+                <p><strong>Contextualização:</strong> Tema recorrente em provas de residência, especialmente em Saúde Coletiva e Medicina de Família e Comunidade. A banca costuma cobrar a evolução histórica das políticas de saúde, o papel das Conferências Nacionais de Saúde, a transição do modelo previdenciário para o SUS e os marcos legais da Reforma Sanitária. A 6ª Conferência insere-se no período militar e antecede a 8ª Conferência (1986), marco da Reforma Sanitária.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A 6ª Conferência Nacional de Saúde foi realizada em 1977, durante o governo Geisel, no contexto do regime militar. Discutiu a situação das grandes endemias, a operacionalização de novas leis aprovadas no campo da saúde e a interiorização dos serviços. Representou uma tentativa de regulamentação do sistema nacional de saúde no âmbito do Ministério da Saúde, buscando organizar e coordenar as ações de saúde em âmbito nacional, ainda dentro da lógica do modelo médico-previdenciário vigente. Não houve, nesse momento, a ruptura com o modelo privatista nem a adoção dos princípios da universalidade e da seguridade social, que só viriam com a 8ª Conferência (1986) e a Constituição de 1988.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>D</strong>. A 6ª Conferência Nacional de Saúde (1977) representou uma tentativa de regulamentação do sistema nacional de saúde no Ministério da Saúde, em um contexto de reorganização institucional e de discussão sobre endemias, novas leis e interiorização dos serviços. A alternativa B descreve o sistema que seria posteriormente construído com a Reforma Sanitária e a Constituição de 1988, não o que a 6ª Conferência representou. A alternativa A está incorreta porque a conferência não fortaleceu a agenda do Ministério da Previdência, mas buscou organizar o sistema no âmbito do Ministério da Saúde. A C e a E não correspondem ao que ocorreu na 6ª Conferência.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta: a 6ª Conferência não fortaleceu a agenda do Ministério da Previdência e Assistência Social; ela buscou regulamentar o sistema nacional de saúde no Ministério da Saúde.</p>
+                <p><strong>Alternativa B</strong> - Incorreta: a descrição de um sistema universal, com seguridade social e equidade corresponde ao projeto da Reforma Sanitária e ao SUS, consolidado a partir da 8ª Conferência (1986) e da Constituição de 1988, e não à 6ª Conferência.</p>
+                <p><strong>Alternativa C</strong> - Incorreta: a nacionalização do setor industrial farmacêutico não foi o foco da 6ª Conferência.</p>
+                <p><strong>Alternativa D</strong> - Correta: a 6ª Conferência representou uma tentativa de regulamentação do sistema nacional de saúde no Ministério da Saúde.</p>
+                <p><strong>Alternativa E</strong> - Incorreta: a extinção dos IAPs e a criação do INPS ocorreram em 1966, antes da 6ª Conferência, e não foram o resultado dela.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>6ª Conferência Nacional de Saúde:</strong> direciona para o período militar e para a tentativa de organização do sistema no âmbito do Ministério da Saúde.</li>
+                    <li><strong>Grandes endemias, novas leis e interiorização:</strong> temas típicos da agenda da 6ª Conferência, que buscava ampliar a atuação do Estado na saúde.</li>
+                    <li><strong>Regulamentação do sistema nacional de saúde:</strong> expressão-chave que aponta para a alternativa D.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar que a questão pede o significado histórico da 6ª Conferência Nacional de Saúde (1977).</li>
+                    <li><strong>Segundo:</strong> Recordar que a 6ª Conferência ocorreu no regime militar e buscou organizar/regulamentar o sistema nacional de saúde no Ministério da Saúde.</li>
+                    <li><strong>Terceiro:</strong> Descartar alternativas que descrevem o SUS, a Reforma Sanitária ou medidas anteriores (como a criação do INPS).</li>
+                    <li><strong>Quarto:</strong> Confirmar a alternativa D como a que melhor traduz o papel da 6ª Conferência.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões de história das políticas de saúde, diferenciando marcos e conferências.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> A 6ª Conferência Nacional de Saúde (1977) discutiu endemias, novas leis e interiorização dos serviços; representou tentativa de regulamentação do sistema nacional de saúde no Ministério da Saúde.</li>
+                    <li><strong>Datas e marcos:</strong> 3ª Conferência (1963) – municipalização; 6ª Conferência (1977) – regulamentação no Ministério da Saúde; 8ª Conferência (1986) – Reforma Sanitária; Constituição de 1988 – SUS.</li>
+                    <li><strong>Mnemônico:</strong> “3ª municipaliza, 6ª regulamenta, 8ª reforma”.</li>
+                </ul>
+                <p>Esses marcos já foram cobrados em provas anteriores, especialmente a 3ª e a 8ª Conferências.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Marco histórico</th>
+                            <th>Contexto</th>
+                            <th>Principal significado</th>
+                            <th>Relação com a 6ª Conferência</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3ª Conferência Nacional de Saúde (1963)</td>
+                            <td>Pré-ditadura, governo João Goulart</td>
+                            <td>Proposta de municipalização e reorganização dos serviços</td>
+                            <td>Antecede a 6ª; foco na municipalização</td>
+                        </tr>
+                        <tr>
+                            <td>6ª Conferência Nacional de Saúde (1977)</td>
+                            <td>Regime militar, governo Geisel</td>
+                            <td>Tentativa de regulamentação do sistema nacional no Ministério da Saúde</td>
+                            <td>Questão atual</td>
+                        </tr>
+                        <tr>
+                            <td>8ª Conferência Nacional de Saúde (1986)</td>
+                            <td>Redemocratização</td>
+                            <td>Marco da Reforma Sanitária; bases do SUS</td>
+                            <td>Sucede a 6ª; consolida o projeto universal</td>
+                        </tr>
+                        <tr>
+                            <td>Criação do INPS (1966)</td>
+                            <td>Regime militar</td>
+                            <td>Unificação dos IAPs no INPS</td>
+                            <td>Ocorreu antes da 6ª; não foi resultado dela</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a cronologia e o significado das conferências e dos marcos legais da saúde no Brasil.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse a 3ª Conferência:</strong> a resposta envolveria municipalização e reorganização dos serviços (2017 Q84; 2019 Q37; 2023 Q87).</li>
+                    <li><strong>Se pedisse a 8ª Conferência:</strong> a resposta envolveria a Reforma Sanitária e as bases do SUS.</li>
+                    <li><strong>Se pedisse a Era Vargas:</strong> a resposta envolveria a separação entre saúde pública e assistência previdenciária e a criação dos IAPs (2016 Q86; 2020 Q90).</li>
+                    <li><strong>Se pedisse o período 1964-1985:</strong> a resposta envolveria o estímulo ao complexo médico-industrial (2023 Q88).</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2015 – Q94</td>
+                            <td>Assembleia Nacional Constituinte (1987-1988) e inclusão na Carta Constitucional.</td>
+                            <td>Saúde do trabalhador na Constituição.</td>
+                            <td>E</td>
+                            <td>Mostra a evolução histórica posterior à 6ª Conferência.</td>
+                        </tr>
+                        <tr>
+                            <td>2016 – Q86</td>
+                            <td>Era Vargas (1930-1945) e políticas de saúde.</td>
+                            <td>Separação entre saúde pública e assistência médica previdenciária.</td>
+                            <td>C</td>
+                            <td>Contextualiza o modelo previdenciário que antecede a 6ª Conferência.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q84</td>
+                            <td>3ª Conferência Nacional de Saúde (1963) e proposta.</td>
+                            <td>Municipalização e reorganização dos serviços.</td>
+                            <td>D</td>
+                            <td>Outro marco das conferências, anterior à 6ª.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q90</td>
+                            <td>Movimento sanitário no Governo Geisel e afirmativas V/F.</td>
+                            <td>Surgimento do movimento sanitário.</td>
+                            <td>C</td>
+                            <td>Contexto do período em que ocorreu a 6ª Conferência.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q94</td>
+                            <td>Criação do SESP (1942) e interesses norte-americanos.</td>
+                            <td>História das políticas de saúde.</td>
+                            <td>D</td>
+                            <td>Outro marco anterior à 6ª Conferência.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q98</td>
+                            <td>Modelo bismarckiano e Institutos de Aposentadoria e Pensões.</td>
+                            <td>Modelo de seguro social.</td>
+                            <td>B</td>
+                            <td>Contextualiza o modelo previdenciário vigente antes da 6ª Conferência.</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q37</td>
+                            <td>3ª Conferência Nacional de Saúde (1963) e diretriz.</td>
+                            <td>Municipalização.</td>
+                            <td>D</td>
+                            <td>Outro marco das conferências, anterior à 6ª.</td>
+                        </tr>
+                        <tr>
+                            <td>2020 – Q90</td>
+                            <td>Era Vargas e estruturas de saúde.</td>
+                            <td>Criação dos IAPs.</td>
+                            <td>E</td>
+                            <td>Contexto do modelo previdenciário anterior à 6ª Conferência.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q86</td>
+                            <td>Reforma Sanitária e contexto histórico.</td>
+                            <td>Década de 1970 e movimentos de democratização.</td>
+                            <td>C</td>
+                            <td>Contexto do período da 6ª Conferência e do movimento sanitário.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q87</td>
+                            <td>3ª Conferência Nacional de Saúde e pensamento de Mário Magalhães.</td>
+                            <td>Sanitarismo desenvolvimentista.</td>
+                            <td>D</td>
+                            <td>Outro marco das conferências, anterior à 6ª.</td>
+                        </tr>
+                        <tr>
+                            <td>2023 – Q88</td>
+                            <td>Modelo assistencial no Brasil (1964-1985).</td>
+                            <td>Estímulo ao complexo médico-industrial.</td>
+                            <td>C</td>
+                            <td>Contexto do regime militar em que ocorreu a 6ª Conferência.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema de história das políticas de saúde apareceu em pelo menos 11 provas anteriores analisadas. A banca alterna entre cobrar marcos específicos (3ª, 6ª e 8ª Conferências), modelos assistenciais (previdenciário, sanitarismo desenvolvimentista, complexo médico-industrial) e contextos históricos (Era Vargas, regime militar, Reforma Sanitária). A 6ª Conferência, especificamente, é menos cobrada que a 3ª e a 8ª, o que torna esta questão uma oportunidade de revisão cronológica.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> O detalhamento dos temas específicos da 6ª Conferência (endemias, interiorização, operacionalização de leis) pode aparecer em prova, assim como a comparação direta entre os significados das conferências (3ª, 6ª e 8ª).</p>
+                <p><strong>Evolução da cobrança:</strong> Em provas mais antigas, o foco recaía sobre a Era Vargas e os IAPs; em provas recentes, há maior ênfase na Reforma Sanitária e na 3ª Conferência. A 6ª Conferência é um elo intermediário pouco explorado, mas relevante para a compreensão da transição.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar a cronologia das conferências (3ª, 6ª, 8ª), o contexto do regime militar, o modelo previdenciário e o movimento sanitário. Memorizar o significado de cada conferência e os marcos legais associados.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Modelo previdenciário e IAPs/INPS — a 6ª Conferência ocorreu dentro da lógica previdenciária, antes da ruptura proposta pela Reforma Sanitária.</li>
+                    <li><strong>Conexão 2:</strong> Reforma Sanitária e 8ª Conferência — a 6ª Conferência antecede a 8ª, que consolidou as bases do SUS.</li>
+                    <li><strong>Conexão 3:</strong> Movimento sanitário — surgiu no período Geisel, mesmo contexto da 6ª Conferência, e criticava o modelo vigente.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é marcar a alternativa B, que descreve o SUS e a Reforma Sanitária, por confundir a 6ª Conferência com a 8ª. Outro erro possível é marcar a E, por associar a conferência à criação do INPS, que ocorreu em 1966. A estratégia correta é memorizar a cronologia das conferências e seus significados. Tipo de erro mais comum: confusão conceitual e cronológica. Ação corretiva: revisar a história das conferências e resolver questões anteriores sobre o tema.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Compreender a história das políticas de saúde ajuda o médico a entender o contexto de construção do SUS, a valorizar as conquistas da Reforma Sanitária e a reconhecer os desafios atuais. Na prática, o conhecimento das conferências e dos marcos legais orienta a participação em conselhos de saúde e em instâncias de controle social.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Cronologia das Conferências Nacionais de Saúde (3ª, 6ª, 8ª).</li>
+                    <li>Modelo previdenciário (IAPs, INPS, Inamps).</li>
+                    <li>Reforma Sanitária e movimento sanitário.</li>
+                    <li>Constituição de 1988 e criação do SUS.</li>
+                    <li>Modelo médico-assistencial privatista e complexo médico-industrial.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Brasil. Ministério da Saúde. Conselho Nacional de Saúde. Conferências Nacionais de Saúde: relatórios e anais.</p>
+                <p>2. Paim JS. Reforma Sanitária Brasileira: contribuição para a compreensão e crítica. Salvador: EDUFBA; Rio de Janeiro: FIOCRUZ, 2008.</p>
+                <p>3. Escorel S. Reviravolta na saúde: origem e articulação do movimento sanitário. Rio de Janeiro: FIOCRUZ, 1999.</p>
+                <p>4. Brasil. Constituição da República Federativa do Brasil de 1988.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'D';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

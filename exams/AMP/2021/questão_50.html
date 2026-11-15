@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 50 - Método Clínico Centrado na Pessoa: dimensões da experiência do adoecer (FIFE)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Método Clínico Centrado na Pessoa: dimensões da experiência do adoecer (FIFE)</div>
+        <h1>Questão 50</h1>
+        <div class="question-text">
+            O primeiro componente do Método Clínico Centrado na Pessoa (MCCP) propõe quatro dimensões para ampliar o olhar à história clínica, incluindo a experiência do adoecer. Analise o relato deste paciente, na coluna da esquerda, e combine com a respectiva dimensão do MCCP. ( I ) Sentimentos; ( II ) Ideias; ( III ) Funcionalidades; ( IV )Expectativas; ( ) "Doutor, hoje eu vim porque preciso de uma ressonância magnética para ver a minha coluna e, também, de um exame da próstata." ( ) "Estou com medo de ter o mesmo fim do meu primo. Ele faleceu semana passada, tinha uma metástase na coluna." ( ) "Sabe, Doutor, eu sou muito ativo no meu trabalho de marceneiro, minha família depende de mim. Será que é uma hérnia que me deixará paralítico?" ( ) "Mas, pelo que me falou, a dor dele era parecida com a minha, acho que posso ter câncer também. Se bem que já tenho essa dorzinha leve nas costas há muitos anos." Escolha a alternativa com a sequência de combinação correta.
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+  <input type="radio" name="answer" id="optionA" value="A">
+  <label for="optionA"><strong>A</strong> - IV, II, III e I.</label>
+</div>
+<div class="option" onclick="selectOption('B')">
+  <input type="radio" name="answer" id="optionB" value="B">
+  <label for="optionB"><strong>B</strong> - IV, I, III e II.</label>
+</div>
+<div class="option" onclick="selectOption('C')">
+  <input type="radio" name="answer" id="optionC" value="C">
+  <label for="optionC"><strong>C</strong> - III, IV, II e I.</label>
+</div>
+<div class="option" onclick="selectOption('D')">
+  <input type="radio" name="answer" id="optionD" value="D">
+  <label for="optionD"><strong>D</strong> - II, III, IV e I.</label>
+</div>
+<div class="option" onclick="selectOption('E')">
+  <input type="radio" name="answer" id="optionE" value="E">
+  <label for="optionE"><strong>E</strong> - I, II, III e IV.</label>
+</div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Medicina de Família e Comunidade / Saúde Coletiva</p>
+                <p><strong>Tema:</strong> Método Clínico Centrado na Pessoa (MCCP) e as quatro dimensões da experiência do adoecer do primeiro componente: sentimentos, ideias, funcionalidades e expectativas (FIFE).</p>
+                <p><strong>Contextualização:</strong> Tema de alta incidência em provas de Medicina de Família e Comunidade e Saúde Coletiva. A banca costuma cobrar os componentes do MCCP, a diferença entre doença e experiência do adoecer, a aplicação do FIFE na consulta e a importância da abordagem centrada na pessoa. É um tema que aparece associado a questões sobre comunicação, vínculo, autonomia, decisão compartilhada e integralidade do cuidado.</p>
+
+                <h4>2.3 Conceito-Chave e Fisiopatologia</h4>
+                <p>O MCCP foi desenvolvido por Moira Stewart e colaboradores e organiza-se em quatro componentes: (1) explorar a saúde, a doença e a experiência do adoecer; (2) entender a pessoa como um todo; (3) elaborar um plano conjunto de manejo dos problemas; (4) intensificar a relação entre pessoa e médico. O primeiro componente inclui quatro dimensões conhecidas pelo acrônimo FIFE: <strong>F</strong>eelings (sentimentos), <strong>I</strong>deas (ideias), <strong>F</strong>unction (funcionalidades) e <strong>E</strong>xpectations (expectativas). Compreender essas dimensões permite ao médico ampliar a escuta, identificar medos, crenças, impactos funcionais e o que a pessoa espera da consulta, favorecendo o vínculo e a decisão compartilhada.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p>A alternativa correta é a <strong>B</strong>. A combinação correta é IV, I, III e II. O primeiro relato (“preciso de uma ressonância magnética… e de um exame da próstata”) expressa <strong>expectativas</strong> em relação ao que o paciente espera da consulta (IV). O segundo (“estou com medo de ter o mesmo fim do meu primo”) expressa <strong>sentimentos</strong>, especificamente medo (I). O terceiro (“sou muito ativo no meu trabalho… minha família depende de mim”) expressa <strong>funcionalidades</strong>, pois destaca o impacto da doença na capacidade funcional e no trabalho (III). O quarto (“acho que posso ter câncer também”) expressa <strong>ideias</strong>, ou seja, a interpretação e as crenças do paciente sobre a doença (II). Em provas anteriores, o MCCP já foi cobrado em 2024 (Q46, Q47 e Q48), sempre enfatizando a importância de explorar a experiência do adoecer e os quatro componentes.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A</strong> - Incorreta: IV, II, III e I. O segundo relato não é “ideias”, e sim “sentimentos”, e o quarto não é “sentimentos”, mas “ideias”.</p>
+                <p><strong>Alternativa B</strong> - Correta: IV, I, III e II.</p>
+                <p><strong>Alternativa C</strong> - Incorreta: III, IV, II e I. Não corresponde à ordem dos relatos e confunde funcionalidades com expectativas.</p>
+                <p><strong>Alternativa D</strong> - Incorreta: II, III, IV e I. Inverte as dimensões e não respeita a sequência dos relatos.</p>
+                <p><strong>Alternativa E</strong> - Incorreta: I, II, III e IV. Inverte todas as dimensões e não corresponde aos relatos.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>Método Clínico Centrado na Pessoa (MCCP):</strong> direciona para os quatro componentes e para a abordagem centrada na experiência do adoecer.</li>
+                    <li><strong>Sentimentos, Ideias, Funcionalidades e Expectativas:</strong> as quatro dimensões do FIFE, que devem ser identificadas nos relatos.</li>
+                    <li><strong>“preciso de uma ressonância magnética…” :</strong> expressa expectativa sobre o que o paciente espera da consulta.</li>
+                    <li><strong>“Estou com medo…” :</strong> expressa sentimento (medo).</li>
+                    <li><strong>“sou muito ativo no meu trabalho…” :</strong> expressa funcionalidade e impacto da doença na vida diária.</li>
+                    <li><strong>“acho que posso ter câncer…” :</strong> expressa ideia e crença sobre a doença.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> Identificar que a questão pede a correspondência entre quatro relatos e as quatro dimensões do FIFE.</li>
+                    <li><strong>Segundo:</strong> Analisar o primeiro relato: o paciente diz o que precisa/espera (ressonância e exame de próstata) → Expectativas (IV).</li>
+                    <li><strong>Terceiro:</strong> Analisar o segundo relato: o paciente expressa medo → Sentimentos (I).</li>
+                    <li><strong>Quarto:</strong> Analisar o terceiro relato: o paciente destaca o trabalho e a família → Funcionalidades (III).</li>
+                    <li><strong>Quinto:</strong> Analisar o quarto relato: o paciente expressa uma crença/interpretação sobre a doença → Ideias (II).</li>
+                    <li><strong>Sexto:</strong> Concluir que a sequência correta é IV, I, III e II, alternativa B.</li>
+                </ol>
+                <p>Isso treina a habilidade de resolver questões sobre MCCP, diferenciando as quatro dimensões da experiência do adoecer.</p>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> MCCP tem quatro componentes; o primeiro inclui as dimensões FIFE (Feelings, Ideas, Function, Expectations); a abordagem centrada na pessoa valoriza a experiência do adoecer, o vínculo e a decisão compartilhada.</li>
+                    <li><strong>Mnemônico:</strong> FIFE — Feelings (sentimentos), Ideas (ideias), Function (funcionalidades), Expectations (expectativas).</li>
+                    <li><strong>Números e dados:</strong> MCCP foi desenvolvido por Moira Stewart e colaboradores; é um dos pilares da Medicina de Família e Comunidade.</li>
+                </ul>
+                <p>Esses dados já foram cobrados em 2024 (Q46, Q47 e Q48) e são fundamentais para a prática clínica centrada na pessoa.</p>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Componente do MCCP</th>
+                            <th>Foco principal</th>
+                            <th>Dimensões/Exemplos</th>
+                            <th>Relação com a questão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1º componente: explorar a saúde, a doença e a experiência do adoecer</td>
+                            <td>Ampliar a escuta e compreender a experiência subjetiva da pessoa</td>
+                            <td>Sentimentos, Ideias, Funcionalidades e Expectativas (FIFE)</td>
+                            <td>Questão atual</td>
+                        </tr>
+                        <tr>
+                            <td>2º componente: entender a pessoa como um todo</td>
+                            <td>Contexto familiar, social, cultural e biográfico</td>
+                            <td>História de vida, família, trabalho, determinantes sociais</td>
+                            <td>Complementa a compreensão do adoecer</td>
+                        </tr>
+                        <tr>
+                            <td>3º componente: elaborar um plano conjunto de manejo</td>
+                            <td>Decisão compartilhada e corresponsabilização</td>
+                            <td>Negociação de metas, plano terapêutico conjunto</td>
+                            <td>Depende da exploração do FIFE</td>
+                        </tr>
+                        <tr>
+                            <td>4º componente: intensificar a relação pessoa-médico</td>
+                            <td>Vínculo, empatia e continuidade do cuidado</td>
+                            <td>Escuta ativa, compaixão, longitudinalidade</td>
+                            <td>Favorecido pela compreensão do FIFE</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Isso permite acertar questões que cobram a diferença entre os quatro componentes do MCCP e suas aplicações na consulta.</p>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <ul>
+                    <li><strong>Se a questão pedisse a importância de deixar o paciente falar primeiro:</strong> a resposta destacaria que isso amplia o foco da consulta e inclui a experiência da doença.</li>
+                    <li><strong>Se pedisse a aplicação do MCCP em multimorbidade:</strong> a resposta envolveria uma visão ampla, decisão compartilhada e consideração dos múltiplos fatores.</li>
+                    <li><strong>Se pedisse a diferença entre MCCP e modelo biomédico:</strong> a resposta destacaria a centralidade da pessoa, da experiência do adoecer e da decisão compartilhada.</li>
+                    <li><strong>Se pedisse o FIFE em um caso clínico:</strong> a resposta exigiria a identificação das quatro dimensões nos relatos do paciente, como nesta questão.</li>
+                </ul>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2021 – Q50</td>
+                            <td>Combinação entre relatos de paciente e dimensões do MCCP (FIFE).</td>
+                            <td>Identificação de sentimentos, ideias, funcionalidades e expectativas.</td>
+                            <td>B</td>
+                            <td>Questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q46</td>
+                            <td>Quatro componentes do MCCP; abordagem inicial de paciente com DPOC e diabetes.</td>
+                            <td>Explorar a saúde, a doença e a experiência de adoecimento.</td>
+                            <td>E</td>
+                            <td>Reforça o primeiro componente do MCCP, base para a questão atual.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q47</td>
+                            <td>Importância de permitir que a pessoa comece a consulta contando suas queixas com suas próprias palavras.</td>
+                            <td>Ampliação do foco da consulta e inclusão da experiência da pessoa.</td>
+                            <td>B</td>
+                            <td>Relaciona-se diretamente à escuta do FIFE.</td>
+                        </tr>
+                        <tr>
+                            <td>2024 – Q48</td>
+                            <td>Como a abordagem centrada na pessoa pode melhorar o manejo de pacientes com multimorbidade.</td>
+                        <td>Visão ampla, decisão compartilhada e experiência pessoal das doenças.</td>
+                            <td>D</td>
+                            <td>Complementa a compreensão do MCCP em situações complexas.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q51</td>
+                            <td>MCCP e primeiro componente; combinação de dimensões.</td>
+                            <td>Explorar experiência do adoecer.</td>
+                            <td>B</td>
+                            <td>Tema semelhante ao da questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O MCCP apareceu em pelo menos 5 provas anteriores analisadas (2021, 2022 e 2024). A banca alterna entre cobrar os quatro componentes, a importância de explorar a experiência do adoecer, a aplicação do FIFE e a abordagem em situações de multimorbidade. Em geral, a resposta correta valoriza a escuta ativa, a compreensão das dimensões subjetivas e a decisão compartilhada.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> A aplicação do MCCP em situações de comunicação de más notícias, o manejo de emoções fortes (como raiva e medo) e a relação com a prevenção quaternária ainda podem aparecer em prova. Também pode surgir uma questão sobre o FIFE em pacientes com doenças crônicas ou em cuidados paliativos.</p>
+                <p><strong>Evolução da cobrança:</strong> Em provas mais antigas, o MCCP era cobrado de forma mais conceitual; em provas recentes, a banca tem exigido aplicação prática em casos clínicos, incluindo a identificação de dimensões do FIFE em relatos de pacientes.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> Revisar os quatro componentes do MCCP, o FIFE em detalhes e a aplicação em situações clínicas. Treinar a identificação de sentimentos, ideias, funcionalidades e expectativas em relatos de pacientes.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Comunicação médico-paciente — o MCCP e o FIFE são ferramentas para uma comunicação efetiva, empática e centrada na pessoa.</li>
+                    <li><strong>Conexão 2:</strong> Decisão compartilhada e autonomia — compreender as expectativas e ideias do paciente é essencial para a construção conjunta do plano terapêutico.</li>
+                    <li><strong>Conexão 3:</strong> Integralidade e longitudinalidade — o MCCP favorece a compreensão do contexto biográfico e social, pilares da APS.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais provável é confundir “ideias” com “sentimentos” ou “expectativas”, especialmente no quarto relato (“acho que posso ter câncer”). A estratégia correta é memorizar o FIFE e treinar a identificação de cada dimensão em relatos de pacientes. Tipo de erro mais comum: confusão conceitual entre as dimensões do FIFE. Ação corretiva: revisar o MCCP, o FIFE e resolver questões anteriores sobre o tema (2021 Q50, 2024 Q46-Q48).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática da APS, aplicar o MCCP e o FIFE permite compreender melhor as preocupações do paciente, identificar medos e crenças que podem interferir na adesão ao tratamento, e construir um plano conjunto mais efetivo. O médico deve evitar reduzir a consulta à queixa biomédica, ampliando a escuta para a experiência do adoecer.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Método Clínico Centrado na Pessoa (MCCP) e seus quatro componentes.</li>
+                    <li>Dimensões do FIFE (sentimentos, ideias, funcionalidades e expectativas).</li>
+                    <li>Escuta ativa e comunicação empática.</li>
+                    <li>Decisão compartilhada e autonomia do paciente.</li>
+                    <li>Integralidade e longitudinalidade na APS.</li>
+                    <li>Diferença entre doença e experiência do adoecer.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Stewart M, Brown JB, Weston WW, et al. Medicina Centrada na Pessoa: transformando o método clínico. Porto Alegre: Artmed, 2010.</p>
+                <p>2. Gusso G, Lopes JMC. Tratado de Medicina de Família e Comunidade. Porto Alegre: Artmed, 2012.</p>
+                <p>3. Brasil. Ministério da Saúde. Cadernos de Atenção Primária à Saúde.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'B';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>

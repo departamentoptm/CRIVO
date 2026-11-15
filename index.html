@@ -958,6 +958,10 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
 /* sincronização com o Drive */
 .drive-status { font-size: .8rem; color: var(--muted); text-align: center; margin-top: .75rem; min-height: 1.1em; line-height: 1.35; }
 .drive-status.erro { color: #c02a3a; }
+
+.drive-aviso { font-size: .72rem; color: var(--muted); text-align: center; margin-top: .5rem; line-height: 1.4; }
+.drive-aviso a, .auth-legal a { color: var(--navy-600); text-decoration: underline; text-underline-offset: 2px; }
+.auth-legal { margin-top: 1rem; text-align: center; font-size: .75rem; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -1020,7 +1024,9 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                     <button class="auth-btn home-btn-danger" id="logoutBtn">Sair</button>
                 </div>
                 <div class="drive-status" id="driveStatus" aria-live="polite"></div>
+                <div class="drive-aviso">Ao sincronizar, o CRIVO grava o seu progresso na pasta “CRIVO - Progresso” do seu Google Drive e não acessa nenhum outro arquivo. <a href="privacidade.html" target="_blank" rel="noopener">Saiba mais</a></div>
             </div>
+            <div class="auth-legal"><a href="sobre.html" target="_blank" rel="noopener">Sobre o CRIVO</a><span aria-hidden="true"> · </span><a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a></div>
         </div>
     </div>
 
@@ -2908,7 +2914,9 @@ function exportarAnki() {
     }
     const base = `${currentExam}_${currentYear}_Q_${q.num}`;
     const nomeSeguro = base.replace(/[\\/:*?"<>|]/g, '-');
-    const tag = `CRIVO ${String(currentExam).replace(/\s+/g, '_')}_${currentYear}_Q${q.num}`;
+    const _tagBanca = String(currentExam).trim().replace(/\s+/g, '_');
+    const _disc = disciplinaDe(currentExam, currentYear, q.num);
+    const tag = [_tagBanca, _disc ? _disc.replace(/\s+/g, '_') : ''].filter(Boolean).join(' ');   /* tags separadas por espaço */
     const linhas = [
         '#separator:tab',
         '#html:true',
@@ -3324,6 +3332,7 @@ function ocultRespCriarBotao(doc, titulo) {
         '</style>' +
         '<div class="w"><button type="button" class="b" aria-label="Alternar ocultação das respostas corretas" aria-pressed="true"></button>' +
         '<div class="tip" hidden></div></div>';
+    host.style.display = 'none';          /* fora do layout até o título aparecer */
     doc.body.appendChild(host);
     const w = sh.querySelector('.w'), btn = sh.querySelector('.b'), tip = sh.querySelector('.tip');
     let tTip = null;
@@ -3361,8 +3370,10 @@ function ocultRespCriarBotao(doc, titulo) {
         host.style.top = (y - o.top) + 'px';
     }
     function definirVisivel(v) {
+        if (v) host.style.display = '';
         w.classList.toggle('vis', v);
-        if (v) posicionar(); else esconderTip();
+        if (v) posicionar();
+        else { esconderTip(); host.style.display = 'none'; }   /* não estende a rolagem da página */
     }
 
     btn.addEventListener('click', (e) => {
@@ -3532,6 +3543,8 @@ const driveStatusEl = document.getElementById('driveStatus');
 let driveTok = null, driveTokExp = 0, driveClient = null, driveGisPromise = null;
 let driveResolver = null, driveRejeitar = null;
 let driveSincronizando = false, driveRepetir = false, driveAtivo = false, driveTimer = null, drivePastaId = null;
+let driveArquivoId = null, driveUltimaAssinatura = '', driveTokPromise = null, driveUltimaTentativa = 0, driveSalvandoInterno = false;
+const DRIVE_DEVICE_FLAG = 'crivo_drive_dispositivo';
 const driveFlagKey = ra => 'crivo_drive_ativo_' + ra;
 const driveConfigurado = () => !/COLE_AQUI/.test(DRIVE_CLIENT_ID);
 
@@ -3556,7 +3569,8 @@ function driveCarregarGis() {
 
 function driveObterToken(interativo) {
     if (driveTok && Date.now() < driveTokExp - 60000) return Promise.resolve(driveTok);
-    return driveCarregarGis().then(() => new Promise((res, rej) => {
+    if (driveTokPromise) return driveTokPromise;
+    driveTokPromise = driveCarregarGis().then(() => new Promise((res, rej) => {
         if (!driveClient) {
             driveClient = google.accounts.oauth2.initTokenClient({
                 client_id: DRIVE_CLIENT_ID,
@@ -3574,6 +3588,9 @@ function driveObterToken(interativo) {
         driveRejeitar = rej;
         driveClient.requestAccessToken(interativo ? {} : { prompt: 'none' });
     }));
+    const limpar = () => { driveTokPromise = null; };
+    driveTokPromise.then(limpar, limpar);
+    return driveTokPromise;
 }
 
 async function driveFetch(url, opts = {}) {
@@ -3656,6 +3673,9 @@ function mesclarProgresso(a, b) {
     return { registro, grifados, resetados, ultimaPosicao };
 }
 
+function driveAssinatura() {
+    return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao]);
+}
 function driveDadosParaNuvem() {
     return JSON.stringify({
         formato: 'crivo-progresso', versao: 2,
@@ -3692,15 +3712,18 @@ async function sincronizarDrive(interativo) {
         if (remoto) {
             const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
-            salvarBackup();
+            driveSalvandoInterno = true;
+            try { salvarBackup(); } finally { driveSalvandoInterno = false; }
         }
-        try { await driveGravar(pasta, nome, arq, driveDadosParaNuvem()); }
+        const _assin = driveAssinatura();
+        try { driveArquivoId = await driveGravar(pasta, nome, arq, driveDadosParaNuvem()); }
         catch (e) {
-            if (e.status === 404 && arq) { await driveGravar(pasta, nome, null, driveDadosParaNuvem()); }   /* arquivo apagado no Drive */
+            if (e.status === 404 && arq) { driveArquivoId = await driveGravar(pasta, nome, null, driveDadosParaNuvem()); }   /* arquivo apagado no Drive */
             else throw e;
         }
+        driveUltimaAssinatura = _assin;
         driveAtivo = true;
-        try { localStorage.setItem(driveFlagKey(ra), '1'); } catch {}
+        try { localStorage.setItem(driveFlagKey(ra), '1'); localStorage.setItem(DRIVE_DEVICE_FLAG, '1'); } catch {}
         setDirty(false);
         try { updateFabBarButtons(); } catch {}
         const hh = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -3723,15 +3746,16 @@ async function sincronizarDrive(interativo) {
 function agendarUploadDrive() {
     if (!currentRA || !driveAtivo || !driveConfigurado()) return;
     if (driveSincronizando) { driveRepetir = true; return; }
+    if (driveAssinatura() === driveUltimaAssinatura) return;
     if (!driveTok || Date.now() > driveTokExp - 60000) {
-        driveMsg('☁️ Há alterações só neste aparelho. Toque em “Sincronizar com Google Drive” na tela inicial.');
+        driveMsg('☁️ Há alterações só neste aparelho. Elas serão enviadas ao Drive no próximo toque na tela.');
         return;
     }
     clearTimeout(driveTimer);
-    driveTimer = setTimeout(() => { sincronizarDrive(false).catch(() => {}); }, 15000);
+    driveTimer = setTimeout(() => { sincronizarDrive(false).catch(() => {}); }, 8000);
 }
 const _salvarBackupDrive = salvarBackup;
-salvarBackup = function () { _salvarBackupDrive(); try { agendarUploadDrive(); } catch {} };
+salvarBackup = function () { _salvarBackupDrive(); if (!driveSalvandoInterno) { try { agendarUploadDrive(); } catch {} } };
 
 driveBtnHome.addEventListener('click', async () => {
     driveBtnHome.disabled = true;
@@ -3742,13 +3766,63 @@ const _loginWithRADrive = loginWithRA;
 loginWithRA = async function (ra) {
     const ok = await _loginWithRADrive(ra);
     if (ok) {
-        try { driveAtivo = localStorage.getItem(driveFlagKey(currentRA)) === '1'; } catch { driveAtivo = false; }
-        drivePastaId = null;
-        driveMsg(driveAtivo ? '☁️ Toque em “Sincronizar com Google Drive” para atualizar este aparelho.'
-                            : '☁️ Guarde o progresso na sua conta Google para usá-lo em outros aparelhos.');
+        let disp = false;
+        try { disp = localStorage.getItem(DRIVE_DEVICE_FLAG) === '1' || localStorage.getItem(driveFlagKey(currentRA)) === '1'; } catch {}
+        driveAtivo = disp; drivePastaId = null; driveArquivoId = null; driveUltimaAssinatura = '';
+        if (disp && driveConfigurado()) {
+            driveMsg('☁️ Sincronizando com o Google Drive…');
+            sincronizarDrive(true).catch(() => {});          /* ao entrar */
+        } else {
+            driveMsg('☁️ Guarde o progresso na sua conta Google para usá-lo em outros aparelhos.');
+        }
     }
     return ok;
 };
+/* o pedido de autorização precisa ocorrer dentro do toque/clique do aluno */
+loginBtn.addEventListener('click', () => {
+    try {
+        if (driveConfigurado() && localStorage.getItem(DRIVE_DEVICE_FLAG) === '1') driveObterToken(true).catch(() => {});
+    } catch {}
+}, true);
+
+/* envio final rápido (ao sair, trocar de aba/app ou fechar): usa o arquivo já conhecido */
+function driveEnvioRapido() {
+    if (!currentRA || !driveAtivo || !driveTok || Date.now() > driveTokExp || !driveArquivoId) return;
+    if (driveAssinatura() === driveUltimaAssinatura) return;
+    const corpo = driveDadosParaNuvem();
+    const cabe = new Blob([corpo]).size < 60000;           /* limite do keepalive: 64 KB */
+    driveUltimaAssinatura = driveAssinatura();
+    fetch(`${DRIVE_UP}/${driveArquivoId}?uploadType=media&fields=id`, {
+        method: 'PATCH', keepalive: cabe,
+        headers: { Authorization: 'Bearer ' + driveTok, 'Content-Type': 'application/json; charset=UTF-8' },
+        body: corpo
+    }).catch(() => { driveUltimaAssinatura = ''; });
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') driveEnvioRapido(); });
+window.addEventListener('pagehide', driveEnvioRapido);
+logoutBtn.addEventListener('click', driveEnvioRapido, true);   /* antes de o progresso ser limpo */
+
+/* durante o uso: renova a autorização num toque do aluno e sincroniza periodicamente */
+function driveRenovarSeNecessario() {
+    if (!currentRA || !driveAtivo || !driveConfigurado() || driveSincronizando) return;
+    const expirando = !driveTok || Date.now() > driveTokExp - 5 * 60000;
+    if (!expirando || Date.now() - driveUltimaTentativa < 3 * 60000) return;
+    driveUltimaTentativa = Date.now();
+    sincronizarDrive(true).catch(() => {});
+}
+document.addEventListener('click', driveRenovarSeNecessario, true);
+questionFrame.addEventListener('load', () => {
+    const d = docDaQuestao();
+    if (d && !d.__crivoDriveClick) { d.__crivoDriveClick = true; d.addEventListener('click', driveRenovarSeNecessario, true); }
+});
+setInterval(() => {
+    if (currentRA && driveAtivo && driveTok && Date.now() < driveTokExp - 60000 && !driveSincronizando && document.visibilityState === 'visible') {
+        sincronizarDrive(false).catch(() => {});
+    }
+}, 120000);
+window.addEventListener('online', () => {
+    if (currentRA && driveAtivo && driveTok && Date.now() < driveTokExp - 60000) sincronizarDrive(false).catch(() => {});
+});
 logoutBtn.addEventListener('click', () => {
     clearTimeout(driveTimer);
     driveTok = null; driveTokExp = 0; driveAtivo = false; drivePastaId = null;

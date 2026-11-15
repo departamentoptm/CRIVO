@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 28 - Ginecologia e Obstetrícia: Doença Inflamatória Pélvica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia e Obstetrícia: Doença Inflamatória Pélvica</div>
+        <h1>Questão 28</h1>
+        <div class="question-text">
+            A doença inflamatória pélvica é a infecção nos órgãos do trato reprodutivo superior e está relacionada a sequelas na vida reprodutiva da mulher. Sobre essa condição analise as assertivas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>(1)</strong> Pode ser silenciosa, assintomática e nesse caso menos relacionada a infertilidade por fator tubário.</div>
+            <div class="statement"><strong>(2)</strong> Na sua forma aguda os principais sintomas são febre, dor abdome inferior, secreção vaginal amarelada ou metrorragia.</div>
+            <div class="statement"><strong>(3)</strong> O tratamento apropriado tem como objetivo o alívio dos sintomas mas não há evidência de que reduza o desenvolvimento de sequelas.</div>
+            <div class="statement"><strong>(4)</strong> O tratamento dos casos leves ou moderados pode ser apenas pela via oral mesmo em mulheres HIV positivo.</div>
+            <div class="statement"><strong>(5)</strong> Entre os critérios para o tratamento hospitalar endovenoso da DIP estão a idade inferior a 20 anos, suspeita ou presença de abscesso tubo ovariano ou leucocitose acima de 15 mil/mm3.</div>
+            <div class="statement"><strong>Estão corretas as assertivas</strong></div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - 1, 2 e 3 apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - 2, 3 e 4 apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - 2, 4 e 5 apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - 3, 4 e 5 apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - 1, 3 e 5 apenas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia — Infectologia ginecológica.</p>
+                <p><strong>Tema:</strong> Doença inflamatória pélvica (DIP) — formas de apresentação, tratamento ambulatorial versus hospitalar e impacto sobre a fertilidade.</p>
+                <p><strong>Contextualização:</strong> A DIP é uma síndrome clínica de infecção ascendente do trato reprodutivo feminino, geralmente por <em>Chlamydia trachomatis</em> e <em>Neisseria gonorrhoeae</em>, com anaeróbios associados. É causa importante de infertilidade tubária, gravidez ectópica e dor pélvica crônica. Tema de alta incidência em provas de residência, frequentemente combinado com corrimento, cervicite, ISTs e planejamento reprodutivo.</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A DIP resulta da ascensão de microrganismos do colo uterino e da vagina para o endométrio, tubas e peritônio pélvico. A forma aguda cursa com dor abdominal baixa, febre, secreção vaginal mucopurulenta e metrorragia. A forma silenciosa ou subclínica é a mais comum e está <strong>mais</strong> associada a infertilidade tubária, porque a inflamação crônica e as aderências se instalam sem diagnóstico. O tratamento precoce e adequado reduz sequelas reprodutivas, e o esquema oral é eficaz em casos leves/moderados, inclusive em mulheres vivendo com HIV. Os critérios de hospitalização incluem gravidez, abscesso tubo-ovariano, doença grave, falha do tratamento oral, intolerância a antibióticos orais, e — conforme a banca — idade inferior a 20 anos e leucocitose acima de 15.000/mm³.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa C — 2, 4 e 5 apenas.</strong> A assertiva 2 está correta: febre, dor abdominal inferior e secreção vaginal amarelada ou metrorragia são manifestações da DIP aguda. A assertiva 4 está correta: casos leves ou moderados podem ser tratados por via oral, inclusive em mulheres HIV positivas, desde que não haja critérios de hospitalização. A assertiva 5 está correta de acordo com os critérios de internação para DIP. A assertiva 1 é falsa porque a forma silenciosa está <strong>mais</strong> relacionada à infertilidade tubária. A assertiva 3 é falsa porque o tratamento apropriado reduz sim o desenvolvimento de sequelas.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A (1, 2 e 3):</strong> inclui a assertiva 1, que afirma erroneamente que a DIP silenciosa está menos relacionada à infertilidade, e a 3, que nega o efeito do tratamento na prevenção de sequelas.</p>
+                <p><strong>Alternativa B (2, 3 e 4):</strong> mantém a assertiva 3 incorreta e exclui a 5, que está correta.</p>
+                <p><strong>Alternativa D (3, 4 e 5):</strong> mantém a assertiva 3 incorreta.</p>
+                <p><strong>Alternativa E (1, 3 e 5):</strong> mantém as assertivas 1 e 3 incorretas e exclui a 4, correta.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Infecção nos órgãos do trato reprodutivo superior”:</strong> define DIP e direciona o raciocínio para ascensão microbiana.</li>
+                    <li><strong>“Sequelas na vida reprodutiva”:</strong> pista para infertilidade tubária, gravidez ectópica e dor pélvica crônica.</li>
+                    <li><strong>“Forma aguda”:</strong> remete à tríade febre, dor abdominal baixa e secreção/metrorragia.</li>
+                    <li><strong>“Via oral em HIV positivo”:</strong> lembra que o HIV não contraindica o tratamento ambulatorial em casos leves/moderados.</li>
+                    <li><strong>“Abscesso tubo ovariano e leucocitose > 15.000”:</strong> critérios de internação.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> suspeitar de DIP em mulher sexualmente ativa com dor pélvica, dispareunia, sangramento irregular e corrimento.</li>
+                    <li><strong>Segundo:</strong> avaliar critérios de hospitalização: gravidez, abscesso tubo-ovariano, doença grave, vômitos/intolerância oral, falha prévia, idade &lt; 20 anos e leucocitose &gt; 15.000.</li>
+                    <li><strong>Terceiro:</strong> tratar empiricamente com cobertura para gonococo, clamídia e anaeróbios; tratar parcerias.</li>
+                    <li><strong>Quarto:</strong> reavaliar em 72 horas e lembrar que o tratamento precoce reduz infertilidade e gravidez ectópica.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> DIP silenciosa está mais associada a infertilidade tubária; tratamento adequado reduz sequelas.</li>
+                    <li><strong>Números e doses:</strong> ceftriaxona 500 mg IM dose única + doxiciclina 100 mg 12/12h por 14 dias + metronidazol 500 mg 12/12h por 14 dias (esquema ambulatorial); critérios de internação incluem idade &lt; 20 anos e leucocitose &gt; 15.000/mm³.</li>
+                    <li><strong>Mnemônicos:</strong> “DIP: dor + febre + corrimento; tratar cedo para preservar a tuba”.</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DIP (a correta)</td>
+                            <td>Dor pélvica, febre, corrimento, dispareunia, sangramento irregular</td>
+                            <td>Critérios clínicos, NAAT para clamídia/gonococo, ultrassonografia pélvica</td>
+                            <td>Esquema ambulatorial ou hospitalar conforme critérios; tratar parcerias</td>
+                        </tr>
+                        <tr>
+                            <td>Apendicite aguda</td>
+                            <td>Dor migratória para FID, anorexia, náuseas, febre</td>
+                            <td>Ultrassonografia, tomografia</td>
+                            <td>Cirurgia</td>
+                        </tr>
+                        <tr>
+                            <td>Gravidez ectópica</td>
+                            <td>Atraso menstrual, dor, sangramento, β-hCG positivo</td>
+                            <td>β-hCG, ultrassonografia transvaginal</td>
+                            <td>Manejo conforme estabilidade e tamanho</td>
+                        </tr>
+                        <tr>
+                            <td>Cisto ovariano complicado</td>
+                            <td>Dor pélvica unilateral, massa anexial, náuseas</td>
+                            <td>Ultrassonografia, Doppler</td>
+                            <td>Analgesia, cirurgia se torção/ruptura</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Se a questão pedisse o principal agente, seria clamídia/gonococo. Se pedisse a sequela mais temida, seria infertilidade tubária. Se pedisse o esquema ambulatorial, seria ceftriaxona + doxiciclina + metronidazol. Se pedisse critérios de internação, seria abscesso tubo-ovariano, gravidez, falha de tratamento. Se pedisse a conduta em HIV positivo com quadro leve, seria tratamento ambulatorial oral.</p>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2011 – Q65</td>
+                            <td>Suspeita diagnóstica de DIP com sintomas mínimos; critérios clínicos.</td>
+                            <td>Sintomas e sinais necessários para suspeita de DIP.</td>
+                            <td>B</td>
+                            <td>Base para reconhecer manifestações clínicas da DIP (assertiva 2).</td>
+                        </tr>
+                        <tr>
+                            <td>2019 – Q25</td>
+                            <td>Paciente com corrimento e múltiplos parceiros; conduta em DIP/cervicite.</td>
+                            <td>Manejo sindrômico, tratamento de parcerias e investigação de ISTs.</td>
+                            <td>E</td>
+                            <td>Complementa o tratamento e a necessidade de tratar parcerias.</td>
+                        </tr>
+                        <tr>
+                            <td>2022 – Q28</td>
+                            <td>Assertivas sobre DIP: forma silenciosa, sintomas agudos, tratamento, HIV e critérios de internação.</td>
+                            <td>Apresentação clínica, tratamento e critérios de hospitalização.</td>
+                            <td>C</td>
+                            <td>A própria questão (repetida de 2022), com gabarito C.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 3 questões no período. A banca alterna entre critérios clínicos de suspeita, manejo sindrômico/tratamento de parcerias e critérios de internação/tratamento ambulatorial.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Esquemas antibióticos detalhados (ceftriaxona + doxiciclina + metronidazol), DIP por anaeróbios e falha terapêutica, papel da laparoscopia diagnóstica, DIP em usuárias de DIU e complicações como síndrome de Fitz-Hugh-Curtis.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões antigas eram mais descritivas sobre sintomas; as recentes cobram critérios de tratamento e prognóstico reprodutivo.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar critérios de internação, esquemas ambulatorial e hospitalar, e o impacto da DIP silenciosa na fertilidade.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> ISTs — a DIP é uma complicação ascendente de gonorreia e clamídia; o manejo deve incluir investigação de outras ISTs e tratamento de parcerias.</li>
+                    <li><strong>Conexão 2:</strong> Infertilidade e gravidez ectópica — sequelas diretas da DIP; o tratamento precoce reduz o risco.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais comum é aceitar a assertiva 1 por acreditar que a forma silenciosa é “menos grave”. Na verdade, a DIP assintomática é a que mais se associa a infertilidade tubária, porque o diagnóstico e o tratamento são tardios. Outro erro é aceitar a assertiva 3, desconhecendo que o tratamento reduz sequelas. Classificação: confusão conceitual e lacuna de conhecimento. Ação corretiva: memorizar que a DIP silenciosa é mais relacionada a infertilidade e que o tratamento precoce previne sequelas.</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a mulher sexualmente ativa com dor pélvica, febre e corrimento deve ser tratada empiricamente para DIP, com investigação de ISTs e tratamento da parceria. Em casos leves/moderados, o esquema oral é eficaz, inclusive em HIV positivas; a internação é reservada para abscesso tubo-ovariano, gravidez, doença grave, falha terapêutica, idade &lt; 20 anos e leucocitose &gt; 15.000/mm³.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Critérios clínicos de suspeita de DIP.</li>
+                    <li>Esquemas antimicrobianos ambulatorial e hospitalar.</li>
+                    <li>Critérios de internação.</li>
+                    <li>Sequelas reprodutivas: infertilidade, gravidez ectópica e dor pélvica crônica.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. Ministério da Saúde. Protocolo Clínico e Diretrizes Terapêuticas para Atenção Integral às Pessoas com Infecções Sexualmente Transmissíveis (IST).</p>
+                <p>2. CDC. Sexually Transmitted Infections Treatment Guidelines, 2021.</p>
+                <p>3. FEBRASGO. Doença Inflamatória Pélvica — Diretrizes.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'C';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
