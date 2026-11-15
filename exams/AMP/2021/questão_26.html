@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 26 - Ginecologia e Obstetrícia: Síndrome de Mayer-Rokitansky-Küster-Hauser</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            min-height: 100%;
+            background: linear-gradient(135deg, #4C2D59, #A63268, #513873) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        body {
+            min-height: 100vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+        }
+        h1 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .theme {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-number {
+            text-align: center;
+            background: #1a2a6c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 auto 20px;
+        }
+        .question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-table th {
+            background: #1a2a6c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .data-table tr:nth-child(even) {
+            background: #e9ecef;
+        }
+        .statements {
+            margin: 25px 0;
+        }
+        .statement {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #1a2a6c;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .options {
+            margin: 30px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            border-color: #1a2a6c;
+            background: #f0f4ff;
+        }
+        .option input {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+        .option.selected {
+            border-color: #1a2a6c;
+            background: #e6eeff;
+            box-shadow: 0 0 10px rgba(26, 42, 108, 0.2);
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #4C2D59, #A63268, #513873);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn.correct {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+        .view-correction-btn {
+            background: linear-gradient(90deg, #007bff, #6f42c1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            display: none;
+        }
+        .view-correction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        .result-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .correct-answer {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .user-answer {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .explanation {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .explanation h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+        }
+        .explanation h4 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            font-size: 17px;
+            border-bottom: 1px solid #d0d7e6;
+            padding-bottom: 5px;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .explanation ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .explanation table.data-table {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .question-text {
+                font-size: 14px;
+            }
+            .option label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="theme">Ginecologia e Obstetrícia: Síndrome de Mayer-Rokitansky-Küster-Hauser</div>
+        <h1>Questão 26</h1>
+        <div class="question-text">
+            Adolescente, 17 anos de idade, queixa-se que nunca menstruou. Teve a primeira relação sexual há 4 meses e sentiu muita dor e repetiu 20 dias após e o mesmo repetiu-se. Nega comorbidades. Ao exame ginecológico observou-se mamas normoplásicas. Pilificação ginecoide, normodensa. Vaginometria 2 cm. A dosagem de FSH foi 8,37 mUI/mL (normal 7,7 - 21,5 mUI/mL), a de LH 1,4 mUI/mL (normal 11,4 - 95,6 mUI/mL) e a de Estradiol 210,87 pg/mL. Ultrassom pélvico ginecológico descreve ausência de útero e ovários normais. Sobre este caso analise as assertivas abaixo.
+        </div>
+
+        <div class="statements">
+            <div class="statement"><strong>I.</strong> Trata-se de uma Síndrome de Mayer, Rokitanski, Kuster, Hause Tipo II.</div>
+            <div class="statement"><strong>II.</strong> As dosagens hormonais demonstram ciclo ovulatório.</div>
+            <div class="statement"><strong>III.</strong> Trata-se de um Síndrome de Mayer, Rokitanski, Kuster, Hause Tipo I.</div>
+            <div class="statement"><strong>IV.</strong> Indicada gonadectomia e reposição estrogênica.</div>
+            <div class="statement"><strong>V.</strong> Para vida sexual adequada indicas-se neovagina e para gravidez transplante de útero.</div>
+            <div class="statement"><strong>Estão corretas as assertivas</strong></div>
+        </div>
+
+        <div class="options">
+            <div class="option" onclick="selectOption('A')">
+                <input type="radio" name="answer" id="optionA" value="A">
+                <label for="optionA"><strong>A</strong> - I e V apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('B')">
+                <input type="radio" name="answer" id="optionB" value="B">
+                <label for="optionB"><strong>B</strong> - II e IV apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('C')">
+                <input type="radio" name="answer" id="optionC" value="C">
+                <label for="optionC"><strong>C</strong> - I, II e IV apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('D')">
+                <input type="radio" name="answer" id="optionD" value="D">
+                <label for="optionD"><strong>D</strong> - I, III e IV apenas.</label>
+            </div>
+            <div class="option" onclick="selectOption('E')">
+                <input type="radio" name="answer" id="optionE" value="E">
+                <label for="optionE"><strong>E</strong> - II, III e V apenas.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
+            <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Resultado da Questão</h2>
+            <div class="correct-answer">
+                <strong>Resposta Correta:</strong> <span id="correctAnswer"></span>
+            </div>
+            <div class="user-answer">
+                <strong>Sua Resposta:</strong> <span id="userAnswer"></span>
+            </div>
+            <div class="explanation" id="correctionContent">
+                <h3>Correção da Questão</h3>
+
+                <h4>2.1 Tema Central e Contextualização</h4>
+                <p><strong>Disciplina:</strong> Ginecologia e Obstetrícia — Endocrinologia ginecológica e anomalias müllerianas.</p>
+                <p><strong>Tema:</strong> Amenorreia primária por agenesia mülleriana — Síndrome de Mayer-Rokitansky-Küster-Hauser (MRKH) tipos I e II, diagnóstico diferencial com insensibilidade androgênica e disgenesia gonadal, e conduta.</p>
+                <p><strong>Contextualização:</strong> A MRKH é a segunda causa mais comum de amenorreia primária (perdendo apenas para disgenesia gonadal), com prevalência de 1 em 4.000–5.000 mulheres. Caracteriza-se por agenesia congênita de útero e terço superior da vagina, com ovários normais e cariótipo 46,XX, desenvolvimento de caracteres sexuais secundários e gonadotrofinas normais. A prova cobra a classificação em tipos I e II, a interpretação hormonal e as opções terapêuticas (neovagina e transplante uterino).</p>
+
+                <h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+                <p>A MRKH decorre de falha no desenvolvimento dos ductos de Müller (paramesonéfricos), levando à ausência de útero, colo e terço superior da vagina, com ovários funcionantes e cariótipo 46,XX. Como os ovários são normais, há produção normal de estradiol e inibina, com FSH e LH dentro da normalidade (ou LH baixo por feedback). O tipo I (também chamado de típico ou isolado) é a forma mais comum (cerca de 75–80%) e afeta apenas as estruturas müllerianas. O tipo II (atípico) associa-se a anomalias renais (agenesia renal unilateral, rim pélvico), esqueléticas (escoliose, fusão vertebral), cardíacas e auditivas. O tratamento inclui neovagina (dilatadores, cirurgia) para permitir vida sexual e, para aquelas que desejam gestação, transplante uterino (experimental, realizado em alguns centros). A gonadectomia não está indicada porque os ovários são normais e funcionantes. A alternativa correta é a que reúne II, III e V.</p>
+
+                <h4>2.3 Justificativa da Resposta Correta</h4>
+                <p><strong>Alternativa E — II, III e V apenas.</strong> A assertiva II está correta porque FSH normal e estradiol de 210,87 pg/mL são compatíveis com ciclo ovulatório e função ovariana preservada. A assertiva III está correta porque, sem anomalias renais, esqueléticas ou auditivas descritas, trata-se de MRKH tipo I. A assertiva V está correta porque a neovagina permite vida sexual adequada e o transplante uterino tem sido proposto para viabilizar a gestação. A assertiva I está incorreta porque não há dados que caracterizem o tipo II. A assertiva IV está incorreta porque os ovários são normais, não havendo indicação de gonadectomia nem reposição estrogênica.</p>
+
+                <h4>2.4 Análise dos Distratores</h4>
+                <p><strong>Alternativa A (I e V):</strong> inclui a assertiva I (tipo II), incorreta pela ausência de anomalias associadas, e desconsidera a II e a III, corretas.</p>
+                <p><strong>Alternativa B (II e IV):</strong> inclui a assertiva IV, que propõe gonadectomia e reposição estrogênica, conduta absolutamente inadequada na MRKH com ovários normais.</p>
+                <p><strong>Alternativa C (I, II e IV):</strong> inclui a I (incorreta) e a IV (incorreta), apesar de conter a II.</p>
+                <p><strong>Alternativa D (I, III e IV):</strong> contém a I e a IV, ambas incorretas, e não inclui a II.</p>
+
+                <h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+                <ul>
+                    <li><strong>“Nunca menstruou”:</strong> amenorreia primária.</li>
+                    <li><strong>“Mamas normoplásicas, pilificação ginecoide”:</strong> desenvolvimento de caracteres sexuais secundários, afastando disgenesia gonadal.</li>
+                    <li><strong>“Vaginometria 2 cm”:</strong> vagina curta em fundo cego, típica da MRKH.</li>
+                    <li><strong>“FSH normal e estradiol 210,87 pg/mL”:</strong> função ovariana preservada, afastando falência ovariana.</li>
+                    <li><strong>“Ausência de útero e ovários normais”:</strong> confirma agenesia mülleriana.</li>
+                </ul>
+
+                <h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+                <ol>
+                    <li><strong>Primeiro:</strong> confirmar amenorreia primária e avaliar caracteres sexuais secundários (mamas e pilificação).</li>
+                    <li><strong>Segundo:</strong> dosar FSH, LH e estradiol para diferenciar hipogonadismo hipergonadotrófico (disgenesia) de função ovariana normal.</li>
+                    <li><strong>Terceiro:</strong> realizar ultrassonografia pélvica para identificar útero e ovários; ausência de útero com ovários normais sugere MRKH.</li>
+                    <li><strong>Quarto:</strong> realizar cariótipo (46,XX) e investigar anomalias renais e esqueléticas para classificar em tipo I ou II; programar neovagina e discutir transplante uterino.</li>
+                </ol>
+
+                <h4>2.7 Dados para Memorizar (com Contexto)</h4>
+                <ul>
+                    <li><strong>Fatos que definem:</strong> MRKH = amenorreia primária, caracteres sexuais secundários normais, vagina curta em fundo cego, útero ausente, ovários normais, cariótipo 46,XX, FSH normal.</li>
+                    <li><strong>Números e doses:</strong> prevalência 1:4.000–5.000 mulheres; tipo I ≈ 75–80% dos casos; tipo II associa anomalias renais (rim único, rim pélvico), esqueléticas e auditivas.</li>
+                    <li><strong>Mnemônicos:</strong> “MRKH = Müller não formou, ovário funcionou”; “Tipo I isolado, Tipo II acompanhado”.</li>
+                </ul>
+
+                <h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Sinais/Sintomas que diferenciam</th>
+                            <th>Exame/Diagnóstico</th>
+                            <th>Conduta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MRKH tipo I (a correta)</td>
+                            <td>Amenorreia primária, mamas normais, vagina curta em fundo cego, ovários normais, sem anomalias associadas</td>
+                            <td>USG pélvica, RM, cariótipo 46,XX, FSH normal</td>
+                            <td>Neovagina (dilatadores/cirurgia); transplante uterino para gestação</td>
+                        </tr>
+                        <tr>
+                            <td>MRKH tipo II</td>
+                            <td>Mesmo quadro + anomalias renais, esqueléticas, cardíacas ou auditivas</td>
+                            <td>USG renal, RX de coluna, avaliação auditiva, RM</td>
+                            <td>Neovagina; manejo das anomalias associadas</td>
+                        </tr>
+                        <tr>
+                            <td>Insensibilidade androgênica completa</td>
+                            <td>Fenótipo feminino, mamas desenvolvidas, ausência de pilificação, vagina curta em fundo cego, testículos</td>
+                            <td>Cariótipo 46,XY, testosterona elevada, USG pélvica</td>
+                            <td>Gonadectomia após puberdade; reposição estrogênica; neovagina</td>
+                        </tr>
+                        <tr>
+                            <td>Disgenesia gonadal (Turner)</td>
+                            <td>Baixa estatura, pescoço alado, mamas hipoplásicas, FSH elevado, cariótipo 45,X</td>
+                            <td>Cariótipo, FSH/LH elevados, USG pélvica</td>
+                            <td>Reposição hormonal; acompanhamento multidisciplinar</td>
+                        </tr>
+                        <tr>
+                            <td>Hímen imperfurado</td>
+                            <td>Dor cíclica, abaulamento vulvar, útero presente</td>
+                            <td>Exame físico, USG</td>
+                            <td>Himenotomia</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2.9 Variações de Abordagem em Provas</h4>
+                <p>Se a questão pedisse o cariótipo, seria 46,XX. Se pedisse a principal causa de amenorreia primária por agenesia mülleriana, seria MRKH. Se pedisse o tratamento para vida sexual, seria neovagina. Se pedisse a diferença entre os tipos, seria a presença de anomalias renais/esqueléticas no tipo II. Se pedisse o principal diagnóstico diferencial, seria insensibilidade androgênica completa.</p>
+
+                <h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+                <p><strong>Questões das provas de 2006_2026 que abordaram o mesmo tema:</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ano/Questão</th>
+                            <th>Enunciado resumido</th>
+                            <th>O que foi cobrado</th>
+                            <th>Resposta correta</th>
+                            <th>Relação com a questão atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2010 – Q10</td>
+                            <td>Ausência de caracteres sexuais secundários na amenorreia primária e significado.</td>
+                            <td>Interpretação das características sexuais secundárias na amenorreia primária.</td>
+                            <td>C</td>
+                            <td>Base conceitual para diferenciar MRKH de disgenesia gonadal.</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q63</td>
+                            <td>Paciente de 28 anos com amenorreia e suspeita de Síndrome de Swyer.</td>
+                            <td>Diferenciação de amenorreia primária por disgenesia gonadal.</td>
+                            <td>B</td>
+                        </tr>
+                        <tr>
+                            <td>2013 – Q69</td>
+                            <td>Letiena, 17 anos, sem menarca, sindactilia, mamas desenvolvidas, ausência de útero e ovários normais.</td>
+                            <td>Diagnóstico de Síndrome de Mayer-Rokitansky-Küster-Hauser.</td>
+                            <td>A</td>
+                            <td>Mesmo quadro clínico; aborda cariótipo XY? (incorreta) e agenesia mülleriana.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q44</td>
+                            <td>Adolescente de 15 anos sem menarca, caracteres sexuais secundários, testes de progesterona e estrogênio negativos.</td>
+                            <td>Diagnóstico diferencial de amenorreia primária.</td>
+                            <td>B</td>
+                            <td>Ajuda a diferenciar testes hormonais e compartimentos.</td>
+                        </tr>
+                        <tr>
+                            <td>2017 – Q45</td>
+                            <td>Senhora de 36 anos com amenorreia, teste de progesterona negativo, estrogênio positivo, FSH elevado.</td>
+                            <td>Falência ovariana precoce.</td>
+                            <td>C</td>
+                            <td>Diferencial de amenorreia; reforça que MRKH tem FSH normal.</td>
+                        </tr>
+                        <tr>
+                            <td>2018 – Q21</td>
+                            <td>Afirmativas sobre testes de progesterona e estrogênio.</td>
+                            <td>Fisiologia dos testes hormonais na amenorreia.</td>
+                            <td>D</td>
+                            <td>Complementa o raciocínio diagnóstico.</td>
+                        </tr>
+                        <tr>
+                            <td>2021 – Q26</td>
+                            <td>Adolescente de 17 anos, nunca menstruou, dor na relação, mamas normais, vagina 2 cm, FSH normal, estradiol 210,87, ausência de útero e ovários normais.</td>
+                            <td>MRKH tipo I, função ovariana normal, neovagina e transplante uterino.</td>
+                            <td>E</td>
+                            <td>A própria questão atual.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em pelo menos 6 questões no período. A banca alterna entre diagnóstico diferencial de amenorreia primária, interpretação dos testes hormonais, distinção entre MRKH e disgenesia gonadal e opções terapêuticas.</p>
+                <p><strong>Abordagem ainda não cobrada:</strong> Classificação completa de MRKH (tipo I vs tipo II), investigação de anomalias renais e esqueléticas, detalhes das técnicas de neovagina (McIndoe, Vecchietti, dilatadores) e critérios de indicação do transplante uterino.</p>
+                <p><strong>Evolução da cobrança:</strong> As questões antigas eram mais descritivas sobre amenorreia primária; as recentes cobram raciocínio diagnóstico completo, classificação e opções terapêuticas, incluindo transplante uterino.</p>
+                <p><strong>O que isso sugere para a próxima prova:</strong> revisar a classificação de MRKH, os exames de investigação de anomalias associadas e as opções de neovagina.</p>
+
+                <h4>2.11 Conexão com Outros Temas</h4>
+                <ul>
+                    <li><strong>Conexão 1:</strong> Amenorreia primária — a MRKH é uma das principais causas; o diagnóstico diferencial inclui disgenesia gonadal e insensibilidade androgênica.</li>
+                    <li><strong>Conexão 2:</strong> Anomalias müllerianas — a agenesia mülleriana integra o espectro das anomalias do desenvolvimento, com impacto reprodutivo e psicológico.</li>
+                </ul>
+
+                <h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+                <p>O erro mais comum é marcar o tipo II por desconhecer que a forma isolada (sem anomalias renais/esqueléticas) é o tipo I. Outro erro é aceitar a gonadectomia, por confundir MRKH com insensibilidade androgênica. Classificação: lacuna de conhecimento sobre classificação e diferenciais. Ação corretiva: memorizar os critérios do tipo I e II e o padrão hormonal da MRKH (FSH normal, ovários funcionantes).</p>
+
+                <h4>2.13 Conexão com a Prática</h4>
+                <p>Na prática, a adolescente com amenorreia primária e mamas desenvolvidas deve ser investigada com ultrassonografia pélvica e dosagens hormonais; o diagnóstico de MRKH impacta a vida sexual e reprodutiva. O aconselhamento psicológico, a neovagina e a discussão sobre transplante uterino são fundamentais.</p>
+
+                <h4>2.14 Conceitos Relacionados para Revisar</h4>
+                <ul>
+                    <li>Classificação de MRKH tipo I e II.</li>
+                    <li>Diagnóstico diferencial de amenorreia primária.</li>
+                    <li>Técnicas de neovagina (dilatadores, McIndoe, Vecchietti).</li>
+                    <li>Transplante uterino: indicações e limitações.</li>
+                </ul>
+
+                <h4>2.15 Listagem das Referências</h4>
+                <p>1. FEBRASGO. Anomalias Müllerianas — Diretrizes.</p>
+                <p>2. ACOG Committee Opinion. Müllerian Agenesis: Diagnosis, Management, and Treatment.</p>
+                <p>3. Speroff L, Fritz MA. Clinical Gynecologic Endocrinology and Infertility.</p>
+            </div>
+            <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
+        </div>
+    </div>
+
+   <script>
+    let selectedOption = null;
+    const correctAnswer = 'E';
+    const isInIframe = window.parent !== window;
+
+    function notifyParent(type, payload, silent) {
+        if (silent || !isInIframe) return;
+        try {
+            window.parent.postMessage({ type, payload }, '*');
+        } catch (e) { }
+    }
+
+    function selectOption(option, silent = false) {
+        const options = document.querySelectorAll('.option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const input = document.querySelector(`.option input[value="${option}"]`);
+        if (!input) return;
+        const wrapper = input.parentElement;
+        wrapper.classList.add('selected');
+        input.checked = true;
+        selectedOption = option;
+        notifyParent('OPTION_SELECTED', { selected: option }, silent);
+    }
+
+    function checkAnswer(silent = false) {
+        if (!selectedOption) {
+            if (!silent) alert('Por favor, selecione uma opção antes de confirmar.');
+            return;
+        }
+        const submitBtn = document.getElementById('submitBtn');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+        document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.style.display = 'block';
+
+        if (selectedOption === correctAnswer) {
+            submitBtn.textContent = 'Resposta Correta!';
+            submitBtn.classList.add('correct');
+        } else {
+            submitBtn.textContent = 'Confirmar Resposta';
+            submitBtn.classList.remove('correct');
+        }
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+
+        notifyParent('QUESTION_ANSWERED',
+            { selected: selectedOption, correct: correctAnswer }, silent);
+
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showCorrection() {
+        const correctionContent = document.getElementById('correctionContent');
+        const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+        if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+            correctionContent.style.display = 'block';
+            viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+        } else {
+            correctionContent.style.display = 'none';
+            viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+        }
+    }
+
+    function resetQuiz() {
+        selectedOption = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('input[name="answer"]').forEach(r => r.checked = false);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        document.getElementById('viewCorrectionBtn').style.display = 'none';
+        document.getElementById('resultContainer').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('message', (event) => {
+        if (!isInIframe) return;
+        if (event.source !== window.parent) return;
+        if (event.data?.type !== 'RESTORE_STATE') return;
+
+        const { selected, correct } = event.data.payload || {};
+        if (selected) {
+            selectOption(selected, true);
+            if (correct) {
+                checkAnswer(true);
+            }
+        }
+    });
+</script>
+</body>
+</html>
