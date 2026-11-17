@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-deepseek_automation.py  —  geração em massa de questao_N.html via DeepSeek Chat
-(versão para operação contínua, sem supervisão, com progressão automática entre edições)
+deepseek_automation.py — Geração em massa de questao_N.html via DeepSeek Chat
+(Proposta Híbrida + Anti-Detecção de Automação)
 
-Novidades desta versão:
-  * O menu "M" foi redefinido: ele agora lista as BANCAS encontradas em EXAMS_DIR e
-    inicia o processamento automático de todas as edições daquela banca, em ordem
-    decrescente de ano (2026 → 2025 → 2024 → ...), carregando o perguntas.txt (ou .pdf)
-    de cada edição em uma nova conversa. Ao terminar uma edição, a próxima começa
-    sozinha. Em caso de erro/interrupção, a retomada é automática por edição (cada
-    edição tem seu próprio progresso.json e sua própria pasta de saída).
-
-  * As demais funções foram preservadas: detecção de "servidor ocupado"/rate-limit,
-    backoff exponencial com jitter, ritmo adaptativo, validação das respostas,
-    retomada por progresso.json, supervisão do Chrome, modos T/P para arquivo único.
-
-Estrutura esperada:
-    EXAMS_DIR/<Banca>/<Ano>/perguntas.txt    (ou perguntas.pdf)
-    Saída: PASTA_SAIDA/<Banca>/<Ano>/questão_N.html
+Mudanças desta versão:
+  * PROPOSTA HÍBRIDA: texto da questão colado no prompt (sem anexar perguntas.pdf);
+    histórico filtrado por relevância semântica (top 20) injetado inline
+    (sem anexar provas_anteriores.pdf).
+  * Leitura estruturada: PDFs/TXT de 2 colunas são desdobrados e separados por número de
+    questão; o histórico é lido no formato 'Prova na íntegra AAAA' + 'Gabarito AAAA' (a cauda
+    após o último gabarito — onde vem a prova atual — é descartada).
+  * Gabarito oficial da edição vai no prompt (sem ele o modelo teria de adivinhar o correctAnswer).
+  * Prompt colado de uma vez no campo (digitar tecla a tecla é lento e '\n' enviaria a mensagem).
+  * ANTI-DETECÇÃO: undetected_chromedriver (se disponível) + argumentos stealth
+    + comportamento humano (mouse, atrasos, digitação variável).
 """
 from __future__ import annotations
 
@@ -26,6 +22,7 @@ import argparse
 import json
 import logging
 import logging.handlers
+import math
 import os
 import random
 import re
@@ -42,7 +39,9 @@ import traceback
 import unicodedata
 import urllib.request
 import zipfile
+from collections import Counter
 
+# --- Selenium padrão (fallback) ---
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.service import Service
@@ -50,9 +49,17 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+# --- Anti-detecção (opcional) ---
+try:
+    import undetected_chromedriver as uc
+    _UC_DISPONIVEL = True
+except ImportError:
+    _UC_DISPONIVEL = False
+    logging.warning("undetected-chromedriver não instalado. Usando Selenium padrão com argumentos stealth.")
+
 
 # ---------------------------------------------------------------------------
-# Configuração (tudo pode ser sobrescrito por variável de ambiente)
+# Configuração (variáveis de ambiente sobrescrevem)
 # ---------------------------------------------------------------------------
 def _env_int(nome, padrao):
     try:
@@ -66,16 +73,15 @@ def _env_str(nome, padrao):
 
 
 URL_DEEPSEEK = "https://chat.deepseek.com/"
-BASE = _env_str("DEEPSEEK_BASE", "/home/filipi-araujo/qwan_automation")
-EXAMS_DIR = _env_str("DEEPSEEK_EXAMS_DIR",
-                     "/home/filipi-araujo/Documentos/AUTOMATION 2.0/CRIVO_V1/exams")
-PERFIL_PERSISTENTE = f"{BASE}/perfil_chromium"
-PASTA_SAIDA = f"{BASE}/questoes_geradas"
-PASTA_DOWNLOADS = f"{BASE}/downloads"
-PASTA_DRIVER = f"{BASE}/chromedriver_local"
-PASTA_DIAG = f"{PASTA_SAIDA}/diagnostico_export"
-PASTA_REJEITADAS = f"{PASTA_SAIDA}/rejeitadas"
-PASTA_LOGS = f"{BASE}/logs"
+BASE = _env_str("DEEPSEEK_BASE", os.path.expanduser("/home/filipi-araujo/qwan_automation"))
+EXAMS_DIR = _env_str("DEEPSEEK_EXAMS_DIR", os.path.join(BASE, "exams"))
+PERFIL_PERSISTENTE = os.path.join(BASE, "perfil_chromium")
+PASTA_SAIDA = os.path.join(BASE, "questoes_geradas")
+PASTA_DOWNLOADS = os.path.join(BASE, "downloads")
+PASTA_DRIVER = os.path.join(BASE, "chromedriver_local")
+PASTA_DIAG = os.path.join(PASTA_SAIDA, "diagnostico_export")
+PASTA_REJEITADAS = os.path.join(PASTA_SAIDA, "rejeitadas")
+PASTA_LOGS = os.path.join(BASE, "logs")
 ARQ_ESTADO = os.path.join(PASTA_SAIDA, "progresso.json")
 ARQ_PARAR = os.path.join(BASE, "PARAR")
 ESTADO_VERSAO = 1
@@ -95,18 +101,13 @@ RATE_MAX_S = _env_int("RATE_MAX_S", 3 * 3600)
 BLOQ_RECARREGAR_APOS = 3
 BLOQ_REINICIAR_APOS = 12
 
-# --- Falhas de qualidade (não contam bloqueios do servidor) ---
+# --- Falhas de qualidade ---
 MAX_FALHAS_POR_QUESTAO = _env_int("MAX_FALHAS_POR_QUESTAO", 8)
 COOLDOWN_RODADA_S = _env_int("COOLDOWN_RODADA_S", 1800)
 MAX_RODADAS = _env_int("MAX_RODADAS", 0)
 
 # --- Provas / edições ---
-# Número máximo de questões consideradas por prova (edição). Normalmente 100.
-# Pode ser alterado por: variável MAX_QUESTOES_POR_PROVA, argumento --max-questoes
-# ou pergunta interativa ao escolher a banca no modo M. 0 = sem limite (usa tudo
-# o que houver em perguntas.txt/pdf).
 MAX_QUESTOES_POR_PROVA = _env_int("MAX_QUESTOES_POR_PROVA", 100)
-# Ao retomar, só considera "já gerada" a questão cujo HTML existente é válido.
 VALIDAR_HTML_EXISTENTES = _env_int("VALIDAR_HTML_EXISTENTES", 1) != 0
 
 # --- Ritmo ---
@@ -123,16 +124,17 @@ EXPORTAR_MD_AO_FINALIZAR_CHAT = True
 MAX_TENTATIVAS_EXPORT = 10
 MIN_CHARS_RESPOSTA = 1500
 
-# --- Tempos da espera pela resposta ---
+# --- Tempos ---
 TEMPO_ESTAVEL_SEG = 10
 ESPERA_INICIAL_S = 15
 TIMEOUT_RESPOSTA_S = 900
 TRAVA_STREAM_S = 180
 
+# --- Histórico híbrido ---
+TOP_K_HISTORICO = _env_int("TOP_K_HISTORICO", 20)
+
 ARQUIVOS_ANEXAR = [
     "Comando resolução_ RESIDÊNCIA_AUTOMAÇÃO.txt",
-    "perguntas.pdf",
-    "provas_anteriores.pdf",
     "TAMPLATE RESOLUTOR DE QUESTÕES.html",
 ]
 
@@ -143,12 +145,11 @@ _STDIN_THREAD_STARTED = False
 
 
 class NavegadorMorto(Exception):
-    """O Chrome parou de responder (ou precisa ser reiniciado)."""
+    """O Chrome parou de responder."""
 
 
 # ---------------------------------------------------------------------------
-# Contexto por banca/ano (usado por TODAS as funções que gravam em PASTA_SAIDA
-# ou leem progresso; por padrão, aponta para os caminhos-base).
+# Contexto por banca/ano
 # ---------------------------------------------------------------------------
 def configurar_ano(banca=None, ano=None):
     global _PASTA_SAIDA_ANO, _ARQ_ESTADO_ANO, _PASTA_REJEITADAS_ANO, _CURRENT_BANCA, _CURRENT_ANO
@@ -269,7 +270,7 @@ def configurar_log():
 
 
 # ---------------------------------------------------------------------------
-# Localização tolerante dos arquivos de entrada (mantido)
+# Localização tolerante de arquivos
 # ---------------------------------------------------------------------------
 def normalizar(texto):
     t = unicodedata.normalize("NFKD", texto)
@@ -299,14 +300,10 @@ def resolver_lista_anexos(nomes):
     resultado = []
     for nome in nomes:
         n_norm = normalizar(nome)
-        if n_norm.startswith("perguntas"):
-            pred = lambda n: n.startswith("perguntas")
-        elif "comando" in n_norm and "resolu" in n_norm:
+        if "comando" in n_norm and "resolu" in n_norm:
             pred = lambda n: "comando" in n and "resolu" in n
         elif "template" in n_norm or "tamplate" in n_norm:
             pred = lambda n: ("template" in n or "tamplate" in n) and not n.startswith("comando")
-        elif "provas" in n_norm or "anteriores" in n_norm:
-            pred = lambda n: "provas" in n or "anteriores" in n
         else:
             pred = lambda n, alvo=n_norm: n == alvo
         caminho = achar_arquivo(BASE, nome, pred, f"Anexo: {nome}")
@@ -321,7 +318,6 @@ def resolver_lista_anexos(nomes):
 # Descoberta de bancas e edições
 # ---------------------------------------------------------------------------
 def listar_bancas():
-    """Nomes das pastas de bancas, ordenadas alfabeticamente."""
     if not os.path.isdir(EXAMS_DIR):
         return []
     return sorted([d for d in os.listdir(EXAMS_DIR)
@@ -329,7 +325,6 @@ def listar_bancas():
 
 
 def listar_anos(banca):
-    """Anos (strings numéricas) existentes na banca, em ordem DECRESCENTE (2026 → 2025 → ...)."""
     pasta_banca = os.path.join(EXAMS_DIR, banca)
     if not os.path.isdir(pasta_banca):
         return []
@@ -339,7 +334,6 @@ def listar_anos(banca):
 
 
 def encontrar_perguntas_do_ano(ano_dir):
-    """Procura perguntas.txt ou perguntas.pdf (case-insensitive) na pasta do ano."""
     if not os.path.isdir(ano_dir):
         return None
     alvos = {"perguntas.txt", "perguntas.pdf"}
@@ -353,7 +347,7 @@ def encontrar_perguntas_do_ano(ano_dir):
 
 
 # ---------------------------------------------------------------------------
-# Leitura de perguntas (mantido)
+# Leitura de perguntas
 # ---------------------------------------------------------------------------
 def extrair_texto_pdf(caminho):
     try:
@@ -416,6 +410,12 @@ def dividir_perguntas(texto):
 
 
 def carregar_perguntas(caminho):
+    """
+    Devolve a lista de questões (índice i = questão i+1).
+    1) Tenta a leitura estruturada (desdobra 2 colunas e separa por marcadores sequenciais).
+    2) Se o arquivo não tiver essa estrutura, mantém o comportamento antigo
+       (PDF: dividir_perguntas; TXT: uma linha = uma questão).
+    """
     ext = os.path.splitext(caminho)[1].lower()
     if ext == ".pdf":
         logging.info(f"Extraindo perguntas do PDF: {os.path.basename(caminho)}")
@@ -423,12 +423,512 @@ def carregar_perguntas(caminho):
         if texto is None:
             logging.error(f"Não foi possível extrair texto de '{caminho}'.")
             return []
+        estruturado = _dividir_estruturado(texto)
+        if estruturado:
+            logging.info(f"PDF: {len(estruturado)} questão(ões) numeradas (leitura estruturada).")
+            return estruturado
         perguntas_extraidas = dividir_perguntas(texto)
         logging.info(f"PDF: {len(perguntas_extraidas)} bloco(s).")
         return perguntas_extraidas
     logging.info(f"Lendo perguntas do arquivo de texto: {os.path.basename(caminho)}")
     with open(caminho, "r", encoding="utf-8", errors="replace") as f:
-        return [p.strip() for p in f.readlines() if p.strip()]
+        texto = f.read()
+    estruturado = _dividir_estruturado(texto)
+    if estruturado:
+        logging.info(f"TXT: {len(estruturado)} questão(ões) numeradas (leitura estruturada).")
+        return estruturado
+    logging.info("TXT sem numeração reconhecível: uma linha = uma questão (modo legado).")
+    return [p.strip() for p in texto.splitlines() if p.strip()]
+
+
+# ---------------------------------------------------------------------------
+# Leitura estruturada de provas (Proposta Híbrida)
+#
+# Por que existe: os .txt de prova costumam ser dumps de `pdftotext -layout`
+# com DUAS COLUNAS por página. Ler "uma linha = uma questão" (comportamento
+# antigo para .txt) entrega ao modelo linhas soltas e intercaladas. Aqui:
+#   1) cada página é desdobrada em coluna esquerda + coluna direita;
+#   2) as questões são separadas por marcadores sequenciais (1, 2, 3...);
+#   3) se nada disso fizer sentido, volta ao comportamento antigo (fallback).
+# ---------------------------------------------------------------------------
+def _inicio_coluna_direita(linhas):
+    """Posição (coluna) onde começa a coluna direita, ou None se a página é de coluna única."""
+    c = Counter()
+    for l in linhas:
+        for m in re.finditer(r'(?<=\S) {3,}(?=\S)', l):
+            if m.end() >= 30:          # ignora recuos/rótulos curtos à esquerda
+                c[m.end()] += 1
+                break
+    if not c:
+        return None
+    pos, n = c.most_common(1)[0]
+    uteis = [l for l in linhas if l.strip()]
+    return pos if n >= max(8, 0.35 * len(uteis)) else None
+
+
+def _desdobrar_pagina(pagina):
+    """Ordem de leitura correta: coluna esquerda inteira, depois a direita."""
+    linhas = pagina.split('\n')
+    x = _inicio_coluna_direita(linhas)
+    if x is None:
+        return pagina.strip('\n')
+    esq = [l[:x].rstrip() for l in linhas]
+    dir_ = [l[x:].strip() for l in linhas]
+    return '\n'.join(esq).strip('\n') + '\n' + '\n'.join(dir_).strip('\n')
+
+
+def _desdobrar_colunas(texto):
+    return '\n'.join(_desdobrar_pagina(p) for p in texto.split('\x0c'))
+
+
+def _desidifenizar(texto):
+    """Junta palavras quebradas no fim da linha ('con-\\nsulta' -> 'consulta')."""
+    return re.sub(r'(?<=[A-Za-zÀ-ÿ])-\n(?=[a-zà-ÿ])', '', texto)
+
+
+def _limpar_bloco(txt):
+    txt = _desidifenizar(txt.replace('\r', ''))
+    txt = re.sub(r'[ \t]+\n', '\n', txt)
+    txt = re.sub(r'\n{3,}', '\n\n', txt)
+    return txt.strip()
+
+
+_ESTILOS_MARCADOR = [
+    re.compile(r'(?m)^[ \t]*(\d{1,3})[ \t]*\)[ \t]+'),                            # "12) texto"
+    re.compile(r'(?mi)^[ \t]*quest[aã]o[ \t]+(\d{1,3})[ \t]*(?:[:.\-–)][ \t]*|$)'),  # "Questão 12"
+    re.compile(r'(?m)^[ \t]*(\d{1,3})[ \t]*\.[ \t]+(?=[A-ZÀ-Ý])'),                # "12. Texto"
+]
+
+
+def _dividir_estruturado(texto):
+    """
+    Divide o texto em questões numeradas sequencialmente (1, 2, 3...).
+    Retorna a lista de blocos (índice i = questão i+1) ou [] se o texto não
+    tiver estrutura reconhecível (aí o chamador usa o comportamento antigo).
+    """
+    texto = _desdobrar_colunas(texto.replace('\r\n', '\n').replace('\r', '\n'))
+    melhor = []
+    for rx in _ESTILOS_MARCADOR:
+        achados, esperado = [], 1
+        for m in rx.finditer(texto):
+            if int(m.group(1)) == esperado:
+                achados.append(m)
+                esperado += 1
+        if len(achados) > len(melhor):
+            melhor = achados
+    if len(melhor) < 5:
+        return []
+    blocos = []
+    for i, m in enumerate(melhor):
+        fim = melhor[i + 1].start() if i + 1 < len(melhor) else len(texto)
+        blocos.append(_limpar_bloco(texto[m.end():fim]))
+    return blocos
+
+
+_RE_PAR_GAB = re.compile(r'(?<![\w/])(\d{1,3})[ \t]*[-–:.)]?[ \t]+([A-E])(?![\wÀ-ÿ])')
+
+
+def extrair_gabarito_prova(texto):
+    """
+    Lê o gabarito oficial da edição ATUAL a partir do começo do perguntas.txt/pdf
+    (ex.: grade '01 D 21 C 41 B ...' sob 'PROVA GERAL - 2026').
+    Retorna {numero:int -> letra}. Só a primeira grade (prova geral) é usada.
+    """
+    texto = texto.replace('\r', '')
+    m = re.search(r'(?im)^[ \t\x0c]*(?:gabarito|prova[ \t]+geral)\b[^\n]*$', texto[:30000])
+    if not m:
+        return {}
+    seg = texto[m.end():]
+    corte = re.search(r'(?im)^[ \t\x0c]*prova[ \t]+espec[ií]fica|\x0c', seg)
+    if corte:
+        seg = seg[:corte.start()]
+    gab = {}
+    for g in _RE_PAR_GAB.finditer(seg):
+        gab.setdefault(int(g.group(1)), g.group(2))
+    return gab
+
+
+def _gabarito_de_texto_livre(texto):
+    """Gabarito em arquivo próprio (gabarito.txt): pares 'N - X' / 'N) X' / 'N X'."""
+    gab = {}
+    for g in _RE_PAR_GAB.finditer(texto.replace('\r', '')):
+        gab.setdefault(int(g.group(1)), g.group(2))
+    return gab
+
+
+def carregar_gabarito_edicao(ano_dir, arquivo_perguntas):
+    """
+    Gabarito oficial da edição (necessário porque o modelo agora só recebe o TEXTO da
+    questão: sem o gabarito ele teria de adivinhar o `correctAnswer`).
+    Ordem: gabarito.txt na pasta do ano -> grade no início do perguntas.txt/pdf.
+    """
+    try:
+        if ano_dir:
+            for nome in os.listdir(ano_dir):
+                if nome.lower() in ("gabarito.txt", "gabarito.md"):
+                    with open(os.path.join(ano_dir, nome), "r", encoding="utf-8", errors="replace") as f:
+                        gab = _gabarito_de_texto_livre(f.read())
+                    if gab:
+                        return gab
+        if arquivo_perguntas and arquivo_perguntas.lower().endswith(".pdf"):
+            return extrair_gabarito_prova(extrair_texto_pdf(arquivo_perguntas) or "")
+        if arquivo_perguntas:
+            with open(arquivo_perguntas, "r", encoding="utf-8", errors="replace") as f:
+                return extrair_gabarito_prova(f.read())
+    except Exception as e:
+        logging.warning(f"Não foi possível ler o gabarito da edição: {e}")
+    return {}
+
+
+# --- Questões com imagem (o texto extraído do PDF perde figuras) ---
+def _lista_nums(nome_env):
+    return {int(x) for x in re.findall(r"\d+", _env_str(nome_env, ""))}
+
+
+QUESTOES_COM_IMAGEM = _lista_nums("QUESTOES_COM_IMAGEM")   # força "tem imagem" (ex.: "48,71")
+QUESTOES_SEM_IMAGEM = _lista_nums("QUESTOES_SEM_IMAGEM")   # corrige falso positivo da heurística
+
+_IMG = (r"(?:figura|imagem|imagens|fotografia|foto|ilustra[cç][aã]o|gr[aá]fico|heredograma|esquema|"
+        r"mapa|fluxograma|tra[cç]ado|eletrocardiograma|ecg|radiografia|tomografia|ultrassonografia|"
+        r"ecocardiograma|dermatoscopia|rx)")
+_REF = (r"(?:abaixo|a\s+seguir|ao\s+lado|acima|observ\w*|apresentad[ao]s?|mostrad[ao]s?|ilustrad[ao]s?|"
+        r"representad[ao]s?|exibid[ao]s?|an[aá]lise\s+d[oa]|velocidade\s+de)")
+_RX_IMAGEM = re.compile(
+    rf"(?is)\b{_IMG}\b\W+(?:\w+\W+){{0,5}}?\b{_REF}\b|\b{_REF}\b\W+(?:\w+\W+){{0,5}}?\b{_IMG}\b")
+
+
+def questao_tem_imagem(texto, numero):
+    """
+    Heurística conservadora: só olha o ENUNCIADO (antes da alternativa A) e exige termo de
+    imagem perto de um termo de referência ('figura abaixo', 'observe o ECG', ...). Palavras
+    como 'radiografia' dentro das alternativas NÃO contam. Ajuste fino por variável de
+    ambiente: QUESTOES_COM_IMAGEM / QUESTOES_SEM_IMAGEM (listas de números).
+    """
+    if numero in QUESTOES_SEM_IMAGEM:
+        return False
+    if numero in QUESTOES_COM_IMAGEM:
+        return True
+    m = re.search(r"(?m)^[ \t]*A\)[ \t]", texto)
+    return bool(_RX_IMAGEM.search(texto[:m.start()] if m else texto))
+
+
+# ---------------------------------------------------------------------------
+# Histórico: parser das provas anteriores + índice invertido
+# ---------------------------------------------------------------------------
+_RE_ANO_PROVA = re.compile(r'(?m)^[ \t]*Prova na [ií]ntegra[ \t]+(\d{4})[ \t]*$')
+_RE_CAB_PAGINA = re.compile(r'(?m)^[ \t]*Prova na [ií]ntegra[ \t]*(?:\d{4})?[ \t]*\n')
+_RE_GABARITO_ANO = re.compile(r'(?m)^[ \t]*Gabarito[ \t]+(\d{4})[ \t]*$')
+_RE_QNUM_LINHA = re.compile(r'(?m)^[ \t]*Quest[aã]o[ \t]+(\d{1,3})[ \t]*$')
+_RE_GAB_LINHA = re.compile(r'(?m)^[ \t]*Quest[aã]o[ \t]+(\d{1,3})[ \t]*[-–][ \t]*([A-E])?[ \t]*$')
+
+BANCA_HISTORICO = _env_str("BANCA_HISTORICO", "")
+
+
+def _parse_gabarito_ano(trecho):
+    """Gabarito contíguo 'Questão N - X'. Linhas sem letra = anulada/sem gabarito (None).
+    Retorna (dict, posição_do_fim) — o que vier depois é ignorado (cauda)."""
+    gab, fim, ultimo = {}, 0, None
+    for m in _RE_GAB_LINHA.finditer(trecho):
+        if ultimo is not None and m.start() - ultimo > 400:
+            break
+        gab[int(m.group(1))] = m.group(2)      # None quando em branco
+        ultimo = fim = m.end()
+    return gab, fim
+
+
+def _parse_historico_estruturado(texto):
+    """
+    Formato 'Prova na íntegra AAAA' + 'Questão N' + 'Gabarito AAAA'.
+    Devolve lista de dicts (sem disciplina/termos ainda) ou None se o formato não casar.
+    Tudo que vier DEPOIS do último gabarito de cada ano é descartado: no arquivo
+    real, a cauda do último ano traz a prova atual (2026) colada — mantê-la faria
+    a questão aparecer como "histórico" de si mesma.
+    """
+    texto = texto.replace('\r', '').replace('\x0c', '\n')
+    anos = [(m.start(), m.group(1)) for m in _RE_ANO_PROVA.finditer(texto)]
+    if len(anos) < 2:
+        return None
+    anos.append((len(texto), None))
+    entradas, descartado = [], 0
+    for (ini, ano), (prox, _) in zip(anos, anos[1:]):
+        seg = texto[ini:prox]
+        g = _RE_GABARITO_ANO.search(seg)
+        if g:
+            gab, fim_rel = _parse_gabarito_ano(seg[g.end():])
+            descartado += max(0, len(seg) - (g.end() + fim_rel))
+            seg_prova = seg[:g.start()]
+        else:
+            gab, seg_prova = {}, seg
+        seg_prova = _RE_CAB_PAGINA.sub('\n', seg_prova)
+        marcas, esperado = [], 1
+        for m in _RE_QNUM_LINHA.finditer(seg_prova):
+            n = int(m.group(1))
+            if esperado <= n <= esperado + 2:      # tolera salto pequeno de numeração
+                marcas.append((n, m))
+                esperado = n + 1
+        for i, (n, m) in enumerate(marcas):
+            fim = marcas[i + 1][1].start() if i + 1 < len(marcas) else len(seg_prova)
+            corpo = _limpar_bloco(seg_prova[m.end():fim])
+            if corpo:
+                entradas.append({"texto": corpo, "banca": BANCA_HISTORICO or None,
+                                 "ano": ano, "num": str(n), "gabarito": gab.get(n)})
+    if descartado > 2000:
+        logging.info(f"Histórico: {descartado} caracteres após o último gabarito foram ignorados "
+                     f"(cauda; normalmente a prova atual anexada ao arquivo).")
+    return entradas or None
+
+
+_STOP = {
+    # funcionais
+    "para", "como", "pela", "pelo", "pelos", "pelas", "este", "esta", "estes", "estas", "isso",
+    "aquilo", "sobre", "entre", "quando", "onde", "qual", "quais", "caso", "apos", "sem", "dos",
+    "das", "uma", "uns", "umas", "que", "seu", "sua", "seus", "suas", "nao", "sao", "foi", "tem",
+    "com", "mais", "menos", "muito", "pouco", "bem", "mal", "tambem", "ainda", "mas", "por",
+    "nos", "nas", "ser", "ter", "estar", "pode", "podem", "deve", "devem", "essa", "esse",
+    "desta", "deste", "dessa", "desse", "cada", "outro", "outra", "outros", "outras", "todos",
+    "todas", "nenhum", "nenhuma", "apenas", "somente", "alem", "assim", "entao", "porem",
+    # boilerplate de prova (não discriminam tema)
+    "assinale", "alternativa", "alternativas", "correta", "correto", "incorreta", "incorreto",
+    "afirmativa", "afirmativas", "assertiva", "assertivas", "asserc", "proposic", "verdadeira",
+    "verdadeiras", "falsa", "falsas", "seguinte", "seguintes", "abaixo", "acima", "respeito",
+    "considerando", "acordo", "segundo", "resposta", "opcao", "item", "itens", "analise",
+    "relacao", "clinico", "quadro", "sobre", "afirmar", "indicada", "indicado", "melhor",
+    "mais", "adequada", "adequado", "conduta", "justificativa", "justifica",
+}
+
+
+def _tokenizar(txt):
+    """Normaliza (sem acentos/caixa), tira stopwords e números, e reduz cada termo ao
+    prefixo de 7 letras (stemming barato: 'hipertensão'~'hipertenso')."""
+    t = unicodedata.normalize("NFD", txt.lower())
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    termos = set()
+    for w in re.findall(r"[a-z0-9]{3,}", t):
+        if w.isdigit() or w in _STOP:
+            continue
+        termos.add(w[:7])
+    return termos
+
+
+def _inferir_banca_ano_num(texto):
+    """(legado) Tenta extrair 'AMP/2021/Q5' do cabeçalho de um bloco de questão."""
+    m = re.search(r'(?i)(AMP|ENAMED|SUS[-\s]?SP)[^\d]*(\d{4})[^\d]*Q?(\d+)', texto[:300])
+    if m:
+        return m.group(1).replace(" ", "-").upper(), m.group(2), str(int(m.group(3)))
+    return None, None, None
+
+
+def _norm_disc(s):
+    if not s:
+        return None
+    t = unicodedata.normalize("NFD", str(s).lower().strip())
+    return "".join(c for c in t if not unicodedata.combining(c)) or None
+
+
+def _obter_disciplina(disciplinas, banca, ano, num):
+    """
+    Lê disciplinas.json[banca][ano][num] de forma tolerante ao formato exato:
+    banca sem diferenciar maiúsculas; chave da questão como '5', '05', 'Q5',
+    'questao_5' ou int; valor string ou dict ({'disciplina': ...}) ou lista.
+    Retorna None se não achar (o filtro por disciplina é só um pré-filtro opcional).
+    """
+    if not disciplinas or not ano or not num:
+        return None
+    por_banca = None
+    if banca:
+        por_banca = disciplinas.get(banca)
+        if por_banca is None:
+            alvo = str(banca).lower()
+            por_banca = next((v for k, v in disciplinas.items() if str(k).lower() == alvo), None)
+    por_ano = (por_banca or {}).get(str(ano)) if isinstance(por_banca, dict) else None
+    if por_ano is None:
+        return None
+    n = int(num)
+    if isinstance(por_ano, list):
+        v = por_ano[n - 1] if 0 < n <= len(por_ano) else None
+    elif isinstance(por_ano, dict):
+        v = None
+        for k in (str(n), f"{n:02d}", f"{n:03d}", f"Q{n}", f"q{n}", f"questao_{n}", f"questao{n}",
+                  f"questao_{n}.html", f"questão_{n}.html"):
+            if k in por_ano:
+                v = por_ano[k]
+                break
+    else:
+        v = None
+    if isinstance(v, dict):
+        v = next((v[k] for k in ("disciplina", "materia", "área", "area", "nome") if k in v), None)
+    return str(v) if v else None
+
+
+_CACHE_HISTORICO = {}
+
+
+def construir_indice_historico(caminho_provas, disciplinas):
+    """
+    Lê as provas anteriores UMA vez e devolve (historico, indice_inv):
+      historico[i]  = {texto, banca, ano, num, gabarito, disciplina, termos, peso}
+      indice_inv[t] = {i, ...}   (termo -> conjunto de questões que o contêm)
+
+    Por que índice invertido: para cada questão atual só pontuamos as questões
+    do histórico que compartilham ao menos um termo (centenas), em vez de varrer
+    as ~2.000 e comparar uma a uma. O peso de cada termo é o IDF (termos raros
+    como 'rasburicase' valem muito mais que 'paciente'); `peso` = soma dos IDFs
+    dos termos da questão, usado no denominador do Jaccard.
+    """
+    if not caminho_provas or not os.path.isfile(caminho_provas):
+        logging.warning(f"Arquivo de provas anteriores não encontrado: {caminho_provas}")
+        return [], {}
+    chave = (caminho_provas, os.path.getmtime(caminho_provas), os.path.getsize(caminho_provas))
+    if chave in _CACHE_HISTORICO:
+        return _CACHE_HISTORICO[chave]
+
+    ext = os.path.splitext(caminho_provas)[1].lower()
+    if ext == ".pdf":
+        texto = extrair_texto_pdf(caminho_provas) or ""
+    else:
+        with open(caminho_provas, "r", encoding="utf-8", errors="replace") as f:
+            texto = f.read()
+
+    entradas = _parse_historico_estruturado(texto)
+    if entradas is None:
+        # Fallback: formato desconhecido -> um bloco por "questão" detectada (comportamento antigo)
+        logging.warning("Provas anteriores sem o formato 'Prova na íntegra AAAA'; usando divisão genérica.")
+        blocos = _dividir_estruturado(texto) or carregar_perguntas(caminho_provas)
+        entradas = []
+        for b in blocos:
+            banca, ano, num = _inferir_banca_ano_num(b)
+            entradas.append({"texto": b, "banca": banca, "ano": ano, "num": num, "gabarito": None})
+
+    historico, indice_inv = [], {}
+    for i, e in enumerate(entradas):
+        e["disciplina"] = None
+        e["termos"] = _tokenizar(e["texto"])
+        historico.append(e)
+        for t in e["termos"]:
+            indice_inv.setdefault(t, set()).add(i)
+
+    n = len(historico)
+    for e in historico:
+        e["w"] = _pesos_termos(e["texto"], indice_inv, n)
+        e["peso"] = sum(e["w"].values())
+    if not BANCA_HISTORICO:
+        logging.info("BANCA_HISTORICO não definida: o filtro por disciplina do histórico usará a "
+                     "banca da edição em processamento.")
+    logging.info(f"Histórico indexado: {n} questões, {len(indice_inv)} termos, "
+                 f"{len({e['ano'] for e in historico if e['ano']})} prova(s).")
+    _CACHE_HISTORICO[chave] = (historico, indice_inv)
+    return historico, indice_inv
+
+
+def _idf(termo, indice_inv, n):
+    return math.log((n + 1) / (len(indice_inv.get(termo, ())) + 1)) + 1.0
+
+
+HIST_PESO_ALT = float(_env_str("HIST_PESO_ALT", "0.5"))   # peso das alternativas vs. enunciado
+HIST_TERMOS_CHAVE = _env_int("HIST_TERMOS_CHAVE", 12)
+HIST_DF_MAX = float(_env_str("HIST_DF_MAX", "0.04"))      # termo em >4% das questões = vocabulário genérico
+
+
+def _pesos_termos(texto, indice_inv, n):
+    """{termo: peso}. peso = IDF; termos que só aparecem nas alternativas valem HIST_PESO_ALT x.
+    (Alternativas trazem muito nome de fármaco/conduta que varia entre questões do mesmo tema;
+    o tema costuma estar no enunciado.)"""
+    m = re.search(r'(?m)^[ \t]*A\)[ \t]', texto)
+    en = _tokenizar(texto[:m.start()] if m else texto)
+    al = _tokenizar(texto[m.start():]) if m else set()
+    teto = max(5, HIST_DF_MAX * n)
+    return {t: _idf(t, indice_inv, n) * (1.0 if t in en else HIST_PESO_ALT)
+            for t in (en | al) if len(indice_inv.get(t, ())) <= teto}
+
+
+def aplicar_disciplinas_historico(historico, disciplinas, banca_padrao):
+    """Preenche h['disciplina'] consultando disciplinas.json (opcional, idempotente)."""
+    if not disciplinas:
+        return 0
+    achadas = 0
+    for h in historico:
+        if h.get("disciplina"):
+            achadas += 1
+            continue
+        d = _obter_disciplina(disciplinas, h.get("banca") or banca_padrao, h.get("ano"), h.get("num"))
+        if d:
+            h["disciplina"] = d
+            achadas += 1
+    return achadas
+
+
+HIST_SCORE_MIN = float(_env_str("HIST_SCORE_MIN", "0.03"))
+HIST_MAX_CHARS = _env_int("HIST_MAX_CHARS", 3000)
+
+
+def selecionar_historico(texto_atual, disciplina_atual, historico, indice_inv, top_k=20,
+                         excluir_ano=None):
+    """
+    Devolve as `top_k` questões históricas mais parecidas com a atual.
+
+    Pontuação = Jaccard ponderado (termos × IDF; enunciado pesa mais que alternativas)
+        J = Σ min(wA,wB) / (ΣwA + ΣwB − Σ min(wA,wB))          (0 = nada em comum; 1 = idênticas)
+    multiplicado por (1 + C), onde C é a fração dos HIST_TERMOS_CHAVE termos mais raros da
+    questão atual que aparecem na candidata. Normalizar pela união evita favorecer enunciados
+    longos; o bônus C impede que o vocabulário genérico de vinheta clínica ('lactente',
+    'pronto atendimento') afogue o tema real (ex.: 'anafilaxia').
+
+    Disciplina (pré-filtro OPCIONAL): se `disciplina_atual` é conhecida, o pool restrito é
+    {mesma disciplina} ∪ {sem disciplina catalogada}; se não completar `top_k`, completa com as
+    melhores das demais (temas cruzam disciplinas). Sem disciplina -> ranking puro por termos.
+    Candidatas abaixo de HIST_SCORE_MIN são descartadas: melhor mandar poucas (ou nenhuma) do
+    que ruído — o Comando manda declarar "tema não abordado" nesse caso.
+    `excluir_ano` tira a própria edição do pool (nunca é "prova anterior").
+    """
+    if not historico or not indice_inv:
+        return []
+    n = len(historico)
+    wa = _pesos_termos(texto_atual, indice_inv, n)
+    wa = {t: w for t, w in wa.items() if t in indice_inv}
+    if not wa:
+        return []
+    soma_a = sum(wa.values())
+    chave = dict(sorted(wa.items(), key=lambda kv: -kv[1])[:HIST_TERMOS_CHAVE])
+    soma_chave = sum(chave.values())
+
+    inter, cobre = Counter(), Counter()
+    for t, w in wa.items():
+        for i in indice_inv[t]:
+            mn = min(w, historico[i]["w"].get(t, 0.0))
+            inter[i] += mn
+            if t in chave:
+                cobre[i] += min(chave[t], historico[i]["w"].get(t, 0.0))
+
+    pontuados = []
+    for i, mn in inter.items():
+        h = historico[i]
+        if excluir_ano and h.get("ano") == str(excluir_ano):
+            continue
+        j = mn / (soma_a + h["peso"] - mn)
+        score = j * (1.0 + cobre[i] / soma_chave)
+        if score >= HIST_SCORE_MIN:
+            pontuados.append((score, i))
+    pontuados.sort(reverse=True)
+
+    alvo = _norm_disc(disciplina_atual)
+    if alvo:
+        mesmo = [(s, i) for s, i in pontuados
+                 if _norm_disc(historico[i].get("disciplina")) in (alvo, None)]
+        escolhidos = mesmo[:top_k]
+        if len(escolhidos) < top_k:
+            usados = {i for _, i in escolhidos}
+            escolhidos += [(s, i) for s, i in pontuados if i not in usados][:top_k - len(escolhidos)]
+        escolhidos.sort(reverse=True)
+    else:
+        escolhidos = pontuados[:top_k]
+
+    return [dict(historico[i], similaridade=round(s, 3)) for s, i in escolhidos]
+
+
+def resumo_historico(historico):
+    anos = sorted({h["ano"] for h in historico if h.get("ano")})
+    return {"anos": anos, "n_provas": len(anos), "n_questoes": len(historico),
+            "ano_min": anos[0] if anos else None, "ano_max": anos[-1] if anos else None}
 
 
 # ---------------------------------------------------------------------------
@@ -489,7 +989,6 @@ _INVALIDOS_AVISADOS = set()
 
 
 def obter_indices_ja_feitos(validar=None):
-    """Índices (base 0) das questões da edição atual que já têm HTML (válido) em disco."""
     if validar is None:
         validar = VALIDAR_HTML_EXISTENTES
     feitos = set()
@@ -520,7 +1019,6 @@ def obter_indices_ja_feitos(validar=None):
 
 
 def resumo_edicao(total):
-    """(quantidade gerada, última questão gerada [base 1] ou 0, primeira pendente ou None)."""
     feitos = {i for i in obter_indices_ja_feitos() if 0 <= i < total}
     ultima = (max(feitos) + 1) if feitos else 0
     pendentes = [i + 1 for i in range(total) if i not in feitos]
@@ -528,7 +1026,7 @@ def resumo_edicao(total):
 
 
 # ---------------------------------------------------------------------------
-# Validação do HTML gerado (mantido)
+# Validação do HTML
 # ---------------------------------------------------------------------------
 PLACEHOLDERS = ["[Theme]", "[QuestionNumber]", "[QuestionText]", "[DataTableSection]",
                 "[StatementsSection]", "[OptionsSection]", "[CorrectAnswer]", "[CorrectionDetails]"]
@@ -639,7 +1137,7 @@ def classificar_texto(txt):
 
 
 # ---------------------------------------------------------------------------
-# JavaScript injetado (mantido)
+# JavaScript injetado
 # ---------------------------------------------------------------------------
 JS_VIGIA_INSTALAR = r"""
 const kws = arguments[0];
@@ -787,7 +1285,7 @@ return n;
 
 
 # ---------------------------------------------------------------------------
-# Chrome + chromedriver (mantido)
+# Chrome + chromedriver (com anti-detecção)
 # ---------------------------------------------------------------------------
 def localizar_chrome():
     candidatos = [
@@ -890,6 +1388,41 @@ def preparar_perfil(perfil, matar_se_ocupado=False):
                 pass
 
 
+def _argumentos_stealth():
+    """Argumentos de linha de comando que reduzem a assinatura de automação."""
+    return [
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--start-maximized",
+        "--window-size=1600,1000",
+        "--disable-blink-features=AutomationControlled",
+        "--disable-background-timer-throttling",
+        "--disable-renderer-backgrounding",
+        "--disable-backgrounding-occluded-windows",
+        "--disable-features=IsolateOrigins,site-per-process",
+        "--disable-web-security",
+        "--disable-site-isolation-trials",
+        "--disable-ipc-flooding-protection",
+        "--disable-hang-monitor",
+        "--disable-prompt-on-repost",
+        "--disable-client-side-phishing-detection",
+        "--disable-sync",
+        "--metrics-recording-only",
+        "--no-service-autorun",
+        "--password-store=basic",
+        "--use-mock-keychain",
+        "--force-color-profile=srgb",
+        "--disable-component-update",
+        "--disable-default-apps",
+        "--disable-domain-reliability",
+        "--disable-features=TranslateUI",
+        f"--user-data-dir={PERFIL_PERSISTENTE}",
+        "--profile-directory=Default",
+    ]
+
+
 def criar_driver(headless=False, reinicio=False):
     binario = localizar_chrome()
     if not binario:
@@ -901,21 +1434,44 @@ def criar_driver(headless=False, reinicio=False):
         logging.error("Não consegui descobrir a versão do Chrome.")
         sair()
     logging.info(f"Versão do Chrome: {versao}")
+
+    preparar_perfil(PERFIL_PERSISTENTE, matar_se_ocupado=(AUTO or reinicio))
+
+    # --- Tentativa com undetected-chromedriver ---
+    if _UC_DISPONIVEL and not headless:
+        try:
+            logging.info("Iniciando Chrome via undetected-chromedriver...")
+            options = uc.ChromeOptions()
+            for arg in _argumentos_stealth():
+                options.add_argument(arg)
+            options.add_experimental_option("prefs", {
+                "download.default_directory": PASTA_DOWNLOADS,
+                "download.prompt_for_download": False,
+                "download.directory_upgrade": True,
+                "safebrowsing.enabled": True,
+            })
+            driver = uc.Chrome(options=options, version_main=int(versao.split(".")[0]))
+            driver.set_page_load_timeout(120)
+            try:
+                driver.execute_cdp_cmd("Browser.setDownloadBehavior",
+                                       {"behavior": "allow", "downloadPath": PASTA_DOWNLOADS})
+            except Exception as e:
+                logging.warning(f"CDP download: {e}")
+            _aplicar_stealth_js(driver)
+            logging.info("Chrome (undetected) iniciado com sucesso.")
+            return driver
+        except Exception as e:
+            logging.warning(f"undetected-chromedriver falhou ({e}); caindo para Selenium padrão.")
+
+    # --- Fallback: Selenium padrão com argumentos stealth ---
     caminho_driver = obter_chromedriver(versao)
     if not caminho_driver:
         logging.error("Não foi possível baixar o chromedriver.")
         sair()
 
-    preparar_perfil(PERFIL_PERSISTENTE, matar_se_ocupado=(AUTO or reinicio))
-
     options = webdriver.ChromeOptions()
     options.binary_location = binario
-    for arg in ("--no-sandbox", "--disable-dev-shm-usage", "--no-first-run",
-                "--no-default-browser-check", "--start-maximized", "--window-size=1600,1000",
-                "--disable-blink-features=AutomationControlled",
-                "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
-                "--disable-backgrounding-occluded-windows",
-                f"--user-data-dir={PERFIL_PERSISTENTE}", "--profile-directory=Default"):
+    for arg in _argumentos_stealth():
         options.add_argument(arg)
     if headless:
         options.add_argument("--headless=new")
@@ -934,7 +1490,29 @@ def criar_driver(headless=False, reinicio=False):
                                {"behavior": "allow", "downloadPath": PASTA_DOWNLOADS})
     except Exception as e:
         logging.warning(f"CDP download: {e}")
+    _aplicar_stealth_js(driver)
     return driver
+
+
+def _aplicar_stealth_js(driver):
+    """Injeta JS para mascarar propriedades que denunciam automação."""
+    try:
+        driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+            "source": """
+                Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+                Object.defineProperty(navigator, 'languages', {get: () => ['pt-BR', 'pt', 'en-US', 'en']});
+                Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]});
+                window.chrome = { runtime: {} };
+                const originalQuery = window.navigator.permissions.query;
+                window.navigator.permissions.query = (parameters) => (
+                    parameters.name === 'notifications' ?
+                        Promise.resolve({ state: Notification.permission }) :
+                        originalQuery(parameters)
+                );
+            """
+        })
+    except Exception as e:
+        logging.debug(f"Stealth JS: {e}")
 
 
 def fechar_driver(driver):
@@ -973,16 +1551,67 @@ def aguardar_internet():
 
 
 # ---------------------------------------------------------------------------
+# Comportamento humano
+# ---------------------------------------------------------------------------
+def _movimento_humano(driver, elemento=None):
+    """Move o mouse de forma não linear até o elemento (ou posição aleatória)."""
+    try:
+        if elemento:
+            ActionChains(driver).move_to_element_with_offset(
+                elemento,
+                random.randint(-10, 10),
+                random.randint(-10, 10)
+            ).perform()
+        else:
+            ActionChains(driver).move_by_offset(
+                random.randint(-50, 50),
+                random.randint(-50, 50)
+            ).perform()
+        time.sleep(random.uniform(0.1, 0.3))
+    except Exception:
+        pass
+
+
+def _digitar_humano(campo, texto):
+    """Digita com velocidade variável (simula teclado humano)."""
+    campo.click()
+    time.sleep(random.uniform(0.2, 0.5))
+    campo.send_keys(Keys.CONTROL, "a")
+    time.sleep(0.1)
+    campo.send_keys(Keys.DELETE)
+    time.sleep(random.uniform(0.2, 0.4))
+    # Digita em blocos de 3-8 caracteres, com pausas
+    i = 0
+    while i < len(texto):
+        bloco = texto[i:i + random.randint(3, 8)]
+        campo.send_keys(bloco)
+        i += len(bloco)
+        time.sleep(random.uniform(0.02, 0.08))
+    time.sleep(random.uniform(0.3, 0.6))
+
+
+# ---------------------------------------------------------------------------
 # Contexto da conversa
 # ---------------------------------------------------------------------------
 class Ctx:
-    def __init__(self, driver, estado, arquivos, nome_comando, nome_perguntas, headless=False):
+    def __init__(self, driver, estado, arquivos, nome_comando, nome_perguntas,
+                 headless=False, historico=None, indice_inv=None, perguntas=None, disciplinas=None,
+                 gabaritos=None, pdf_imagens=None, banca_edicao="", ano_edicao=""):
         self.driver = driver
         self.estado = estado
         self.arquivos = arquivos
         self.nome_comando = nome_comando
         self.nome_perguntas = nome_perguntas
         self.headless = headless
+        self.historico = historico or []
+        self.indice_inv = indice_inv or {}
+        self.perguntas = perguntas or []
+        self.disciplinas = disciplinas or {}
+        self.gabaritos = gabaritos or {}            # {numero: letra} da edição atual
+        self.pdf_imagens = pdf_imagens              # perguntas.pdf, só p/ questões com imagem
+        self.banca_edicao = banca_edicao or ""
+        self.ano_edicao = ano_edicao or ""
+        self.resumo_hist = resumo_historico(self.historico)
         self.bloq_consec = 0
         self.pausa_extra = 0.0
         self.ok_sessao = 0
@@ -993,6 +1622,7 @@ class Ctx:
     def resetar_chat(self):
         self.arquivos_ja_enviados = False
         self.anexos_no_rascunho = False
+        self.pdf_no_rascunho = False
         self.forcar_novo_chat = False
         self.respostas_no_chat = 0
         self.indices_no_chat = []
@@ -1036,7 +1666,7 @@ def recarregar(ctx):
         ctx.driver.refresh()
     except WebDriverException:
         checar_vivo(ctx)
-    time.sleep(5)
+    time.sleep(random.uniform(4, 6))
 
 
 def estado_pagina(driver):
@@ -1211,19 +1841,35 @@ def avaliar_resposta(ctx, numero, n_antes):
 # Interação com o chat
 # ---------------------------------------------------------------------------
 def digitar_no_campo(driver, campo, texto):
+    """
+    Coloca o prompt no campo de uma vez (setter nativo + evento 'input').
+    O prompt híbrido tem dezenas de milhares de caracteres e várias quebras de linha:
+    digitar tecla a tecla levaria minutos por questão e cada '\\n' enviado por send_keys
+    equivale a ENTER (que no chat ENVIA a mensagem pela metade).
+    Fallback: send_keys em blocos grandes, com SHIFT+ENTER nas quebras de linha.
+    """
     campo.click()
-    campo.send_keys(Keys.CONTROL, "a")
-    campo.send_keys(Keys.DELETE)
-    campo.send_keys(texto)
+    driver.execute_script("""
+        const el = arguments[0], txt = arguments[1];
+        el.focus();
+        const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+        setter.call(el, txt);
+        el.dispatchEvent(new Event('input', {bubbles: true}));
+    """, campo, texto)
     time.sleep(0.5)
     atual = campo.get_attribute("value") or ""
-    if not atual.strip():
-        driver.execute_script("""
-            const el = arguments[0], txt = arguments[1];
-            const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
-            setter.call(el, txt);
-            el.dispatchEvent(new Event('input', {bubbles: true}));
-        """, campo, texto)
+    if len(atual.strip()) >= 0.9 * len(texto.strip()):
+        return
+    logging.warning("Colagem direta não refletiu no campo; usando digitação em blocos (SHIFT+ENTER).")
+    campo.send_keys(Keys.CONTROL, "a")
+    campo.send_keys(Keys.DELETE)
+    linhas = texto.split("\n")
+    for k, linha in enumerate(linhas):
+        for i in range(0, len(linha), 400):
+            campo.send_keys(linha[i:i + 400])
+        if k < len(linhas) - 1:
+            campo.send_keys(Keys.SHIFT, Keys.ENTER)
+    time.sleep(0.5)
 
 
 def anexar_arquivos(driver, caminhos):
@@ -1237,7 +1883,7 @@ def anexar_arquivos(driver, caminhos):
             inputs[0].send_keys(caminho)
             enviados += 1
             logging.info(f"Anexado: {os.path.basename(caminho)}")
-            time.sleep(3)
+            time.sleep(random.uniform(2, 4))
         except Exception as e:
             logging.error(f"Erro ao anexar {os.path.basename(caminho)}: {e}")
     return enviados
@@ -1263,9 +1909,10 @@ def enviar_mensagem(driver, campo, timeout=180):
             return False
         botao = botao_enviar_habilitado(driver)
         if botao:
-            time.sleep(1)
+            time.sleep(random.uniform(0.8, 1.5))
             botao = botao_enviar_habilitado(driver) or botao
             try:
+                _movimento_humano(driver, botao)
                 botao.click()
             except Exception:
                 driver.execute_script("arguments[0].click();", botao)
@@ -1278,34 +1925,108 @@ def enviar_mensagem(driver, campo, timeout=180):
     return True
 
 
-def montar_instrucao(ctx, idx):
-    if not ctx.arquivos_ja_enviados:
-        return (
-            f"Responda a questão {idx + 1} presente no arquivo '{ctx.nome_perguntas}' com base "
-            f"nas instruções do arquivo '{ctx.nome_comando}', utilizando o template e as provas "
-            f"anteriores anexados como referência. "
-            f"Entregue APENAS o código HTML completo, sem explicações."
-        )
+def _formatar_historico(historico_relevante, ctx):
+    r = ctx.resumo_hist
+    if not historico_relevante:
+        return ("(Nenhuma questão do acervo atingiu o limiar de similaridade com esta questão. "
+                "Informe isso na seção 2.10 usando a frase prevista no Comando.)")
+    anos_rec = sorted({h["ano"] for h in historico_relevante if h.get("ano")})
+    cab = (f"Acervo consultado: {r['n_provas']} prova(s) anteriores"
+           + (f" ({r['ano_min']}–{r['ano_max']})" if r["ano_min"] else "")
+           + f", {r['n_questoes']} questões. Recorte para esta questão: {len(historico_relevante)} "
+           f"questões, de {len(anos_rec)} prova(s) distinta(s). Este bloco é um recorte por "
+           f"similaridade de termos, não a lista exaustiva: ignore as que não tratem do mesmo tema "
+           f"e leia contagens do tipo \"X das Y provas\" como \"ao menos X\".")
+    partes = [cab]
+    for h in historico_relevante:
+        if h.get("gabarito"):
+            gab = f"Gabarito: {h['gabarito']}"
+        else:
+            gab = "Gabarito: anulada/não informado"
+        rotulo = " ".join(x for x in (h.get("banca"), h.get("ano")) if x) or "?"
+        rotulo += f" Q{h.get('num') or '?'}"
+        extra = f" | Disciplina: {h['disciplina']}" if h.get("disciplina") else ""
+        texto = h["texto"]
+        if len(texto) > HIST_MAX_CHARS:
+            texto = texto[:HIST_MAX_CHARS].rsplit("\n", 1)[0] + "\n[...texto truncado...]"
+        partes.append(f"[{rotulo} | {gab}{extra} | similaridade {h.get('similaridade', 0):.2f}]\n{texto}")
+    return "\n\n".join(partes)
+
+
+def montar_instrucao(ctx, idx, texto_questao, historico_relevante):
+    """
+    Instrução híbrida (nada de perguntas.pdf / provas_anteriores.pdf anexados):
+      - enunciado + alternativas + GABARITO OFICIAL colados no prompt;
+      - histórico relevante (top-K pré-filtrado) inline, com gabarito de cada questão.
+    O Comando (anexo) manda usar EXCLUSIVAMENTE o bloco de histórico na seção 2.10.
+    """
+    n = idx + 1
+    banca = ctx.banca_edicao or _CURRENT_BANCA
+    ano = ctx.ano_edicao or _CURRENT_ANO
+    origem = f" ({banca} {ano})" if banca and ano else ""
+    cabecalho = (
+        f"Responda a questão {n}{origem} abaixo. Use o template e as instruções anexados como "
+        f"referência. O enunciado completo e o gabarito oficial estão colados abaixo; não há "
+        f"arquivo de perguntas anexado. Para a seção 2.10 (Histórico do Tema nas Provas "
+        f"Anteriores), use EXCLUSIVAMENTE as questões do bloco PROVAS ANTERIORES RELEVANTES ao "
+        f"final desta mensagem — não use outras fontes nem invente questões. "
+        f"Entregue APENAS o código HTML completo, sem explicações."
+    )
+    gab = (ctx.gabaritos or {}).get(n)
+    linhas = [f"Gabarito oficial: Alternativa {gab}" if gab else
+              "Gabarito oficial: não disponível — determine a alternativa correta pela melhor evidência."]
+    disc = _obter_disciplina(ctx.disciplinas, banca, ano, n)
+    if disc:
+        linhas.append(f"Disciplina (disciplinas.json): {disc}")
+    if questao_tem_imagem(texto_questao, n):
+        if ctx.pdf_imagens:
+            linhas.append(f"Esta questão contém figura/imagem: consulte a questão {n} no arquivo "
+                          f"perguntas.pdf anexado apenas para ver a imagem (o texto oficial é o abaixo).")
+        else:
+            linhas.append("Esta questão menciona figura/imagem que não está disponível em texto: "
+                          "não invente o conteúdo da imagem; baseie-se apenas no texto.")
     return (
-        f"Agora responda a questão {idx + 1} do arquivo '{ctx.nome_perguntas}', "
-        f"seguindo as mesmas instruções, template e provas anteriores já anexados "
-        f"nesta conversa. Entregue APENAS o código HTML completo, sem explicações."
+        f"{cabecalho}\n\n"
+        f"--- QUESTÃO {n} ---\n" + "\n".join(linhas) + f"\n\n{texto_questao}\n\n"
+        f"--- PROVAS ANTERIORES RELEVANTES (pré-filtradas) ---\n"
+        f"{_formatar_historico(historico_relevante, ctx)}"
     )
 
 
 def enviar_questao(ctx, idx, n_antes, t0_ms):
     driver = ctx.driver
     campo = encontrar_campo_texto(driver)
-    instrucao = montar_instrucao(ctx, idx)
+    n = idx + 1
+
+    # --- Proposta Híbrida: texto da questão + histórico relevante (sem anexar os PDFs) ---
+    texto_questao = ctx.perguntas[idx] if idx < len(ctx.perguntas) else ""
+    if not texto_questao.strip():
+        return "nao_enviada", None, f"texto da questão {n} vazio (verifique o perguntas.txt/pdf)"
+    banca = ctx.banca_edicao or _CURRENT_BANCA
+    ano = ctx.ano_edicao or _CURRENT_ANO
+    disciplina_atual = _obter_disciplina(ctx.disciplinas, banca, ano, n)
+    historico_rel = selecionar_historico(
+        texto_questao, disciplina_atual, ctx.historico, ctx.indice_inv,
+        top_k=TOP_K_HISTORICO, excluir_ano=ano or None,
+    )
+
+    instrucao = montar_instrucao(ctx, idx, texto_questao, historico_rel)
     digitar_no_campo(driver, campo, instrucao)
-    logging.info(f"Instrução digitada: {instrucao[:80]}...")
+    logging.info(f"Instrução híbrida: questão {n}, {len(historico_rel)} histórico(s) relevante(s), "
+                 f"{len(instrucao)} chars, gabarito={'sim' if ctx.gabaritos.get(n) else 'não'}.")
 
     primeira_com_anexos = not ctx.arquivos_ja_enviados
     if primeira_com_anexos and not ctx.anexos_no_rascunho:
-        logging.info("Primeira questão desta conversa: anexando arquivos...")
+        logging.info("Primeira questão desta conversa: anexando template e comando...")
         if anexar_arquivos(driver, ctx.arquivos) == 0:
             return "nao_enviada", None, "nenhum anexo aceito"
         ctx.anexos_no_rascunho = True
+
+    # Única exceção ao "sem anexos": questão com imagem -> perguntas.pdf junto desta mensagem.
+    if ctx.pdf_imagens and questao_tem_imagem(texto_questao, n) and not ctx.pdf_no_rascunho:
+        logging.info(f"Questão {n} tem imagem: anexando {os.path.basename(ctx.pdf_imagens)}.")
+        if anexar_arquivos(driver, [ctx.pdf_imagens]) > 0:
+            ctx.pdf_no_rascunho = True
 
     if not enviar_mensagem(driver, campo, timeout=300 if primeira_com_anexos else 180):
         return "parada", None, ""
@@ -1325,9 +2046,10 @@ def enviar_questao(ctx, idx, n_antes, t0_ms):
         if saiu or resposta_em_andamento(driver):
             ctx.arquivos_ja_enviados = True
             ctx.anexos_no_rascunho = False
+            ctx.pdf_no_rascunho = False
             logging.info("Mensagem enviada")
             return "enviada", None, ""
-        time.sleep(1)
+        time.sleep(random.uniform(1, 2))
     return "nao_enviada", None, "campo não esvaziou após o envio"
 
 
@@ -1456,7 +2178,7 @@ def pausa_entre_questoes(ctx):
 
 
 # ---------------------------------------------------------------------------
-# Export e extração (mantidos)
+# Export e extração
 # ---------------------------------------------------------------------------
 def _buscar_botao_no_contexto(driver, texto):
     try:
@@ -1495,8 +2217,9 @@ def _clicar(driver, elemento):
         driver.execute_script("arguments[0].scrollIntoView({block:'center'});", elemento)
     except Exception:
         pass
-    time.sleep(0.5)
+    time.sleep(random.uniform(0.3, 0.8))
     try:
+        _movimento_humano(driver, elemento)
         elemento.click()
         return
     except Exception:
@@ -1558,7 +2281,7 @@ def exportar_automatico(driver, pasta_downloads):
         raise RuntimeError("Botão 'Export' não encontrado.")
     _clicar(driver, export_btn)
     logging.info("Botão 'Export' clicado")
-    time.sleep(2)
+    time.sleep(random.uniform(1.5, 3))
     logging.info("Procurando opção 'Markdown'...")
     md_btn = buscar_botao(driver, "Markdown", timeout=30)
     if not md_btn:
@@ -1566,7 +2289,7 @@ def exportar_automatico(driver, pasta_downloads):
         export_btn = buscar_botao(driver, "Export", timeout=10)
         if export_btn:
             _clicar(driver, export_btn)
-            time.sleep(2)
+            time.sleep(random.uniform(1.5, 3))
         md_btn = buscar_botao(driver, "Markdown", timeout=30)
     if not md_btn:
         raise RuntimeError("Opção 'Markdown' não encontrada.")
@@ -1682,7 +2405,7 @@ def nova_conversa(ctx, finalizar=True):
             raise
         except Exception as e:
             logging.warning(f"Erro ao finalizar conversa: {e}")
-    logging.info("Abrindo nova conversa (anexos serão reenviados na próxima questão).")
+    logging.info("Abrindo nova conversa (template e comando serão reenviados).")
     ctx.resetar_chat()
     navegar(ctx, URL_DEEPSEEK)
     return garantir_pronto(ctx)
@@ -1792,9 +2515,13 @@ def processar_questao(ctx, idx):
 # ---------------------------------------------------------------------------
 # Sessão / fila
 # ---------------------------------------------------------------------------
-def abrir_sessao(estado, arquivos, nome_comando, nome_perguntas, headless, reinicio=False):
+def abrir_sessao(estado, arquivos, nome_comando, nome_perguntas, headless,
+                 historico=None, indice_inv=None, perguntas=None, disciplinas=None,
+                 reinicio=False, ctx_extra=None):
     driver = criar_driver(headless=headless, reinicio=reinicio)
-    ctx = Ctx(driver, estado, arquivos, nome_comando, nome_perguntas, headless)
+    ctx = Ctx(driver, estado, arquivos, nome_comando, nome_perguntas, headless,
+              historico=historico, indice_inv=indice_inv,
+              perguntas=perguntas, disciplinas=disciplinas, **(ctx_extra or {}))
     logging.info("Acessando o site DeepSeek Chat")
     navegar(ctx, URL_DEEPSEEK)
     logging.info("Se necessário, faça login na janela do Chrome (a automação detecta sozinha).")
@@ -1804,7 +2531,9 @@ def abrir_sessao(estado, arquivos, nome_comando, nome_perguntas, headless, reini
     return ctx
 
 
-def processar_fila(fila, estado, arquivos, nome_comando, nome_perguntas, headless):
+def processar_fila(fila, estado, arquivos, nome_comando, nome_perguntas, headless,
+                   historico=None, indice_inv=None, perguntas=None, disciplinas=None,
+                   ctx_extra=None):
     ctx = None
     pos = 0
     falhados = []
@@ -1816,7 +2545,9 @@ def processar_fila(fila, estado, arquivos, nome_comando, nome_perguntas, headles
             try:
                 if ctx is None:
                     ctx = abrir_sessao(estado, arquivos, nome_comando, nome_perguntas,
-                                       headless, reinicio=quedas_seguidas > 0)
+                                       headless, historico=historico, indice_inv=indice_inv,
+                                       perguntas=perguntas, disciplinas=disciplinas,
+                                       reinicio=quedas_seguidas > 0, ctx_extra=ctx_extra)
                     if checar_comando_parada():
                         break
                 logging.info(f"\n{'=' * 60}\nProcessando questão {idx + 1} "
@@ -1893,9 +2624,9 @@ def processar_fila(fila, estado, arquivos, nome_comando, nome_perguntas, headles
 
 
 def _executar_para_arquivos(indices_solicitados, opcao, arquivos,
-                            nome_comando, nome_perguntas, headless):
-    """Núcleo do laço de geração para UM ano (ou, no modo T/P, para o arquivo global).
-    Usa os caminhos definidos em _PASTA_SAIDA_ANO / _ARQ_ESTADO_ANO (configurar_ano)."""
+                            nome_comando, nome_perguntas, headless,
+                            historico=None, indice_inv=None, perguntas=None, disciplinas=None,
+                            ctx_extra=None):
     estado = carregar_estado()
     if (estado and estado.get("opcao") == opcao and estado.get("forcar", False) == FORCAR
             and estado.get("indices_a_processar") == indices_solicitados
@@ -1924,7 +2655,10 @@ def _executar_para_arquivos(indices_solicitados, opcao, arquivos,
     while fila and not checar_comando_parada():
         rodada += 1
         logging.info(f"\n{'#' * 60}\nRODADA {rodada}: {len(fila)} questão(ões)\n{'#' * 60}")
-        falhados = processar_fila(fila, estado, arquivos, nome_comando, nome_perguntas, headless)
+        falhados = processar_fila(fila, estado, arquivos, nome_comando, nome_perguntas, headless,
+                                  historico=historico, indice_inv=indice_inv,
+                                  perguntas=perguntas, disciplinas=disciplinas,
+                                  ctx_extra=ctx_extra)
         fila = [i for i in pendentes() if i in set(falhados) | set(estado["indices_falhados"])]
         if not fila or checar_comando_parada():
             break
@@ -1955,7 +2689,6 @@ def _executar_para_arquivos(indices_solicitados, opcao, arquivos,
 
 
 def executar(indices, opcao, headless):
-    """Wrapper para os modos T/P (usa o perguntas global em BASE)."""
     configurar_ano(None)
     arquivos = resolver_lista_anexos(ARQUIVOS_ANEXAR)
     if not arquivos:
@@ -1963,23 +2696,57 @@ def executar(indices, opcao, headless):
         sair()
     arquivo_comando = next((f for f in arquivos if "comando" in normalizar(os.path.basename(f))
                             and "resolu" in normalizar(os.path.basename(f))), None)
-    arquivo_perguntas = next((f for f in arquivos
-                              if os.path.basename(f).lower().startswith("perguntas")), None)
+    arquivo_perguntas = achar_arquivo(BASE, "perguntas.txt",
+                                      lambda n: n.startswith("perguntas"), "Perguntas (T/P)")
     if not arquivo_comando or not arquivo_perguntas:
         logging.error("Arquivo de comando ou de perguntas não encontrado.")
         sair()
+
+    # Carrega perguntas e disciplinas
+    perguntas = carregar_perguntas(arquivo_perguntas)
+    disciplinas = _carregar_disciplinas()
+
+    # Carrega histórico e índice
+    arquivo_provas = achar_arquivo(BASE, "provas_anteriores.txt",
+                                   lambda n: "provas" in n or "anteriores" in n,
+                                   "Provas anteriores")
+    historico, indice_inv = construir_indice_historico(arquivo_provas, disciplinas)
+    pdf_base = os.path.join(BASE, "perguntas.pdf")
+    ctx_extra = dict(gabaritos=carregar_gabarito_edicao(BASE, arquivo_perguntas),
+                     pdf_imagens=pdf_base if os.path.isfile(pdf_base) else None)
+    if not ctx_extra["gabaritos"]:
+        logging.warning("Gabarito oficial não encontrado: o modelo terá de determinar o correctAnswer.")
+
     return _executar_para_arquivos(indices, opcao, arquivos,
                                    os.path.basename(arquivo_comando),
                                    os.path.basename(arquivo_perguntas),
-                                   headless)
+                                   headless,
+                                   historico=historico, indice_inv=indice_inv,
+                                   perguntas=perguntas, disciplinas=disciplinas,
+                                   ctx_extra=ctx_extra)
+
+
+# ---------------------------------------------------------------------------
+# Disciplinas
+# ---------------------------------------------------------------------------
+def _carregar_disciplinas():
+    caminho = os.path.join(EXAMS_DIR, "disciplinas.json")
+    if not os.path.isfile(caminho):
+        logging.warning(f"Arquivo de disciplinas não encontrado: {caminho}. "
+                        f"Filtro por disciplina desativado.")
+        return {}
+    try:
+        with open(caminho, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logging.warning(f"Erro ao carregar disciplinas: {e}")
+        return {}
 
 
 # ---------------------------------------------------------------------------
 # MODO M — seleção de banca e progressão automática entre edições
 # ---------------------------------------------------------------------------
 def processar_edicao(banca, ano, headless):
-    """Processa uma edição (banca + ano) do começo ao fim, retomando se houver progresso.
-    Retorna True se todas as questões terminaram com HTML válido, False caso contrário."""
     ano_dir = os.path.join(EXAMS_DIR, banca, ano)
     if not os.path.isdir(ano_dir):
         logging.error(f"Pasta não encontrada: {ano_dir}")
@@ -1992,12 +2759,7 @@ def processar_edicao(banca, ano, headless):
     configurar_ano(banca, ano)
     logging.info(f"Saída desta edição: {_PASTA_SAIDA_ANO}")
 
-    arquivos_sem_perguntas = [f for f in ARQUIVOS_ANEXAR
-                              if not normalizar(f).startswith("perguntas")]
-    arquivos = resolver_lista_anexos(arquivos_sem_perguntas)
-    if arquivo_perguntas not in arquivos:
-        arquivos.append(arquivo_perguntas)
-
+    arquivos = resolver_lista_anexos(ARQUIVOS_ANEXAR)
     arquivo_comando = next(
         (f for f in arquivos if "comando" in normalizar(os.path.basename(f))
          and "resolu" in normalizar(os.path.basename(f))), None)
@@ -2008,6 +2770,7 @@ def processar_edicao(banca, ano, headless):
     nome_comando = os.path.basename(arquivo_comando)
     nome_perguntas = os.path.basename(arquivo_perguntas)
 
+    # Carrega perguntas
     perguntas = carregar_perguntas(arquivo_perguntas)
     total_arquivo = len(perguntas)
     if total_arquivo == 0:
@@ -2018,6 +2781,35 @@ def processar_edicao(banca, ano, headless):
         logging.warning(f"{banca} {ano}: o arquivo tem {total_arquivo} blocos; "
                         f"limitando às {MAX_QUESTOES_POR_PROVA} primeiras questões.")
         total = MAX_QUESTOES_POR_PROVA
+
+    # Carrega disciplinas
+    disciplinas = _carregar_disciplinas()
+
+    # Carrega histórico e índice
+    arquivo_provas = achar_arquivo(BASE, "provas_anteriores.txt",
+                                   lambda n: "provas" in n or "anteriores" in n,
+                                   "Provas anteriores")
+    historico, indice_inv = construir_indice_historico(arquivo_provas, disciplinas)
+    achadas = aplicar_disciplinas_historico(historico, disciplinas, banca)
+    logging.info(f"Histórico: {len(historico)} questões ({achadas} com disciplina em disciplinas.json); "
+                 f"{TOP_K_HISTORICO} mais similares por questão.")
+
+    # Gabarito oficial da edição + perguntas.pdf (usado só em questão com imagem)
+    gabaritos = carregar_gabarito_edicao(ano_dir, arquivo_perguntas)
+    logging.info(f"Gabarito oficial da edição: {len(gabaritos)}/{total} questões.")
+    if len(gabaritos) < total:
+        faltam = [i for i in range(1, total + 1) if i not in gabaritos]
+        logging.warning(f"Sem gabarito para {len(faltam)} questão(ões) (ex.: {faltam[:10]}); "
+                        f"nelas o modelo determina o correctAnswer sozinho.")
+    pdf_ed = os.path.join(ano_dir, "perguntas.pdf")
+    pdf_imagens = pdf_ed if os.path.isfile(pdf_ed) else None
+    com_imagem = [i + 1 for i, t in enumerate(perguntas[:total]) if questao_tem_imagem(t, i + 1)]
+    if com_imagem:
+        logging.info(f"Questões com possível imagem: {com_imagem} "
+                     + ("(perguntas.pdf será anexado nelas)." if pdf_imagens else
+                        "(sem perguntas.pdf na pasta: o modelo recebe só o texto)."))
+    ctx_extra = dict(gabaritos=gabaritos, pdf_imagens=pdf_imagens,
+                     banca_edicao=banca, ano_edicao=ano)
 
     n_feitas, ultima, primeira_pend = resumo_edicao(total)
     if not FORCAR and n_feitas >= total:
@@ -2033,7 +2825,10 @@ def processar_edicao(banca, ano, headless):
         logging.info(f"   - {os.path.basename(f)}")
 
     indices = list(range(total))
-    resultado = _executar_para_arquivos(indices, "M", arquivos, nome_comando, nome_perguntas, headless)
+    resultado = _executar_para_arquivos(indices, "M", arquivos, nome_comando, nome_perguntas, headless,
+                                        historico=historico, indice_inv=indice_inv,
+                                        perguntas=perguntas, disciplinas=disciplinas,
+                                        ctx_extra=ctx_extra)
 
     n_feitas, ultima, primeira_pend = resumo_edicao(total)
     if n_feitas >= total:
@@ -2046,8 +2841,6 @@ def processar_edicao(banca, ano, headless):
 
 
 def modo_m_bancas(headless, banca_arg=None, max_arg=None):
-    """Lista as bancas, o usuário escolhe uma, e o script percorre os anos em ordem
-    decrescente (2026 → 2025 → 2024 …) processando cada edição até o fim."""
     bancas = listar_bancas()
     if not bancas:
         logging.error(f"Nenhuma banca encontrada em {EXAMS_DIR}.")
@@ -2104,7 +2897,6 @@ def modo_m_bancas(headless, banca_arg=None, max_arg=None):
     logging.info(f"Máximo de questões por prova: "
                  f"{MAX_QUESTOES_POR_PROVA if MAX_QUESTOES_POR_PROVA else 'sem limite'}")
 
-    # Só agora (depois de todos os input()) a thread de stdin pode começar a ouvir o "S".
     iniciar_thread_stdin()
 
     logging.info(f"Banca selecionada: {banca}")
@@ -2144,7 +2936,7 @@ def modo_m_bancas(headless, banca_arg=None, max_arg=None):
 # CLI / main
 # ---------------------------------------------------------------------------
 def parse_args():
-    p = argparse.ArgumentParser(description="Gera questao_N.html via DeepSeek, sem supervisão.")
+    p = argparse.ArgumentParser(description="Gera questao_N.html via DeepSeek (Proposta Híbrida + Anti-Detecção).")
     p.add_argument("--modo", choices=["T", "P", "M", "t", "p", "m"],
                    help="T=intervalo, P=específicas, M=banca (progressão automática entre edições)")
     p.add_argument("--inicio", type=int, help="(T) questão inicial")
@@ -2156,11 +2948,13 @@ def parse_args():
     p.add_argument("--forcar", action="store_true", help="regerar questões que já têm HTML")
     p.add_argument("--auto", action="store_true", help="nunca bloquear em input()")
     p.add_argument("--headless", action="store_true", help="Chrome sem janela (só após o 1º login manual)")
+    p.add_argument("--top-k", type=int, default=TOP_K_HISTORICO,
+                   help=f"Nº de questões históricas relevantes (padrão {TOP_K_HISTORICO})")
     return p.parse_args()
 
 
 def main():
-    global AUTO, FORCAR, TAM_TEMPLATE
+    global AUTO, FORCAR, TAM_TEMPLATE, TOP_K_HISTORICO
     args = parse_args()
     for pasta in (BASE, PASTA_SAIDA, PASTA_DOWNLOADS, PERFIL_PERSISTENTE,
                   PASTA_DRIVER, PASTA_DIAG, PASTA_REJEITADAS):
@@ -2168,6 +2962,7 @@ def main():
     configurar_log()
     AUTO = args.auto or args.modo is not None or not sys.stdin.isatty()
     FORCAR = args.forcar
+    TOP_K_HISTORICO = max(1, args.top_k)
     signal.signal(signal.SIGINT, _handler_sinal)
     signal.signal(signal.SIGTERM, _handler_sinal)
     if os.path.exists(ARQ_PARAR):
@@ -2181,8 +2976,6 @@ def main():
                 pass
 
     arquivos_base = resolver_lista_anexos(ARQUIVOS_ANEXAR)
-    arquivo_perguntas_base = next(
-        (f for f in arquivos_base if os.path.basename(f).lower().startswith("perguntas")), None)
     arquivo_template = next((f for f in arquivos_base
                              if "templ" in normalizar(os.path.basename(f))
                              or "tampl" in normalizar(os.path.basename(f))), None)
@@ -2196,7 +2989,7 @@ def main():
         return 1
     if not opcao:
         print("=" * 60)
-        print("OPÇÕES DE EXECUÇÃO DO SCRIPT")
+        print("OPÇÕES DE EXECUÇÃO DO SCRIPT (Proposta Híbrida + Anti-Detecção)")
         print("=" * 60)
         print("T - Resolver um intervalo de questões (arquivo perguntas global em BASE)")
         print("P - Resolver questões específicas (arquivo perguntas global em BASE)")
@@ -2213,6 +3006,10 @@ def main():
     if opcao == "M":
         return modo_m_bancas(args.headless, args.banca, args.max_questoes)
 
+    # Modos T/P
+    arquivo_perguntas_base = achar_arquivo(
+        BASE, "perguntas.txt",
+        lambda n: n.startswith("perguntas"), "Perguntas (T/P)")
     if not arquivo_perguntas_base:
         logging.error("perguntas (qualquer extensão) não encontrada em BASE para T/P.")
         sair()
