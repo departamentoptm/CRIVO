@@ -1098,6 +1098,7 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
         <div class="progress-content" id="progressContent"></div>
     </div>
 
+<script src="js/crivo-render.js"></script>
 <script>
 /* ============================================================
    ESTADO GLOBAL
@@ -1534,15 +1535,39 @@ async function loadDisciplinas() {
 /* ============================================================
    MANIFEST / PROVAS
    ============================================================ */
+/* Edições publicadas no formato novo (dados/<BANCA>/<ANO>.json) têm prioridade sobre os HTMLs antigos.
+   No objeto "exams", cada questão dessas aparece com o nome de arquivo "json". */
+const ARQUIVO_JSON = 'json';
+function urlQuestao(banca, ano, arquivo, num) {
+    return arquivo === ARQUIVO_JSON
+        ? `json:${encodeURIComponent(banca)}/${encodeURIComponent(ano)}/${encodeURIComponent(num)}`
+        : `exams/${banca}/${ano}/${arquivo}`;
+}
 async function loadManifest() {
+    let antigo = null, novo = null;
     try {
         const res = await fetch('exams/manifest.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        exams = await res.json();
+        if (res.ok) antigo = await res.json();
+    } catch (e) { console.warn('exams/manifest.json não carregado:', e); }
+    try {
+        if (window.CrivoRender) novo = await CrivoRender.carregarIndice();
+    } catch (e) { console.warn('dados/indice.json não carregado:', e); }
+    try {
+        if (!antigo && !novo) throw new Error('nenhum índice de provas encontrado');
+        exams = antigo || {};
+        if (novo && novo.bancas) {
+            for (const [banca, anos] of Object.entries(novo.bancas)) {
+                for (const [ano, info] of Object.entries(anos)) {
+                    const mapa = {};
+                    for (const n of info.questoes || []) mapa[String(n)] = ARQUIVO_JSON;
+                    (exams[banca] ||= {})[ano] = mapa;
+                }
+            }
+        }
         return true;
     } catch (e) {
         console.error('Manifest:', e);
-        alert('Não foi possível carregar exams/manifest.json.\n\n' +
+        alert('Não foi possível carregar a lista de provas (dados/indice.json ou exams/manifest.json).\n\n' +
               'Verifique se o arquivo existe na raiz do deploy e se o formato está correto.');
         return false;
     }
@@ -1581,9 +1606,9 @@ async function loadYear(examName, yearName, targetNum = null) {
     if (!yearData) { alert(`Ano ${yearName} não encontrado na prova ${examName}.`); return false; }
     let files = [];
     if (Array.isArray(yearData)) {
-        files = yearData.map((f, i) => ({ num: String(i + 1), filename: f, url: `exams/${examName}/${yearName}/${f}` }));
+        files = yearData.map((f, i) => ({ num: String(i + 1), filename: f, url: urlQuestao(examName, yearName, f, String(i + 1)) }));
     } else {
-        files = Object.entries(yearData).map(([num, f]) => ({ num: String(num), filename: f, url: `exams/${examName}/${yearName}/${f}` }));
+        files = Object.entries(yearData).map(([num, f]) => ({ num: String(num), filename: f, url: urlQuestao(examName, yearName, f, String(num)) }));
     }
     files.sort((a, b) => (parseInt(a.num) || 0) - (parseInt(b.num) || 0));
     if (!files.length) { alert(`Sem questões em ${examName}/${yearName}.`); return false; }
@@ -1633,7 +1658,7 @@ async function rebuildQuestoes(navigateIfLost = true) {
             for (const f of files) {
                 todas.push({
                     exam: banca, year: ano, num: f.num, filename: f.filename,
-                    url: `exams/${banca}/${ano}/${f.filename}`
+                    url: urlQuestao(banca, ano, f.filename, f.num)
                 });
             }
         }
@@ -1937,9 +1962,15 @@ async function carregarQuestao(index) {
     if (q.exam) currentExam = q.exam;
     if (q.year) currentYear = q.year;
     try {
-        const res = await fetch(q.url, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status} em ${q.url}`);
-        let html = await res.text();
+        let html;
+        if (q.url.startsWith('json:')) {
+            const [b, a, n] = q.url.slice(5).split('/').map(decodeURIComponent);
+            html = await CrivoRender.paginaDaQuestao(b, a, n);
+        } else {
+            const res = await fetch(q.url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`HTTP ${res.status} em ${q.url}`);
+            html = await res.text();
+        }
         const nativa = html.includes('RESTORE_STATE');
         const bridge = nativa
             ? BRIDGE_SCRIPT.replace('window.__bridgeNative', 'true')

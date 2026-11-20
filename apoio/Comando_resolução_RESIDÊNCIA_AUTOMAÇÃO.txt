@@ -1,0 +1,419 @@
+# Instruções Corrigidas para Geração de Páginas HTML de Correção de Questões de Residência Médica
+## com Integração do Histórico de Provas Anteriores
+
+## Objetivo
+
+Gerar páginas HTML **exatamente idênticas** ao template fornecido no arquivo "TAMPLATE RESOLUTOR DE QUESTÕES.html", garantindo que todas as funcionalidades funcionem corretamente e a aparência seja perfeita. **Além disso, a correção deve ser personalizada com base no histórico do tema nas provas anteriores**, para mapear como a banca cobra aquele tema ao longo dos anos e antecipar variações.
+
+---
+
+## Arquivos e Dados de Entrada
+
+Para cada correção, o LLM recebe:
+
+1. **Anexos (apenas na primeira mensagem de cada conversa):** este Comando e o **Template HTML** (`TAMPLATE RESOLUTOR DE QUESTÕES.html`), cuja estrutura é fixa.
+2. **Na própria mensagem (texto colado, não anexo):**
+   - **A questão atual**, sob `--- QUESTÃO N ---`: enunciado completo e alternativas, precedidos pelo **Gabarito oficial** (e, quando existir, pela disciplina).
+   - **O histórico de provas anteriores**, sob `--- PROVAS ANTERIORES RELEVANTES (pré-filtradas) ---`: as questões do acervo mais parecidas com a questão atual, cada uma com ano, número, gabarito e texto completo.
+
+**Não há arquivo de perguntas nem arquivo de provas anteriores anexado.** O histórico completo **não é enviado**: o bloco inline já é o recorte relevante, escolhido por similaridade de termos. A única exceção é a questão que depende de figura/imagem: nela a mensagem pode trazer o `perguntas.pdf` anexado, usado **somente para ver a imagem** (o texto oficial continua sendo o colado na mensagem).
+
+**Regras de uso desses dados:**
+
+- O **Gabarito oficial** informado na mensagem é a fonte do `correctAnswer`. Use exatamente essa letra. Se a mensagem disser que o gabarito não está disponível, determine a alternativa correta pela melhor evidência clínica e deixe a justificativa muito explícita.
+- O bloco **PROVAS ANTERIORES RELEVANTES** é a **fonte exclusiva** da seção 2.10 e a fonte do histórico citado nas seções 2.2, 2.3, 2.4 e 2.7. Não use memória, não cite questões que não estejam no bloco e não invente ano, número, enunciado ou gabarito.
+- O bloco é um **recorte por similaridade**, não a lista exaustiva do acervo: algumas questões podem não tratar do mesmo tema. **Descarte** as irrelevantes e **não as cite**.
+- Se a mensagem indicar que a questão contém imagem não disponível em texto, não invente o conteúdo da imagem.
+
+---
+
+## Passo a Passo para Geração
+
+### 1. **Estrutura Exata do HTML**
+
+- Utilize **exatamente** a estrutura do template fornecido, **sem qualquer adição ou modificação**:
+  - Nenhum código extra (como "```html" ou outros caracteres)
+  - Nenhum comentário adicional no HTML
+  - Apenas o HTML puro conforme o template
+
+### 2. **Substituição Exata dos Placeholders**
+
+Substitua cada placeholder **exatamente** conforme especificado:
+
+| Placeholder | Localização | Valor |
+|-------------|-------------|-------|
+| `[Theme]` | Dentro da div `.theme` | Tema da questão (ex: "Atenção Primária à Saúde: Atributos Essenciais") |
+| `[QuestionNumber]` | Dentro do `<h1>` e da div `.question-number` | Número da questão (ex: "1") |
+| `[QuestionText]` | Dentro da div `.question-text` | Texto completo da questão |
+| `[DataTableSection]` | Após `.question-text` | Tabela HTML se houver dados tabulares |
+| `[StatementsSection]` | Após `.DataTableSection` | Lista de afirmativas se houver |
+| `[OptionsSection]` | Dentro da div `.options` | Estrutura exata das opções (veja abaixo) |
+| `[CorrectAnswer]` | Dentro do script JavaScript | Letra da alternativa correta (ex: `'A'`) |
+| `[CorrectionDetails]` | Dentro da div `.explanation` com ID `correctionContent` | Conteúdo completo da correção **personalizado com dados do histórico de provas** (veja detalhes abaixo) |
+
+#### Formatação Exata para `[OptionsSection]`:
+
+```html
+<div class="option" onclick="selectOption('A')">
+  <input type="radio" name="answer" id="optionA" value="A">
+  <label for="optionA"><strong>A</strong> - Texto da alternativa A</label>
+</div>
+<div class="option" onclick="selectOption('B')">
+  <input type="radio" name="answer" id="optionB" value="B">
+  <label for="optionB"><strong>B</strong> - Texto da alternativa B</label>
+</div>
+<!-- Repetir para todas as alternativas (A a E) -->
+```
+
+### 3. **Configuração do Script JavaScript**
+
+Mantenha **exatamente** o código JavaScript do template:
+
+```javascript
+let selectedOption = null;
+const correctAnswer = '[CorrectAnswer]';
+
+function selectOption(option) {
+    const options = document.querySelectorAll('.option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    const selected = document.querySelector(`.option input[value="${option}"]`).parentElement;
+    selected.classList.add('selected');
+    selectedOption = option;
+}
+
+function checkAnswer() {
+    if (!selectedOption) {
+        alert('Por favor, selecione uma opção antes de confirmar.');
+        return;
+    }
+    const submitBtn = document.getElementById('submitBtn');
+    const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+    document.getElementById('correctAnswer').textContent = `Alternativa ${correctAnswer}`;
+    document.getElementById('userAnswer').textContent = `Alternativa ${selectedOption}`;
+    const resultContainer = document.getElementById('resultContainer');
+    resultContainer.style.display = 'block';
+    if (selectedOption === correctAnswer) {
+        submitBtn.textContent = 'Resposta Correta!';
+        submitBtn.classList.add('correct');
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+    } else {
+        submitBtn.textContent = 'Confirmar Resposta';
+        submitBtn.classList.remove('correct');
+        viewCorrectionBtn.style.display = 'inline-block';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+    }
+    resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showCorrection() {
+    const correctionContent = document.getElementById('correctionContent');
+    const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
+    if (correctionContent.style.display === 'none' || correctionContent.style.display === '') {
+        correctionContent.style.display = 'block';
+        viewCorrectionBtn.textContent = 'Ocultar Correção Completa';
+    } else {
+        correctionContent.style.display = 'none';
+        viewCorrectionBtn.textContent = 'Visualizar Correção Completa';
+    }
+}
+
+function resetQuiz() {
+    selectedOption = null;
+    const options = document.querySelectorAll('.option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    const radios = document.querySelectorAll('input[name="answer"]');
+    radios.forEach(radio => radio.checked = false);
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.textContent = 'Confirmar Resposta';
+    submitBtn.classList.remove('correct');
+    document.getElementById('viewCorrectionBtn').style.display = 'none';
+    document.getElementById('resultContainer').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+```
+
+### 4. **Correção do Background Gradient**
+
+Assegure que o degradê funcione continuamente em toda a página:
+
+```css
+html {
+    height: 100%;
+}
+body {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+```
+
+### 5. **Conteúdo Completo da Correção com Integração dos Dados do Histórico de Provas**
+
+O `[CorrectionDetails]` **deve incluir TODAS as seções abaixo (2.1 a 2.15)**, **utilizando obrigatoriamente as informações do bloco PROVAS ANTERIORES RELEVANTES fornecido na mensagem**. Para cada unidade de conhecimento da questão, identifique:
+
+- **Das provas anteriores:** todas as questões **do bloco PROVAS ANTERIORES RELEVANTES** que abordaram o mesmo tema, com enunciado resumido, abordagem cobrada (diagnóstico, tratamento, complicação, conduta inicial, etc.), resposta correta (use o gabarito do rótulo de cada questão) e relação com a questão atual.
+
+Se a questão foi errada, aponte explicitamente quais conceitos não foram cobrados nas provas anteriores (lacunas que podem ser exploradas na próxima prova).
+
+```html
+<h4>2.1 Tema Central e Contextualização</h4>
+<p><strong>Disciplina:</strong> [disciplina]</p>
+<p><strong>Tema:</strong> [tema específico]</p>
+<p><strong>Contextualização:</strong> Onde este tema se encaixa no contexto maior da disciplina e qual sua relevância para a prova (ex: "tema de alta incidência em provas de residência", "tema que costuma ser cobrado em conjunto com X").</p>
+
+<h4>2.2 Conceito-Chave e Fisiopatologia</h4>
+<p>Explicar o mecanismo básico por trás da resposta correta. Por que a alternativa correta é correta fisiopatologicamente. Isso permite que o usuário deduza a resposta mesmo que não lembre o fato específico. Conectar com o histórico de provas anteriores, se existir.</p>
+
+<h4>2.3 Justificativa da Resposta Correta</h4>
+<p>Explicação científica detalhada da alternativa correta. Correlacionar com o histórico de provas anteriores, se aplicável.</p>
+
+<h4>2.4 Análise dos Distratores</h4>
+<p><strong>Alternativa [X]</strong> - Explicação do erro. Indique também se esse distrator já apareceu em provas anteriores como alternativa incorreta ou como tema de outra questão.</p>
+<!-- Repetir para cada alternativa -->
+
+<h4>2.5 Palavras-Chave e "Pistas" no Enunciado</h4>
+<ul>
+  <li><strong>[Termo 1]:</strong> O que significa e como direciona o raciocínio.</li>
+  <li><strong>[Termo 2]:</strong> O que significa e como direciona o raciocínio.</li>
+</ul>
+
+<h4>2.6 Algoritmo de Decisão (Raciocínio Clínico Passo a Passo)</h4>
+<ol>
+  <li><strong>Primeiro:</strong> O que fazer primeiro e por quê.</li>
+  <li><strong>Segundo:</strong> O que descartar e por quê.</li>
+  <li><strong>Terceiro:</strong> O que fazer em seguida.</li>
+</ol>
+<p>Isso treina a habilidade de resolver questões de "conduta inicial" e "próximo passo".</p>
+
+<h4>2.7 Dados para Memorizar (com Contexto)</h4>
+<p>Agrupar em:</p>
+<ul>
+  <li><strong>Fatos que definem:</strong> (ex: "Bronquiolite é a primeira infecção respiratória baixa com sibilância em < 2 anos").</li>
+  <li><strong>Números e doses:</strong> (ex: "Amoxicilina 50 mg/kg/dia").</li>
+  <li><strong>Mnemônicos:</strong> (ex: "SNNOUT/SPPIN").</li>
+</ul>
+<p>Para cada dado, explicar <em>por que</em> é importante e como ele já foi cobrado em provas anteriores, se aplicável.</p>
+
+<h4>2.8 Near-Neighbours e Diagnósticos Diferenciais</h4>
+<table class="data-table">
+  <thead>
+    <tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Condição A (a correta)</td><td>...</td><td>...</td><td>...</td></tr>
+    <tr><td>Condição B (diferencial próximo)</td><td>...</td><td>...</td><td>...</td></tr>
+    <tr><td>Condição C (outro diferencial)</td><td>...</td><td>...</td><td>...</td></tr>
+  </tbody>
+</table>
+<p>Isso permite acertar questões que cobram o diagnóstico diferencial, não apenas o diagnóstico em si.</p>
+
+<h4>2.9 Variações de Abordagem em Provas</h4>
+<p>Listar como o mesmo tema pode ser cobrado de formas diferentes:</p>
+<ul>
+  <li><strong>Se a questão foi sobre tratamento:</strong> como seria sobre diagnóstico? sobre complicações? sobre prevenção?</li>
+  <li><strong>Exemplo:</strong> "Se a questão pedisse o exame diagnóstico, a resposta seria X. Se pedisse a complicação mais temida, seria Y. Se pedisse a contraindicação, seria Z."</li>
+</ul>
+
+<h4>2.10 Histórico do Tema nas Provas Anteriores</h4>
+<p><strong>Questões das provas anteriores (anos informados no bloco) que abordaram o mesmo tema:</strong></p>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Ano/Questão</th>
+      <th>Enunciado resumido</th>
+      <th>O que foi cobrado</th>
+      <th>Resposta correta</th>
+      <th>Relação com a questão atual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[ano] – Q[numero]</td>
+      <td>[resumo do caso clínico]</td>
+      <td>[diagnóstico, tratamento, complicação, conduta inicial, etc.]</td>
+      <td>[resposta correta — letra do gabarito informado no bloco]</td>
+      <td>[como se relaciona com a questão atual]</td>
+    </tr>
+    <!-- Repetir para cada questão encontrada -->
+  </tbody>
+</table>
+<p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em ao menos [X] das [Y] provas anteriores (Y = número de provas do acervo informado no cabeçalho do bloco; X = provas distintas, entre as questões relevantes do bloco, que trataram do tema). A banca alterna entre cobrar [abordagem 1], [abordagem 2] e [abordagem 3].</p>
+<p><strong>Abordagem ainda não cobrada:</strong> [listar abordagens que nunca apareceram e que podem surgir na próxima prova].</p>
+<p><strong>Evolução da cobrança:</strong> Como a banca mudou a forma de perguntar ao longo dos anos (ex: "Em 2006, a questão era mais descritiva; nas provas mais recentes, foi mais aplicada, focando em tomada de decisão").</p>
+<p><strong>O que isso sugere para a próxima prova:</strong> [recomendação concreta de estudo com base no padrão identificado].</p>
+
+<h4>2.11 Conexão com Outros Temas</h4>
+<p>Como esse tema se integra com outros (ex: bronquiolite → asma → pneumonia). "Se você viu X, lembre-se de Y". Listar pelo menos 2 conexões.</p>
+
+<h4>2.12 Erro do Usuário e Estratégia de Correção</h4>
+<p>Por que errou (baseado no tipo de erro). O que fazer para não errar de novo. Classificar o tipo de erro (lacuna de conhecimento, confusão conceitual, erro de leitura/interpretação, erro de estratégia) e propor ação corretiva específica.</p>
+
+<h4>2.13 Conexão com a Prática</h4>
+<p>Aplicação clínica real. Como esse conhecimento se traduz no atendimento ao paciente.</p>
+
+<h4>2.14 Conceitos Relacionados para Revisar</h4>
+<ul>
+  <li>Conceito 1 – revisar</li>
+  <li>Conceito 2 – revisar</li>
+</ul>
+
+<h4>2.15 Listagem das Referências</h4>
+<p>1. [Referência 1]</p>
+<p>2. [Referência 2]</p>
+<p>3. [Referência 3]</p>
+```
+
+---
+
+### 6. **Instruções Específicas para Uso do Histórico de Provas Anteriores (bloco inline)**
+
+O histórico chega **dentro da mensagem**, no bloco `--- PROVAS ANTERIORES RELEVANTES (pré-filtradas) ---`. O cabeçalho do bloco informa o acervo consultado (número de provas, intervalo de anos e total de questões) e o tamanho do recorte. Cada questão vem rotulada como `[ANO Qnúmero | Gabarito: letra | similaridade]`, ordenada da mais para a menos parecida.
+
+**Para gerar a seção 2.10 (Histórico do Tema nas Provas Anteriores), o LLM deve:**
+
+1. Ler as questões do bloco e **manter apenas as que abordam o mesmo tema** da questão atual.
+2. Extrair de cada questão mantida o enunciado resumido, a abordagem cobrada (diagnóstico, tratamento, complicação, conduta inicial, etc.) e a resposta correta (letra do rótulo `Gabarito`; se constar "anulada/não informado", escrever isso).
+3. Comparar a abordagem da questão atual com as anteriores, identificando o que mudou e o que se manteve.
+4. Identificar qual abordagem **ainda não foi cobrada** entre as questões do bloco e que poderia aparecer na próxima prova.
+5. Cruzar com os conceitos da questão atual para verificar se o histórico está coberto e sugerir revisão para as lacunas.
+6. Se **nenhuma** questão do bloco tratar do tema (ou se o bloco informar que nenhuma atingiu o limiar), escrever: **"Tema não identificado nas provas anteriores do acervo consultado (intervalo de anos informado no cabeçalho do bloco). Isso sugere que pode ser um tema novo ou de baixa incidência, mas que merece atenção pela relevância clínica."** Como o bloco é um recorte, **não afirme que o tema nunca foi cobrado**.
+7. **Não** cite a própria questão atual como "prova anterior" e **não** cite questões, anos ou gabaritos que não estejam no bloco.
+
+---
+
+### 7. **Validação Estrita**
+
+Antes de salvar o arquivo, verifique **exatamente**:
+
+1. **Nenhum caractere extra**:
+   - Não deve haver "```html" ou qualquer outro texto além do HTML puro.
+   - Verificar que o arquivo começa com `<!DOCTYPE html>` e não tem caracteres antes disso.
+
+2. **Gradient contínuo**:
+   - `html` deve ter `height: 100%`
+   - `body` deve ter `min-height: 100%` e o mesmo background.
+
+3. **Scroll correto**:
+   - `resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' })` deve estar configurado para levar ao topo do resultado.
+
+4. **Seções completas**:
+   - Todas as seções de 2.1 a 2.15 devem estar presentes no `[CorrectionDetails]`.
+   - Nenhuma seção omitida.
+
+5. **Estrutura exata**:
+   - Todas as classes, IDs e elementos devem ser idênticos ao template.
+   - Nenhuma modificação no CSS ou JavaScript.
+
+6. **Integração do histórico inline**:
+   - A seção 2.10 deve conter obrigatoriamente a análise das questões do bloco PROVAS ANTERIORES RELEVANTES.
+   - Se nenhuma questão do bloco tratar do tema, usar a frase prevista na seção 6 e sugerir a inclusão do tema no estudo.
+   - `correctAnswer` deve ser a letra do **Gabarito oficial** informado na mensagem.
+
+---
+
+### 8. **Tratamento de Dados**
+
+- **Escapar caracteres especiais**:
+  - `&` → `&amp;`
+  - `<` → `&lt;`
+  - `>` → `&gt;`
+  - `"` → `&quot;`
+  - `'` → `&#39;`
+
+- **Imagens**:
+  ```html
+  <img src="caminho/para/imagem.jpg" alt="Descrição" style="max-width:100%; height:auto;">
+  ```
+
+- **Tabelas**:
+  ```html
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dado 1</td>
+        <td>Dado 2</td>
+      </tr>
+    </tbody>
+  </table>
+  ```
+
+---
+
+### 9. **Exemplo Correto**
+
+A questão gerada deve ter **exatamente** a seguinte estrutura (sem caracteres extras):
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 1 - Atenção Primária à Saúde: Atributos Essenciais segundo Barbara Starfield</title>
+    <style>
+        /* Mesmo CSS do template */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Estrutura exata conforme template -->
+    </div>
+    <script>
+        /* Mesmo JavaScript do template */
+    </script>
+</body>
+</html>
+```
+
+---
+
+## Avisos Importantes
+
+- **NUNCA** incluir caracteres extras (como "```html" no início do arquivo).
+- **NUNCA** modificar a estrutura CSS ou JavaScript do template.
+- **SEMPRE** incluir TODAS as seções de 2.1 a 2.15 no `[CorrectionDetails]`.
+- **SEMPRE** verificar que o background gradient é contínuo em toda a página.
+- **SEMPRE** testar a funcionalidade de scroll após confirmar a resposta.
+- **SEMPRE** validar o HTML com ferramentas como W3C Validator.
+- **SEMPRE** testar em diferentes navegadores (Chrome, Firefox, Edge).
+- **OBRIGATORIAMENTE** utilizar os dados do bloco PROVAS ANTERIORES RELEVANTES para personalizar a seção 2.10, sem recorrer a outras fontes de histórico.
+- **OBRIGATORIAMENTE** usar como `correctAnswer` a letra do Gabarito oficial informado na mensagem.
+- **OBRIGATORIAMENTE** identificar na seção 2.10 qual abordagem do tema ainda não foi cobrada nas questões do bloco e que pode surgir na próxima prova.
+
+---
+
+## Resumo das Seções Obrigatórias
+
+| Seção | Conteúdo | Fonte de Dados |
+|---|---|---|
+| 2.1 | Tema Central e Contextualização | Prova atual |
+| 2.2 | Conceito-Chave e Fisiopatologia | Prova atual + Provas anteriores |
+| 2.3 | Justificativa da Resposta Correta | Prova atual + Provas anteriores |
+| 2.4 | Análise dos Distratores | Prova atual + Provas anteriores |
+| 2.5 | Palavras-Chave e "Pistas" no Enunciado | Prova atual |
+| 2.6 | Algoritmo de Decisão | Prova atual |
+| 2.7 | Dados para Memorizar (com Contexto) | Prova atual + Provas anteriores |
+| 2.8 | Near-Neighbours e Diagnósticos Diferenciais | Prova atual |
+| 2.9 | Variações de Abordagem em Provas | Prova atual |
+| 2.10 | Histórico do Tema nas Provas Anteriores | **Exclusivamente** o bloco PROVAS ANTERIORES RELEVANTES |
+| 2.11 | Conexão com Outros Temas | Prova atual |
+| 2.12 | Erro do Usuário e Estratégia de Correção | Prova atual |
+| 2.13 | Conexão com a Prática | Prova atual |
+| 2.14 | Conceitos Relacionados para Revisar | Prova atual |
+| 2.15 | Listagem das Referências | Bibliografia |
+
+---
+
+Este processo garante que cada questão gerada seja **idêntica** ao template fornecido, mantendo a mesma aparência, funcionalidade e estrutura sem qualquer modificação, **e que a correção seja um "manual do tema" completo**, integrando o histórico de provas anteriores para maximizar a transferência de aprendizado e a capacidade de acertar questões semelhantes com abordagens diferentes.
+
+---

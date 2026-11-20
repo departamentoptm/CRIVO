@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRIVO — Pré-visualização das questões</title>
+<style>
+  * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  body { margin: 0; display: flex; flex-direction: column; height: 100vh; background: #f3eef6; }
+  header { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 14px;
+           background: linear-gradient(90deg, #4C2D59, #A63268, #513873); color: #fff; }
+  header strong { margin-right: 8px; }
+  select, button, input { padding: 6px 10px; border-radius: 6px; border: none; font-size: 14px; }
+  button { cursor: pointer; background: #fff; color: #4C2D59; font-weight: 600; }
+  #status { font-size: 13px; opacity: .9; }
+  #avisos { padding: 6px 14px; font-size: 13px; color: #721c24; background: #f8d7da; display: none; }
+  iframe { flex: 1; border: none; width: 100%; background: #fff; }
+</style>
+</head>
+<body>
+<header>
+  <strong>Pré-visualização</strong>
+  <label>Banca <select id="banca"></select></label>
+  <label>Edição <select id="ano"></select></label>
+  <button id="ant" title="Questão anterior">◀</button>
+  <label>Questão <select id="num"></select></label>
+  <button id="prox" title="Próxima questão">▶</button>
+  <label><input type="checkbox" id="soAlerta"> só questões com alerta</label>
+  <span id="status"></span>
+</header>
+<div id="avisos"></div>
+<iframe id="quadro" title="Questão"></iframe>
+<script src="js/crivo-render.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let indice = null, edicao = null, urlAtual = null;
+
+function opcoes(sel, valores) {
+  sel.innerHTML = valores.map(v => `<option value="${v}">${v}</option>`).join('');
+}
+function temAlerta(q) {
+  const r = q.revisao || {};
+  return (r.alertas && r.alertas.length) || r.status === 'regerar' || !q.gabarito;
+}
+async function trocarEdicao() {
+  $('status').textContent = 'carregando…';
+  edicao = await CrivoRender.carregarEdicao($('banca').value, $('ano').value);
+  const lista = edicao.questoes.filter(q => !$('soAlerta').checked || temAlerta(q)).map(q => q.numero);
+  opcoes($('num'), lista);
+  const n = edicao.questoes.length, alertas = edicao.questoes.filter(temAlerta).length;
+  $('status').textContent = `${n} questões · ${alertas} com alerta`;
+  if (lista.length) mostrar(); else $('quadro').srcdoc = '<p style="font-family:sans-serif;padding:20px">Nenhuma questão com alerta nesta edição.</p>';
+}
+function mostrar() {
+  const q = edicao._porNumero.get(String($('num').value));
+  const r = (q && q.revisao) || {};
+  const linhas = [];
+  if (!q.gabarito) linhas.push('anulada (sem gabarito)');
+  if (r.status === 'regerar') linhas.push('status: regerar');
+  (r.alertas || []).forEach(a => linhas.push('alerta: ' + a));
+  $('avisos').style.display = linhas.length ? 'block' : 'none';
+  $('avisos').textContent = `${q.id} — ` + linhas.join(' | ');
+  const html = CrivoRender.montarPagina(edicao, $('num').value);
+  const url = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+  if (urlAtual) URL.revokeObjectURL(urlAtual);
+  urlAtual = url;
+  $('quadro').src = url;
+}
+function andar(d) {
+  const s = $('num'); const i = s.selectedIndex + d;
+  if (i >= 0 && i < s.options.length) { s.selectedIndex = i; mostrar(); }
+}
+(async () => {
+  try {
+    indice = await CrivoRender.carregarIndice();
+  } catch (e) {
+    $('status').textContent = 'Não consegui ler dados/indice.json. Abra esta página pelo site (http/https), não como arquivo local.';
+    return;
+  }
+  opcoes($('banca'), Object.keys(indice.bancas).sort());
+  const atualizarAnos = () => opcoes($('ano'), Object.keys(indice.bancas[$('banca').value]).sort().reverse());
+  atualizarAnos();
+  $('banca').onchange = () => { atualizarAnos(); trocarEdicao(); };
+  $('ano').onchange = trocarEdicao;
+  $('soAlerta').onchange = trocarEdicao;
+  $('num').onchange = mostrar;
+  $('ant').onclick = () => andar(-1);
+  $('prox').onclick = () => andar(1);
+  trocarEdicao();
+})();
+</script>
+</body>
+</html>
