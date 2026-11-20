@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Converte as páginas questão_N.html já geradas em um JSON por edição:
-    dados/<BANCA>/<ANO>.json
+    dados/<BANCA>/<ANO>/questoes.json e correcoes.json
 Não usa IA e não altera os HTMLs originais.
 
 Uso:
@@ -9,6 +9,9 @@ Uso:
 """
 import argparse, html, json, os, re, sys
 from html.parser import HTMLParser
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from crivo_comum import gravar_json, arq_questoes, arq_correcoes
+from migrar_para_dois_arquivos import separar
 
 VERSAO_FORMATO = 1
 TAGS_PERMITIDAS = {"p", "strong", "b", "em", "i", "u", "br", "ul", "ol", "li", "table", "thead",
@@ -105,6 +108,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True)
     ap.add_argument("--saida", default="dados")
+    ap.add_argument("--sobrescrever", action="store_true")
     a = ap.parse_args()
     manifest = json.load(open(os.path.join(a.repo, "exams", "manifest.json"), encoding="utf-8"))
     disc_path = os.path.join(a.repo, "exams", "disciplinas.json")
@@ -125,9 +129,11 @@ def main():
                     q["revisao"]["alertas"].append("conversao: " + "; ".join(erros))
                     problemas.append(f"{q['id']}: " + "; ".join(erros))
                 edicao["questoes"].append(q); total += 1
-            os.makedirs(os.path.join(a.saida, banca), exist_ok=True)
-            with open(os.path.join(a.saida, banca, f"{ano}.json"), "w", encoding="utf-8") as f:
-                json.dump(edicao, f, ensure_ascii=False, indent=1)
+            qs, cs = separar(edicao)   # grava no formato atual: questoes.json + correcoes.json
+            if os.path.exists(arq_questoes(a.saida, banca, str(ano))) and not a.sobrescrever:
+                print(f"PULADO {banca} {ano}: questoes.json já existe (use --sobrescrever)"); continue
+            gravar_json(arq_questoes(a.saida, banca, str(ano)), qs)
+            gravar_json(arq_correcoes(a.saida, banca, str(ano)), cs)
     print(f"{total} questões convertidas; {len(problemas)} com alerta.")
     for p in problemas: print("  -", p)
     return 0

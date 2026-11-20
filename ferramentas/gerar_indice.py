@@ -1,39 +1,39 @@
 #!/usr/bin/env python3
 """
-Gera dados/indice.json: a lista de bancas, edições e números de questão que o site deve mostrar.
-Rode sempre que adicionar ou remover um arquivo em dados/<BANCA>/<ANO>.json.
-Uso: python ferramentas/gerar_indice.py --dados dados
+Gera dados/indice.json: bancas, edições e questões que o site mostra.
+Rode sempre que adicionar ou remover uma edição.  Uso: python ferramentas/gerar_indice.py --dados dados
 """
-import argparse, glob, json, os, sys
+import argparse, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from crivo_comum import listar_edicoes, ler_questoes, ler_correcoes, gravar_json
+
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--dados", default="dados"); a = ap.parse_args()
     bancas, problemas = {}, []
-    for arq in sorted(glob.glob(os.path.join(a.dados, "*", "*.json"))):
-        try:
-            ed = json.load(open(arq, encoding="utf-8"))
-        except Exception as e:
-            problemas.append(f"{arq}: JSON inválido ({e})"); continue
-        if ed.get("formato") != "crivo-edicao":
-            problemas.append(f"{arq}: não é um arquivo de edição do CRIVO"); continue
-        banca, ano = ed["banca"], str(ed["ano"])
-        esperado = os.path.join(a.dados, banca, f"{ano}.json")
-        if os.path.normpath(arq) != os.path.normpath(esperado):
-            problemas.append(f"{arq}: banca/ano internos ({banca}/{ano}) não batem com o nome do arquivo")
-            continue
-        nums = sorted(int(q["numero"]) for q in ed["questoes"])
+    for banca, ano in listar_edicoes(a.dados):
+        qs = ler_questoes(a.dados, banca, ano)
+        if not qs or qs.get("formato") != "crivo-questoes" or qs.get("banca") != banca or str(qs.get("ano")) != ano:
+            problemas.append(f"{banca}/{ano}/questoes.json: formato, banca ou ano incorretos"); continue
+        cs = ler_correcoes(a.dados, banca, ano)["correcoes"]
+        nums = [int(q["numero"]) for q in qs["questoes"]]
         if len(nums) != len(set(nums)):
-            problemas.append(f"{arq}: número de questão repetido")
-        bancas.setdefault(banca, {})[ano] = {
-            "questoes": nums,
-            "regerar": sum(1 for q in ed["questoes"] if (q.get("revisao") or {}).get("status") == "regerar"),
-        }
-    json.dump({"formato": "crivo-indice", "versao": 1, "bancas": bancas},
-              open(os.path.join(a.dados, "indice.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+            problemas.append(f"{banca} {ano}: número de questão repetido")
+        sem, contradiz = 0, 0
+        for q in qs["questoes"]:
+            c = cs.get(q["id"])
+            if not c: sem += 1
+            elif q.get("gabarito") and c.get("gabarito_usado") and c["gabarito_usado"] != q["gabarito"]: contradiz += 1
+        bancas.setdefault(banca, {})[ano] = {"questoes": sorted(nums), "sem_correcao": sem, "correcao_contradiz_gabarito": contradiz}
+    gravar_json(os.path.join(a.dados, "indice.json"), {"formato": "crivo-indice", "versao": 2, "bancas": bancas})
     total = sum(len(v["questoes"]) for b in bancas.values() for v in b.values())
-    print(f"indice.json: {len(bancas)} banca(s), {sum(len(b) for b in bancas.values())} edição(ões), {total} questões.")
+    sem = sum(v["sem_correcao"] for b in bancas.values() for v in b.values())
+    cont = sum(v["correcao_contradiz_gabarito"] for b in bancas.values() for v in b.values())
+    print(f"indice.json: {len(bancas)} banca(s), {sum(len(b) for b in bancas.values())} edição(ões), {total} questões "
+          f"({sem} sem correção, {cont} com correção que contradiz o gabarito).")
     for p in problemas: print("  PROBLEMA:", p)
     return 1 if problemas else 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

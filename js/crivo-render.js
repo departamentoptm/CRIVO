@@ -1,9 +1,10 @@
 /* ============================================================
    CRIVO — Renderizador de questões a partir dos JSONs de prova
    ------------------------------------------------------------
-   Lê  dados/indice.json            (quais bancas/edições existem)
-       dados/<BANCA>/<ANO>.json     (as questões de uma edição)
-   e monta, para cada questão, a MESMA página do template
+   Lê  dados/indice.json                      (quais bancas/edições existem)
+       dados/<BANCA>/<ANO>/questoes.json      (enunciado, alternativas, gabarito — fixo)
+       dados/<BANCA>/<ANO>/correcoes.json     (correções — geradas por IA e corrigíveis)
+   junta os dois e monta, para cada questão, a MESMA página do template
    (mesmo CSS, mesmos IDs, mesmas funções selectOption/checkAnswer
    e o mesmo protocolo postMessage usado pelo index.html).
 
@@ -48,9 +49,9 @@
 
     /* ---------- Higienização: só tags simples entram na página ---------- */
     const TAGS_OK = new Set(['P', 'STRONG', 'B', 'EM', 'I', 'U', 'BR', 'UL', 'OL', 'LI', 'TABLE', 'THEAD',
-        'TBODY', 'TR', 'TH', 'TD', 'SUB', 'SUP', 'SPAN', 'DIV', 'IMG', 'H5']);
+        'TBODY', 'TR', 'TH', 'TD', 'SUB', 'SUP', 'SPAN', 'DIV', 'IMG', 'H5', 'A']);
     const ATRIBUTOS_OK = { IMG: ['src', 'alt'], TABLE: ['class'], DIV: ['class'], SPAN: ['class'],
-        TD: ['colspan', 'rowspan'], TH: ['colspan', 'rowspan'] };
+        TD: ['colspan', 'rowspan'], TH: ['colspan', 'rowspan'], A: ['href'] };
 
     function higienizar(html) {
         if (!html) return '';
@@ -72,6 +73,10 @@
                     if (!ok.includes(a.name) || v.startsWith('javascript:') || v.startsWith('data:text')) filho.removeAttribute(a.name);
                 }
                 if (filho.tagName === 'IMG') filho.setAttribute('style', 'max-width:100%; height:auto;');
+                if (filho.tagName === 'A') {
+                    if (!/^https?:\/\//i.test(filho.getAttribute('href') || '')) filho.removeAttribute('href');
+                    filho.setAttribute('target', '_blank'); filho.setAttribute('rel', 'noopener');
+                }
                 limpar(filho);
             }
         })(raiz);
@@ -95,17 +100,41 @@
     async function carregarEdicao(banca, ano) {
         const chave = `${banca}/${ano}`;
         if (!cacheEdicoes.has(chave)) {
-            const p = fetch(`${CONFIG.pastaDados}/${encodeURIComponent(banca)}/${encodeURIComponent(ano)}.json`, { cache: 'no-cache' })
-                .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status} em ${chave}.json`); return r.json(); })
-                .then(ed => {
-                    if (ed.formato !== 'crivo-edicao') throw new Error(`${chave}.json não está no formato do CRIVO`);
-                    ed._porNumero = new Map(ed.questoes.map(q => [String(q.numero), q]));
-                    return ed;
-                });
+            const base = `${CONFIG.pastaDados}/${encodeURIComponent(banca)}/${encodeURIComponent(ano)}`;
+            const p = Promise.all([
+                fetch(`${base}/questoes.json`, { cache: 'no-cache' })
+                    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status} em ${chave}/questoes.json`); return r.json(); }),
+                // correções são opcionais: sem o arquivo, as questões abrem sem correção
+                fetch(`${base}/correcoes.json`, { cache: 'no-cache' })
+                    .then(r => r.ok ? r.json() : null).catch(() => null),
+            ]).then(([qs, cs]) => juntar(qs, cs));
             cacheEdicoes.set(chave, p);
             p.catch(() => cacheEdicoes.delete(chave));   // erro de rede não fica guardado
         }
         return cacheEdicoes.get(chave);
+    }
+
+    /* Junta questão (fixa) + correção (editável) no objeto que a página usa. */
+    function juntar(qs, cs) {
+        if (!qs || qs.formato !== 'crivo-questoes') throw new Error('questoes.json não está no formato do CRIVO');
+        const corr = (cs && cs.formato === 'crivo-correcoes' && cs.correcoes) || {};
+        const questoes = qs.questoes.map(q => {
+            const c = corr[q.id];
+            const alertas = [...((c && c.revisao && c.revisao.alertas) || [])];
+            const gab = typeof q.gabarito === 'string' ? q.gabarito : null;
+            if (c && gab && c.gabarito_usado && c.gabarito_usado !== gab && !alertas.includes('correcao_contradiz_gabarito'))
+                alertas.push('correcao_contradiz_gabarito');
+            if (q.imagem_pendente && !alertas.includes('aguardando_imagem')) alertas.push('aguardando_imagem');
+            return Object.assign({}, q, {
+                tema: (c && c.tema) || q.disciplina || '',
+                aviso_diretriz: c ? c.aviso_diretriz : null,
+                correcao: c ? { secoes_html: c.secoes_html || {}, historico: c.historico || null } : null,
+                revisao: { status: (c && c.revisao && c.revisao.status) || (c ? 'nao_revisado' : 'sem_correcao'), alertas },
+            });
+        });
+        const ed = { banca: qs.banca, ano: String(qs.ano), questoes };
+        ed._porNumero = new Map(questoes.map(q => [String(q.numero), q]));
+        return ed;
     }
 
     /* ---------- Partes da página ---------- */
@@ -133,7 +162,8 @@
     }
 
     function blocoCorrecao(q) {
-        const sec = (q.correcao && q.correcao.secoes_html) || {};
+        if (!q.correcao) return '<p><em>A correção desta questão ainda está sendo preparada.</em></p>';
+        const sec = q.correcao.secoes_html || {};
         let out = '';
         for (let k = 1; k <= 15; k++) {
             const n = `2.${k}`;
@@ -269,7 +299,7 @@
         const meta = [edicao.banca, edicao.ano, q.disciplina].filter(Boolean).map(esc).join(' · ');
         const diretriz = q.aviso_diretriz
             ? `<div class="crivo-diretriz"><strong>Diretriz atual:</strong> ${higienizar(q.aviso_diretriz)}</div>` : '';
-        const origemIA = !q.revisao || q.revisao.status !== 'revisado_humano';
+        const origemIA = !!q.correcao && (!q.revisao || q.revisao.status !== 'revisado_humano');
 
         return `<!DOCTYPE html>
 <html lang="pt-BR">

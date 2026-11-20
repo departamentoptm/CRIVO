@@ -1,6 +1,6 @@
 {
  "formato": "crivo-indice",
- "versao": 1,
+ "versao": 2,
  "bancas": {
   "AMP": {
    "2021": {
@@ -106,7 +106,8 @@
      99,
      100
     ],
-    "regerar": 1
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 1
    },
    "2022": {
     "questoes": [
@@ -211,7 +212,8 @@
      99,
      100
     ],
-    "regerar": 0
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 0
    },
    "2023": {
     "questoes": [
@@ -316,7 +318,8 @@
      99,
      100
     ],
-    "regerar": 7
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 7
    },
    "2024": {
     "questoes": [
@@ -421,7 +424,8 @@
      99,
      100
     ],
-    "regerar": 2
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 2
    },
    "2025": {
     "questoes": [
@@ -526,7 +530,8 @@
      99,
      100
     ],
-    "regerar": 0
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 0
    },
    "2026": {
     "questoes": [
@@ -631,7 +636,8 @@
      99,
      100
     ],
-    "regerar": 2
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 2
    }
   },
   "ENAMED": {
@@ -731,7 +737,8 @@
      99,
      100
     ],
-    "regerar": 4
+    "sem_correcao": 0,
+    "correcao_contradiz_gabarito": 4
    }
   }
  }

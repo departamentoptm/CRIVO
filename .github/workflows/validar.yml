@@ -1,0 +1,33 @@
+# Roda a cada push e pull request: impede publicar dados quebrados ou gabarito diferente do oficial.
+name: Validar dados
+
+on:
+  push:
+    paths: ["dados/**", "ferramentas/**", "gabarito.json", "js/**"]
+  pull_request:
+    paths: ["dados/**", "ferramentas/**", "gabarito.json", "js/**"]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Ferramentas compilam
+        run: python -m py_compile ferramentas/*.py
+      - name: Índice das provas
+        run: python ferramentas/gerar_indice.py --dados dados
+      - name: Gabarito oficial
+        run: |
+          if [ -f gabarito.json ]; then
+            python ferramentas/conferir_gabarito.py --gabarito gabarito.json --dados dados
+          else
+            echo "gabarito.json não está na raiz do repositório; conferência pulada."
+          fi
+      - name: Teste do gerador (simulado, sem API)
+        run: |
+          cp -r dados /tmp/dados_teste
+          python ferramentas/gerar_correcoes.py --simular --dados /tmp/dados_teste --relatorios /tmp/rel \
+            gerar --banca "$(ls dados | grep -v indice | head -1)" --limite 1 --modo todas --nao-esperar-pico

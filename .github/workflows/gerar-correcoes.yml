@@ -1,0 +1,98 @@
+# Botão "Run workflow" (aba Actions) que gera correções via API e abre um pull request para revisão.
+# Pré-requisitos (uma vez):
+#   1. Settings > Secrets and variables > Actions > New repository secret: DEEPSEEK_API_KEY
+#   2. Settings > Actions > General > Workflow permissions: marcar
+#      "Allow GitHub Actions to create and approve pull requests"
+name: Gerar correções
+
+on:
+  workflow_dispatch:
+    inputs:
+      banca:
+        description: "Banca (ex.: AMP)"
+        required: true
+      ano:
+        description: "Edições separadas por espaço (vazio = todas)"
+        required: false
+      questoes:
+        description: "Questões (ex.: 50 ou 1-10,15). Vazio = usa o modo"
+        required: false
+      modo:
+        description: "pendentes = sem correção/contradiz gabarito/reportadas; convertidas = também as antigas"
+        type: choice
+        options: [pendentes, convertidas, todas]
+        default: pendentes
+      limite:
+        description: "Máximo de questões nesta execução"
+        default: "20"
+      orcamento:
+        description: "Teto de custo em US$ desta execução"
+        default: "1.00"
+      simular:
+        description: "Simular (não chama a API, não abre PR) — para testar"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: gerar-correcoes        # nunca duas gerações ao mesmo tempo
+  cancel-in-progress: false
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gerar correções
+        id: gerar
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          BANCA: ${{ inputs.banca }}
+          ANO: ${{ inputs.ano }}
+          QUESTOES: ${{ inputs.questoes }}
+          MODO: ${{ inputs.modo }}
+          LIMITE: ${{ inputs.limite }}
+          ORCAMENTO: ${{ inputs.orcamento }}
+          SIMULAR: ${{ inputs.simular }}
+        run: |
+          args=(gerar --banca "$BANCA" --modo "$MODO" --limite "$LIMITE" --orcamento "$ORCAMENTO")
+          [ -n "$ANO" ] && args+=(--ano $ANO)
+          [ -n "$QUESTOES" ] && args+=(--questoes "$QUESTOES")
+          glob=()
+          [ "$SIMULAR" = "true" ] && glob=(--simular)
+          set +e
+          python ferramentas/gerar_correcoes.py "${glob[@]}" "${args[@]}"
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+          python ferramentas/gerar_indice.py --dados dados
+
+      - name: Abrir pull request com o resultado
+        if: ${{ !inputs.simular }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- dados; then echo "Nada mudou em dados/."; exit 0; fi
+          ramo="correcoes/${{ inputs.banca }}-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
+          git checkout -b "$ramo"
+          git add dados relatorios
+          git commit -m "Correções geradas: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}"
+          git push origin "$ramo"
+          rel=$(ls -t relatorios/execucao_*.md | head -1)
+          { cat "$rel"; echo; echo "Antes de aprovar: abra previa.html neste ramo ou leia as correções novas."; } > corpo.md
+          gh pr create --title "Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo"
+
+      - name: Guardar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios
+          path: relatorios/
+          if-no-files-found: ignore
