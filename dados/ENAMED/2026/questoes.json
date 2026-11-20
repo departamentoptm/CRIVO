@@ -1,0 +1,1403 @@
+{
+ "formato": "crivo-questoes",
+ "versao": 1,
+ "banca": "ENAMED",
+ "ano": "2026",
+ "questoes": [
+  {
+   "id": "ENAMED-2026-Q1",
+   "numero": 1,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Homem de 71 anos, tabagista, hipertenso, em uso de bloqueador de canal de cálcio, dá entrada em emergência com quadro de dor retroesternal em queimação, com início há 1 hora, após ter feito uma refeição farta. Exame físico: paciente hemodinamicamente estável; PA 160 x 90 mmHg; FC 72 bpm. Qual é a conduta imediata para esse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Indicar ecocardiograma transesofágico.",
+    "B": "Solicitar eletrocardiograma e marcadores de necrose miocárdica.",
+    "C": "Dosar D-dímero e realizar angiotomografia de tórax.",
+    "D": "Realizar endoscopia digestiva alta."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q2",
+   "numero": 2,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Menina de 10 anos é encaminhada para avaliação especializada por perda de peso progressiva nos últimos 10 meses. A mãe relata que a criança, após engasgar com carne, passou a recusar alimentos sólidos e a apresentar episódios de reflexões prolongadas com vômitos, quando há insistência para alimentar-se, além de medo de “passar mal” em ambiente escolar ou em eventos sociais. Aceita alimentos pastosos. Nega dor abdominal, diarreia, febre ou infecções. Sono e desempenho escolar estão preservados. O desenvolvimento neuropsicomotor é adequado para a idade. O exame físico mostra: escore Z igual a peso -3; estatura entre -1 e -2; IMC entre -2 e -3. Foram excluídas causas orgânicas. A principal hipótese diagnóstica nesse caso é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "transtorno dismórfico corporal.",
+    "B": "anorexia nervosa.",
+    "C": "transtorno alimentar restritivo evitativo.",
+    "D": "seletividade alimentar típica."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q4",
+   "numero": 4,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Mulher de 23 anos, G3P3, sem comorbidades, procura atendimento em Unidade Básica de Saúde, manifestando desejo de ser submetida à laqueadura tubária. De acordo com a lei de planejamento familiar, qual é a conduta inicial do profissional de saúde nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Informar que a situação da paciente está em desacordo com os critérios legais pertinentes.",
+    "B": "Orientar que é necessária a autorização do cônjuge para a realização do procedimento.",
+    "C": "Oferecer à paciente informações a respeito de outros métodos anticoncepcionais.",
+    "D": "Encaminhar a paciente para realização do procedimento em questão."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q5",
+   "numero": 5,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Homem de 34 anos, tabagista, sedentário, com IMC 43 kg/m² e assintomático, comparece a uma consulta em Unidade Básica de Saúde relatando que seu pai foi diagnosticado com câncer de cólon aos 53 anos. O paciente demonstra preocupação com a doença. Considerando-se o rastreamento do câncer colorretal desse paciente pelo SUS, a conduta nesse caso é solicitar colonoscopia:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "na consulta atual.",
+    "B": "a partir dos 43 anos.",
+    "C": "a partir dos 50 anos.",
+    "D": "se a pesquisa de sangue oculto tiver resultado positivo."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q6",
+   "numero": 6,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Homem de 68 anos, com quadro de perda de consciência após queda de bicicleta, é levado a uma Unidade de Pronto Atendimento ainda confuso e com falta de ar. Vem realizando acompanhamento por hipertensão arterial, insuficiência cardíaca de fração de ejeção reduzida e glaucoma. Faz uso de propranolol, enalapril e espironolactona. O exame físico revela: paciente sonolento e confuso (escala de coma de Glasgow 13); presença de estridor inspiratório; PA 76 x 42 mmHg; FC 54 bpm; FR 28 irpm; temperatura axilar 35,9 °C e glicemia capilar 102 mg/dL. Após administração de 0,5 mg de adrenalina intramuscular, o paciente mantém o quadro descrito. Qual é a próxima conduta medicamentosa para o caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Glucagon.",
+    "B": "Atropina.",
+    "C": "Adrenalina.",
+    "D": "Dopamina."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q7",
+   "numero": 7,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Lactente de 5 meses, prematuro de 32 semanas, com antecedente de displasia broncopulmonar, é levado pela mãe a uma Unidade de Pronto Atendimento, com relato de que, há 3 dias, iniciou quadro de coriza e tosse, com piora progressiva do estado geral e dificuldade para mamar nas últimas 24 horas. O exame físico mostra: FR 65 irpm; tiragem subcostal, sibilos e roncos à ausculta; SpO2 90% em ar ambiente.",
+   "extras_html": "<div class=\"question-text\">A conduta inicial nesse caso consiste em</div>",
+   "alternativas": {
+    "A": "oxigenoterapia e amoxicilina oral.",
+    "B": "hidratação endovenosa e suporte ventilatório.",
+    "C": "salbutamol inalatório e corticoide sistêmico.",
+    "D": "fisioterapia respiratória e dexametasona intramuscular."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q8",
+   "numero": 8,
+   "disciplina": "Ortopedia",
+   "enunciado_html": "Homem de 50 anos, pedreiro, foi atendido em ambulatório de especialidade, há 4 meses, com queixa de lombociatalgia e dificuldade de exercer atividades laborais. Realizou ressonância magnética da coluna lombar, que evidenciou hérnia discal no nível L4-L5. Antes da data do retorno para mostrar os resultados dos exames, apresentou perda de sensibilidade no períneo, anestesia em sela e incontinência urinária. Devido a esses novos sintomas, procurou uma Unidade de Pronto Atendimento.",
+   "extras_html": "<div class=\"question-text\">Considerando-se o quadro clínico descrito, qual é a conduta adequada para esse paciente?</div>",
+   "alternativas": {
+    "A": "Antecipar retorno ao ambulatório de especialidade.",
+    "B": "Indicar tratamento com corticoide epidural.",
+    "C": "Internar com prescrição de analgésicos associado a relaxantes musculares.",
+    "D": "Encaminhar ao serviço de emergência para avaliar indicação cirúrgica."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q9",
+   "numero": 9,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Gestante de 24 anos, com 11 semanas de gestação, comparece à Unidade Básica de Saúde para consulta de pré-natal, trazendo os resultados de exames solicitados em consulta anterior. Está sem queixas no momento. Entre os exames apresentados, observa-se sorologia para toxoplasmose com IgG reagente e IgM não reagente.",
+   "extras_html": "<div class=\"question-text\">O resultado desse exame sorológico de toxoplasmose indica</div>",
+   "alternativas": {
+    "A": "susceptibilidade.",
+    "B": "infecção aguda.",
+    "C": "imunidade.",
+    "D": "soroconversão recente."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q10",
+   "numero": 10,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Menino de 1 ano é levado pelos pais para consulta de puericultura em Unidade Básica de Saúde. Eles referem preocupação com a vacina tríplice viral e informam que a criança apresentou reações leves após receber aplicações de outras vacinas. Relatam também que, pesquisando sobre o tema em redes sociais, assistiram a vídeos que associavam a vacina tríplice viral ao desenvolvimento do transtorno do espectro autista (TEA). Receosos, hesitam em imunizar o filho.<br><br> Qual é a abordagem a ser realizada com esses pais?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Explicar que há baixa ocorrência de TEA em crianças vacinadas e encaminhar paciente para a atualização vacinal.",
+    "B": "Orientar sobre a importância das vacinas e reforçar a superioridade de seus benefícios em relação à possibilidade de TEA.",
+    "C": "Pesquisar sintomas preditores de TEA na criança e, em caso de resultado negativo, continuar o protocolo de vacinação segura.",
+    "D": "Acolher a preocupação dos familiares e fornecer informações sobre a ausência de associação entre TEA e vacinas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q11",
+   "numero": 11,
+   "disciplina": "Hematologia",
+   "enunciado_html": "Mulher de 23 anos, com diagnóstico de anemia falciforme, procura Unidade de Pronto Atendimento devido à dor em membros inferiores (escala visual analógica = 9), iniciada há 12 horas. Relata crises similares anteriores e nega outros sintomas. Ao ser avaliada, está afebril, hidratada, sem sinais de infecção. Exame físico: PA 112 x 70 mmHg; FC 92 bpm; FR 18 irpm e SatO2 97% em ar ambiente.<br><br> Qual é a conduta medicamentosa imediata para essa paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Codeína e paracetamol via oral.",
+    "B": "Dipirona intravenosa.",
+    "C": "Tenoxicam intramuscular.",
+    "D": "Morfina intravenosa."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q12",
+   "numero": 12,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Criança de 5 anos, vítima de queimadura, é atendida em serviço de emergência. A extensão da superfície corporal queimada foi calculada com base no diagrama de Lund-Browder, considerando-se as áreas variáveis para a idade. Após a avaliação inicial e o cálculo da área queimada, foi indicada reposição volêmica com Ringer lactato conforme o protocolo de Parkland.<br><br> No caso apresentado, qual a forma correta de administração de Ringer lactato?",
+   "extras_html": "<div class=\"data-table\"> <table class=\"data-table\"> <thead> <tr> <th>Área variável</th> <th>Referência para 5 anos</th> </tr> </thead> <tbody> <tr> <td>A</td> <td>6,5%</td> </tr> <tr> <td>B</td> <td>4,0%</td> </tr> <tr> <td>C</td> <td>2,75%</td> </tr> </tbody> </table> </div>",
+   "alternativas": {
+    "A": "2.820 mL, administrado em 16 horas.",
+    "B": "3.760 mL, administrado em 8 horas.",
+    "C": "1.500 mL, administrado em 2 horas.",
+    "D": "1.000 mL, administrado em 15 a 20 minutos."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q13",
+   "numero": 13,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Homem de 28 anos é levado pelo SAMU para um hospital de trauma, após ferimento por arma de fogo no hemitórax direito. Apresenta dispneia, dor torácica, pulsos filiformes, FC 128 bpm, FR 32 irpm, PA 90 x 55 mmHg e SpO2 89% em ar ambiente. Há assimetria da expansão torácica, macicez à percussão e redução do murmúrio vesicular à direita. A radiografia de tórax evidencia velamento à direita.<br><br> Diante do quadro, qual é a conduta adequada para o paciente nesse momento?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Drenagem torácica.",
+    "B": "Toracotomia na sala de emergência.",
+    "C": "Punção torácica de alívio.",
+    "D": "Videotoracoscopia."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q14",
+   "numero": 14,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "Gestante de 24 anos, G1P0, com 12 semanas de gestação, procura atendimento médico para mostrar o resultado de teste rápido para HIV realizado na primeira consulta do pré-natal, o qual consta como reagente. Demonstra ansiedade e afirma nunca ter imaginado essa possibilidade. Refere medo de ser julgada e receio de que sua família descubra o diagnóstico.<br><br> Em atenção aos princípios da comunicação em saúde, da ética médica e do cuidado humanizado, qual é a conduta inicial nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Solicitar a presença de um familiar da paciente e encaminhá-la para o pré-natal de alto risco.",
+    "B": "Acolher a paciente com escuta ativa e fornecer esclarecimentos quanto ao resultado do teste rápido.",
+    "C": "Explicar à paciente o risco de transmissão da doença ao feto e solicitar sorologia para confirmar o diagnóstico.",
+    "D": "Tranquilizar a paciente e iniciar terapia antirretroviral."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q15",
+   "numero": 15,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Mulher de 66 anos, hipertensa, diabética e tabagista, é levada a uma Unidade Básica de Saúde (UBS) por quadro de síncope há 40 minutos, após discussão familiar. Apresenta-se ansiosa, com mal-estar intenso, tontura, náuseas e sudorese, e tem um episódio de vômito na UBS. Relata sensação de desconforto moderado em andar superior do abdome. Nega alergias, etilismo ou uso de drogas ilícitas. Ao exame físico, apresenta-se eupneica, com PA 86 x 53 mmHg, FC 49 bpm e SpO2 95% em ar ambiente. O desconforto abdominal não é reproduzível à palpação. Não há outras alterações ao exame físico. A UBS não dispõe de eletrocardiograma ou monitor cardíaco.<br><br> Além de se acionar o SAMU, a conduta de suporte nesse caso deve incluir",
+   "extras_html": null,
+   "alternativas": {
+    "A": "AAS via oral mastigado.",
+    "B": "isossorbida sublingual.",
+    "C": "omeprazol via oral.",
+    "D": "diazepam via oral."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q16",
+   "numero": 16,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Homem de 64 anos, agricultor, residente em zona rural, está em investigação em uma Unidade Básica de Saúde por insuficiência cardíaca com fração de ejeção reduzida. De antecedentes relevantes, informa 2 episódios de malária há 10 anos e hipertensão arterial controlada. A mãe faleceu de arritmia aos 48 anos. Exames laboratoriais descartam diabetes mellitus e dislipidemia. Eletrocardiograma apresenta bloqueio de ramo direito. Ecocardiograma mostra dilatação ventricular excêntrica bilateral.<br><br> Considerando-se a principal hipótese clínica e a fase da doença, qual método laboratorial é indicado para a confirmação diagnóstica nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Exame parasitológico direto por gota espessa.",
+    "B": "Intradermo reação de Montenegro.",
+    "C": "Sorologia por IgG em dois métodos distintos.",
+    "D": "Reação em cadeia da polimerase."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q17",
+   "numero": 17,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Criança de 1 ano e 9 meses, previamente hígida, é levada a uma Unidade Básica de Saúde devido a quadro de rash cutâneo iniciado há 12 horas. Nos últimos três dias, vinha apresentando febre, irritabilidade e inapetência, sem outras manifestações. A febre cessou quando o rash cutâneo surgiu, de maneira repentina, inicialmente no tórax, seguido pelos braços. O exame físico revela paciente em estado geral preservado, ativo, brincando durante avaliação e afebril. Constata-se presença de exantema maculopapular de coloração rosada em face, tronco e extremidades. Palpado linfonodo em região cervical anterior direita, indolor, móvel, fibroelástico, de aproximadamente 0,5 cm. Não há outros achados.<br><br> Qual é o agente etiológico do caso relatado?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Vírus Epstein-Barr.",
+    "B": "Parvovírus humano B19.",
+    "C": "Vírus Coxsackie A1.",
+    "D": "Herpes-vírus humano 6."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q18",
+   "numero": 18,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Mulher de 54 anos, com obesidade moderada, procura a emergência clínica de um hospital terciário, relatando dor contínua em hipocôndrio direito, há 72 horas, que se intensificou nas últimas 6 horas, acompanhada de náuseas e febre baixa. Durante a palpação profunda do hipocôndrio direito, apresenta interrupção súbita da inspiração profunda. O hemograma mostra contagem de leucócitos de 12.000 células/mm3 (VR: 4.450 a 10.950 células/mm3), e a ultrassonografia revela vesícula biliar com paredes de 0,8 cm de espessura, múltiplas imagens arredondadas com sombra acústica posterior e colédoco com 0,4 cm de diâmetro.<br><br> Com base na principal hipótese diagnóstica, qual é a conduta indicada nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Encaminhar para colecistectomia de urgência.",
+    "B": "Indicar descompressão endoscópica das vias biliares.",
+    "C": "Solicitar ressonância magnética de abdome superior.",
+    "D": "Tratar clinicamente com antibióticos e analgésicos."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q19",
+   "numero": 19,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Mulher de 23 anos, G2POA1, com última menstruação há 8 semanas, é atendida em uma emergência com dor pélvica leve e sangramento vaginal em pequena quantidade. PA 120 x 70 mmHg e FC 82 bpm. Ao exame físico, apresenta-se lúcida e orientada, sem dor à palpação de abdômen e pelve. Tem beta-HCG quantitativo de 1920 mUI/mL na primeira dosagem e 700 mUI/mL na segunda dosagem. Na ultrassonografia transvaginal: ausência de saco gestacional na cavidade uterina; presença de massa anexial esquerda de 2,0 cm com sinal de anel tubário e ausência de batimento cardíaco fetal ou de líquido livre na cavidade pélvica.<br><br> Qual é a estratégia de manejo indicada nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Orientar beta-HCG quantitativo seriado.",
+    "B": "Indicar procedimento cirúrgico.",
+    "C": "Prescrever o uso de metotrexate.",
+    "D": "Indicar aspiração intrauterina."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q20",
+   "numero": 20,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Uma equipe de Saúde da Família, durante planejamento semestral, identificou um aumento significativo na incidência de obesidade e hipertensão arterial sistêmica na população adscrita. O nutricionista propôs uma ação educativa baseada nas recomendações do Guia alimentar para a população brasileira. O objetivo era impactar positivamente os determinantes sociais da saúde e a redução de doenças crônicas não transmissíveis.<br><br> Assinale a alternativa que contém a estratégia educativa a ser priorizada pela equipe para enfrentar o problema identificado.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Estimular a redução do aporte calórico diário, com o uso de produtos diet e light.",
+    "B": "Ensinar a contagem sistemática de calorias, com cálculo de macronutrientes para controle da ingestão energética.",
+    "C": "Promover habilidades culinárias, com o resgate de hábitos regionais, e incentivar o consumo de alimentos in natura.",
+    "D": "Recomendar a exclusão de alimentos processados, como queijos e pães artesanais, e conservar vegetais da dieta regular."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q21",
+   "numero": 21,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Homem de 58 anos, que era residente em território adscrito a uma Unidade de Saúde da Família, vinha sendo acompanhado, há alguns meses, por queixa de dor abdominal recorrente, constipação crônica, anemia normocítica persistente, parestesias e alterações da memória. Era casado, sem filhos, e trabalhava há mais de 20 anos em sua própria oficina de reciclagem de bateria automotiva. Em determinada ocasião, procurou atendimento em uma Unidade Básica de Saúde devido à exacerbação dos sintomas, com forte dor abdominal. O exame físico feito no momento revelou confusão mental e dor difusa à palpação do abdome. O paciente foi, então, encaminhado para o pronto-socorro; porém, nas primeiras 24 horas da internação, evoluiu com insuficiência renal, convulsão, coma e óbito, devido a uma provável intoxicação por chumbo.<br><br> Qual é o papel da atenção primária em saúde com relação à vigilância do caso?",
+   "extras_html": "[DataTableSection] [StatementsSection]",
+   "alternativas": {
+    "A": "Registrar no Sistema de Informação de Agravos de Notificação e comunicar à Vigilância em Saúde do Trabalhador.",
+    "B": "Registrar no Sistema de Informação de Mortalidade e comunicar à Vigilância em Saúde do Trabalhador.",
+    "C": "Registrar no Sistema de Informação de Agravos de Notificação e no Sistema de Informação de Mortalidade.",
+    "D": "Registrar no Sistema de Informação de Agravos de Notificação e acionar a Vigilância Sanitária."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q22",
+   "numero": 22,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Mulher de 30 anos chega ao Centro de Atenção Psicossocial animada, inquieta e falante, andando de um lado para outro, cumprimentando todas as pessoas com sorrisos exagerados e fazendo comentários animados a respeito de coisas aleatórias, emendando os assuntos. O médico que costuma atendê-la percebe que ela está diferente, mais “elétrica” que seu habitual, sendo impossível interrompê-la.<br><br> As alterações psicopatológicas apresentadas por essa paciente incluem",
+   "extras_html": "[DataTableSection] [StatementsSection]",
+   "alternativas": {
+    "A": "humor disfórico, esterotipias vocais e agitação psicomotora.",
+    "B": "humor hipotímico, apragmatismo e afrouxamento de associações.",
+    "C": "humor eutímico, fuga de ideias e avolia.",
+    "D": "humor hipertímico, taquipsiquismo e taquilalia."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q23",
+   "numero": 23,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Mulher de 56 anos, hipertensa mal controlada, com obesidade grau 3, tabagista ativa de 60 maços/ano, procura uma Unidade de Pronto Atendimento por dor torácica, iniciada há 2 horas e 30 minutos. A dor é do tipo queimação, retroesternal, que piora com esforço e melhora com repouso. O eletrocardiograma demonstrou infradesnivelamento do segmento ST &gt; 0,5 mm em V1, V2, V3 e V4. Foi realizada dosagem de troponina de alta sensibilidade à admissão, com resultado de 6 ng/L (VR: até 9 ng/L). Após administração de nitrato e morfina, a paciente está hemodinamicamente estável e sem dor.<br><br> Qual é a próxima conduta no manejo dessa paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Iniciar terapia trombolítica em até 30 minutos.",
+    "B": "Encaminhar para cateterismo coronariano de urgência.",
+    "C": "Realizar nova dosagem de troponina em 1 hora.",
+    "D": "Repetir eletrocardiograma em 2 horas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q24",
+   "numero": 24,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Escolar de 8 anos, asmático prévio sem tratamento intercrises e com uso frequente de salbutamol de resgate (4 vezes nos últimos 6 meses), deu entrada em uma Unidade de Pronto Atendimento em crise aguda de asma. Na admissão, apresentava fala entrecortada, FR 40 irpm, SatO2 90% em ar ambiente, FC 112 bpm, murmúrio vesicular abafado e retração de fúrcula. Foi monitorizado, prescrito corticoide via oral e 3 ciclos de salbutamol e ipratrópio por via inalatória. Após o tratamento inicial, o paciente mantém fala entrecortada, FR 42 irpm, SatO2 92% em ar ambiente, FC 128 bpm, sibilos difusos, retração de fúrcula, uso de musculatura abdominal e tempo expiratório prolongado.<br><br> A conduta medicamentosa após o tratamento inicial é administrar",
+   "extras_html": null,
+   "alternativas": {
+    "A": "sulfato de magnésio.",
+    "B": "corticoide.",
+    "C": "anti-histamínico.",
+    "D": "terbutalina."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q25",
+   "numero": 25,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Homem de 45 anos, sem comorbidades, realizou hernioplastia inguinal aberta com tela há 7 dias, e retorna ao ambulatório com dor no local da cirurgia. Nega febre ou calafrios. Ao exame físico, apresenta, no terço médio da ferida operatória: área de tumefação; rubor e calor. Não há evidências de acometimento de fáscia ou plano muscular.<br><br> Diante do quadro apresentado, qual é a conduta nesse momento?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Prescrever antibioticoterapia oral.",
+    "B": "Remover a tela.",
+    "C": "Explorar localmente a ferida.",
+    "D": "Solicitar ultrassonografia de partes moles."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q26",
+   "numero": 26,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Gestante de 38 anos, G3PC1A1, com 38 semanas de gestação, comparece a um pronto atendimento referindo sangramento vaginal, iniciado há 1 hora. Ela descreve o sangramento como moderado, de cor vermelho vivo, e afirma que iniciou após um episódio de forte dor abdominal. Relata que, desde então, o útero permanece “muito duro” e que percebeu redução dos movimentos fetais. Nega perda de líquido. A paciente possui histórico de hipertensão gestacional na gravidez atual. Ao exame físico, mostra-se pálida, com PA 150 x 95 mmHg e FC 105 bpm. O abdome está doloroso à palpação, com hipertonia uterina. Identifica-se batimento cardíaco fetal variando de 100 a 110 bpm de forma sustentada. A inspeção especular revela moderada quantidade de sangue vermelho vivo no fundo vaginal.<br><br> Qual é a conduta imediata nessa situação?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Interromper a gestação pela via de parto mais rápida.",
+    "B": "Confirmar a localização placentária por ultrassonografia obstétrica.",
+    "C": "Realizar perfil biofísico fetal com monitorização dos sinais vitais maternos.",
+    "D": "Iniciar a indução do trabalho de parto."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q27",
+   "numero": 27,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Homem de 42 anos, em situação de rua, comparece a uma Unidade Básica de Saúde (UBS) em atendimento de demanda espontânea, apresentando adinamia, tosse persistente, febre vespertina e perda de peso. Relata diagnóstico de tuberculose pulmonar há 6 meses e início de tratamento em outra UBS, interrompido após cerca de 3 semanas por dificuldades relacionadas à instabilidade de moradia e ao acesso a serviços. No momento do atendimento, não apresenta documentação pessoal e refere receio em retomar o tratamento, relatando experiências anteriores de discriminação nos serviços de saúde.<br><br> Como parte do plano terapêutico singular, onde deve ser reiniciado o tratamento para esse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Na UBS atual, na qual compareceu para atendimento.",
+    "B": "Na UBS de origem, na qual o tratamento foi iniciado.",
+    "C": "No Consultório na Rua responsável pela região.",
+    "D": "Em unidade hospitalar, com médico pneumologista."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q28",
+   "numero": 28,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Uma equipe de saúde da família observa um aumento de crises hipertensivas entre pacientes diagnosticados com hipertensão arterial sistêmica acompanhados pela equipe nos últimos 3 meses. A revisão dos dados revela redução da adesão aos grupos educativos sobre hipertensão, diminuição nos registros de pressão arterial e menor comparecimento às consultas programadas. As visitas domiciliares estão aquém do necessário, devido à redução do número de agentes comunitários no território.<br><br> Qual é a medida prioritária a ser adotada pela equipe de saúde para solucionar essa situação na atenção primária?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Desenvolver ações educativas para o controle de condições de risco.",
+    "B": "Identificar as falhas no cuidado e no fluxo de informação.",
+    "C": "Analisar o número de visitas domiciliares como indicador.",
+    "D": "Encaminhar para acompanhamento ambulatorial especializado."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q29",
+   "numero": 29,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Adolescente de 14 anos foi levada a uma Unidade Básica de Saúde pelos pais por apresentar “medo intenso de engordar”. Refere preocupação excessiva com ganho de peso há 1 ano, razão pela qual tem feito restrição alimentar progressiva durante o dia. Relata, porém, episódios de compulsão alimentar quase todas as noites da semana, nos últimos 4 meses, quando não consegue controlar a quantidade e a qualidade do que come. Menciona compensar os episódios de compulsão alimentar com jejuns prolongados e exercícios físicos excessivos. Nega histórico de vômitos autoinduzidos ou uso de laxantes. Não há comorbidades clínicas prévias. O exame físico revela: paciente consciente e orientada; sinais vitais estáveis; IMC 23 kg/m2; pele levemente ressecada e ausência de sinais de desnutrição ou outras alterações.<br><br> Qual é a principal hipótese diagnóstica nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Anorexia nervosa.",
+    "B": "Transtorno alimentar não especificado.",
+    "C": "Bulimia nervosa.",
+    "D": "Transtorno de compulsão alimentar."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q30",
+   "numero": 30,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Homem de 75 anos, residente em instituição de longa permanência, com histórico de declínio cognitivo leve, é levado a uma Unidade Básica de Saúde devido a quadro de confusão mental progressiva iniciado há 7 dias, associado a astenia, tosse e agitação psicomotora. No segundo dia de sintomas, foi iniciada ciprofloxacina empiricamente, sem melhora. O paciente apresenta hipertensão arterial e dislipidemia bem controladas. O exame físico revela: paciente confuso no tempo e no espaço; temperatura axilar 36,1 °C; PA 110 x 60 mmHg; FC 98 bpm; FR 21 irpm; SatO2 94% em ar ambiente. Ausculta respiratória com estertores finos em bases bilateralmente.<br><br> Qual é a conduta inicial para esse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Associar claritromicina.",
+    "B": "Encaminhar para Unidade de Pronto Atendimento.",
+    "C": "Solicitar tomografia de tórax.",
+    "D": "Administrar furosemida."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q31",
+   "numero": 31,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Criança de 4 anos, previamente saudável, é levada a uma Unidade de Pronto Atendimento após início súbito de dificuldade respiratória, estridor inspiratório intenso, sialorreia, postura sentada em tripé, aspecto tóxico e rebaixamento de nível de consciência. A mãe relata que a criança estava bem até poucas horas antes do episódio. Ao exame: FC 160 bpm; FR 50 irpm; SatO2 86% em ar ambiente; temperatura axilar 40 °C. A criança apresenta piora da dispneia à manipulação. <br><br> Qual é a principal hipótese diagnóstica nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Laringite aguda.",
+    "B": "Obstrução por corpo estranho.",
+    "C": "Epiglotite aguda.",
+    "D": "Pneumonia bacteriana."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q32",
+   "numero": 32,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Gestante de 32 semanas é socorrida por equipe de atendimento pré-hospitalar após sofrer acidente automobilístico. A paciente está conversando. Apresenta: escala de Glasgow 12; FC 108 bpm; PA 90 x 60 mmHg. É imobilizada em prancha rígida com colar cervical. <br><br> Qual é a conduta indicada para otimizar o retorno venoso materno, durante o transporte, sem risco de comprometer a estabilização da coluna vertebral da paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Colocá-la em posição de Trendelemburg.",
+    "B": "Imobilizá-la na prancha em decúbito lateral esquerdo.",
+    "C": "Realizar o deslocamento manual do útero para a esquerda.",
+    "D": "Elevar os membros inferiores."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q33",
+   "numero": 33,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Mulher de 35 anos, nuligesta, comparece à consulta em Unidade Básica de Saúde com queixa de dismenorreia progressiva e de hematoquezia quando está menstruada. Relata que as cólicas menstruais pioraram há 5 anos e que precisou procurar o pronto-socorro em duas ocasiões por dor pélvica forte e necessidade de medicação intravenosa. Afirma não fazer uso de contracepção hormonal por não ter atividade sexual há 10 anos. Nega doenças crônicas ou uso de medicações. Refere constipação, com piora nos últimos 6 meses, e distensão abdominal. Ao exame físico, observa-se abdome indolor à palpação; exame especular sem lesões visíveis; toque vaginal com dor à mobilização do colo uterino; útero pouco móvel; palpação de nódulos endurecidos e doloridos em fórnice vaginal posterior. <br><br> Considerando-se a provável hipótese diagnóstica, qual é o exame de referência para investigação inicial nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Tomografia computadorizada do abdome.",
+    "B": "Laparoscopia diagnóstica.",
+    "C": "Histerossonossalpingografia.",
+    "D": "Ultrassonografia endovaginal."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q34",
+   "numero": 34,
+   "disciplina": "Infectologia",
+   "enunciado_html": "Homem de 27 anos procura Unidade Básica de Saúde referindo febre, mialgia, artralgia, cefaleia e dor retro-orbitária, iniciadas há 7 dias. Relatou vômitos frequentes há 2 dias. Nega ter viajado nas últimas 2 semanas. O exame físico mostra: temperatura axilar 39 °C; desidratado (2+/4+); PA 80 x 50 mmHg; FC 120 bpm; FR 22 irpm; abdome com dor difusa à palpação profunda; exantema maculopapular em tronco e membros superiores. <br><br> A confirmação do diagnóstico provável nesse caso será determinada por",
+   "extras_html": null,
+   "alternativas": {
+    "A": "pesquisa de proteína NS1.",
+    "B": "avaliação da contagem de plaquetas.",
+    "C": "realização de isolamento viral.",
+    "D": "detecção de Anticorpos IgM por ELISA."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q35",
+   "numero": 35,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Em uma reunião de equipe, a enfermeira da Unidade Básica de Saúde (UBS) informa que, apesar de estar conseguindo manter os atendimentos de rotina, no último mês percebeu aumento de atendimentos por desidratação leve, exaustão pelo calor e descompensação de doenças crônicas, e que suspeita estarem relacionadas à onda de calor que está ocorrendo no município. <br><br> O plano de intervenção para a população do território adstrito dessa UBS consiste em",
+   "extras_html": null,
+   "alternativas": {
+    "A": "separar o fluxo de atendimento da UBS para agilizar o atendimento da população atingida.",
+    "B": "implementar hospital de campanha para atender a população por demanda espontânea.",
+    "C": "encaminhar as pessoas afetadas para hidratação parenteral a fim de evitar descompensação clínica.",
+    "D": "orientar hidratação, adaptação do domicílio, sinais de alerta, e monitoramento ativo dos susceptíveis."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q36",
+   "numero": 36,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Estudante de 17 anos comparece espontaneamente a uma Unidade Básica de Saúde com relato de tristeza e dificuldade de relacionamento com os pais. Refere que já pensou em “sumir” depois da última briga em casa, mas nega intenção ou planejamento suicida, afirmando que não quer morrer, “só queria que esse sentimento ruim passasse”. Segundo seu relato, perdeu interesse nas atividades do dia a dia e, nos últimos meses, passou a maior parte do tempo em seu quarto, mas tem mantido sono regular, apetite inalterado, bom desempenho escolar, além de funcionalidade preservada. Afirma não usar substâncias psicoativas e nega comportamentos autolesivos ou tentativas de suicídio anteriores. <br><br> Considerando o quadro apresentado e o manejo na atenção primária, a conduta inicial para esse paciente é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "convocar seus responsáveis e encaminhá-lo ao Centro de Atenção Psicossocial infantojuvenil do território de referência.",
+    "B": "prescrever inibidor de recaptação de serotonina e encaminhá-lo para acompanhamento em ambulatório de saúde mental.",
+    "C": "propor o envolvimento da família no cuidado e iniciar acompanhamento multidisciplinar na Unidade Básica de Saúde.",
+    "D": "explicar-lhe que a distimia faz parte da adolescência, orientá-lo a aguardar e sugerir que busque o serviço de emergência em caso de piora."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q37",
+   "numero": 37,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Mulher de 67 anos procura unidade de emergência com queixa de fadiga, fraqueza e palpitação, com início há 3 dias. Encontra-se hemodinamicamente estável. Seu eletrocardiograma é apresentado na imagem a seguir. <br><br> Qual é a conduta imediata para esse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Realizar cardioversão elétrica.",
+    "B": "Iniciar amiodarona em bolus.",
+    "C": "Indicar anticoagulação.",
+    "D": "Implantar marca-passo temporário."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q38",
+   "numero": 38,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Adolescente de 13 anos compareceu a uma Unidade Básica de Saúde para avaliação anual de saúde. Encontra-se assintomática. Ao exame físico, apresenta-se em bom estado geral, com PA e FC normais para a idade. A ausculta cardíaca mostra sopro sistólico de baixa intensidade (grau 1+/4+), audível no foco pulmonar, sem irradiação, com timbre suave, que diminui de intensidade quando em posição ortostática. Não há frêmito, nem outros ruídos cardíacos anormais. Quanto a antecedentes pessoais, não relata história de dispneia, dor torácica, síncope ou intolerância aos esforços. Não há antecedentes familiares de cardiopatia ou morte súbita. <br><br> Considerando-se os dados da paciente, o que sugere o diagnóstico de sopro cardíaco inocente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Sopro sistólico de baixa intensidade, sem irradiação e com diminuição em posição ortostática.",
+    "B": "Sopro localizado em foco pulmonar sem irradiação, associado à ausência de sintomas respiratórios.",
+    "C": "Ausência de antecedentes familiares de cardiopatia congênita ou de morte súbita.",
+    "D": "Presença de PA e FC dentro da normalidade para a idade."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q39",
+   "numero": 39,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Menino de 12 anos é levado por seus pais a um pronto-socorro porque se machucou, há 5 dias, com galho de árvore. Os pais relatam que demoraram a buscar atendimento para o filho por morarem em região de difícil acesso. Exame físico: ferimento corto-contuso na face lateral da perna direita, com aproximadamente 12 cm, irregular, com presença de contaminação grosseira da ferida. Os pais afirmam que o paciente tem histórico de atopias e que tomou as vacinas da infância até os 5 anos. O médico indica desbridamento cirúrgico, sob anestesia local infiltrativa, com 20 mL de lidocaína a 2% sem vasoconstritor. Durante o procedimento, o paciente começa a relatar formigamento nos lábios, gosto metálico na boca e zumbido. Em seguida, apresenta crise convulsiva tônico-clônica generalizada. <br><br> Qual é o diagnóstico provável do quadro apresentado no momento da cirurgia?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Reação anafilática grave.",
+    "B": "Toxicidade pelo anestésico.",
+    "C": "Paroxismo tetânico.",
+    "D": "Sepse por infecção da ferida."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q40",
+   "numero": 40,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Mulher de 21 anos, G1P0, com 27 semanas e 1 dia de gestação, procura Unidade Básica de Saúde para mostrar o resultado do exame de curva glicêmica (teste oral de tolerância à glicose 75 g), conforme descrito na tabela a seguir.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Exame</th> <th>Resultado</th> <th>Valor de referência</th> </tr> </thead> <tbody> <tr> <td>Glicemia de jejum</td> <td>89 mg/dL</td> <td>&lt; 92 mg/dL</td> </tr> <tr> <td>1 hora após ingestão</td> <td>182 mg/dL</td> <td>&lt; 180 mg/dL</td> </tr> <tr> <td>2 horas após ingestão</td> <td>152 mg/dL</td> <td>&lt; 153 mg/dL</td> </tr> </tbody> </table> <div class=\"question-text\"> Além de orientação de dieta pobre em carboidrato e atividade física regular, qual a medida imediata deve ser adotada no seguimento do tratamento dessa paciente? </div>",
+   "alternativas": {
+    "A": "Solicitar dosagem de insulina.",
+    "B": "Repetir curva glicêmica.",
+    "C": "Solicitar dosagem de HbA1c.",
+    "D": "Monitorar a glicemia capilar."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q42",
+   "numero": 42,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "A Coordenação de IST/AIDS de um município brasileiro analisou a série histórica de indicadores epidemiológicos relativos à infecção pelo HIV no período de 2019 a 2023. Nesse intervalo, houve ampla expansão da oferta de diagnóstico e implementação de novos protocolos, com medicamentos de maior eficácia e menor toxicidade. A população do município permaneceu estável em aproximadamente 100 mil habitantes. A tabela a seguir apresenta os dados consolidados do período.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Ano</th> <th>Casos novos de HIV diagnosticados no ano</th> <th>Total de pessoas vivendo com HIV (PVHA) em 31 de dezembro</th> <th>Óbitos relacionados à AIDS no ano</th> </tr> </thead> <tbody> <tr><td>2019</td><td>120</td><td>600</td><td>50</td></tr> <tr><td>2020</td><td>125</td><td>670</td><td>35</td></tr> <tr><td>2021</td><td>118</td><td>780</td><td>15</td></tr> <tr><td>2022</td><td>122</td><td>890</td><td>5</td></tr> <tr><td>2023</td><td>120</td><td>1.005</td><td>4</td></tr> </tbody> </table> <div class=\"question-text\"> Considerando-se a relação entre as medidas de frequência e a dinâmica demográfica, a elevação da prevalência da infecção no período analisado é consequência </div>",
+   "alternativas": {
+    "A": "da crescente virulência das cepas virais circulantes, indicada pela estabilidade da taxa de incidência.",
+    "B": "do aumento da duração média da doença, resultante da redução da letalidade observada na série.",
+    "C": "da ineficácia das estratégias de prevenção primária, demonstrada pelo acúmulo de casos ativos.",
+    "D": "da variação de exposição de risco da infecção, o que gera diagnósticos superiores à capacidade de resolução do sistema."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q43",
+   "numero": 43,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Uma equipe da atenção primária à saúde acolhe uma mulher de 42 anos cuja casa foi destruída há 3 dias, após um desastre natural. Ela afirma estar bastante angustiada e desesperançosa, com sono entrecortado e pesadelos. Refere, ainda, choro recorrente, inapetência e dificuldade de concentração. Relata que, apesar de tudo isso, os filhos lhe dão \"força para seguir adiante\" e nega pensamentos de morte ou ideação suicida.",
+   "extras_html": "<div class=\"question-text\"> Além de abrigo, alimentação e abastecimento de água, que ações, no âmbito da saúde, devem ser inicialmente oferecidas a essa paciente? </div>",
+   "alternativas": {
+    "A": "Realizar escuta ativa, identificando as suas necessidades de saúde, e manter o seguimento na atenção primária à saúde.",
+    "B": "Solicitar relato dos eventos traumáticos, oferecendo visão de futuro otimista, e orientar busca por serviço de urgência se houver piora.",
+    "C": "Prescrever inibidores seletivos da recaptação de serotonina ou benzodiazepínicos e encaminhar a ambulatório especializado.",
+    "D": "Indicar acompanhamento psicológico regular e encaminhar a um centro de atenção psicossocial."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q44",
+   "numero": 44,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "Homem de 49 anos, com diabetes mellitus tipo 2, em uso irregular de metformina e dapaglifozina, procura uma Unidade de Pronto Atendimento com queixa de poliúria, polidipsia, fadiga e visão turva há 3 dias. Ao exame físico, apresenta-se hemodinamicamente estável, discretamente desidratado, sem sinais de infecção, sem dor abdominal e sem náuseas ou vômitos. Glicemia capilar: 420 mg/dL. Glicemia plasmática confirmatória: 460 mg/dL. Foram realizados exames para avaliação do quadro clínico do paciente, cujos resultados são apresentados na seguinte tabela.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Exame</th> <th>Resultado</th> <th>Valor de referência</th> </tr> </thead> <tbody> <tr><td>pH (gasometria arterial)</td><td>7,36</td><td>7,35 a 7,45</td></tr> <tr><td>Bicarbonato sérico (HCO3)</td><td>22 mEq/L</td><td>22 a 26 mEq/L</td></tr> <tr><td>Osmolaridade plasmática</td><td>292 mOsm/kg</td><td>285 a 295 mOsm/kg</td></tr> <tr><td>Cetonemia</td><td>Ausente</td><td>Ausente</td></tr> <tr><td>Cetonúria</td><td>Ausente</td><td>Ausente</td></tr> <tr><td>Sódio</td><td>147 mEq/L</td><td>136 a 145 mEq/L</td></tr> <tr><td>Potássio</td><td>3,6 mEq/L</td><td>3,5 a 5,1 mEq/L</td></tr> </tbody> </table> <div class=\"question-text\"> Qual é o provável diagnóstico desse paciente? </div>",
+   "alternativas": {
+    "A": "Cetoacidose diabética.",
+    "B": "Estado hiperosmolar hiperglicêmico.",
+    "C": "Hiperglicemia não crítica de emergência metabólica.",
+    "D": "Acidose metabólica induzida por medicação."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q45",
+   "numero": 45,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Menino de 2 anos e 3 meses é levado pela mãe a uma Unidade Básica de Saúde para consulta de rotina. Ela refere palidez progressiva e redução do apetite nos últimos dois meses. O exame físico mostra palidez cutaneomucosa, sem outros achados relevantes. O hemograma mostra os seguintes resultados.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Exame</th> <th>Resultado</th> <th>Valor de referência</th> </tr> </thead> <tbody> <tr><td>Hemoglobina</td><td>9,4 g/dL</td><td>10,5 a 14,2 g/dL</td></tr> <tr><td>Volume corpuscular médio</td><td>68 fL</td><td>75 a 87 fL</td></tr> <tr><td>Índice de anisocitose</td><td>Aumentado</td><td>-</td></tr> </tbody> </table> <div class=\"question-text\"> A conduta para essa criança é prescrever </div>",
+   "alternativas": {
+    "A": "ferro oral em dose terapêutica e orientar adequação alimentar.",
+    "B": "polivitamínico com ferro em dose profilática e manter dieta atual.",
+    "C": "ferro oral em dose profilática e orientar uso de ácido fólico.",
+    "D": "ferro endovenoso e suplementar com vitamina B12."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q46",
+   "numero": 46,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Homem de 58 anos, no 2º dia de pós-operatório de hemicolectomia esquerda por neoplasia de cólon, apresenta distensão abdominal progressiva, náuseas e vômitos ocasionais. Refere não ter eliminado flatos ou fezes desde o procedimento. Exame físico: paciente em bom estado geral, lúcido, afebril; PA 120 x 80 mmHg; FC 78 bpm. Abdome: globoso, com timpanismo difuso, indolor à palpação, sem massas ou sinais de peritonite; ruídos hidroaéreos diminuídos. A radiografia simples de abdome em pé e deitado mostra distensão difusa de alças de delgado e cólon, sem níveis hidroaéreos.",
+   "extras_html": "<div class=\"question-text\"> Diante do quadro clínico apresentado, a conduta recomendada nesse momento é </div>",
+   "alternativas": {
+    "A": "indicar reintervenção cirúrgica e confecção de colostomia em alça.",
+    "B": "estimular deambulação precoce e considerar progressão de dieta conforme aceitação.",
+    "C": "realizar descompressão colonoscópica e administrar neostigmina sob monitorização cardíaca.",
+    "D": "iniciar nutrição parenteral total e antibioticoterapia de amplo espectro."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q47",
+   "numero": 47,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Mulher de 20 anos procura Unidade de Pronto Atendimento devido a queixa de corrimento vaginal há 7 dias, associado a odor fétido e prurido leve. Refere início recente de dor pélvica hipogástrica, febre não aferida e dispareunia. O exame ginecológico mostra corrimento acinzentado, colo uterino doloroso à mobilização e dor à palpação anexial bilateral.",
+   "extras_html": "<div class=\"question-text\"> Qual é o tratamento medicamentoso nesse caso, considerando-se o diagnóstico provável? </div>",
+   "alternativas": {
+    "A": "Metronidazol, ceftriaxona e doxiciclina.",
+    "B": "Fluconazol, azitromicina e clindamicina.",
+    "C": "Doxiciclina, ceftriaxona e gentamicina.",
+    "D": "Miconazol, metronidazol e azitromicina."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q48",
+   "numero": 48,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Mulher cisgênero de 26 anos, profissional do sexo, comparece a uma Unidade Básica de Saúde para consulta agendada. Relata uso inconsistente de preservativos e manifesta preocupação com o risco de infecção pelo HIV. Nega comorbidades ou uso contínuo de medicações. Realizou teste rápido para HIV há 2 meses em uma ação social, com resultado não reagente, e exames laboratoriais recentes, que mostram função renal preservada. Durante a consulta, a médica de família oferta novos testes rápidos para HIV, sífilis, hepatites B e C, todos não reagentes, e exclui, por anamnese e exame físico, a presença de sinais e sintomas de infecção aguda pelo HIV ou outras infecções sexualmente transmissíveis ativas no momento.",
+   "extras_html": "<div class=\"question-text\"> Considerando-se o início da prevenção, o manejo da profilaxia pré-exposição (PrEP) para esse caso é prescrevê-la na modalidade </div>",
+   "alternativas": {
+    "A": "sob demanda e agendar retorno mensal para teste rápido.",
+    "B": "de uso diário consecutivo e orientar que a proteção ocorrerá em 20 dias.",
+    "C": "sob demanda e aguardar confirmação da sorologia com resultado não reagente.",
+    "D": "de uso diário consecutivo e agendar retorno trimestral para teste rápido."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q49",
+   "numero": 49,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Em uma Unidade Básica de Saúde, foi avaliado o desempenho de um teste rápido de triagem para diabetes mellitus tipo 2 em homens e mulheres, assintomáticos, de 40 a 69 anos, atendidos no território adscrito. A incidência estimada de diabetes nessa população era de 10%, com base em dados locais. O teste rápido foi comparado ao padrão de referência (glicemia de jejum ≥ 126 mg/dL). Os resultados percentuais obtidos estão apresentados na seguinte tabela.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Resultado do teste rápido</th> <th>Diabetes presente</th> <th>Diabetes ausente</th> <th>Total</th> </tr> </thead> <tbody> <tr><td>Teste positivo</td><td>80</td><td>20</td><td>100</td></tr> <tr><td>Teste negativo</td><td>20</td><td>180</td><td>200</td></tr> <tr><td>Total</td><td>100</td><td>200</td><td>300</td></tr> </tbody> </table> <div class=\"question-text\"> Com base na tabela, quais são, respectivamente, o valor e a interpretação clínica para a razão de verossimilhança positiva do teste rápido avaliado? </div>",
+   "alternativas": {
+    "A": "0,02 - indica redução na probabilidade de o paciente ter a doença.",
+    "B": "1,12 - demonstra uma alteração mínima e irrelevante na probabilidade de o paciente ter a doença.",
+    "C": "8,00 - apresenta aumento moderado na probabilidade pós-teste de o paciente ter a doença.",
+    "D": "9,00 - confirma o diagnóstico definitivo do diabetes, independentemente da probabilidade do teste."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q50",
+   "numero": 50,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Homem de 29 anos comparece a uma Unidade Básica de Saúde queixando-se de “sofrimento emocional constante” e “problemas nos relacionamentos”. Relata episódios frequentes de explosões de raiva, sensação de abandono quando os outros não respondem como ele espera e histórico de relações interpessoais intensas e instáveis, com ocorrências de lesões autoprovocadas leves (arranhões em face interna de braços) quando se sente frustrado ou rejeitado. O prontuário revela que o paciente passou por diversos serviços de saúde e abandona os acompanhamentos com frequência. Na consulta, demonstra desconfiança inicial e uma busca intensa por atenção e aprovação da médica. Não há evidências de sintomas psicóticos nem quadro compatível com transtorno de humor.",
+   "extras_html": "<div class=\"question-text\"> Qual é o transtorno de personalidade identificado nesse caso? </div>",
+   "alternativas": {
+    "A": "Paranoide.",
+    "B": "Borderline.",
+    "C": "Dependente.",
+    "D": "Antissocial."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q51",
+   "numero": 51,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "Mulher de 38 anos é atendida em Unidade Básica de Saúde para investigação de quadro de emagrecimento e palpitações. Relata que o emagrecimento não é intencional e que seu apetite está preservado. Além disso, refere incomodar-se muito com a sensação de palpitações esporádicas, sentidas geralmente durante o esforço, mas também, por vezes, mesmo em repouso. O exame físico revela: PA 160 x 80 mmHg; FC 132 bpm em repouso; exoftalmia; pele quente e úmida e alopecia generalizada. Exames laboratoriais mostram os seguintes resultados:",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Exame</th> <th>Resultado</th> <th>Valor de referência</th> </tr> </thead> <tbody> <tr> <td>TSH</td> <td>0,01 mUI/L</td> <td>0,60 a 4,48 mUI/L</td> </tr> <tr> <td>T4 livre</td> <td>4,2 ng/dL</td> <td>0,92 a 1,68 ng/dL</td> </tr> </tbody> </table>",
+   "alternativas": {
+    "A": "Metimazol e propranolol.",
+    "B": "Propiltiouracil e amiodarona.",
+    "C": "Carbonato de lítio e propafenona.",
+    "D": "Iodo radioativo e procainamida."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q52",
+   "numero": 52,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Criança de 3 anos é levada para consulta de rotina. Apresenta-se irritada, com relato materno de febre intermitente e perda ponderal de 2 kg nos últimos 2 meses. O exame físico mostra que a PA está no percentil 95 para a idade e altura. Nota-se presença de equimoses periorbitárias bilaterais e de massa firme em flanco direito que ultrapassa a linha média abdominal.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Tumor de Wilms.",
+    "B": "Neuroblastoma.",
+    "C": "Rabdomiossarcoma.",
+    "D": "Linfoma de Burkitt."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q53",
+   "numero": 53,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Menina de 1 ano é levada a uma Unidade de Pronto Atendimento com história de abaulamento em região inguinal até o lábio maior esquerdo, há cerca de 6 meses. O exame físico revela abaulamento inguinal esquerdo, com conteúdo fibroelástico, pequeno e redutível.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Indicar cirurgia eletiva.",
+    "B": "Encaminhar para cirurgia de urgência.",
+    "C": "Manter conduta expectante.",
+    "D": "Prescrever gonadotrofina coriônica."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q54",
+   "numero": 54,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Paciente, G3P1A1, com gestação de 13 semanas, datada pela ecografia de 8 semanas, procura pronto atendimento devido à queixa de sangramento vaginal iniciado há 3 dias, em pequena quantidade. A tipagem sanguínea anotada no cartão de pré-natal é A negativo. Ela desconhece a tipagem sanguínea de seu parceiro. O exame ginecológico mostra sangue escurecido em moderada quantidade na vagina e colo uterino fechado. É solicitado teste de coombs indireto, cujo resultado é positivo.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Alertar paciente sobre a inviabilidade da gestação.",
+    "B": "Realizar imunoglobulina anti-RH.",
+    "C": "Solicitar tipagem sanguínea do parceiro.",
+    "D": "Encaminhar paciente ao pré-natal de alto risco."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q55",
+   "numero": 55,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Após a ocorrência de grandes ondas de calor em determinada região, idosa de 72 anos procura atendimento em Unidade Básica de Saúde por apresentar tontura, fraqueza, cefaleia pulsátil e redução do volume urinário. Ela refere ser hipertensa e morar em uma casa pequena com pouca ventilação. Nega outras comorbidades ou sintomas adicionais. O exame físico mostra PA 100 x 60 mmHg, FC 110 bpm, mucosas secas e temperatura axilar de 38 °C. A equipe de saúde observa que outros moradores da área estão nas mesmas condições dessa paciente.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Prescrever antitérmicos, antieméticos e resfriamento corporal; mobilizar os agentes comunitários na orientação das famílias quanto às medidas para amenizar os efeitos do calor.",
+    "B": "Iniciar reposição hidroeletrolítica e encaminhar paciente ao pronto-socorro; notificar caso à Secretaria de Saúde para intervenções nesse território.",
+    "C": "Orientar o aumento da ingestão hídrica em domicílio; realizar reunião de equipe para organizar o fluxo assistencial desses atendimentos.",
+    "D": "Indicar reposição hídrica, resfriamento corporal e monitorização; realizar a vigilância ativa de idosos vulneráveis com ações intersetoriais."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q56",
+   "numero": 56,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Adolescente de 15 anos, com quadro de transtorno do espectro autista, é levado pela mãe a uma Unidade de Pronto Atendimento após ter apresentado, na escola, episódio de agitação progressiva, vocalizações intensas e repetitivas, movimentos amplos dos membros superiores, chegando a cair ao chão. Durante todo o episódio, manteve os olhos abertos e reagia aos estímulos do ambiente. Não houve liberação esfincteriana, confusão mental ou sonolência após o episódio. O quadro em questão é compatível com o diagnóstico de crise",
+   "extras_html": null,
+   "alternativas": {
+    "A": "epiléptica.",
+    "B": "de ansiedade aguda.",
+    "C": "conversiva.",
+    "D": "de desregulação comportamental."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q57",
+   "numero": 57,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Lactente de 3 meses é levado a uma Unidade Básica de Saúde por apresentar crises de tosse intensa há 15 dias, acentuando-se há 10 dias em crises sucessivas, com associação de vômitos. Durante as crises, apresenta cianose, hemorragia conjuntival, petéquias e rubor facial. Foi realizada imunização somente ao nascimento. Qual exame deve ser realizado para confirmação da hipótese diagnóstica nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Bacterioscopia pelo Gram em amostra de swab de nasofaringe.",
+    "B": "Hemograma com contagem de plaquetas.",
+    "C": "Reação em cadeia da polimerase em amostra de swab de nasofaringe.",
+    "D": "Sorologia para toxina em amostra de sangue."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q58",
+   "numero": 58,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Homem de 45 anos foi submetido a colecistectomia laparoscópica eletiva, devido a litíase não complicada. No dia seguinte à cirurgia, apresentou temperatura axilar de 37,5 °C, dor abdominal difusa e FC 110 bpm. O médico assistente deu alta ao paciente, atribuindo as queixas ao processo normal de recuperação. O paciente retornou para reavaliação no 4º dia de pós-operatório, com piora do quadro clínico. A ultrassonografia abdominal identificou grande quantidade de líquido livre abdominal, e a reabordagem cirúrgica mostrou fístula biliar. Após a recuperação, a família do paciente decidiu buscar orientação jurídica.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "negligência.",
+    "B": "imprudência.",
+    "C": "diligência.",
+    "D": "omissão de socorro."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q59",
+   "numero": 59,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Adolescente de 16 anos comparece à consulta em ambulatório de ginecologia referindo ainda não ter menstruado, a despeito de ter apresentado telarca aos 10 anos e pubarca logo em seguida. Ela não tem outras queixas. Tem 1,68 m de estatura e pesa 65 kg. A paciente tem pilificação axilar habitual, acne grau II em face, tórax e região dorsal. O exame ginecológico mostra: mamas com configuração normal; distribuição de pelos pubianos adequada para o sexo feminino; órgãos genitais externos sem alterações evidentes; hímen íntegro, com orifício orbicular permeável. No exame, não se procedeu ao toque vaginal.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Síndrome de Turner.",
+    "B": "Insensibilidade androgênica.",
+    "C": "Amenorreia hipotalâmica primária.",
+    "D": "Anomalia Mülleriana."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q60",
+   "numero": 60,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Homem de 53 anos, em consulta a uma Unidade Básica de Saúde (UBS), vigilante, viúvo, relata que perdeu a esposa e um filho de 17 anos em uma tentativa de assalto, há 2 anos. Refere aumento progressivo do consumo de álcool e isolamento social desde o ocorrido. Informa que, durante a semana, ingere cerca de 2 latas de cerveja após o trabalho e, aos finais de semana, consome uma caixa de cerveja ao dia. Afirma também que, ultimamente, tem recebido reclamações do chefe, pois tem chegado atrasado ao trabalho. Nega episódios de “apagões”, agressões ou acidentes. Ao exame psíquico, apresenta humor deprimido e sono fragmentado. Nega plano suicida no momento. Não há sinais de abstinência aguda nem alterações ao exame físico.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Diagnosticar o abuso de álcool utilizando o questionário CAGE e prescrever antidepressivo tricíclico.",
+    "B": "Utilizar a abordagem de redução de danos no manejo do consumo de álcool e prescrever dissulfiran.",
+    "C": "Realizar intervenção breve e terapia multiprofissional na UBS para abordagem do consumo de álcool.",
+    "D": "Encaminhar paciente para internação hospitalar de curta duração e envolver os familiares no plano de cuidado."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q61",
+   "numero": 61,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "Homem de 42 anos está sob investigação em Unidade Básica de Saúde, devido a aumento progressivo do volume abdominal e astenia. O paciente é natural e residente de uma cidade no interior da Bahia, nunca tendo viajado para fora do seu estado. Nega etilismo. O exame físico revela ascite moderada e circulação colateral na parede abdominal. A ultrassonografia mostra: fígado de dimensões preservadas, bordas rombas e sem nodulações; presença de fibrose periportal; esplenomegalia e aumento do calibre da veia porta e líquido ascítico na cavidade peritoneal. A endoscopia digestiva alta indica varizes esofágicas. Qual o exame indicado para confirmação da principal hipótese diagnóstica?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Doppler de sistema portal.",
+    "B": "Paracentese diagnóstica.",
+    "C": "Sorologia de hepatites virais.",
+    "D": "Exame parasitológico."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q62",
+   "numero": 62,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Adolescente de 15 anos, acompanhada pelos pais, é atendida em Unidade Básica de Saúde. A mãe relata que a paciente passa quase todo o tempo no quarto e não conversa com os familiares, preferindo usar o celular. Durante exame físico, a sós com a médica, a paciente refere estar apaixonada por uma colega de classe e afirma que tem medo de que os pais descubram. Reforça que \"gosta de garotas\" e se reconhece como mulher. Refere, ainda, que, devido à angústia relacionada ao preconceito da família, vem fazendo cortes em face interna de coxas, para \"diminuir o sofrimento\". Ao final, pede à médica que não conte nada disso aos pais.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Preservar sigilo sobre a orientação sexual e revelar aos pais os comportamentos autolesivos.",
+    "B": "Guardar sigilo tanto sobre a orientação sexual quanto sobre os comportamentos autolesivos.",
+    "C": "Revelar aos pais as informações referentes à orientação sexual e aos comportamentos autolesivos.",
+    "D": "Manter sigilo sobre os comportamentos autolesivos e revelar aos pais a orientação sexual."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q64",
+   "numero": 64,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Mulher de 72 anos, diabética, procura atendimento devido a uma lesão pruriginosa em vulva, há 8 meses. Fez uso de corticosteroides tópicos e aciclovir por 6 semanas, sem melhora dos sintomas ou redução da lesão. O exame físico revela: lesão no lábio externo, arredondada, circunscrita, ulcerada, com 3 cm de diâmetro, bordas discretamente elevadas e pouco definidas, fundo hiperemiado e granulado, com depósitos esbranquiçados na região central.",
+   "extras_html": "<div> <img src=\"vulva_lesao.jpg\" alt=\"Lesão vulvar ulcerada crônica em lábio externo\"> </div>",
+   "alternativas": {
+    "A": "Esfregaço da lesão para coloração de Gram.",
+    "B": "Genotipagem de HPV.",
+    "C": "Biópsia da lesão.",
+    "D": "Vulvoscopia com ácido acético."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q66",
+   "numero": 66,
+   "disciplina": "Dermatologia",
+   "enunciado_html": "Homem de 30 anos, sem comorbidades prévias, procura Unidade Básica de Saúde devido à lesão pruriginosa em região da panturrilha direita, com 3 semanas de evolução. O exame físico mostra lesão anular de cerca de 3 cm de diâmetro, com bordas eritematosas, elevadas e descamativas, com clareamento central.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cefalexina oral.",
+    "B": "Clotrimazol tópico.",
+    "C": "Hidrocortisona tópica.",
+    "D": "Ivermectina oral."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q67",
+   "numero": 67,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Menina de 2 anos apresenta tosse, coriza e obstrução nasal há 24 horas. Há 1 hora, apresentou quadro convulsivo tônico-clônico generalizado, com duração de 2 minutos, e foi levada ao pronto atendimento. Não há relato de convulsão anterior, mas a mãe refere histórico de crise convulsiva febril em irmão mais velho. Os exames mostram: temperatura axilar 38,7 °C; exame neurológico sem alterações e ausência de sinais meníngeos.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "internar a paciente e coletar líquido cefalorraquidiano.",
+    "B": "solicitar tomografia de crânio e indicar acompanhamento especializado.",
+    "C": "orientar a família e indicar acompanhamento ambulatorial.",
+    "D": "internar a paciente e realizar eletroencefalograma."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q68",
+   "numero": 68,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Homem de 22 anos, vítima de atropelamento, foi levado pelo suporte avançado do SAMU a uma emergência terciária de trauma, onde chegou em prancha rígida, com colar cervical e com queixa de dor em andar inferior de abdome. Avaliação inicial: paciente consciente; contactante; descorado 2+/4+; FC 120 bpm; FR 24 irpm; PA 80 x 60 mmHg; abdome plano, normotenso, doloroso à palpação profunda em andar inferior; descompressão brusca negativa; bacia instável e hematoma em região escrotal. Foram realizadas: medidas de estabilização na sala de emergência; ultrassonografia FAST, cujo resultado foi negativo para líquido livre abdominal; e radiografia da pelve, conforme a seguinte figura. Após, foi aplicada cinta pélvica, o que resultou em estabilização mecânica do anel pélvico, com fechamento do quadril.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Angiografia com embolização.",
+    "B": "Laparotomia exploradora.",
+    "C": "Estabilização cirúrgica do quadril.",
+    "D": "Tomografia de abdome e pelve."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q69",
+   "numero": 69,
+   "disciplina": "Ortopedia",
+   "enunciado_html": "Mulher de 72 anos procura atendimento em Unidade Básica de Saúde com queixas de dores na coluna lombar e histórico de fratura de fêmur após ter sofrido queda da própria altura há 2 anos. É hipertensa, faz uso de hidroclorotiazida e teve menopausa há 22 anos. Não usa nenhum outro medicamento nem fez uso de terapia hormonal. Realizou densitometria óssea recentemente, que indicou um alto risco para fraturas. A paciente não possui história de doenças secundárias associadas à osteoporose nem doenças crônicas, além da hipertensão arterial sistêmica. Não apresenta queixas relacionadas à intolerância gastrointestinaI ou à dificuldade de deglutição. Iniciou uso de vitamina D e cálcio via oral.<br><br> Com base no protocolo clínico nacional para osteoporose, qual é a opção inicial de tratamento medicamentoso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Bisfosfonato.",
+    "B": "Estrogênio conjugado.",
+    "C": "Teriparatida.",
+    "D": "Romosozumabe."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q70",
+   "numero": 70,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Mulher de 34 anos, em consulta, relata ao médico de família tristeza, insônia e medo constante. Revela estar, há anos, em relacionamento abusivo que envolve agressões psicológicas, manipulação financeira e episódios recentes de violência física cometida pelo parceiro. Afirma não desejar romper imediatamente o relacionamento por preocupação quanto à sua segurança e à possibilidade de agravamento de sua situação financeira.<br><br> Considerando-se o planejamento de ações e intervenções centradas na singularidade da pessoa assistida, são condutas adequadas nessa situação",
+   "extras_html": null,
+   "alternativas": {
+    "A": "iniciar tratamento farmacológico, encaminhar paciente para acompanhamento especializado em saúde da mulher e denunciar parceiro à delegacia de proteção à mulher.",
+    "B": "elaborar plano terapêutico com avaliação de risco junto à equipe multiprofissional, fortalecer a rede de apoio e notificar caso à vigilância epidemiológica.",
+    "C": "elaborar plano terapêutico farmacológico, encaminhar paciente para centro de apoio psicossocial e solicitar medida protetiva junto à defensoria pública.",
+    "D": "indicar o acolhimento em casa abrigo como intervenção protetiva, ofertar sorologias para rastreio de IST e notificar caso à rede de atenção psicossocial do município."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q72",
+   "numero": 72,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Homem de 30 anos procurou uma Unidade Básica de Saúde pela primeira vez com o objetivo de reduzir o consumo de crack. Nega uso diário, mas afirma que há momentos em que “engata” 3 dias de uso. Após, consegue ficar semanas sem utilizar, mas recai na sequência. Depois do último uso continuado por 3 dias, não retornou para casa e decidiu buscar ajuda.<br><br> Considerando-se as recomendações atuais dos Ministérios da Saúde e da Justiça, qual é a conduta inicial para esse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Internação hospitalar com abstinência total, com vistas a cessar os efeitos nocivos do consumo.",
+    "B": "Encaminhamento a uma comunidade terapêutica, para acolhimento, devido ao padrão de uso apresentado.",
+    "C": "Realização de ações voltadas à redução de danos, para minimizar problemas secundários ao consumo.",
+    "D": "Prescrição de psicofármaco, uma vez que há medicamentos padronizados para o tratamento."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q73",
+   "numero": 73,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "Homem de 40 anos, etilista crônico, procura a unidade de emergência queixando-se de distensão abdominal há 2 dias e náuseas eventualmente acompanhadas de vômitos. Ao exame físico: temperatura axilar aferida de 38,2 °C; mucosas levemente descoradas e anictéricas; aranhas vasculares no tronco; abdome distendido com circulação colateral; sinal de piparote positivo e baço palpável a 3 cm do rebordo costal esquerdo.<br><br> Qual é a conduta imediata para esse quadro clínico?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Solicitar hemocultura.",
+    "B": "Realizar paracentese.",
+    "C": "Prescrever antibioticoterapia empírica.",
+    "D": "Iniciar diurético poupador de potássio."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q74",
+   "numero": 74,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Menino de 8 anos é levado a um ambulatório de pediatria com queixa de febre persistente há 3 semanas, associada a palidez progressiva, emagrecimento e aparecimento de petéquias nos membros inferiores. A mãe relata que a criança tem se queixado de dores em membros inferiores e astenia. O exame físico mostra: palidez cutâneo-mucosa; petéquias difusas e hepatoesplenomegalia. O hemograma revela os resultados apresentados na tabela a seguir.<br><br> <table class=\"data-table\"> <thead> <tr><th>Exame</th><th>Resultado</th><th>Valor de referência</th></tr> </thead> <tbody> <tr><td>Leucócitos</td><td>2.500/mm³</td><td>4.500 a 13.500/mm³</td></tr> <tr><td>Hemoglobina</td><td>8,0 g/dL</td><td>11,7 a 15,3 g/dL</td></tr> <tr><td>Plaquetas</td><td>30.000/mm³</td><td>150.000 a 450.000/mm³</td></tr> <tr><td>Neutrófilos</td><td>500/mm³</td><td>1.500 a 8.500/mm³</td></tr> <tr><td>Linfócitos</td><td>1.800/mm³</td><td>1.000 a 4.800/mm³</td></tr> <tr><td>Blastos</td><td>5%</td><td>0%</td></tr> </tbody> </table> Nesse caso, a principal hipótese diagnóstica é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "anemia aplásica.",
+    "B": "leucemia linfoblástica aguda.",
+    "C": "púrpura trombocitopênica imunológica.",
+    "D": "calazar."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q75",
+   "numero": 75,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Criança de 5 anos é levada a um pronto-socorro após sofrer acidente automobilístico grave, com rebaixamento do nível de consciência, respiração irregular e sinais de comprometimento respiratório, sem sinais de sangramento ativo externo. É indicada obtenção de via aérea eficaz e definitiva.<br><br> Nesse caso, a particularidade anatômica a ser considerada para a realização de procedimento seguro é o fato de que crianças dessa idade, em comparação com adultos, apresentam",
+   "extras_html": null,
+   "alternativas": {
+    "A": "língua proporcionalmente menor.",
+    "B": "anel criocafríngeo relativamente mais largo.",
+    "C": "laringe mais baixa e anterior.",
+    "D": "epiglote mais anteriorizada e rígida."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q76",
+   "numero": 76,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Uma paciente de 46 anos, sem comorbidades e assintomática, procura Unidade Básica de Saúde para mostrar resultado de exame realizado para prevenção do câncer de colo uterino: teste de DNA-HPV oncogênico positivo para HPV 51. Informa ter realizado citologia oncótica há 1 ano, sem alterações.<br><br> Qual é a conduta inicial indicada nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Repetir o teste de DNA-HPV oncogênico.",
+    "B": "Solicitar citologia reflexa.",
+    "C": "Encaminhar para colposcopia.",
+    "D": "Indicar vacina contra o HPV."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q77",
+   "numero": 77,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "O Ministério da Saúde lançou, em 2025, os novos indicadores do componente de qualidade do cofinanciamento federal da atenção primária à saúde no SUS.<br><br> Considerando-se os novos indicadores de cuidado na gestação e puerpério, é necessário garantir a realização",
+   "extras_html": null,
+   "alternativas": {
+    "A": "de pelo menos um exame de ultrassonografia obstétrica durante a gestação.",
+    "B": "dos testes para sífilis, HIV e hepatites B e C no 1º trimestre da gestação.",
+    "C": "da primeira consulta de pré-natal antes da 20ª semana da gestação.",
+    "D": "de pelo menos quatro consultas médicas de pré-natal."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q78",
+   "numero": 78,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Uma equipe técnica do Ministério da Saúde está avaliando os efeitos da redução do ponto de corte da medida de PA sistólica de 130 mmHg para 120 mmHg para o diagnóstico de hipertensão arterial (HA).<br><br> Considerando-se as mudanças nos valores de referência, o que se espera em relação ao diagnóstico de HA?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Aumento na detecção da HA e redução na frequência de falsos positivos.",
+    "B": "Aumento na detecção da HA e aumento na frequência de falsos positivos.",
+    "C": "Redução na detecção da HA e redução na frequência de falsos positivos.",
+    "D": "Redução na detecção da HA e aumento na frequência de falsos positivos."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q79",
+   "numero": 79,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Homem de 60 anos, sem emprego formal, está em acompanhamento em um Centro de Atenção Psicossocial (CAPS) por esquizofrenia. Nos últimos meses, retomou uso de álcool, isolou-se mais e foi visto pelos vizinhos diversas vezes embriagado, em casa, falando sozinho. Apresenta dificuldades de pagar o aluguel, de comprar alimentos e medicamentos da mãe de 80 anos, com quem habita.<br><br> Considerando-se a composição da rede de atenção psicossocial, quais pontos de atenção, além do CAPS, são apropriados para a articulação do cuidado desse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Unidade de Pronto Atendimento; atenção primária à saúde; e centros de convivência e cultura.",
+    "B": "Serviço móvel de urgência; serviços residenciais terapêuticos; e centro de orientação e aconselhamento.",
+    "C": "Unidade de acolhimento; centro de referência em assistência social; e unidades ambulatoriais especializadas.",
+    "D": "Equipe de consultório na rua; núcleos de apoio à saúde da família; e serviço de atenção domiciliar."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q80",
+   "numero": 80,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Um homem de 42 anos foi admitido em uma Unidade de Terapia Intensiva (UTI) com história de provável intoxicação exógena. Ele havia sido encontrado desacordado em sua residência, com sialorreia intensa e broncoespasmo. Exame físico: FC 38 bpm; PA 116 x 64 mmHg; SatO2 83% em ar ambiente; escala de coma de Glasgow 3 e glicemia capilar 70 mg/dL. Optou-se por intubação orotraqueal e instalação de ventilação mecânica invasiva. Na UTI, o paciente apresentava: pupilas puntiformes; roncos e sibilos inspiratórios e expiratórios à ausculta pulmonar; secreção clara e abundante à aspiração de vias aéreas; grande quantidade de resíduo gástrico à sondagem gástrica; boa diurese por sonda vesical de demora e ausência de febre. Foi realizada lavagem gástrica, utilizando-se carvão ativado por 24 horas, e iniciou-se suporte com atropina intravenosa, em bomba de infusão contínua. Qual foi o provável agente da intoxicação desse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Organofosforado.",
+    "B": "Benzodiazepínico.",
+    "C": "Sulfonilureia.",
+    "D": "Antidepressivo tricíclico."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q81",
+   "numero": 81,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Menina de 4 anos é levada a uma Unidade Básica de Saúde pela mãe, que relata o aparecimento de lesões avermelhadas e com crostas amareladas na região periorbital, labial e nasal da criança há cerca de 5 dias. A mãe refere que as lesões começaram como pequenas bolhas que se romperam facilmente, liberando um líquido amarelado, com prurido associado. Nega febre, prostração ou demais queixas. Exame físico: sem alterações, exceto a pele da face, conforme a seguinte imagem. <br> <img src=\"imagem_questao81.jpg\" alt=\"Criança com lesões avermelhadas e crostas amareladas na região periorbital, labial e nasal\">",
+   "extras_html": null,
+   "alternativas": {
+    "A": "celulite.",
+    "B": "impetigo.",
+    "C": "ectima.",
+    "D": "herpes."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q82",
+   "numero": 82,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Recém-nascido a termo, masculino, Apgar 9/9, peso, comprimento e perímetro cefálico adequados para idade gestacional. Ultrassom morfológico com polidrâminio. Logo após o nascimento, evoluiu com salivação excessiva. Realizada aspiração da secreção com melhora da saturação, sem necessidade de oxigenioterapia. Ausência de sinais de desconforto respiratório; murmúrio vesicular presente bilateralmente com roncos de transmissão difusos; abdome escavado e extremidades bem perfundidas. Realizada passagem de sonda orogástrica com dificuldade na progressão após a introdução de 10 cm. Solicitada radiografia com contraste iodado (imagem a seguir). <br> <img src=\"imagem_questao82.jpg\" alt=\"Radiografia com contraste iodado mostrando sonda orogástrica enrolada em fundo cego esofágico\">",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Esofágica.",
+    "B": "Gástrica.",
+    "C": "Duodenal.",
+    "D": "Intestinal."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q83",
+   "numero": 83,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Mulher, G2P1, assintomática, com história prévia de prematuridade, comparece a uma consulta de pré-natal para mostrar os seguintes resultados de ultrassonografia de 22 semanas: feto vivo, com exame morfológico normal e colo uterino medindo 20 mm. <br><br> Diante desses resultados, qual é o manejo para o caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Indicar o uso de indometacina até 32 semanas de gestação.",
+    "B": "Prescrever nifedipina e manter até 30 semanas de gestação.",
+    "C": "Prescrever betametasona e repetir o exame com 30 semanas de gestação.",
+    "D": "Indicar progesterona natural e manter até 36 semanas de gestação."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q84",
+   "numero": 84,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "Homem de 74 anos comparece a uma Unidade Básica de Saúde para consulta. Mora sozinho e tem como renda o Benefício de Prestação Continuada. Relata que, há 6 meses, sente dor e queimação em ambos os pés, de moderada intensidade, com predomínio noturno, associada a parestesias em “bota”, sem alívio com analgésicos simples. Tem diagnóstico de diabetes mellitus tipo 2 há 18 anos, em uso de metformina e insulina NPH em esquema basal. Não há evidência de cardiopatia associada. A hemoglobina glicada se mantém estável em 6,5% e a taxa de filtração glomerular é 75 mL/min/1,73m2. O eletrocardiograma é normal. Ao exame físico, deambula sem dificuldade e evidencia-se hipoestesia tátil e vibratória em padrão distal simétrico, em “bota”, com pulsos distais palpáveis. Não há lesões cutâneas nos membros inferiores. Qual é a medicação de primeira linha para o manejo da dor nesse paciente?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Carbamazepina.",
+    "B": "Ibuprofeno.",
+    "C": "Amitriptilina.",
+    "D": "Tramadol e paracetamol."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q85",
+   "numero": 85,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Em uma Unidade Básica de Saúde (UBS), a equipe local, preocupada com a alta prevalência de hipertensão arterial sistêmica (HAS) entre os pacientes, decidiu realizar um estudo epidemiológico para investigar possíveis fatores de risco associados à doença. Os pesquisadores selecionaram cerca de 50 pacientes com diagnóstico recente de HAS e 80 pacientes sem a doença, pareados por idade e sexo, que frequentavam a mesma UBS. Com base em entrevistas e em revisão de prontuários, foram coletadas informações sobre histórico familiar de HAS, nível de atividade física e padrão alimentar desses pacientes nos últimos 5 anos. <br><br> Qual foi o tipo de estudo realizado nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Caso-controle.",
+    "B": "Coorte.",
+    "C": "Ecológico.",
+    "D": "Série temporal."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q86",
+   "numero": 86,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Estudante de Psicologia de 22 anos, de origem Guarani Kaiowá, cometeu suicídio. Pessoas de sua aldeia atribuíram o fato a um suposto enfeitiçamento, justificando que isso teria feito com que ela perdesse o discernimento. Uma equipe de saúde foi acionada para lidar com essa situação. <br><br> Nesse caso, qual é a abordagem adequada a ser realizada pela equipe de saúde?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Participar ativamente dos rituais religiosos e de luto próprios da comunidade, para atuar com prontidão caso algum membro da comunidade apresente intenso sofrimento.",
+    "B": "Compreender a crença de enfeitiçamento, mas sem estimulá-la, acolhendo os membros da etnia e orientando sobre sinais de risco a serem observados.",
+    "C": "Acolher as famílias enlutadas, respeitando seus rituais funerários e evitando falar sobre suicídio, visto que a menção a esse tema poderia suscitar novas tentativas.",
+    "D": "Explicar, de maneira objetiva, o que são transtornos mentais e o que é transtorno depressivo maior, para evitar interpretações místicas e ritualísticas do adoecimento."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q87",
+   "numero": 87,
+   "disciplina": "Pneumologia",
+   "enunciado_html": "Homem de 63 anos retorna a determinada Unidade Básica de Saúde com os resultados de exames solicitados para investigação de perda de peso e tosse produtiva, iniciadas há cerca de 6 meses. Nega comorbidades, uso contínuo de medicações ou tratamento para qualquer patologia respiratória prévia. A radiografia de tórax apresenta consolidação em lobo superior direito, sem evidências de cavitação. Teste rápido molecular para tuberculose positivo; resistência à rifampicina não detectada; sorologia para HIV negativa. <br><br> Após a prescrição do tratamento pertinente, com que frequência esse paciente deve ser monitorado?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Mensalmente até o término do tratamento.",
+    "B": "Quando houver sintomas respiratórios.",
+    "C": "No início e ao término do tratamento.",
+    "D": "Após 3 e 6 meses do início do tratamento."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q88",
+   "numero": 88,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Determinado médico de uma Unidade Básica de Saúde, durante reunião com equipe interprofissional, discute a ocorrência de cinco casos de hepatite A em crianças de uma ocupação habitacional sem rede de esgoto formal. O Conselho Local de Saúde e a Associação de Moradores relatam insegurança quanto à qualidade da água e dificuldade de adesão às medidas de higiene por falta de insumos. A análise epidemiológica indica que há um grande número de crianças na comunidade que não completaram o esquema vacinal e que a transmissão está ativa no território. <br><br> Além da vacinação, qual é a próxima ação adequada para essa comunidade?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Instituir o isolamento das crianças acometidas e de seus familiares.",
+    "B": "Organizar mutirões de limpeza coordenados pela equipe de saúde.",
+    "C": "Acionar a Vigilância Sanitária com vistas à melhoria do tratamento da água.",
+    "D": "Prescrever profilaxia medicamentosa com antivirais para todas as crianças."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q89",
+   "numero": 89,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Homem de 62 anos, diabético, foi submetido a colecistectomia, seguida de colangiopancreatografia retrógrada endoscópica com retirada de cálculo em colédoco, há 3 semanas. Após alta, retorna à emergência hospitalar com queixa de febre, prostração e dor em hipocôndrio direito. Exames revelam: paciente febril; dor à palpação em hipocôndrio direito; hepatimetria de 4 cm do rebordo costal; ausência de dor à descompressão brusca. Os resultados do hemograma são apresentados a seguir.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Exame</th> <th>Resultado</th> <th>Valor de referência</th> </tr> </thead> <tbody> <tr> <td>Leucócitos</td> <td>18.000/mm³</td> <td>4.450 a 10.950/mm³</td> </tr> <tr> <td>Bastonetes</td> <td>12%</td> <td>0,5 a 6,0%</td> </tr> <tr> <td>Neutrófilos</td> <td>50%</td> <td>42,10 a 73,60%</td> </tr> <tr> <td>Linfócitos</td> <td>20%</td> <td>19,50 a 47,30%</td> </tr> <tr> <td>Basófilos</td> <td>3%</td> <td>0,20 a 1,20%</td> </tr> </tbody> </table> <div class=\"question-text\"> É indicada internação hospitalar, além de antibioticoterapia venosa. Realizada tomografia de abdome, apresentada na seguinte figura. <br> <img src=\"imagem_questao89.jpg\" alt=\"Tomografia de abdome superior mostrando coleção hipodensa multiloculada em lobo hepático direito\"> <br> Considerando-se a principal hipótese diagnóstica e a evolução clínica descrita, qual é o manejo para esse paciente? </div>",
+   "alternativas": {
+    "A": "Manter tratamento clínico, ampliando o esquema de antibioticoterapia.",
+    "B": "Solicitar sorologia para amebíase e associar antibiótico específico.",
+    "C": "Propor reabordagem cirúrgica e exploração de vias biliares.",
+    "D": "Encaminhar para drenagem percutânea guiada por imagem."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q90",
+   "numero": 90,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Gestante de 34 anos, na 24ª semana de gestação, é acompanhada em pré-natal de alto risco por história de anemia crônica e cirurgia bariátrica com bypass gástrico em Y de Roux, realizada há 5 anos. Queixa-se de astenia, mas não há sinais de instabilidade hemodinâmica. Está em uso de 200 mg/dia de ferro elementar. Os exames laboratoriais mostram os seguintes resultados.",
+   "extras_html": "<table class=\"data-table\"> <thead> <tr> <th>Exame</th> <th>Resultado</th> <th>Valor de referência</th> </tr> </thead> <tbody> <tr> <td>Hemoglobina</td> <td>6,9 g/dL</td> <td>12,0 a 15,1 g/dL</td> </tr> <tr> <td>Volume corpuscular médio</td> <td>67 fL</td> <td>80 a 100 fL</td> </tr> <tr> <td>Ferritina</td> <td>5 ng/mL</td> <td>20 a 200 ng/mL</td> </tr> </tbody> </table> <div class=\"question-text\"> Qual é a conduta terapêutica para essa gestante? </div>",
+   "alternativas": {
+    "A": "Manter o ferro elementar e acrescentar ácido fólico.",
+    "B": "Aumentar a dose do ferro elementar e adicionar vitamina B12.",
+    "C": "Prescrever ferro parenteral.",
+    "D": "Transfundir concentrado de hemácias."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q91",
+   "numero": 91,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Mulher de 48 anos procurou uma Unidade Básica de Saúde (UBS) devido a dor crônica generalizada persistente. Relata que, em consulta com outro médico, recebeu o diagnóstico de fibromialgia e que, desde então, tem feito diversos tratamentos, mas sem resultados. Diante disso, a paciente solicita a prescrição de Cannabis medicinal. Qual é o papel do médico da UBS em relação ao uso da Cannabis medicinal nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Prescrevê-la, visto que ela consta na relação nacional de medicamentos excepcionais do SUS.",
+    "B": "Solicitar autorização do Conselho Regional de Medicina para sua prescrição no SUS.",
+    "C": "Informar que faltam evidências que sustentem seu uso e sua prescrição no SUS.",
+    "D": "Comunicar que seu uso e sua prescrição no SUS devem ocorrer mediante autorização judicial."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q92",
+   "numero": 92,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Adolescente de 16 anos, assintomática, procura atendimento em uma Unidade de Saúde da Família, sozinha. Em consulta, informa que iniciou atividade sexual consentida com um colega da escola, de mesma idade, razão pela qual pede ao médico que coloque nela um implante contraceptivo de longa duração. Refere que seus pais têm ciência do namoro, mas não sabem que ela iniciou sua vida sexual. Qual é a conduta adequada do médico nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Encaminhar a paciente para o serviço ginecológico.",
+    "B": "Acionar o Conselho Tutelar da Criança e do Adolescente.",
+    "C": "Comunicar aos pais da paciente o desejo de anticoncepção.",
+    "D": "Atender ao pedido feito pela paciente quanto à anticoncepção."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q95",
+   "numero": 95,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Lactente de 1 ano e 4 meses, com calendário vacinal atualizado até os 12 meses, é levada a uma Unidade Básica de Saúde para atualização vacinal. A mãe relata que a criança está em acompanhamento com a nefrologia pediátrica devido à síndrome nefrótica corticosensível. A paciente faz uso de prednisolona em dose imunossupressora há 5 semanas e, no momento, encontra-se assintomática. Considerando-se o calendário vacinal recomendado pelo Ministério da Saúde e a condição clínica da criança, a orientação adequada a ser fornecida pelo médico é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "adiar a vacinação até a suspensão do corticoide.",
+    "B": "adiar a aplicação da vacina tetraviral e aplicar as demais.",
+    "C": "aplicar a vacina contra hepatite A e adiar as demais.",
+    "D": "aplicar todas as vacinas indicadas para a faixa etária."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q96",
+   "numero": 96,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Paciente de 65 anos, em acompanhamento em Unidade Básica de Saúde, retorna para sua consulta anual e relata piora de sintomas do trato urinário inferior, como jato urinário fraco, disúria e noctúria. O exame de toque evidencia próstata aumentada, de consistência elástica e superfície lisa. O PSA total (antígeno prostático específico), realizado há 2 semanas, revela o valor de 6,5 ng/mL (VR: até 4,0 ng/mL). Qual exame deve ser solicitado para comprovar a especificidade diagnóstica nesse caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "PSA fração total e livre.",
+    "B": "Ultrassonografia transretal.",
+    "C": "Tomografia contrastada de pelve.",
+    "D": "Biópsia transretal de próstata."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q97",
+   "numero": 97,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Adolescente de 12 anos, sexo feminino, é levada à Unidade Básica de Saúde (UBS) para verificar se suas vacinas estão atualizadas. Até os 8 anos, todas as vacinas preconizadas pelo Ministério da Saúde para o biênio 2024-2025 foram feitas, sendo que tomou 1 dose da vacina contra febre amarela aos 9 meses. Nesse momento, deve receber as vacinas",
+   "extras_html": null,
+   "alternativas": {
+    "A": "HPV, reforço da hepatite B e dT.",
+    "B": "reforço da hepatite B, dT e SCR.",
+    "C": "HPV, meningocócica ACWY e febre amarela.",
+    "D": "SCR, meningocócica ACWY e febre amarela."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q98",
+   "numero": 98,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "Menino de 9 anos é levado a uma Unidade Básica de Saúde para continuidade do acompanhamento de transtorno de déficit de atenção e hiperatividade (TDAH). Há prejuízos acadêmicos e sociais significativos refratários às intervenções pedagógicas e comportamentais isoladas. A criança é ativa, joga futebol sem cansaço desproporcional e nega síncope, dor no peito ou palpitações. O pai é hipertenso e a avó materna faleceu de infarto aos 68 anos. Não há relato de morte súbita em familiares jovens, arritmias hereditárias ou surdez congênita. Exame físico sem alterações. Nesse caso, a conduta inicial é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "investigar condições cardiológicas com exames complementares.",
+    "B": "prescrever metilfenidato e monitorar sinais vitais.",
+    "C": "reaplicar escalas de avaliação neuropsicológica.",
+    "D": "instituir atomoxetina e orientar sobre eventos adversos."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q99",
+   "numero": 99,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Em maio de 2024, aconteceram inundações devastadoras no Rio Grande do Sul (RS), que afetaram 478 municípios e mais de 2 milhões de pessoas, segundo dados de 2025 do Boletim da Defesa Civil do RS. Várias famílias ficaram desalojadas. Além disso, houve contaminação hídrica e desabastecimento da rede assistencial. Diante do quadro apresentado, assinale a alternativa que apresenta, respectivamente, a etapa e as ações a serem adotadas pela Vigilância Epidemiológica em casos como esse.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Manejo do desastre; decidir sobre as ações de controle de doenças e agravos à saúde.",
+    "B": "Mitigação; monitorar e controlar prioritariamente as doenças transmissíveis.",
+    "C": "Recuperação; intensificar as ações para detecção de doenças-sentinela e de surtos e efetuar a notificação.",
+    "D": "Redução de risco; identificar e mapear a morbimortalidade e apontar as medidas para a redução do risco."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "ENAMED-2026-Q100",
+   "numero": 100,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Homem de 74 anos, com diagnóstico de transtorno depressivo maior e hipertensão arterial, comparece a uma consulta em Unidade Básica de Saúde referindo episódios de tontura ao se levantar, letargia e confusão mental leve, há 3 semanas. O paciente faz uso de enalapril 10 mg/dia, há 1 ano, e iniciou o uso de paroxetina 40 mg/dia, há 1 mês. O exame físico revela: paciente hidratado, eupneico e orientado; PA 130 x 80 mmHg (sentado) e 115 x 75 mmHg (em pé). Considerando-se esse caso clínico, o exame laboratorial prioritário para a confirmação diagnóstica é a dosagem de",
+   "extras_html": null,
+   "alternativas": {
+    "A": "sódio.",
+    "B": "potássio.",
+    "C": "transaminases.",
+    "D": "creatinina."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  }
+ ]
+}

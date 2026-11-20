@@ -1,0 +1,1608 @@
+{
+ "formato": "crivo-questoes",
+ "versao": 1,
+ "banca": "AMP",
+ "ano": "2024",
+ "questoes": [
+  {
+   "id": "AMP-2024-Q1",
+   "numero": 1,
+   "disciplina": "Urologia",
+   "enunciado_html": "Adolescente de 12 anos apresenta-se com dor testicular importante, com náuseas e vômitos, de início há aproximadamente 24 horas. Ao exame físico o testículo está aumentado de tamanho, endurado, muito sensível, dificultando o exame. Reflexo cremastérico ausente, testículo elevado. No manejo deste paciente analise as assertivas abaixo e a relação proposta entre elas.<br><br> I - O tratamento cirúrgico não deve ser prioridade.<br> PORQUE<br> II - A chance de ter fluxo arterial suficiente após 24 horas de evolução é mínima.<br><br> A respeito destas asserções, assinale a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.",
+    "B": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.",
+    "C": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "D": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "E": "As asserções I e II são proposições falsas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q2",
+   "numero": 2,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Pré escolar de 3 anos apresenta-se com quadro de febre elevada, tosse, frequência respiratória elevada, dispneia e dor abdominal. Quadro iniciou há 5 dias com sintomas respiratórios altos e que nas últimas 48 horas está ficando mais intenso, com aumento da febre, do desconforto respiratório e diminuição do apetite. Na ausculta pulmonar murmúrio vesicular diminuído em base direita, estertores esparsos, ausência de sibilos. Radiografia de tórax com consolidação em lobo inferior direito, pequeno derrame pleural ipsilateral. Foi hospitalizado e iniciado tratamento com ampicilina endovenosa. Evoluiu de forma desfavorável, com aumento importante do derrame pleural e aparecimento de focos necróticos na área de consolidação pulmonar, necessitando de abordagem cirúrgica. Qual o agente etiológico mais provável neste quadro?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Staphylococcus aureus.",
+    "B": "Haemophilus influenzae.",
+    "C": "Streptococcus pyogenes.",
+    "D": "Streptococcus pneumoniae.",
+    "E": "Mycobacterium tuberculosis."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q3",
+   "numero": 3,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Cuidados paliativos para crianças são os cuidados ativos totais do corpo, da mente e do espírito da criança e também incluem dar apoio à família. Esse cuidado começa quando uma doença ou condição potencialmente fatal é diagnosticada e contínua, não importando se a criança recebe ou não tratamento direcionado à doença. Sobre este tema assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A assistência paliativa pediátrica não deve ser prestada em ambiente ambulatorial ou domiciliar.",
+    "B": "A decisão de não reanimação dever ser perguntada aos pais / responsáveis para eles participarem da decisão.",
+    "C": "Crianças com sequelas neurológicas graves de lesão cerebral anóxica não são candidatas aos cuidados paliativos.",
+    "D": "A nutrição e hidratação artificiais são medidas de conforto, sem as quais uma criança pode sofrer de fome ou sede.",
+    "E": "Em um ambiente de UTI é possível oferecer a interrupção do que a não tem beneficiado ou aumentado a qualidade de vida."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q4",
+   "numero": 4,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Menina de 4 anos é trazida à emergência com queixas de dor abdominal difusa há 24 horas, com febre baixa, recusa alimentar, náuseas e vômitos. Ao exame dor mais acentuada à palpação de quadrante inferior direito, com sensibilidade à descompressão, sem sinais de peritonite. Hemograma com leucocitose de 15.000 e neutrófilos acima de 75%. Sobre sua principal hipótese diagnóstica, analise as afirmativas abaixo.<br><br> I - A ferramenta de primeira escolha de exame de imagem para o caso é a ultrassonografia.<br> II - A cirurgia deve ser realizada de forma semieletiva no período entre 12 e 14 horas do diagnóstico.<br> III - A utilização de analgésicos deve ser evitada para não mascarar o diagnóstico.<br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q5",
+   "numero": 5,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Lactente de 2 anos foi trazido à emergência após ter ingerido um produto de limpeza que os cuidadores não souberam informar. O acidente ocorreu há menos de uma hora e a criança apresenta-se com salivação, estridor, vômitos, muito irritada por dor na boca e abdominal, recusa para engolir. No manejo deste paciente analise as assertivas abaixo e a relação proposta entre elas.<br><br> I - Após o cuidado de suporte está indicado o uso de carvão ativado 1g/kg.<br> PORQUE<br> II - O carvão vegetal tem maior probabilidade de ser eficaz quando administrado dentro de uma hora após a ingestão.<br><br> A respeito destas asserções, assinale a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.",
+    "B": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.",
+    "C": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "D": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "E": "As asserções I e II são proposições falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q6",
+   "numero": 6,
+   "disciplina": "Oftalmologia",
+   "enunciado_html": "Recém nascido inicia no quinto dia de vida com congestão das conjuntivas, secreção purulenta moderada bilateral e quemose. Sem outros sintomas sistêmicos. Bacterioscopia da secreção revela-se negativa. Sobre o manejo deste paciente analise as afirmativas abaixo.<br><br> I - A ausência de bactérias torna mais provável a conjuntivite ser de origem viral ou química.<br> II - O tratamento deve ser realizado com azitromicina por via oral.<br> III - Pode evoluir com formação de pseudomembrana na conjuntiva tarsal.<br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q7",
+   "numero": 7,
+   "disciplina": "Neurologia",
+   "enunciado_html": "O estado de mal epiléptico (EME) é a emergência neurológica mais frequente em crianças e o tempo está relacionado com alta mortalidade e morbidade. Sobre esta situação assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Todo paciente com EME deve realizar exame de neuroimagem.",
+    "B": "A etiologia mais frequente de EME na infância é por síndromes epilépticas complexas ou metabólicas.",
+    "C": "O fenobarbital não é recomendado como terapia de primeira escolha na urgência devido aos seus efeitos colaterais.",
+    "D": "O tempo no qual o tratamento deve ser agressivo para prevenir as consequências a longo prazo é de 60 minutos.",
+    "E": "O tempo no qual se considera uma crise como anormalmente prolongada e que determina o início do tratamento medicamentoso é de 10 minutos."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q8",
+   "numero": 8,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "As vísceras maciças abdominais são proporcionalmente maiores nas crianças que nos adultos e são mais propensas a traumatismos. No atendimento da criança com trauma abdominal fechado, analise as assertivas abaixo e a relação proposta entre elas.<br><br> I - O FAST mostra-se não essencial para os pacientes pediátricos para definição de indicação cirúrgica;<br> PORQUE<br> II - Existe uma consagração de tratamento conservador não operatório para a maioria das crianças com lesões de vísceras maciças.<br><br> A respeito destas asserções, assinale a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.",
+    "B": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.",
+    "C": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "D": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "E": "As asserções I e II são proposições falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q9",
+   "numero": 9,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "O transtorno do espectro autista (TEA) é um distúrbio neurobiológico com início na primeira infância. Sua apresentação pode variar significativamente de um indivíduo para outro, bem como ao longo do desenvolvimento. A queixa mais frequente dos pais de criança com TEA no segundo ou terceiro ano de vida é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "fala repetitiva, fora de contexto e monótona, com ecolalia e alterações na prosódia.",
+    "B": "alterações motoras, como marcha atípica ou na ponta dos pés, e problemas posturais.",
+    "C": "presença de movimentos repetitivos (estereotipias motoras) e posturas bizarras do corpo.",
+    "D": "atraso para falar, acompanhado pela ausência de tentativas de compensação pela comunicação não verbal.",
+    "E": "insistência em determinados rituais complexos e não funcionais, associados ao apego a rotinas rígidas, e a resistência a mudanças."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q10",
+   "numero": 10,
+   "disciplina": "Pediatria",
+   "enunciado_html": "A anafilaxia em crianças é definida como uma reação alérgica grave de aparecimento rápido e que pode causar a morte. Sobre a anafilaxia na infância analisa as afirmativas abaixo.<br><br> I - A alergia alimentar é a causa mais comum de anafilaxia fora do hospital.<br> II - A alergia ao látex também pode ser responsável por causar anafilaxia, especialmente em ambiente hospitalar.<br> III - A anafilaxia pode ocorrer sem apresentar manifestações cutâneas.<br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q11",
+   "numero": 11,
+   "disciplina": "Infectologia",
+   "enunciado_html": "Um menino de 6 anos é levado ao pronto-socorro com queixa de dor intensa na perna direita há dois dias, acompanhada de febre alta e claudicação. O exame físico revela dor à palpação local e limitação da mobilidade da articulação proximal. Diante da suspeita clínica de osteomielite aguda, qual é o agente etiológico bacteriano mais frequentemente isolado nessa faixa etária?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Streptococcus pneumoniae.",
+    "B": "Staphylococcus aureus.",
+    "C": "Kingella kingae.",
+    "D": "Salmonella spp.",
+    "E": "Escherichia coli."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q12",
+   "numero": 12,
+   "disciplina": "Neurologia",
+   "enunciado_html": "Escolar de 6 anos inicia com perda visual, ataxia, déficits motores e sensitivos, evolução rapidamente progressiva ao longo de dias, com crises convulsivas e alterações do comportamento. Tomografia de crânio normal e ressonância magnética (RM) com grandes lesões em T2 com aspecto de massa bilaterais, multifocais, confluente e com edema, com realce de contraste na substância branca e cinzenta dos hemisférios cerebrais, cerebelo e tronco encefálico. Realizada pulsoterapia com metilprednisolona por 5 dias com melhora clínica importante. Com base na principal hipótese diagnóstica analise as assertivas abaixo e a relação entre elas. <br><br> I - Exames de controle por RM 3 a 12 meses após devem mostrar melhora importante. <br> PORQUE <br> II - Lesões novas ou aumentadas em T2 devem impulsionar à reavaliação para pesquisa de outras etiologias, como esclerose múltipla. <br><br> A respeito destas asserções, assinale a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.",
+    "B": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.",
+    "C": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "D": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "E": "As asserções I e II são proposições falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q13",
+   "numero": 13,
+   "disciplina": "Hematologia",
+   "enunciado_html": "Pré escolar de 3 anos desenvolve após semanas de uma exposição viral início súbito de petéquias generalizadas e púrpura, epistaxe de pequeno volume. Restante do exame físico sem alterações. Hemograma com série vermelha e leucócitos normais, contagem de plaquetas de 10.000/ mm3. <br><br> Sobre esta situação analise as afirmativas abaixo. <br><br> I - A presença de hemorragia grave é comum e deve ser tratada com transfusão de plaquetas. <br> II - O uso de um tratamento precoce com corticoides aumenta a chance de remissão completa da doença. <br> III - A análise da medula óssea mostra as séries granulocíticas e eritrocitárias normais e contagem de megacariócitos diminuída. <br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q14",
+   "numero": 14,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Avanços no tratamento, ressuscitação hídrica, excisão cirúrgica precoce, controle da infecção e suporte nutricional são fundamentais na redução da letalidade das queimaduras na infância. Sobre o manejo da queimadura na criança analise as afirmativas abaixo. <br><br> I - As crianças com queimaduras em mais de 15% da superfície corporal necessitam reposição de líquidos por via intravenosa para manter uma perfusão adequada. <br> II - O uso de coloides deve ser instituído no período de ressuscitação aguda, independente do nível de albumina. <br> III - A nutrição enteral precoce preserva a integridade da mucosa intestinal e melhora o fluxo sanguíneo e a motilidade e pode ser iniciada dentro de poucas horas após a admissão. <br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q15",
+   "numero": 15,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Lactente com 18 meses está hospitalizado por broncoespasmo, em uso de nebulizações, hidratação endovenosa e oxigenioterapia. Pais demonstram descontentamento com as medidas que estão sendo aplicadas e durante a noite conseguem evadir com a criança do hospital. Sobre esta situação analise as assertivas abaixo e a relação entre elas. <br><br> I - O registro do ocorrido no prontuário do paciente e a comunicação à autoridade competente (conselho tutelar) deve ser realizado. <br> PORQUE <br> II - A evasão por iniciativa dos pais pode ser considerado um ato de violência por parte do responsável. <br><br> A respeito destas asserções, assinale a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.",
+    "B": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa da I.",
+    "C": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "D": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "E": "As asserções I e II são proposições falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q16",
+   "numero": 16,
+   "disciplina": "Oftalmologia",
+   "enunciado_html": "Menino de 10 anos vem com queixa de cefaleia, febre e mal-estar, acompanhados de hiperemia e edema periorbitário em olho direito. Ao exame apresenta-se com proptose, limitação dolorida de movimentos do olho e diminuição da acuidade visual. Sobre este quadro analise as afirmativas abaixo. <br><br> I - O potencial de complicações é baixo. <br> II - São indicadas hospitalização e antibioticoterapia sistêmica. <br> III - A causa mais comum é a extensão direta ou a disseminação venosa originária de seios paranasais infectados. <br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q17",
+   "numero": 17,
+   "disciplina": "Otorrinolaringologia",
+   "enunciado_html": "Lactente de 2 anos apresenta uma massa cervical com cerca de 2cm de diâmetro na parte superior da linha média do pescoço, com sinais inflamatórios e dolorosa à palpação. Ao realizar manobra de deglutição ou de protusão da língua a massa apresenta um movimento vertical. Qual o diagnóstico mais provável?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cisto branquial.",
+    "B": "Cisto tireoglosso.",
+    "C": "Tireoide ectópica.",
+    "D": "Linfohemangioma.",
+    "E": "Adenite bacteriana."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q18",
+   "numero": 18,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "O quadro clínico de pacientes com comunicação interventricular (CIV) varia de acordo com o tamanho do defeito e com o fluxo e pressão sanguínea pulmonar. Caracteristicamente um sopro holossistólico alto, rude ou musical é observado sobre a borda esternal esquerda inferior. Sobre a CIV na infância analise as afirmativas abaixo. <br><br> I - A presença de frêmito é infrequente e indica quadro mais grave ou complicação. <br> II - O sopro sistólico de uma grande CIV é menos rude, devido à ausência de um gradiente de pressão significativo através do defeito. <br> III - O aparecimento de cianose, dispneia e síncope, com desaparecimento do sopro e presença de segunda bulha intensa e palpável indica o desenvolvimento de doença obstrutiva vascular pulmonar (inversão do shunt). <br><br> Sobre esta situação selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q19",
+   "numero": 19,
+   "disciplina": "Infectologia",
+   "enunciado_html": "Escolar de 9 anos tem início abrupto de febre, letargia, cefaleia intensa, vômitos, mialgia incapacitante principalmente em membros inferiores e exantema maculopapular difuso que desaparece em 24 horas. Após alguns dias apresenta icterícia, colúria e insuficiência renal. História de contato com ratos. Embora a taxa de mortalidade geral para a forma grave desta doença seja baixa, entre 5 a 15%, em qual situação pode atingir taxas de mortalidade acima de 50%?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Insuficiência renal.",
+    "B": "Hemorragia pulmonar.",
+    "C": "Insuficiência hepática.",
+    "D": "Meningoencefalite aguda.",
+    "E": "Hemorragia de suprarrenal."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q20",
+   "numero": 20,
+   "disciplina": "Pediatria",
+   "enunciado_html": "Dormir o suficiente é um imperativo biológico, necessário para o funcionamento ideal do corpo e da mente. A higiene do sono inclui educação dos pais sobre rotinas adequadas de sono, segurança e técnicas comportamentais. Sobre esta situação, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deixar uma luz suave no quarto auxilia no sono.",
+    "B": "A melhor posição para dormir é em decúbito lateral direito.",
+    "C": "No primeiro mês de vida o bebê pode dormir na cama com os pais.",
+    "D": "Permitir que a criança adormeça no colo, antes de ser colocada no leito.",
+    "E": "Estabelecer horários regulares para adormecer e para acordar, com pouca variação entre os dias de semana e de finais de semana."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q21",
+   "numero": 21,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "Níveis elevados de prolactina circulante podem ser causados por uma grande variedade de atividades fisiológicas, incluindo gravidez, sono, alimentação e ato sexual. Sobre o aumento dos níveis de prolactina circulante, analise as seguintes afirmativas. I - Níveis elevados de prolactina, que em geral podem levar à galactorreia, podem ser observados após estimulação da parede torácica, como na amamentação. II - Os medicamentos que bloqueiam a ação do receptor de dopamina (fenotiazinas) ou que reduzem os níveis de catecolaminas (inibidores da monoaminoxidase) aumentam os níveis de prolactina. III - O hipertireoidismo também está associado à elevação dos níveis séricos de prolactina. Sobre esta situação selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Níveis elevados de prolactina, que em geral podem levar à galactorreia, podem ser observados após estimulação da parede torácica, como na amamentação.</div> <div class=\"statement\"><strong>II</strong> - Os medicamentos que bloqueiam a ação do receptor de dopamina (fenotiazinas) ou que reduzem os níveis de catecolaminas (inibidores da monoaminoxidase) aumentam os níveis de prolactina.</div> <div class=\"statement\"><strong>III</strong> - O hipertireoidismo também está associado à elevação dos níveis séricos de prolactina.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q22",
+   "numero": 22,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Paciente em idade reprodutiva apresenta-se em amenorreia. Na avaliação apresenta exame pélvico normal, beta HCG negativo, prolactina e TSH normais, FSH normal, testosterona e SDHEA normais. Qual o diagnóstico mais provável?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Hipotireoidismo.",
+    "B": "Tumor hipofisário.",
+    "C": "Síndrome de Kallmann.",
+    "D": "Insuficiência ovariana prematura.",
+    "E": "Síndrome dos ovários policísticos."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q23",
+   "numero": 23,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Sobre causas etiológicas de dor aguda no abdome inferior e pelve, analise as afirmativas abaixo. I - Cetoacidose diabética. II - Transtorno psiquiátrico. III - Abstinência de opioide. Sobre esta situação selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Cetoacidose diabética.</div> <div class=\"statement\"><strong>II</strong> - Transtorno psiquiátrico.</div> <div class=\"statement\"><strong>III</strong> - Abstinência de opioide.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q24",
+   "numero": 24,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "Sobre as causas de puberdade tardia analise as afirmativas abaixo. I - Hipogonadismo hipergonadotrófico. II - Hipogonadismo hipogonadotrófico. III - Adoção em países em desenvolvimento. Sobre esta situação selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Hipogonadismo hipergonadotrófico.</div> <div class=\"statement\"><strong>II</strong> - Hipogonadismo hipogonadotrófico.</div> <div class=\"statement\"><strong>III</strong> - Adoção em países em desenvolvimento.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q25",
+   "numero": 25,
+   "disciplina": "Psiquiatria",
+   "enunciado_html": "As disfunções sexuais psiquiátricas são caracterizadas por relação sexual dolorosa ou distúrbio no desejo, na excitação, no orgasmo, ou na resolução, que causam desconforto significativo e dificuldade no relacionamento. Sobre esta situação analise as alternativas abaixo. I - O transtorno de aversão sexual é caracterizado pela extrema aversão ou esquiva persistente ou recorrente de todo (ou quase todo) contato sexual genital com parceiro sexual. II - O transtorno de desejo sexual hipoativo é caracterizado pelo fracasso persistente ou recorrente para adquirir ou manter uma resposta de excitação sexual de lubrificação-turgescência até consumação da atividade sexual. III - O transtorno de excitação sexual feminina é caracterizado pela deficiência (ou ausência) persistente ou recorrente de fantasias ou desejo de ter atividade sexual. Assinale a alternativa correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - O transtorno de aversão sexual é caracterizado pela extrema aversão ou esquiva persistente ou recorrente de todo (ou quase todo) contato sexual genital com parceiro sexual.</div> <div class=\"statement\"><strong>II</strong> - O transtorno de desejo sexual hipoativo é caracterizado pelo fracasso persistente ou recorrente para adquirir ou manter uma resposta de excitação sexual de lubrificação-turgescência até consumação da atividade sexual.</div> <div class=\"statement\"><strong>III</strong> - O transtorno de excitação sexual feminina é caracterizado pela deficiência (ou ausência) persistente ou recorrente de fantasias ou desejo de ter atividade sexual.</div> </div>",
+   "alternativas": {
+    "A": "Somente a I está correta.",
+    "B": "Somente a I e a II estão corretas.",
+    "C": "Somente a I e a III estão corretas.",
+    "D": "Somente a II e a III estão corretas.",
+    "E": "A I, a II e a III estão corretas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q26",
+   "numero": 26,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Sobre o crescimento das células cancerígenas sabe-se que os tumores são caracterizados por um padrão de crescimento gompertziano. Sobre esta situação analises as assertivas abaixo. I - Quando um câncer é microscópico e não palpável, o crescimento é exponencial. PORQUE II - À medida que o tumor aumenta o número de suas células em fase de replicação diminui, em razão de limitações impostas por suprimento sanguíneo e aumento da pressão intersticial. Analisando a relação proposta entre as duas asserções acima, assinale a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Quando um câncer é microscópico e não palpável, o crescimento é exponencial.</div> <div class=\"statement\"><strong>II</strong> - À medida que o tumor aumenta o número de suas células em fase de replicação diminui, em razão de limitações impostas por suprimento sanguíneo e aumento da pressão intersticial.</div> </div>",
+   "alternativas": {
+    "A": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+    "B": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+    "C": "A primeira asserção é uma proposição verdadeira, e a segunda é falsa.",
+    "D": "A primeira asserção é uma proposição falsa, e a segunda é verdadeira.",
+    "E": "As duas asserções são proposições falsas."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q27",
+   "numero": 27,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Com relação à predisposição aos cânceres hereditários de mama e ovário, analise as alternativas abaixo. I - Mulheres com ancestralidade judias Sefarditas e câncer de mama com idade menor ou igual a 40 anos. II - Mulheres com antecedente pessoal de câncer de mama e ovário. III - Mulheres com familiar de primeiro ou segundo grau sabidamente com mutação nos genes BRCA 1 ou BRCA 2. Sobre esta situação selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Mulheres com ancestralidade judias Sefarditas e câncer de mama com idade menor ou igual a 40 anos.</div> <div class=\"statement\"><strong>II</strong> - Mulheres com antecedente pessoal de câncer de mama e ovário.</div> <div class=\"statement\"><strong>III</strong> - Mulheres com familiar de primeiro ou segundo grau sabidamente com mutação nos genes BRCA 1 ou BRCA 2.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q28",
+   "numero": 28,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Com relação ao estadiamento para neoplasia trofoblástica gestacional, analise as alternativas abaixo. I - Estadio clínico I: doença restrita ao útero. II - Estadio clínico II: doença com extensão para fora do útero, mas limitada às estruturas genitais (anexos, vagina, ligamento largo). III - Estadio clínico IV: doença com extensão para os pulmões, com ou sem envolvimento conhecido do trato genital. Sobre esta situação selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Estadio clínico I: doença restrita ao útero.</div> <div class=\"statement\"><strong>II</strong> - Estadio clínico II: doença com extensão para fora do útero, mas limitada às estruturas genitais (anexos, vagina, ligamento largo).</div> <div class=\"statement\"><strong>III</strong> - Estadio clínico IV: doença com extensão para os pulmões, com ou sem envolvimento conhecido do trato genital.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q29",
+   "numero": 29,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Com relação ao câncer de mama, analise as afirmativas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - A combinação de ressecção segmentar, linfadenectomia axilar e radioterapia pós-operatória têm a mesma sobrevida global em comparação à mastectomia com linfadenectomia axilar para o câncer de mama nos estágios I e II.</div> <div class=\"statement\"><strong>II</strong> - Os marcadores tumorais são isoladamente considerados os fatores prognósticos mais importantes para o câncer de mama.</div> <div class=\"statement\"><strong>III</strong> - As modalidades de rastreamento do câncer de mama incluem exame clínico da mama e imagem.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q30",
+   "numero": 30,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Com relação às recomendações sobre as terapias sistêmicas para o câncer de mama inicial, analise as alternativas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Os fatores a serem considerados ao decidir se uma paciente deve receber quimioterapia sistêmica incluem idade, estágio, perfil de biomarcador e resultados de ensaios genômicos, com o Oncotype DX ou MammaPrint.</div> <div class=\"statement\"><strong>II</strong> - O câncer de mama com receptor hormonal positivo deve ser tratado com inibidor da aromatase adjuvante em pacientes na pós-menopausa. Em pacientes na pré-menopausa o tamoxifeno deve ser administrado ou a supressão ovariana deve ser administrada em conjunto com inibidor da aromatase em pacientes de alto risco.</div> <div class=\"statement\"><strong>III</strong> - O câncer de mama HER 2 positivo deve ser tratado com terapias direcionados ao HER2, como transtuzumabe e pertuzumabe.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q31",
+   "numero": 31,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Durante a aplicação do fórcipe a paciente deve estar em posição semi-sentada, com as pernas hiperfletidas sobre o abdome, e a bexiga urinária deve estar vazia. A variedade de posição do polo cefálico deve ser muito bem conhecida antes da introdução do fórcipe. Sobre este tema analise as afirmativas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Aplica-se o fórcipe no diâmetro pélvico perpendicular ao ocupado pela linha de orientação do polo cefálico.</div> <div class=\"statement\"><strong>II</strong> - Nas pegas diretas a primeira colher a ser aplicada é a esquerda.</div> <div class=\"statement\"><strong>III</strong> - Nas pegas oblíquas a primeira colher a ser aplicada é a posterior.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q32",
+   "numero": 32,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Near miss materno ou \"quase perda\" materna refere-se à situação em que mulheres apresentam complicações potencialmente letais durante a gravidez, o parto ou o puerpério. Sobre esta situação analise as assertivas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Essas mulheres às quais se pode atribuir o conceito de near miss são de grande interesse para o estudo da morbidade e da mortalidade materna.</div> <div class=\"statement\"><strong>PORQUE</strong></div> <div class=\"statement\"><strong>II</strong> - Constituem um grupo muito maior e com melhor fonte de informação que os casos de morte materna.</div> </div>",
+   "alternativas": {
+    "A": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+    "B": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+    "C": "A primeira asserção é uma proposição verdadeira, e a segunda é falsa.",
+    "D": "A primeira asserção é uma proposição falsa, e a segunda é verdadeira.",
+    "E": "As duas asserções são proposições falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q33",
+   "numero": 33,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "A fase lútea do ciclo menstrual requer um folículo pré-ovulatório bem desenvolvido, com boa estimulação de FSH e liberação contínua de LH. A fase inicial é marcada por ativa angiogênese estimulada pelo fator de crescimento endotelial vascular. A regressão do corpo lúteo está associada à diminuição deste fator de crescimento e ao efeito direto do aumento da expressão da",
+   "extras_html": null,
+   "alternativas": {
+    "A": "estradiol.",
+    "B": "inibina A.",
+    "C": "progesterona.",
+    "D": "angiopoetina 2.",
+    "E": "gonadotrofina coriônica humana."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q34",
+   "numero": 34,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Há total equilíbrio dinâmico na composição do líquido amniótico entre a mãe e o feto, sendo que a contribuição materna diminui progressivamente e a fetal aumenta durante o desenvolvimento da gestação. Qual dos elementos apresenta concentração constante no líquido amniótico durante a gravidez?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Glicose.",
+    "B": "Lipídeos.",
+    "C": "Creatinina.",
+    "D": "Bilirrubinas.",
+    "E": "Fosfolípides."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q35",
+   "numero": 35,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Durante a gestação a placenta produz de modo crescente e progressivo grande quantidade de estrógenos. Sobre os efeitos dos estrógenos fetoplacentários analise as afirmativas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Inibem a despolimerização dos mucopolissacarídeos no tecido intersticial, reduzindo a retenção hídrica e a embebição gravídica.</div> <div class=\"statement\"><strong>II</strong> - Estimulam a formação da prolactina hipofisária, bloqueiam a ação dela nos receptores mamários e inibem a lactogênese durante a gestação.</div> <div class=\"statement\"><strong>III</strong> - Atuam na produção de substrato de renina, colaborando para o aumento da atividade do sistema renina-angiotensina-aldosterona.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q36",
+   "numero": 36,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "As cardiopatias maternas são de elevado risco gestacional. Em qual destas cardiopatias a gestação está formalmente contraindicada?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Coarctação da aorta.",
+    "B": "Síndrome de Marfan.",
+    "C": "Prolapso de valva mitral.",
+    "D": "Síndrome de Eisenmenger.",
+    "E": "Valvulopatia mitral reumática."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q37",
+   "numero": 37,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "A placenta acreta é uma aderência anormal da placenta à parede uterina, causada pela deciduação inadequada do leito placentário em endométrio hipoplásico, levando à inserção direta da placenta no miométrio. O diagnóstico da placenta acreta é vital, em razão dos extensivos reparos do parto que devem ser realizados para minimizar morbidade e mortalidade maternas. O sinal ultrassonográfico mais preditivo de placenta acreta é",
+   "extras_html": null,
+   "alternativas": {
+    "A": "presença de miométrio afilado.",
+    "B": "obliteração do espaço retroplacentário.",
+    "C": "aparência de compressão na bexiga vesical.",
+    "D": "presença de espaços vasculares na placenta.",
+    "E": "aumento da vascularização entre a serosa uterina e a bexiga."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q38",
+   "numero": 38,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "As apresentações cefálicas defletidas geralmente derivam de cefálicas fletidas. A deflexão do polo cefálico fetal origina determinada variedade de posição contralateral às posições fletidas anômalas. Sobre a apresentação cefálica defletida analise as afirmativas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Acredita-se que grande parte das apresentações defletidas de primeiro grau decorra de deflexão discreta das fletidas occipitoposteriores.</div> <div class=\"statement\"><strong>II</strong> - As defletidas de segundo grau são extremamente raras e, a não ser em fetos muito pequenos ou macerados, não é possível a evolução para parto vaginal.</div> <div class=\"statement\"><strong>III</strong> - Na cefálica defletida de terceiro grau o fator materno mais importante é a multiparidade. Em razão da menor extensão dos diâmetros insinuados, o parto nas apresentações de face costuma não apresentar dificuldades.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q39",
+   "numero": 39,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "Mulher de 48 anos procura atendimento médico com queixa de saída espontânea de secreção pelo mamilo esquerdo há três meses. Refere que a descarga é uniductal, serossanguinolenta e ocorre sem manipulação da mama. Ao exame físico, não há sinais inflamatórios ou massas palpáveis. Com base nessa descrição, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A principal causa de descarga papilar espontânea sanguinolenta é a mastite puerperal.",
+    "B": "A descarga papilar é um achado raro, ocorrendo em menos de 1% das mulheres, sendo a maioria dos casos decorrente de câncer de mama.",
+    "C": "A maioria dos episódios de descarga papilar decorre de doenças benignas, sendo os papilomas intraductais e a ectasia ductal causas frequentes.",
+    "D": "A presença de descarga papilar bilateral, multiductal, leitosa e desencadeada apenas à expressão do mamilo é sugestiva de malignidade.",
+    "E": "Toda descarga papilar, independentemente de suas características clínicas, apresenta elevado risco de malignidade e constitui indicação de mastectomia."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q40",
+   "numero": 40,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "A operação cesariana é uma das cirurgias mais antigas na história da medicina. Na atualidade o aumento nas taxas de cesáreas vem alertando a comunidade científica. Sobre esta situação assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A idade materna avançada não é um fator de risco para aumento das taxas de cesáreas.",
+    "B": "Os partos de fetos em apresentação pélvica são realizados por cesárea em metade dos casos.",
+    "C": "Sua incidência é crescente nos países subdesenvolvidos, fato não observado nos países desenvolvidos.",
+    "D": "Em consequência da obesidade os partos operatórios são significativamente mais incidentes e suas complicações são de maior monta.",
+    "E": "A indução do parto não tem se associado ao aumento do risco de cesárea em muitas circunstâncias, mesmo em nulíparas com colo desfavorável."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q41",
+   "numero": 41,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "Ao invés de uma estrutura anatômica distinta, é uma zona de elevada pressão localizada na extremidade inferior do esôfago, e também é constituído por 4 estruturas anatômicas.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Prega de Gubaroff.",
+    "B": "Crura do diafragma.",
+    "C": "Junção gastroesofágica.",
+    "D": "Esfíncter esofágico inferior.",
+    "E": "Membrana freno esofágica."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q42",
+   "numero": 42,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Paciente de 50 anos foi submetido a herniorrafia inguinal unilateral convencional por encarceramento agudo. O procedimento deu-se sem intercorrência e sob raquianestesia. De comorbidade prévia, relata ter hipertensão arterial em uso de losartana. Em relação aos métodos de analgesia no pós-operatório para este paciente, assinale a assertiva correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A meperidina é o opioide de eleição para este paciente, com boa capacidade de analgesia, custo baixo e baixa taxa de adição e dependência física.",
+    "B": "A via de administração intramuscular é a mais apropriada para este paciente, pois as doses são menos dolorosas, possuem absorção mais adequada e mais fácil administração.",
+    "C": "O tramadol pode ser realizado por via oral ou endovenosa, porém pode apresentar como efeitos colaterais náusea, prurido, sedação, confusão mental, retenção urinária e depressão respiratória.",
+    "D": "A associação de dois anti-inflamatórios não esteroidais pode ser realizado para este paciente, quando não houver resposta adequada ao uso isolado do medicamento, sem aumento do risco de ocorrências dos efeitos colaterais descritos.",
+    "E": "Pode ser utilizado anti-inflamatórios hormonais para este paciente, sendo a preferência pelo uso de hidrocortisona 500 mg endovenosa duas vezes ao dia, com boa resposta analgésica, baixo custo e baixo índice de efeitos colaterais."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q43",
+   "numero": 43,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "As feridas crônicas são lesões que não conseguiram prosseguir com um processo reparador de maneira ordenada e cronológica para produzir a integridade anatômica e funcional por um período de 3 meses. Em relação a este tema, analise as assertivas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I)</strong> As feridas crônicas mais frequentes são as relacionadas a úlceras diabéticas, úlceras crônicas da perna secundárias a insuficiência venosa e úlceras de pressão secundárias a imobilização.</div> <div class=\"statement\"><strong>II)</strong> A infecção da ferida é a causa mais comum de atraso na cicatrização, pois prolonga a fase inflamatória e interfere na epitelização, contração da ferida e deposição do colágeno.</div> <div class=\"statement\"><strong>III)</strong> O tabagismo causa vasoconstricção periférica e uma redução do fluxo sanguíneo na ferida, porém não interfere no tempo de fechamento de feridas cicatrizando por segunda intenção.</div> <div class=\"statement\"><strong>IV)</strong> O diabetes melito prejudica a cicatrização, pois a oclusão de grandes vasos e a microangiopatia de órgãos terminais associados ao diabetes levam a isquemia tecidual e infecção.</div> </div> <div class=\"question-text\"> Estão corretas as assertivas </div>",
+   "alternativas": {
+    "A": "apenas a IV.",
+    "B": "apenas a I e II.",
+    "C": "apenas as III e IV.",
+    "D": "apenas as I, II e IV.",
+    "E": "todas estão corretas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q44",
+   "numero": 44,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Paciente masculino, 30 anos, é submetido a laparotomia exploradora por quadro de dor abdominal em flanco direito com cinco dias de evolução. No intra-operatório observa-se grande quantidade de secreção purulenta em toda a cavidade abdominal e apendicite aguda com necrose e perfuração da base do apêndice. Em relação ao tratamento a ser realizado a este paciente, assinale a assertiva correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deve ser realizada restrição hídrica na reanimação deste paciente, priorizando-se o uso de soluções cristaloides.",
+    "B": "O início da antibioticoterapia deve ser realizado após o resultado da análise da cultura do líquido intracavitário, que vai nortear a escolha do agente.",
+    "C": "A antibioticoterapia deve ser iniciada após o término do procedimento cirúrgico com a confirmação do diagnóstico e a definição dos germes envolvidos.",
+    "D": "A alimentação oral deste paciente deve ser reiniciada após o retorno dos ruídos intestinais e a eliminação de gases e avançada conforme for tolerada.",
+    "E": "No intra-operatório deve ser realizada irrigação da cavidade abdominal com antibiótico de amplo espectro após a retirada do apêndice e controle da infecção."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q45",
+   "numero": 45,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "No universo cirúrgico, um dos principais mecanismos de respeito a autonomia é o Termo de Consentimento Livre e Esclarecido. Em relação a este instrumento da relação médico paciente, analise as assertivas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I)</strong> A redação do Termo de Consentimento Livre e Esclarecido deve ser realizada em termos claros e com caracteres legíveis, de modo a facilitar sua compreensão.</div> <div class=\"statement\"><strong>II)</strong> A linguagem utilizada no Termo de Consentimento Livre e Esclarecido deve ser a mais técnica possível, respeitando-se a literatura científica atualizada, independente da capacidade de compreensão do paciente.</div> <div class=\"statement\"><strong>III)</strong> O Termo de Consentimento Livre e Esclarecido deve conter justificativa, objetivos e descrição sucinta, clara e objetiva do procedimento a ser realizado, omitindo-se complicações mais significativas que possam causar apreensão ao paciente.</div> <div class=\"statement\"><strong>IV)</strong> Após a assinatura do Termo de Consentimento Livre e Esclarecido, o paciente não pode retirar a autorização para realização do procedimento, com exceção dos procedimentos realizados em urgência e emergência.</div> </div> <div class=\"question-text\"> Estão corretas as assertivas </div>",
+   "alternativas": {
+    "A": "apenas a I.",
+    "B": "apenas a II e III.",
+    "C": "apenas as I e IV.",
+    "D": "apenas as II, III e IV.",
+    "E": "todas estão corretas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q46",
+   "numero": 46,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Masculino, 28 anos, dá entrada no pronto socorro, trazido pelo serviço pré-hospitalar, vítima de queimadura ao acender uma churrasqueira. Apresenta queimaduras de segundo grau em face, tronco anterior e membro superior direito face anterior e posterior. Encontra-se lúcido, taquicárdico e normotenso. Em relação a conduta a ser adotada a este paciente, assinale a assertiva correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Curativos oclusivos devem sempre ser utilizados na face, utilizando-se sulfadiazina de prata.",
+    "B": "Curativos oclusivos devem sempre ser utilizados no períneo devido ao alto risco de contaminação na região.",
+    "C": "Em áreas de segundo grau superficial, curativos de membrana de celulose são ótimas alternativas para auxiliar na cicatrização.",
+    "D": "Devemos frequentemente deixar as lesões abertas para que cicatrizem mais rapidamente, entretanto, pode ser necessária analgesia mais intensa.",
+    "E": "Devemos cobrir as lesões com chumaços de algodão e ataduras de crepe e utilizar antibióticos de amplo espectro durante a resolução das áreas queimadas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q47",
+   "numero": 47,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "A cirurgia plástica reparadora emprega com muita frequência o uso de retalhos que podem ser cutâneos, musculares, musculocutâneos, fasciocutâneos, perfurantes e até microcirúrgicos. Assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Os retalhos rombóides aproveitam a frouxidão da pele adjacente para transferir o tecido em V-Y.",
+    "B": "Os retalhos cutâneos de avanço são retangulares ou quadrados e giram lateralmente para alcançar o defeito a ser reconstruído.",
+    "C": "O insucesso ou necrose de um retalho cutâneo não pode ser resultado do comprometimento mecânico extrínseco ao seu pedículo.",
+    "D": "Os retalhos de rotação movem-se diretamente para frente e aproveitam a elasticidade da pele para alcançar e preencher o defeito.",
+    "E": "A zetaplastia ou retalho em Z consiste na transposição de dois retalhos triangulares interdigitados sem tensão a fim de produzir um ganho no comprimento ao longo do eixo comum do Z."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q48",
+   "numero": 48,
+   "disciplina": "Hepatologia",
+   "enunciado_html": "Homem de 62 anos, admitido no pronto socorro trazido pelo SAMU, apresenta história de vômitos com sangue e fezes enegrecidas há 2 dias. Sem relato de etilismo. Diagnóstico de hepatite no passado, sem acompanhamento. À admissão, paciente sonolento, confuso, pouco colaborativo, com presença de sangue em grande quantidade em orofaringe, abertura ocular ao estímulo doloroso e localizando a dor. Abdome globoso, indolor à palpação, com macicez móvel presente à percussão e sinal do piparote positivo. Dados vitais: FC 98 bpm, PA 88x53 mmHg, saturando 97% em ar ambiente. Em relação a este caso clínico, analise as assertivas abaixo.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I)</strong> O paciente deve ter uma via aérea definitiva assegurada de forma precoce.</div> <div class=\"statement\"><strong>II)</strong> Na forte suspeita de hemorragia digestiva varicosa, os vasoconstrictores esplâncnicos devem ser instituídos precocemente, antes mesmo do tratamento endoscópico.</div> <div class=\"statement\"><strong>III)</strong> A endoscopia digestiva alta deve ser realizada na primeira hora da admissão, em caráter de urgência, como tratamento inicial.</div> <div class=\"statement\"><strong>IV)</strong> A presença de sangue no tubo digestivo favorece a translocação bacteriana, que pode resultar em peritonite bacteriana espontânea, estando então indicado uso de antibiótico para este paciente.</div> </div> <div class=\"question-text\"> Estão corretas as assertivas: </div>",
+   "alternativas": {
+    "A": "Apenas a I.",
+    "B": "Apenas a II e III.",
+    "C": "Apenas as III e IV.",
+    "D": "Apenas as I, II e IV.",
+    "E": "Todas estão corretas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q49",
+   "numero": 49,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Paciente masculino, 65 anos, dá entrada no pronto socorro com queixa de dor abdominal em flanco esquerdo com 24 horas de evolução. Relata constipação desde o dia anterior com diminuição da eliminação de flatos. Relata ter realizado colonoscopia há 10 meses com achado de doença diverticular. Apresenta-se levemente taquicárdico e desidratado. Normotenso e afebril. O exame físico mostra um abdome globoso, tenso e doloroso a palpação em fossa ilíaca esquerda, com descompressão dolorosa neste local. Em relação a este caso clínico, analise as assertivas abaixo classificando-as em verdadeiro (V) ou falso (F). ( ) Este paciente deve ser submetido a colonoscopia durante o internamento para descartar obstrução mecânica por neoplasia colorretal. ( ) Espera-se, como achado laboratorial para este paciente, leucocitose e aumento de provas de atividade inflamatória, porém sem alteração da função renal. ( ) A correção dos distúrbios hidroeletrolíticos com soluções cristaloides é a primeira atitude a ser realizada no tratamento deste paciente. ( ) A ultrassonografia de abdome é o exame mais indicado para este paciente após a correção hidroeletrolítica. ( ) A ausência de história de exteriorização retal de sangue descarta o diagnóstico de complicação de doença diverticular e leva para hipótese diagnóstica de câncer colorretal. Assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V - F - F - V - F.",
+    "B": "F - F - V - F - F.",
+    "C": "V - F - V - V - V.",
+    "D": "V - V - V - F - V.",
+    "E": "F - V - F - F - F."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q50",
+   "numero": 50,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "A distribuição inadequada de sangue oxigenado para o cérebro e outras estruturas vitais é a causa mais rápida de óbito de pacientes politraumatizados. Uma via aérea protegida e desobstruída e ventilação adequada são essenciais para prevenir a hipoxemia. Na verdade, proteger uma via aérea comprometida, fornecer oxigênio e dar suporte à ventilação tem prioridade sobre o gerenciamento de todas as outras condições. Em relação a este tema, avalie as seguintes asserções e a relação proposta entre elas. <br><br> I) A medida de avaliação precoce mais importante é conversar com o paciente e estimular uma resposta verbal. Uma resposta verbal positiva e apropriada, com voz clara, indica que as vias aéreas do paciente estão patentes, a ventilação está intacta e a perfusão cerebral é suficiente, PORTANTO <br><br> II) a obtenção de uma via aérea definitiva é sempre desnecessária naquele paciente vítima de trauma que se encontra consciente e lúcido. <br><br> A respeito destas asserções, assinale a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As duas assertivas são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+    "B": "As duas assertivas são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+    "C": "A primeira assertiva é uma proposição verdadeira, e a segunda é falsa.",
+    "D": "A primeira assertiva é uma proposição falsa, e a segunda é verdadeira.",
+    "E": "As duas assertivas são proposições falsas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q51",
+   "numero": 51,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Masculino, 22 anos, é trazido ao pronto socorro vítima de agressão há cerca de 30 minutos. Apresenta diversas escoriações em face, tórax e abdome. Encontra-se lúcido e orientado, queixando-se de dor abdominal. Ao exame apresenta-se estável hemodinamicamente, tórax com MV+ bilateral, diminuído em bases bilateralmente e com abdome plano, flácido, doloroso a palpação profunda, sem sinais de irritação peritoneal. Em relação a este caso clínico, assinale a assertiva correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Considerando a maior disponibilidade e o custo menor, o raio X de abdome em decúbito e em posição ortostática é o exame complementar de eleição para este paciente.",
+    "B": "A estabilidade hemodinâmica e o exame físico abdominal sem alterações significativas descartam lesões intra-abdominais e proporcionam a possibilidade de alta médica.",
+    "C": "Com base no exame físico abdominal e estabilidade hemodinâmica e devido a menor invasividade do procedimento, este paciente deve ser submetido a laparoscopia diagnóstica de urgência.",
+    "D": "O exame complementar de eleição para este paciente é a tomografia computadorizada de abdome e pelve, que deve ser realizada sem contraste devido ao potencial de nefrotoxicidade.",
+    "E": "Deve ser realizado um FAST para este paciente, que inclui o exame do saco pericárdico, fossa hepatorrenal, esplenorrenal e fundo de saco, porém é um exame insensível para o diagnóstico de lesão visceral oca."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q52",
+   "numero": 52,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "A doença do refluxo gastroesofágico (DRGE) é a condição médica benigna mais comum ocorrida no estômago e esôfago e seus sintomas se apresentam frequentemente em pacientes ambulatoriais. Em relação a esta doença, analise as assertivas abaixo. <br><br> I) Pirose e regurgitação são os sintomas típicos da DRGE, porém a dor epigástrica e a dispepsia são os sintomas mais frequentes. <br><br> II) É frequente o achado de linfonodomegalia cervical nos pacientes com DRGE e seu achado demonstra progressão da doença, associado a sintomas extra esofágicos. <br><br> III) Uma endoscopia digestiva alta normal para DRGE, ou seja, sem esofagite de refluxo, descarta este diagnóstico. <br><br> IV) O diagnóstico da DRGE baseia-se na presença de sintomas típicos e na melhoria destes sintomas com terapia com inibidor da bomba de prótons. <br><br> Estão corretas as assertivas",
+   "extras_html": null,
+   "alternativas": {
+    "A": "apenas a IV.",
+    "B": "apenas a II e III.",
+    "C": "apenas as I e IV.",
+    "D": "apenas as I, III e IV.",
+    "E": "todas estão corretas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q53",
+   "numero": 53,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "As úlceras pépticas são definidas como erosões da mucosa gástrica ou duodenal que se estendem através da muscular da mucosa, apresentando incidência relativamente alta na população com diferentes tipos de sintomas e de complicações. Em relação a esta doença, analise as assertivas abaixo classificando-as em verdadeiro (V) ou falso (F). <br><br> ( ) A infecção pelo H. pylori é a principal causa de úlcera péptica, atuando através do aumento dos fatores agressivos e na redução dos fatores defensivos. <br><br> ( ) A incidência de úlcera péptica não altera com a idade e, mesmo em indivíduos jovens, deve ser pensada como hipótese diagnóstica de casos de abdome agudo <br><br> ( ) O quadro clínico e a patogênese das úlceras pépticas não se diferenciam quanto a localização entre duodeno ou estômago. <br><br> ( ) O índice de transformação maligna das úlceras gástricas é insignificante, portanto, não é necessária a análise anátomo patológica destas lesões. <br><br> ( ) A supressão ácida e a erradicação do H. pylori são os principais pontos do tratamento da doença ulcerosa péptica. <br><br> Assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V - F - F - F - V.",
+    "B": "F - V - F - V - V.",
+    "C": "V - F - V - V - F.",
+    "D": "V - V - V - F - V.",
+    "E": "F - V - F - F - F."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q54",
+   "numero": 54,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Mulher de 69 anos, de origem asiática, retorna ao seu consultório com ecografia abdominal com um cisto biliar. Para melhor avaliação você solicita uma colangiopancreatografia por ressonância magnética que mostra junção pancreático biliar anômala com canal longo. O ducto pancreático e o canal comum penetram no duodeno. Nota-se a dilatação fusiforme do ducto biliar extra-hepático cisto coledociano tipo I. Podemos afirmar que",
+   "extras_html": null,
+   "alternativas": {
+    "A": "pode-se observar a paciente e repetir os exames em um ano.",
+    "B": "indica-se ressecção cirúrgica do cisto por ser condição pré-maligna.",
+    "C": "a realização de CPRE com colocação de stent dentro do cisto é suficiente para melhora dos sintomas.",
+    "D": "a condição descrita deve alertar o médico para a investigação de cistos pancreáticos e a sua conexão biliar.",
+    "E": "a biopsia por CPRE do cisto biliar é fundamental para a decisão da conduta a ser adotada."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q55",
+   "numero": 55,
+   "disciplina": "Hepatologia",
+   "enunciado_html": "Mulher, 58 anos, procura atendimento na unidade básica de saúde com queixa de prurido e escurecimento da urina há duas semanas, com piora progressiva. Refere ter notado que o olho está mais amarelado neste período. Referiu também perda de apetite e perda ponderal de 3 kg no período. De história prévia cita três cesáreas, último filho com 28 anos, apendicectomia há 30 anos e colecistectomia há 5 anos. Ao exame físico encontra-se em bom estado geral, ictérica +/IV, hidratada. Abdome globoso, flácido, indolor e sem visceromegalia ou sinais de irritação peritoneal. Em relação a este caso clínico, analise as assertivas abaixo classificando-as em verdadeiro (V) ou falso (F). <br><br> ( ) A ultrassonografia de abdome é o exame que apresenta maior sensibilidade para o diagnóstico desta paciente. <br><br> ( ) O tratamento definitivo deste paciente pode ser realizado através de escleroterapia endoscópica. <br><br> ( ) Neoplasia deve ser a principal hipótese diagnóstica, com os prováveis focos sendo cabeça de pâncreas, vias biliares ou papila duodenal. <br><br> ( ) A principal hipótese diagnóstica é coledocolitíase secundária e a investigação deve ser realizada com colangiopancreatografia endoscópica retrógrada <br><br> ( ) A principal hipótese diagnóstica é hepatite viral, medicamentosa ou por esteatose hepática, devendo ser solicitado sorologias virais hepáticas e perfil de colesterol. <br><br> Assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V - F - F - F - V.",
+    "B": "F - V - F - V - V.",
+    "C": "V - F - V - V - F.",
+    "D": "V - V - V - F - V.",
+    "E": "F - F - V - F - F."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q56",
+   "numero": 56,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "O Índice de Massa Corporal (IMC) associado a medida da cintura abdominal pode nos trazer informações de suma importância na estratificação de risco metabólico em pacientes acompanhados em Ambulatório especializado de controle de Obesidade e Pré-Operatório de Cirurgia Bariátrica. Baseando-se nos seus conhecimentos sobre a classificação do IMC, você está atendendo um paciente do sexo masculino, 45 anos que apresenta IMC 33,6kg/m2. Assinale a assertiva que contenha a classificação deste paciente.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Eutrófico.",
+    "B": "Sobrepeso.",
+    "C": "Obesidade grau I.",
+    "D": "Obesidade grau II.",
+    "E": "Obesidade grau III."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q57",
+   "numero": 57,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "Mulher de 49 anos realizou colonoscopia solicitada para rastreamento de câncer de cólon. Apresentava queixa de constipação crônica sem mudança do hábito intestinal. Não apresentava história familiar positiva para a doença. O exame demonstrou duas lesões polipoides, no cólon sigmoide com 12mm, e no ceco, com 5 mm de diâmetro. As lesões foram ressecadas com alça de polipectomia, sem intercorrências. O exame anatomopatológico demonstrou serem adenomas tubulares de baixo grau, sem displasia. Em relação a este caso clínico, analise as assertivas abaixo. <br><br> I) Pelo número de pólipos, esta paciente pode ser diagnosticada como portadora de polipose adenomatosa familiar. <br><br> II) A sequência adenoma-carcinoma é reconhecida como o processo pelo qual a maioria dos carcinomas colorretais se desenvolve. <br><br> III) Esta paciente apresenta risco elevado de desenvolver câncer de cólon esquerdo, devendo repetir a colonoscopia a cada 10 anos. <br><br> IV) A ausência de displasia nas lesões ressecadas desta paciente descarta a necessidade de acompanhamento colonoscópico seriado. <br><br> Estão corretas as assertivas",
+   "extras_html": null,
+   "alternativas": {
+    "A": "apenas a II.",
+    "B": "apenas a I e III.",
+    "C": "apenas as II e IV.",
+    "D": "apenas as I, II e III.",
+    "E": "todas estão corretas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q58",
+   "numero": 58,
+   "disciplina": "Cirurgia",
+   "enunciado_html": "Com relação à profilaxia e ao tratamento da trombose venosa profunda, assinale a alternativa verdadeira.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O tempo de tratamento mínimo de uma trombose venosa profunda é de 30 dias e no máximo de 3 meses após o início dos sintomas.",
+    "B": "A heparina não fracionada na dose de 5000 UI de 12/12h é considerada o método ideal de profilaxia para pacientes de risco moderado e alto.",
+    "C": "A anticoagulação oral com warfarina é o método de escolha para o tratamento da trombose venosa profunda em gestação de alto risco.",
+    "D": "Os novos anticoagulantes orais como rivaroxabana e dabigatrana se tornaram as primeiras escolhas para a profilaxia de pacientes de baixo e médio risco.",
+    "E": "Em pacientes com trombose venosa profunda que apresentam um estado de hipercoagulabilidade, devem ser anticoagulados por toda a vida, na ausência de contraindicações."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q59",
+   "numero": 59,
+   "disciplina": "Urologia",
+   "enunciado_html": "O câncer de testículo é uma neoplasia incomum com prognóstico reservado quando o diagnóstico é realizado tardiamente. Em relação a este tema, assinale a assertiva correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A tomografia da bolsa escrotal está indicada na investigação inicial da massa escrotal a esclarecer.",
+    "B": "Acometem mais frequentemente homens na 4a década de vida e está associado ao tabagismo.",
+    "C": "O tratamento inicial de possível tumor testicular é a orquiectomia inguinal radical com remoção do testículo e do cordão espermático.",
+    "D": "Hérnia inguinal na infância e testículos retráteis são fatores de risco para o desenvolvimento de tumor testicular na idade adulta.",
+    "E": "Não existem marcadores tumorais para seguimento do câncer de testículo, que deve ser realizado com exames de imagem do abdome."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q60",
+   "numero": 60,
+   "disciplina": "Pneumologia",
+   "enunciado_html": "Paciente do sexo feminino, 72 anos, vem a consulta com queixa de fraqueza, falta de ar, emagrecimento, anorexia, tosse e episódios de hemoptise há cerca de 6 meses. Refere ter sido tabagista por 40 anos, tendo parado há 15. Em relação a este caso clínico, avalie as seguintes asserções e a relação proposta entre elas. I) A principal hipótese diagnóstica desta paciente é um câncer de pulmão, que geralmente se apresenta com doença em estágio avançado, PORTANTO II) o rastreio para detecção de câncer pulmonar inicial deve ser realizado com tomografia computadorizada de tórax em indivíduos assintomáticos fumantes ou ex tabagistas, entre 55 e 74 anos, com história de tabagismo de pelo menos 30 maços/ano.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As duas assertivas são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+    "B": "As duas assertivas são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+    "C": "A primeira assertiva é uma proposição verdadeira, e a segunda é falsa.",
+    "D": "A primeira assertiva é uma proposição falsa, e a segunda é verdadeira.",
+    "E": "As duas assertivas são proposições falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q61",
+   "numero": 61,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Maria, 82 anos, ex-tabagista, revascularizada com 1 ponte de mamária para descendente anterior e 1 ponte de safena para ramo marginal há 8 anos, recentemente submetida a cateterismo cardíaco, no qual concluiu-se que não havia vasos passíveis de angioplastia, interna pela terceira vez nos últimos 2 meses por piora da dispneia de base. Manejo do caso com restrição sódica, diureticoterapia de alça e ajuste nos anti-HAS. Após melhora sintomática, realizado ecocardiografia, que evidenciou fração de ejeção de 19%, além de áreas difusas de hipocinesia. Geriatra que acompanhou o caso abordou a paciente e familiares sobre cuidados paliativos antes da alta e, após esclarecimentos, definiram em conjunto que em nova internação, caso paciente evolua com piora progressiva refratária a manejo clínico, não sejam tomadas medidas invasivas, como intubação orotraqueal, ventilação mecânica ou hemodiálise. Acerca do caso e sua condução, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A abordagem do geriatra sobre cuidados paliativos foi em momento inadequado, pois a paciente não apresentava-se em terminalidade, visto que teria alta hospitalar.",
+    "B": "Caso familiares e paciente se mostrassem avessos a discussão sobre cuidados paliativos e terminalidade, o assunto deveria ser definitivamente suspenso, pois o estresse oriundo de temas difíceis e más notícias é danoso para a condução do caso a longo prazo.",
+    "C": "Em caso de descompensação da condição cardíaca, caso os sintomas do paciente sejam passíveis de manejo em domicílio, não necessariamente é indicado internamento hospitalar.",
+    "D": "É importante nesta situação esclarecer aos familiares e paciente que uma vez instituídos cuidados paliativos, deve-se haver foco no controle de sintomas, abdicando de qualquer terapêutica para a doença em si.",
+    "E": "Caso paciente evolua com dores intratáveis é permitido no Brasil, mediante documento assinado pelo paciente em sã consciência, ou por responsável legal, a instituição de eutanásia ativa."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q62",
+   "numero": 62,
+   "disciplina": "Hematologia",
+   "enunciado_html": "Homem de 52 anos com história de etilismo pesado há 30 anos procura pronto socorro de hospital terciário com queixa de astenia. Questionado sobre hábito intestinal, relata recentes episódios de fezes escurecidas e fétidas. Exames de admissão evidenciavam hemoglobina 5.6g/dL, contagem de reticulócitos 4,5%(referencia: 1-2%), volume corpuscular médio 80fL, bilirrubina total 2,1mg/dL, bilirrubina direta 1,8mg/dL e RNI 1,7. Transfundida 1 bolsa de hemácias com melhora da astenia. Hemoglobina de controle é de 6,5g/dL. Com relação ao caso, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deve ser transfundida ao menos mais uma bolsa de hemácias, visando hemoglobina maior que 7,0 g/dL.",
+    "B": "Há alta suspeita de anemia hemolítica, pois existe aumento na contagem de reticulócitos e hiperbilirrubinemia direta.",
+    "C": "Por tratar-se de etilista de longa data, a principal hipótese para a etiologia da anemia é a deficiência de vitamina B12 ou folato.",
+    "D": "A melhora sintomática mesmo com hemoglobina baixa sugere cronicidade da anemia e ação de mecanismos compensatórios intrínsecos.",
+    "E": "Como quadro foi estabilizado com transfusão e a provável causa da anemia é a ferropenia por perda gastrointestinal, paciente deve ser imediatamente liberado com reposição de ferro oral."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q63",
+   "numero": 63,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Mulher de 67 anos, tabagista ativa com carga acumulada de 30 anos-maço, hipertensa, procura pronto atendimento com cerca de 2 horas de evolução de palpitações. Avaliação inicial evidencia FC 160bpm, bulhas arrítmicas, PA 160 x 90 mmHg e eletrocardiograma com fibrilação atrial. Relata estar apresentando episódios semelhantes de duração mais curta e resolução espontânea nos últimos 3 meses. Com relação a condução do caso, assinale a afirmação correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deve ser prontamente instituída cardioversão elétrica.",
+    "B": "Pelo risco de aumento mais importante na resposta ventricular, deve ser instituída cardioversão farmacológica imediatamente.",
+    "C": "Desde que sem contra-indicações, a paciente tem indicação de anticoagulação crônica com antagonista de vitamina K, inibidor da trombina ou inibidor do fator Xa.",
+    "D": "Após sanada a condição aguda, visando menor mortalidade a longo prazo, deve-se priorizar uso de anti-arrítmicos em detrimento de estratégia de controle de frequência.",
+    "E": "Caso paciente não tenha condições de arcar com custo de novos anticoagulantes e não tenha disciplina para adequado controle de TAP com a varfarina, uma boa opção é a dupla antiagregação plaquetária com AAS e clopidogrel como profilaxia para AVC cardioembólico."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q64",
+   "numero": 64,
+   "disciplina": "Nefrologia",
+   "enunciado_html": "Paciente é encaminhado da UPA para hospital terciário com suposta emergência dialítica. Trata-se de mulher de 42 anos, sem história de comorbidades conhecidas, apresentando anúria há mais de 24h. Exames realizados à admissão mostram creatinina 2,5mg/dL, ureia 95mg/dL, potássio sérico 6,2mg/dL, pH 7,3 e bicarbonato 18 mmol/L. Além da anúria, paciente refere apenas hiporexia. Com relação a este caso de insuficiência (lesão) renal aguda, assinale a afirmação correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deve ser realizado eletrocardiograma em busca de alterações associadas a hipercalemia e, caso haja, administração de cálcio parenteral, pois este tem efeito imediato na espoliação de potássio via tubular.",
+    "B": "É importante a sondagem vesical de demora para monitorização do débito urinário. No entanto, mesmo sem diurese após sondagem, não é possível afastar etiologia pós-renal.",
+    "C": "A relação ureia/creatinina elevada sugere etiologia pré-renal para a IRA. Desta forma, basta expansão volêmica com cristaloides para resolução do quadro.",
+    "D": "Deve-se instituir reposição vigorosa de bicarbonato de sódio parenteral para normalização do pH e bicarbonato.",
+    "E": "Por tratar-se de caso de hipercalemia com anúria, a hemodiálise deve ser indicada imediatamente."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q65",
+   "numero": 65,
+   "disciplina": "Infectologia",
+   "enunciado_html": "Paciente de 32 anos procura atendimento por conta de perda ponderal importante (aproximadamente 15Kg nos últimos 6 meses) e percepção de língua esbranquiçada e disfagia para sólidos nas últimas semanas. Exames confirmaram diagnóstico de HIV. Dosado CD4 e carga viral, com valores de 80 células/mm3 e 200.000 cópias respectivamente. Sobre a condução do caso, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Está indicada profilaxia para micobacteriose atípica com azitromicina.",
+    "B": "Não está indicada qualquer profilaxia para infecções oportunistas até que seja iniciada TARV e avaliada sua resposta.",
+    "C": "Se paciente trouxer relato de contato com indivíduo com suspeita de tuberculose pulmonar bacilífera, deve ser iniciado esquema RIPE.",
+    "D": "Com objetivo de sigilo absoluto, dentro da equipe de saúde, apenas o médico assistente deve ter conhecimento e apresentar o diagnóstico ao paciente.",
+    "E": "A principal hipótese para a disfagia é a monilíase esofágica (esofagite por cândida), pois há grande associação de monilíase oral e disfagia com acometimento esofágico por cândida. Preferencialmente o diagnóstico deve ser confirmado por endoscopia, para diferenciação com outras infecções oportunistas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q66",
+   "numero": 66,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "As dislipidemias podem ser primárias ou secundárias a outras doenças. No hipotireoidismo, é comum ocorrerem modificações no perfil lipídico. Com respeito à dislipidemia associada ao hipotireoidismo, analise as assertivas abaixo. I - O hipotireodismo está associado à elevação dos níveis plasmáticos de LDL-colesterol (LDL-C). Tal situação decorre de redução de função do receptor hepático das LDL e consequente diminuição do clearance destas lipoproteínas. II - O hipotireoidismo é com frequência oligossintomático. Como regra nos pacientes cujo perfil lipídico mostra elevações de LDL-C, a função da tireoide deve ser analisada. III - A não normalização dos níveis de LDL-C após a reposição hormonal indica possível dislipidemia primária associada. Selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q67",
+   "numero": 67,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "O teste ergométrico consiste de submeter o paciente a um incremento progressivo padronizado de esforço físico, enquanto sintomas, traçado eletrocardiográfico e pressão arterial são monitorizados. É frequentemente utilizado para diagnóstico e determinação de prognóstico na doença cardíaca isquêmica. Com respeito aos critérios de positividade do teste, analise as assertivas abaixo. São diagnósticos de resposta miocárdica isquêmica ao esforço I - arritmias ventriculares complexas. II - supradesnivelamento do segmento ST, acima de 0,1 mV em relação à linha de base. III - distúrbios de condução intraventricular. Selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q68",
+   "numero": 68,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "Willem Einthoven desenvolveu o eletrocardiógrafo há mais de um século, mas o eletrocardiograma continua sendo muito útil na prática cardiológica diária. Em relação a achados do eletrocardiograma, analise as assertivas: I. A sobrecarga atrial direita (aguda ou crônica) pode produzir aumento na amplitude da onda P (&gt;= 2,5 mm). II. A sobrecarga ventricular esquerda revela diferentes critérios de voltagem baseados na existência de ondas R amplas nas derivações precordiais esquerdas e ondas S profundas nas derivações precordiais direitas. III. O comprometimento intrínseco da condução no ramo direito do feixe de His prolonga o intervalo QRS, que passa a ter duração &gt;= 160 ms, e o vetor principal do QRS orienta-se para a direita e para frente. IV. Na síndrome de Wolff-Parkinson-White o eletrocardiograma revela intervalo P-R curto, onda de Osborn e alargamento do complexo QRS. Escolha entre as alternativas abaixo, as assertivas corretas.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "I e II apenas.",
+    "B": "III e IV apenas.",
+    "C": "II e III apenas.",
+    "D": "I, II e III apenas.",
+    "E": "IV apenas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q69",
+   "numero": 69,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "A hipertensão arterial (HA) é uma das principais causas de doença no mundo, afeta mais de 1 bilhão de indivíduos e causa cerca de 9,4 milhões de mortes a cada ano. Avalie as alternativas seguintes sobre a patogenia da HA e assinale como verdadeira (V) ou falsa (F). <br><br> ( ) O débito cardíaco e a resistência periférica são dois importantes determinantes da pressão arterial (PA). <br> ( ) O efeito do sódio na PA relaciona-se com o fornecimento de sódio com cloreto; os sais de sódio sem cloreto apresentam pouco ou nenhum efeito na PA. <br> ( ) A maior parte da renina na circulação é sintetizada na arteríola aferente renal, e realiza a clivagem do angiotensinogênio para formar um decapeptídeo inativo, a angiotensina I. <br> ( ) A enzima conversora da angiotensina (ECA), localizada primariamente nos rins, transforma a angiotensina I em angiotensina II, um octapeptídeo ativo. <br> ( ) A ECA realiza a clivagem de muitos outros peptídeos, promovendo inclusive o aumento da produção da bradicinina. <br><br> A sequência correta é",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\">( ) O débito cardíaco e a resistência periférica são dois importantes determinantes da pressão arterial (PA).</div> <div class=\"statement\">( ) O efeito do sódio na PA relaciona-se com o fornecimento de sódio com cloreto; os sais de sódio sem cloreto apresentam pouco ou nenhum efeito na PA.</div> <div class=\"statement\">( ) A maior parte da renina na circulação é sintetizada na arteríola aferente renal, e realiza a clivagem do angiotensinogênio para formar um decapeptídeo inativo, a angiotensina I.</div> <div class=\"statement\">( ) A enzima conversora da angiotensina (ECA), localizada primariamente nos rins, transforma a angiotensina I em angiotensina II, um octapeptídeo ativo.</div> <div class=\"statement\">( ) A ECA realiza a clivagem de muitos outros peptídeos, promovendo inclusive o aumento da produção da bradicinina.</div> </div>",
+   "alternativas": {
+    "A": "V, F, F, V, V.",
+    "B": "V, V, V, F, F.",
+    "C": "F, F, V, V, V.",
+    "D": "V, F, V, F, V.",
+    "E": "F, V, F, V, F."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q70",
+   "numero": 70,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "A cardiopatia isquêmica (CI) é um distúrbio no qual existe um suprimento inadequado de sangue e oxigênio para uma região do miocárdio. A causa mais comum de isquemia miocárdica é a doença aterosclerótica. Avalie as afirmativas seguintes sobre a aterosclerose coronariana e assinale como verdadeira (V) ou falsa (F). <br><br> ( ) Os principais fatores de risco para aterosclerose são: hipertensão arterial, diabetes, dislipidemia, sedentarismo, estresse. <br> ( ) Funções protetoras do endotélio vascular contra a aterosclerose incluem o controle local do tônus vascular, a manutenção de uma superfície antitrombótica, o controle da aderência de células inflamatórias e a diapedese. <br> ( ) A placa aterosclerótica é formada pelo acúmulo sob a íntima de lipídeos, células musculares lisas, fibroblastos e matriz intercelular. <br> ( ) O sangue circulante contribui ao desenvolvimento da aterosclerose quando tem hiperglicemia, aumento de LDL colesterol, fator tecidual, fibrinogênio, fator de von Willebrand, fator VII de coagulação e micropartículas plaquetárias, promovendo um estado de hipercoagulabilidade e hipofibrinólise. <br> ( ) O estreitamento coronariano agudo grave com frequência é acompanhado pelo desenvolvimento de vasos colaterais. <br><br> A sequência correta é",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\">( ) Os principais fatores de risco para aterosclerose são: hipertensão arterial, diabetes, dislipidemia, sedentarismo, estresse.</div> <div class=\"statement\">( ) Funções protetoras do endotélio vascular contra a aterosclerose incluem o controle local do tônus vascular, a manutenção de uma superfície antitrombótica, o controle da aderência de células inflamatórias e a diapedese.</div> <div class=\"statement\">( ) A placa aterosclerótica é formada pelo acúmulo sob a íntima de lipídeos, células musculares lisas, fibroblastos e matriz intercelular.</div> <div class=\"statement\">( ) O sangue circulante contribui ao desenvolvimento da aterosclerose quando tem hiperglicemia, aumento de LDL colesterol, fator tecidual, fibrinogênio, fator de von Willebrand, fator VII de coagulação e micropartículas plaquetárias, promovendo um estado de hipercoagulabilidade e hipofibrinólise.</div> <div class=\"statement\">( ) O estreitamento coronariano agudo grave com frequência é acompanhado pelo desenvolvimento de vasos colaterais.</div> </div>",
+   "alternativas": {
+    "A": "V, V, V, F, F.",
+    "B": "F, F, V, V, V.",
+    "C": "V, V, F, F, V.",
+    "D": "F, V, V, V, F.",
+    "E": "V, F, V, V, F."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q71",
+   "numero": 71,
+   "disciplina": "Hepatologia",
+   "enunciado_html": "Dentre as principais causa de hemorragia digestiva alta, as varizes esofágicas e gástricas são comumente encontradas como fonte do sangramento em pacientes com hipertensão portal, em especial portadores de cirrose hepática. Sobre o tema, analise as alternativas abaixo e assinale a correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Na vigência de sangramento alto proveniente de varizes esofágicas, a endoscopia digestiva alta deve ser realizada, porém sem necessidade de ligadura elástica se o paciente preferir o uso de beta bloqueadores via oral.",
+    "B": "A profilaxia primária de sangramento por varizes de esôfago deve ser feita de forma combinada, ou seja, terapia endoscópica associada a beta bloqueadores via oral.",
+    "C": "A hemorragia digestiva proveniente de varizes gástricas apresenta manejo endoscópico similar ao das varizes esofágicas, com a primeira linha de tratamento sendo a ligadura elástica.",
+    "D": "A profilaxia secundária de hemorragia digestiva por varizes esofágicas é na maioria das vezes realizada ou com terapia endoscópica ou com tratamento clínico, de forma não combinada.",
+    "E": "Em vigência de sangramento ativo por varizes esofágicas é imprescindível a realização de endoscopia digestiva alta para terapia endoscópica com associação posterior de fármaco endovenoso vasoativo, por exemplo, a terlipressina."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q72",
+   "numero": 72,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "Sobre o tratamento da disfagia, assinale verdadeiro (V) ou falso (F) e marque a alternativa correta. <br><br> ( ) Casos graves e refratários podem ser indicativos de gastrostomia ou jejunostomia. <br> ( ) A disfagia resultante do acidente vascular encefálico tende a melhorar espontaneamente nas semanas subsequentes ao evento. <br> ( ) Pacientes com miastenia gravis e poliomiosite raramente melhoram do quadro disfágico com o tratamento da doença neuromuscular primária. <br> ( ) A maior parte das disfagias esofágicas tendem a melhorar com a dilatação do lúmen esofágico, com velas ou balão. <br> ( ) A esofagite eosinofílica é uma das principais etiologias para disfagia esofágica em crianças e adultos jovens, porém infelizmente apresenta pouca resposta ao tratamento com inibidores de bomba de prótons.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\">( ) Casos graves e refratários podem ser indicativos de gastrostomia ou jejunostomia.</div> <div class=\"statement\">( ) A disfagia resultante do acidente vascular encefálico tende a melhorar espontaneamente nas semanas subsequentes ao evento.</div> <div class=\"statement\">( ) Pacientes com miastenia gravis e poliomiosite raramente melhoram do quadro disfágico com o tratamento da doença neuromuscular primária.</div> <div class=\"statement\">( ) A maior parte das disfagias esofágicas tendem a melhorar com a dilatação do lúmen esofágico, com velas ou balão.</div> <div class=\"statement\">( ) A esofagite eosinofílica é uma das principais etiologias para disfagia esofágica em crianças e adultos jovens, porém infelizmente apresenta pouca resposta ao tratamento com inibidores de bomba de prótons.</div> </div>",
+   "alternativas": {
+    "A": "V - F - V - V - F.",
+    "B": "F - V - F - F - V.",
+    "C": "V - V - F - V - F.",
+    "D": "V - V - V - F - F.",
+    "E": "V - F - V - V - V."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q73",
+   "numero": 73,
+   "disciplina": "Infectologia",
+   "enunciado_html": "Os médicos costumam se referir a qualquer doença febril sem uma etiologia obvia inicial como febre de origem obscura (FOO). A maioria das doenças febris melhora antes que um diagnóstico possa ser feito ou que desenvolva características que possibilitem o diagnóstico. O termo FOO deve ser reservado para doenças febris prolongadas sem uma etiologia estabelecida apesar da avaliação e exames diagnósticos intensivos. Diante do exposto, analise as alternativas abaixo. <br><br> <strong>I</strong> - Fora das nações ocidentais, as infecções são uma causa muito mais comum de FOO. Tuberculose representa até 50% dos casos causados por infecções de febre de origem obscura, a qual é uma causa menos comum nos EUA e Europa Ocidental. <br><br> <strong>II</strong> - A febre de origem obscura é definida como febre &gt; 37,8 °C em pelo menos duas ocasiões, duração de doença maior que 1 semana, presença de imunocomprometimento conhecido, diagnóstico que permanece incerto após anamnese e exame físico detalhados e os seguintes exames obrigatórios: determinação de VHS e proteína C reativa, contagem de plaquetas, contagem total e diferencial de leucócitos, medidas dos níveis de hemoglobina, eletrólitos, creatinina, proteínas totais, fosfatase alcalina, FAN, fator reumatoide, eletroforese de proteínas, parcial de urina com urocultura, hemoculturas, radiografia de tórax, ultrassonografia abdominal e teste cutâneo com tuberculina ou IGRA teste. <br><br> <strong>III</strong> - A febre com sinais de endocardite e hemoculturas negativas representa um problema especial. A endocardite com culturas negativas pode ser causada por bactérias de difícil cultivo, como bactérias nutricionalmente variantes, os microrganismos do grupo HACEK. <br><br> Selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Fora das nações ocidentais, as infecções são uma causa muito mais comum de FOO. Tuberculose representa até 50% dos casos causados por infecções de febre de origem obscura, a qual é uma causa menos comum nos EUA e Europa Ocidental.</div> <div class=\"statement\"><strong>II</strong> - A FOO é definida como febre &gt; 37,8 °C em pelo menos duas ocasiões, duração de doença maior que 1 semana, presença de imunocomprometimento conhecido, diagnóstico incerto após anamnese e exame físico detalhados e exames obrigatórios extensos.</div> <div class=\"statement\"><strong>III</strong> - A febre com sinais de endocardite e hemoculturas negativas representa um problema especial. A endocardite com culturas negativas pode ser causada por bactérias de difícil cultivo, como bactérias nutricionalmente variantes, os microrganismos do grupo HACEK.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q74",
+   "numero": 74,
+   "disciplina": "Dermatologia",
+   "enunciado_html": "O câncer de pele não melanoma (CPNM) é o câncer mais comum nos Estados Unidos. A respeito do tema, assinale a alternativa correta com V (verdadeiro) ou F (falso). <br><br> <strong>I</strong> - Os carcinomas basocelulares (CBCs) são responsáveis por 70 a 80% dos casos, enquanto os carcinomas de células escamosas (CCE) representam 20% dos casos. <br><br> <strong>II</strong> - A maioria dos tumores se desenvolve em áreas da cabeça e do pescoço expostas ao sol. O risco de CCE labial ou oral aumenta com o tabagismo e, à semelhança do CCE da orelha, apresenta prognóstico mais sombrio do que aquele observado em outros locais do corpo. <br><br> <strong>III</strong> - O carcinoma basocelular (CBC) é uma neoplasia cutânea que se origina de células basais epiteliais imaturas pluripotentes, que perderam sua capacidade de diferenciação e queratinização normais. <br><br> <strong>IV</strong> - A forma nódulo-ulcerativa é mais comum, geralmente única, e acomete sobretudo cabeça e pescoço. Caracteriza-se como pápula ou nódulo com aspecto perolado, muitas vezes com teleangiectasias de padrão característico à dermatoscopia.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Os carcinomas basocelulares (CBCs) são responsáveis por 70 a 80% dos casos, enquanto os carcinomas de células escamosas (CCE) representam 20% dos casos.</div> <div class=\"statement\"><strong>II</strong> - A maioria dos tumores se desenvolve em áreas da cabeça e do pescoço expostas ao sol. O risco de CCE labial ou oral aumenta com o tabagismo e, à semelhança do CCE da orelha, apresenta prognóstico mais sombrio do que aquele observado em outros locais do corpo.</div> <div class=\"statement\"><strong>III</strong> - O carcinoma basocelular (CBC) é uma neoplasia cutânea que se origina de células basais epiteliais imaturas pluripotentes, que perderam sua capacidade de diferenciação e queratinização normais.</div> <div class=\"statement\"><strong>IV</strong> - A forma nódulo-ulcerativa é mais comum, geralmente única, e acomete sobretudo cabeça e pescoço. Caracteriza-se como pápula ou nódulo com aspecto perolado, muitas vezes com teleangiectasias de padrão característico à dermatoscopia.</div> </div>",
+   "alternativas": {
+    "A": "V - F - F - V.",
+    "B": "V - V - F - F.",
+    "C": "F - F - F - F.",
+    "D": "V - V - V - F.",
+    "E": "V - V - V - V."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q75",
+   "numero": 75,
+   "disciplina": "Gastroenterologia",
+   "enunciado_html": "Sobre as principais síndromes que se apresentam com náuseas e vômitos, assinale a alternativa correta após correlacionar ambas as colunas. <br><br> <strong>(1)</strong> Síndrome dos vômitos cíclicos. <br> <strong>(2)</strong> Síndrome de náusea e vômitos crônicos. <br> <strong>(3)</strong> Síndrome da hiperemese canabinoide. <br> <strong>(4)</strong> Síndrome da ruminação. <br> <strong>(5)</strong> Síndrome da artéria mesentérica superior.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>( )</strong> Geralmente após períodos de repouso prolongado no leito, ocorre a compressão do duodeno pela artéria mesentérica superior.</div> <div class=\"statement\"><strong>( )</strong> Episódios de náuseas ao menos uma vez ao dia e/ou pelo menos um episódio de vômito na semana, sem qualquer transtorno alimentar ou psiquiátrico diagnosticado.</div> <div class=\"statement\"><strong>( )</strong> Episódios periódicos de vômitos persistentes em crianças e adultos. Geralmente associada a cefaleia hemicraniana.</div> <div class=\"statement\"><strong>( )</strong> Vômitos cíclicos alternados com períodos normais em indivíduos usuários crônicos de canabis.</div> <div class=\"statement\"><strong>( )</strong> Regurgitação repetitiva do alimento recentemente ingerido.</div> </div>",
+   "alternativas": {
+    "A": "5 - 1 - 4 - 3 - 2.",
+    "B": "5 - 2 - 1 - 3 - 4.",
+    "C": "5 - 3 - 1 - 4 - 2.",
+    "D": "5 - 1 - 2 - 3 - 4.",
+    "E": "5 - 4 - 1 - 3 - 2."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q76",
+   "numero": 76,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "A regurgitação, ou insuficiência aórtica, pode ocorrer por alterações na raiz da aorta ou na válvula aórtica propriamente dita. Com respeito à regurgitação aórtica, analise as assertivas abaixo. <br><br> <strong>I</strong> - A endocardite infecciosa em valva aórtica, quando complicada com regurgitação aórtica, pode levar rapidamente a edema agudo de pulmão e choque cardiogênico. <br><br> <strong>II</strong> - Angina de peito não responsiva a nitratos ocorre em fases avançadas da regurgitação aórtica crônica. <br><br> <strong>III</strong> - A regurgitação aórtica pode se manter assintomática por mais de uma década. <br><br> Selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - A endocardite infecciosa em valva aórtica, quando complicada com regurgitação aórtica, pode levar rapidamente a edema agudo de pulmão e choque cardiogênico.</div> <div class=\"statement\"><strong>II</strong> - Angina de peito não responsiva a nitratos ocorre em fases avançadas da regurgitação aórtica crônica.</div> <div class=\"statement\"><strong>III</strong> - A regurgitação aórtica pode se manter assintomática por mais de uma década.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q77",
+   "numero": 77,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "A pericardite aguda é a patologia que mais comumente afeta o pericárdio. Tem entre outros achados diagnósticos dor torácica, atrito pericárdico e derrame pericárdico. Com respeito ao tratamento da pericardite aguda idiopática, analise as assertivas abaixo. <br><br> <strong>I</strong> - Não existe tratamento específico para a pericardite aguda idiopática. Repouso, anti-inflamatórios não hormonais e colchicina devem ser usados, salvo intolerância. <br><br> <strong>II</strong> - O uso eventual de glicocorticóides deve ser feito com cautela, pelo tempo e dose mínimos, já que seu uso aumenta o risco de recorrência. <br><br> <strong>III</strong> - Sendo associado a risco aumentado de eventos embólicos, o uso de anticoagulantes deve ser sistemático. <br><br> Selecione a opção correta.",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\"><strong>I</strong> - Não existe tratamento específico para a pericardite aguda idiopática. Repouso, anti-inflamatórios não hormonais e colchicina devem ser usados, salvo intolerância.</div> <div class=\"statement\"><strong>II</strong> - O uso eventual de glicocorticóides deve ser feito com cautela, pelo tempo e dose mínimos, já que seu uso aumenta o risco de recorrência.</div> <div class=\"statement\"><strong>III</strong> - Sendo associado a risco aumentado de eventos embólicos, o uso de anticoagulantes deve ser sistemático.</div> </div>",
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q78",
+   "numero": 78,
+   "disciplina": "Cardiologia",
+   "enunciado_html": "O infarto agudo do miocárdio (IAM) é um dos diagnósticos mais comuns em pacientes hospitalizados. Avalie as afirmativas seguintes sobre o IAM e assinale como verdadeira (V) ou falsa (F). <br><br> ( ) Cerca de 50% das mortes relacionadas ao IAM ocorrem antes que o paciente acometido chegue ao hospital. <br> ( ) A mortalidade é aproximadamente quatro vezes maior nos pacientes &gt; 75 anos quando comparada com pacientes mais jovens. <br> ( ) Entre os pacientes com IAM com supradesnível do segmento ST a maioria não apresenta onda Q no ECG evolutivo. <br> ( ) Estudos histológicos demonstram que as placas coronárias suscetíveis à ruptura são as que apresentam um centro rico em lipídeos e uma capa fibrosa calcificada. <br> ( ) Em casos raros, o IAM com supradesnivel de ST pode advir de oclusão coronariana causada por êmbolos coronarianos, anormalidades congênitas, espasmo coronariano e doenças inflamatórias sistêmicas. <br><br> A sequência correta é",
+   "extras_html": "<div class=\"statements\"> <div class=\"statement\">( ) Cerca de 50% das mortes relacionadas ao IAM ocorrem antes que o paciente acometido chegue ao hospital.</div> <div class=\"statement\">( ) A mortalidade é aproximadamente quatro vezes maior nos pacientes &gt; 75 anos quando comparada com pacientes mais jovens.</div> <div class=\"statement\">( ) Entre os pacientes com IAM com supradesnível do segmento ST a maioria não apresenta onda Q no ECG evolutivo.</div> <div class=\"statement\">( ) Estudos histológicos demonstram que as placas coronárias suscetíveis à ruptura são as que apresentam um centro rico em lipídeos e uma capa fibrosa calcificada.</div> <div class=\"statement\">( ) Em casos raros, o IAM com supradesnivel de ST pode advir de oclusão coronariana causada por êmbolos coronarianos, anormalidades congênitas, espasmo coronariano e doenças inflamatórias sistêmicas.</div> </div>",
+   "alternativas": {
+    "A": "V, V, V, F, F.",
+    "B": "F, V, V, V, F.",
+    "C": "V, V, F, F, V.",
+    "D": "F, F, V, V, V.",
+    "E": "V, F, V, V, F."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q79",
+   "numero": 79,
+   "disciplina": "Infectologia",
+   "enunciado_html": "A doença de Chagas (DC) impõe uma importante carga humana e social na América Latina. A miocardiopatia chagásica é uma das principais causas de doenças do miocárdio no Brasil. Analise as seguintes assertivas relacionadas à DC. I. A DC é uma zoonose causada pelo protozoário flagelado Trypanosoma cruzi e tem uma fase aguda frequentemente assintomática. II. Na fase crônica da doença o diagnóstico depende de testes imunológicos, como a imunofluorescência, hemaglutinação e exames de ensaio imunoabsorvente ligado a enzima (ELISA); dois testes sorológicos positivos usando técnicas diferentes confirmam o diagnóstico. III. A transmissão da DC é na maioria dos casos feita por vetores (triatomíneos), mas pode também ocorrer na transfusão sanguínea, transplante de órgãos e por via oral (ingestão de alimentos ou bebidas contaminados). IV. Na forma indeterminada da DC o paciente fica assintomático por muitos anos, apesar de poder ter eletrocardiograma alterado com anormalidades como bloqueio do ramo direito, bloqueio da divisão ântero-superior do ramo esquerdo e extrassístoles ventriculares. Escolha entre as alternativas abaixo as assertivas corretas.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas III e IV são verdadeiras. A afirmativa I é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "IV apenas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q80",
+   "numero": 80,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "A regurgitação, ou insuficiência aórtica, pode ocorrer por alterações na raiz da aorta ou na válvula aórtica propriamente dita. Com respeito à regurgitação aórtica, analise as assertivas abaixo. I - A endocardite infecciosa em valva aórtica, quando complicada com regurgitação aórtica, pode levar rapidamente a edema agudo de pulmão e choque cardiogênico. II - Angina de peito não responsiva a nitratos ocorre em fases avançadas da regurgitação aórtica crônica. III - A regurgitação aórtica pode se manter assintomática por mais de uma década. Selecione a opção correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As afirmativas I e II são verdadeiras. A afirmativa III é falsa.",
+    "B": "As afirmativas I e III são verdadeiras. A afirmativa II é falsa.",
+    "C": "As afirmativas II e III são verdadeiras. A afirmativa I é falsa.",
+    "D": "As afirmativas I, II e III são verdadeiras.",
+    "E": "As afirmativas I, II e III são falsas."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q81",
+   "numero": 81,
+   "disciplina": "Endocrinologia",
+   "enunciado_html": "A atividade física aumenta a captação de glicose pelo tecido muscular, o que pode resultar em um melhor controle glicêmico, além de diminuir o estresse e ajudar na manutenção de peso de pessoas com diabetes mellitus tipo 2. Com relação ao exercício físico nesta população, é correto afirmar que",
+   "extras_html": null,
+   "alternativas": {
+    "A": "a prática de exercícios regulares pode reduzir os níveis de HbA1c em cerca de 0,6%.",
+    "B": "atividades físicas vigorosas devem ser desestimuladas da rotina do paciente diabético.",
+    "C": "a prática semanal de 150 minutos ou mais de exercícios reduz a HbA1c em torno de 1,89%.",
+    "D": "o exercício físico não possui efeitos hipoglicemiantes comparáveis aos da maioria dos antidiabéticos orais.",
+    "E": "o indicado é que os pacientes realizem pelo menos 200 minutos semanais de exercícios moderados."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q82",
+   "numero": 82,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Quanto ao rastreamento para o câncer colorretal, analise essa sentença sobre um ensaio clínico randomizado: \"During a median follow-up of 10 years, 259 cases of colorectal cancer were diagnosed in the invited group as compared with 622 cases in the usual-care group. In intention-to-screen analyses, the risk of colorectal cancer at 10 years was 0.98% in the invited group and 1.20% in the usual-care group, a risk reduction of 18% (risk ratio, 0.82; 95% confidence interval [CI], 0.70 to 0.93). The risk of death from colorectal cancer was 0.28% in the invited group and 0.31% in the usual-care group (risk ratio, 0.90; 95% CI, 0.64 to 1.16).\" (October 27, 2022 N Engl J Med 2022; 387:15471556: Effect of Colonoscopy Screening on Risks of Colorectal Cancer and Related Death). A partir deste texto, pode-se afirmar que",
+   "extras_html": null,
+   "alternativas": {
+    "A": "o grupo controle (usual-care) teve 18% das pessoas com a presença de câncer colorretal.",
+    "B": "neste estudo o rastreamento não demonstrou reduzir significativamente a morte por câncer colorretal.",
+    "C": "o grupo convidado para o rastreamento teve reduzida a incidência e a mortalidade por câncer colorretal.",
+    "D": "os dados são insuficientes para verificar se houve ou não efetividade no rastreamento para câncer colorretal.",
+    "E": "rastreamento reduziu a prevalência da doença em 0,02% apesar da mortalidade ter sido o equivalente entre os grupos."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q83",
+   "numero": 83,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Considerando a acurácia (sensibilidade e especificidade) de um teste, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O Fator Antinuclear tem sensibilidade de 98% para Lúpus Eritematoso Sistêmico (LES) e por isso é um teste indicado para confirmar a doença.",
+    "B": "Um teste altamente específico é adequado na avaliação inicial do diagnóstico diferencial, quando muitas possibilidades são consideradas.",
+    "C": "Um teste com alta sensibilidade deve ser utilizado quando se quer diagnosticar todos os indivíduos com a doença, sem perder casos.",
+    "D": "O resultado de um teste com alta especificidade é útil na prática clínica para afastar alguma hipótese diagnóstica se resultado negativo.",
+    "E": "A sensibilidade de um exame depende da prevalência do agravo."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q84",
+   "numero": 84,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Estudos realizados no Brasil indicam que cerca de 20% dos pacientes atendidos na Atenção Primária à Saúde tem ingestão de bebidas alcoólicas em nível considerado de alto risco. Existem diversas ferramentas para aprimorar a abordagem destes pacientes nas unidades básicas de saúde. Sobre este tópico, classifique as afirmativas abaixo como verdadeiras ou falsas. I. O questionário CAGE tem finalidade de triagem, sendo considerado haver um caso de uso abusivo de álcool quando ocorrem 3 ou mais respostas positivas. II. O AUDIT é um teste para a identificação de problemas relacionados ao uso de álcool que consiste em perguntas para avaliar o padrão de consumo nos últimos 12 meses. III. É particularmente útil para o diagnóstico do abuso de álcool a solicitação de exames laboratoriais como hemograma, transaminases e gama-glutamiltransferase. IV. A intervenção breve é uma estratégia terapêutica de primeira escolha estruturada por feedback, responsabilidade, aconselhamento, menu de opções, empatia e autoeficácia. V. Tratamentos farmacológicos de transtorno de abuso de álcool são em geral coadjuvantes, sendo uma exceção a sua maior importância durante a abordagem da síndrome de abstinência. Assinale a alternativa que apresenta a sequência correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V, V, V, V, V",
+    "B": "V, V, V, F, F",
+    "C": "V, F, V, V, F",
+    "D": "F, V, F, V, V",
+    "E": "F, F, V, V, V"
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q85",
+   "numero": 85,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Kaythllen, 28 anos, veio à unidade básica de saúde em busca de consulta médica para o mesmo dia porque vem apresentando há 2 dias episódios de poucos minutos de uma sensação de líquido gelado ou quente escorrendo por algum dos ombros (alternando) ou em regiões de tórax ou abdome, mesmo sem haver nenhum líquido ou alteração na pele. Revisando o prontuário, antes de atendê-la, você já verificou que ela não tem doenças crônicas, usa anticoncepcional trimestral injetável há 2 anos e já consultou 10 vezes neste ano por demandas variadas, tendo sido as mais frequentes fadiga, cefaleia e dores em algum local dos membros superiores ou inferiores. Após ouvir tal explicação inicial dela sobre a queixa atual, estaria correto supor que <br><br> I. será necessário investigar se não há algum problema psicológico e/ou social oculto por meio de perguntas sondando aspectos específicos do contexto familiar e laboral dela, mesmo que a paciente não forneça indicativos de questões psicossociais durante a conversa. <br><br> II. será necessário pesquisar ativamente um possível transtorno mental subjacente, pois pacientes com sintomas clinicamente inexplicados têm maior prevalência de transtornos de humor e ansiedade. <br><br> III. será essencial identificar o que Kaythllen pensa e sente sobre a queixa atual, quais as consequências em sua vida que ela já percebeu ou teme e o que ela espera da consulta de hoje. <br><br> IV. será desnecessário realizar exame físico ou solicitar exames complementares, a não ser que no restante da anamnese surja alguma hipótese diagnóstica de maior gravidade patológica. <br><br> V. caso se confirme tratar-se de um simples sintoma clinicamente inexplicado será possível orientar que o prognóstico costuma ser favorável, com remissão dos episódios em poucas semanas. <br><br> Assinale a opção abaixo que classifica corretamente as afirmativas acima como verdadeiras (V) ou falsas (F).",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V, V, V, V, V",
+    "B": "V, F, V, F, F",
+    "C": "F, V, F, V, F",
+    "D": "F, F, V, F, V",
+    "E": "F, F, F, V, V"
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q86",
+   "numero": 86,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "A atenção primária à saúde (APS) é definida por Barbara Starfield como a \"atenção de primeiro contato, contínua, global e coordenada que se proporciona à população sem distinção de gênero, doença, ou sistema orgânico\". Em relação à APS, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A APS é o nível mais básico de atenção dentro de um sistema de saúde, sendo o primeiro contato do usuário com o sistema, onde os profissionais de saúde lidam com problemas simples e de fácil manejo.",
+    "B": "No Brasil, a Atenção Primária à Saúde é sinônimo de Estratégia de Saúde da Família e existe uma especialidade médica nesta área, que dá ao médico que a faz o título de especialista em saúde da família, com atuação no SUS.",
+    "C": "Dentre os atributos da APS, o acesso ou atenção de primeiro contato é o soberano. Não fornecer acesso para todos os pacientes quando eles necessitam fere um atributo essencial e faz o escore de avaliação da APS de uma região cair.",
+    "D": "A coordenação do cuidado é outro atributo da APS e consiste em fazer a gestão da saúde da população, encaminhando para o máximo de especialistas focais os seus usuários com a finalidade de obter um cuidado mais abrangente e integral.",
+    "E": "O artigo \"The ecology of Medical Care\", conduzido originalmente por White e colaboradores em 1961, ressalta a importância do papel de filtro da APS, destacando que um agravo em saúde seria melhor conduzido se visto desde o início por um subespecialista, pois evitaria complicações."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q87",
+   "numero": 87,
+   "disciplina": "Ortopedia",
+   "enunciado_html": "Joana, 55 anos, vem em consulta queixando-se de dor lombar há 7 dias. A dor se iniciou após um dia agitado, em que ajudou na organização da festa de aniversário do seu neto, tendo erguido bastante peso e brincado com as crianças. Já teve dores semelhantes anteriormente, mas sempre tomava um ibuprofeno e a dor resolvia em pouco tempo, mas desta vez não resolveu. Sobre a abordagem da dor lombar na Atenção Primária à Saúde, assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Se houver descrição pela paciente de dor que irradia até a região glútea, já é possível confirmar que há associação com radiculopatia.",
+    "B": "Quando a dor piora com a movimentação, além da orientação do uso de antiinflamatórios, a recomendação de repouso absoluto é fundamental.",
+    "C": "Como é uma lombalgia de início recente, a coleta de alguns dados como a presença de febre, o uso crônico de corticóides ou uma história de câncer não é relevante, pois não mudaria a conduta.",
+    "D": "A presença de ideias catastróficas em relação à dor e sintomas de depressão ou pessimismo são chamados de \"sinais de alerta amarelos\", sendo fatores de risco para recorrência ou cronicidade que devem ser abordados pelo médico.",
+    "E": "Por ser uma dor de início recente, orientações em relação à mudança de estilo de vida, como perda de peso, atividade física ou o uso de práticas integrativas e complementares (como acupuntura ou yoga) não estão indicadas por não trazerem benefício."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q88",
+   "numero": 88,
+   "disciplina": "Ginecologia",
+   "enunciado_html": "Para a Organização Mundial de Saúde, um controle efetivo do câncer só será possível mediante atenção integral ao indivíduo em todos os níveis: prevenção, abordagem diagnóstica, tratamento e até a realização de cuidados paliativos, se necessários. No que diz respeito ao câncer de colo uterino, quanto mais inicial for o diagnóstico, mais efetivo é o tratamento, o que justifica ações voltadas para a detecção precoce dessa doença. No que diz respeito às estratégias de prevenção de câncer de colo uterino em Atenção à Saúde da Mulher no SUS, podemos afirmar que",
+   "extras_html": null,
+   "alternativas": {
+    "A": "a Atenção Primária a Saúde constitui-se na porta de entrada das mulheres aos serviços de saúde no país. Para tal, as unidades de saúde e seus profissionais devem estar bem preparados para ofertar campanhas de coleta de exame citopatológico do colo uterino de forma frequente e efetiva, estimulando a coleta deste exame anualmente para esta população.",
+    "B": "o desenvolvimento de estratégias para a captação de mulheres na faixa etária priorizada envolve a busca ativa das mulheres na população adscrita pelos agentes comunitários de saúde (ACS) e a investigação com exame clínico das mamas e exame de Papanicolau naquelas ainda não examinadas após o início da vida sexual ativa.",
+    "C": "culturalmente, as mulheres não precisam ser estimuladas a buscarem os serviços de saúde para a promoção de saúde e a prevenção de doenças, visto serem a maioria dentre os usuários dos serviços de saúde no Brasil em virtude das campanhas e projetos de assistência implementados desde a década de 1970.",
+    "D": "no Brasil, o acesso ao exame preventivo de câncer de colo uterino (Papanicolau) tem ganhado espaço como medida de prevenção de tal forma que, somado ao estímulo a vacinação para o HPV na faixa etária preconizada, tem resultado na tendência de redução de mortalidade por câncer do colo uterino nas diversas regiões do país.",
+    "E": "consultas eventuais para queixas agudas, como febre ou lombalgia, são importantes no processo de captação das mulheres, pois representam uma oportunidade para se falar de prevenção do câncer de colo uterino, sendo o ideal que a unidade de saúde se organize para propiciar a estas mulheres um acesso facilitado à coleta do citopatológico do colo do útero se indicado."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q89",
+   "numero": 89,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "<p>Maria, 45 anos, apresenta-se ao seu Médico de Família e Comunidade (MFC) com queixas de insônia ocasional e ansiedade moderada devido a estresse no trabalho. Ela está preocupada com a possibilidade de tomar medicamentos para dormir ou ansiolíticos, devido às histórias negativas que ouviu sobre a dependência e os efeitos colaterais desses medicamentos. Qual das seguintes abordagens de Prevenção Quaternária é apropriada para o médico neste caso?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Realizar testes extensivos para excluir as possíveis causas orgânicas da insônia antes de considerar qualquer intervenção terapêutica, pois não há como se fazer exames demais, visto que exames não causam prejuízo para as pessoas.",
+    "B": "Sugerir que Maria procure aconselhamento psicológico, independentemente de sua preferência, já que temos que entender qual o medo dela com relação a medicamentos, uma vez que eles foram aprovados para seu diagnóstico.",
+    "C": "Encaminhar Maria para um especialista em sono sem discutir as opções de tratamento disponíveis, visto que problemas de sono não são prevalentes e com isso saem do escopo do que seu MFC poderia resolver.",
+    "D": "Fornecer à Maria informações detalhadas sobre os benefícios e riscos dos tratamentos, incluindo a possibilidade de dependência e efeitos colaterais, permitindo que ela compartilhe da tomada de decisão.",
+    "E": "Prescrever inicialmente medicamentos para dormir e ansiolíticos para aliviar os sintomas de Maria, já que os riscos e efeitos colaterais dos medicamentos são praticamente inexistentes."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q90",
+   "numero": 90,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "<p>Leopolda, 60 anos, foi diagnosticada com diabetes tipo 2 há dez anos. Apesar de seguir o tratamento prescrito e fazer acompanhamento regular com seu médico, desenvolveu complicações relacionadas à diabetes, incluindo neuropatia periférica e retinopatia diabética, e assim foi encaminhada para a cirurgia de fotocoagulação de retina para tentar reduzir a progressão da cegueira dela. Considerando suas complicações relacionadas à diabetes, qual o nível de prevenção que esse procedimento está tentando atingir?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Prevenção primária.",
+    "B": "Prevenção secundária.",
+    "C": "Prevenção terciária.",
+    "D": "Prevenção quaternária.",
+    "E": "Prevenção quinquenária."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q91",
+   "numero": 91,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "<p>Observe o registro clínico de uma consulta na Unidade Básica de Saúde. Subjetivo: Mulher, 37 anos, solicita mamografia. Está muito preocupada, pois viu em um programa de televisão que o câncer de mama é o segundo câncer mais comum em mulheres. Nega comorbidades ou problemas de saúde na família. Nega parentes de primeiro grau com câncer de mama. Última coleta de colpocitologia oncótica há 5 anos. Objetivo: Inspeção mamária estática e dinâmica sem alterações. Sem alterações de pele ou deformidades. Palpação das mamas sem nódulos palpáveis nos quatro quadrantes, bilateralmente. Axilas livres. Avaliação: (CIAP2: X26) - Medo de câncer de mama Plano: Tranquilizo paciente sobre a baixa incidência de câncer de mama na faixa etária abaixo dos 50 anos, em pessoas sem fatores de risco; Explico indicações de rastreio populacional do câncer de mama a partir dos 50 anos; Converso sobre emancipação feminina e conhecimento do próprio corpo; Ofereço coleta de colpocitologia oncótica. Qual das ferramentas da prática do Médico de Família e Comunidade predomina neste atendimento?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Escuta ativa.",
+    "B": "Sobrediagnóstico.",
+    "C": "Educação em saúde.",
+    "D": "Pactuação de agenda.",
+    "E": "Prevenção quaternária."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q92",
+   "numero": 92,
+   "disciplina": "Infectologia",
+   "enunciado_html": "<p>Um homem de 32 anos comparece à consulta de rotina com seu Médico de Família e Comunidade. Trabalha como motorista de aplicativo e mora sozinho, em uma comunidade próxima à Unidade Básica de Saúde. Identifica-se enquanto homem cisgênero, homossexual. Tem parceiro fixo há 4 anos, que convive com HIV há cerca de 8 anos, mantendo carga viral indetectável há pelo menos 5 anos. Tem relações anais receptivas, maior parte com preservativo peniano.</p> <p>Considerando os fatores de risco deste paciente e pensando em um plano terapêutico baseado em evidências, quais doenças podem ser abordadas com estratégias de prevenção primária e secundária simultaneamente, acessíveis na Atenção Primária do Sistema Único de Saúde?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "HIV e Hepatite A.",
+    "B": "Sífilis e Hepatite A.",
+    "C": "Neoplasia anal e Hepatite A.",
+    "D": "Neoplasia anal e HIV.",
+    "E": "Sífilis e neoplasia anal."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q93",
+   "numero": 93,
+   "disciplina": "Infectologia",
+   "enunciado_html": "<p>Um homem de 32 anos comparece à consulta de rotina com seu Médico de Família e Comunidade. Trabalha como motorista de aplicativo e mora sozinho, em uma comunidade próxima à Unidade Básica de Saúde. Identifica-se enquanto homem cisgênero, homossexual. Tem parceiro fixo há 4 anos, que convive com HIV há cerca de 8 anos, mantendo carga viral indetectável há pelo menos 5 anos. Tem relações anais receptivas, maior parte com preservativo peniano.</p> <p>O paciente comunica durante a consulta o desejo de realizar o teste rápido para HIV, pois teve uma relação extraconjugal e desprotegida, com parceiro com status sorológico desconhecido há 2 dias. Qual das orientações deve ser feita ao paciente antes de solicitar e realizar o teste?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O teste pode apresentar resultado falso-positivo, por conta do período de \"janela imunológica\".",
+    "B": "O teste pode apresentar resultado falso-negativo, por conta do período de \"janela imunológica\".",
+    "C": "O teste deve ser feito até 72 horas após a relação desprotegida, para aumentar a sua sensibilidade.",
+    "D": "O teste deve ser feito até 72 horas após a relação desprotegida, para aumentar a sua especificidade.",
+    "E": "O teste deve ser feito até 72 horas após a relação desprotegida, para aumentar a sensibilidade e especificidade."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q94",
+   "numero": 94,
+   "disciplina": "Obstetrícia",
+   "enunciado_html": "<p>Uma gestante de 33 anos, secundigesta, com 28 semanas de gestação, procedente de uma cidade do interior da Venezuela, inicia o pré-natal tardiamente. Fez somente uma consulta em sua cidade e depois emigrou para a região Norte do Brasil, onde ficou em albergue para refugiados, sem acesso a serviços de saúde regularmente. Foi solicitada a rotina laboratorial do terceiro trimestre, apresentando todos os exames dentro dos limites da normalidade, à exceção do VDRL que estava 1:64. A paciente nega ter recebido penicilina benzatina previamente. Neste caso, qual é a conduta mais adequada?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Penicilina cristalina 150.000 UI/Kg/dia, EV, duas vezes por dia.",
+    "B": "Penicilina cristalina 15.000 UI/Kg/dia, EV, duas vezes por semana.",
+    "C": "Penicilina G benzatina 2,4 milhões de unidades, IM, em dose única.",
+    "D": "Penicilina G benzatina 2,4 milhões de unidades, IM, duas doses com intervalo semanal.",
+    "E": "Penicilina G benzatina 2,4 milhões de unidades, IM, semanalmente, totalizando 3 doses."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q95",
+   "numero": 95,
+   "disciplina": "Pediatria",
+   "enunciado_html": "<p>Um menino de 6 meses comparece à consulta de puericultura. A mãe está preocupada pois acha que seu bebê não ganha peso. Está em aleitamento materno exclusivo, mas a mãe diz que vai começar a dar fórmula pois acha que o seu leite está fraco. A criança nasceu de termo, sem intercorrências durante a gestação ou parto. O teste do pezinho foi normal. Em uso de sulfato ferroso 1 mg/kg/ dia e vitamina A + D 2 gotas/dia. Observe os gráficos de peso e comprimento dessa criança:</p> <p>Assinale a alternativa que contém a melhor orientação a ser feita à mãe.</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Investigar infecção do trato urinário.",
+    "B": "Introduzir fórmula láctea para complementar amamentação.",
+    "C": "Tranquilizar a mãe e explicar que os gráficos estão normais.",
+    "D": "Solicitar hemograma, TSH, radiografia com cálculo da idade óssea.",
+    "E": "Verificar técnica de amamentação e orientar retorno em 1 a 2 semanas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q96",
+   "numero": 96,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "<p>\"O impacto da emenda constitucional n. 29 sobre o volume de recursos alocados para a saúde pela esfera federal de governo não foi significativo, tendo em vista as pequenas taxas de crescimento do PIB observadas no período (Barros, 2003). Assim, a União, que se responsabilizava por 75% do financiamento do sistema público de saúde em 1980 e que em 2000, ano da aprovação da emenda, já tinha diminuído sua participação para 60%, viu decrescer ainda mais sua participação relativa no financiamento do SUS: cerca de 45% em 2008, ainda que em valores absolutos os valores aplicados pela União (MS) tenham aumentado\". A tendência à redução do percentual de participação da esfera federal no financiamento do SUS, descrita no texto, se aproxima de qual modelo de financiamento?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Venezuelano, com investimentos públicos em ações como o Barrio Adentro.",
+    "B": "Beveridgiano, que tem como principal objetivo o uso racional dos recursos em saúde.",
+    "C": "Cubano, que tem como foco o investimento na Atenção Primária para reduzir custos em saúde.",
+    "D": "Estadunidense, norteado pelos valores neoliberais na destinação de recursos para o sistema de saúde.",
+    "E": "Bismarckiano, cujo princípio da coparticipação prevê a redução da participação estatal no financiamento do sistema público de saúde."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q97",
+   "numero": 97,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "<p>Um homem, de 67 anos, vem à consulta médica na Unidade Básica de Saúde, queixando-se de incontinência urinária há cerca de 5 anos. Além do quadro urológico, também acompanha na UBS sua hipertensão arterial, toma suas vacinas e faz exames de rotina e quando necessário. Participa do grupo de caminhada, onde convive com vizinhos, que o ajudam quando precisa, pois mora sozinho e a família mora no interior. Devido ao quadro urológico de longa data, refratário ao tratamento adequado, foi encaminhado ao Ambulatório de Especialidades de referência, para prosseguir investigação. Qual das alternativas descreve, respectivamente, um princípio doutrinário do SUS e um atributo da atenção primária predominantes neste caso?</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Equidade e baixo custo.",
+    "B": "Igualdade e longitudinalidade.",
+    "C": "Universalidade e porta de entrada.",
+    "D": "Participação popular e integralidade.",
+    "E": "Integralidade e coordenação do cuidado."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q98",
+   "numero": 98,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "<p>A criação do Sistema Único de Saúde foi precedida por ampla discussão sobre o modelo assistencial em saúde no Brasil pelo Movimento da Reforma Sanitária. Conceitualmente os ideólogos da Reforma Sanitária defendiam</p>",
+   "extras_html": null,
+   "alternativas": {
+    "A": "a história natural das doenças.",
+    "B": "a visão histórico-crítica da saúde.",
+    "C": "o preventivismo como linha mestra.",
+    "D": "a perspectiva do ciclo econômico da saúde.",
+    "E": "a análise positivista dos problemas de saúde."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q99",
+   "numero": 99,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "O modelo assistencial em saúde no Brasil, a partir da década de 1990 passou a ser considerado como modelo, um sistema",
+   "extras_html": null,
+   "alternativas": {
+    "A": "liberal.",
+    "B": "residual.",
+    "C": "ocupacional.",
+    "D": "de assistência.",
+    "E": "de seguridade."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2024-Q100",
+   "numero": 100,
+   "disciplina": "Medicina Preventiva",
+   "enunciado_html": "Segundo o modelo da História Natural das Doenças e Níveis de Prevenção de Leavell e Clark caracteriza-se como prevenção secundária a seguinte ação de saúde.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Reabilitação.",
+    "B": "Proteção específica.",
+    "C": "Promoção da saúde.",
+    "D": "Diagnóstico precoce.",
+    "E": "Limitação da invalidez."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  }
+ ]
+}

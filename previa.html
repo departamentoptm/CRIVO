@@ -40,7 +40,7 @@ function opcoes(sel, valores) {
 }
 function temAlerta(q) {
   const r = q.revisao || {};
-  return (r.alertas && r.alertas.length) || r.status === 'regerar' || !q.gabarito;
+  return (r.alertas && r.alertas.length) || r.status === 'sem_correcao' || !q.gabarito;
 }
 async function trocarEdicao() {
   $('status').textContent = 'carregando…';
@@ -56,7 +56,7 @@ function mostrar() {
   const r = (q && q.revisao) || {};
   const linhas = [];
   if (!q.gabarito) linhas.push('anulada (sem gabarito)');
-  if (r.status === 'regerar') linhas.push('status: regerar');
+  if (r.status === 'sem_correcao') linhas.push('sem correção');
   (r.alertas || []).forEach(a => linhas.push('alerta: ' + a));
   $('avisos').style.display = linhas.length ? 'block' : 'none';
   $('avisos').textContent = `${q.id} — ` + linhas.join(' | ');
