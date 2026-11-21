@@ -403,7 +403,9 @@ def palavras(t):
 def conferir_fidelidade(linhas_originais, q, compartilhado_html=""):
     """Compara as palavras do trecho original com as gravadas. Ignora só a numeração e as letras das alternativas.
     O texto compartilhado com outras questões é conferido à parte (fica em outra posição no resultado)."""
-    orig = palavras("\n".join(linhas_originais))
+    # rótulos das alternativas ("A)", "(B)", "Alternativa C:") não são conteúdo: saem antes de comparar
+    sem_rotulo = [re.sub(r"^\s*(?:alternativa\s+)?\(?[A-Ea-e]\)?\s*[:).\-–]\s*", "", l, flags=re.I) for l in linhas_originais]
+    orig = palavras("\n".join(sem_rotulo))
     extras = (q.get("extras_html") or "").replace(compartilhado_html, "") if compartilhado_html else (q.get("extras_html") or "")
     grav_txt = " ".join([texto_puro(q["enunciado_html"].replace("<br>", "\n")), texto_puro(extras)]
                         + [texto_puro(v) for v in q["alternativas"].values()])
@@ -474,6 +476,7 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
             f"Numeração reconhecida: {estilo_q} | questões encontradas: {len(blocos)}"]
 
     # gabarito: oficial (gabarito.json) > bloco do próprio arquivo
+    avisos_gab = []
     gab_of = (gabarito_oficial.get(banca, {}) or {}).get(str(ano))
     if gab_of:
         gab = {int(k): (v.strip().upper() if isinstance(v, str) and v.strip().upper() in LETRAS else None)
@@ -483,6 +486,8 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
             dif = [n for n in gab_texto if n in gab and gab_texto[n] and gab[n] and gab_texto[n] != gab[n]]
             if dif:
                 rel.append(f"**ATENÇÃO:** gabarito do arquivo difere do gabarito.json nas questões {dif}")
+                avisos_gab = [f"Q{n}: gabarito impresso no arquivo = {gab_texto[n]}, gabarito.json = {gab[n]} "
+                              f"(foi usado o gabarito.json; confirme qual é o definitivo)" for n in dif]
     else:
         gab, origem_gab = gab_texto, ("bloco 'Gabarito' do próprio arquivo" if gab_texto else "nenhum")
     rel.append(f"Gabarito: {origem_gab} ({len(gab)} questões)")
@@ -504,7 +509,7 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
 
     disc = ((disciplinas or {}).get(banca, {}) or {}).get(str(ano), {}) or {}
     qs = novo_arquivo_questoes(banca, ano)
-    problemas, fidelidade, compartilhados, notas = [], [], {}, []
+    problemas, fidelidade, compartilhados, notas = list(avisos_gab), [], {}, []
     for n in sorted(blocos):
         bloco = blocos[n]
         estilo_a, enun, alts = separar_alternativas(bloco, n_alt)

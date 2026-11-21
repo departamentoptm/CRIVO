@@ -46,8 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 340
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -69,9 +69,19 @@ jobs:
           glob=()
           [ "$SIMULAR" = "true" ] && glob=(--simular)
           set +e
-          python ferramentas/gerar_correcoes.py "${glob[@]}" "${args[@]}"
-          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+          python -u ferramentas/gerar_correcoes.py "${glob[@]}" "${args[@]}" 2>&1 | tee saida.txt
+          codigo=${PIPESTATUS[0]}
+          echo "codigo=$codigo" >> "$GITHUB_OUTPUT"
           python ferramentas/gerar_indice.py --dados dados
+          {
+            echo "## Resultado da geração (código $codigo)"
+            case $codigo in
+              0) echo "Concluído sem erros." ;;
+              2) echo "**Houve erro.** Leia as linhas com ERRO abaixo; as dicas dizem o que ajustar." ;;
+              3) echo "Parou no teto de orçamento. Rode de novo para continuar de onde parou." ;;
+            esac
+            echo; echo '```'; grep -E "ERRO|PULADA|fila|histórico|verificação|GRAVADA|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Abrir pull request com o resultado
         if: ${{ !inputs.simular }}
@@ -89,9 +99,16 @@ jobs:
           { cat "$rel"; echo; echo "Antes de aprovar: abra previa.html neste ramo ou leia as correções novas."; } > corpo.md
           gh pr create --title "Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo"
 
+      - name: Falhar se houve erro
+        if: ${{ steps.gerar.outputs.codigo == '2' }}
+        run: |
+          echo "::error::A geração teve erro. Abra o resumo desta execução (Summary) para ver a causa."
+          grep -E "ERRO" saida.txt | head -5 | sed 's/^/::error::/'
+          exit 1
+
       - name: Guardar relatórios
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: relatorios
           path: relatorios/

@@ -43,8 +43,8 @@ jobs:
   importar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Instalar leitores de PDF e OCR
@@ -69,9 +69,11 @@ jobs:
           [ "$SOBRESCREVER" = "true" ] && args+=(--sobrescrever)
           [ "$REPARAR" = "true" ] && args+=(--reparar-com-ia)
           set +e
-          python ferramentas/importar_prova.py "${args[@]}"
-          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+          python -u ferramentas/importar_prova.py "${args[@]}" 2>&1 | tee saida.txt
+          codigo=${PIPESTATUS[0]}
+          echo "codigo=$codigo" >> "$GITHUB_OUTPUT"
           python ferramentas/gerar_indice.py --dados dados
+          { echo "## Importação (código $codigo — 0 = nada a conferir, 1 = há itens a conferir)"; echo '```'; cat saida.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - name: Abrir pull request
         env:
           GH_TOKEN: ${{ github.token }}

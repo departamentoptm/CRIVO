@@ -62,6 +62,18 @@ def extrair_json(texto):
         raise ValueError("a resposta não contém um objeto JSON")
 
 
+def explicar_http(codigo, detalhe):
+    dicas = {
+        401: "a chave da API foi recusada. Confira o secret DEEPSEEK_API_KEY (sem espaços, começando com sk-).",
+        402: "a conta da API está sem saldo. Coloque crédito em platform.deepseek.com.",
+        403: "a chave não tem permissão para este recurso.",
+        404: "endereço ou modelo inexistente. Rode 'gerar_correcoes.py modelos' e ajuste config_gerador.json.",
+        400: "pedido recusado (muitas vezes, nome de modelo ou parâmetro inválido em config_gerador.json).",
+        422: "parâmetro inválido em config_gerador.json.",
+    }
+    return f"HTTP {codigo}: {dicas.get(codigo, '')} Resposta da API: {detalhe}"
+
+
 class Contador:
     """Soma tokens e custo de todas as chamadas da execução."""
     def __init__(self, config, orcamento_usd):
@@ -116,7 +128,7 @@ class ClienteAPI:
             except urllib.error.HTTPError as e:
                 detalhe = e.read().decode("utf-8", "replace")[:300]
                 if e.code in (400, 401, 402, 403, 404, 422):
-                    raise ErroAPI(f"HTTP {e.code}: {detalhe}")   # erro de configuração: não adianta repetir
+                    raise ErroAPI(explicar_http(e.code, detalhe))   # erro de configuração: não adianta repetir
                 ultimo = f"HTTP {e.code}: {detalhe}"
             except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
                 ultimo = str(e)
@@ -151,5 +163,25 @@ class ClienteAPI:
 
     def listar_modelos(self):
         req = urllib.request.Request(self.url_modelos, headers={"Authorization": f"Bearer {self.chave}"})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return [m.get("id") for m in json.loads(r.read().decode("utf-8")).get("data", [])]
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return [m.get("id") for m in json.loads(r.read().decode("utf-8")).get("data", [])]
+        except urllib.error.HTTPError as e:
+            raise ErroAPI(explicar_http(e.code, e.read().decode("utf-8", "replace")[:300]))
+        except (urllib.error.URLError, TimeoutError) as e:
+            raise ErroAPI(f"sem conexão com a API ({e})")
+
+    def testar(self, etapas):
+        """Confere chave e nomes de modelo antes de gastar qualquer coisa."""
+        disponiveis = self.listar_modelos()
+        usados = sorted({self.config["modelos"][e] for e in etapas})
+        faltam = [m for m in usados if m not in disponiveis]
+        if faltam:
+            raise ErroAPI(f"o(s) modelo(s) {faltam} de config_gerador.json não existe(m) na sua conta. "
+                          f"Disponíveis: {disponiveis}. Troque em ferramentas/config_gerador.json "
+                          f"(seções \"modelos\" e \"precos_usd_por_milhao_fora_do_pico\").")
+        semprecos = [m for m in usados if m not in self.config.get("precos_usd_por_milhao_fora_do_pico", {})]
+        if semprecos:
+            self.log(f"AVISO: sem preço cadastrado para {semprecos}; o custo e o teto de orçamento não funcionam "
+                     f"para eles. Cadastre em precos_usd_por_milhao_fora_do_pico.")
+        self.log(f"Conexão com a API OK. Modelos usados: {usados}.")
