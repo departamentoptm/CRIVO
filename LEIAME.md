@@ -3,7 +3,7 @@
 ## Como as peças se encaixam
 
 ```
-perguntas.txt ──extrair_questoes.py──► questoes.json  (fixo: enunciado, alternativas, gabarito)
+prova .pdf/.txt ──importar_prova.py──► questoes.json  (fixo: enunciado, alternativas, gabarito, figuras)
                                               │
 gabarito.json ──conferir_gabarito.py──────────┤
                                               ▼
@@ -15,7 +15,11 @@ gabarito.json ──conferir_gabarito.py──────────┤
 ## Instalar no repositório (uma vez)
 
 1. Copie o conteúdo desta pasta para a raiz do repositório CRIVO, substituindo o que já existe.
-   **Apague as pastas antigas `dados/AMP/2021.json` etc., se ainda existirem** (agora cada edição é uma pasta).
+   **Inclua a pasta oculta `.github`** (começa com ponto; no gerenciador de arquivos aperte Ctrl+H para vê-la).
+   Sem ela, os botões "Gerar correções" e "Importar prova" não aparecem na aba Actions.
+   Pelo terminal, isto copia tudo, inclusive os ocultos: `cp -r CRIVO/. ~/CRIVO/`
+   **Apague os arquivos antigos `dados/AMP/2021.json` etc.** (agora cada edição é uma pasta):
+   `rm -f ~/CRIVO/dados/*/[0-9]*.json`
 2. Copie também o seu `gabarito.json` para a raiz.
 3. `git add . && git commit -m "Dados em dois arquivos + gerador de correções" && git push`
 
@@ -97,15 +101,43 @@ gerador nunca mais a sobrescreve.
 - `qualidade`: tamanhos mínimos e número de tentativas.
 - As instruções enviadas à IA estão em `ferramentas/prompts/*.md` e podem ser ajustadas.
 
-## Adicionar uma edição nova
+## Adicionar provas novas (PDF ou TXT) — uma única vez por edição
 
+Coloque os originais em `provas/<BANCA>/<ANO>.pdf` (ou `.txt`), por exemplo `provas/SUS-SP/2024.pdf`.
+O gabarito pode estar no próprio arquivo (bloco "Gabarito" no fim) ou no `gabarito.json`; o `gabarito.json`
+tem prioridade e o relatório avisa se os dois discordarem.
+
+**Pelo GitHub:** envie o arquivo (Add file → Upload files, na pasta `provas/<BANCA>/`), depois
+**Actions → Importar prova → Run workflow** com a banca. Sai um pull request com o `questoes.json`, as figuras
+e um relatório por edição. Título com "[CONFERIR]" = há itens para olhar antes de aprovar.
+
+**Pelo computador** (precisa do poppler: `sudo apt install poppler-utils tesseract-ocr tesseract-ocr-por`):
 ```bash
-python3 ferramentas/extrair_questoes.py --perguntas exams/AMP/2015/perguntas.txt --banca AMP --ano 2015 \
-    --gabarito gabarito.json --disciplinas exams/disciplinas.json --dados dados
+python3 ferramentas/importar_prova.py --arquivo provas/SUS-SP/2024.pdf --banca SUS-SP --ano 2024
+python3 ferramentas/importar_prova.py --pasta provas --banca SUS-SP          # todas as edições da banca
 python3 ferramentas/gerar_indice.py --dados dados
 ```
-Confira o texto em `previa.html` (filtro "só questões com alerta") antes de gerar correções.
-Ou todas as edições de uma vez: `--pasta-exams exams --banca AMP` no lugar de `--perguntas ... --ano ...`.
+
+O que o importador faz (sem IA, sem custo): lê o PDF (ou faz OCR em português se for digitalizado), desfaz as
+duas colunas, tira cabeçalhos/rodapés repetidos, reconhece a numeração ("Questão 1", "QUESTÃO 01", "1.", "1)")
+e as alternativas ("A)", "(A)", "a)", "A.", "A -"; 4 ou 5), monta tabelas, prende o texto compartilhado
+("Leia o caso para as questões 6 e 7") às questões certas e extrai as figuras do PDF para `dados/<BANCA>/<ANO>/img/`.
+
+**Prova de fidelidade:** para cada questão, compara palavra por palavra o texto original com o que foi gravado.
+Qualquer palavra que suma ou apareça aparece no relatório (`relatorios/importacao/<BANCA>_<ANO>.md`), junto com
+as linhas removidas como cabeçalho e o texto da capa. Nada some em silêncio.
+
+Se o relatório apontar problemas:
+- numeração não reconhecida: `--primeira 51` (caderno que começa na 51) ou `--paginas 3-18` (pula capa);
+- cabeçalho que sobrou: `--remover "TEXTO DO CABEÇALHO"`;
+- número errado de alternativas: `--alternativas 4` ou `5`;
+- questões que o código não separou: `--reparar-com-ia` (só essas vão à IA, custo de centavos, e a resposta só é
+  aceita se tiver exatamente as palavras do original); ou corrija o `.txt` e importe de novo.
+- figura presa à questão errada: mova a tag `<img>` no `questoes.json` (as figuras vêm marcadas com
+  `"imagem_conferir": true`).
+
+Depois de importada, a edição não é processada de novo (a não ser com `--sobrescrever`, que mantém as correções).
+O gerador de correções pula questões com figura, porque o modelo de texto não enxerga a imagem.
 
 ## Outras ferramentas
 - `conferir_gabarito.py`: compara `questoes.json` com o `gabarito.json` e lista correções a refazer.

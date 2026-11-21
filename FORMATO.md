@@ -16,7 +16,8 @@ Na hora de abrir uma questão, o site (`js/crivo-render.js`) junta os dois arqui
 
 ## questoes.json — feito uma vez, não muda
 
-Criado por `extrair_questoes.py` (a partir do `perguntas.txt`) ou por `converter_html_para_json.py`.
+Criado por `importar_prova.py` (a partir da prova original em .pdf ou .txt) ou por `converter_html_para_json.py`.
+As figuras ficam em `dados/<BANCA>/<ANO>/img/` e entram em `extras_html` como `<img src="dados/...">`.
 **Nenhuma ferramenta de IA escreve neste arquivo.** O único campo que muda depois é o `gabarito`,
 pelo `conferir_gabarito.py`, para seguir o `gabarito.json` oficial.
 
@@ -34,6 +35,7 @@ pelo `conferir_gabarito.py`, para seguir o `gabarito.json` oficial.
 }
 ```
 - `gabarito`: `null` quando a questão foi anulada.
+- `imagem_conferir`: `true` quando a figura foi extraída do PDF automaticamente (confira se está na questão certa).
 - `imagem_pendente`: `true` quando a questão cita uma figura que ainda não foi adicionada. O gerador pula
   essas questões até a imagem entrar (em `extras_html`, como `<img src="...">`) e o campo virar `false`.
 

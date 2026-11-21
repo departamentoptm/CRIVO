@@ -1,0 +1,91 @@
+# Importa provas originais (PDF ou TXT) para dados/<BANCA>/<ANO>/questoes.json — sem IA, uma única vez.
+# Antes: envie o arquivo para provas/<BANCA>/<ANO>.pdf (no GitHub: Add file > Upload files).
+name: Importar prova
+
+on:
+  workflow_dispatch:
+    inputs:
+      banca:
+        description: "Banca (nome da pasta em provas/, ex.: SUS-SP)"
+        required: true
+      ano:
+        description: "Edições separadas por espaço (vazio = todas as da pasta)"
+        required: false
+      alternativas:
+        description: "Alternativas por questão"
+        type: choice
+        options: [automatico, "4", "5"]
+        default: automatico
+      primeira:
+        description: "Número da primeira questão do caderno"
+        default: "1"
+      paginas:
+        description: "Só estas páginas, ex.: 3-18 (vazio = todas)"
+        required: false
+      sobrescrever:
+        description: "Refazer edições que já têm questoes.json"
+        type: boolean
+        default: false
+      reparar_com_ia:
+        description: "Usar IA só nas questões que o código não separou (custo de centavos; texto conferido)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dados-crivo
+  cancel-in-progress: false
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar leitores de PDF e OCR
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-por
+      - name: Importar
+        id: importar
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          BANCA: ${{ inputs.banca }}
+          ANO: ${{ inputs.ano }}
+          ALT: ${{ inputs.alternativas }}
+          PRIMEIRA: ${{ inputs.primeira }}
+          PAGINAS: ${{ inputs.paginas }}
+          SOBRESCREVER: ${{ inputs.sobrescrever }}
+          REPARAR: ${{ inputs.reparar_com_ia }}
+        run: |
+          args=(--pasta provas --banca "$BANCA" --primeira "$PRIMEIRA" --gabarito gabarito.json)
+          [ -n "$ANO" ] && args+=(--ano "$ANO")
+          [ "$ALT" != "automatico" ] && args+=(--alternativas "$ALT")
+          [ -n "$PAGINAS" ] && args+=(--paginas "$PAGINAS")
+          [ -f exams/disciplinas.json ] && args+=(--disciplinas exams/disciplinas.json)
+          [ "$SOBRESCREVER" = "true" ] && args+=(--sobrescrever)
+          [ "$REPARAR" = "true" ] && args+=(--reparar-com-ia)
+          set +e
+          python ferramentas/importar_prova.py "${args[@]}"
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+          python ferramentas/gerar_indice.py --dados dados
+      - name: Abrir pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nada novo em dados/."; exit 0; fi
+          ramo="importacao/${{ inputs.banca }}-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
+          git checkout -b "$ramo"
+          git add dados relatorios
+          git commit -m "Importa prova: ${{ inputs.banca }} ${{ inputs.ano }}"
+          git push origin "$ramo"
+          aviso=""; [ "${{ steps.importar.outputs.codigo }}" != "0" ] && aviso="[CONFERIR] "
+          { echo "Relatórios da importação (um por edição):"; echo;
+            for f in relatorios/importacao/${{ inputs.banca }}_*.md; do echo "---"; cat "$f"; echo; done
+            echo; echo "Antes de aprovar: confira os itens listados e abra previa.html neste ramo."; } > corpo.md
+          gh pr create --title "${aviso}Importação: ${{ inputs.banca }} ${{ inputs.ano }}" --body-file corpo.md \
+             --base "${{ github.ref_name }}" --head "$ramo"

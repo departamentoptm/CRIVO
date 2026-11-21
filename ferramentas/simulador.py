@@ -58,6 +58,19 @@ class ClienteSimulado:
                                 {"fonte": "Fonte inventada", "detalhe": "deve ser descartada", "busca": "x"}],
                 "afirmacoes_criticas": ["afirmação simulada"]}
 
+    def _reparar(self, u):
+        corpo = u.split("\n\n", 1)[1] if "\n\n" in u else u
+        enun, alts, atual = [], {}, None
+        for l in corpo.split("\n"):
+            m = re.match(r"\s*(?:alternativa\s+)?\(?([A-E])\)?\s*[:).\-]\s*(.*)$", l, re.I)
+            if m and len(alts) < 5 and m.group(1).upper() == "ABCDE"[len(alts)]:
+                atual = m.group(1).upper(); alts[atual] = m.group(2); continue
+            if atual: alts[atual] += " " + l
+            else: enun.append(l)
+        if os.environ.get("CRIVO_SIMULAR_ALTERAR") == "1":
+            alts["A"] = alts.get("A", "") + " palavra inventada"
+        return {"enunciado": "\n".join(enun), "alternativas": alts}
+
     def _verificar(self, u):
         if os.environ.get("CRIVO_SIMULAR_REPROVAR") == "1":
             return {"aprovado": False, "problemas": [{"secao": "2.3", "trecho": "x", "gravidade": "grave",
