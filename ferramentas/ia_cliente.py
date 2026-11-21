@@ -24,6 +24,11 @@ class ErroAPI(Exception):
     pass
 
 
+class RespostaCortada(ErroAPI):
+    """A resposta passou do limite de tamanho (max_tokens). Quem chamou pode dividir o pedido."""
+    pass
+
+
 def _minutos(hhmm):
     h, m = hhmm.split(":")
     return int(h) * 60 + int(m)
@@ -146,13 +151,33 @@ class ClienteAPI:
                  "response_format": {"type": "json_object"},
                  "messages": [{"role": "system", "content": sistema}, {"role": "user", "content": usuario}]}
         corpo.update(self.config.get("parametros_extras_por_modelo", {}).get(modelo, {}))
+        raciocinio = self.config.get("raciocinio_por_etapa", {}).get(etapa)
+        extra_rac = {}
+        if raciocinio is not None and modelo not in getattr(self, "_sem_param_raciocinio", set()):
+            extra_rac = self.config.get("parametro_raciocinio", {}).get("ligado" if raciocinio else "desligado", {})
+            corpo.update(extra_rac)
         for tentativa in (1, 2):
-            r = self._post(corpo)
+            try:
+                r = self._post(corpo)
+            except ErroAPI as e:
+                # a API não reconheceu o parâmetro de raciocínio: repete sem ele (e não usa mais nesta execução)
+                if extra_rac and "HTTP 400" in str(e) or (extra_rac and "HTTP 422" in str(e)):
+                    self.log(f"   aviso: a API recusou o parâmetro de raciocínio ({list(extra_rac)}); seguindo sem ele")
+                    self._sem_param_raciocinio = getattr(self, "_sem_param_raciocinio", set()) | {modelo}
+                    for k in extra_rac:
+                        corpo.pop(k, None)
+                    extra_rac = {}
+                    r = self._post(corpo)
+                else:
+                    raise
             self.contador.registrar(modelo, r.get("usage", {}) or {})
             escolha = (r.get("choices") or [{}])[0]
             texto = (escolha.get("message") or {}).get("content", "")
             if escolha.get("finish_reason") == "length":
-                raise ErroAPI(f"resposta cortada por limite de tamanho na etapa '{etapa}' (aumente max_tokens.{etapa})")
+                det = (r.get("usage") or {}).get("completion_tokens_details") or {}
+                rac = f"; {det.get('reasoning_tokens')} deles de raciocínio" if det.get("reasoning_tokens") else ""
+                raise RespostaCortada(f"resposta cortada por limite de tamanho na etapa '{etapa}' "
+                                      f"({corpo['max_tokens']} tokens{rac}). Aumente max_tokens.{etapa} em config_gerador.json")
             try:
                 return extrair_json(texto)
             except ValueError:

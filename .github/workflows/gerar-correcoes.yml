@@ -88,16 +88,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- dados; then echo "Nada mudou em dados/."; exit 0; fi
+          # status --porcelain também vê arquivos NOVOS (ex.: o catálogo de temas), não só os alterados
+          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nada mudou em dados/."; exit 0; fi
           ramo="correcoes/${{ inputs.banca }}-$(date -u +%Y%m%d-%H%M%S)"
           git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
           git checkout -b "$ramo"
           git add dados relatorios
           git commit -m "Correções geradas: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}"
+          aviso=""; [ "${{ steps.gerar.outputs.codigo }}" = "2" ] && aviso="[PARCIAL - houve erro] "
           git push origin "$ramo"
-          rel=$(ls -t relatorios/execucao_*.md | head -1)
-          { cat "$rel"; echo; echo "Antes de aprovar: abra previa.html neste ramo ou leia as correções novas."; } > corpo.md
-          gh pr create --title "Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo"
+          rel=$(ls -t relatorios/execucao_*.md 2>/dev/null | head -1)
+          { [ -n "$rel" ] && cat "$rel"; echo; echo "Saída da execução:"; echo '```'; tail -40 saida.txt; echo '```'
+            echo "Aprovar este PR guarda o que já foi feito (ex.: o catálogo de temas, que não precisa ser pago de novo)."; } > corpo.md
+          gh pr create --title "${aviso}Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo"
 
       - name: Falhar se houve erro
         if: ${{ steps.gerar.outputs.codigo == '2' }}
