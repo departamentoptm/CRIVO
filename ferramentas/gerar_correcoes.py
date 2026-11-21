@@ -349,10 +349,13 @@ def cmd_gerar(args, config):
         if pico:
             esperar_fora_do_pico(config, log)
 
+    if not args.simular:
+        cliente.testar(["temas", "relevancia", "resolver_as_cegas", "gerar", "verificar"])
     todas = questoes_da_banca(args.dados, args.banca)
     linhas, saida = [], 0
     try:
         catalogo = atualizar_catalogo(args.dados, args.banca, cliente, config, log)["questoes"]
+        log(f"Catálogo de temas pronto: {len(catalogo)} questões.")
         for k, (ano, qid, motivo) in enumerate(fila, 1):
             q = todas[qid]
             log(f"\n[{k}/{len(fila)}] {qid} ({motivo}) — custo até agora US$ {contador.custo:.4f}")

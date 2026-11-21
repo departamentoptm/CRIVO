@@ -37,6 +37,10 @@ Uso: aba **Actions → Gerar correções → Run workflow**. Escolha a banca, as
 de questões e o teto de custo. Ao terminar, o GitHub abre um **pull request** com as correções novas e um
 relatório (quais foram publicadas, quais foram reprovadas e quanto custou). Leia, e só então aprove (Merge).
 
+Para ver o resultado, clique na execução: a página **Summary** mostra o que foi gerado, o custo e, se houver erro,
+a causa em português (chave recusada, sem saldo, nome de modelo errado...). Execução vermelha = erro;
+verde = deu certo (abra a aba Pull requests). Avisos amarelos sobre "Node.js" podem ser ignorados.
+
 Primeiro uso sugerido: banca `AMP`, questões `50`, edições `2021`, orçamento `0.20`. Confira o resultado
 antes de rodar em lote.
 
