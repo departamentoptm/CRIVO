@@ -15,12 +15,12 @@
  },
  "parametros_extras_por_modelo": {},
  "max_tokens": {
-  "temas": 4000,
-  "relevancia": 4000,
-  "resolver_as_cegas": 800,
-  "gerar": 12000,
-  "verificar": 4000,
-  "reparar": 4000
+  "temas": 8000,
+  "relevancia": 8000,
+  "resolver_as_cegas": 8000,
+  "gerar": 16000,
+  "verificar": 16000,
+  "reparar": 6000
  },
  "precos_usd_por_milhao_fora_do_pico": {
   "deepseek-flash": {
@@ -47,7 +47,7 @@
   "max_candidatas": 400,
   "candidatas_por_chamada": 30
  },
- "temas_questoes_por_chamada": 10,
+ "temas_questoes_por_chamada": 8,
  "qualidade": {
   "min_caracteres_total": 7000,
   "min_caracteres_por_secao": {
@@ -90,5 +90,25 @@
   "Medronho — Epidemiologia",
   "Legislação do SUS (Constituição Federal de 1988, Lei 8.080/1990, Lei 8.142/1990)",
   "Protocolos e cadernos do Ministério da Saúde"
- ]
+ ],
+ "raciocinio_por_etapa": {
+  "temas": false,
+  "relevancia": false,
+  "resolver_as_cegas": true,
+  "gerar": false,
+  "verificar": true,
+  "reparar": false
+ },
+ "parametro_raciocinio": {
+  "ligado": {
+   "thinking": {
+    "type": "enabled"
+   }
+  },
+  "desligado": {
+   "thinking": {
+    "type": "disabled"
+   }
+  }
+ }
 }

@@ -16,6 +16,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ia_cliente import RespostaCortada
 from crivo_comum import (listar_edicoes, ler_questoes, ler_json, gravar_json, arq_temas, termos,
                          texto_da_questao, LETRAS)
 
@@ -52,11 +53,23 @@ def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
     lote = config.get("temas_questoes_por_chamada", 10)
     log(f"Catálogo de temas de {banca}: {len(faltam)} questão(ões) a catalogar (feito uma única vez).")
     sistema = prompt("temas.md")
+
+    def pedir(grupo):
+        """Pede os temas de um grupo; se a resposta vier cortada, divide o grupo ao meio e tenta de novo."""
+        usuario = "\n\n".join(f"### id: {i}\n{texto_curto(todas[i])}" for i in grupo)
+        try:
+            r = cliente.json("temas", sistema, usuario)
+            return {x.get("id"): x for x in r.get("questoes", []) if isinstance(x, dict)}
+        except RespostaCortada:
+            if len(grupo) == 1:
+                raise
+            log(f"   resposta longa demais para {len(grupo)} questões; dividindo o lote")
+            meio = len(grupo) // 2
+            return {**pedir(grupo[:meio]), **pedir(grupo[meio:])}
+
     for k in range(0, len(faltam), lote):
         grupo = faltam[k:k + lote]
-        usuario = "\n\n".join(f"### id: {i}\n{texto_curto(todas[i])}" for i in grupo)
-        r = cliente.json("temas", sistema, usuario)
-        recebidos = {x.get("id"): x for x in r.get("questoes", []) if isinstance(x, dict)}
+        recebidos = pedir(grupo)
         for i in grupo:
             x = recebidos.get(i)
             if not x or not x.get("temas"):
@@ -138,14 +151,26 @@ def relacionadas(qid, todas, catalogo, cliente, config, log=print):
             c = catalogo.get(i, {})
             linhas.append(f"- id: {i} | ano: {todas[i]['ano']} | temas: {'; '.join(c.get('temas', []))} | "
                           f"resumo: {c.get('resumo') or texto_curto(todas[i], 300)}")
-        r = cliente.json("relevancia", sistema, cab + "\nCANDIDATAS:\n" + "\n".join(linhas))
-        for x in r.get("relevantes", []) or []:
+        for x in _relevancia_dividindo(cliente, sistema, cab, grupo, linhas, log):
             if isinstance(x, dict) and x.get("id") in grupo:
                 escolhidas[x["id"]] = str(x.get("motivo", ""))[:300]
     ordem = sorted(escolhidas, key=lambda i: (todas[i]["ano"], todas[i]["numero"]))
     meta = {"metodo": "catalogo_de_temas+lexico+ia_v1", "questoes_da_banca_avaliadas": avaliadas,
             "candidatas_pela_triagem": len(candidatas), "relevantes": len(ordem), "triagem_truncada": truncado}
     return [{"id": i, "motivo": escolhidas[i]} for i in ordem], meta
+
+
+def _relevancia_dividindo(cliente, sistema, cab, grupo, linhas, log):
+    try:
+        r = cliente.json("relevancia", sistema, cab + "\nCANDIDATAS:\n" + "\n".join(linhas))
+        return r.get("relevantes", []) or []
+    except RespostaCortada:
+        if len(grupo) == 1:
+            raise
+        log(f"   resposta longa demais para {len(grupo)} candidatas; dividindo o lote")
+        m = len(grupo) // 2
+        return (_relevancia_dividindo(cliente, sistema, cab, grupo[:m], linhas[:m], log)
+                + _relevancia_dividindo(cliente, sistema, cab, grupo[m:], linhas[m:], log))
 
 
 def bloco_para_prompt(relevantes, todas):
