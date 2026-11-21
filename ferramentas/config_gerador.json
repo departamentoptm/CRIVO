@@ -10,7 +10,8 @@
   "relevancia": "deepseek-flash",
   "resolver_as_cegas": "deepseek-flash",
   "gerar": "deepseek-flash",
-  "verificar": "deepseek-flash"
+  "verificar": "deepseek-flash",
+  "reparar": "deepseek-flash"
  },
  "parametros_extras_por_modelo": {},
  "max_tokens": {
@@ -18,13 +19,27 @@
   "relevancia": 4000,
   "resolver_as_cegas": 800,
   "gerar": 12000,
-  "verificar": 4000
+  "verificar": 4000,
+  "reparar": 4000
  },
  "precos_usd_por_milhao_fora_do_pico": {
-  "deepseek-flash": {"entrada_cache": 0.003, "entrada": 0.15, "saida": 0.60}
+  "deepseek-flash": {
+   "entrada_cache": 0.003,
+   "entrada": 0.15,
+   "saida": 0.6
+  }
  },
  "multiplicador_no_pico": 2.0,
- "pico_utc_dias_uteis": [["01:00", "04:00"], ["06:00", "10:00"]],
+ "pico_utc_dias_uteis": [
+  [
+   "01:00",
+   "04:00"
+  ],
+  [
+   "06:00",
+   "10:00"
+  ]
+ ],
  "esperar_fora_do_pico": true,
  "orcamento_usd_por_execucao": 3.0,
  "historico": {
@@ -35,9 +50,22 @@
  "temas_questoes_por_chamada": 10,
  "qualidade": {
   "min_caracteres_total": 7000,
-  "min_caracteres_por_secao": {"2.1": 250, "2.2": 300, "2.3": 300, "2.4": 600, "2.5": 200, "2.6": 200,
-                               "2.7": 250, "2.8": 250, "2.9": 200, "2.10": 250, "2.11": 150, "2.12": 200,
-                               "2.13": 150, "2.14": 60},
+  "min_caracteres_por_secao": {
+   "2.1": 250,
+   "2.2": 300,
+   "2.3": 300,
+   "2.4": 600,
+   "2.5": 200,
+   "2.6": 200,
+   "2.7": 250,
+   "2.8": 250,
+   "2.9": 200,
+   "2.10": 250,
+   "2.11": 150,
+   "2.12": 200,
+   "2.13": 150,
+   "2.14": 60
+  },
   "tentativas_de_geracao": 3,
   "rodadas_de_verificacao": 2
  },

@@ -55,8 +55,9 @@ def texto_para_ia(q, com_gabarito):
     for l in LETRAS:
         if l in (q.get("alternativas") or {}):
             partes.append(f"{l}) {texto_puro(q['alternativas'][l])}")
-    if q.get("imagem_pendente"):
-        partes.append("[Esta questão depende de uma imagem que não está disponível. Não descreva a imagem.]")
+    if q.get("imagem_pendente") or "<img" in (q.get("extras_html") or ""):
+        partes.append("[Esta questão tem uma figura que você NÃO pode ver. Não descreva nem presuma o conteúdo da figura; "
+                      "se a resposta depender dela, diga isso explicitamente.]")
     if com_gabarito:
         g = q.get("gabarito")
         partes.append(f"GABARITO OFICIAL: {'alternativa ' + g if g in LETRAS else 'QUESTÃO ANULADA pela banca'}")
@@ -331,8 +332,10 @@ def cmd_gerar(args, config):
         for q in qs["questoes"]:
             if nums and q["numero"] not in nums:
                 continue
-            if q.get("imagem_pendente") and not args.incluir_com_imagem:
-                log(f"PULADA {q['id']}: imagem pendente (adicione a imagem ou use --incluir-com-imagem)"); continue
+            tem_figura = "<img" in (q.get("extras_html") or "") + (q.get("enunciado_html") or "")
+            if (q.get("imagem_pendente") or tem_figura) and not args.incluir_com_imagem:
+                motivo_img = "imagem pendente" if q.get("imagem_pendente") else "tem figura que o modelo de texto não vê"
+                log(f"PULADA {q['id']}: {motivo_img} (use --incluir-com-imagem para gerar mesmo assim)"); continue
             ok, motivo = precisa(q, cs.get(q["id"]), "todas" if nums else args.modo, args.forcar)
             if ok:
                 fila.append((ano, q["id"], motivo))

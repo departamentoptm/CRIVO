@@ -38,7 +38,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: gerar-correcoes        # nunca duas gerações ao mesmo tempo
+  group: dados-crivo            # nunca duas tarefas mexendo em dados/ ao mesmo tempo
   cancel-in-progress: false
 
 jobs:
