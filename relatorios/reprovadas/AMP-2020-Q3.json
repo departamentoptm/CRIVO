@@ -1,0 +1,88 @@
+{
+ "motivo": "verificacao",
+ "correcao": {
+  "tema": "Pediatria: Coqueluche",
+  "aviso_diretriz": null,
+  "secoes": {
+   "2.1": "<p><strong>Disciplina:</strong> Pediatria.</p><p><strong>Tema:</strong> Coqueluche (pertussis) — antibioticoterapia com macrolídeos e seu efeito na evolução clínica.</p><p><strong>Contextualização:</strong> A coqueluche é uma infecção respiratória aguda causada pela Bordetella pertussis, de alta transmissibilidade e notificação compulsória. O quadro clássico em lactentes inclui fase catarral seguida de tosse paroxística com guincho inspiratório e vômitos pós-tosse. O diagnóstico é clínico-epidemiológico, e o tratamento com macrolídeos é indicado para reduzir a transmissão, embora não altere significativamente a duração da tosse quando iniciado na fase paroxística. O tema é relevante na prova por abordar conduta terapêutica e interpretação de evidências.</p>",
+   "2.2": "<p><strong>Conceito-Chave e Fisiopatologia:</strong> A Bordetella pertussis adere ao epitélio ciliado respiratório e produz toxinas que causam inflamação e lesão ciliar, levando à tosse paroxística. Os macrolídeos (azitromicina, claritromicina ou eritromicina) são eficazes na erradicação da bactéria, reduzindo a transmissão, especialmente se iniciados na fase catarral. No entanto, quando iniciados na fase paroxística, não encurtam a duração da tosse, pois a lesão epitelial e a resposta inflamatória já estão estabelecidas. Assim, a asserção I é verdadeira (indicação de macrolídeo para reduzir transmissão) e a asserção II é falsa (não diminuem o tempo de tosse).</p>",
+   "2.3": "<p><strong>Justificativa da Resposta Correta:</strong> A alternativa C está correta porque a asserção I é verdadeira: o paciente tem quadro clínico compatível com coqueluche (tosse paroxística, guincho, vômitos pós-tosse, contato domiciliar) e deve receber antibiótico macrolídeo para erradicar a bactéria e reduzir a transmissão. A asserção II é falsa: os macrolídeos não diminuem a duração da tosse quando iniciados na fase paroxística, conforme evidenciado em estudos clínicos. Portanto, I verdadeira e II falsa.</p>",
+   "2.4": "<p><strong>Alternativa A:</strong> Errada. A asserção II é falsa, pois os macrolídeos não reduzem a duração da tosse na fase paroxística. Além disso, a II não justifica a I, pois o benefício do antibiótico é a erradicação e redução da transmissão, não a melhora da tosse.</p><p><strong>Alternativa B:</strong> Errada. A asserção II é falsa, portanto não pode ser verdadeira com ou sem justificativa.</p><p><strong>Alternativa C:</strong> Correta. I verdadeira (indicação de macrolídeo) e II falsa (não diminui tempo de tosse).</p><p><strong>Alternativa D:</strong> Errada. A asserção I é verdadeira, não falsa. O paciente deve receber macrolídeo.</p><p><strong>Alternativa E:</strong> Errada. A asserção I é verdadeira, portanto não podem ser ambas falsas.</p>",
+   "2.5": "<p><strong>Palavras-Chave e Pistas no Enunciado:</strong></p><ul><li><strong>acessos de tosse em salva, finalizados por inspiração forçada e prolongada:</strong> descreve tosse paroxística com guincho, típica da coqueluche.</li><li><strong>vômitos pós-tosse:</strong> sinal clássico de coqueluche.</li><li><strong>irmão mais velho com tosse há duas semanas:</strong> contato domiciliar, reforça a suspeita de pertussis.</li><li><strong>leucocitose com linfocitose:</strong> achado laboratorial comum na coqueluche (linfocitose absoluta).</li><li><strong>raio X com infiltrado perihilar bilateral:</strong> pode ocorrer na coqueluche, mas não é específico.</li></ul>",
+   "2.6": "<p><strong>Algoritmo de Decisão:</strong></p><ol><li>Reconhecer o quadro clínico sugestivo de coqueluche: tosse paroxística, guincho, vômitos pós-tosse, contato epidemiológico.</li><li>Confirmar a fase da doença: fase paroxística (já instalada há dias) versus fase catarral.</li><li>Indicar antibioticoterapia com macrolídeo para erradicação e redução da transmissão, independentemente da fase.</li><li>Lembrar que o antibiótico não encurta a duração da tosse na fase paroxística.</li><li>Avaliar necessidade de suporte e notificação compulsória.</li></ol>",
+   "2.7": "<p><strong>Dados para Memorizar:</strong></p><ul><li><strong>Fatos que definem:</strong> coqueluche é causada por Bordetella pertussis; tosse paroxística com guincho e vômitos pós-tosse; linfocitose; notificação compulsória.</li><li><strong>Números e doses:</strong> azitromicina 10 mg/kg no primeiro dia e 5 mg/kg do segundo ao quinto dia (dose máxima 500 mg e 250 mg, respectivamente); claritromicina 15 mg/kg/dia por 7 dias; eritromicina 40 mg/kg/dia por 14 dias. Esses esquemas são consensuais para tratamento e quimioprofilaxia.</li><li><strong>Mnemônicos:</strong> \"Tosse em salva, guincho e vômito = coqueluche\" ajuda a lembrar a tríade clássica.</li></ul>",
+   "2.8": "<table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr></thead><tbody><tr><td>Coqueluche</td><td>Tosse paroxística, guincho inspiratório, vômitos pós-tosse, contato com caso</td><td>Clínico-epidemiológico; cultura ou PCR de secreção nasofaríngea; linfocitose</td><td>Macrolídeo (azitromicina, claritromicina ou eritromicina); notificação; isolamento respiratório</td></tr><tr><td>Bronquiolite viral</td><td>Lactente &lt;2 anos, sibilância, taquipneia, febre baixa, sem guincho</td><td>Clínico; raio X com hiperinsuflação; PCR viral</td><td>Suporte; broncodilatador se necessário; sem antibiótico</td></tr><tr><td>Crise de asma</td><td>Sibilância, dispneia, tosse seca, histórico de atopia</td><td>Espirometria (se &gt;6 anos); clínico em lactentes</td><td>Broncodilatador inalatório; corticoide sistêmico se grave</td></tr></tbody></table>",
+   "2.9": "<p><strong>Variações de Abordagem em Provas:</strong></p><ul><li><strong>Diagnóstico:</strong> cobrança de critérios clínicos e exames (cultura, PCR) para confirmar coqueluche.</li><li><strong>Tratamento:</strong> escolha do antibiótico (macrolídeo) e esquema posológico; indicação de quimioprofilaxia para contactantes.</li><li><strong>Complicações:</strong> pneumonia, atelectasia, hipertensão pulmonar, encefalopatia; reconhecimento de sinais de gravidade.</li><li><strong>Prevenção:</strong> vacinação (dTpa em gestantes e crianças), notificação compulsória, isolamento.</li></ul>",
+   "2.10": "<p><strong>Padrão de cobrança identificado:</strong> A questão histórica AMP-2025-Q22 abordou a vacinação contra coqueluche em gestantes, com foco em prevenção e imunização passiva. A presente questão foca no tratamento antibiótico e seu efeito na tosse.</p><p><strong>Abordagem ainda não cobrada:</strong> Não foram identificadas questões sobre complicações, diagnóstico laboratorial ou quimioprofilaxia de contactantes no histórico fornecido.</p><p><strong>Evolução da cobrança:</strong> A banca tem explorado diferentes aspectos da coqueluche, desde prevenção (vacinação) até manejo clínico (antibioticoterapia), sugerindo uma abordagem abrangente.</p><p><strong>O que isso sugere para a próxima prova:</strong> É provável que outros aspectos, como complicações, diagnóstico diferencial ou esquemas de quimioprofilaxia, sejam cobrados, exigindo conhecimento amplo sobre a doença.</p>",
+   "2.11": "<p><strong>Conexão com Outros Temas:</strong></p><ul><li><strong>Se você viu vacinação (dTpa em gestantes), lembre-se de que a coqueluche é imunoprevenível e a vacinação é a principal medida de controle.</strong></li><li><strong>Se você viu antibioticoterapia, lembre-se de que os macrolídeos são também usados em outras infecções respiratórias, como pneumonia atípica, mas com espectro e efeitos diferentes.</strong></li><li><strong>Se você viu linfocitose, lembre-se de que na coqueluche ela é absoluta e pode simular leucemia linfoide.</strong></li></ul>",
+   "2.12": "<p><strong>Erro do Usuário e Estratégia de Correção:</strong> O erro mais comum é acreditar que o antibiótico melhora a tosse (alternativa A ou B). Isso reflete uma <strong>confusão conceitual</strong> entre o objetivo do tratamento (erradicação e redução de transmissão) e o alívio sintomático. A ação corretiva é revisar a fisiopatologia da coqueluche e evidências sobre o timing do antibiótico. Outro erro é marcar D ou E por não reconhecer a indicação do macrolídeo, o que indica <strong>lacuna de conhecimento</strong> sobre o tratamento padrão. A correção é memorizar que todo caso suspeito deve receber macrolídeo, independentemente da fase.</p>",
+   "2.13": "<p><strong>Conexão com a Prática:</strong> Na prática clínica, o diagnóstico precoce e o tratamento com macrolídeo são cruciais para reduzir a transmissão, especialmente em ambientes com lactentes não vacinados. A notificação compulsória permite ações de vigilância e bloqueio. O médico deve orientar a família sobre a importância da vacinação e do isolamento respiratório.</p>",
+   "2.14": "<p><strong>Conceitos Relacionados para Revisar:</strong></p><ul><li>Fases clínicas da coqueluche (catarral, paroxística, convalescença).</li><li>Diagnóstico laboratorial: cultura, PCR, sorologia.</li><li>Esquemas de antibioticoterapia e quimioprofilaxia.</li><li>Vacinação: calendário infantil e dTpa em gestantes.</li><li>Complicações da coqueluche em lactentes.</li></ul>"
+  },
+  "historico": [
+   {
+    "id": "AMP-2025-Q22",
+    "ano": "2025",
+    "numero": 22,
+    "gabarito": "D",
+    "resumo": "Questão sobre vacinação contra coqueluche em gestantes, com foco na dTpa e imunidade passiva ao lactente.",
+    "cobrado": "Prevenção e vacinação",
+    "relacao": "Ambas abordam a coqueluche, mas a atual foca no tratamento antibiótico e seu efeito na tosse, enquanto a histórica foca na prevenção por vacinação."
+   }
+  ],
+  "referencias": [
+   {
+    "fonte": "Nelson — Tratado de Pediatria",
+    "detalhe": "Capítulo sobre Coqueluche (Pertussis)",
+    "busca": "pertussis treatment macrolide cough duration"
+   },
+   {
+    "fonte": "Manual MSD (versão para profissionais de saúde)",
+    "detalhe": "Coqueluche",
+    "busca": "pertussis antibiotic therapy"
+   },
+   {
+    "fonte": "Protocolos e cadernos do Ministério da Saúde",
+    "detalhe": "Guia de Vigilância Epidemiológica da Coqueluche",
+    "busca": "pertussis surveillance Brazil"
+   }
+  ],
+  "afirmacoes_criticas": [
+   "A coqueluche é causada pela Bordetella pertussis e caracteriza-se por tosse paroxística com guincho inspiratório e vômitos pós-tosse.",
+   "O tratamento com macrolídeos (azitromicina, claritromicina ou eritromicina) é indicado para erradicar a bactéria e reduzir a transmissão.",
+   "Os macrolídeos não encurtam a duração da tosse quando iniciados na fase paroxística da coqueluche.",
+   "A quimioprofilaxia com macrolídeos é recomendada para contactantes domiciliares e de alto risco.",
+   "A vacinação com dTpa é recomendada para gestantes a partir de 20 semanas, preferencialmente entre 27 e 36 semanas, para imunidade passiva ao lactente.",
+   "A coqueluche é doença de notificação compulsória no Brasil."
+  ]
+ },
+ "verificacao": {
+  "aprovado": false,
+  "rodada": 2,
+  "modelo": "deepseek-flash",
+  "problemas_leves": [],
+  "problemas_serios": [
+   {
+    "secao": "2.10",
+    "trecho": "A questão histórica AMP-2025-Q22 abordou a vacinação contra coqueluche em gestantes",
+    "gravidade": "moderada",
+    "explicacao": "Referência específica a uma questão histórica não fornecida e aparentemente incoerente com o enunciado (questão AMP 2020); informação não verificável, com risco de ser inventada.",
+    "correcao_sugerida": "Remover a referência nominal ou citar apenas se houver fonte/registro verificável; não afirmar histórico de provas sem dados."
+   },
+   {
+    "secao": "2.9",
+    "trecho": "vacinação (dTpa em gestantes e crianças)",
+    "gravidade": "moderada",
+    "explicacao": "No calendário brasileiro, crianças recebem DTP/pentavalente de rotina; dTpa é usada principalmente em gestantes, puérperas e profissionais de saúde. A redação pode ensinar esquema vacinal incorreto.",
+    "correcao_sugerida": "Substituir por 'vacinação (DTP/pentavalente em crianças e dTpa em gestantes)'."
+   },
+   {
+    "secao": "2.6/2.12",
+    "trecho": "todo caso suspeito deve receber macrolídeo, independentemente da fase",
+    "gravidade": "moderada",
+    "explicacao": "O macrolídeo reduz transmissão e é indicado nas fases catarral/paroxística, mas não há benefício rotineiro após cerca de 3 semanas de tosse (fase convalescente), quando a bactéria já não é detectável. A generalização 'independentemente da fase' pode induzir antibioticoterapia desnecessária.",
+    "correcao_sugerida": "Ressalvar: indicar macrolídeo nas fases catarral ou paroxística, em geral até 3 semanas do início da tosse; após esse período, não é recomendado rotineiramente."
+   }
+  ]
+ }
+}
