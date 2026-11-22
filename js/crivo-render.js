@@ -19,7 +19,7 @@
         pastaDados: 'dados',
         // Link do Google Forms para "Reportar erro". Use {id} onde deve entrar o ID da questão
         // (ex.: '...viewform?usp=pp_url&entry.123456={id}'). Vazio = usa e-mail.
-        urlReportarErro: '',
+        urlReportarErro: '',      // cole aqui o link pré-preenchido do formulário (veja o LEIAME)
         emailContato: 'departamento.ptm@gmail.com',
     };
 
@@ -186,7 +186,8 @@
     }
 
     function linkReportar(id, banca, ano, numero) {
-        if (CONFIG.urlReportarErro) return CONFIG.urlReportarErro.replace('{id}', encodeURIComponent(id));
+        /* link pré-preenchido do Formulário Google com {id} no campo da questão (o Google grava como %7Bid%7D) */
+        if (CONFIG.urlReportarErro) return CONFIG.urlReportarErro.replace(/\{id\}|%7Bid%7D/gi, encodeURIComponent(id));
         const assunto = `CRIVO - erro na questão ${id}`;
         const corpo = `Questão: ${banca} ${ano}, nº ${numero} (${id})\n\nO que está errado:\n\nFonte que confirma (se tiver):\n`;
         return `mailto:${CONFIG.emailContato}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
@@ -199,7 +200,9 @@
             excluida: 'Questão excluída pela banca do cálculo do resultado (desajuste do modelo estatístico), sem gabarito.',
             anulada_administrativamente: 'Questão anulada administrativamente pela banca.',
         }[q.anulacao] || 'Questão anulada pela banca.';
-        if (anulada) itens.push(['anulada', motivo + ' Como na prova, a pontuação conta para todos: qualquer alternativa confirmada é registrada como acerto.']);
+        if (anulada) itens.push(['anulada', motivo + (q.anulacao === 'excluida'
+            ? ' Você pode respondê-la para treinar, mas ela não entra nas suas estatísticas nem na revisão espaçada.'
+            : ' Como na prova, a pontuação conta para todos: qualquer alternativa confirmada é registrada como acerto.')]);
         for (const a of alertas) if (AVISOS_ALERTA[a]) itens.push([a, AVISOS_ALERTA[a]]);
         return itens.map(([cls, txt]) => `<div class="crivo-aviso crivo-aviso-${esc(cls)}"><strong>Atenção:</strong> ${esc(txt)}</div>`).join('');
     }

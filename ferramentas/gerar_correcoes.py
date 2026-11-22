@@ -31,13 +31,12 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from crivo_comum import (gravar_json, ler_questoes, ler_correcoes, arq_correcoes, limpar_html,
+from crivo_comum import (gravar_json, ler_json, ler_questoes, ler_correcoes, arq_correcoes, limpar_html,
                          texto_puro, listar_edicoes, LETRAS)
 from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionadas, bloco_para_prompt,
                        linhas_da_tabela, ROTULO_TIPO)
 import referencias as refs_mod
-from ia_cliente import (ClienteAPI, Contador, OrcamentoEsgotado, ErroAPI, esperar_fora_do_pico,
-                        em_horario_de_pico)
+from ia_cliente import ClienteAPI, Contador, OrcamentoEsgotado, ErroAPI
 
 SECOES_IA = [f"2.{k}" for k in range(1, 15)]          # 2.15 (referências) é montada pelo script
 
@@ -184,7 +183,8 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
                     f"{q['gabarito']} correta. Se a divergência se deve a mudança de diretriz, use 'aviso_diretriz'.")
     if reportes:
         base.append("\nERROS APONTADOS POR ESTUDANTES NA CORREÇÃO ANTERIOR (verifique e corrija se procederem):\n- "
-                    + "\n- ".join(str(x.get("texto", x))[:500] for x in reportes))
+                    + "\n- ".join((str(x.get("texto", x))[:500] + (f" (fonte indicada: {str(x['fonte'])[:200]})" if isinstance(x, dict) and x.get("fonte") else ""))
+                                         if isinstance(x, dict) else str(x)[:500] for x in reportes))
     anos = meta_hist.get("anos") or ["?", "?"]
     base.append(f"\nHISTÓRICO — fatos já contados pelo sistema (use estes números, não conte de novo): acervo de "
                 f"{meta_hist['provas_no_acervo']} provas da banca ({anos[0]}–{anos[1]}); {meta_hist['relevantes']} questões "
@@ -303,6 +303,48 @@ def criar_cliente(args, config, contador):
     return ClienteAPI(config, contador, log)
 
 
+# ------------------------------------------------------------------ teto acumulado (dados/gastos.json)
+def arq_gastos(dados):
+    return os.path.join(dados, "gastos.json")
+
+
+def ler_gastos(dados, config):
+    g = ler_json(arq_gastos(dados), None) or {}
+    g.setdefault("formato", "crivo-gastos")
+    g.setdefault("teto_usd", config.get("teto_acumulado_usd", 30.0))
+    g.setdefault("gasto_usd", 0.0)
+    g.setdefault("correcoes_geradas", 0)
+    g.setdefault("execucoes", [])
+    return g
+
+
+def orcamento_da_execucao(args, config):
+    """Menor valor entre o pedido para esta execução e o que resta do teto acumulado do projeto."""
+    pedido = args.orcamento if getattr(args, "orcamento", None) is not None else config["orcamento_usd_por_execucao"]
+    if args.simular:
+        return pedido
+    g = ler_gastos(args.dados, config)
+    resta = round(g["teto_usd"] - g["gasto_usd"], 4)
+    if resta <= 0.01:
+        raise SystemExit(f"ERRO: teto acumulado do projeto atingido (US$ {g['gasto_usd']:.2f} de US$ {g['teto_usd']:.2f}, "
+                         f"em {arq_gastos(args.dados)}). Nada foi chamado. Para continuar, aumente 'teto_usd' nesse arquivo.")
+    if resta < pedido:
+        log(f"Teto acumulado: restam US$ {resta:.2f} de US$ {g['teto_usd']:.2f}; esta execução fica limitada a esse valor.")
+    return min(pedido, resta)
+
+
+def registrar_gasto(args, config, contador, descricao, geradas=0):
+    if args.simular or (contador.custo <= 0 and not geradas):
+        return
+    g = ler_gastos(args.dados, config)
+    g["gasto_usd"] = round(g["gasto_usd"] + contador.custo, 4)
+    g["correcoes_geradas"] += geradas
+    g["execucoes"].append({"data": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
+                           "acao": descricao, "custo_usd": round(contador.custo, 4), "chamadas": contador.chamadas})
+    gravar_json(arq_gastos(args.dados), g)
+    log(f"Gasto acumulado do projeto: US$ {g['gasto_usd']:.2f} de US$ {g['teto_usd']:.2f}.")
+
+
 def cmd_modelos(args, config):
     c = ClienteAPI(config, Contador(config, 0), log)
     log("Modelos disponíveis na sua conta:")
@@ -312,12 +354,15 @@ def cmd_modelos(args, config):
 
 
 def cmd_catalogar(args, config):
-    contador = Contador(config, args.orcamento if args.orcamento is not None else config["orcamento_usd_por_execucao"])
+    contador = Contador(config, orcamento_da_execucao(args, config))
     cliente = criar_cliente(args, config, contador)
     try:
         atualizar_catalogo(args.dados, args.banca, cliente, config, log)
+    except OrcamentoEsgotado as e:
+        log(f"\nPARADO: {e}. O que já foi catalogado está gravado; rode de novo para continuar."); return 3
     finally:
         log(contador.resumo())
+        registrar_gasto(args, config, contador, f"catalogar {args.banca}")
 
 
 def cmd_atualizar_referencias(args, config):
@@ -352,11 +397,47 @@ def cmd_atualizar_referencias(args, config):
     return 0
 
 
+def cmd_amostra(args, config):
+    """Junta num arquivo as correções sorteadas para conferência humana (1 a cada 50), para enviar ao Claude
+    numa conversa. Com --conferidas ID ..., marca essas como conferidas."""
+    pendentes, marcadas = [], 0
+    for b, ano in listar_edicoes(args.dados, args.banca):
+        cs = ler_correcoes(args.dados, b, ano)
+        qs = {q["id"]: dict(q, banca=b, ano=str(ano)) for q in ler_questoes(args.dados, b, ano)["questoes"]}
+        mudou = False
+        for qid, c in cs["correcoes"].items():
+            rev = c.get("revisao") or {}
+            if rev.get("amostra") != "pendente":
+                continue
+            if args.conferidas and qid in args.conferidas:
+                rev["amostra"] = "conferida"; mudou = True; marcadas += 1
+                continue
+            pendentes.append((qs[qid], c))
+        if mudou:
+            gravar_json(arq_correcoes(args.dados, b, ano), cs)
+    if marcadas:
+        log(f"{marcadas} correção(ões) marcadas como conferidas.")
+    os.makedirs(args.relatorios, exist_ok=True)
+    caminho = os.path.join(args.relatorios, f"amostra_{args.banca}.md")
+    partes = [f"# Amostra para conferência — {args.banca}", "",
+              "Envie este arquivo ao Claude numa conversa e peça: \"confira estas correções do CRIVO; aponte erros "
+              "factuais e devolva o texto corrigido de cada seção com problema\".", ""]
+    for q, c in pendentes:
+        partes += [f"## {q['id']} (gabarito oficial: {q.get('gabarito') or 'anulada'})", "",
+                   texto_para_ia(q, com_gabarito=True), ""]
+        for n in sorted(c.get("secoes_html", {}), key=lambda x: int(x.split(".")[1])):
+            partes += [f"**{n}**", texto_puro(re.sub(r"</(p|li|tr)>", "\n", c["secoes_html"][n])), ""]
+    with open(caminho, "w", encoding="utf-8") as f:
+        f.write("\n".join(partes) + "\n")
+    log(f"{len(pendentes)} correção(ões) aguardando conferência em {caminho}")
+    return 0
+
+
 def cmd_gerar(args, config):
     inicio = dt.datetime.now(dt.timezone.utc)
-    if args.nao_esperar_pico:
+    if args.nao_esperar_pico and args.simular:
         config["esperar_fora_do_pico"] = False
-    contador = Contador(config, args.orcamento if args.orcamento is not None else config["orcamento_usd_por_execucao"])
+    contador = Contador(config, orcamento_da_execucao(args, config))
     cliente = criar_cliente(args, config, contador)
     edicoes = [a for b, a in listar_edicoes(args.dados, args.banca) if not args.ano or a in args.ano]
     if not edicoes:
@@ -382,14 +463,10 @@ def cmd_gerar(args, config):
     if not fila:
         return 0
     if not args.simular:
-        pico, _ = em_horario_de_pico(config)
-        if pico:
-            esperar_fora_do_pico(config, log)
-
-    if not args.simular:
         cliente.testar(["temas", "relevancia", "resolver_as_cegas", "gerar", "verificar"])
     todas = questoes_da_banca(args.dados, args.banca)
-    linhas, saida = [], 0
+    linhas, saida, geradas = [], 0, 0
+    ja_geradas = ler_gastos(args.dados, config)["correcoes_geradas"]
     try:
         catalogo = atualizar_catalogo(args.dados, args.banca, cliente, config, log)["questoes"]
         log(f"Catálogo de temas pronto: {len(catalogo)} questões.")
@@ -404,6 +481,10 @@ def cmd_gerar(args, config):
             except ErroAPI as e:
                 log(f"   ERRO: {e}"); linhas.append((qid, "erro", str(e)[:120])); saida = 2; continue
             if entrada:
+                geradas += 1
+                if (ja_geradas + geradas) % config.get("amostra_a_cada", 50) == 1:
+                    entrada["revisao"]["amostra"] = "pendente"      # 1 a cada 50: conferida na conversa
+                    log("   (escolhida para a amostra de conferência humana)")
                 cs_arq = ler_correcoes(args.dados, args.banca, ano)   # relê: outra etapa pode ter gravado
                 cs_arq["correcoes"][qid] = entrada
                 gravar_json(arq_correcoes(args.dados, args.banca, ano), cs_arq)
@@ -420,6 +501,8 @@ def cmd_gerar(args, config):
         log(f"\nPARADO: {e}. Rode de novo para continuar de onde parou."); saida = 3
     finally:
         log("\n" + contador.resumo())
+        registrar_gasto(args, config, contador, f"gerar {args.banca} {' '.join(args.ano or [])} {args.questoes or args.modo}".strip(),
+                        geradas)
         if linhas:
             log(f"Relatório: {escrever_relatorio(args.relatorios, linhas, contador, inicio)}")
     return saida
@@ -435,6 +518,8 @@ def main():
     sub.add_parser("modelos", help="lista os modelos disponíveis na sua conta")
     ar = sub.add_parser("atualizar-referencias", help="refaz a seção 2.15 com artigos reais do PubMed (sem IA)")
     ar.add_argument("--banca", required=True)
+    am = sub.add_parser("amostra", help="arquivo com as correções sorteadas para conferência humana")
+    am.add_argument("--banca", required=True); am.add_argument("--conferidas", nargs="*", default=[])
     c = sub.add_parser("catalogar", help="cataloga os temas de todas as questões da banca")
     c.add_argument("--banca", required=True); c.add_argument("--orcamento", type=float)
     g = sub.add_parser("gerar", help="gera correções")
@@ -455,6 +540,8 @@ def main():
             return cmd_modelos(args, config) or 0
         if args.cmd == "catalogar":
             return cmd_catalogar(args, config) or 0
+        if args.cmd == "amostra":
+            return cmd_amostra(args, config)
         if args.cmd == "atualizar-referencias":
             return cmd_atualizar_referencias(args, config)
         return cmd_gerar(args, config)

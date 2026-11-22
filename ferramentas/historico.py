@@ -10,6 +10,7 @@ Economia de tokens:
     um motivo curto. A TABELA é montada pelo código com o catálogo: a IA de geração não reescreve nada disso.
 """
 import math
+import re
 import os
 import sys
 
@@ -45,6 +46,13 @@ def texto_curto(q, limite=1800):
     return t if len(t) <= limite else t[:limite] + " [...]"
 
 
+def impressao(q):
+    """Impressão digital do texto da questão: muda quando o enunciado ou as alternativas mudam."""
+    import hashlib
+    t = re.sub(r"\s+", " ", texto_da_questao(q)).strip().lower()
+    return hashlib.sha1(t.encode("utf-8")).hexdigest()[:12]
+
+
 def _disciplina_valida(valor, config):
     perm = {d.lower(): d for d in config.get("disciplinas_permitidas", [])}
     return perm.get(str(valor or "").strip().lower())
@@ -75,9 +83,13 @@ def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
     catalogo = ler_json(caminho, {"formato": "crivo-temas", "versao": 1, "banca": banca, "questoes": {}})
     todas = questoes_da_banca(dados, banca)
 
-    faltam = [i for i in (ids or todas) if i in todas and i not in catalogo["questoes"]]
+    # cataloga o que falta e REFAZ o que foi catalogado com outro texto (ou antes de existir a impressão digital)
+    faltam = [i for i in (ids or todas) if i in todas and
+              (catalogo["questoes"].get(i) or {}).get("texto") != impressao(todas[i])]
     if faltam:
-        log(f"Catálogo de temas de {banca}: {len(faltam)} questão(ões) a catalogar (feito uma única vez).")
+        novas = sum(1 for i in faltam if i not in catalogo["questoes"])
+        log(f"Catálogo de temas de {banca}: {novas} questão(ões) novas e {len(faltam) - novas} com texto "
+            f"diferente do catalogado (cada texto é catalogado uma única vez).")
         sistema = prompt("temas.md", config)
         montar = lambda g: "\n\n".join(f"### id: {i}\n{texto_curto(todas[i])}" for i in g)
         feitas = 0
@@ -91,7 +103,8 @@ def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
                 catalogo["questoes"][i] = {"temas": [str(t)[:120] for t in x["temas"][:6]],
                                            "resumo": str(x.get("resumo", ""))[:300],
                                            "abordagem": str(x.get("abordagem", ""))[:60],
-                                           "disciplina": _disciplina_valida(x.get("disciplina"), config)}
+                                           "disciplina": _disciplina_valida(x.get("disciplina"), config),
+                                           "texto": impressao(todas[i])}
             feitas += len(grupo)
             gravar_json(caminho, catalogo)
             log(f"   catalogadas {feitas}/{len(faltam)}")

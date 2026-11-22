@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       acao:
-        description: "gerar = escreve correções; catalogar = cataloga temas e disciplinas de todas as provas (uma vez, ~US$ 0,25); atualizar-referencias = refaz só a 2.15 com artigos reais (sem custo)"
+        description: "gerar = escreve correções; catalogar = temas e disciplinas (uma vez); atualizar-referencias = refaz a 2.15 (sem custo); amostra = arquivo com as correções sorteadas para conferência"
         type: choice
-        options: [gerar, catalogar, atualizar-referencias]
+        options: [gerar, catalogar, atualizar-referencias, amostra]
         default: gerar
       banca:
         description: "Banca (ex.: AMP)"
@@ -33,6 +33,9 @@ on:
       orcamento:
         description: "Teto de custo em US$ desta execução"
         default: "1.00"
+      conferidas:
+        description: "Só para a ação amostra: ids já conferidos, separados por espaço (ex.: AMP-2020-Q3)"
+        required: false
       simular:
         description: "Simular (não chama a API, não abre PR) — para testar"
         type: boolean
@@ -68,9 +71,13 @@ jobs:
           ORCAMENTO: ${{ inputs.orcamento }}
           SIMULAR: ${{ inputs.simular }}
           ACAO: ${{ inputs.acao }}
+          CONFERIDAS: ${{ inputs.conferidas }}
         run: |
           if [ "$ACAO" = "atualizar-referencias" ]; then
             args=(atualizar-referencias --banca "$BANCA")
+          elif [ "$ACAO" = "amostra" ]; then
+            args=(amostra --banca "$BANCA")
+            [ -n "$CONFERIDAS" ] && args+=(--conferidas $CONFERIDAS)
           elif [ "$ACAO" = "catalogar" ]; then
             args=(catalogar --banca "$BANCA" --orcamento "$ORCAMENTO")
           else
@@ -89,10 +96,11 @@ jobs:
             echo "## Resultado da geração (código $codigo)"
             case $codigo in
               0) echo "Concluído sem erros." ;;
+              1) echo "**Nada foi feito:** veja a mensagem abaixo (ex.: teto acumulado do projeto atingido)." ;;
               2) echo "**Houve erro.** Leia as linhas com ERRO abaixo; as dicas dizem o que ajustar." ;;
               3) echo "Parou no teto de orçamento. Rode de novo para continuar de onde parou." ;;
             esac
-            echo; echo '```'; grep -E "ERRO|PULADA|fila|histórico|verificação|referências|Disciplina|GRAVADA|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
+            echo; echo '```'; grep -E "ERRO|Nada|PULADA|fila|histórico|verificação|referências|Disciplina|GRAVADA|amostra|Gasto acumulado|Teto|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Abrir pull request com o resultado

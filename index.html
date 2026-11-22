@@ -510,6 +510,18 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
     box-shadow: 0 8px 20px rgba(22,163,74,.35);
 }
 .home-btn-start:hover:not(:disabled) { box-shadow: 0 12px 26px rgba(22,163,74,.45); }
+.home-btn-review { background: linear-gradient(90deg, #0f766e, #115e59); }
+.auth-hint { color: var(--muted); font-size: .78rem; margin: .1rem 0 .2rem; line-height: 1.35; }
+.revisao-conta { font-weight: 700; color: #0f766e; }
+.revisao-painel { position: fixed; left: 50%; transform: translateX(-50%); bottom: 72px; z-index: 1000;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; max-width: min(96vw, 680px);
+    background: #ecfdf5; border: 1px solid #99d6c4; color: #134e4a; border-radius: 10px; padding: .45rem .6rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,.15); font-size: .85rem; }
+.revisao-painel[hidden] { display: none; }
+.revisao-painel button { border: 1px solid #0f766e; background: #fff; color: #0f766e; border-radius: 8px;
+    padding: .25rem .55rem; cursor: pointer; font-size: .82rem; }
+.revisao-painel button small { color: #4b5563; font-size: .72rem; }
+.revisao-painel button.fechar { border: none; background: transparent; font-size: 1.1rem; padding: 0 .3rem; margin-left: auto; }
 .home-btn-secondary {
     background: #f2f5fc; color: var(--navy);
     box-shadow: inset 0 0 0 1.5px var(--line-strong);
@@ -1006,8 +1018,9 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
             <div class="auth-title">CRIVO - UNIOESTE</div>
 
             <div id="loginArea" class="auth-form">
-                <p class="auth-lead">Informe o seu RA para entrar</p>
-                <input type="text" id="raInput" class="auth-input" placeholder="RA (somente números)" inputmode="numeric" autocomplete="off">
+                <p class="auth-lead">Digite um nome, apelido ou RA para entrar</p>
+                <input type="text" id="raInput" class="auth-input" placeholder="Nome, apelido ou RA" autocomplete="nickname" maxlength="60">
+                <p class="auth-hint">Use sempre o mesmo para reencontrar o seu progresso. Para usá-lo em outros aparelhos, sincronize com o Google Drive.</p>
                 <div class="auth-msg" id="loginMsg"></div>
                 <button class="auth-btn" id="loginBtn">Entrar</button>
             </div>
@@ -1018,6 +1031,7 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                 <div class="auth-msg" id="homeMsg"></div>
                 <div class="home-buttons">
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
+                    <button class="auth-btn home-btn-review" id="revisaoBtnHome" title="Questões que você errou ou marcou para revisar, nos intervalos calculados pelo FSRS">🔁 Revisão espaçada</button>
                     <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
                     <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
                     <button class="auth-btn home-btn-secondary" id="driveBtnHome" type="button" title="Salva e carrega o seu progresso na sua conta Google Drive">☁️ Sincronizar com Google Drive</button>
@@ -1069,6 +1083,8 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                 <button class="icon-btn bar-toggle" id="toggleBottomBtn" type="button" title="Ocultar barra inferior" aria-label="Ocultar barra inferior">▾</button>
                 <div class="bottom-filters">
                     <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
+                    <label title="Questões que você errou ou marcou para revisar, no dia certo da revisão"><input type="checkbox" id="soRevisao"> 🔁 Revisões pendentes <span class="revisao-conta" id="revisaoConta"></span></label>
+                    <label title="Ordem aleatória (a mesma até você desmarcar e marcar de novo)"><input type="checkbox" id="embaralharChk"> 🔀 Embaralhar</label>
                     <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
                     <span class="pos-indicator" id="posIndicator" title="Questão atual / total">0/0</span>
                 </div>
@@ -1122,9 +1138,8 @@ let currentBlobUrl = null;
 let progressFrom = 'home';
 let loadingYear = false;
 let currentRA = null;
-let alunos = null;
 let dirty = false;
-let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {} };
+let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [] };
 
 let disciplinas = {};
 let disciplinasLoaded = false;
@@ -1152,7 +1167,10 @@ let filtros = {
     anos: [],
     disciplina: '',
     somenteNaoRealizadas: false,
-    maxQuestoes: 0
+    maxQuestoes: 0,
+    revisao: false,
+    embaralhar: false,
+    semente: 0
 };
 
 const PALETA_CORES = [
@@ -1278,6 +1296,7 @@ function lerBackup(ra) {
         if (v && v.estado) {
             if (!Array.isArray(v.grifados)) v.grifados = [];
             if (!v.resetados || typeof v.resetados !== 'object') v.resetados = {};
+            if (!Array.isArray(v.avaliacoes)) v.avaliacoes = [];
             return v;
         }
         return null;
@@ -1288,7 +1307,8 @@ function normalizar(d) {
     const p = { estado: {}, ultimaPosicao: d.ultimaPosicao || null,
                 registro: (Array.isArray(d.registro) ? d.registro : []).filter(e => e && e.prova && e.ano && e.questao && e.opcao),
                 grifados: Array.isArray(d.grifados) ? d.grifados : [],
-                resetados: (d.resetados && typeof d.resetados === 'object') ? d.resetados : {} };
+                resetados: (d.resetados && typeof d.resetados === 'object') ? d.resetados : {},
+                avaliacoes: Array.isArray(d.avaliacoes) ? d.avaliacoes.filter(a => a && a.data && a.prova && a.ano && a.questao && a.nota) : [] };
     if (p.registro.length) p.registro.forEach(ev => aplicarEvento(p.estado, ev));
     else if (d.estado) p.estado = d.estado;
     return p;
@@ -1302,7 +1322,7 @@ function salvarFiltros() {
 function garantirFiltros() { if (filtrosCarregadosPara !== currentRA) { lerFiltros(); filtrosCarregadosPara = currentRA; } }
 function lerFiltros() {
     if (!currentRA) return;
-    filtros = { bancas: [], anos: [], disciplina: '', somenteNaoRealizadas: false, maxQuestoes: 0 };
+    filtros = { bancas: [], anos: [], disciplina: '', somenteNaoRealizadas: false, maxQuestoes: 0, revisao: false, embaralhar: false, semente: 0 };
     try {
         const v = JSON.parse(localStorage.getItem(filtrosKey(currentRA)));
         if (v && typeof v === 'object') {
@@ -1311,7 +1331,10 @@ function lerFiltros() {
                 anos: Array.isArray(v.anos) ? v.anos : [],
                 disciplina: v.disciplina || '',
                 somenteNaoRealizadas: !!v.somenteNaoRealizadas,
-                maxQuestoes: parseInt(v.maxQuestoes) || 0
+                maxQuestoes: parseInt(v.maxQuestoes) || 0,
+                revisao: !!v.revisao,
+                embaralhar: !!v.embaralhar,
+                semente: parseInt(v.semente) || 0
             };
         }
     } catch {}
@@ -1405,7 +1428,8 @@ function exportarProgresso() {
         estado: progress.estado,
         registro: progress.registro,
         grifados: progress.grifados || [],
-        resetados: progress.resetados || {}
+        resetados: progress.resetados || {},
+        avaliacoes: progress.avaliacoes || []
     };
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' }));
@@ -1419,17 +1443,13 @@ saveBtn.addEventListener('click', exportarProgresso);
 /* ============================================================
    LISTA DE ALUNOS E LOGIN POR RA
    ============================================================ */
-async function loadAlunos() {
-    if (alunos) return alunos;
-    const res = await fetch('alunos.csv', { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const txt = (await res.text()).replace(/^\uFEFF/, '');
-    const mapa = {};
-    for (const linha of txt.split(/\r?\n/)) {
-        const m = linha.match(/^\s*"?([\d.\-\/\s]+?)"?\s*[;,\t]\s*"?(.+?)"?\s*$/);
-        if (m) { const ra = m[1].replace(/\D/g, ''); if (ra) mapa[ra] = m[2].trim(); }
-    }
-    return (alunos = mapa);
+/* Identificador do aluno: RA (só números) ou nome/apelido normalizado. Não há lista de alunos:
+   o site é aberto a qualquer estudante e o progresso fica no navegador e no Google Drive de cada um. */
+function chaveAluno(texto) {
+    const t = String(texto || '').trim();
+    if (/^[\d.\-\/\s]+$/.test(t)) return t.replace(/\D/g, '');
+    return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
 }
 function info(texto, ok = false) {
     const el = currentRA ? homeMsg : loginMsg;
@@ -1437,18 +1457,15 @@ function info(texto, ok = false) {
     el.textContent = texto;
 }
 async function loginWithRA(raBruto) {
-    const ra = String(raBruto).replace(/\D/g, '');
-    if (!ra) { info('Informe o seu RA.'); return false; }
-    let lista;
-    try { lista = await loadAlunos(); }
-    catch (e) { info('Não foi possível carregar a lista de alunos (alunos.csv).'); return false; }
-    const nome = lista[ra];
-    if (!nome) { info('Acesso negado: RA não encontrado na lista de alunos da UNIOESTE.'); return false; }
-    currentRA = ra; currentUser = nome;
+    const ra = chaveAluno(raBruto);
+    if (!ra) { info('Digite um nome, apelido ou RA.'); return false; }
+    const nome = String(raBruto).trim().replace(/\s+/g, ' ');
+    currentRA = ra; currentUser = /^\d+$/.test(ra) ? `RA ${ra}` : nome;
     const bk = lerBackup(ra);
-    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {} };
+    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [] };
     if (!Array.isArray(progress.grifados)) progress.grifados = [];
     if (!progress.resetados) progress.resetados = {};
+    if (!Array.isArray(progress.avaliacoes)) progress.avaliacoes = [];
     setDirty(!!(bk && bk.registro && bk.registro.length));
     showHome();
     showScreen(authScreen);
@@ -1456,12 +1473,12 @@ async function loginWithRA(raBruto) {
 }
 
 async function carregarArquivo(file) {
-    if (!currentRA) { info('Entre com um RA válido antes de carregar um arquivo de progresso.'); return; }
+    if (!currentRA) { info('Entre primeiro (nome, apelido ou RA) para carregar um arquivo de progresso.'); return; }
     let d;
     try { d = JSON.parse(await file.text()); } catch { info('Arquivo inválido (não é um JSON).'); return; }
     if (d.formato !== 'crivo-progresso' || !d.aluno || !d.aluno.ra) { info('Este não é um arquivo de progresso do CRIVO.'); return; }
-    const ra = String(d.aluno.ra).replace(/\D/g, '');
-    if (currentRA && currentRA !== ra) { info('Este arquivo pertence a outro aluno.'); return; }
+    const ra = chaveAluno(d.aluno.ra);
+    if (currentRA && currentRA !== ra) { info(`Este arquivo é de "${d.aluno.nome || d.aluno.ra}". Entre com o mesmo nome, apelido ou RA para carregá-lo.`); return; }
     if (currentRA && dirty && !confirm('Você tem alterações não salvas que serão substituídas pelo arquivo. Continuar?')) return;
     progress = normalizar(d);
     setDirty(false);
@@ -1507,7 +1524,7 @@ logoutBtn.addEventListener('click', () => {
     if (dirty && confirm('Você tem alterações não salvas. Deseja salvar o progresso em arquivo antes de sair?')) exportarProgresso();
     pausarTimer();
     currentUser = null; currentRA = null; currentExam = null; currentYear = null; questoes = [];
-    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {} };
+    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [] };
     setDirty(false);
     showLoginForm();
     showScreen(authScreen);
@@ -1676,9 +1693,14 @@ async function rebuildQuestoes(navigateIfLost = true) {
             return disciplinaDe(q.exam, q.year, q.num) === filtros.disciplina;
         });
     }
-    if (filtros.somenteNaoRealizadas) {
+    if (filtros.revisao) {
+        /* revisão espaçada: só as questões com revisão vencida, da mais atrasada para a mais recente */
+        filtradas = filtradas.filter(q => revisaoPendente(q.exam, q.year, q.num))
+            .sort((a, b) => vencimentoRevisao(a.exam, a.year, a.num) - vencimentoRevisao(b.exam, b.year, b.num));
+    } else if (filtros.somenteNaoRealizadas) {
         filtradas = filtradas.filter(q => !isRealizada(q.exam, q.year, q.num));
     }
+    if (filtros.embaralhar) filtradas = embaralharComSemente(filtradas, filtros.semente || 1);
     if (filtros.maxQuestoes > 0) {
         filtradas = filtradas.slice(0, filtros.maxQuestoes);
     }
@@ -3052,6 +3074,7 @@ function migrarProgresso(d) {
     if (!Array.isArray(x.registro)) x.registro = [];
     if (!Array.isArray(x.grifados)) x.grifados = [];
     if (!x.resetados || typeof x.resetados !== 'object') x.resetados = {};
+    if (!Array.isArray(x.avaliacoes)) x.avaliacoes = [];
     return x;
 }
 
@@ -3135,7 +3158,6 @@ questionFrame.addEventListener('load', () => {
 window.addEventListener('DOMContentLoaded', async () => {
     showLoginForm();
     showScreen(authScreen);
-    loadAlunos().catch(() => {});
     try { await loadManifest(); } catch {}
     populateExamSelector();
 });
@@ -3701,11 +3723,16 @@ function mesclarProgresso(a, b) {
 
     const dUlt = (p) => { const r = p.registro || []; return r.length ? Math.max(...r.map(e => +new Date(e.data) || 0)) : 0; };
     const ultimaPosicao = (dUlt(b) > dUlt(a) && b.ultimaPosicao) ? b.ultimaPosicao : (a.ultimaPosicao || b.ultimaPosicao || null);
-    return { registro, grifados, resetados, ultimaPosicao };
+    const am = new Map();
+    [...(a.avaliacoes || []), ...(b.avaliacoes || [])].forEach(v => {
+        if (v && v.data) { const k = [v.data, v.prova, v.ano, v.questao, v.nota].join('|'); if (!am.has(k)) am.set(k, v); }
+    });
+    const avaliacoes = [...am.values()].sort((x, y) => new Date(x.data) - new Date(y.data));
+    return { registro, grifados, resetados, ultimaPosicao, avaliacoes };
 }
 
 function driveAssinatura() {
-    return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao]);
+    return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || []]);
 }
 function driveDadosParaNuvem() {
     return JSON.stringify({
@@ -3716,7 +3743,8 @@ function driveDadosParaNuvem() {
         estado: progress.estado,
         registro: progress.registro,
         grifados: progress.grifados || [],
-        resetados: progress.resetados || {}
+        resetados: progress.resetados || {},
+        avaliacoes: progress.avaliacoes || []
     });
 }
 
@@ -3737,11 +3765,11 @@ async function sincronizarDrive(interativo) {
         if (arq) {
             try { remoto = JSON.parse(await driveLer(arq.id)); } catch (e) { if (e.status) throw e; remoto = false; }
             if (remoto === false || !remoto || remoto.formato !== 'crivo-progresso') throw new Error('invalido');
-            if (remoto.aluno && String(remoto.aluno.ra).replace(/\D/g, '') !== ra) throw new Error('outro');
+            if (remoto.aluno && chaveAluno(remoto.aluno.ra) !== ra) throw new Error('outro');
         }
         if (ra !== currentRA) return;
         if (remoto) {
-            const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao };
+            const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao, avaliacoes: progress.avaliacoes };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
             driveSalvandoInterno = true;
             try { salvarBackup(); } finally { driveSalvandoInterno = false; }
@@ -3860,6 +3888,257 @@ logoutBtn.addEventListener('click', () => {
     driveMsg('');
 });
 if (driveConfigurado()) setTimeout(() => { driveCarregarGis().catch(() => {}); }, 1500);
+
+/* ============================================================
+   REVISÃO ESPAÇADA (FSRS-6) E EMBARALHAR
+   Algoritmo FSRS-6 (o padrão do Anki desde a versão 25.07), com os parâmetros padrão e retenção desejada
+   de 90%. O estado de cada questão é recalculado a partir do histórico de respostas (progress.registro) e
+   das avaliações (progress.avaliacoes): por isso funciona igual em todos os aparelhos depois de sincronizar.
+   Entram na revisão: questões erradas e questões que o aluno marcou (Difícil/Bom/Fácil) depois de acertar.
+   Questões anuladas ou excluídas não entram.
+   ============================================================ */
+const FSRS_W = [0.212, 1.2931, 2.3065, 8.2956, 6.4133, 0.8334, 3.0194, 0.001, 1.8722, 0.1666, 0.796,
+                1.4835, 0.0614, 0.2629, 1.6483, 0.6014, 1.8729, 0.5425, 0.0912, 0.0658, 0.1542];
+const FSRS_RETENCAO = 0.9, FSRS_MAX_DIAS = 3650, DIA_MS = 86400000;
+const FSRS_DECAY = -FSRS_W[20], FSRS_FACTOR = Math.pow(0.9, 1 / FSRS_DECAY) - 1;
+const NOTAS = { 1: 'Errei', 2: 'Difícil', 3: 'Bom', 4: 'Fácil' };
+const _lim = (x, a, b) => Math.min(b, Math.max(a, x));
+const fsrsD0 = g => _lim(FSRS_W[4] - Math.exp(FSRS_W[5] * (g - 1)) + 1, 1, 10);
+function fsrsR(t, s) { return Math.pow(1 + FSRS_FACTOR * t / s, FSRS_DECAY); }
+function fsrsIntervaloDias(s) {
+    const i = s / FSRS_FACTOR * (Math.pow(FSRS_RETENCAO, 1 / FSRS_DECAY) - 1);
+    return _lim(Math.round(i), 1, FSRS_MAX_DIAS);
+}
+/* aplica uma revisão com nota g (1-4) no instante t (ms) a um cartão (ou cria o cartão) */
+function fsrsRevisar(c, g, t) {
+    if (!c) {
+        c = { s: Math.max(0.1, FSRS_W[g - 1]), d: fsrsD0(g), ultima: t, reps: 1, lapsos: g === 1 ? 1 : 0 };
+    } else {
+        const dias = Math.max(0, (t - c.ultima) / DIA_MS);
+        let s;
+        if (dias < 1) {                                   /* mesma sessão/dia */
+            let inc = Math.exp(FSRS_W[17] * (g - 3 + FSRS_W[18])) * Math.pow(c.s, -FSRS_W[19]);
+            if (g >= 3) inc = Math.max(inc, 1);
+            s = c.s * inc;
+        } else {
+            const r = fsrsR(dias, c.s);
+            if (g === 1) {
+                s = FSRS_W[11] * Math.pow(c.d, -FSRS_W[12]) * (Math.pow(c.s + 1, FSRS_W[13]) - 1) * Math.exp(FSRS_W[14] * (1 - r));
+                s = Math.min(s, c.s / Math.exp(FSRS_W[17] * FSRS_W[18]));
+            } else {
+                s = c.s * (1 + Math.exp(FSRS_W[8]) * (11 - c.d) * Math.pow(c.s, -FSRS_W[9]) * (Math.exp(FSRS_W[10] * (1 - r)) - 1)
+                    * (g === 2 ? FSRS_W[15] : 1) * (g === 4 ? FSRS_W[16] : 1));
+            }
+        }
+        const dl = -FSRS_W[6] * (g - 3);
+        const d1 = c.d + dl * (10 - c.d) / 9;
+        c = { s: Math.max(0.1, s), d: _lim(FSRS_W[7] * fsrsD0(4) + (1 - FSRS_W[7]) * d1, 1, 10),
+              ultima: t, reps: c.reps + 1, lapsos: c.lapsos + (g === 1 ? 1 : 0) };
+    }
+    c.proxima = c.ultima + fsrsIntervaloDias(c.s) * DIA_MS;
+    return c;
+}
+
+let semGabarito = new Set();       /* "BANCA|ANO|N" anuladas ou excluídas: fora da revisão */
+let excluidas = new Set();         /* "BANCA|ANO|N" excluídas do cálculo: fora das estatísticas */
+async function carregarAnulacoes() {
+    try {
+        const ind = await CrivoRender.carregarIndice();
+        const sg = new Set(), ex = new Set();
+        for (const [b, anos] of Object.entries(ind.bancas || {})) for (const [a, info] of Object.entries(anos)) {
+            (info.anuladas || []).forEach(n => sg.add(`${b}|${a}|${n}`));
+            (info.excluidas || []).forEach(n => { sg.add(`${b}|${a}|${n}`); ex.add(`${b}|${a}|${n}`); });
+        }
+        semGabarito = sg; excluidas = ex;
+    } catch (e) { console.warn('anulações:', e); }
+}
+const ehExcluida = (b, a, n) => excluidas.has(`${b}|${a}|${n}`);
+
+/* recalcula todos os cartões a partir do histórico (cache invalidado a cada mudança do progresso) */
+let _cartoesCache = null, _cartoesAssin = '';
+function cartoesRevisao() {
+    const reg = progress.registro || [], av = progress.avaliacoes || [];
+    const assin = reg.length + '|' + av.length + '|' + (reg.length ? reg[reg.length - 1].data : '') + '|' + (av.length ? av[av.length - 1].data : '') + '|' + semGabarito.size;
+    if (_cartoesCache && assin === _cartoesAssin) return _cartoesCache;
+    const eventos = [];
+    reg.forEach(e => { if (e.acao === 'confirmou' && e.correta) eventos.push({ t: +new Date(e.data), k: `${e.prova}|${e.ano}|${e.questao}`, certa: e.opcao === e.correta }); });
+    av.forEach(v => eventos.push({ t: +new Date(v.data), k: `${v.prova}|${v.ano}|${v.questao}`, nota: +v.nota }));
+    eventos.sort((x, y) => x.t - y.t);
+    const cartoes = new Map(), ultimaResp = new Map();
+    for (const ev of eventos) {
+        if (!ev.t || semGabarito.has(ev.k)) continue;
+        const atual = cartoes.get(ev.k);
+        if (ev.nota) {
+            /* a avaliação corrige a nota da última resposta (refaz a partir do estado anterior a ela) */
+            const u = ultimaResp.get(ev.k);
+            if (!u || !u.certa) continue;
+            cartoes.set(ev.k, fsrsRevisar(u.antes, _lim(ev.nota, 2, 4), u.t));
+        } else {
+            ultimaResp.set(ev.k, { t: ev.t, certa: ev.certa, antes: atual ? { ...atual } : null });
+            if (!ev.certa) cartoes.set(ev.k, fsrsRevisar(atual, 1, ev.t));
+            else if (atual) cartoes.set(ev.k, fsrsRevisar(atual, 3, ev.t));
+        }
+    }
+    _cartoesCache = cartoes; _cartoesAssin = assin;
+    return cartoes;
+}
+function fimDeHoje() { const d = new Date(); d.setHours(23, 59, 59, 999); return +d; }
+function vencimentoRevisao(b, a, n) { const c = cartoesRevisao().get(`${b}|${a}|${n}`); return c ? c.proxima : Infinity; }
+function revisaoPendente(b, a, n) { return vencimentoRevisao(b, a, n) <= fimDeHoje(); }
+function contarRevisoesPendentes() {
+    const fim = fimDeHoje(); let n = 0;
+    for (const [k, c] of cartoesRevisao()) {
+        const [b, a, q] = k.split('|');
+        if (c.proxima <= fim && exams?.[b]?.[a]?.[q]) n++;
+    }
+    return n;
+}
+function textoIntervalo(c) {
+    const dias = Math.round((c.proxima - Date.now()) / DIA_MS);
+    if (dias <= 1) return 'amanhã';
+    if (dias < 31) return `em ${dias} dias`;
+    if (dias < 365) return `em ${Math.round(dias / 30)} ${Math.round(dias / 30) === 1 ? 'mês' : 'meses'}`;
+    return `em ${(dias / 365).toFixed(1).replace('.', ',')} anos`;
+}
+
+function embaralharComSemente(lista, semente) {
+    let x = (semente >>> 0) || 1;
+    const rnd = () => { x ^= x << 13; x >>>= 0; x ^= x >> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; };
+    const out = lista.slice();
+    for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
+    return out;
+}
+
+/* ---- interface ---- */
+const soRevisao = document.getElementById('soRevisao');
+const embaralharChk = document.getElementById('embaralharChk');
+const revisaoConta = document.getElementById('revisaoConta');
+const revisaoBtnHome = document.getElementById('revisaoBtnHome');
+const painelRev = document.createElement('div');
+painelRev.id = 'revisaoPainel'; painelRev.className = 'revisao-painel'; painelRev.hidden = true;
+resolvingScreen.appendChild(painelRev);
+
+function atualizarContagemRevisao() {
+    const n = contarRevisoesPendentes();
+    if (revisaoConta) revisaoConta.textContent = n ? `(${n})` : '';
+    if (revisaoBtnHome) revisaoBtnHome.textContent = `🔁 Revisão espaçada${n ? ` — ${n} para hoje` : ''}`;
+}
+const _renderBottomFiltersRev = renderBottomFilters;
+renderBottomFilters = function () {
+    _renderBottomFiltersRev();
+    soRevisao.checked = !!filtros.revisao;
+    embaralharChk.checked = !!filtros.embaralhar;
+    soNaoRealizadas.disabled = !!filtros.revisao;
+    atualizarContagemRevisao();
+};
+soRevisao.addEventListener('change', async () => {
+    filtros.revisao = soRevisao.checked;
+    soNaoRealizadas.disabled = filtros.revisao;
+    revisadasNaSessao.clear();
+    await rebuildQuestoes();
+    if (filtros.revisao && !questoes.length) avisoGrifo('Nenhuma revisão pendente para hoje com os filtros atuais. 🎉');
+});
+embaralharChk.addEventListener('change', async () => {
+    filtros.embaralhar = embaralharChk.checked;
+    if (filtros.embaralhar) filtros.semente = (Math.random() * 4294967295) >>> 0;
+    await rebuildQuestoes();
+});
+revisaoBtnHome.addEventListener('click', async () => {
+    garantirFiltros();
+    filtros.revisao = true;
+    revisadasNaSessao.clear();
+    salvarFiltros();
+    await startExam();
+    if (!questoes.length) avisoGrifo('Nenhuma revisão pendente para hoje com os filtros atuais. 🎉');
+});
+const _showHomeRev = showHome;
+showHome = function () { _showHomeRev(); try { atualizarContagemRevisao(); } catch {} };
+
+/* na revisão, a questão abre em branco para ser respondida de novo (o histórico continua guardado) */
+const revisadasNaSessao = new Set();
+const _getSavedStateRev = getSavedState;
+getSavedState = function (exam, year, num) {
+    if (filtros.revisao && !revisadasNaSessao.has(`${exam}|${year}|${num}`)) return null;
+    return _getSavedStateRev(exam, year, num);
+};
+
+function mostrarPainelRevisao(exam, year, num, certa) {
+    const k = `${exam}|${year}|${num}`;
+    if (semGabarito.has(k)) { painelRev.hidden = true; return; }
+    const c = cartoesRevisao().get(k);
+    let html;
+    if (!certa) {
+        html = `<span>🔁 Errou: esta questão volta para revisão ${c ? textoIntervalo(c) : 'amanhã'}.</span>`;
+    } else {
+        const u = [...(progress.registro || [])].reverse().find(e => e.acao === 'confirmou' && `${e.prova}|${e.ano}|${e.questao}` === k);
+        const antes = (() => {   /* estado antes desta resposta, para mostrar o intervalo de cada nota */
+            const salvo = progress.avaliacoes; const reg = progress.registro;
+            progress.registro = reg.filter(e => e !== u); progress.avaliacoes = salvo.filter(v => +new Date(v.data) < +new Date(u.data));
+            _cartoesCache = null; const x = cartoesRevisao().get(k);
+            progress.registro = reg; progress.avaliacoes = salvo; _cartoesCache = null;
+            return x ? { ...x } : null;
+        })();
+        const t = u ? +new Date(u.data) : Date.now();
+        const botoes = [2, 3, 4].map(g => {
+            const prev = fsrsRevisar(antes ? { ...antes } : null, g, t);
+            return `<button type="button" data-nota="${g}">${NOTAS[g]} <small>${textoIntervalo(prev)}</small></button>`;
+        }).join('');
+        html = `<span>${c ? `🔁 Acertou: próxima revisão ${textoIntervalo(c)}. Ajuste:` : '🔁 Quer revisar esta questão depois?'}</span>${botoes}`;
+    }
+    painelRev.innerHTML = html + '<button type="button" class="fechar" aria-label="Fechar">×</button>';
+    const nav = document.querySelector('.bottom-nav');
+    painelRev.style.bottom = ((nav && nav.offsetParent ? nav.offsetHeight : 0) + 10) + 'px';
+    painelRev.hidden = false;
+    painelRev.querySelectorAll('button[data-nota]').forEach(b => b.addEventListener('click', () => {
+        progress.avaliacoes.push({ data: new Date().toISOString(), prova: exam, ano: year, questao: String(num), nota: +b.dataset.nota });
+        _cartoesCache = null; setDirty(true); salvarBackup();
+        const nc = cartoesRevisao().get(k);
+        painelRev.innerHTML = `<span>🔁 ${NOTAS[b.dataset.nota]}: próxima revisão ${nc ? textoIntervalo(nc) : ''}.</span><button type="button" class="fechar" aria-label="Fechar">×</button>`;
+        painelRev.querySelector('.fechar').addEventListener('click', () => { painelRev.hidden = true; });
+        atualizarContagemRevisao();
+    }));
+    painelRev.querySelector('.fechar').addEventListener('click', () => { painelRev.hidden = true; });
+}
+window.addEventListener('message', (event) => {
+    const data = event.data;
+    if (!data || data.type !== 'QUESTION_ANSWERED') return;
+    const q = questoes[questaoAtualIndex];
+    if (!q || !currentExam || !currentYear) return;
+    revisadasNaSessao.add(`${currentExam}|${currentYear}|${q.num}`);
+    _cartoesCache = null;
+    const certa = data.payload && data.payload.selected === data.payload.correct;
+    setTimeout(() => { mostrarPainelRevisao(currentExam, currentYear, q.num, certa); atualizarContagemRevisao(); }, 50);
+});
+questionFrame.addEventListener('load', () => { painelRev.hidden = true; });
+
+/* ---- questões excluídas do cálculo não entram nas estatísticas ---- */
+const _updateProgressDynamicExcl = updateProgressDynamic;
+updateProgressDynamic = function () {
+    if (!excluidas.size) return _updateProgressDynamicExcl();
+    const est = progress.estado, copia = {};
+    for (const b in est) for (const a in est[b]) for (const n in est[b][a]) {
+        if (ehExcluida(b, a, n)) continue;
+        ((copia[b] ||= {})[a] ||= {})[n] = est[b][a][n];
+    }
+    progress.estado = copia;
+    try { _updateProgressDynamicExcl(); } finally { progress.estado = est; }
+};
+
+const _loadManifestRev = loadManifest;
+loadManifest = async function () {
+    const ok = await _loadManifestRev();
+    await carregarAnulacoes();
+    _cartoesCache = null;
+    try { atualizarContagemRevisao(); } catch {}
+    return ok;
+};
+const _loginRev = loginWithRA;
+loginWithRA = async function (ra) {
+    const ok = await _loginRev(ra);
+    _cartoesCache = null; revisadasNaSessao.clear();
+    if (ok) { try { atualizarContagemRevisao(); } catch {} }
+    return ok;
+};
 </script>
 </body>
 </html>

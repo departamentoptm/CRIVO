@@ -107,7 +107,11 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     42
+    ],
+    "excluidas": []
    },
    "2007": {
     "questoes": [
@@ -213,7 +217,11 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     70
+    ],
+    "excluidas": []
    },
    "2008": {
     "questoes": [
@@ -319,7 +327,9 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2009": {
     "questoes": [
@@ -425,7 +435,9 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2010": {
     "questoes": [
@@ -531,7 +543,11 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     80
+    ],
+    "excluidas": []
    },
    "2011": {
     "questoes": [
@@ -637,7 +653,9 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2012": {
     "questoes": [
@@ -743,7 +761,11 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     56
+    ],
+    "excluidas": []
    },
    "2013": {
     "questoes": [
@@ -849,7 +871,9 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2014": {
     "questoes": [
@@ -935,7 +959,9 @@
      80
     ],
     "sem_correcao": 80,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2015": {
     "questoes": [
@@ -1041,7 +1067,12 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     2,
+     8
+    ],
+    "excluidas": []
    },
    "2016": {
     "questoes": [
@@ -1142,7 +1173,12 @@
      95
     ],
     "sem_correcao": 95,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     61,
+     83
+    ],
+    "excluidas": []
    },
    "2017": {
     "questoes": [
@@ -1248,7 +1284,11 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     49
+    ],
+    "excluidas": []
    },
    "2018": {
     "questoes": [
@@ -1354,7 +1394,12 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     47,
+     84
+    ],
+    "excluidas": []
    },
    "2019": {
     "questoes": [
@@ -1460,7 +1505,9 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2020": {
     "questoes": [
@@ -1566,7 +1613,12 @@
      100
     ],
     "sem_correcao": 97,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     23,
+     92
+    ],
+    "excluidas": []
    },
    "2021": {
     "questoes": [
@@ -1672,7 +1724,15 @@
      100
     ],
     "sem_correcao": 0,
-    "correcao_contradiz_gabarito": 1
+    "correcao_contradiz_gabarito": 1,
+    "anuladas": [
+     19,
+     26,
+     64,
+     68,
+     70
+    ],
+    "excluidas": []
    },
    "2022": {
     "questoes": [
@@ -1778,7 +1838,11 @@
      100
     ],
     "sem_correcao": 0,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     81
+    ],
+    "excluidas": []
    },
    "2023": {
     "questoes": [
@@ -1884,7 +1948,9 @@
      100
     ],
     "sem_correcao": 0,
-    "correcao_contradiz_gabarito": 7
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [],
+    "excluidas": []
    },
    "2024": {
     "questoes": [
@@ -1990,7 +2056,9 @@
      100
     ],
     "sem_correcao": 0,
-    "correcao_contradiz_gabarito": 2
+    "correcao_contradiz_gabarito": 2,
+    "anuladas": [],
+    "excluidas": []
    },
    "2025": {
     "questoes": [
@@ -2096,7 +2164,12 @@
      100
     ],
     "sem_correcao": 0,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     18,
+     27
+    ],
+    "excluidas": []
    },
    "2026": {
     "questoes": [
@@ -2202,7 +2275,9 @@
      100
     ],
     "sem_correcao": 0,
-    "correcao_contradiz_gabarito": 2
+    "correcao_contradiz_gabarito": 2,
+    "anuladas": [],
+    "excluidas": []
    }
   },
   "ENAMED": {
@@ -2310,7 +2385,21 @@
      100
     ],
     "sem_correcao": 100,
-    "correcao_contradiz_gabarito": 0
+    "correcao_contradiz_gabarito": 0,
+    "anuladas": [
+     1,
+     25,
+     57,
+     59,
+     60,
+     61,
+     93
+    ],
+    "excluidas": [
+     13,
+     52,
+     90
+    ]
    },
    "2026": {
     "questoes": [
@@ -2416,7 +2505,9 @@
      100
     ],
     "sem_correcao": 7,
-    "correcao_contradiz_gabarito": 4
+    "correcao_contradiz_gabarito": 4,
+    "anuladas": [],
+    "excluidas": []
    }
   }
  }

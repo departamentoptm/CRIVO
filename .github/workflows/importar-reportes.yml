@@ -1,0 +1,47 @@
+# Botão "Run workflow": traz os erros reportados pelos estudantes (Formulário Google) para o correcoes.json
+# e abre um pull request. Não usa IA. Depois de aprovar o PR, rode "Gerar correções" no modo pendentes.
+# Pré-requisito (uma vez): Settings > Secrets and variables > Actions > aba Variables > New repository variable
+#   nome: URL_REPORTES_CSV   valor: link "Publicar na Web" (formato CSV) da planilha de respostas do formulário
+name: Importar erros reportados
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dados-crivo
+  cancel-in-progress: false
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Importar reportes
+        env:
+          URL_CSV: ${{ vars.URL_REPORTES_CSV }}
+        run: |
+          if [ -z "$URL_CSV" ]; then
+            echo "::error::Crie a variável URL_REPORTES_CSV (veja o LEIAME, seção 'Quando um estudante reporta um erro')."; exit 1
+          fi
+          python ferramentas/importar_reportes.py --csv "$URL_CSV" --dados dados --relatorio relatorios/reportes.md
+          python ferramentas/gerar_indice.py --dados dados
+          cat relatorios/reportes.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Abrir pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nenhum reporte novo."; exit 0; fi
+          ramo="reportes/$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
+          git checkout -b "$ramo"
+          git add dados relatorios/reportes.md
+          git commit -m "Erros reportados pelos estudantes"
+          git push origin "$ramo"
+          gh pr create --title "Erros reportados pelos estudantes" --body-file relatorios/reportes.md --base "${{ github.ref_name }}" --head "$ramo"
