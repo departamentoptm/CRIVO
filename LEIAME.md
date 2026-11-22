@@ -209,8 +209,9 @@ O site é publicado pelo workflow **Publicar site** só com o que o site usa (`i
 Settings → Pages → Build and deployment → Source: **GitHub Actions**. Ferramentas, relatórios, provas
 originais e `arquivo/` (páginas antigas e scripts substituídos) ficam no repositório, mas fora do site.
 
-O acesso é aberto: o estudante entra com um nome, apelido ou RA, sem lista de alunos. O progresso fica no
-navegador e, se ele quiser, no Google Drive dele.
+O acesso é aberto e sem cadastro: o site não pede nome nem RA. O progresso fica no navegador e, se o
+estudante quiser, no Google Drive dele (arquivo `crivo_progresso.json`) ou num arquivo que ele salva. Progressos
+antigos, salvos por RA, são somados automaticamente na primeira vez (no navegador e no Drive).
 
 ## Outras ferramentas
 - `conferir_gabarito.py`: compara `questoes.json` com o `gabarito.json` e lista correções a refazer.

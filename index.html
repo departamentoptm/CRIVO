@@ -513,15 +513,6 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
 .home-btn-review { background: linear-gradient(90deg, #0f766e, #115e59); }
 .auth-hint { color: var(--muted); font-size: .78rem; margin: .1rem 0 .2rem; line-height: 1.35; }
 .revisao-conta { font-weight: 700; color: #0f766e; }
-.revisao-painel { position: fixed; left: 50%; transform: translateX(-50%); bottom: 72px; z-index: 1000;
-    display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; max-width: min(96vw, 680px);
-    background: #ecfdf5; border: 1px solid #99d6c4; color: #134e4a; border-radius: 10px; padding: .45rem .6rem;
-    box-shadow: 0 4px 14px rgba(0,0,0,.15); font-size: .85rem; }
-.revisao-painel[hidden] { display: none; }
-.revisao-painel button { border: 1px solid #0f766e; background: #fff; color: #0f766e; border-radius: 8px;
-    padding: .25rem .55rem; cursor: pointer; font-size: .82rem; }
-.revisao-painel button small { color: #4b5563; font-size: .72rem; }
-.revisao-painel button.fechar { border: none; background: transparent; font-size: 1.1rem; padding: 0 .3rem; margin-left: auto; }
 .home-btn-secondary {
     background: #f2f5fc; color: var(--navy);
     box-shadow: inset 0 0 0 1.5px var(--line-strong);
@@ -1017,7 +1008,7 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
             </div>
             <div class="auth-title">CRIVO - UNIOESTE</div>
 
-            <div id="loginArea" class="auth-form">
+            <div id="loginArea" class="auth-form" style="display:none" hidden>
                 <p class="auth-lead">Digite um nome, apelido ou RA para entrar</p>
                 <input type="text" id="raInput" class="auth-input" placeholder="Nome, apelido ou RA" autocomplete="nickname" maxlength="60">
                 <p class="auth-hint">Use sempre o mesmo para reencontrar o seu progresso. Para usá-lo em outros aparelhos, sincronize com o Google Drive.</p>
@@ -1026,16 +1017,17 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
             </div>
 
             <div id="homeArea" style="display:none">
-                <p class="welcome-hello">Bem-vindo(a),</p>
-                <p class="welcome-name" id="welcomeName"></p>
+                <p class="welcome-hello">Bem-vindo(a) ao CRIVO</p>
+                <p class="welcome-name" id="welcomeName" hidden></p>
                 <div class="auth-msg" id="homeMsg"></div>
                 <div class="home-buttons">
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
                     <button class="auth-btn home-btn-review" id="revisaoBtnHome" title="Questões que você errou ou marcou para revisar, nos intervalos calculados pelo FSRS">🔁 Revisão espaçada</button>
                     <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
+                    <button class="auth-btn home-btn-secondary" id="saveBtnHome" type="button" title="Baixa um arquivo com todo o seu progresso">💾 Salvar progresso em arquivo</button>
                     <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
                     <button class="auth-btn home-btn-secondary" id="driveBtnHome" type="button" title="Salva e carrega o seu progresso na sua conta Google Drive">☁️ Sincronizar com Google Drive</button>
-                    <button class="auth-btn home-btn-danger" id="logoutBtn">Sair</button>
+                    <button class="auth-btn home-btn-danger" id="logoutBtn" hidden>Sair</button>
                 </div>
                 <div class="drive-status" id="driveStatus" aria-live="polite"></div>
                 <div class="drive-aviso">Ao sincronizar, o CRIVO grava o seu progresso na pasta “CRIVO - Progresso” do seu Google Drive e não acessa nenhum outro arquivo. <a href="privacidade.html" target="_blank" rel="noopener">Saiba mais</a></div>
@@ -1422,7 +1414,6 @@ function exportarProgresso() {
     if (!currentRA) return;
     const dados = {
         formato: 'crivo-progresso', versao: 2,
-        aluno: { ra: currentRA, nome: currentUser },
         exportadoEm: new Date().toISOString(),
         ultimaPosicao: progress.ultimaPosicao,
         estado: progress.estado,
@@ -1476,16 +1467,14 @@ async function carregarArquivo(file) {
     if (!currentRA) { info('Entre primeiro (nome, apelido ou RA) para carregar um arquivo de progresso.'); return; }
     let d;
     try { d = JSON.parse(await file.text()); } catch { info('Arquivo inválido (não é um JSON).'); return; }
-    if (d.formato !== 'crivo-progresso' || !d.aluno || !d.aluno.ra) { info('Este não é um arquivo de progresso do CRIVO.'); return; }
-    const ra = chaveAluno(d.aluno.ra);
-    if (currentRA && currentRA !== ra) { info(`Este arquivo é de "${d.aluno.nome || d.aluno.ra}". Entre com o mesmo nome, apelido ou RA para carregá-lo.`); return; }
-    if (currentRA && dirty && !confirm('Você tem alterações não salvas que serão substituídas pelo arquivo. Continuar?')) return;
-    progress = normalizar(d);
+    if (d.formato !== 'crivo-progresso') { info('Este não é um arquivo de progresso do CRIVO.'); return; }
+    /* o arquivo é somado ao progresso deste aparelho: nenhuma resposta, grifo ou revisão é apagada */
+    progress = normalizar(mesclarProgresso(progress, migrarProgresso(d)));
     setDirty(false);
     salvarBackup();
     const n = progress.registro.length;
     const pos = progress.ultimaPosicao;
-    info(`Progresso carregado: ${n} ação(ões) registradas.` + (pos ? ` Você parou em ${pos.exam} ${pos.year}, questão ${pos.num}.` : ''), true);
+    info(`Progresso carregado e somado ao deste aparelho: ${n} ação(ões) registradas.` + (pos ? ` Você parou em ${pos.exam} ${pos.year}, questão ${pos.num}.` : ''), true);
     if (currentExam && currentYear && questoes.length > 0) {
         carregarQuestao(questaoAtualIndex);
     }
@@ -1501,7 +1490,7 @@ loadBtnHome.addEventListener('click', () => progressFile.click());
    AUTENTICAÇÃO / TELAS
    ============================================================ */
 function showLoginForm() {
-    loginArea.style.display = 'flex';
+    loginArea.style.display = 'none';
     homeArea.style.display = 'none';
     loginMsg.textContent = '';
     raInput.value = '';
@@ -3669,6 +3658,12 @@ async function driveAcharOuCriarPasta() {
     });
     return (drivePastaId = (await c.json()).id);
 }
+async function driveProgressosAntigos(pastaId) {
+    const q = `name contains 'crivo_progresso_' and '${pastaId}' in parents and trashed=false`;
+    const r = await driveFetch(`${DRIVE_API}?q=${encodeURIComponent(q)}&fields=files(id,name)&spaces=drive`);
+    const j = await r.json();
+    return (j.files || []).filter(f => /^crivo_progresso_.+\.json$/.test(f.name));
+}
 async function driveAcharArquivo(pastaId, nome) {
     const q = `name='${nome}' and '${pastaId}' in parents and trashed=false`;
     const r = await driveFetch(`${DRIVE_API}?q=${encodeURIComponent(q)}&fields=files(id,modifiedTime)&spaces=drive&orderBy=modifiedTime desc`);
@@ -3737,7 +3732,6 @@ function driveAssinatura() {
 function driveDadosParaNuvem() {
     return JSON.stringify({
         formato: 'crivo-progresso', versao: 2,
-        aluno: { ra: currentRA, nome: currentUser },
         exportadoEm: new Date().toISOString(),
         ultimaPosicao: progress.ultimaPosicao,
         estado: progress.estado,
@@ -3758,15 +3752,22 @@ async function sincronizarDrive(interativo) {
         driveMsg('☁️ Sincronizando com o Google Drive…');
         await driveObterToken(interativo);
         const pasta = await driveAcharOuCriarPasta();
-        const nome = `crivo_progresso_${ra}.json`;
+        const nome = 'crivo_progresso.json';
         let arq = await driveAcharArquivo(pasta, nome);
+        const legados = await driveProgressosAntigos(pasta);
         if (ra !== currentRA) return;
         let remoto = null;
         if (arq) {
             try { remoto = JSON.parse(await driveLer(arq.id)); } catch (e) { if (e.status) throw e; remoto = false; }
             if (remoto === false || !remoto || remoto.formato !== 'crivo-progresso') throw new Error('invalido');
-            if (remoto.aluno && chaveAluno(remoto.aluno.ra) !== ra) throw new Error('outro');
         }
+        for (const f of legados) {      /* arquivos da época do login por RA/apelido, na mesma conta Google */
+            try {
+                const x = JSON.parse(await driveLer(f.id));
+                if (x && x.formato === 'crivo-progresso') remoto = remoto ? mesclarProgresso(migrarProgresso(remoto), migrarProgresso(x)) : x;
+            } catch (e) { if (e.status) throw e; }
+        }
+        if (remoto && !remoto.formato) remoto.formato = 'crivo-progresso';
         if (ra !== currentRA) return;
         if (remoto) {
             const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao, avaliacoes: progress.avaliacoes };
@@ -3789,10 +3790,10 @@ async function sincronizarDrive(interativo) {
         driveMsg(`☁️ Sincronizado com o Google Drive às ${hh}.`);
     } catch (e) {
         const m = String(e && e.message);
-        if (m === 'auth') driveMsg('Não foi possível entrar na conta Google (permissão negada ou janela fechada).', true);
+        if (m === 'auth' && !interativo) { driveUltimaTentativa = 0; driveMsg('☁️ Toque em “Sincronizar com Google Drive” (ou em qualquer lugar da tela) para continuar sincronizando.'); }
+        else if (m === 'auth') driveMsg('Não foi possível entrar na conta Google (permissão negada ou janela fechada).', true);
         else if (m === 'gis') driveMsg('Não foi possível carregar o login do Google. Verifique a conexão.', true);
         else if (m === 'invalido') driveMsg('O arquivo de progresso no Drive está inválido. Nada foi sobrescrito.', true);
-        else if (m === 'outro') driveMsg('O arquivo no Drive pertence a outro aluno. Nada foi alterado.', true);
         else driveMsg('Falha ao sincronizar (' + m + '). Seu progresso continua salvo neste aparelho.', true);
         if (interativo) throw e;
     } finally {
@@ -3830,7 +3831,7 @@ loginWithRA = async function (ra) {
         driveAtivo = disp; drivePastaId = null; driveArquivoId = null; driveUltimaAssinatura = '';
         if (disp && driveConfigurado()) {
             driveMsg('☁️ Sincronizando com o Google Drive…');
-            sincronizarDrive(true).catch(() => {});          /* ao entrar */
+            sincronizarDrive(false).catch(() => {});      /* sem janela; se o Google pedir, o primeiro toque resolve */
         } else {
             driveMsg('☁️ Guarde o progresso na sua conta Google para usá-lo em outros aparelhos.');
         }
@@ -3903,7 +3904,8 @@ const FSRS_RETENCAO = 0.9, FSRS_MAX_DIAS = 3650, DIA_MS = 86400000;
 const FSRS_DECAY = -FSRS_W[20], FSRS_FACTOR = Math.pow(0.9, 1 / FSRS_DECAY) - 1;
 const NOTAS = { 1: 'Errei', 2: 'Difícil', 3: 'Bom', 4: 'Fácil' };
 const _lim = (x, a, b) => Math.min(b, Math.max(a, x));
-const fsrsD0 = g => _lim(FSRS_W[4] - Math.exp(FSRS_W[5] * (g - 1)) + 1, 1, 10);
+const fsrsD0bruto = g => FSRS_W[4] - Math.exp(FSRS_W[5] * (g - 1)) + 1;
+const fsrsD0 = g => _lim(fsrsD0bruto(g), 1, 10);
 function fsrsR(t, s) { return Math.pow(1 + FSRS_FACTOR * t / s, FSRS_DECAY); }
 function fsrsIntervaloDias(s) {
     const i = s / FSRS_FACTOR * (Math.pow(FSRS_RETENCAO, 1 / FSRS_DECAY) - 1);
@@ -3912,7 +3914,7 @@ function fsrsIntervaloDias(s) {
 /* aplica uma revisão com nota g (1-4) no instante t (ms) a um cartão (ou cria o cartão) */
 function fsrsRevisar(c, g, t) {
     if (!c) {
-        c = { s: Math.max(0.1, FSRS_W[g - 1]), d: fsrsD0(g), ultima: t, reps: 1, lapsos: g === 1 ? 1 : 0 };
+        c = { s: Math.max(0.001, FSRS_W[g - 1]), d: fsrsD0(g), ultima: t, reps: 1, lapsos: g === 1 ? 1 : 0 };
     } else {
         const dias = Math.max(0, (t - c.ultima) / DIA_MS);
         let s;
@@ -3932,7 +3934,7 @@ function fsrsRevisar(c, g, t) {
         }
         const dl = -FSRS_W[6] * (g - 3);
         const d1 = c.d + dl * (10 - c.d) / 9;
-        c = { s: Math.max(0.1, s), d: _lim(FSRS_W[7] * fsrsD0(4) + (1 - FSRS_W[7]) * d1, 1, 10),
+        c = { s: Math.max(0.001, s), d: _lim(FSRS_W[7] * fsrsD0bruto(4) + (1 - FSRS_W[7]) * d1, 1, 10),   /* reversão à média: alvo sem limite, como no FSRS-6 */
               ultima: t, reps: c.reps + 1, lapsos: c.lapsos + (g === 1 ? 1 : 0) };
     }
     c.proxima = c.ultima + fsrsIntervaloDias(c.s) * DIA_MS;
@@ -3954,8 +3956,12 @@ async function carregarAnulacoes() {
 }
 const ehExcluida = (b, a, n) => excluidas.has(`${b}|${a}|${n}`);
 
-/* recalcula todos os cartões a partir do histórico (cache invalidado a cada mudança do progresso) */
-let _cartoesCache = null, _cartoesAssin = '';
+/* recalcula todos os cartões a partir do histórico (cache invalidado a cada mudança do progresso).
+   Regra para questões: só a PRIMEIRA resposta de cada dia conta como revisão. Responder de novo no mesmo dia
+   (refazer logo depois de ler a correção) não é lembrar, e no FSRS jogaria todos os intervalos para "amanhã".
+   A classificação (Difícil/Bom/Fácil) vale para a revisão do dia. */
+let _cartoesCache = null, _cartoesAssin = '', _respDoDia = new Map();
+const _diaLocal = t => new Date(t).toDateString();
 function cartoesRevisao() {
     const reg = progress.registro || [], av = progress.avaliacoes || [];
     const assin = reg.length + '|' + av.length + '|' + (reg.length ? reg[reg.length - 1].data : '') + '|' + (av.length ? av[av.length - 1].data : '') + '|' + semGabarito.size;
@@ -3964,24 +3970,30 @@ function cartoesRevisao() {
     reg.forEach(e => { if (e.acao === 'confirmou' && e.correta) eventos.push({ t: +new Date(e.data), k: `${e.prova}|${e.ano}|${e.questao}`, certa: e.opcao === e.correta }); });
     av.forEach(v => eventos.push({ t: +new Date(v.data), k: `${v.prova}|${v.ano}|${v.questao}`, nota: +v.nota }));
     eventos.sort((x, y) => x.t - y.t);
-    const cartoes = new Map(), ultimaResp = new Map();
+    const cartoes = new Map(), respDoDia = new Map();
     for (const ev of eventos) {
         if (!ev.t || semGabarito.has(ev.k)) continue;
-        const atual = cartoes.get(ev.k);
+        const u = respDoDia.get(ev.k);
         if (ev.nota) {
-            /* a avaliação corrige a nota da última resposta (refaz a partir do estado anterior a ela) */
-            const u = ultimaResp.get(ev.k);
-            if (!u || !u.certa) continue;
-            cartoes.set(ev.k, fsrsRevisar(u.antes, _lim(ev.nota, 2, 4), u.t));
-        } else {
-            ultimaResp.set(ev.k, { t: ev.t, certa: ev.certa, antes: atual ? { ...atual } : null });
-            if (!ev.certa) cartoes.set(ev.k, fsrsRevisar(atual, 1, ev.t));
-            else if (atual) cartoes.set(ev.k, fsrsRevisar(atual, 3, ev.t));
+            /* a classificação refaz a revisão do dia a partir do estado anterior a ela */
+            if (!u) continue;
+            u.nota = ev.nota;
+            cartoes.set(ev.k, fsrsRevisar(u.antes ? { ...u.antes } : null, notaFsrs(ev.nota, u.certa), u.t));
+            continue;
         }
+        if (u && _diaLocal(u.t) === _diaLocal(ev.t)) continue;      /* mesma questão de novo no mesmo dia */
+        const atual = cartoes.get(ev.k);
+        respDoDia.set(ev.k, { t: ev.t, certa: ev.certa, antes: atual ? { ...atual } : null, nota: null });
+        if (!ev.certa) cartoes.set(ev.k, fsrsRevisar(atual, 1, ev.t));
+        else if (atual) cartoes.set(ev.k, fsrsRevisar(atual, 3, ev.t));
     }
-    _cartoesCache = cartoes; _cartoesAssin = assin;
+    _cartoesCache = cartoes; _cartoesAssin = assin; _respDoDia = respDoDia;
     return cartoes;
 }
+/* Sem classificação: acerto = Bom (3) se a questão já está na revisão; erro = Errei (1).
+   A classificação do aluno (Difícil/Bom/Fácil = notas 2/3/4 do FSRS) substitui a nota automática, também
+   depois de um erro (ex.: erro por desatenção num tema que ele domina). */
+function notaFsrs(nota) { return _lim(nota, 2, 4); }
 function fimDeHoje() { const d = new Date(); d.setHours(23, 59, 59, 999); return +d; }
 function vencimentoRevisao(b, a, n) { const c = cartoesRevisao().get(`${b}|${a}|${n}`); return c ? c.proxima : Infinity; }
 function revisaoPendente(b, a, n) { return vencimentoRevisao(b, a, n) <= fimDeHoje(); }
@@ -3994,8 +4006,11 @@ function contarRevisoesPendentes() {
     return n;
 }
 function textoIntervalo(c) {
-    const dias = Math.round((c.proxima - Date.now()) / DIA_MS);
-    if (dias <= 1) return 'amanhã';
+    const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+    const alvo = new Date(c.proxima); alvo.setHours(0, 0, 0, 0);
+    const dias = Math.round((alvo - hoje) / DIA_MS);          /* dias de calendário até a revisão */
+    if (dias <= 0) return 'hoje';
+    if (dias === 1) return 'amanhã';
     if (dias < 31) return `em ${dias} dias`;
     if (dias < 365) return `em ${Math.round(dias / 30)} ${Math.round(dias / 30) === 1 ? 'mês' : 'meses'}`;
     return `em ${(dias / 365).toFixed(1).replace('.', ',')} anos`;
@@ -4014,9 +4029,6 @@ const soRevisao = document.getElementById('soRevisao');
 const embaralharChk = document.getElementById('embaralharChk');
 const revisaoConta = document.getElementById('revisaoConta');
 const revisaoBtnHome = document.getElementById('revisaoBtnHome');
-const painelRev = document.createElement('div');
-painelRev.id = 'revisaoPainel'; painelRev.className = 'revisao-painel'; painelRev.hidden = true;
-resolvingScreen.appendChild(painelRev);
 
 function atualizarContagemRevisao() {
     const n = contarRevisoesPendentes();
@@ -4062,54 +4074,58 @@ getSavedState = function (exam, year, num) {
     return _getSavedStateRev(exam, year, num);
 };
 
-function mostrarPainelRevisao(exam, year, num, certa) {
+/* opções Difícil/Bom/Fácil mostradas na página da questão, logo abaixo dos botões */
+function opcoesRevisao(exam, year, num) {
     const k = `${exam}|${year}|${num}`;
-    if (semGabarito.has(k)) { painelRev.hidden = true; return; }
+    if (semGabarito.has(k)) return null;
     const c = cartoesRevisao().get(k);
-    let html;
-    if (!certa) {
-        html = `<span>🔁 Errou: esta questão volta para revisão ${c ? textoIntervalo(c) : 'amanhã'}.</span>`;
-    } else {
-        const u = [...(progress.registro || [])].reverse().find(e => e.acao === 'confirmou' && `${e.prova}|${e.ano}|${e.questao}` === k);
-        const antes = (() => {   /* estado antes desta resposta, para mostrar o intervalo de cada nota */
-            const salvo = progress.avaliacoes; const reg = progress.registro;
-            progress.registro = reg.filter(e => e !== u); progress.avaliacoes = salvo.filter(v => +new Date(v.data) < +new Date(u.data));
-            _cartoesCache = null; const x = cartoesRevisao().get(k);
-            progress.registro = reg; progress.avaliacoes = salvo; _cartoesCache = null;
-            return x ? { ...x } : null;
-        })();
-        const t = u ? +new Date(u.data) : Date.now();
-        const botoes = [2, 3, 4].map(g => {
-            const prev = fsrsRevisar(antes ? { ...antes } : null, g, t);
-            return `<button type="button" data-nota="${g}">${NOTAS[g]} <small>${textoIntervalo(prev)}</small></button>`;
-        }).join('');
-        html = `<span>${c ? `🔁 Acertou: próxima revisão ${textoIntervalo(c)}. Ajuste:` : '🔁 Quer revisar esta questão depois?'}</span>${botoes}`;
-    }
-    painelRev.innerHTML = html + '<button type="button" class="fechar" aria-label="Fechar">×</button>';
-    const nav = document.querySelector('.bottom-nav');
-    painelRev.style.bottom = ((nav && nav.offsetParent ? nav.offsetHeight : 0) + 10) + 'px';
-    painelRev.hidden = false;
-    painelRev.querySelectorAll('button[data-nota]').forEach(b => b.addEventListener('click', () => {
-        progress.avaliacoes.push({ data: new Date().toISOString(), prova: exam, ano: year, questao: String(num), nota: +b.dataset.nota });
-        _cartoesCache = null; setDirty(true); salvarBackup();
-        const nc = cartoesRevisao().get(k);
-        painelRev.innerHTML = `<span>🔁 ${NOTAS[b.dataset.nota]}: próxima revisão ${nc ? textoIntervalo(nc) : ''}.</span><button type="button" class="fechar" aria-label="Fechar">×</button>`;
-        painelRev.querySelector('.fechar').addEventListener('click', () => { painelRev.hidden = true; });
-        atualizarContagemRevisao();
-    }));
-    painelRev.querySelector('.fechar').addEventListener('click', () => { painelRev.hidden = true; });
+    const u = _respDoDia.get(k);
+    if (!u) return null;
+    const intervalos = {};
+    [2, 3, 4].forEach(n => { intervalos[n] = textoIntervalo(fsrsRevisar(u.antes ? { ...u.antes } : null, notaFsrs(n, u.certa), u.t)); });
+    let mensagem;
+    if (u.nota) mensagem = `${NOTAS[u.nota]}: próxima revisão ${c ? textoIntervalo(c) : '—'}. Você pode mudar a escolha.`;
+    else if (!u.certa) mensagem = `Você errou: sem escolha, a questão volta ${c ? textoIntervalo(c) : 'amanhã'}. Se foi só desatenção, classifique.`;
+    else if (c) mensagem = `Você acertou: sem escolha, conta como Bom (próxima revisão ${textoIntervalo(c)}).`;
+    else mensagem = 'Você acertou. Classifique para incluir esta questão na revisão espaçada.';
+    if (_diaLocal(u.t) !== _diaLocal(Date.now())) mensagem = `Última revisão em ${new Date(u.t).toLocaleDateString('pt-BR')}. ` + mensagem;
+    const ultima = [...(progress.registro || [])].reverse().find(e => e.acao === 'confirmou' && `${e.prova}|${e.ano}|${e.questao}` === k);
+    if (ultima && +new Date(ultima.data) > u.t && _diaLocal(+new Date(ultima.data)) === _diaLocal(u.t))
+        mensagem += ' Respostas repetidas no mesmo dia não mudam a revisão: vale a primeira do dia.';
+    return { intervalos, escolhida: u.nota, mensagem };
+}
+function enviarOpcoesRevisao() {
+    const q = questoes[questaoAtualIndex];
+    if (!q || !currentExam || !currentYear) return;
+    const op = opcoesRevisao(currentExam, currentYear, q.num);
+    if (!op) return;
+    try { questionFrame.contentWindow.postMessage({ type: 'REVIEW_OPTIONS', payload: op }, '*'); } catch {}
 }
 window.addEventListener('message', (event) => {
     const data = event.data;
-    if (!data || data.type !== 'QUESTION_ANSWERED') return;
+    if (!data || !data.type || event.source !== questionFrame.contentWindow) return;
     const q = questoes[questaoAtualIndex];
     if (!q || !currentExam || !currentYear) return;
-    revisadasNaSessao.add(`${currentExam}|${currentYear}|${q.num}`);
-    _cartoesCache = null;
-    const certa = data.payload && data.payload.selected === data.payload.correct;
-    setTimeout(() => { mostrarPainelRevisao(currentExam, currentYear, q.num, certa); atualizarContagemRevisao(); }, 50);
+    if (data.type === 'QUESTION_ANSWERED') {
+        revisadasNaSessao.add(`${currentExam}|${currentYear}|${q.num}`);
+        _cartoesCache = null;
+        setTimeout(() => { enviarOpcoesRevisao(); atualizarContagemRevisao(); }, 30);
+    } else if (data.type === 'REVIEW_RATED') {
+        const nota = +(data.payload && data.payload.nota);
+        if (![2, 3, 4].includes(nota)) return;
+        progress.avaliacoes.push({ data: new Date().toISOString(), prova: currentExam, ano: currentYear, questao: String(q.num), nota });
+        _cartoesCache = null; setDirty(true); salvarBackup();
+        enviarOpcoesRevisao(); atualizarContagemRevisao();
+    }
 });
-questionFrame.addEventListener('load', () => { painelRev.hidden = true; });
+/* ao reabrir uma questão já respondida, mostra de novo as opções (com a escolha feita) */
+questionFrame.addEventListener('load', () => {
+    setTimeout(() => {
+        const q = questoes[questaoAtualIndex];
+        const st = q && currentExam ? getSavedState(currentExam, currentYear, q.num) : null;
+        if (st && st.correct) enviarOpcoesRevisao();
+    }, 400);
+});
 
 /* ---- questões excluídas do cálculo não entram nas estatísticas ---- */
 const _updateProgressDynamicExcl = updateProgressDynamic;
@@ -4139,6 +4155,33 @@ loginWithRA = async function (ra) {
     if (ok) { try { atualizarContagemRevisao(); } catch {} }
     return ok;
 };
+
+/* ============================================================
+   SEM IDENTIFICAÇÃO: o site abre direto no início. O progresso fica neste navegador e, se o aluno quiser,
+   no Google Drive dele (a conta Google é a identificação). Progressos antigos, salvos por RA ou apelido,
+   são somados ao progresso único deste aparelho na primeira vez.
+   ============================================================ */
+const CHAVE_LOCAL = 'aluno';
+function migrarBackupsAntigos() {
+    try {
+        if (localStorage.getItem(bkKey(CHAVE_LOCAL))) return;
+        const antigos = Object.keys(localStorage).filter(k => k.startsWith('crivo_backup_') && k !== bkKey(CHAVE_LOCAL));
+        let soma = null;
+        for (const k of antigos) {
+            const v = JSON.parse(localStorage.getItem(k));
+            if (v && (v.registro || v.estado)) soma = soma ? mesclarProgresso(migrarProgresso(soma), migrarProgresso(v)) : migrarProgresso(v);
+        }
+        if (soma) localStorage.setItem(bkKey(CHAVE_LOCAL), JSON.stringify(normalizar(soma)));
+        const filtrosAntigos = antigos.map(k => localStorage.getItem(filtrosKey(k.slice('crivo_backup_'.length)))).find(Boolean);
+        if (filtrosAntigos && !localStorage.getItem(filtrosKey(CHAVE_LOCAL))) localStorage.setItem(filtrosKey(CHAVE_LOCAL), filtrosAntigos);
+    } catch (e) { console.warn('migração do progresso local:', e); }
+}
+window.addEventListener('DOMContentLoaded', async () => {
+    migrarBackupsAntigos();
+    await loginWithRA(CHAVE_LOCAL);
+    currentUser = 'CRIVO';
+});
+document.getElementById('saveBtnHome').addEventListener('click', exportarProgresso);
 </script>
 </body>
 </html>
