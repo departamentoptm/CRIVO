@@ -136,5 +136,7 @@
   "artigos_pubmed": 2,
   "anos_artigos": 10,
   "intervalo_entre_buscas_s": 0.4
- }
+ },
+ "teto_acumulado_usd": 30.0,
+ "amostra_a_cada": 50
 }

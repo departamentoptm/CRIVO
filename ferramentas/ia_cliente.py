@@ -50,7 +50,7 @@ def esperar_fora_do_pico(config, log=print):
     if pico and config.get("esperar_fora_do_pico", True):
         espera = max(0, (fim - dt.datetime.now(dt.timezone.utc)).total_seconds()) + 30
         log(f"Horário de pico da API (preço dobrado). Aguardando até {fim:%H:%M} UTC "
-            f"(~{int(espera // 60)} min). Para não esperar, use --nao-esperar-pico.")
+            f"(~{int(espera // 60)} min); as chamadas só são feitas fora do pico.")
         time.sleep(espera)
 
 
@@ -145,6 +145,7 @@ class ClienteAPI:
     def json(self, etapa, sistema, usuario):
         """Chama o modelo da etapa e devolve o JSON da resposta (com uma nova tentativa se vier inválido)."""
         self.contador.checar()
+        esperar_fora_do_pico(self.config, self.log)      # nenhuma chamada paga é feita no horário de pico
         modelo = self.config["modelos"][etapa]
         corpo = {"model": modelo, "temperature": 0.2,
                  "max_tokens": self.config.get("max_tokens", {}).get(etapa, 4000),

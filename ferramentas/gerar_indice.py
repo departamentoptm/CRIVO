@@ -57,7 +57,10 @@ def main():
             c = cs.get(q["id"])
             if not c: sem += 1
             elif q.get("gabarito") and c.get("gabarito_usado") and c["gabarito_usado"] != q["gabarito"]: contradiz += 1
-        bancas.setdefault(banca, {})[ano] = {"questoes": sorted(nums), "sem_correcao": sem, "correcao_contradiz_gabarito": contradiz}
+        sem_gab = [int(q["numero"]) for q in qs["questoes"] if not q.get("gabarito")]
+        excl = sorted(n for n, q in ((int(q["numero"]), q) for q in qs["questoes"]) if q.get("anulacao") == "excluida")
+        bancas.setdefault(banca, {})[ano] = {"questoes": sorted(nums), "sem_correcao": sem, "correcao_contradiz_gabarito": contradiz,
+                                             "anuladas": sorted(set(sem_gab) - set(excl)), "excluidas": excl}
     gravar_json(os.path.join(a.dados, "indice.json"), {"formato": "crivo-indice", "versao": 2, "bancas": bancas})
     total = sum(len(v["questoes"]) for b in bancas.values() for v in b.values())
     sem = sum(v["sem_correcao"] for b in bancas.values() for v in b.values())

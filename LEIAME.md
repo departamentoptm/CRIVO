@@ -90,7 +90,28 @@ Mesmo assim, a correção é de IA e pode errar. Por isso o site mostra o selo "
 
 ## Quando um estudante reporta um erro
 
-Abra `dados/<BANCA>/<ANO>/correcoes.json`, procure o id da questão (ex.: `AMP-2021-Q50`) e:
+O botão "Reportar erro" de cada questão abre um Formulário Google já com o código da questão preenchido.
+Para trazer os reportes ao projeto: **Actions → Importar erros reportados → Run workflow**. Sai um pull
+request: os reportes de questões com correção entram em `revisao.reportes` e a correção fica "reportado";
+depois de aprovar, rode **Gerar correções** no modo pendentes e elas são refeitas levando o reporte em conta.
+Reportes de questões sem correção, de correções revisadas por pessoas ou com código inválido aparecem em
+`relatorios/reportes.md` para a equipe conferir à mão. Cada reporte entra uma única vez.
+
+Configuração (uma vez):
+1. Em forms.google.com, crie o formulário "CRIVO — reportar erro" com 3 perguntas: **Questão** (resposta
+   curta, obrigatória), **O que está errado** (parágrafo, obrigatória) e **Fonte que confirma** (resposta curta,
+   opcional). Em Configurações → Respostas, deixe "Coletar endereços de e-mail" em **Não coletar** e não exija login.
+2. Menu ⋮ → **Gerar link pré-preenchido** → no campo Questão escreva `{id}` → **Gerar link** → copie o link e
+   cole em `js/crivo-render.js`, na linha `urlReportarErro: ''` (entre as aspas).
+3. Aba Respostas → **Vincular ao Planilhas**. Na planilha: Arquivo → Compartilhar → **Publicar na Web** →
+   escolha a aba das respostas e o formato **CSV** → Publicar → copie o link.
+4. No GitHub: Settings → Secrets and variables → Actions → aba **Variables** → New repository variable:
+   nome `URL_REPORTES_CSV`, valor = o link do passo 3.
+
+O CSV publicado pode ser lido por quem tiver o link: o formulário não pede dados pessoais, e o aviso no
+formulário deve pedir que ninguém escreva nome, e-mail ou RA.
+
+Também dá para editar à mão: abra `dados/<BANCA>/<ANO>/correcoes.json`, procure o id da questão (ex.: `AMP-2021-Q50`) e:
 - se o erro for simples, corrija o texto direto em `secoes_html`; **ou**
 - mude `"status": "nao_revisado"` para `"status": "reportado"` e acrescente em `"reportes"`
   `{"texto": "o que está errado e a fonte"}`. Na próxima execução do gerador (modo pendentes),
@@ -99,6 +120,17 @@ Se um médico revisou e aprovou a correção, use `"status": "revisado_humano"`:
 gerador nunca mais a sobrescreve.
 
 ## Custos e configuração (`ferramentas/config_gerador.json`)
+
+- **Teto acumulado do projeto:** `dados/gastos.json` guarda quanto já foi gasto (`gasto_usd`) e o teto
+  (`teto_usd`, US$ 30). Cada execução soma o seu custo nesse arquivo (pelo pull request que ela abre) e
+  nenhuma execução passa do que resta. Ao atingir o teto, o gerador para sem chamar a API. Some ao
+  `gasto_usd` o que já foi gasto antes desta atualização (painel do DeepSeek). Aprove o PR de uma execução
+  antes de rodar a próxima, senão a próxima não vê o gasto da anterior.
+- **Só fora do pico:** nenhuma chamada paga é feita no horário de pico; o gerador espera o pico acabar.
+- **Amostra para conferência humana:** 1 de cada 50 correções geradas é marcada (`revisao.amostra =
+  "pendente"`). Actions → Gerar correções → ação `amostra` gera `relatorios/amostra_<BANCA>.md` (baixe em
+  Summary → Artifacts → relatorios) para enviar ao Claude numa conversa. Depois de conferidas, rode a ação
+  `amostra` com os ids em "conferidas".
 
 - `modelos`: nome do modelo usado em cada etapa. Confira com `gerar_correcoes.py modelos`.
 - `precos_usd_por_milhao_fora_do_pico`: **confira na página de preços do DeepSeek e atualize**. O custo
@@ -170,8 +202,19 @@ O gerador de correções pula questões com figura, porque o modelo de texto nã
 de 4 alternativas cada. Já vêm importados; para refazer: Actions → Importar prova, banca `ENAMED`, ano `2025`
 (ou `2026` com "gabarito preliminar" marcado), leitura das páginas = 2, "Refazer" marcado.
 
+## Publicação do site
+
+O site é publicado pelo workflow **Publicar site** só com o que o site usa (`index.html`, `sobre.html`,
+`privacidade.html`, `previa.html`, `js/`, `dados/` e `exams/disciplinas.json`). Para isso, uma vez:
+Settings → Pages → Build and deployment → Source: **GitHub Actions**. Ferramentas, relatórios, provas
+originais e `arquivo/` (páginas antigas e scripts substituídos) ficam no repositório, mas fora do site.
+
+O acesso é aberto: o estudante entra com um nome, apelido ou RA, sem lista de alunos. O progresso fica no
+navegador e, se ele quiser, no Google Drive dele.
+
 ## Outras ferramentas
 - `conferir_gabarito.py`: compara `questoes.json` com o `gabarito.json` e lista correções a refazer.
+- `importar_reportes.py`: traz os erros reportados pelo formulário (usado pelo workflow).
 - `gerar_indice.py`: atualiza `dados/indice.json` (rode depois de qualquer mudança em `dados/`).
 - `converter_html_para_json.py` e `migrar_para_dois_arquivos.py`: usados uma vez, na migração.
 - O workflow **Validar dados** roda sozinho a cada envio e acusa JSON quebrado ou gabarito diferente do oficial.
