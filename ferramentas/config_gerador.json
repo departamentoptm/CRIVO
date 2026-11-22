@@ -43,11 +43,12 @@
  "esperar_fora_do_pico": true,
  "orcamento_usd_por_execucao": 3.0,
  "historico": {
-  "limiar_lexico": 0.04,
-  "max_candidatas": 400,
-  "candidatas_por_chamada": 30
+  "limiar_lexico": 0.03,
+  "max_candidatas": 150,
+  "candidatas_por_chamada": 50,
+  "max_no_pedido_de_geracao": 15
  },
- "temas_questoes_por_chamada": 8,
+ "temas_questoes_por_chamada": 10,
  "qualidade": {
   "min_caracteres_total": 7000,
   "min_caracteres_por_secao": {
@@ -70,10 +71,6 @@
   "rodadas_de_verificacao": 2
  },
  "fontes_permitidas": [
-  "PubMed",
-  "Cochrane Library",
-  "Manual MSD (versão para profissionais de saúde)",
-  "Sanar Med",
   "Harrison — Medicina Interna",
   "Goldman-Cecil Medicina",
   "Sabiston — Tratado de Cirurgia",
@@ -110,5 +107,34 @@
     "type": "disabled"
    }
   }
+ },
+ "disciplinas_permitidas": [
+  "Cardiologia",
+  "Cirurgia",
+  "Dermatologia",
+  "Endocrinologia",
+  "Gastroenterologia",
+  "Ginecologia",
+  "Hematologia",
+  "Hepatologia",
+  "Infectologia",
+  "Medicina Preventiva",
+  "Nefrologia",
+  "Neurologia",
+  "Obstetrícia",
+  "Oftalmologia",
+  "Ortopedia",
+  "Otorrinolaringologia",
+  "Pediatria",
+  "Pneumologia",
+  "Psiquiatria",
+  "Reumatologia",
+  "Urologia"
+ ],
+ "disciplina_questoes_por_chamada": 30,
+ "referencias": {
+  "artigos_pubmed": 2,
+  "anos_artigos": 10,
+  "intervalo_entre_buscas_s": 0.4
  }
 }

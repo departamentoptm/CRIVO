@@ -336,8 +336,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "AMP-2023-Q13": {

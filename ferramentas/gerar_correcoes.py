@@ -28,13 +28,14 @@ import json
 import os
 import re
 import sys
-import urllib.parse
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from crivo_comum import (gravar_json, ler_questoes, ler_correcoes, arq_correcoes, limpar_html,
                          texto_puro, listar_edicoes, LETRAS)
-from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionadas, bloco_para_prompt)
+from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionadas, bloco_para_prompt,
+                       linhas_da_tabela, ROTULO_TIPO)
+import referencias as refs_mod
 from ia_cliente import (ClienteAPI, Contador, OrcamentoEsgotado, ErroAPI, esperar_fora_do_pico,
                         em_horario_de_pico)
 
@@ -89,45 +90,46 @@ def validar(r, q, relevantes, todas, catalogo, config):
     t23, t24 = texto_puro(secoes["2.3"]), texto_puro(secoes["2.4"])
     if g in LETRAS and not re.search(rf"\b{g}\b", t23):
         problemas.append(f"a seção 2.3 não cita a alternativa do gabarito ({g})")
+    h24 = secoes["2.4"]
     for l in (q.get("alternativas") or {}):
-        if not re.search(rf"Alternativa\s+{l}\b", t24):
+        if not (re.search(rf"(?:Alternativa|Letra|Opção|Opcao)\s*\(?{l}\)?(?![\wÀ-ÿ])", t24)
+                or re.search(rf"<strong>\s*(?:Alternativa\s*)?\(?{l}\)?\s*[)\-–:.]?\s*</strong>", h24)):
             problemas.append(f"a seção 2.4 não analisa a alternativa {l}")
+    rel_ids = {x["id"] for x in relevantes}
+    for s_ in SECOES_IA:
+        def legivel(m):
+            i = m.group(0)
+            if i not in rel_ids:
+                problemas.append(f"a seção {s_} cita {i}, que não está no bloco HISTÓRICO")
+                return i
+            h = todas[i]
+            return f"{h['banca']} {h['ano']} (questão {h['numero']})"
+        secoes[s_] = re.sub(r"\b[A-Z][A-Z0-9-]*?-\d{4}-Q\d{1,3}\b", legivel, secoes[s_])
     if "<table" not in secoes["2.8"]:
         problemas.append("a seção 2.8 deve conter a tabela de diagnósticos diferenciais")
     if "<table" in secoes["2.10"]:
         secoes["2.10"] = re.sub(r"<table.*?</table>", "", secoes["2.10"], flags=re.S)  # a tabela é do script
 
-    # histórico: só ids reais e relevantes; os que a IA esquecer entram pelos dados do catálogo
-    rel = {x["id"]: x["motivo"] for x in relevantes}
-    linhas, vistos = [], set()
-    for h in r.get("historico") or []:
-        if not isinstance(h, dict) or h.get("id") not in rel or h["id"] in vistos:
-            continue
-        vistos.add(h["id"])
-        linhas.append((h["id"], str(h.get("resumo", ""))[:400], str(h.get("cobrado", ""))[:120], str(h.get("relacao", ""))[:400]))
-    for i in rel:
-        if i not in vistos:
-            c = catalogo.get(i, {})
-            linhas.append((i, c.get("resumo", ""), c.get("abordagem", ""), rel[i]))
-    historico = []
-    for i, resumo, cobrado, relacao in sorted(linhas, key=lambda x: (todas[x[0]]["ano"], todas[x[0]]["numero"])):
-        hq = todas[i]
-        historico.append({"id": i, "ano": hq["ano"], "numero": hq["numero"],
-                          "gabarito": hq.get("gabarito") if hq.get("gabarito") in LETRAS else None,
-                          "resumo": resumo, "cobrado": cobrado, "relacao": relacao})
-
-    # referências: só fontes permitidas; links de PESQUISA montados pelo script (nunca links da IA)
+    # referências: livros só da lista permitida (sem nº de capítulo/página, que a IA poderia inventar)
+    # + termos em inglês para o código buscar artigos reais no PubMed
+    bruto = r.get("referencias") or {}
+    if isinstance(bruto, list):                      # formato antigo: [{"fonte","detalhe","busca"}]
+        bruto = {"livros": [{"fonte": x.get("fonte"), "secao": x.get("detalhe")} for x in bruto if isinstance(x, dict)],
+                 "busca_pubmed": next((x.get("busca") for x in bruto if isinstance(x, dict) and x.get("busca")), "")}
     permitidas = {f.lower(): f for f in config["fontes_permitidas"]}
-    refs = []
-    for x in r.get("referencias") or []:
+    livros = []
+    for x in bruto.get("livros") or []:
         if not isinstance(x, dict):
             continue
         fonte = permitidas.get(str(x.get("fonte", "")).strip().lower())
-        if fonte:
-            refs.append({"fonte": fonte, "detalhe": str(x.get("detalhe", ""))[:200],
-                         "busca": re.sub(r"[^\w\s\-\"()]", " ", str(x.get("busca", "")))[:150].strip()})
-    if not refs:
-        problemas.append("nenhuma referência da lista de fontes permitidas")
+        if fonte and fonte not in [l["fonte"] for l in livros]:
+            secao = re.sub(r"(?i)\b(cap[ií]tulo|cap\.|p[aá]ginas?|p[aá]gs?\.?|pp?\.)\s*[\d\-–, ]+", "", str(x.get("secao", "")))
+            livros.append({"fonte": fonte, "secao": limpar_html(secao).strip(" ,;-–—")[:160]})
+    if not livros:
+        problemas.append("nenhum livro da lista FONTES PERMITIDAS em referencias.livros")
+    busca = refs_mod.limpar_busca(bruto.get("busca_pubmed") or r.get("busca_pubmed") or "")
+    if not busca:
+        problemas.append("referencias.busca_pubmed vazio (termos em inglês para o PubMed)")
 
     tema = str(r.get("tema") or "").strip()[:150]
     if not tema:
@@ -135,28 +137,11 @@ def validar(r, q, relevantes, todas, catalogo, config):
     aviso = r.get("aviso_diretriz")
     aviso = limpar_html(str(aviso))[:800] if aviso not in (None, "", "null") else None
     afirm = [str(a)[:400] for a in (r.get("afirmacoes_criticas") or []) if a][:10]
-    return {"tema": tema, "aviso_diretriz": aviso, "secoes": secoes, "historico": historico,
-            "referencias": refs, "afirmacoes_criticas": afirm}, problemas
+    return {"tema": tema, "aviso_diretriz": aviso, "secoes": secoes, "livros": livros, "busca": busca,
+            "afirmacoes_criticas": afirm}, problemas
 
 
-def html_referencias(refs):
-    out = []
-    for n, x in enumerate(refs, 1):
-        termo = x["busca"]
-        link = ""
-        if termo:
-            if x["fonte"] == "Cochrane Library":
-                termo = f'({termo}) AND "Cochrane Database Syst Rev"[Journal]'
-            url = "https://pubmed.ncbi.nlm.nih.gov/?term=" + urllib.parse.quote(termo)
-            link = f' <a href="{url}">Pesquisar o tema no PubMed</a>'
-        det = f" — {limpar_html(x['detalhe'])}" if x["detalhe"] else ""
-        out.append(f"<p>{n}. <strong>{limpar_html(x['fonte'])}</strong>{det}.{link}</p>")
-    out.append("<p><em>Os links abrem uma pesquisa sobre o tema no PubMed, não um artigo específico. "
-               "Confira sempre a edição mais recente da fonte.</em></p>")
-    return "".join(out)
-
-
-def texto_para_verificar(c, q):
+def texto_para_verificar(c, q, relevantes, todas, catalogo):
     partes = [texto_para_ia(q, com_gabarito=True), "", f"TEMA: {c['tema']}"]
     if c["aviso_diretriz"]:
         partes.append(f"AVISO DE DIRETRIZ: {texto_puro(c['aviso_diretriz'])}")
@@ -164,16 +149,26 @@ def texto_para_verificar(c, q):
         partes.append(f"\n[{s}]\n{texto_puro(re.sub(r'</(p|li|tr)>', ' / ', c['secoes'][s]))}")
     if c["afirmacoes_criticas"]:
         partes.append("\nAFIRMAÇÕES CENTRAIS DECLARADAS PELO AUTOR:\n- " + "\n- ".join(c["afirmacoes_criticas"]))
+    linhas = []
+    for r in relevantes:
+        h = todas[r["id"]]
+        res = catalogo.get(r["id"], {}).get("resumo") or texto_puro(h.get("enunciado_html"))[:200]
+        linhas.append(f"- {h['banca']} {h['ano']}, questão {h['numero']} ({ROTULO_TIPO[r['tipo']]}; "
+                      f"gabarito {h.get('gabarito') or 'anulada'}): {res}")
+    partes.append("\nHISTÓRICO FORNECIDO AO AUTOR (questões REAIS do acervo desta banca, de anos anteriores ou "
+                  "posteriores; citá-las é correto):\n" + ("\n".join(linhas) if linhas else "(nenhuma)"))
     return "\n".join(partes)
 
 
 # ------------------------------------------------------------------ uma questão
 def gerar_uma(q, todas, catalogo, cliente, config, reportes):
     relevantes, meta_hist = relacionadas(q["id"], todas, catalogo, cliente, config, log)
+    pt = meta_hist["por_tipo"]
     log(f"   histórico: {meta_hist['questoes_da_banca_avaliadas']} questões avaliadas, "
-        f"{meta_hist['candidatas_pela_triagem']} candidatas, {meta_hist['relevantes']} do mesmo tema")
+        f"{meta_hist['candidatas_pela_triagem']} candidatas, {meta_hist['relevantes']} relacionadas "
+        f"({pt['mesmo_tema']} mesmo tema, {pt['tema_relacionado']} tema relacionado, {pt['caso_semelhante']} caso semelhante)")
 
-    cega = cliente.json("resolver_as_cegas", prompt("resolver_as_cegas.md"), texto_para_ia(q, com_gabarito=False))
+    cega = cliente.json("resolver_as_cegas", prompt("resolver_as_cegas.md", config), texto_para_ia(q, com_gabarito=False))
     alt_cega = str(cega.get("alternativa", "")).strip().upper()[:1]
     discorda = q.get("gabarito") in LETRAS and alt_cega in LETRAS and alt_cega != q["gabarito"]
     log(f"   resolução às cegas: {alt_cega or '?'} (gabarito {q.get('gabarito') or 'anulada'})" + ("  -> DIVERGE" if discorda else ""))
@@ -187,12 +182,17 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
     if reportes:
         base.append("\nERROS APONTADOS POR ESTUDANTES NA CORREÇÃO ANTERIOR (verifique e corrija se procederem):\n- "
                     + "\n- ".join(str(x.get("texto", x))[:500] for x in reportes))
-    base.append(f"\nHISTÓRICO (questões desta banca sobre o mesmo tema; avaliadas "
-                f"{meta_hist['questoes_da_banca_avaliadas']} questões):\n{bloco_para_prompt(relevantes, todas)}")
+    anos = meta_hist.get("anos") or ["?", "?"]
+    base.append(f"\nHISTÓRICO — fatos já contados pelo sistema (use estes números, não conte de novo): acervo de "
+                f"{meta_hist['provas_no_acervo']} provas da banca ({anos[0]}–{anos[1]}); {meta_hist['relevantes']} questões "
+                f"relacionadas, em {meta_hist['provas_com_relacionadas']} provas diferentes "
+                f"({pt['mesmo_tema']} do mesmo tema, {pt['tema_relacionado']} de tema relacionado, "
+                f"{pt['caso_semelhante']} com caso semelhante). Resumo das principais:\n"
+                f"{bloco_para_prompt(relevantes, todas, catalogo, config['historico'].get('max_no_pedido_de_geracao', 15))}")
     base.append(f"\nFONTES PERMITIDAS:\n{fontes}")
     usuario_base = "\n".join(base)
 
-    sistema = prompt("gerar_correcao.md")
+    sistema = prompt("gerar_correcao.md", config)
     qual = config["qualidade"]
     observacoes, verificacao, c = "", None, None
     for rodada in range(1, qual["rodadas_de_verificacao"] + 1):
@@ -207,7 +207,7 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
                            + "\n- ".join(problemas))
         if problemas:
             return None, {"motivo": "validacao", "problemas": problemas}, meta_hist
-        v = cliente.json("verificar", prompt("verificar.md"), texto_para_verificar(c, q))
+        v = cliente.json("verificar", prompt("verificar.md", config), texto_para_verificar(c, q, relevantes, todas, catalogo))
         probs = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
         serios = [p for p in probs if str(p.get("gravidade", "")).lower() in ("grave", "moderada")]
         verificacao = {"aprovado": not serios, "rodada": rodada, "modelo": config["modelos"]["verificar"],
@@ -225,20 +225,22 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
         return None, {"motivo": "verificacao", "correcao": c, "verificacao": verificacao}, meta_hist
 
     secoes = dict(c["secoes"])
-    secoes["2.10"] = (f"<p><em>Busca no acervo: {meta_hist['questoes_da_banca_avaliadas']} questões da banca "
-                      f"{q['banca']} avaliadas; {meta_hist['relevantes']} tratam do mesmo tema "
-                      f"(listadas na tabela acima).</em></p>" + secoes["2.10"])
-    secoes["2.15"] = html_referencias(c["referencias"])
+    rc = config.get("referencias", {})
+    artigos = refs_mod.buscar_artigos(c["busca"], rc.get("artigos_pubmed", 2), rc.get("anos_artigos", 10),
+                                      rc.get("intervalo_entre_buscas_s", 0.4), log)
+    log(f"   referências: {len(c['livros'])} livro(s), {len(artigos)} artigo(s) do PubMed")
+    secoes["2.15"] = refs_mod.montar_html(c["livros"], artigos, c["busca"], c["tema"].split(":")[-1])
     alertas = ["ia_discorda_do_gabarito"] if discorda else []
     entrada = {
         "tema": c["tema"], "aviso_diretriz": c["aviso_diretriz"],
         "gabarito_usado": q.get("gabarito") if q.get("gabarito") in LETRAS else None,
-        "secoes_html": secoes, "historico": c["historico"], "historico_meta": meta_hist,
-        "referencias": c["referencias"], "afirmacoes_criticas": c["afirmacoes_criticas"],
+        "secoes_html": secoes, "historico": linhas_da_tabela(relevantes, todas, catalogo), "historico_meta": meta_hist,
+        "referencias": {"livros": c["livros"], "busca_pubmed": c["busca"], "artigos": artigos},
+        "afirmacoes_criticas": c["afirmacoes_criticas"],
         "resolucao_cega": {"alternativa": alt_cega or None, "confianca": cega.get("confianca"),
                            "concorda_com_gabarito": None if q.get("gabarito") not in LETRAS else not discorda},
         "verificacao": verificacao,
-        "origem": "api_v1", "modelo": config["modelos"]["gerar"],
+        "origem": "api_v2", "modelo": config["modelos"]["gerar"],
         "gerado_em": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "revisao": {"status": "nao_revisado", "alertas": alertas, "reportes": [],
                     "reportes_atendidos": list(reportes)},
@@ -269,7 +271,7 @@ def precisa(q, c, modo, forcar):
         return True, "correção contradiz o gabarito"
     if c.get("revisao", {}).get("status") in ("reportado", "regerar"):
         return True, "reportada por usuários"
-    if modo == "convertidas" and c.get("origem") != "api_v1":
+    if modo == "convertidas" and not str(c.get("origem", "")).startswith("api_"):
         return True, "correção antiga (convertida)"
     return False, "já tem correção"
 
@@ -313,6 +315,38 @@ def cmd_catalogar(args, config):
         atualizar_catalogo(args.dados, args.banca, cliente, config, log)
     finally:
         log(contador.resumo())
+
+
+def cmd_atualizar_referencias(args, config):
+    """Refaz só a seção 2.15 das correções já geradas pela API, com artigos reais do PubMed. Não usa a IA."""
+    rc = config.get("referencias", {})
+    permitidas = {f.lower(): f for f in config["fontes_permitidas"]}
+    total = 0
+    for b, ano in listar_edicoes(args.dados, args.banca):
+        cs = ler_correcoes(args.dados, b, ano)
+        mudou = False
+        for qid, c in cs["correcoes"].items():
+            if not str(c.get("origem", "")).startswith("api_"):
+                continue
+            r = c.get("referencias") or {}
+            if isinstance(r, list):          # formato da primeira versão
+                livros = [{"fonte": permitidas[x["fonte"].lower()], "secao": x.get("detalhe", "")}
+                          for x in r if isinstance(x, dict) and str(x.get("fonte", "")).lower() in permitidas]
+                busca = next((x.get("busca") for x in r if isinstance(x, dict) and x.get("busca")), "")
+            else:
+                livros, busca = r.get("livros", []), r.get("busca_pubmed", "")
+            if not busca:
+                busca = c.get("tema", "").split(":")[-1]
+            artigos = refs_mod.buscar_artigos(busca, rc.get("artigos_pubmed", 2), rc.get("anos_artigos", 10),
+                                              rc.get("intervalo_entre_buscas_s", 0.4), log)
+            c["referencias"] = {"livros": livros, "busca_pubmed": busca, "artigos": artigos}
+            c["secoes_html"]["2.15"] = refs_mod.montar_html(livros, artigos, busca, c.get("tema", "").split(":")[-1])
+            mudou = True; total += 1
+            log(f"{qid}: {len(livros)} livro(s), {len(artigos)} artigo(s)")
+        if mudou:
+            gravar_json(arq_correcoes(args.dados, b, ano), cs)
+    log(f"Referências refeitas em {total} correção(ões), sem custo de API.")
+    return 0
 
 
 def cmd_gerar(args, config):
@@ -370,7 +404,7 @@ def cmd_gerar(args, config):
                 cs_arq = ler_correcoes(args.dados, args.banca, ano)   # relê: outra etapa pode ter gravado
                 cs_arq["correcoes"][qid] = entrada
                 gravar_json(arq_correcoes(args.dados, args.banca, ano), cs_arq)
-                linhas.append((qid, "publicada", f"{entrada['historico_meta']['relevantes']} no histórico"
+                linhas.append((qid, "publicada", f"{entrada['historico_meta']['relevantes']} relacionadas no histórico"
                                + ("; IA discordou do gabarito" if entrada["revisao"]["alertas"] else "")))
                 log("   GRAVADA em correcoes.json")
             else:
@@ -396,6 +430,8 @@ def main():
     ap.add_argument("--simular", action="store_true", help="não chama a API (teste do fluxo)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("modelos", help="lista os modelos disponíveis na sua conta")
+    ar = sub.add_parser("atualizar-referencias", help="refaz a seção 2.15 com artigos reais do PubMed (sem IA)")
+    ar.add_argument("--banca", required=True)
     c = sub.add_parser("catalogar", help="cataloga os temas de todas as questões da banca")
     c.add_argument("--banca", required=True); c.add_argument("--orcamento", type=float)
     g = sub.add_parser("gerar", help="gera correções")
@@ -416,6 +452,8 @@ def main():
             return cmd_modelos(args, config) or 0
         if args.cmd == "catalogar":
             return cmd_catalogar(args, config) or 0
+        if args.cmd == "atualizar-referencias":
+            return cmd_atualizar_referencias(args, config)
         return cmd_gerar(args, config)
     except ErroAPI as e:
         log(f"ERRO: {e}"); return 2

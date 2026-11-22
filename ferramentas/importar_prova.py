@@ -191,12 +191,30 @@ ESTILOS_ALT = [
 def separar_questoes(linhas, primeira=1):
     melhor = None
     for nome, rx in ESTILOS_QUESTAO:
-        marcas, esperado = [], primeira
+        # cadeia mais longa de números consecutivos (saltos de até 2 tolerados) que começa em `primeira`:
+        # instruções numeradas da capa e listas internas ("1) Carvedilol 2) ...") formam cadeias curtas e ficam de fora
+        achados = []
         for i, l in enumerate(linhas):
             m = rx.match(l)
-            if m and esperado <= int(m.group(1)) <= esperado + 2:
-                marcas.append((i, int(m.group(1)), m.group(2) if m.lastindex >= 2 else ""))
-                esperado = int(m.group(1)) + 1
+            if m:
+                achados.append((i, int(m.group(1)), m.group(2) if m.lastindex >= 2 else ""))
+        tam, ant = [0] * len(achados), [-1] * len(achados)
+        ultimo_por_numero = {}          # número -> (tamanho da melhor cadeia que termina nele, índice)
+        for k, (i, n, _) in enumerate(achados):
+            melhor_k = (1, -1) if n == primeira else (0, -1)
+            for d in (1, 2, 3):
+                t = ultimo_por_numero.get(n - d)
+                if t and t[0] + 1 > melhor_k[0]:
+                    melhor_k = (t[0] + 1, t[1])
+            tam[k], ant[k] = melhor_k
+            if tam[k] and (n not in ultimo_por_numero or tam[k] >= ultimo_por_numero[n][0]):
+                ultimo_por_numero[n] = (tam[k], k)
+        marcas = []
+        if achados and max(tam) > 0:
+            k = max(range(len(achados)), key=lambda x: (tam[x], -x))
+            while k != -1:
+                marcas.append(achados[k]); k = ant[k]
+            marcas.reverse()
         if not melhor or len(marcas) > len(melhor[1]):
             melhor = (nome, marcas)
     nome, marcas = melhor
@@ -253,11 +271,24 @@ RE_ITEM = re.compile(r"^\s*(?:(?:I{1,3}|IV|V|VI{1,3}|IX|X)\s*[-–.)]|\(\s*[IVX\
 
 
 def eh_linha_de_tabela(l):
-    return len(re.findall(r"\S(?: {3,})(?=\S)", l.strip())) >= 1 and len(l.strip()) > 10
+    l = re.sub(r"\(\s*[VFvf]?\s*\)", "()", l.strip())          # "(    )" de verdadeiro/falso não é tabela
+    return len(re.findall(r"\S(?: {3,})(?=\S)", l)) >= 1 and len(l) > 10
 
 
 def juntar_linhas(linhas):
     """Texto -> HTML simples. Junta linhas quebradas, preserva itens, parágrafos e tabelas (colunas alinhadas)."""
+    # palavra hifenizada no fim da linha, inclusive na troca de página/coluna (com até 3 linhas vazias no meio):
+    # "larin-" + "gotraqueal" -> "laringotraqueal". Junta na linha de cima, sem deixar linha vazia no lugar.
+    juntas, vazias = [], []
+    for l in linhas:
+        if not l.strip():
+            vazias.append(l); continue
+        if juntas and len(vazias) <= 3 and re.search(r"[A-Za-zÀ-ÿ]-$", juntas[-1].rstrip()) and re.match(r"\s*[a-zà-ÿ]", l):
+            juntas[-1] = juntas[-1].rstrip()[:-1] + l.strip()
+        else:
+            juntas.extend(vazias); juntas.append(l)
+        vazias = []
+    linhas = juntas + vazias
     # linha em branco entre duas linhas de tabela não separa a tabela
     linhas = [l for i, l in enumerate(linhas)
               if l.strip() or not (0 < i < len(linhas) - 1 and eh_linha_de_tabela(linhas[i - 1]) and eh_linha_de_tabela(linhas[i + 1]))]
@@ -590,6 +621,65 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
     return qs, problemas, rel
 
 
+# ======================================================================= troca de texto
+def _palavras_q(q):
+    t = texto_puro((q.get("enunciado_html") or "") + " " + (q.get("extras_html") or "")) + " " + \
+        " ".join(texto_puro(v) for v in (q.get("alternativas") or {}).values())
+    return re.findall(r"[0-9a-z%]+", sem_acento(t))
+
+
+def marcar_correcoes_de_texto_mudado(dados, banca, ano, velhos, novas, rel, limiar=0.85):
+    """Ao substituir o texto de uma edição, a correção de uma questão cujo texto mudou muito foi escrita
+    para outra questão: ela é marcada para ser refeita (status 'regerar') e o site mostra o aviso."""
+    from crivo_comum import ler_correcoes, arq_correcoes
+    cs = ler_correcoes(dados, banca, ano)
+    marcadas = []
+    for q in novas:
+        v, c = velhos.get(q["id"]), cs["correcoes"].get(q["id"])
+        if not v or not c:
+            continue
+        sim = difflib.SequenceMatcher(None, _palavras_q(v), _palavras_q(q), autojunk=False).ratio()
+        if sim < limiar:
+            rev = c.setdefault("revisao", {})
+            rev["status"] = "regerar"
+            al = rev.setdefault("alertas", [])
+            if "texto_da_questao_mudou" not in al:
+                al.append("texto_da_questao_mudou")
+            marcadas.append(f"Q{q['numero']} ({sim:.0%})")
+    if marcadas:
+        gravar_json(arq_correcoes(dados, banca, ano), cs)
+        rel += ["", "## Correções marcadas para refazer (o texto antigo era outro)",
+                f"- {', '.join(marcadas)} — semelhança entre o texto antigo e o oficial entre parênteses"]
+        print(f"   {len(marcadas)} correção(ões) marcadas para refazer: texto antigo diferente do oficial")
+
+
+# ======================================================================= acervo (todas as provas num arquivo)
+RE_INICIO_PROVA = re.compile(r"^\s*Prova na [ií]ntegra\s+((?:19|20)\d{2})\s*$", re.M)
+RE_OUTRA_PROVA = re.compile(r"^\s*PROVA GERAL\s*[-–]\s*(?:19|20)\d{2}\s*$", re.M)
+
+
+def dividir_acervo(caminho, pasta_tmp):
+    """Arquivo com várias provas ('Prova na íntegra AAAA' ... 'Gabarito AAAA') -> um .txt por ano.
+    O que vier depois do gabarito da última prova (ex.: caderno de outro ano colado) fica de fora e é relatado."""
+    with open(caminho, encoding="utf-8", errors="replace") as f:
+        t = f.read().replace("\r\n", "\n").replace("\r", "\n")
+    marcas = list(RE_INICIO_PROVA.finditer(t))
+    saida = []
+    for k, m in enumerate(marcas):
+        fim = marcas[k + 1].start() if k + 1 < len(marcas) else len(t)
+        trecho = t[m.start():fim]
+        resto = RE_OUTRA_PROVA.search(trecho)
+        if resto:
+            print(f"   {m.group(1)}: {len(trecho) - resto.start()} caracteres depois do gabarito "
+                  f"('{resto.group(0).strip()}') não pertencem a esta prova e foram deixados de fora")
+            trecho = trecho[:resto.start()]
+        arq = os.path.join(pasta_tmp, f"{m.group(1)}.txt")
+        with open(arq, "w", encoding="utf-8") as f:
+            f.write(trecho)
+        saida.append((m.group(1), arq))
+    return saida
+
+
 # ======================================================================= linha de comando
 def achar_arquivos(pasta, banca):
     """provas/<BANCA>/<ANO>.pdf|.txt  ou  provas/<BANCA>/<ANO>/<qualquer>.pdf|.txt (PDF tem preferência)."""
@@ -614,6 +704,7 @@ def achar_arquivos(pasta, banca):
 def main():
     ap = argparse.ArgumentParser(description="Importa provas originais (.pdf/.txt) para questoes.json")
     ap.add_argument("--arquivo"); ap.add_argument("--pasta", help="pasta com <BANCA>/<ANO>.pdf|.txt")
+    ap.add_argument("--acervo", help="um .txt com várias provas ('Prova na íntegra AAAA' ... 'Gabarito AAAA')")
     ap.add_argument("--banca", required=True); ap.add_argument("--ano")
     ap.add_argument("--gabarito", default="gabarito.json"); ap.add_argument("--disciplinas")
     ap.add_argument("--dados", default="dados"); ap.add_argument("--relatorios", default="relatorios/importacao")
@@ -635,8 +726,11 @@ def main():
         tarefas = [(a.ano, a.arquivo)]
     elif a.pasta:
         tarefas = [t for t in achar_arquivos(a.pasta, a.banca) if not a.ano or t[0] in a.ano.split()]
+    elif a.acervo:
+        tmp_acervo = tempfile.mkdtemp(prefix="acervo_")
+        tarefas = [t for t in dividir_acervo(a.acervo, tmp_acervo) if not a.ano or t[0] in a.ano.split()]
     else:
-        ap.error("informe --arquivo ou --pasta")
+        ap.error("informe --arquivo, --pasta ou --acervo")
     gabarito = ler_json(a.gabarito, {}) or {}
     disciplinas = ler_json(a.disciplinas, {}) if a.disciplinas else {}
 
@@ -671,6 +765,7 @@ def main():
                     v = velhos.get(q["id"], {})
                     if not q.get("disciplina") and v.get("disciplina"):
                         q["disciplina"] = v["disciplina"]
+                marcar_correcoes_de_texto_mudado(a.dados, a.banca, ano, velhos, qs["questoes"], rel)
             gravar_json(destino, qs)
         nome_rel = os.path.join(a.relatorios, f"{a.banca}_{ano}.md")
         with open(nome_rel, "w", encoding="utf-8") as f:

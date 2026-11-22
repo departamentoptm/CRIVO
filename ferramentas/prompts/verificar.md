@@ -13,6 +13,10 @@ Procure:
 5. Contradições internas (ex.: a seção 2.4 diz que uma alternativa está certa e a 2.3 diz outra).
 6. Análise de alternativa ausente ou errada na seção 2.4.
 
+Sobre o HISTÓRICO: o bloco "HISTÓRICO FORNECIDO AO AUTOR" lista questões REAIS desta banca, de anos anteriores
+ou posteriores à questão atual. Citar essas questões é correto e não é anacronismo. Só aponte como inventada
+uma questão de prova citada que NÃO esteja nessa lista.
+
 Classifique cada problema:
 - "grave": erro factual que pode ensinar algo errado ou prejudicar um paciente, ou contradição com o gabarito.
 - "moderada": imprecisão relevante, número duvidoso, informação provavelmente inventada.

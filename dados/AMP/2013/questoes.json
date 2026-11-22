@@ -1,0 +1,1608 @@
+{
+ "formato": "crivo-questoes",
+ "versao": 1,
+ "banca": "AMP",
+ "ano": "2013",
+ "questoes": [
+  {
+   "id": "AMP-2013-Q1",
+   "numero": 1,
+   "disciplina": null,
+   "enunciado_html": "Pré-escolar internado por pneumonia grave, desenvolve no segundo dia de internação um quadro de perfusão periférica muito rápida (menos que 1 segundo), extremidades e face ruborizadas e aquecidas, junto com outros sinais como taquicardia, oligúria e alteração do nível de consciência. Além do suporte básico e de ressuscitação volêmica, qual a droga vasoativa que deveríamos iniciar?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "adrenalina contínua",
+    "B": "dopamina",
+    "C": "dobutamina",
+    "D": "noradrenalina",
+    "E": "milrinona"
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q2",
+   "numero": 2,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa incorreta sobre as queimaduras em crianças:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "indicar internação em queimaduras de 2º grau em mais de 10% da superfície corpórea.",
+    "B": "a hidratação venosa está indicada para o paciente com superfície corpórea queimada superior a 15%.",
+    "C": "manter o paciente queimado em jejum por pelo menos 48 horas pelo risco de aspiração.",
+    "D": "a profilaxia antimicrobiana oral ou sistêmica não está indicada.",
+    "E": "o choque hipovolêmico e as infecções respondem pela maioria dos óbitos."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q3",
+   "numero": 3,
+   "disciplina": null,
+   "enunciado_html": "Define-se como violência sexual a interação entre crianças ou adolescentes e adultos, com o propósito de estimulação e de gratificação sexual do adulto. Sobre essa forma de violência contra a criança, assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "os homens são os agressores mais frequentes e mais da metade dos casos envolvem penetração.",
+    "B": "o fenômeno é mais frequente dentro do círculo familiar da criança e na maioria dos casos provocados por pessoas conhecidas da vítima.",
+    "C": "a maioria das vítimas mostra sinais físicos evidentes de traumatismo.",
+    "D": "mesmo que a vítima já tenha relatado o abuso é necessária uma nova entrevista para se confirmar os dados.",
+    "E": "para se caracterizar o abuso sexual é necessário que a vítima esteja consciente de estar sendo abusada."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q4",
+   "numero": 4,
+   "disciplina": null,
+   "enunciado_html": "A Organização Mundial da Saúde, o Ministério da Saúde do Brasil e a Sociedade Brasileira de Pediatria recomendam amamentação exclusiva por aproximadamente seis meses e complementada até os dois anos ou mais. As crianças que recebem alimentos complementares antes dos seis meses em adição ao leite materno comparadas a crianças amamentadas exclusivamente com leite materno:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "adoecem menos de infecção intestinal.",
+    "B": "apresentam menos hospitalizações por doença respiratórias.",
+    "C": "apresentam diminuição da duração do aleitamento materno.",
+    "D": "não apresentam interferência na absorção de nutrientes do leite materno.",
+    "E": "apresentam déficit de crescimento."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q5",
+   "numero": 5,
+   "disciplina": null,
+   "enunciado_html": "O leite materno contém todos os nutrientes essenciais para o crescimento e o desenvolvimento ótimos da criança pequena, além de ser mais bem digerido, quando comparado com leites de outras espécies. Assinale a alternativa incorreta sobre o leite materno:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "o colostro contém mais proteínas e menos lipídeos do que o leite maduro.",
+    "B": "o leite de mães de recém-nascidos pré-termo difere do de mães de bebês a termo.",
+    "C": "a concentração de gordura aumenta no decorrer de uma mamada e o leite do final da mamada é mais rico em energia.",
+    "D": "a principal imunoglobulina do leite materno é a IgA.",
+    "E": "o leite humano pasteurizado tem o mesmo valor biológico do leite cru."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q6",
+   "numero": 6,
+   "disciplina": null,
+   "enunciado_html": "A crise aguda de asma representa a exacerbação de um processo patológico crônico e a sua avaliação deve ser rápida e objetiva. No manejo desta situação podemos afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "o sulfato de magnésio deve ser utilizado precocemente, em monoterapia.",
+    "B": "a aminofilina apresenta efeito boncodilatador superior aos beta2-agonistas, mas seu uso é limitado pelos seus efeitos colaterais.",
+    "C": "os broncodilatadores devem utilizados por via inalatória, não havendo diferenças significativas entre nebulização e administração de aerossol dosimetrado.",
+    "D": "o brometo de ipratrópio, agente anticolinérgico, possui início rápido de ação e pode ser usado de forma isolada.",
+    "E": "os corticosteroides só devem ser utilizados após falha com o uso de broncodilatadores."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q7",
+   "numero": 7,
+   "disciplina": null,
+   "enunciado_html": "Em pacientes pediátricos vítimas de traumatismo craniano e com hipertensão intracraniana sustentada, a conduta com melhor resultado é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "manitol a 20%.",
+    "B": "solução salina hipertônica a 3%.",
+    "C": "barbitúricos.",
+    "D": "hiperventilação agressiva.",
+    "E": "corticosteroides."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q8",
+   "numero": 8,
+   "disciplina": null,
+   "enunciado_html": "A sinusite aguda ocorre como complicação das infecções virais do trato respiratório superior, com alta incidência na população infantil. Devemos suspeitar de infecção bacteriana principalmente quando:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "houver a presença de rinorreia purulenta.",
+    "B": "acompanhar-se de febre acima de 39 graus Celsius.",
+    "C": "o raio X de seios da face mostrar espessamento de mucosa maior que 4 mm.",
+    "D": "houver halitose acompanhando os sintomas de dor facial.",
+    "E": "não houver melhora dos sintomas de uma infecção de via aérea superior após 10 dias."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q9",
+   "numero": 9,
+   "disciplina": null,
+   "enunciado_html": "Lactente de 9 meses, em aleitamento materno complementado com alimentação sólida adequada para a idade, está há 3 dias com diarreia aquosa sem muco ou sangue, 6 a 10 episódios ao dia, acompanhada de vômitos esporádicos. Chega ao Pronto Atendimento irritada, olhos encovados, lágrimas ausentes, boca seca, sinal da prega que desaparece rapidamente e muito sedenta. No manejo inicial deste paciente qual das seguintes condutas estaria incorreta?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "o início da reposição hídrica deve ser por via oral.",
+    "B": "o aleitamento materno deve ser mantido durante o período de reidratação.",
+    "C": "após a correção da hidratação deve retornar à dieta habitual, somente com restrição das gorduras nas refeições.",
+    "D": "os antieméticos como a metroclopramida não são recomendados.",
+    "E": "os antiespasmódicos são contraindicados."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q10",
+   "numero": 10,
+   "disciplina": null,
+   "enunciado_html": "Pré-escolar de 3 anos, com aparecimento súbito de uma erupção monomórfica, eritematopapular, não pruriginosa, com pápulas de 1 a 5 mm de diâmetro, com o topo achatado e que ocupa simetricamente a face, as nádegas e as extremidades. Na palpação abdominal apresenta hepatomegalia moderada, pouco dolorosa, com elevação das transaminases na segunda semana após o aparecimento da dermatopatia. O diagnóstico mais provável é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "herpes-simples.",
+    "B": "varicela-zóster.",
+    "C": "mononucleose infecciosa.",
+    "D": "síndrome de Gianotti-Crosti.",
+    "E": "roséola infantil."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q11",
+   "numero": 11,
+   "disciplina": null,
+   "enunciado_html": "Não existe sinal clínico patognomônico da meningite bacteriana. Os sinais e sintomas são variáveis, dependem da idade do paciente, da duração da enfermidade e da resposta do organismo. Em relação à meningite bacteriana na infância podemos afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "No período neonatal a maioria dos pacientes apresenta abaulamento de fontanela como manifestação inicial.",
+    "B": "O liquor pode apresentar com frequência um predomínio de monomorfonucleares no início.",
+    "C": "Estudos realizados em países desenvolvidos são inconclusivos sobre o benefício da corticoterapia na infecção meníngea bacteriana.",
+    "D": "A duração do tratamento antimicrobiano para a etiologia meningocócica é de no mínimo 10 dias.",
+    "E": "A quimioprofilaxia com rifampicina está indicada para os contatos domiciliares nos casos confirmados de meningite por Haemophilus influenzae B, meningococo e pneumococo."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q12",
+   "numero": 12,
+   "disciplina": null,
+   "enunciado_html": "Na reanimação na sala de parto, a intubação traqueal está formalmente indicada nas seguintes situações, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "se existe a necessidade de aspiração traqueal em neonatos deprimidos com líquido amniótico meconial.",
+    "B": "se a ventilação com balão e máscara for prolongada.",
+    "C": "se após a realização dos passos iniciais da reanimação o recém-nascido apresenta apneia e frequência cardíaca menor que 100 bpm.",
+    "D": "se a administração de massagem cardíaca e/ou de adrenalina é necessária.",
+    "E": "se existe suspeita ou presença de hérnia diafragmática."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q13",
+   "numero": 13,
+   "disciplina": null,
+   "enunciado_html": "O estado de mal epiléptico é caracterizado pela presença de crises epilépticas com mais de 30 minutos de duração e exige tratamento imediato. Quando a despeito do tratamento instituído, persiste a atividade convulsiva, instala-se o estado de mal epiléptico refratário, cuja mortalidade é de cerca de 40% no adulto. A droga de escolha a se utilizar na criança que atinge esta fase (estado de mal epiléptico refratário) é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "fenobarbital.",
+    "B": "fenitoína.",
+    "C": "midazolam.",
+    "D": "valproato de sódio.",
+    "E": "tiopental."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q14",
+   "numero": 14,
+   "disciplina": null,
+   "enunciado_html": "As convulsões febris constituem uma das manifestações neuropediátricas mais frequentes. Trata-se de condição benigna e sobre ela podemos afirmar, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "ocorre mais frequentemente em crianças de 3 meses a 5 anos de idade.",
+    "B": "a maioria das crianças apresentará recorrência da crise em futuros episódios de febre.",
+    "C": "não é incomum a observação de convulsão febril em temperaturas abaixo de 39ºC.",
+    "D": "de modo geral são crises tônico-clônicas generalizadas, de curta duração.",
+    "E": "a profilaxia medicamentosa contínua geralmente não é indicada."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q15",
+   "numero": 15,
+   "disciplina": null,
+   "enunciado_html": "Pré-escolar de 4 anos com três dias de febre alta e dor de garganta, apresenta, ao exame físico, tonsilas com hiperemia e exsudato, adenomegalia cervical aguda dolorosa e ausência de sinais de infecção viral. Você inicia tratamento com amoxicilina na dose de 30 mg/kg/dia em três doses diárias. Após 72 horas do início do tratamento o paciente não apresenta melhora, persistindo com febre e dor de garganta. Qual a hipótese mais provável para a manutenção do quadro?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "provavelmente trata-se de um estreptococo produtor de betalactamase.",
+    "B": "provavelmente trata-se de uma faringite viral.",
+    "C": "provavelmente exista a presença de bactérias anaeróbias no interior das tonsilas que produzem betalactamase.",
+    "D": "provavelmente trata-se de um estreptococo com resistência total à penicilina.",
+    "E": "provavelmente a dose utilizada da amoxicilina é abaixo dos níveis terapêuticos."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q16",
+   "numero": 16,
+   "disciplina": null,
+   "enunciado_html": "Um paciente de doze meses foi diagnosticado com otite média aguda pelo exame clínico e medicado com a seguinte prescrição: 1- Amoxicilina 50 mg/kg/dia de 8 em 8 horas por 7 dias. 2- Gotas otológicas com lidocaína para o alívio da dor, de 8 em 8 horas. 3- Ibuprofeno 1 gota por quilo de 8 em 8 horas se dor ou desconforto. 4- Descongestionante sistêmico 1 gota por quilo de 8 em 8 horas por 3 dias. 5- Dexclorfeniramina 0,5 mg/kg/dia de 8 em 8 horas por 3 dias. Podemos afirmar que desta prescrição o número de condutas corretas para o caso é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4",
+    "E": "5"
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q17",
+   "numero": 17,
+   "disciplina": null,
+   "enunciado_html": "A febre é fenômeno observado quando ocorre elevação do ponto de termorregulação do centro termorregulador desencadeando um conjunto de mecanismos que visam elevar a temperatura corporal. Com relação à febre na infância podemos afirmar que, exceto:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "a utilização de meios físicos, como banhos mornos e compressas frias têm indicação precisa nos casos de febre.",
+    "B": "não está indicada a utilização da combinação de dois antitérmicos intercalados para melhor efeito terapêutico.",
+    "C": "a febre acelera a atividade enzimática, produzindo um aumento da atividade metabólica de todas as células do organismo e induzindo maior atividade celular.",
+    "D": "na febre ocorre uma aceleração da migração dos leucócitos para os tecidos onde estiver ocorrendo um processo inflamatório.",
+    "E": "não existem evidências clínicas de que a magnitude da temperatura alcançada nos quadros febris tenha qualquer valor prognóstico (gravidade) ou diagnóstico (viral ou bacteriano) nos quadros infecciosos."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q18",
+   "numero": 18,
+   "disciplina": null,
+   "enunciado_html": "Lactente de seis meses dá entrada no hospital com quadro de dificuldade respiratória com sinais de obstrução brônquica, após um quadro inicial de três dias de rinorreia, tosse e febre baixa. Ao exame físico apresenta-se com batimento de aleta nasal, frequência respiratória de 70 irpm e sibilos predominantemente expiratórios. Raio X de tórax com hiperinsuflação torácica difusa. Foi internado e recebeu como medidas terapêuticas as seguintes condutas: 1- oferta hídrica por via parenteral. 2- fisioterapia respiratória 2 vezes ao dia. 3- oxigênio aquecido e umidificado em campânula. 4- beta2-adrenérgicos por via inalatória. 5- corticosteroides sistêmicos. Das medidas acima aplicadas, quantas podemos afirmar que encontram-se fundamentadas pela literatura?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4",
+    "E": "5"
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q19",
+   "numero": 19,
+   "disciplina": null,
+   "enunciado_html": "A incidência e a mortalidade por pneumonia adquirida na comunidade ainda continuam elevadas, apesar dos novos e potentes antibióticos e vacinas. Recomenda-se que crianças entre 2 meses e 5 anos, que apresentam tiragem, mas sem sinais de gravidade, devam ser hospitalizadas e receber como antibiótico inicial:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "penicilina cristalina",
+    "B": "ceftriaxona",
+    "C": "cloranfenicol",
+    "D": "ampicilina + gentamicina",
+    "E": "macrolídeos"
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q20",
+   "numero": 20,
+   "disciplina": null,
+   "enunciado_html": "Estima-se que entre 0,6 e 2% das pneumonias e, aproximadamente, 40% das pneumonias em crianças hospitalizadas são complicadas por efusão pleural. A identificação do agente etiológico na efusão pleural nem sempre é fácil de ser processada. Por ser o agente mais encontrado em crianças com derrame pleural em todas as faixas etárias, inclusive lactentes, recomenda-se que todos os pacientes devam ser tratados com antibióticos, com cobertura para:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Escherichia coli",
+    "B": "Streptococcus pneumoniae",
+    "C": "Staphylococcus aureus",
+    "D": "Staphylococcus epidermidis",
+    "E": "Mycoplasma pneumoniae"
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q21",
+   "numero": 21,
+   "disciplina": null,
+   "enunciado_html": "Paciente com fratura do colo do fêmur, no quinto dia de pós-operatório evolui com edema doloroso em todo o membro fraturado. Dois dias após, evolui com dispneia e dor torácica ventilatório-dependente. Ao exame apresenta frequência respiratória = 28 mrm, pressão arterial = 110/70 mmHg, pulso = 108 bpm, saturação de O2 em ar ambiente = 96%, ausculta pulmonar normal. Qual é melhor conduta diagnóstica e terapêutica?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cintilografa de ventilação-perfusão e trombolítico.",
+    "B": "Angiotomografia pulmonar e filtro de veia cava.",
+    "C": "Angiografia pulmonar e embolectomia.",
+    "D": "Cintilografia de ventilação-perfusão e anticoagulação com heparina de baixo peso molecular.",
+    "E": "Angiotomografia pulmonar e heparina de baixo peso molecular."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q22",
+   "numero": 22,
+   "disciplina": null,
+   "enunciado_html": "Paciente com história de 25 anos de etilismo pesado dá entrada no pronto-socorro por hematêmese. Na admissão apresenta-se hipocorado, ictérico, com pressão arterial = 120/70 mmHg, pulso = 100, torporoso. Apresenta ginecomastia e eritema palmar. Abdome globoso, flácido, com macicez móvel. Sem déficit neurológico focal. Qual das assertivas é correta em relação ao caso apresentado?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Eletroencefalograma é útil para o diagnóstico.",
+    "B": "O sangramento gastrointestinal é catártico e, portanto pode contribuir para melhora da alteração neurológica.",
+    "C": "A Anastomose Portossistêmica Intra-hepática Transjugular (TIPS) é indicada.",
+    "D": "Agentes que reduzem a produção de amônia no intestino são indicados.",
+    "E": "Tratamento com betabloqueadores deve ser instituído prontamente."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q23",
+   "numero": 23,
+   "disciplina": null,
+   "enunciado_html": "Paciente de 30 anos relata seis dias de evolução de mal-estar geral, dor em região cervical e febre. Ao exame apresenta-se taquicárdica, com tireoide dolorosa à palpação, aumentada difusamente e endurecida. Considerando a hipótese diagnóstica mais provável para o caso, qual é a assertiva que contém hipótese diagnóstica, exame complementar e tratamento corretos?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Doença de Graves, anticorpo antirreceptor de TSH positivo e metimazol.",
+    "B": "Tireoidite de De Quervain, VHS, T4 livre elevados e naproxeno.",
+    "C": "Tireoidite de Hashimoto, antitireoperoxidase positivo e levotiroxina.",
+    "D": "Tireoidite subaguda, cintilografia com captação aumentada e corticosteroides.",
+    "E": "Câncer anaplásico de tireoide, biópsia, combinação de cirurgia, radioterapia e quimioterapia."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q24",
+   "numero": 24,
+   "disciplina": null,
+   "enunciado_html": "Qual destes é o fator de risco mais importante no acidente vascular cerebral isquêmico?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Consumo abusivo de álcool.",
+    "B": "Diabetes.",
+    "C": "Fibrilação atrial.",
+    "D": "Tabagismo.",
+    "E": "Hipertensão arterial."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q25",
+   "numero": 25,
+   "disciplina": null,
+   "enunciado_html": "Qual é o exame padrão para diagnóstico de colite por C. difficile?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Colonoscopia.",
+    "B": "Leucócitos fecais.",
+    "C": "Pesquisa de toxina A e B.",
+    "D": "Coprocultura.",
+    "E": "Pesquisa direta do patógeno nas fezes."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q26",
+   "numero": 26,
+   "disciplina": null,
+   "enunciado_html": "Em relação aos achados laboratoriais da artrite reumatoide, assinale a afirmativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O fator reumatoide é um autoanticorpo dirigido contra a porção Fab de uma imunoglobulina M.",
+    "B": "O anti-CCP é um anticorpo altamente sensível, porém, pouco específico.",
+    "C": "Pacientes com Síndrome de Felty têm leucocitose com eosinofilia.",
+    "D": "O anti-CCP está associado com doença grave e erosiva.",
+    "E": "O fator antinuclear só aparece em pacientes com artrite reumatoide que têm síndrome de Sjögren secundária."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q27",
+   "numero": 27,
+   "disciplina": null,
+   "enunciado_html": "Com relação à terminologia descritiva da morfologia de lesões cutâneas individuais, considere as alternativas abaixo e marque a resposta correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Erosão é a perda circunscrita da epiderme e derme podendo acometer hipoderme e tecidos subjacentes.",
+    "B": "Dermatite de contato se manifesta com lesão tipo bolha.",
+    "C": "Vesícula é uma lesão elevada e circunscrita, contendo fluido seroso claro ou hemorrágico, com menos de 1 cm de diâmetro.",
+    "D": "Nódulo é a elevação firme, circunscrita e achatada da pele, com margens palpáveis e bem demarcadas.",
+    "E": "Ictiose se manifesta com lesão tipo placa e urtica."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q28",
+   "numero": 28,
+   "disciplina": null,
+   "enunciado_html": "O reconhecimento de que a maioria dos pacientes que desenvolvem insuficiência cardíaca tem fatores de risco subjacentes ou condições clínicas predisponentes que precedem seu desenvolvimento, geralmente por muitos anos, levou a uma ênfase sobre detecção e o tratamento dos fatores predisponentes no estadiamento da insuficiência cardíaca e na intervenção precoce. A respeito do assunto, considere se as seguintes afirmativas são verdadeiras (V) ou falsas (F):<br><br>I) Pacientes com ingestão excessiva de álcool e o uso de fármacos cardiotóxicos são classificados como tendo insuficiência cardíaca no Estágio A.<br>II) O Estágio B engloba pacientes sintomáticos com cardiopatia valvar hemodinamicamente significante.<br>III) O Estágio B engloba pacientes assintomáticos com fração de ejeção do ventrículo esquerdo reduzida ou dilatação do ventrículo esquerdo.<br>IV) O Estágio C inclui pacientes que exibiram sintomas ou sinais de insuficiência cardíaca.<br><br>Marque a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V, F, V, F.",
+    "B": "V, V, V, V.",
+    "C": "F, V, F, V.",
+    "D": "F, F, F, F.",
+    "E": "V, V, F, F."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q29",
+   "numero": 29,
+   "disciplina": null,
+   "enunciado_html": "A Hipertensão Arterial é uma doença altamente prevalente na população. Assinale a alternativa CORRETA com respeito a esta patologia.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A mortalidade por doença arterial coronariana tem relação direta com os níveis de pressão sistólica na faixa etária acima dos 60 anos, mas não nos pacientes mais jovens, por diferenças na etiopatogenia da hipertensão arterial nas diferentes faixas etárias.",
+    "B": "A maior parte dos pacientes hipertensos tem uma causa única para a elevação de pressão arterial, mesmo que oculta. Por este motivo são chamados de hipertensos primários.",
+    "C": "A concordância de pressão arterial é maior entre gêmeos unizigóticos do que entre gêmeos dizigóticos. Tal situação sugere herança mendeliana em um gene na maior parte dos hipertensos primários.",
+    "D": "Medidas de pressão arterial na faixa normal, feitas em consultório, podem ocorrer em pacientes que tem médias elevadas fora daquele ambiente. Tal situação é chamada de hipertensão mascarada e indica um grau de incerteza na tomada de decisão a partir da medida de pressão arterial feita no ambiente de consultório.",
+    "E": "A meta de controle do paciente hipertenso é pressão sistólica \"menor ou igual a\" 120 mmHg e diastólica \"menor ou igual a\" 80 mmHg."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q30",
+   "numero": 30,
+   "disciplina": null,
+   "enunciado_html": "Paciente torporoso, taquicárdico, hipotenso, com sódio sérico de 122 mmol/L e sódio urinário de 10 mmol/L. Qual das etiologias não é compatível com o caso?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Vômito.",
+    "B": "Diarreia.",
+    "C": "Pancreatite aguda.",
+    "D": "Queimadura extensa.",
+    "E": "Deficiência de mineralocorticoides."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q31",
+   "numero": 31,
+   "disciplina": null,
+   "enunciado_html": "Sob diferentes condições uma mesma droga pode produzir diversos efeitos, desde nenhum efeito ou um efeito desejável até, em outros casos, um efeito tóxico indesejável. Devemos aprender como individualizar a dose da droga sob diferentes condições para garantir uma terapia eficaz e segura. Isto requer conhecimento de farmacocinética - movimento de uma droga ao longo do tempo pelo corpo e farmacodinâmica - relacionamento entre a concentração da droga e seu efeito. A respeito do assunto considere as seguintes afirmativas são verdadeiras (V) ou falsas (F). i. Absorção refere-se à transferência de uma droga do meio onde foi administrada para o sistema circulatório. ii. A biodisponibilidade de uma droga em particular é a fração da dose total da droga que de fato alcança a circulação sistêmica partindo do local da administração. iii. A biodisponibilidade de uma droga não muda nas diferentes formulações porque a absorção total não difere. iv. Algumas drogas são bem absorvidas na circulação portal, mas são metabolizadas pelo fígado antes de alcançar a circulação sistêmica. Devido a este efeito de primeira passagem, para algumas drogas a via oral pode ser menos adequada do que outras vias de administração. Marque a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V, F, V, F.",
+    "B": "F, V, F, V.",
+    "C": "V, V, F, V.",
+    "D": "F, F, V, F.",
+    "E": "V, F, V, V."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q32",
+   "numero": 32,
+   "disciplina": null,
+   "enunciado_html": "Asma é uma síndrome clínica caracterizada por três componentes distintos. Episódios recorrentes, resposta broncoconstritora exagerada e inflamação das vias aéreas. Em relação a este assunto, considere as alternativas abaixo e marque a resposta correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O óxido nítrico é produzido enzimaticamente pelas células epiteliais das vias aéreas e por células inflamatórias encontradas no pulmão asmático.",
+    "B": "A acetilcolina liberada dos nervos motores intrapulmonares causa dilatação dos músculos lisos das vias aéreas através da estimulação dos receptores muscarínicos.",
+    "C": "No início de uma crise de asma ocorre obstrução primeiramente nas grandes vias aéreas.",
+    "D": "A frequência respiratória costuma ser alta durante uma crise de asma aguda em decorrência de anormalidades na composição dos gazes do sangue arterial.",
+    "E": "A gasometria arterial nos pacientes com asma prolongada ou grave é hipoxemia e hipercapnia."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q33",
+   "numero": 33,
+   "disciplina": null,
+   "enunciado_html": "Os distúrbios no balanço ou na distribuição do sódio e da água, acompanhados por alterações no volume ou na composição dos solutos dos fluidos distribuídos nos compartimentos do corpo, estão entre as mais frequentes anomalias encontradas e ocorrem em uma grande variedade de quadros clínicos e estados patológicos. A respeito dos processos patogênicos que levam a distúrbios na homeostase corpórea de sódio e água, analise as duas colunas: ( ) Normonatremia hipervolêmica. ( ) Hiponatremia hipervolêmica. ( ) Hipernatremia hipervolêmica. ( ) Normonatremia hipovolêmica. A. Ganho hipertônico de sódio e água. B. Ganho isotônico de sódio e água. C. Ganho hipotônico de sódio e água. D. Perda isotônica de sódio e água. Assinale a coluna da direita de acordo com sua correspondência com a da esquerda:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "B, C, A, D.",
+    "B": "C, B, D, A.",
+    "C": "A, D, B, C.",
+    "D": "D, A, C, B.",
+    "E": "B, A, C, D."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q34",
+   "numero": 34,
+   "disciplina": null,
+   "enunciado_html": "A síndrome nefrótica é definida pela ocorrência de albuminúria superior a 3-3,5 g/dia, acompanhada de hipoalbuminemia, edema e hiperlipidemia. As provas de triagem habituais incluem o nível de glicemia em jejum e a determinação da hemoglobina glicosilada para o diabetes mellitus, teste do anticorpo antinuclear para a doença do colágeno, e o complemento sérico, que permite o rastreamento de numerosas doenças mediadas por imunocomplexos. A respeito dos níveis séricos de proteínas do sistema complemento nas doenças glomerulares, analise as duas colunas. ( ) Glomerulosclerose focal segmentar. ( ) Glomerulonefrite pós-estreptocócica. ( ) Poliarterite nodosa.<br>( ) Lúpus eritematoso sistêmico. A. Hipocomplementêmica. B. Normocomplementêmica. Assinale de acordo com a correspondência.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A, B, A, B.",
+    "B": "B, A, B, A.",
+    "C": "A, A, B, B.",
+    "D": "B, B, A, A.",
+    "E": "B, A, B, B."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q35",
+   "numero": 35,
+   "disciplina": null,
+   "enunciado_html": "Quase todos os casos de sangramento gastrointestinal superior agudo se apresentam na forma de hematêmese, embora um sangramento vivo possa apresentar-se como hematoquezia. Apesar dos avanços progressivos no diagnóstico, a mortalidade permanece próxima de 15% em pacientes idosos. A respeito do assunto considere se as seguintes afirmativas são Verdadeiras (V) ou Falsas (F). i. Concentração de hemoglobina no sangue e hematócrito são marcadores pouco confiáveis de perda de sangue aguda. ii. A restauração inicial do volume pode ser feita com a infusão de soluções eletrolíticas isotônicas, até que os sinais vitais tenham se estabilizado. iii. Os antagonistas dos receptores H² consistem na escolha medicamentosa inicial, em altas doses e por via venosa. iv. Os métodos mecânicos para terapia endoscópica têm efeito similar à termoterapia. Marque a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "V, V, F, V.",
+    "B": "V, F, F, V.",
+    "C": "F, V, V, F.",
+    "D": "F, F, F, F.",
+    "E": "V, V, V, V."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q36",
+   "numero": 36,
+   "disciplina": null,
+   "enunciado_html": "Anemia é uma manifestação comum de distúrbios primários da medula óssea, anomalias primárias de eritrócitos, distúrbios imunológicos, deficiências nutricionais e um amplo espectro de doenças sistêmicas. A respeito da classificação das anemias de acordo com a fisiopatologia causadas pela diminuição da produção de eritrócitos pela medula, analise: ( ) Talassemias. ( ) Insuficiência renal. ( ) Mielofibrose. ( ) Deficiência de folato. A. Deficiência de eritropoetina. B. Deficiência quantitativa de células progenitoras. C. Deficiência na síntese de DNA e na divisão de precursores eritroides. D. Deficiência na síntese de globina. Assinale a coluna de acordo com sua correspondência:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "D, A, B, C.",
+    "B": "A, B, C, D.",
+    "C": "B, C, D, A.",
+    "D": "C, D, A, B.",
+    "E": "D, B, C, A."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q37",
+   "numero": 37,
+   "disciplina": null,
+   "enunciado_html": "No mundo todo, o câncer de pulmão é responsável por aproximadamente 13% de todos os tipos de câncer. O câncer de pulmão é dividido em dois grupos histológicos principais: câncer pulmonar de células não pequenas e o câncer pulmonar de células pequenas. Em relação ao câncer de pulmão, considere as alternativas abaixo e marque a resposta CORRETA.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Os tumores periféricos são mais frequentemente associados a sintomas de dispnéia e sibilos.",
+    "B": "O sintoma mais comum é a hemoptise secundária ao crescimento endobrônquico.",
+    "C": "As síndromes paraneoplásicas de maior significado clínico estão ligadas à produção de hormônios como o fator estimulador da tireoide e a calcitonina.",
+    "D": "Na definição do estágio do câncer de pulmão a radiografia de tórax é útil na detecção de linfadenopatia hilar ou mediastinal.",
+    "E": "Nódulo pulmonar solitário é uma lesão assintomática com menos de 3 cm de diâmetro, rodeado por parênquima pulmonar normal."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q38",
+   "numero": 38,
+   "disciplina": null,
+   "enunciado_html": "Com respeito aos antidiabéticos orais, assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As sulfonilureias são compostos secretagogos de insulina, com forte potencial para hipoglicemia, mas neutras em relação ao ganho de peso.",
+    "B": "As glinidas, como a repaglinida, têm como ação primária a sensibilização das células hepáticas e musculares à ação da insulina. Diminuem o pré-condicionamento isquêmico cardíaco.",
+    "C": "As tiazolenedionas, como a pioglitazona, podem piorar quadros de insuficiência cardíaca, devido a seu potencial de retenção de líquido. Podem diminuir a velocidade de perda de células betapancreáticas.",
+    "D": "Os inibidores da dipeptidil peptidase-4 diminuem o tempo de ação do GLP1 na circulação, desta forma não predispondo à hipoglicemia.",
+    "E": "A metformina tem baixo potencial para hipoglicemia, mas tende a fazer retenção de líquidos e ganho de peso."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q39",
+   "numero": 39,
+   "disciplina": null,
+   "enunciado_html": "A enxaqueca é o segundo distúrbio cefalálgico primário mais comum. Afeta mais mulheres do que homens e aflige a população comumente nos anos mais produtivos da vida. Em relação à enxaqueca considere as alternativas abaixo e marque a resposta correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Denomina-se de enxaqueca basilar quando não ocorre aura.",
+    "B": "Os sintomas prodrômicos começam 24 a 48 horas antes do sintoma de dor e podem incluir hiperatividade.",
+    "C": "Aura ocorre entre 1 e 2 horas e pode ser percebida pelo desejo de ingerir determinados alimentos",
+    "D": "Enxaqueca complicada é definida como ataques de enxaqueca associados com sintomas da aura que persistem por mais de uma semana.",
+    "E": "O estado enxaquecoso está associado ao uso prolongado de álcool."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q40",
+   "numero": 40,
+   "disciplina": null,
+   "enunciado_html": "Uma crise epiléptica é uma descarga neuronal excessiva, paroxística, hipersincronizada, de variável extensão. A respeito das características das crises parciais de diferentes lobos e regiões analise as duas colunas. ( ) Alucinações auditivas. ( ) Flutter ocular. ( ) Interrupção da fala. ( ) Língua enrolada. A. Lobo frontal. B. Lobo temporal. C. Lobo parietal. D. Lobo occipital. Assinale a coluna da direita de acordo com sua correspondência com a da esquerda.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "D, A, B, C.",
+    "B": "A, B, C, D.",
+    "C": "B, C, D, A.",
+    "D": "C, D, A, B.",
+    "E": "B, D, A, C."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q41",
+   "numero": 41,
+   "disciplina": null,
+   "enunciado_html": "Na hemorragia subaracnoidea por rotura de aneurisma cerebral, o tratamento cirúrgico ou endovascular precoce, nas primeiras 24h se justifica porque:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Permite a lavagem das cisternas diminuindo a possibilidade de vasoespasmo.",
+    "B": "O ressangrado, uma das principais causas de óbito, tem seu pico nas primeiras 24 horas.",
+    "C": "Desta maneira podemos iniciar imediatamente o tratamento antivasoespasmo.",
+    "D": "O impacto emocional do paciente e familiares é minimizado.",
+    "E": "Nestes casos ainda não existe edema cerebral."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q42",
+   "numero": 42,
+   "disciplina": null,
+   "enunciado_html": "O termo aneurisma deriva da palavra grega aneurysma, que significa ampliação e pode ser definido como uma dilatação localizada, permanente e irreversível de um vaso sanguíneo, tendo pelo menos 50% de aumento em seu diâmetro quando comparado ao diâmetro normal esperado para uma determinada artéria. Com relação aos seus fatores de risco, marque a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O sexo feminino constitui um fator de risco independente para a formação dos aneurismas da aorta abdominal.",
+    "B": "O tabagismo não influencia diretamente no crescimento dos aneurismas em geral.",
+    "C": "A presença de Diabetes mellitus constitui um fator de proteção no desenvolvimento de aneurismas, ou seja, pacientes sem DM apresentam maior chance de desenvolverem um aneurisma.",
+    "D": "A história familiar tem pouca importância na patogênese dos AAA (Aneurismas da Aorta Abdominal), não sendo indicada a pesquisa em parentes de pacientes com essa doença.",
+    "E": "Não existe qualquer relação entre AAA e infecção crônica por Chlamydia pneumoniae."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q43",
+   "numero": 43,
+   "disciplina": null,
+   "enunciado_html": "O trauma vascular pode causar a chamada síndrome compartimental, que é um aumento das pressões nos compartimentos afetados pelo trauma. Para evitar e tratar a síndrome compartimental, é realizada a fasciotomia. Sobre este procedimento, assinale a afirmativa verdadeira.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Em traumas de perna com síndrome compartimental, todos os 3 compartimentos da perna devem ser descomprimidos.",
+    "B": "Apenas 2 incisões são necessárias para descomprimir os 4 compartimentos da perna.",
+    "C": "A lesão iatrogênica mais comum durante a fasciotomia posterior é a lesão do nervo fibular.",
+    "D": "Os compartimentos posteriores são descomprimidos por uma incisão realizada na face lateral da perna.",
+    "E": "São necessárias 3 incisões para descomprimir os 3 compartimentos da perna, ou seja, uma incisão para cada compartimento."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q44",
+   "numero": 44,
+   "disciplina": null,
+   "enunciado_html": "As mortes por trauma ocorrem em reconhecidos momentos após a lesão. Em relação a estes picos de mortalidade assinale a alternativa correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A morte que ocorre segundos ou minutos após o trauma é causada por hemorragia e embolia pulmonar.",
+    "B": "O pico de mortalidade que ocorre algumas horas após o trauma acontece por traumatismo do tronco cerebral e medula.",
+    "C": "O terceiro pico de mortalidade representa as mortes que ocorrem 24 horas após o trauma e que acontecem por traumatismo de aorta e coração.",
+    "D": "As mortes precoces podem ser reduzidas com programas de prevenção e controle dos traumas e aprimoramento do sistema de atendimento.",
+    "E": "Os sistemas de trauma com cuidados agudos têm maior impacto na mortalidade tardia."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q45",
+   "numero": 45,
+   "disciplina": null,
+   "enunciado_html": "Em relação ao atendimento inicial ao politraumatizado, assinale a alternativa correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Em pacientes com trauma craniano grave é necessário um controle definitivo das vias aéreas e o melhor método é a realização de uma traqueostomia.",
+    "B": "A contusão pulmonar parenquimática pode levar à troca gasosa e a oxigenação inadequadas, com necessidade de ventilação mecânica.",
+    "C": "A reposição volêmica deve ser realizada preferencialmente por acesso venoso central.",
+    "D": "Quando há necessidade de se estabelecer uma via aérea definitiva, a indução de sequência rápida deve ser feita com sedativos, como benzodiazepínicos.",
+    "E": "A traqueostomia é o procedimento de escolha nos casos em que há indicação de uma via aérea cirúrgica de emergência."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q46",
+   "numero": 46,
+   "disciplina": null,
+   "enunciado_html": "Paciente vítima de ferimento por arma branca em hemitórax direito dá entrada no pronto-socorro taquicárdico, pálido e dispneico. Ao exame físico observa-se diminuição do murmúrio vesicular e timpanismo a percussão no lado afetado. A conduta correta neste paciente é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Tomografia computadorizada de tórax para confirmação diagnóstica.",
+    "B": "Toracotomia de emergência na sala de trauma pela hipótese de tamponamento cardíaco.",
+    "C": "Descompressão do espaço pleural através de uma toracocentese no segundo espaço intercostal, linha hemiclavicular.",
+    "D": "Laparotomia exploradora para correção de hérnia diafragmática traumática.",
+    "E": "Realizar uma toracostomia sob selo d água."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q47",
+   "numero": 47,
+   "disciplina": null,
+   "enunciado_html": "Em relação a avaliação complementar do trauma abdominal assinale a alternativa incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Nos pacientes estáveis hemodinamicamente uma ultrassonografia com líquido intraperitoneal livre indica uma exploração cirúrgica imediata.",
+    "B": "O objetivo da ultrassonografia no trauma abdominal é buscar líquido intraperitoneal livre.",
+    "C": "A radiografia de tórax pode mostrar pneumoperitônio, conteúdo abdominal no tórax ou fraturas das costelas inferiores.",
+    "D": "A tomografia computadorizada avalia lesão de órgão sólido e no paciente com ultrassonografia positiva permite a graduação da lesão orgânica.",
+    "E": "A tomografia computadorizada é o método mais indicado para avaliar o paciente estável com traumatismo abdominal fechado."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q48",
+   "numero": 48,
+   "disciplina": null,
+   "enunciado_html": "Paciente do sexo masculino, 40 anos, queixa de dor epigástrica, sem irradiação, com 3 meses de evolução, realiza endoscopia digestiva alta que demonstra lesão ulcerada ativa na parede anterior do bulbo duodenal, com teste de urease positivo. Em relação ao diagnóstico desta lesão, assinale a alternativa correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A cultura da mucosa gástrica é o método de escolha para o diagnóstico do H. pylori quando uma endoscopia é realizada.",
+    "B": "Após o tratamento do H. pylori o método de escolha para confirmar erradicação é a sorologia.",
+    "C": "O teste para H. pylori deve ser realizado somente em lesões ulceradas com sangramento ativo.",
+    "D": "Histologia, cultura e teste rápido da urease são os testes invasivos para diagnóstico do H. pylori.",
+    "E": "Os testes não invasivos para diagnostico do H. pylori são a sorologia e a cultura."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q49",
+   "numero": 49,
+   "disciplina": null,
+   "enunciado_html": "Paciente do sexo masculino, 40 anos, queixa de dor epigástrica, sem irradiação, com 3 meses de evolução, realiza endoscopia digestiva alta que demonstra lesão ulcerada ativa na parede anterior do bulbo duodenal, com teste de urease positivo. Em relação ao tratamento do caso clínico assinale a alternativa incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Aspirina e uso de AINE devem ser suspensos para este paciente.",
+    "B": "A erradicação do H. pylori está indicada neste paciente.",
+    "C": "O esquema de erradicação do H. pylori envolve o uso de um inibidor da bomba de prótons em associação com dois antibióticos.",
+    "D": "O tabagismo retarda a cicatrização da úlcera e deve ser evitado.",
+    "E": "Os antagonistas do receptor H2 devem ser usados em combinação com os inibidores da bomba de prótons."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q50",
+   "numero": 50,
+   "disciplina": null,
+   "enunciado_html": "Paciente do sexo masculino, 40 anos, queixa de dor epigástrica, sem irradiação, com 3 meses de evolução, realiza endoscopia digestiva alta que demonstra lesão ulcerada ativa na parede anterior do bulbo duodenal, com teste de urease positivo. Em relação ao caso clínico anterior assinale a alternativa incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A ingestão de AINE é a causa mais comum de doença ulcerosa péptica.",
+    "B": "A causa mais comum de morte nos pacientes com doença ulcerosa péptica é o sangramento.",
+    "C": "A dor da úlcera duodenal geralmente alivia com a alimentação.",
+    "D": "A inflamação aguda do duodeno pode levar a uma obstrução mecânica com retardo do esvaziamento gástrico.",
+    "E": "A erradicação do H. pylori diminui a taxa de recidiva desta lesão ulcerada."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q51",
+   "numero": 51,
+   "disciplina": null,
+   "enunciado_html": "Um marco anatômico importante para a identificação fácil dos ureteres durante os procedimentos cirúrgicos pélvicos é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cruzamento com o canal deferente no homem.",
+    "B": "Cruzamento com as artérias uterinas na mulher.",
+    "C": "Cruzamento pela face anterior dos vasos ilíacos.",
+    "D": "Cruzamento com o ligamento redondo da mulher.",
+    "E": "Sua proximidade com o anel inguinal interno."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q52",
+   "numero": 52,
+   "disciplina": null,
+   "enunciado_html": "Em relação à avaliação pré-operatória do paciente cirúrgico qual a alternativa correta?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A creatinina sérica superior a 2,0 mg/dl é um dos critérios para identificação de risco cardíaco em pacientes que não serão submetidos a cirurgias não cardíacas.",
+    "B": "O objetivo da avaliação pré-operatória é identificar uma doença não diagnosticada pela história e exame físico.",
+    "C": "O tipo da cirurgia e a idade do paciente não balizam a escolha dos exames complementares pré-operatórios, estes devem ser rotineiros.",
+    "D": "O RX de tórax deve ser solicitado em pacientes acima de 55 anos de idade independentemente de serem tabagistas ou não.",
+    "E": "Dos métodos de estratificação do risco cardíaco o mais adequado é o proposto pela Sociedade Americana de Anestesiologia."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q53",
+   "numero": 53,
+   "disciplina": null,
+   "enunciado_html": "Qual das seguintes alternativas está ERRADA?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Pacientes com anemia normovolêmica, sem risco cardíaco significativo ou que tenham perspectiva de perda sanguínea transoperatória relevante, podem ser operados sem transfusão, se os níveis de hemoglobina estiverem maiores que 6 ou 7 g/dl.",
+    "B": "O paciente pode ser submetido a qualquer tipo de cirurgia se a contagem de plaquetas estiver acima de 50.000.",
+    "C": "Em caso de necessidade de heparinização pré-operatória, devemos suspendê-la 6 horas antes e reiniciar 12 horas após a intervenção.",
+    "D": "O uso do filtro de veia cava inferior deve ser considerado, em pacientes com trombose venosa profunda ou tromboembolismo pulmonar, que estiverem em anticoagulação por menos que 15 dias.",
+    "E": "Entre os fatores de risco para tromboembolismo venoso estão: câncer, idade, obesidade, síndrome nefrótica, doença inflamatória intestinal, uso de estrogênio e disfunção cardíaca."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q54",
+   "numero": 54,
+   "disciplina": null,
+   "enunciado_html": "Em relação ao manuseio de feridas contaminadas após uma laparotomia exploradora, qual a alternativa associada à menor taxa de infecção da ferida operatória?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Peritoneostomia.",
+    "B": "Sutura primária com uso de dreno na ferida operatória.",
+    "C": "Sutura da ferida por planos após a limpeza mecânica com antissépticos.",
+    "D": "Sutura primária com limpeza mecânica e aplicação de antibióticos tópicos.",
+    "E": "Fechamento parcial da ferida operatória suturando a aponeurose e deixando a pele e o TCSC abertos temporariamente."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q55",
+   "numero": 55,
+   "disciplina": null,
+   "enunciado_html": "Os sintomas de disfagia associados à perda de peso podem indicar sintomas de câncer esofágico em estágio avançado. Normalmente estes sintomas ocorrem:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "com a obstrução em 2/3 da luz esofágica pelo tumor.",
+    "B": "quando há associação com hérnia hiatal.",
+    "C": "ocorre no carcinoma espinocelular e não no adenocarcinoma.",
+    "D": "quando o tumor compromete o mecanismo do esfíncter inferior do esôfago.",
+    "E": "quando associado ao megaesôfago."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q56",
+   "numero": 56,
+   "disciplina": null,
+   "enunciado_html": "Lacerações mucosas e submucosas que ocorrem próximas à junção esofagogástrica, que classicamente acontecem em alcoolistas, após um período de vômitos intensos depois de beber excessivamente, embora possam ocorrer em qualquer paciente que tenha histórico de vômitos repetidos:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "síndrome de Mallory-Weiss.",
+    "B": "síndrome de Boerhaave.",
+    "C": "síndrome de Menetrier.",
+    "D": "síndrome de Zollinger Ellison.",
+    "E": "síndrome de Peutz Jeghers."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q57",
+   "numero": 57,
+   "disciplina": null,
+   "enunciado_html": "Um paciente com traumatismo penetrante de abdome e hemodinamicamente instável é submetido à laparotomia exploradora. Durante o inventário da cavidade observa-se dentre outras lesões um hematoma retroperitoneal em zona 2. Qual a conduta?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Trata as outras lesões sem explorar o hematoma observando a evolução.",
+    "B": "Trata as outras lesões sem explorar o hematoma e realiza uma angiografia para diagnóstico de lesão do pedículo vascular renal.",
+    "C": "Trata outras lesões sem explorar o hematoma e realiza uma tomografia nos pós-operatório para avaliar o grau da lesão renal e necessidade de reintervir.",
+    "D": "Realiza um ultrassom com Doppler no transoperatório para avaliar o pedículo renal. Caso esteja comprometido explora o hematoma.",
+    "E": "Explora o hematoma visto que a provável lesão renal não foi previamente avaliada por tomografia ou pielografia venosa."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q58",
+   "numero": 58,
+   "disciplina": null,
+   "enunciado_html": "A apendicite em gestantes tem peculiaridades importantes no diagnóstico e tratamento. Assinale a alternativa errada:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A gestação, por si só, pode elevar a contagem de leucócitos para 16 mil/mm³.",
+    "B": "Geralmente os sintomas da apendicite são atribuídos à gestação.",
+    "C": "O ultrassom é mais sensível e específico no diagnóstico da apendicite das gestantes que nas não gestantes.",
+    "D": "Apesar do índice de apendicectomias não terapêuticas ser maior nas gestantes e chegar a 30% dos casos, este índice é aceito devido à alta morbimortalidade materno-fetal no diagnóstico tardio.",
+    "E": "A cirurgia precoce no tratamento da apendicite é associada a um índice de aborto perioperatório de 15%."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q59",
+   "numero": 59,
+   "disciplina": null,
+   "enunciado_html": "Com relação aos pólipos colorretais, assinale a alternativa incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Podem ser classificados pela sua aparência histológica como tubular, tubuloviloso e viloso.",
+    "B": "A incidência de carcinoma invasivo encontrado em um pólipo depende do tamanho e do tipo histológico do pólipo.",
+    "C": "Os pacientes com polipose adenomatosa familiar desenvolverão câncer colorretal em 50% dos casos.",
+    "D": "Os pólipos hiperplásicos são os pólipos colônicos mais comuns.",
+    "E": "Alterações adenomatosas podem ser encontradas em pólipos hiperplásicos."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q60",
+   "numero": 60,
+   "disciplina": null,
+   "enunciado_html": "Em relação aos fatores de risco para o desenvolvimento de carcinoma de esôfago assinale a alternativa incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O tabagismo e o álcool aumentam o risco de carcinoma esofágico, principalmente quando associados.",
+    "B": "Ingestão de líquidos quentes por longos períodos é considerada fator de risco para carcinoma esofágico.",
+    "C": "A acalasia pode ser considerada um fator de risco para adenocarcinoma esofágico.",
+    "D": "Pacientes com Síndrome de Plummer-Vinson apresentam um risco aumentado de desenvolvimento de cânceres de células escamosas do esôfago cervical.",
+    "E": "A presença de epitélio metaplásico no esôfago distal esta associado à adenocarcinoma esofágico."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q61",
+   "numero": 61,
+   "disciplina": null,
+   "enunciado_html": "No atual sistema de estadiamento para câncer de mama, a presença de linfonodo supraclavicular ipsilateral comprovadamente positivo (palpação e punção biópsia por agulha fina), é considerado como:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "N2.",
+    "B": "N3.",
+    "C": "N1.",
+    "D": "M1.",
+    "E": "Mx."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q62",
+   "numero": 62,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao estadiamento de câncer de mama, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Pacientes assintomáticas em estádios I e II apresentam metástases em menos de 2% dos casos quando estudadas com estadiamento convencional.",
+    "B": "As alterações radiológicas sugestivas de doença metastática devem ser sempre confirmadas histologicamente nesse grupo (estádios I e II).",
+    "C": "No caso de pacientes com 10 ou mais linfonodos positivos, devem ser avaliadas com TC de tórax, abdome e pelve e com cintilografia óssea, pois a doença metastática pode ser detectada por esses métodos em aproximadamente 23% dos casos.",
+    "D": "Todas as pacientes, antes do tratamento, devem ter a determinação dos receptores hormonais (RH) de estrógeno (RE) e progesterona (RP) e do HER-2 (aplicável somente ao componente invasivo) antes do tratamento.",
+    "E": "É fundamental a realização de CEA e CA 15-3 nos estádios I e II."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q63",
+   "numero": 63,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao estadiamento do câncer de colo uterino, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O estadiamento do câncer de colo de útero preconizado pela FIGO tem sido tradicionalmente realizado com exames de baixo custo, considerando-se as condições sociais dos locais de maior incidência.",
+    "B": "A ressonância nuclear magnética oferece os mesmos detalhes que a tomografia computadorizada, em termos de definição de estadiamento, tamanho da lesão primária e linfonodomegalia.",
+    "C": "A tomografia computadorizada por emissão de pósitrons (PET-TC) parece ser método diagnóstico e prognóstico promissor em pacientes com câncer de cérvice uterino, particularmente para metástases linfonodais para-aórticas.",
+    "D": "A cistoscopia e a retossigmoidoscopia são importantes no estadiamento, mas somente em pacientes que apresentem sinais sugestivos de invasão de bexiga ou reto nos exames de imagem.",
+    "E": "A discrepância entre o estadiamento pélvico clínico versus patológico pode chegar a 47% nos estádios IB-IIB."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q64",
+   "numero": 64,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao câncer de mama e ovário hereditários, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Mulheres aos 70 anos com mutações deletérias no BRCA1 apresentam um risco de 65% de ter câncer de mama e de 39% de ter câncer de ovário. Entretanto, o risco varia de acordo com a população estudada.",
+    "B": "O risco de câncer de mama contralateral nas mulheres portadoras de mutações no BRCA1 é de 27% nos primeiros cinco anos após o diagnóstico do primeiro câncer de mama.",
+    "C": "As mutações no BRCA1 também estão relacionadas ao aumento de risco de câncer de mama em homens, câncer de próstata e de pâncreas.",
+    "D": "Portadores de mutações no gene BRCA2 têm um aumento do risco de câncer de mama em mulheres (45% aos 70 anos), câncer de ovário (11% aos 70 anos) e 12% de câncer de mama contralateral nos 5 primeiros anos de diagnóstico de um câncer de mama.",
+    "E": "Para os homens, recomenda-se: autoexame das mamas e exames clínicos a cada 6-12 meses a partir dos 50 anos; considerar mamografia aos 50 anos e repetir o exame anualmente se ginecomastia. Considerar rastreamento para câncer de próstata a partir dos 50 anos."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q65",
+   "numero": 65,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao câncer de ovário, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Apendicectomia deve ser realizada em caso de tumores mucinosos.",
+    "B": "Citorredução ótima é definida quando todos os tumores residuais forem \"menor ou igual\" a 1 cm.",
+    "C": "Citorredução subótima é definida quando existe qualquer tumor residual &gt; 1 cm.",
+    "D": "A citorredução tem implicação direta na sobrevida global.",
+    "E": "A citorredução não parece ser benéfica em pacientes com doença em estádio IV, particularmente naquelas com derrame pleural."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q66",
+   "numero": 66,
+   "disciplina": null,
+   "enunciado_html": "Longina Myssias, 47 anos, queixa-se de prurido vulvar e dificuldade para manter uma relação sexual. Estes sintomas tiveram início a cerca de 3 anos e já fez vários tratamentos, a maioria com cremes de corticoides. Nega outras comorbidades. Ao exame de genitais externos observa-se área de extensa hiperceratose em grandes lábios, com achatamento deste, e atingindo região perineal. O introito vaginal tem a amplitude de uma polpa digital. Os pequenos lábios estão quase que desaparecidos, restando uma saliência mamiliforme ao redor do clitóris. Sobre o caso ora exposto, a seguinte alternativa correta é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Trata-se uma hiperplasia de células epiteliais sem atipias.",
+    "B": "Sua etiologia está relacionada com acloridrias.",
+    "C": "O tratamento definitivo é a vulvectomia.",
+    "D": "Toda lesão de vulva que cursa com área de leucoplasia deve ser biopsiada.",
+    "E": "A conduta neste caso é manter o corticoide e observar a evolução semestralmente."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q67",
+   "numero": 67,
+   "disciplina": null,
+   "enunciado_html": "Rogerailma, 61 anos de idade, casada, queixa-se de que vem perdendo urina aos esforços há mais ou menos 6 meses. Queixa-se também de prurido vaginal há 6 meses, que coincidiu com aparecimento de dor ao coito. Refere que há 1 ano frequentemente tem ardor à micção e polaciúria, tendo por este motivo consultado com clínico, porém sem melhora. IV gesta, IV para, último há 29 anos. Não menstrua há 11 anos e nunca fez tratamento para menopausa. Há 20 anos submeteu-se à colpocistoretoperineoplastia, com plicatura de Kelly-Kenedy. Ao exame físico o peso foi de 72 kg, altura 1,70 m, demais sem alterações. No exame de genitais externos observou-se queda de parede anterior de vagina que não atingia rima vulvar tanto em repouso quanto ao esforço. Ao exame especular observou-se diminuição da rugosidade vaginal. Ao toque ginecológico a vagina era ampla para menos de 2 dedos, útero e anexos sem alterações. O estudo urodinâmico demonstrou PRESSÃO DE PERDA AO ESFORÇO de 48 cmH2O, sem outras alterações. A incontinência urinária de esforço que a paciente apresenta no momento pode ser consequente à, exceto:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cirurgias antincontinências anteriores.",
+    "B": "Hipoestrogenismo.",
+    "C": "Síndrome de Shy-Drager.",
+    "D": "Hipermobilidade uretral.",
+    "E": "Condições neurológicas lombossacrais."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q68",
+   "numero": 68,
+   "disciplina": null,
+   "enunciado_html": "Fabiula Conchita, 26 anos, solteira, queixa-se de corrimento amarelado, fétido, em moderada quantidade, com início há 6 meses, após interrupção de anticoncepcional hormonal oral e não acompanhado de sintomas vulvovaginais e urinários. Última menstruação: início há 16 dias, tipo menstrual: 25-30 / III / 3 - 4 dias. Exame de órgãos genitais externos: pilificação ginecóide. Grandes e pequenos lábios normais. Exame especular: conteúdo vaginal esbranquiçado, líquido e homogêneo. Teste de Whiff negativo. Paredes vaginais e colo uterino normais. Sobre a etiologia do corrimento queixado pela paciente, a seguinte alternativa é a correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Etiologia: Tricomoníase; Sintomas objetivos: Presentes; Teste de Whiff: Positivo; Tratamento: Fluconazol 150mg dose única.",
+    "B": "Etiologia: Fisiológico; Sintomas objetivos: Ausentes; Teste de Whiff: Negativo; Tratamento: Nenhum.",
+    "C": "Etiologia: Vaginose Bacteriana; Sintomas objetivos: Presentes; Teste de Whiff: Negativo; Tratamento: Metronidazol 2 G Via Oral dose única.",
+    "D": "Etiologia: Candidose; Sintomas objetivos: Presentes; Teste de Whiff: Positivo; Tratamento: Isoconazol Via Vaginal.",
+    "E": "Etiologia: Vaginose Citolítica; Sintomas objetivos: Ausentes; Teste de Whiff: Negativo; Tratamento: Alcalinização Vaginal."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q69",
+   "numero": 69,
+   "disciplina": null,
+   "enunciado_html": "Letiena Camile, 17 anos, vem à consulta relatando que teve muita dificuldade e dor em relação sexual que teve pela primeira vez há 10 dias. A paciente ainda não menstruou. Exame físico e ginecológico: normolínea, 1,68 m, 57 kg. Sindactilia em 2º, 3º e 4º quirodáctilos esquerdos. Mamas bem desenvolvidas. Pilificação ginecoide, normodensa. Grandes e pequenos lábios normais; uretra normal; introito vaginal normal. Vaginometria 2 cm. Ultrassom pélvico ginecológico descreve ausência de útero e trompas e ovários normais. São características das portadoras do caso em questão as seguintes alternativas, exceto:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cariótipo XY.",
+    "B": "Ovários normais funcionantes.",
+    "C": "Agenesia mülleriana.",
+    "D": "Podem ter vida sexual normal quando submetidas à neovagina.",
+    "E": "Cerca de 12% têm anomalias esqueléticas e até 40% anomalias do trato urinário."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q70",
+   "numero": 70,
+   "disciplina": null,
+   "enunciado_html": "Para a questão a seguir utilize os seguintes valores laboratoriais (VER IMAGEM). Ananetes, 47 anos, está menstruando em quantidade III há 7 dias, após 60 dias de atraso menstrual. Relata que no último ano é normal menstruar a cada 40-45 dias. É Gesta II com 2 cesáreas e laqueada há 12 anos e não apresenta outras comorbidades. Ao exame físico é normotensa e possui IMC de 30,7427. Ao exame ginecológico, nenhuma alteração foi detectada. Há 10 dias submeteu-se às seguintes dosagens hormonais: FSH = 23,6 mUI/ml; LH = 11,3 mUI/ml e Estradiol = 118 pg/ml. A ultrassonografia transvaginal, realizada há 12 dias, descreve útero com 83 centímetros cúbicos de volume, miométrio heterogêneo com dois miomas intramurais, o maior com 23 mm de diâmetro em parede posterior. O endométrio é homogêneo e tem 15 mm de espessura. Os ovários são normais. A conduta a ser indicada para esta paciente é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Acetato de medroxiprogesterona 150 mg IM.",
+    "B": "Associação de levonorgestrel 150 mcg e etinilestradiol 30 mcg, 3 comprimidos VO durante 7 dias. Após o sangramento de privação daqui a 10 dias prescrever progestágeno VO na fase lútea do ciclo, durante 6 meses.",
+    "C": "Estrógenos conjugados 2,5 mg VO 2 vezes por dia durante 5 dias.",
+    "D": "Ácido tranexâmico 250 mg VO 3 vezes por dia durante 1 semana.",
+    "E": "Curetagem uterina."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q71",
+   "numero": 71,
+   "disciplina": null,
+   "enunciado_html": "Eglantina, 67 anos, queixa-se de ardor ao final da micção, polaciúria e noctúria. Diz que estes sintomas tiveram início há 2 anos e que já fez vários tratamentos com antibióticos, comprados por conta própria ou prescritos pelo clínico da unidade de saúde. Entrou na menopausa há 12 anos e trata hipertensão arterial e hipotireoidismo. No exame físico o IMC é de 25,2856 e no exame ginecológico apresenta atrofia de vulva e paredes vaginais sem rugosidades e amplitude vaginal diminuída. A citologia oncótica é negativa para neoplasia e com esfregaço atrófico. O parcial de urina tem nitrito negativo, leucocitúria moderada e hemácias em pequena quantidade. A urocultura é negativa. O diagnóstico e conduta para este caso é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Insuficiência esfincteriana intrínseca - Sling.",
+    "B": "Cistite intersticial - cistoscopia.",
+    "C": "Instabilidade detrussora - tolderodina.",
+    "D": "Trigonite - estriol creme vaginal.",
+    "E": "Hipermobilidade uretral - exercícios de Kege."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q72",
+   "numero": 72,
+   "disciplina": null,
+   "enunciado_html": "Com relação à endocrinologia da gestação, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A hipófise materna apresenta aumento significativo do seu volume, especialmente em seu lobo anterior.",
+    "B": "O volume da tireoide aumenta, porém este aumento de volume é inversamente proporcional às concentrações de tireotrofina sérica.",
+    "C": "Com relação ao pâncreas, na gestação normal, observam-se hiperinsulinismo e progressivo aumento da resistência à insulina.",
+    "D": "O volume das glândulas adrenais apresenta aumento significativo do seu volume, sobretudo durante o primeiro trimestre da gestação.",
+    "E": "Com relação aos ovários, em torno do 22º dia do ciclo menstrual do mês em que ocorreu a fecundação, o corpo lúteo apresenta exuberante desenvolvimento."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q73",
+   "numero": 73,
+   "disciplina": null,
+   "enunciado_html": "Com relação à ultrassonografia da gestação, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A primeira estrutura ultrassonográfica que pode ser utilizada para estimar a idade gestacional é a medida do saco gestacional.",
+    "B": "A medida do comprimento cabeça-nádega pode ser utilizada para determinar a idade gestacional até 13 semanas completas.",
+    "C": "A acurácia da biometria fetal na estimativa da datação da gestação aumenta com a evolução da mesma.",
+    "D": "O estudo de Grannum foi o responsável pela introdução da análise da calcificação placentária na rotina do exame ultrassonográfico.",
+    "E": "O exame morfológico de rotina no 2º trimestre pode ser realizado a partir de 18 semanas de gestação, entretanto, parece ser mais adequada a sua realização entre 20 e 24 semanas de gestação."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q74",
+   "numero": 74,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao mecanismo de parto, assinale a alternativa correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Situação consiste na relação entre o menor eixo da cavidade uterina e o maior eixo fetal.",
+    "B": "Apresentação é definida pela região fetal que ocupa a área do estreito inferior da bacia materna, ou está mais próxima dele.",
+    "C": "Procúbito é quando uma parte fetal menor antepõe-se à apresentação durante o trabalho de parto, ocupando a vagina, ou mesmo exteriorizando-se pela vulva, quando em casos de bolsa íntegra.",
+    "D": "As apresentações cefálicas fletidas com variedade de posição posterior são as mais comuns.",
+    "E": "A apresentação cefálica defletida ocorre em 96% das gestações."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q75",
+   "numero": 75,
+   "disciplina": null,
+   "enunciado_html": "São indicações de cesarianas, exceto:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Sofrimento fetal agudo.",
+    "B": "Síndromes hemorrágicas agudas.",
+    "C": "Cesárea post-mortem (morte materna).",
+    "D": "Prolapso de cordão umbilical em fase inicial do trabalho de parto.",
+    "E": "Gestantes com uma cesárea prévia."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q76",
+   "numero": 76,
+   "disciplina": null,
+   "enunciado_html": "São consideradas causas de abortamento, exceto:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "alterações cromossômicas.",
+    "B": "defeitos da fase lútea.",
+    "C": "infecções maternas.",
+    "D": "sinéquias intrauterinas.",
+    "E": "miomas de localização subserosa."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q77",
+   "numero": 77,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao estadiamento clínico da neoplasia trofoblástica gestacional, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Estádio I - doença restrita ao útero.",
+    "B": "Estádio II - ultrapassa o útero, mas está limitada ao trato genital.",
+    "C": "Estádio III - Atinge os pulmões com ou sem envolvimento do trato genital.",
+    "D": "Estádio IV - Atinge os pulmões com ou sem envolvimento do trato genital.",
+    "E": "Estádio IV - todos os outros sítios de metástase."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q78",
+   "numero": 78,
+   "disciplina": null,
+   "enunciado_html": "Com relação à doença hipertensiva específica da gestação, são considerados fatores de risco, exceto:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "multiparidade.",
+    "B": "obesidade.",
+    "C": "gestação gemelar.",
+    "D": "trombofilias.",
+    "E": "isoimunização ao fator Rh."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q79",
+   "numero": 79,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao câncer de mama na gestação, assinale a correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Está contraindicada a pesquisa do linfonodo sentinela com as técnicas de azul patente e tecnécio radioativo, pelo risco de efeitos adversos ao feto.",
+    "B": "Todos os quimioterápicos utilizados no tratamento do câncer de mama estão contraindicados para uso, durante o 1º trimestre da gestação.",
+    "C": "A amamentação é permitida para pacientes em vigência da quimioterapia.",
+    "D": "A decisão de utilização da quimioterapia é de responsabilidade exclusiva do oncologista clínico, responsável pelo caso.",
+    "E": "O último ciclo de quimioterapia deve ser realizado, no máximo, até 8 semanas antes da data prevista do parto."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q80",
+   "numero": 80,
+   "disciplina": null,
+   "enunciado_html": "Com relação à placenta prévia, assinale a incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Seu diagnóstico deve ser sempre suspeitado em qualquer gestante com sangramento indolor após a 24ª semana de gestação.",
+    "B": "O toque vaginal sempre deve ser feito em caso de suspeita de placenta prévia, para sua confirmação clínica.",
+    "C": "Menos de 10% das mulheres são assintomáticas e o diagnóstico é realizado pelo exame ultrassonográfico.",
+    "D": "Vários estudos têm demonstrado a acurácia da ultrassonografia transvaginal e a superioridade dela em relação à via transabdominal para este diagnóstico.",
+    "E": "A ressonância nuclear magnética consiste em alternativa quando a ultrassonografia transvaginal for inconclusiva para o diagnóstico de placenta prévia."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q81",
+   "numero": 81,
+   "disciplina": null,
+   "enunciado_html": "Em Epidemiologia, a incidência traduz a idéia de intensidade com que acontece a morbidade em uma população. Numere a segunda coluna de acordo com a primeira, com relação a incidência, duração e mortalidade de agravos: (1) Baixa incidência e alta letalidade. (2) Baixa incidência e cura relativamente rápida. (3) Caráter epidêmico e alta letalidade. (4) Doenças epidêmicas caracterizadas por cura rápida. ( ) Clamidíase. ( ) Conjuntivite viral. ( ) Leucemia aguda. ( ) Pediculose. ( ) Febre amarela. ( ) Gripe. ( ) Doença meningocócica. A sequência numérica mais adequada de preenchimento dos parênteses da coluna, de cima para baixo, é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "2 - 4 - 1 - 2 - 3 - 4 - 3.",
+    "B": "4 - 2 - 2 - 3 - 1 - 2 - 2.",
+    "C": "3 - 3 - 4 - 1 - 2 - 1 - 4.",
+    "D": "2 - 3 - 4 - 1 - 1 - 1 - 3.",
+    "E": "2 - 4 - 4 - 1 - 1 - 1 - 4."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q82",
+   "numero": 82,
+   "disciplina": null,
+   "enunciado_html": "Quanto às características das políticas de saúde do Brasil, estabelecidas no século XX, assinale a alternativa incorreta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Segmentação do sistema com a conformação contraditória de dois subssistemas: o público (SUS) e o privado (SAMS e outros).",
+    "B": "Centralização da gestão.",
+    "C": "Participação monolítica do Estado no financiamento, distribuição, prestação e regulação dos serviços de saúde.",
+    "D": "Incorporação lenta e gradual da população brasileira ao sistema de serviços de saúde.",
+    "E": "Fragmentação institucional entre a assistência médico-hospitalar, a saúde pública e a saúde ocupacional."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q83",
+   "numero": 83,
+   "disciplina": null,
+   "enunciado_html": "Numere a segunda coluna de acordo com a primeira, com relação às características de cada desenho de estudo epidemiológico. (1) Estudo de coorte. (2) Caso-controle. (3) Ensaio clínico. (4) Estudo seccional. ( ) Instantâneos sobre prevalência de agravos. ( ) Produz medidas de incidência e de fatores de risco. ( ) Associações etiológicas em agravos de baixa incidência. ( ) Estudo experimental para avaliar intervenção terapêutica. A sequência numérica mais adequada de preenchimento dos parênteses da coluna, de cima para baixo, é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1 - 2 - 4 - 3.",
+    "B": "1 - 2 - 3 - 4.",
+    "C": "4 - 3 - 1 - 2.",
+    "D": "4 - 1 - 2 - 3.",
+    "E": "3 - 2 - 4 - 1."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q84",
+   "numero": 84,
+   "disciplina": null,
+   "enunciado_html": "A vigilância epidemiológica é um importante instrumento para normatização de atividades técnicas, bem como para o planejamento, a organização e a operacionalização dos serviços de saúde. Assinale a alternativa que contenha estritamente funções da vigilância epidemiológica:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Coleta e processamento de dados; tomada de decisão clínica a partir dos dados coletados; proteção dos dados coletados para evitar sua publicidade; fornecimento de fármacos básicos para os agravos deinteresse epidemiológico.",
+    "B": "Coleta, processamento, análise e interpretação de dados de saúde; recomendação e promoção de ações de controle indicadas; avaliação da efetividade das medidas eventualmente adotadas.",
+    "C": "Coleta, processamento, interpretação e divulgação de dados epidemiológicos; disposição de treinamento para profissionais de saúde na atenção primária; fornecimento de vacinas e antídotos para acidentes peçonhentos.",
+    "D": "Fornecimento de vacinas e antídotos para acidentes peçonhentos; recomendação e vigilância sobre descarte de material hospitalar; aquisição de material adequadamente esterilizado para distribuição nas unidades de saúde da atenção primária.",
+    "E": "Intervenção terapêutica individual e coletiva em casos de surtos ordinários e inusitados; recomendações e fornecimento do material adequado para controle de doenças infecto-contagiosas bem como de acidentes por animais peçonhentos."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q85",
+   "numero": 85,
+   "disciplina": null,
+   "enunciado_html": "Alguns agravos e doenças constam da lista de notificação compulsória. Analise as alternativas abaixo, assinalando a que contenha exclusivamente critérios para inclusão nessa lista.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Compromissos internacionais, cronicidade, persistência e resposta terapêutica efetiva.",
+    "B": "Magnitude, potencial de disseminação, transcendência e vulnerabilidade.",
+    "C": "Severidade, surtos disseminados, capacidade de resposta dos hospedeiros e falta de recursos médicos.",
+    "D": "Ausência de medidas profiláticas, ocorrência de epidemia inusitada, potencial infectante e falta de resposta à terapia ordinariamente indicada.",
+    "E": "Agravos que alteram usos e costumes, potencial infectante e falta de resposta à terapia ordinariamente indicada, solicitação médica e interesse de segurança nacional."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q86",
+   "numero": 86,
+   "disciplina": null,
+   "enunciado_html": "Em relação à possibilidade de erros (vieses) nos estudos clínicos, assinale a CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O viés de confusão pode ocorrer quando o fator de confusão está distribuído de maneira igual entre os grupos.",
+    "B": "O viés de aferição acontece quando o processo de coleta das variáveis do estudo é sistematicamente igual nos dois grupos.",
+    "C": "O viés de seleção distorce os resultados pelo modo com que os participantes são recrutados.",
+    "D": "O erro tipo I ou alfa acontece quando o teste não mostra significância quando na verdade existe.",
+    "E": "O erro tipo II ou beta acontece quando o teste estatístico mostra diferença quando na verdade ele não existe."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q87",
+   "numero": 87,
+   "disciplina": null,
+   "enunciado_html": "Em relação ao estudo de validação de um teste diagnóstico é correto afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A sensibilidade de um teste é a capacidade do teste acertar em indivíduos sem a doença em questão.",
+    "B": "Os testes altamente sensíveis são utilizados no rastreamento de doenças e apresentam poucos resultados falsos-positivos.",
+    "C": "Utiliza-se um teste específico quando o ônus de um diagnóstico errôneo é alto e o mesmo apresenta poucos resultados falsos-negativos.",
+    "D": "O valor preditivo positivo de um teste diagnóstico é influenciado pela prevalência da doença na população testada.",
+    "E": "A especificidade é a capacidade de o teste acertar em indivíduos com a doença."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q88",
+   "numero": 88,
+   "disciplina": null,
+   "enunciado_html": "Em relação aos modelos de estudos epidemiológicos assinale a correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A amostragem probabilística concede a cada membro do grupo a mesma chance de integrar da amostra.",
+    "B": "O estudo observacional seccional apresenta alto poder analítico.",
+    "C": "O estudo de coorte tem como vantagens o baixo custo e a facilidade de estudar doenças raras.",
+    "D": "O estudo de caso controle tem alto poder analítico, porém inadequado para estudar doenças raras.",
+    "E": "O pareamento significa o processo de controles individuais de forma randômica."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q89",
+   "numero": 89,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa correta sobre a epidemiologia dos agravos não transmissíveis:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A redução da morbimortalidade das doenças infecciosas se deve mais ao desenvolvimento dos novos antibióticos do que ao saneamento básico.",
+    "B": "As doenças crônicas têm como características a história natural prolongada, longo período de latência e associação com fator de risco isolado.",
+    "C": "A prevalência de diabetes está na faixa de 20 a 30% da população entre 30 e 69 anos.",
+    "D": "As internações hospitalares no SUS por causas externas (violência) são a segunda causa de internação na faixa etária de 10 a 19 anos, sendo mais frequente em mulheres do que em homens.",
+    "E": "Na vigilância epidemiológica das doenças não transmissíveis não há interesse de conhecer os casos individualizados, na medida em que a prevenção não está centrada na ação imediata sobre um único agente."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q90",
+   "numero": 90,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa correta em relação a epidemiologia e planejamento em saúde:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A compreensão da saúde enquanto fenômeno não apenas objetivo, mas subjetivo, exige a conjugação de diversas abordagens, que articulem conhecimentos epidemiológicos, fisiopatológicos e farmacológicos.",
+    "B": "O Planejamento, entendido com cálculo que precede e preside a ação (Matus 1987) constitui a razão instrumental que atribui a cada ato uma finalidade ou propósito para o alcance de um objetivo.",
+    "C": "Para a análise da situação de saúde com a identificação e descrição dos problemas de saúde utilizam-se informações epidemiológicas, demográficas e sociais geralmente provenientes da entrevista com informantes chaves.",
+    "D": "A definição de prioridades é uma área de reflexão que exige critérios políticos, administrativos e financeiros, onde a epidemiologia assume papel secundário.",
+    "E": "O processo de formulação de políticas é o eixo central da prática de planejamento e as ações de promoção da saúde devem incidir sobre as condições de vida e agravos estabelecidos."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q91",
+   "numero": 91,
+   "disciplina": null,
+   "enunciado_html": "Os sistemas de saúde se organizam em diferentes países de formas variadas e estão articulados aos sistemas de proteção social. Em relação aos sistemas de proteção social poderemos afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Os modelos de seguridade social tendem a se constituírem em sistemas nacionais de saúde e a serem financiados, em geral, com impostos gerais;",
+    "B": "O sistema inglês criado em 1946, o National Health Service, o qual é universal e financiado por impostos gerais, é baseado no modelo bismarckiano;",
+    "C": "No modelo de proteção residual o Estado assume para si a responsabilidade de garantia da proteção universal à saúde, porém priorizando os mais pobres;",
+    "D": "Os sistemas beveridgianos têm financiamento baseado na contribuição dos empregados, como aconteceu no Brasil com o Instituto Nacional de Assistência Médica da Previdência Social (INAMPS);",
+    "E": "No Brasil, o Sistema Único de Saúde, universal, financiado com impostos gerais, é um exemplo de sistema de proteção social do tipo seguro social."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q92",
+   "numero": 92,
+   "disciplina": null,
+   "enunciado_html": "O sanitarismo campanhista no Brasil do início do século XX teve no médico Oswaldo Cruz o seu mais ilustre representante. Esse médico ao assumir o cargo de diretor da Diretoria Geral de Saúde Pública (DGSP) prometeu erradicar as três principais doenças infecciosas que atacavam a cidade do Rio de Janeiro. Em relação ao tema assinale a alternativa correta.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Em relação à febre amarela, Oswaldo Cruz trabalhou politicamente para a aprovação da Lei de Vacinação Obrigatória, mas encontrou resistências inclusive da população temerosa dos efeitos da vacina.",
+    "B": "Adeptos ao positivismo de Augusto Comte, os sanitaristas da época, articularam-se em torno do pensamento de Oswaldo Cruz defendendo um papel forte do Estado para garantir a vacinação obrigatória e outras medidas preventivas;",
+    "C": "Oswaldo Cruz ao se colocar a serviço das estratégias de saneamento propostas por Rodrigues Alves contrariou os interesses econômicos de uma elite agroexportadora interessada em escoamento de seus produtos pelo porto do Rio de Janeiro;",
+    "D": "Oswaldo Cruz obteve o apoio do governo para as ações de controle da febre amarela, peste bubônica e varíola, porém não conseguiu sensibilizar a classe política quanto à necessidade de maior intervenção estatal na tuberculose;",
+    "E": "As estratégias de combate às doenças utilizadas por Oswaldo Cruz articulavam a ações intervencionistas baseadas na \"polícia médica\" às ações executadas pelos educadores sanitários, o que se constituiu no embrião do Serviço de Profilaxia Rural criado em 1918."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q93",
+   "numero": 93,
+   "disciplina": null,
+   "enunciado_html": "A 3ª Conferência Nacional de Saúde, realizada em dezembro de 1963, apontou, para a reorganização dos serviços de saúde no Brasil, a seguinte diretriz:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Estatização.",
+    "B": "Privatização.",
+    "C": "Universalização.",
+    "D": "Municipalização.",
+    "E": "Regionalização."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q94",
+   "numero": 94,
+   "disciplina": null,
+   "enunciado_html": "Quando da criação do Sistema Único de Saúde o seu financiamento ficou ligado às fontes de financiamento da seguridade social. Dessas fontes listadas abaixo, anote a alternativa que contém a fonte que, a partir de 1993, ficou vinculada à previdência social, deixando os seus recursos de serem utilizados pela área de saúde:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Impostos gerais da união.",
+    "B": "Contribuição Sobre o Lucro Líquido (CSLL).",
+    "C": "Contribuição para o Financiamento da Seguridade Social (COFINS).",
+    "D": "Contribuição Provisória sobre Movimentação Financeira (CPMF).",
+    "E": "Contribuição sobre folha de salários."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q95",
+   "numero": 95,
+   "disciplina": null,
+   "enunciado_html": "A Desvinculação de Recursos da União (DRU) provocou no Sistema Único de Saúde o seguinte efeito, em relação ao seu financiamento:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Aumento do montante destinado às ações secundárias e terciárias de saúde em detrimento da atenção básica.",
+    "B": "Consolidação da Estratégia Saúde da Família nos estados brasileiros com menor arrecadação tributária.",
+    "C": "Consumo de parte das receitas vinculadas à saúde e ao processo de descentralização.",
+    "D": "Desvio de recursos do setor econômico para a seguridade social, sem que esses recursos chegassem ao setor saúde.",
+    "E": "Aumento dos recursos destinados aos hospitais filantrópicos, com aumento do número de leitos disponíveis."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q96",
+   "numero": 96,
+   "disciplina": null,
+   "enunciado_html": "Em relação ao gasto público em saúde no Brasil observa-se que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Após a implantação do Sistema Único de Saúde houve redução progressiva dos percentuais de gastos federais em relação aos estaduais e municipais.",
+    "B": "O gasto público em saúde no Brasil, somando-se os gastos das três esferas de governo, supera o gasto privado.",
+    "C": "O percentual de gasto público em relação ao privado no Brasil supera aqueles praticados por países com sistemas de saúde universais, como Canadá e Inglaterra.",
+    "D": "O montante de recursos destinados ao Sistema Único de Saúde é adequado para as necessidades do sistema, faltando apenas melhoria da gestão desses recursos.",
+    "E": "Os gastos públicos em saúde no Brasil são financiados principalmente por fontes ligadas aos estados e municípios, sendo que os percentuais mínimos determinados pela Emenda Constitucional 29 têm sido historicamente respeitados."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q97",
+   "numero": 97,
+   "disciplina": null,
+   "enunciado_html": "Em relação aos planos e seguros privados de saúde no Brasil, é correto afirmar-se:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "As cooperativas médicas são empresas com fins lucrativos.",
+    "B": "Os planos de saúde de autogestão são a modalidade de planos privados que predominam no país.",
+    "C": "Cabe à Agência Nacional de Saúde Suplementar (ANS), criada no ano de 2000 pela Lei nº 9.961, regulamentar as empresas de planos e seguros.",
+    "D": "Embora o Sistema Único de Saúde seja universal a maioria da população brasileira conta com planos privados de saúde.",
+    "E": "A existência dos planos e seguros privados de saúde representa economia para o Sistema Único de Saúde, pois assim parte da população deixa de utilizar o sistema público."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q98",
+   "numero": 98,
+   "disciplina": null,
+   "enunciado_html": "Barbara Starfield (1932-2011), pesquisadora da Universidade Johns Hopkins, desenvolveu uma abordagem para caracterizar a atenção primária abrangente nos países industrializados. Segundo essa autora, é correto afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Os serviços de atenção primária devem estar centrados no indivíduo para assim conhecer as suas necessidades.",
+    "B": "O primeiro atributo da atenção primária é constituir-se como serviço de triagem, selecionando os problemas que necessitam de atenção secundária e terciária.",
+    "C": "Os sistemas integrados de saúde em que o clínico geral atua como porta de entrada obrigatória são reconhecidos como menos onerosos e mais aptos para conter a progressão dos gastos ambulatoriais.",
+    "D": "A atenção primária à saúde deve constituir-se como barreira de acesso aos serviços especializados com o objetivo de racionalização dos custos.",
+    "E": "Na atenção primária à saúde a adscrição de clientela implica em atender usuários residentes fora do território da unidade de saúde."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q99",
+   "numero": 99,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa que contém apenas atributos da atenção primária à saúde:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Competência cultural, centralidade na família, seleção de clientela;",
+    "B": "Centralidade na família, longitudinalidade, divisão do atendimento por ciclos de vida;",
+    "C": "Primeiro contato, integralidade, ênfase em doenças crônicas;",
+    "D": "Primeiro contato, longitudinalidade, coordenação;",
+    "E": "Integralidade, orientação para comunidade, baixa complexidade."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2013-Q100",
+   "numero": 100,
+   "disciplina": null,
+   "enunciado_html": "A respeito do Programa Saúde da Família, posteriormente denominado Estratégia da Saúde da Família assinale a alternativa correta:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A implantação dessa estratégia foi mais acelerada nos municípios de pequeno porte e lenta nos grandes centros urbanos;",
+    "B": "O Programa de Saúde da Família expandiu-se ao longo da década de 1990 apesar da falta de incentivos financeiros por parte do Ministério da Saúde;",
+    "C": "Os agentes comunitários de saúde não compõem a Equipe de Saúde da Família por se tratarem de membros da comunidade;",
+    "D": "Os serviços básicos de saúde permanecem caracterizados pela presença marcante do setor privado;",
+    "E": "A Equipe de Saúde da Família é multiprofissional devendo a sua liderança ser exercida por um médico generalista."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  }
+ ]
+}

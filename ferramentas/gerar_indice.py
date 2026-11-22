@@ -5,11 +5,44 @@ Rode sempre que adicionar ou remover uma edição.  Uso: python ferramentas/gera
 """
 import argparse, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from crivo_comum import listar_edicoes, ler_questoes, ler_correcoes, gravar_json
+from crivo_comum import listar_edicoes, ler_questoes, ler_correcoes, gravar_json, ler_json, arq_questoes
+
+
+def sincronizar_disciplinas(dados, caminho, permitidas):
+    """Mantém exams/disciplinas.json (usado pelo filtro do site) e questoes.json com a mesma disciplina.
+    Classificação já existente em disciplinas.json (feita por pessoas) tem prioridade; nada é apagado."""
+    mapa = ler_json(caminho, {}) or {}
+    novos_site, novos_json = 0, 0
+    for banca, ano in listar_edicoes(dados):
+        qs = ler_questoes(dados, banca, ano)
+        y = mapa.setdefault(banca, {}).setdefault(str(ano), {})
+        mudou = False
+        for q in qs["questoes"]:
+            n = str(q["numero"])
+            atual = (y[int(n) - 1] if isinstance(y, list) and int(n) - 1 < len(y) else
+                     y.get(n) if isinstance(y, dict) else None)
+            atual = atual if atual in permitidas else None
+            if atual and q.get("disciplina") != atual:
+                q["disciplina"] = atual; mudou = True; novos_json += 1
+            elif not atual and q.get("disciplina") in permitidas:
+                if isinstance(y, list):
+                    y.extend([""] * (int(n) - len(y))); y[int(n) - 1] = q["disciplina"]
+                else:
+                    y[n] = q["disciplina"]
+                novos_site += 1
+        if mudou:
+            gravar_json(arq_questoes(dados, banca, ano), qs)
+    gravar_json(caminho, mapa)
+    print(f"disciplinas: {novos_site} adicionada(s) ao filtro do site, {novos_json} copiada(s) para questoes.json.")
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--dados", default="dados"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--dados", default="dados")
+    ap.add_argument("--disciplinas", default=os.path.join("exams", "disciplinas.json"),
+                    help="arquivo de disciplinas usado pelo filtro do site")
+    a = ap.parse_args()
+    cfg = ler_json(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config_gerador.json"), {})
+    sincronizar_disciplinas(a.dados, a.disciplinas, set(cfg.get("disciplinas_permitidas", [])))
     bancas, problemas = {}, []
     for banca, ano in listar_edicoes(a.dados):
         qs = ler_questoes(a.dados, banca, ano)

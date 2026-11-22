@@ -1,14 +1,16 @@
 TAREFA: AVALIAR_RELEVANCIA_HISTORICO
 
 Você recebe uma QUESTÃO ATUAL de prova de residência médica e uma lista de QUESTÕES CANDIDATAS da mesma banca
-(cada uma com id, ano, temas e resumo). Decida quais candidatas tratam do MESMO TEMA da questão atual.
+(id | ano | disciplina | temas | resumo). Escolha TODAS as candidatas que ajudam a estudar a questão atual,
+em uma destas categorias:
+- "mesmo_tema": cobra a mesma doença, condição, procedimento, fármaco, política ou conceito central;
+- "tema_relacionado": tema vizinho da mesma área (ex.: hemofilia x doença de von Willebrand x púrpura;
+  bronquiolite x asma x pneumonia), complicação, diagnóstico diferencial ou etapa do mesmo cuidado;
+- "caso_semelhante": caso clínico parecido (mesma faixa etária e apresentação), o mesmo dilema de conduta
+  ou os mesmos termos-chave, ainda que o diagnóstico final seja outro.
+NÃO inclua candidatas que só compartilham a disciplina ou palavras genéricas (ex.: "criança", "febre").
 
-Considere do mesmo tema quando a candidata cobra a mesma doença, condição, síndrome, procedimento, fármaco,
-política de saúde ou conceito central — mesmo que pergunte de outro jeito (diagnóstico, tratamento,
-complicação, epidemiologia etc.). NÃO considere só porque compartilha a disciplina, a faixa etária ou o
-cenário (ex.: duas questões de pediatria sobre doenças diferentes não são do mesmo tema).
-Na dúvida razoável, INCLUA: é pior omitir uma questão relacionada do que incluir uma de relação indireta.
-
-Responda somente com JSON:
-{"relevantes": [{"id": "<id da candidata>", "motivo": "<uma frase: o que ela tem em comum com a atual>"}]}
-Use apenas ids da lista de candidatas. Se nenhuma for relevante, devolva {"relevantes": []}.
+Responda só com JSON:
+{"relacionadas": [{"id": "<id>", "tipo": "mesmo_tema|tema_relacionado|caso_semelhante",
+                   "motivo": "<até 15 palavras: o que liga as duas questões>"}]}
+Use apenas ids da lista. Se nenhuma servir, devolva {"relacionadas": []}.
