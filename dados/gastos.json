@@ -1,8 +1,15 @@
 {
  "formato": "crivo-gastos",
  "teto_usd": 30.0,
- "gasto_usd": 0.0,
+ "gasto_usd": 0.2023,
  "observacao": "Gastos anteriores a esta atualização não foram registrados aqui: some o valor que aparece no painel do DeepSeek em gasto_usd.",
  "correcoes_geradas": 0,
- "execucoes": []
+ "execucoes": [
+  {
+   "data": "2026-11-22T04:58Z",
+   "acao": "catalogar AMP",
+   "custo_usd": 0.2023,
+   "chamadas": 208
+  }
+ ]
 }
