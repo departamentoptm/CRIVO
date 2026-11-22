@@ -1726,6 +1726,306 @@
     "reportes": [],
     "reportes_atendidos": []
    }
+  },
+  "AMP-2020-Q6": {
+   "tema": "Pediatria: Meningoencefalite por herpes simples em lactente",
+   "aviso_diretriz": null,
+   "gabarito_usado": "B",
+   "secoes_html": {
+    "2.1": "<p><strong>Disciplina:</strong> Pediatria.</p><p><strong>Tema:</strong> Meningoencefalite viral por herpes simples (HSV) em lactente, com foco na interpretação do líquor e nas alterações esperadas na neuroimagem.</p><p><strong>Contextualização:</strong> O tema infecções do sistema nervoso central na infância é recorrente em provas de residência médica, especialmente na AMP, que costuma cobrar diagnóstico etiológico, interpretação de líquor, tratamento empírico e complicações. Nesta questão, o diferencial está na apresentação clínica e no padrão do líquor que sugerem encefalite por HSV, cuja neuroimagem característica mostra lesões hemorrágicas bitemporais. É fundamental saber distinguir meningite bacteriana, viral e tuberculosa, pois a conduta e o prognóstico mudam radicalmente.</p>",
+    "2.2": "<p><strong>Conceito-Chave e Fisiopatologia:</strong> A encefalite por HSV é causada principalmente pelo HSV tipo 1, que atinge o sistema nervoso central por via hematogênica ou neuronal retrógrada, com predileção pelos lobos temporais e frontais. A replicação viral leva a necrose hemorrágica do tecido cerebral, o que explica as áreas de hemorragia bitemporal vistas na tomografia ou ressonância magnética. No líquor, o padrão típico é de pleocitose linfocitária (mononuclear), com glicose normal ou levemente reduzida e proteínas elevadas. A tríade clínica clássica inclui febre, cefaleia e alteração do nível de consciência, frequentemente com sinais focais e convulsões. Em lactentes, a apresentação pode ser mais inespecífica, com irritabilidade e letargia, como no caso descrito. O conhecimento desse padrão é essencial para suspeitar da doença e indicar aciclovir precocemente, reduzindo mortalidade e sequelas.</p>",
+    "2.3": "<p><strong>Justificativa da Resposta Correta:</strong> A alternativa B é a correta porque a encefalite por HSV tipicamente causa lesões hemorrágicas nos lobos temporais, que podem ser bilaterais e assimétricas. O quadro clínico do lactente (febre, irritabilidade, alteração de consciência, Glasgow 12, alteração de pares cranianos) e o líquor com pleocitose mononuclear, glicose de 45 mg/dL e proteínas de 85 mg/dL são compatíveis com encefalite viral, sendo o HSV o agente mais importante a considerar. A neuroimagem (TC ou RM) costuma mostrar hipodensidade e áreas de hemorragia bitemporal, com possível realce meníngeo e edema. Portanto, a alteração esperada é a descrita na alternativa B.</p>",
+    "2.4": "<p><strong>Alternativa A — Errada.</strong> Hematoma subdural é uma coleção sanguínea entre a dura-máter e a aracnoide, geralmente pós-traumática ou secundária a meningite bacteriana complicada, não sendo achado característico de encefalite herpética. O histórico da banca inclui casos de meningite bacteriana, mas não de hematoma subdural como complicação típica.</p><p><strong>Alternativa B — Correta.</strong> As áreas de hemorragia bitemporal são o achado clássico da encefalite por HSV, refletindo necrose hemorrágica do lobo temporal. O histórico da AMP já cobrou encefalite viral (AMP 2009, questão 3) e o diagnóstico diferencial com outras infecções do SNC.</p><p><strong>Alternativa C — Errada.</strong> Áreas de desmielinização difusas são típicas de doenças desmielinizantes, como a encefalomielite aguda disseminada (ADEM), que pode ser confundida com encefalite viral, mas não é o padrão da encefalite herpética. A AMP já abordou ADEM em outra questão (AMP 2024, questão 12), mostrando a importância do diagnóstico diferencial.</p><p><strong>Alternativa D — Errada.</strong> Lesão expansiva em fossa posterior sugere tumores, abscessos ou outras lesões que não são típicas da encefalite por HSV, que acomete preferencialmente os lobos temporais.</p><p><strong>Alternativa E — Errada.</strong> Captação de contraste nas meninges é um achado inespecífico, presente em meningites de diversas etiologias, incluindo a tuberculosa, mas não é o achado mais característico da encefalite herpética, que envolve o parênquima com hemorragia. O histórico da AMP já cobrou meningite tuberculosa e outras meningites, mas a questão atual enfatiza o padrão de imagem da encefalite viral.</p>",
+    "2.5": "<p><strong>Palavras-Chave e \"Pistas\" no Enunciado:</strong></p><ul><li><strong>Lactente de 8 meses:</strong> faixa etária em que a encefalite por HSV pode ocorrer, embora seja mais comum em crianças maiores e adultos; a apresentação pode ser inespecífica.</li><li><strong>Febre e irritabilidade:</strong> sinais inespecíficos, mas que em conjunto com alteração de consciência sugerem infecção do SNC.</li><li><strong>Alteração do nível de consciência e escala de coma de Glasgow de 12:</strong> indicam gravidade e acometimento encefálico, não apenas meníngeo.</li><li><strong>Alteração de pares cranianos:</strong> sugere comprometimento focal do tronco encefálico ou de estruturas profundas, comum em encefalites.</li><li><strong>Líquor com 120 células, predomínio monomorfonuclear, glicose 45 mg/dL, proteínas 85 mg/dL:</strong> padrão linfocitário com proteína elevada e glicose normal ou levemente baixa, típico de encefalite viral.</li><li><strong>Neuroimagem:</strong> a pergunta busca o achado característico da encefalite por HSV, que é a hemorragia bitemporal.</li></ul>",
+    "2.6": "<p><strong>Algoritmo de Decisão:</strong></p><ol><li>Reconhecer a síndrome clínica: febre + alteração de consciência + sinais focais (pares cranianos) em lactente = suspeita de encefalite.</li><li>Analisar o líquor: pleocitose mononuclear, glicose normal/baixa e proteína elevada apontam para etiologia viral, especialmente HSV.</li><li>Considerar os diagnósticos diferenciais: meningite bacteriana (geralmente polimorfonuclear, glicose muito baixa), meningite tuberculosa (linfocitária, glicose baixa, proteína muito elevada), encefalite autoimune.</li><li>Lembrar que a encefalite por HSV tem predileção pelo lobo temporal, causando necrose hemorrágica.</li><li>Indicar neuroimagem (TC ou RM) e iniciar aciclovir empírico o mais rápido possível, sem aguardar confirmação.</li><li>Escolher a alternativa que corresponde ao achado de imagem clássico: hemorragia bitemporal.</li></ol>",
+    "2.7": "<p><strong>Dados para Memorizar:</strong></p><ul><li><strong>Fatos que definem:</strong> Encefalite por HSV = febre + alteração de consciência + convulsões + líquor linfocitário + hemorragia bitemporal na neuroimagem. O achado de imagem é altamente sugestivo e auxilia no diagnóstico precoce.</li><li><strong>Números e doses:</strong> O tratamento empírico com aciclovir endovenoso deve ser iniciado assim que houver suspeita clínica, na dose de 10 mg/kg a cada 8 horas (ou 500 mg/m² a cada 8 horas) por 14 a 21 dias. A glicose no líquor na encefalite viral costuma ser normal ou levemente reduzida (geralmente &gt; 40 mg/dL), enquanto na bacteriana é muito baixa (&lt; 40 mg/dL). A proteína pode estar elevada, mas não é específica.</li><li><strong>Mnemônicos:</strong> \"Temporal = Herpes\" – o lobo temporal é o sítio preferencial do HSV, e a hemorragia bitemporal é o achado clássico. \"Líquor viral: linfócitos, glicose normal, proteína um pouco alta\" – ajuda a diferenciar das meningites bacterianas.</li></ul>",
+    "2.8": "<p><strong>Near-Neighbours e Diagnósticos Diferenciais:</strong></p><table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr></thead><tbody><tr><td>Encefalite por HSV</td><td>Febre, alteração de consciência, convulsões, sinais focais (afasia, hemiparesia), alteração de pares cranianos; líquor linfocitário com glicose normal/baixa e proteína elevada.</td><td>RM ou TC com hemorragia bitemporal; PCR para HSV no líquor.</td><td>Aciclovir endovenoso precoce; suporte intensivo.</td></tr><tr><td>Meningite bacteriana</td><td>Febre, cefaleia, rigidez de nuca, petéquias; líquor com predomínio de polimorfonucleares, glicose muito baixa, proteína elevada.</td><td>Cultura e Gram do líquor; hemocultura.</td><td>Antibióticos empíricos (ceftriaxona + vancomicina) e dexametasona.</td></tr><tr><td>Meningite tuberculosa</td><td>Evolução subaguda, febre, cefaleia, alteração de pares cranianos; líquor linfocitário com glicose baixa e proteína muito elevada (às vezes &gt; 100 mg/dL).</td><td>Pesquisa de BAAR, cultura para micobactéria, PCR; neuroimagem com realce meníngeo basal e hidrocefalia.</td><td>Esquema anti-tuberculose com rifampicina, isoniazida, pirazinamida e etambutol, associado a corticoide.</td></tr><tr><td>Encefalomielite aguda disseminada (ADEM)</td><td>História de infecção viral prévia, sintomas multifocais, encefalopatia; líquor com pleocitose linfocitária e proteína elevada.</td><td>RM com lesões desmielinizantes difusas na substância branca.</td><td>Corticosteroides em altas doses; imunoglobulina ou plasmaférese em casos refratários.</td></tr></tbody></table>",
+    "2.9": "<p><strong>Variações de Abordagem em Provas:</strong></p><ul><li><strong>Diagnóstico etiológico:</strong> poderia perguntar qual o agente mais provável diante de um líquor com pleocitose linfocitária e hemorragia temporal – resposta: HSV.</li><li><strong>Tratamento:</strong> qual a droga de escolha e o tempo de tratamento – resposta: aciclovir endovenoso por 14-21 dias.</li><li><strong>Complicação:</strong> qual a complicação neurológica mais temida – resposta: sequelas neurológicas permanentes, como déficits cognitivos e convulsões.</li><li><strong>Prevenção:</strong> não há vacina disponível para HSV. Em neonatos, a transmissão é geralmente perinatal; em lactentes maiores, costuma ser pós-natal, por contato com saliva ou lesões ativas. A prevenção inclui evitar contato com lesões ativas.</li><li><strong>Diagnóstico diferencial:</strong> comparar com meningite tuberculosa, que também cursa com alteração de pares cranianos e líquor linfocitário, mas com glicose mais baixa e proteína mais elevada, além de realce meníngeo basal na imagem.</li></ul>",
+    "2.10": "<p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 18 das 21 provas, em 14 provas diferentes, sendo 7 do mesmo tema (meningites bacterianas), 6 de tema relacionado (encefalites virais, meningite tuberculosa, ADEM) e 5 com caso semelhante. A banca alterna entre cobrar diagnóstico etiológico, interpretação do líquor, tratamento empírico, profilaxia e complicações. As questões costumam trazer casos clínicos com dados de líquor e perguntar a conduta ou o agente mais provável.</p><p><strong>Abordagem ainda não cobrada:</strong> A neuroimagem da encefalite por HSV, especificamente a hemorragia bitemporal, não havia sido cobrada diretamente até esta questão. As questões anteriores focaram mais em meningites bacterianas e virais, mas sem detalhar achados de imagem.</p><p><strong>Evolução da cobrança:</strong> As primeiras questões (AMP 2006, 2009, 2012) abordaram aspectos gerais de meningites e encefalites, enquanto as mais recentes (AMP 2024, 2025, 2026) aprofundaram em esquemas antibióticos, duração de tratamento e agentes etiológicos por faixa etária. A inclusão de neuroimagem nesta questão sugere uma tendência a cobrar também os achados de imagem.</p><p><strong>O que isso sugere para a próxima prova:</strong> É provável que a banca continue cobrando o diagnóstico diferencial entre encefalite viral e meningite tuberculosa, com ênfase em achados de imagem e líquor. Além disso, o tratamento precoce com aciclovir e as complicações neurológicas podem ser temas de questões futuras.</p>",
+    "2.11": "<p><strong>Conexão com Outros Temas:</strong></p><ul><li>Se você viu meningite bacteriana, lembre-se de que o líquor tem predomínio de polimorfonucleares e glicose muito baixa, enquanto na encefalite viral o predomínio é de mononucleares e a glicose é normal ou levemente reduzida.</li><li>Se você viu meningite tuberculosa, lembre-se de que ela também cursa com líquor linfocitário e alteração de pares cranianos, mas a proteína é muito elevada e a neuroimagem mostra realce meníngeo basal e hidrocefalia.</li><li>Se você viu encefalomielite aguda disseminada (ADEM), lembre-se de que as lesões são desmielinizantes e difusas, não hemorrágicas.</li><li>Se você viu convulsão febril, lembre-se de que a encefalite deve ser suspeitada quando há alteração persistente de consciência ou sinais focais.</li></ul>",
+    "2.12": "<p><strong>Erro do Usuário e Estratégia de Correção:</strong> O erro mais comum é escolher a alternativa E (captação de contraste nas meninges), que é um achado inespecífico e presente em várias meningites, incluindo a tuberculosa. Quem marca E provavelmente confunde o padrão de imagem da encefalite herpética com o da meningite tuberculosa, que classicamente apresenta realce meníngeo basal. A causa é uma lacuna de conhecimento sobre os achados de neuroimagem específicos da encefalite por HSV. A estratégia corretiva é revisar os achados de imagem das principais infecções do SNC: hemorragia bitemporal no HSV, realce meníngeo basal e hidrocefalia na tuberculose, e lesões desmielinizantes na ADEM. Outro erro possível é escolher a alternativa C (desmielinização difusa), confundindo com ADEM; nesse caso, a confusão é conceitual entre encefalite viral e doença desmielinizante. Para evitar, é importante associar o quadro clínico e o líquor ao padrão de imagem.</p>",
+    "2.13": "<p><strong>Conexão com a Prática:</strong> Na emergência pediátrica, todo lactente com febre e alteração de consciência deve ter a encefalite por HSV como diagnóstico a ser descartado, pois o atraso no início do aciclovir aumenta a mortalidade e as sequelas neurológicas. A neuroimagem (preferencialmente RM) deve ser realizada o mais breve possível, mas não deve atrasar o tratamento empírico. A punção lombar é fundamental para análise do líquor, mas deve ser precedida de avaliação de risco de herniação. O reconhecimento da hemorragia bitemporal na TC ou RM pode acelerar o diagnóstico e justificar a manutenção do aciclovir mesmo antes da confirmação por PCR.</p>",
+    "2.14": "<p><strong>Conceitos Relacionados para Revisar:</strong></p><ul><li>Interpretação do líquor nas infecções do SNC (bacteriana, viral, tuberculosa, fúngica).</li><li>Achados de neuroimagem nas encefalites virais e meningites.</li><li>Tratamento empírico da encefalite por HSV com aciclovir.</li><li>Diagnóstico diferencial entre encefalite viral e meningite tuberculosa.</li><li>Encefalomielite aguda disseminada (ADEM) e outras doenças desmielinizantes.</li><li>Profilaxia e controle de infecções por HSV em neonatos e lactentes.</li></ul>",
+    "2.15": "<p>1. <strong>Nelson — Tratado de Pediatria</strong> — Infecções do sistema nervoso central.</p><p>2. <strong>Harrison — Medicina Interna</strong> — Meningites e encefalites.</p><p>3. Fraley CE et al. <a href=\"https://pubmed.ncbi.nlm.nih.gov/33526572/\">Encephalitis in Previously Healthy Children</a>. <em>Pediatr Rev</em>, 2021. PMID 33526572. DOI: <a href=\"https://doi.org/10.1542/pir.2018-0175\">10.1542/pir.2018-0175</a>.</p><p>4. Beaman MH <a href=\"https://pubmed.ncbi.nlm.nih.gov/30309300/\">Community-acquired acute meningitis and encephalitis: a narrative review</a>. <em>Med J Aust</em>, 2018. PMID 30309300. DOI: <a href=\"https://doi.org/10.5694/mja17.01073\">10.5694/mja17.01073</a>.</p><p>5. Consulta do tema: <a href=\"https://www.uptodate.com/contents/search?search=herpes%20simplex%20encephalitis%20children%20diagnosis%20neuroimaging\">UpToDate</a> · <a href=\"https://www.google.com/search?q=site%3Amsdmanuals.com/pt/profissional%20Meningoencefalite%20por%20herpes%20simples%20em%20lactente\">Manual MSD (busca no site)</a> · <a href=\"https://pubmed.ncbi.nlm.nih.gov/?term=herpes%20simplex%20encephalitis%20children%20diagnosis%20neuroimaging\">PubMed</a> <em>(UpToDate exige assinatura institucional)</em>.</p>"
+   },
+   "historico": [
+    {
+     "id": "AMP-2013-Q11",
+     "ano": "2013",
+     "numero": 11,
+     "gabarito": "C",
+     "resumo": "Meningite bacteriana na infância: afirmações sobre manifestações, liquor, tratamento e profilaxia",
+     "cobrado": "tratamento",
+     "resposta": "C (Estudos realizados em países desenvolvidos são inconclusivos sobre o benefício da corticot…)",
+     "relacao": "Mesmo tema: Meningite bacteriana na infância: manifestações, liquor e tratamento",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2014-Q47",
+     "ano": "2014",
+     "numero": 47,
+     "gabarito": "C",
+     "resumo": "criança com meningite bacteriana: conduta correta no tratamento",
+     "cobrado": "tratamento",
+     "resposta": "C (Manter o tratamento com antibióticos na meningite meningocócica por 5 dias em média.)",
+     "relacao": "Mesmo tema: Meningite bacteriana na infância: conduta terapêutica",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2015-Q20",
+     "ano": "2015",
+     "numero": 20,
+     "gabarito": "C",
+     "resumo": "Escolar com meningite bacteriana: condutas diagnósticas e terapêuticas corretas",
+     "cobrado": "conduta inicial",
+     "resposta": "C (I, III, V.)",
+     "relacao": "Mesmo tema: Meningite bacteriana: diagnóstico liquórico e tratamento",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2016-Q45",
+     "ano": "2016",
+     "numero": 45,
+     "gabarito": "E",
+     "resumo": "duração da quimioprofilaxia com rifampicina para contatos de meningite por Haemophilus e meningococo",
+     "cobrado": "prevenção e rastreamento",
+     "resposta": "E (4 e 2 dias.)",
+     "relacao": "Mesmo tema: Meningite por Haemophilus influenzae e quimioprofilaxia",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2024-Q11",
+     "ano": "2024",
+     "numero": 11,
+     "gabarito": "D",
+     "resumo": "meningite bacteriana na infância: esquema antimicrobiano em lactentes e prognóstico",
+     "cobrado": "tratamento",
+     "resposta": "D (As afirmativas I, II e III são verdadeiras.)",
+     "relacao": "Mesmo tema: Meningite bacteriana em lactentes: esquema e prognóstico",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2025-Q17",
+     "ano": "2025",
+     "numero": 17,
+     "gabarito": "E",
+     "resumo": "Meningite bacteriana na infância: duração do tratamento, vancomicina isolada, dexametasona, esquema empírico em lactentes e agentes a partir dos 2 meses",
+     "cobrado": "tratamento",
+     "resposta": "E (A partir dos dois meses de vida os principais agentes são o meningococo, hemófilus e o pne…)",
+     "relacao": "Mesmo tema: Meningite bacteriana infantil: agentes por faixa etária e tratamento",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2026-Q7",
+     "ano": "2026",
+     "numero": 7,
+     "gabarito": "C",
+     "resumo": "lactente com meningite bacteriana e LCR típico: conduta antibiótica imediata e agente etiológico provável",
+     "cobrado": "tratamento",
+     "resposta": "C (Iniciar ceftriaxona associada à vancomicina; o agente mais provável é o Streptococcus pneu…)",
+     "relacao": "Mesmo tema: Lactente com meningite bacteriana e LCR típico: agente e conduta",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2009-Q3",
+     "ano": "2009",
+     "numero": 3,
+     "gabarito": "C",
+     "resumo": "jovem com febre, confusão e hemiparesia, TC com lesão temporal e LCR linfocitário: conduta",
+     "cobrado": "conduta inicial",
+     "resposta": "C (Solicitar PCR para Herpes simples tipo I no LCR e iniciar aciclovir.)",
+     "relacao": "Tema relacionado: Meningoencefalite com LCR linfocitário e neuroimagem, diferencial de meningite",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2012-Q25",
+     "ano": "2012",
+     "numero": 25,
+     "gabarito": "E",
+     "resumo": "Meningite bacteriana: benefício da dexametasona conforme etiologia e idade",
+     "cobrado": "tratamento",
+     "resposta": "E (não existem evidências sobre o benefício da corticoterapia na infecção meníngea bacteriana)",
+     "relacao": "Tema relacionado: Meningite bacteriana: dexametasona conforme etiologia e idade",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2012-Q75",
+     "ano": "2012",
+     "numero": 75,
+     "gabarito": "C",
+     "resumo": "agente etiológico mais comum de meningite em pacientes com linfoma",
+     "cobrado": "epidemiologia",
+     "resposta": "C (L. Monocytogenes.)",
+     "relacao": "Tema relacionado: meningite e identificação do agente etiológico conforme perfil do paciente",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2016-Q41",
+     "ano": "2016",
+     "numero": 41,
+     "gabarito": "E",
+     "resumo": "afirmação sobre uso de aminoglicosídeos em meningite bacteriana pediátrica e sua penetração no líquor",
+     "cobrado": "tratamento",
+     "resposta": "E (Ambas as assertivas estão incorretas.)",
+     "relacao": "Tema relacionado: Antibioticoterapia e penetração liquórica na meningite bacteriana",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2022-Q19",
+     "ano": "2022",
+     "numero": 19,
+     "gabarito": "E",
+     "resumo": "pré-escolar com meningite e líquor com polimorfonucleares: valor do líquor na definição etiológica",
+     "cobrado": "exame complementar",
+     "resposta": "E (As asserções I e II são proposições falsas.)",
+     "relacao": "Tema relacionado: Análise do liquor na meningite bacteriana infantil",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2024-Q12",
+     "ano": "2024",
+     "numero": 12,
+     "gabarito": "A",
+     "resumo": "escolar com encefalomielite aguda disseminada: seguimento por RM e diagnóstico diferencial",
+     "cobrado": "exame complementar",
+     "resposta": "A (As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.)",
+     "relacao": "Tema relacionado: Desmielinização do SNC e RM em criança com encefalopatia",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2006-Q32",
+     "ano": "2006",
+     "numero": 32,
+     "gabarito": "A",
+     "resumo": "criança com febre e irritabilidade, líquor com pleocitose: interpretação e conduta",
+     "cobrado": "conduta inicial",
+     "resposta": "A (liberação para casa com medicação sintomática.)",
+     "relacao": "Caso semelhante: Criança com febre, irritabilidade e pleocitose no liquor",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2013-Q1",
+     "ano": "2013",
+     "numero": 1,
+     "gabarito": "D",
+     "resumo": "Pré-escolar com pneumonia grave e choque séptico quente: escolha da droga vasoativa",
+     "cobrado": "tratamento",
+     "resposta": "D (noradrenalina)",
+     "relacao": "Caso semelhante: Lactente/pediatria com febre e quadro grave, conduta em complicação",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2018-Q74",
+     "ano": "2018",
+     "numero": 74,
+     "gabarito": "C",
+     "resumo": "lactente com alteração de consciência e equimoses após queda não testemunhada: lesão esperada na tomografia",
+     "cobrado": "diagnóstico",
+     "resposta": "C (Hematoma subdural.)",
+     "relacao": "Caso semelhante: Lactente com alteração de consciência: hematoma subdural na tomografia",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2019-Q1",
+     "ano": "2019",
+     "numero": 1,
+     "gabarito": "B",
+     "resumo": "Lactente com meningoencefalite e hipodensidade temporal bilateral: droga fundamental no tratamento",
+     "cobrado": "tratamento",
+     "resposta": "B (aciclovir.)",
+     "relacao": "Caso semelhante: Lactente com síndrome meníngea e alteração temporal na neuroimagem",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2020-Q11",
+     "ano": "2020",
+     "numero": 11,
+     "gabarito": "E",
+     "resumo": "escolar com TCE e piora neurológica: achado indicativo de maior risco",
+     "cobrado": "prognóstico",
+     "resposta": "E (Queda na pontuação da escala de coma.)",
+     "relacao": "Caso semelhante: alteração do nível de consciência e Glasgow baixo em criança, avaliação neurológica",
+     "tipo": "caso_semelhante"
+    }
+   ],
+   "historico_meta": {
+    "metodo": "catalogo+disciplina+lexico+ia_v2",
+    "questoes_da_banca_avaliadas": 2074,
+    "candidatas_pela_triagem": 150,
+    "relevantes": 18,
+    "triagem_truncada": true,
+    "provas_no_acervo": 21,
+    "anos": [
+     "2006",
+     "2026"
+    ],
+    "provas_com_relacionadas": 14,
+    "por_tipo": {
+     "mesmo_tema": 7,
+     "tema_relacionado": 6,
+     "caso_semelhante": 5
+    }
+   },
+   "referencias": {
+    "livros": [
+     {
+      "fonte": "Nelson — Tratado de Pediatria",
+      "secao": "Infecções do sistema nervoso central"
+     },
+     {
+      "fonte": "Harrison — Medicina Interna",
+      "secao": "Meningites e encefalites"
+     }
+    ],
+    "busca_pubmed": "herpes simplex encephalitis children diagnosis neuroimaging",
+    "artigos": [
+     {
+      "pmid": "33526572",
+      "titulo": "Encephalitis in Previously Healthy Children",
+      "revista": "Pediatr Rev",
+      "ano": "2021",
+      "doi": "10.1542/pir.2018-0175",
+      "autores": "Fraley CE et al."
+     },
+     {
+      "pmid": "30309300",
+      "titulo": "Community-acquired acute meningitis and encephalitis: a narrative review",
+      "revista": "Med J Aust",
+      "ano": "2018",
+      "doi": "10.5694/mja17.01073",
+      "autores": "Beaman MH"
+     }
+    ]
+   },
+   "afirmacoes_criticas": [
+    "Encefalite por HSV em lactente: líquor com pleocitose mononuclear, glicose normal/levemente reduzida e proteína elevada; neuroimagem com hemorragia bitemporal.",
+    "Meningite tuberculosa: líquor linfocitário com glicose baixa e proteína muito elevada; neuroimagem com realce meníngeo basal e hidrocefalia.",
+    "ADEM: lesões desmielinizantes difusas na substância branca, não hemorrágicas.",
+    "Tratamento empírico da encefalite por HSV: aciclovir endovenoso precoce, sem aguardar confirmação.",
+    "Transmissão do HSV: perinatal em neonatos; pós-natal por contato com saliva/lesões ativas em lactentes maiores."
+   ],
+   "resolucao_cega": {
+    "alternativa": "E",
+    "confianca": 0.72,
+    "concorda_com_gabarito": false
+   },
+   "verificacao": {
+    "aprovado": true,
+    "rodada": 2,
+    "modelo": "deepseek-flash",
+    "problemas_leves": []
+   },
+   "origem": "api_v2",
+   "modelo": "deepseek-flash",
+   "gerado_em": "2026-11-22T20:30:23Z",
+   "revisao": {
+    "status": "nao_revisado",
+    "alertas": [
+     "ia_discorda_do_gabarito"
+    ],
+    "reportes": [],
+    "reportes_atendidos": []
+   }
   }
  }
 }
