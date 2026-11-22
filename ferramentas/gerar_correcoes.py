@@ -61,7 +61,10 @@ def texto_para_ia(q, com_gabarito):
                       "se a resposta depender dela, diga isso explicitamente.]")
     if com_gabarito:
         g = q.get("gabarito")
-        partes.append(f"GABARITO OFICIAL: {'alternativa ' + g if g in LETRAS else 'QUESTÃO ANULADA pela banca'}")
+        motivo = {"excluida": "QUESTÃO EXCLUÍDA pela banca do cálculo do resultado (desajuste estatístico), sem gabarito",
+                  "anulada_administrativamente": "QUESTÃO ANULADA ADMINISTRATIVAMENTE pela banca"}.get(
+                      q.get("anulacao"), "QUESTÃO ANULADA pela banca")
+        partes.append(f"GABARITO OFICIAL: {'alternativa ' + g if g in LETRAS else motivo}")
     return "\n".join(partes)
 
 

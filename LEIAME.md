@@ -145,9 +145,30 @@ Se o relatório apontar problemas:
   aceita se tiver exatamente as palavras do original); ou corrija o `.txt` e importe de novo.
 - figura presa à questão errada: mova a tag `<img>` no `questoes.json` (as figuras vêm marcadas com
   `"imagem_conferir": true`).
+- prova em 2 colunas com tabelas ou trechos de largura total (como o ENAMED): `--colunas 2` (no GitHub, campo
+  "Leitura das páginas" = 2). Cada faixa da página é lida na ordem certa, e células de tabela quebradas em
+  duas linhas são juntadas.
+- gabarito ainda preliminar: `--gabarito-preliminar` (no GitHub, marque a caixa). O site avisa que pode mudar.
+  Quando sair o definitivo, atualize o `gabarito.json` e importe a edição de novo com `--sobrescrever` e sem
+  essa opção; correções escritas para uma letra que mudou são refeitas automaticamente.
+- **página digitalizada** dentro de um PDF de texto: o relatório lista as questões dessa página ("texto vindo de
+  OCR"). Transcreva-as em `provas/<BANCA>/transcricoes.json` (veja o do ENAMED como modelo) e importe de novo:
+  o texto transcrito substitui o OCR.
+- **texto ilegível ("ǆĂŵĞ")**: o PDF tem fontes sem tabela de caracteres. O importador repara sozinho, usando
+  as tabelas das outras fontes do arquivo ou as guardadas em `ferramentas/mapas_glifos.json` (precisa de
+  `pip install pypdf pdfminer.six`; no GitHub já é instalado). Se sobrar algum caractere desconhecido, o
+  reparo avisa qual é.
+- questões anuladas ou excluídas: escreva `"ANULADA"`, `"EXCLUIDA"` ou `"ANULADA_ADMINISTRATIVAMENTE"` no
+  `gabarito.json`; o site mostra o motivo.
 
 Depois de importada, a edição não é processada de novo (a não ser com `--sobrescrever`, que mantém as correções).
 O gerador de correções pula questões com figura, porque o modelo de texto não enxerga a imagem.
+
+## ENAMED
+
+`provas/ENAMED/` tem o caderno 02 de 2025 (gabarito definitivo) e de 2026 (gabarito preliminar), 100 questões
+de 4 alternativas cada. Já vêm importados; para refazer: Actions → Importar prova, banca `ENAMED`, ano `2025`
+(ou `2026` com "gabarito preliminar" marcado), leitura das páginas = 2, "Refazer" marcado.
 
 ## Outras ferramentas
 - `conferir_gabarito.py`: compara `questoes.json` com o `gabarito.json` e lista correções a refazer.

@@ -36,6 +36,11 @@ pelo `conferir_gabarito.py`, para seguir o `gabarito.json` oficial.
 ```
 - `gabarito`: `null` quando a questão foi anulada.
 - `imagem_conferir`: `true` quando a figura foi extraída do PDF automaticamente (confira se está na questão certa).
+- `anulacao` (opcional): `excluida` ou `anulada_administrativamente`, quando o `gabarito` é `null` por esses
+  motivos; o site mostra o motivo.
+- `transcricao_manual` (opcional): a questão estava numa página digitalizada e o texto veio de
+  `provas/<BANCA>/transcricoes.json`, não do OCR. `texto_ocr: true` = ainda vem do OCR e precisa ser conferida.
+- `gabarito_situacao` (no topo do arquivo, opcional): `"preliminar"` faz o site avisar que o gabarito pode mudar.
 - `imagem_pendente`: `true` quando a questão cita uma figura que ainda não foi adicionada. O gerador pula
   essas questões até a imagem entrar (em `extras_html`, como `<img src="...">`) e o campo virar `false`.
 

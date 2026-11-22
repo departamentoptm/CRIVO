@@ -43,11 +43,99 @@ def tem(cmd):
     return shutil.which(cmd) is not None
 
 
-def texto_do_pdf(caminho, log):
+GLIFO_SEM_TABELA = re.compile(r"[\u0100-\u02af\u0370-\u03ff]")
+
+
+def reparar_se_preciso(caminho, log):
+    """Algumas provas (ex.: ENAMED 2025) têm fontes sem tabela de caracteres: o texto sai como 'ǆĂŵĞ'.
+    O reparo acrescenta a tabela aprendida das fontes da mesma família (sem OCR, sem perda)."""
+    r = subprocess.run(["pdftotext", "-enc", "UTF-8", caminho, "-"], capture_output=True, text=True)
+    estranhos = len(GLIFO_SEM_TABELA.findall(r.stdout))
+    if estranhos < 50:
+        return caminho
+    import reparar_fontes
+    saida = os.path.join(tempfile.mkdtemp(), "reparado.pdf")
+    reparar_fontes.main(caminho, saida)
+    r2 = subprocess.run(["pdftotext", "-enc", "UTF-8", saida, "-"], capture_output=True, text=True)
+    resto = len(GLIFO_SEM_TABELA.findall(r2.stdout))
+    log(f"   Fontes sem tabela de caracteres reparadas: {estranhos} caracteres ilegíveis -> {resto}")
+    return saida
+
+
+def paginas_digitalizadas(caminho):
+    """Páginas cujo único texto é a camada invisível de OCR (fonte GlyphLessFont): o texto pode ter erros."""
+    r = subprocess.run(["pdfinfo", caminho], capture_output=True, text=True)
+    n = int((re.search(r"Pages:\s+(\d+)", r.stdout) or [0, 0])[1])
+    out = []
+    for p in range(1, n + 1):
+        f = subprocess.run(["pdffonts", "-f", str(p), "-l", str(p), caminho], capture_output=True, text=True).stdout
+        nomes = {l.split()[0] for l in f.splitlines()[2:] if l.strip()}
+        if nomes and all("GlyphLess" in x for x in nomes):
+            out.append(p)
+    return out
+
+
+def faixas_da_pagina(linhas, larg, alt):
+    """Divide a página em faixas horizontais: 'larga' onde há texto atravessando o meio da página
+    (enunciado, tabela ou figura de largura total) e 'colunas' no resto. Devolve [(tipo, y0, y1)]."""
+    meio = larg / 2
+    cruza = sorted((y0, y1) for x0, y0, x1, y1 in linhas if x0 < meio - 4 and x1 > meio + 4)
+    faixas, y = [], 0.0
+    for y0, y1 in cruza:
+        if faixas and faixas[-1][0] == "larga" and y0 - faixas[-1][2] < 2 * (y1 - y0) + 2:
+            faixas[-1] = ("larga", faixas[-1][1], y1)          # junta linhas largas vizinhas
+            continue
+        if y0 - 1 > y:
+            faixas.append(("colunas", y, y0 - 1))
+        faixas.append(("larga", y0 - 1, y1 + 1))
+        y = y1 + 1
+    ultimo = faixas[-1][2] if faixas else 0.0
+    if ultimo < alt:
+        faixas.append(("colunas", ultimo, alt))
+    # ajusta: cada faixa começa onde a anterior termina
+    out, y = [], 0.0
+    for tipo, y0, y1 in faixas:
+        out.append((tipo, y, max(y, y1))); y = max(y, y1)
+    return out
+
+
+def paginas_em_faixas(caminho):
+    """Provas em 2 colunas com trechos de largura total (ENAMED): lê cada faixa na ordem certa —
+    faixa larga inteira; faixa em colunas = metade esquerda e depois a direita."""
+    r = subprocess.run(["pdftotext", "-bbox-layout", "-enc", "UTF-8", caminho, "-"], capture_output=True, text=True)
+    paginas = []
+    for k, pg in enumerate(re.findall(r"<page\b(.*?)</page>", r.stdout, re.S), 1):
+        larg = float(re.search(r'width="([\d.]+)"', pg).group(1)); alt = float(re.search(r'height="([\d.]+)"', pg).group(1))
+        linhas = [tuple(map(float, m)) for m in re.findall(
+            r'<line xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)"', pg)]
+        partes = []
+        for tipo, y0, y1 in faixas_da_pagina(linhas, larg, alt):
+            if y1 - y0 < 1:
+                continue
+            if tipo == "larga":
+                partes.append(_pdftotext_faixa(caminho, k, 0, y0, larg, y1 - y0))
+            else:
+                partes.append(_pdftotext_faixa(caminho, k, 0, y0, larg / 2, y1 - y0))
+                partes.append(_pdftotext_faixa(caminho, k, larg / 2, y0, larg / 2, y1 - y0))
+        paginas.append("\n\n".join(p for p in partes if p.strip()))
+    return paginas
+
+
+def _pdftotext_faixa(caminho, p, x, y, w, h):
+    # -x/-y/-W/-H em pixels da resolução -r; com -r 72, 1 pixel = 1 ponto do PDF
+    cmd = ["pdftotext", "-layout", "-enc", "UTF-8", "-r", "72", "-f", str(p), "-l", str(p),
+           "-x", str(int(x)), "-y", str(int(y)), "-W", str(int(w + 0.999)), "-H", str(int(h + 0.999)), caminho, "-"]
+    return subprocess.run(cmd, capture_output=True, text=True).stdout.replace("\f", "")
+
+
+def texto_do_pdf(caminho, log, colunas=1):
     if not tem("pdftotext"):
         raise SystemExit("Instale o poppler: sudo apt install poppler-utils  (no Windows, use o WSL)")
-    r = subprocess.run(["pdftotext", "-layout", "-enc", "UTF-8", caminho, "-"], capture_output=True, text=True)
-    paginas = r.stdout.split("\f")
+    if colunas == 2:
+        paginas = paginas_em_faixas(caminho)
+    else:
+        r = subprocess.run(["pdftotext", "-layout", "-enc", "UTF-8", caminho, "-"], capture_output=True, text=True)
+        paginas = r.stdout.split("\f")
     if paginas and not paginas[-1].strip():
         paginas = paginas[:-1]
     letras = sum(len(re.findall(r"[A-Za-zÀ-ÿ]", p)) for p in paginas)
@@ -105,7 +193,7 @@ def desdobrar(pagina):
 
 
 # ======================================================================= 3. cabeçalhos e rodapés
-RUIDO_PADRAO = [r"^\s*Prova na [ií]ntegra(\s+\d{4})?\s*$", r"^\s*P[aá]gina\s+\d+(\s+de\s+\d+)?\s*$",
+RUIDO_PADRAO = [r"^\s*Prova na [ií]ntegra(\s+\d{4})?\s*$", r"^\s*CADERNO\s+\d{1,2}\s*$", r"^\s*[ÁA]REA LIVRE\s*$", r"^\s*P[aá]gina\s+\d+(\s+de\s+\d+)?\s*$",
                 r"^\s*\d{1,3}\s*/\s*\d{1,3}\s*$"]
 RE_NUMERO_SOZINHO = re.compile(r"^\s*[-–]?\s*\d{1,3}\s*[-–]?\s*$")
 BORDA = 3          # cabeçalho/rodapé = até 3 linhas não vazias no topo ou no pé da página
@@ -275,6 +363,133 @@ def eh_linha_de_tabela(l):
     return len(re.findall(r"\S(?: {3,})(?=\S)", l)) >= 1 and len(l) > 10
 
 
+def _celulas(l):
+    """[(início, texto)] das células de uma linha de tabela (células separadas por 3+ espaços).
+    Expoente solto ("261.000/mm    3") volta para a célula ("261.000/mm3")."""
+    cel = [(m.start(), m.group(0)) for m in re.finditer(r"\S+(?: {1,2}\S+)*", l)]
+    out = []
+    for c, t in cel:
+        if out and re.fullmatch(r"[23]", t) and re.search(r"(?:mm|cm|m|dm)$", out[-1][1]):
+            out[-1] = (out[-1][0], out[-1][1] + t)
+        else:
+            out.append((c, t))
+    return out
+
+
+def _montar_linha(cel):
+    linha = ""
+    for c, t in sorted(cel):
+        linha = (linha + " " * max(3 if linha else 0, c - len(linha))) + t
+    return linha
+
+
+def fundir_celulas_quebradas(linhas):
+    """Célula de tabela que ocupa 2 ou 3 linhas no PDF ("0,2 mg/dL a" / "1,20 mg/dL" acima e abaixo da linha
+    "Bilirrubina total   6,2 mg/dL") vira uma célula só, na linha certa. As colunas são achadas pelos
+    espaços verticais livres (vale para células centralizadas)."""
+    tab = [eh_linha_de_tabela(l) for l in linhas]
+    if not any(tab):
+        return linhas
+    linhas, apagar = list(linhas), set()
+    for i in range(len(linhas)):
+        if tab[i]:
+            linhas[i] = _montar_linha(_celulas(linhas[i]))
+    largura = max(len(l) for i, l in enumerate(linhas) if tab[i])
+    ocup = [False] * (largura + 1)
+    for i, l in enumerate(linhas):
+        if tab[i]:
+            for c, t in _celulas(l):
+                for k in range(c, c + len(t)):
+                    ocup[k] = True
+    # intervalos ocupados = colunas
+    colunas, k = [], 0
+    while k <= largura:
+        if ocup[k]:
+            j = k
+            while j <= largura and ocup[j]:
+                j += 1
+            colunas.append((k, j)); k = j
+        else:
+            k += 1
+    def coluna_de(c, t):
+        meio = c + len(t) / 2
+        return min(range(len(colunas)), key=lambda n: 0 if colunas[n][0] <= meio < colunas[n][1]
+                   else min(abs(meio - colunas[n][0]), abs(meio - colunas[n][1])))
+    cheias = [i for i, l in enumerate(linhas) if l.strip()]
+    for pos, i in enumerate(cheias):
+        l = linhas[i]
+        if tab[i] or len(l) - len(l.lstrip()) < 8 or len(l.strip()) > 40:
+            continue
+        ant = next((cheias[k] for k in range(pos - 1, -1, -1) if cheias[k] not in apagar), None)
+        prox = cheias[pos + 1] if pos + 1 < len(cheias) else None
+        if ant is None or prox is None or not tab[ant] or not tab[prox]:
+            continue
+        ini = len(l) - len(l.lstrip()); frag = l.strip()
+        col = coluna_de(ini, frag)
+        def celula(j):
+            return next(((c, t) for c, t in _celulas(linhas[j]) if coluna_de(c, t) == col), None)
+        def colocar(j, texto):
+            cel = _celulas(linhas[j]); alvo = celula(j)
+            if alvo:
+                cel.remove(alvo)
+                cel.append((alvo[0], alvo[1] + ("" if alvo[1].endswith(("/", "-")) else " ") + texto))
+            else:
+                cel.append((colunas[col][0], texto))
+            linhas[j] = _montar_linha(cel)
+        if not celula(ant):
+            colocar(ant, frag)
+        elif not celula(prox):
+            colocar(prox, frag)
+        else:
+            colocar(ant, frag)
+        apagar.add(i)
+    return [l for i, l in enumerate(linhas) if i not in apagar]
+
+
+# ---- hífen no fim da linha: separação de sílabas ("larin-gotraqueal") ou hífen de verdade ("apresenta-se")
+CLITICOS = {"se", "lo", "la", "los", "las", "lhe", "lhes", "me", "te", "nos", "vos", "o", "a", "os", "as"}
+PREFIXOS_COM_HIFEN = {"pré", "pós", "pró", "recém", "além", "aquém", "ex", "vice", "sem", "bem", "pronto", "tônico",
+                      "herpes", "ântero", "póstero", "látero", "súpero", "ínfero", "médio", "infanto", "sócio", "mal"}
+VOCAB = {"palavras": set(), "hifenizadas": set()}
+
+
+def preparar_vocabulario(texto):
+    """Palavras do próprio arquivo (fora das quebras de linha) para decidir cada hífen de fim de linha."""
+    t = re.sub(r"-[ \t]*\n", "\n", texto.lower())          # ignora os hífens de fim de linha
+    VOCAB["palavras"] |= set(re.findall(r"[a-zà-ÿ]+", t))
+    VOCAB["hifenizadas"] |= set(re.findall(r"\b[a-zà-ÿ]+-[a-zà-ÿ]+\b", t))
+
+
+def vocabulario_do_acervo(dados, ignorar=()):
+    """Soma ao vocabulário as palavras das provas já importadas (todas as bancas), exceto as que serão refeitas."""
+    import glob
+    for f in glob.glob(os.path.join(dados, "*", "*", "questoes.json")):
+        partes = os.path.normpath(f).split(os.sep)
+        if (partes[-3], partes[-2]) in ignorar:
+            continue
+        for q in (ler_json(f, {}) or {}).get("questoes", []):
+            t = texto_puro((q.get("enunciado_html") or "") + " " + " ".join((q.get("alternativas") or {}).values()))
+            preparar_vocabulario(t)
+
+
+def unir_hifen(ant, prox):
+    """ant termina com 'xxx-'; prox começa com minúscula. Devolve a junção, com ou sem o hífen."""
+    a = re.search(r"([A-Za-zÀ-ÿ]+)-$", ant).group(1).lower()
+    b = re.match(r"([a-zà-ÿ]+)", prox).group(1)
+    junto, com = a + b, f"{a}-{b}"
+    if com in VOCAB["hifenizadas"] and junto not in VOCAB["palavras"]:
+        sep = "-"
+    elif junto in VOCAB["palavras"] and com not in VOCAB["hifenizadas"]:
+        sep = ""
+    elif b in CLITICOS and len(a) >= 3 and a[-1] in "aeiouáéíóúâêôãõr" and junto not in VOCAB["palavras"]:
+        sep = "-"                                   # apresenta-se, fazê-lo, encontra-se
+    elif a in PREFIXOS_COM_HIFEN and not (a == "mal" and b[0] not in "aeiouhàáéíóú"):
+        sep = "-"                                   # pré-natal, pronto-socorro, tônico-clônica
+    else:
+        sep = ""                                    # separação de sílabas
+    return ant[:-1] + sep + prox
+
+
 def juntar_linhas(linhas):
     """Texto -> HTML simples. Junta linhas quebradas, preserva itens, parágrafos e tabelas (colunas alinhadas)."""
     # palavra hifenizada no fim da linha, inclusive na troca de página/coluna (com até 3 linhas vazias no meio):
@@ -284,11 +499,11 @@ def juntar_linhas(linhas):
         if not l.strip():
             vazias.append(l); continue
         if juntas and len(vazias) <= 3 and re.search(r"[A-Za-zÀ-ÿ]-$", juntas[-1].rstrip()) and re.match(r"\s*[a-zà-ÿ]", l):
-            juntas[-1] = juntas[-1].rstrip()[:-1] + l.strip()
+            juntas[-1] = unir_hifen(juntas[-1].rstrip(), l.strip())
         else:
             juntas.extend(vazias); juntas.append(l)
         vazias = []
-    linhas = juntas + vazias
+    linhas = fundir_celulas_quebradas(juntas + vazias)
     # linha em branco entre duas linhas de tabela não separa a tabela
     linhas = [l for i, l in enumerate(linhas)
               if l.strip() or not (0 < i < len(linhas) - 1 and eh_linha_de_tabela(linhas[i - 1]) and eh_linha_de_tabela(linhas[i + 1]))]
@@ -314,7 +529,7 @@ def juntar_linhas(linhas):
             if partes and not RE_ITEM.match(l):
                 ant = partes[-1]
                 if re.search(r"[A-Za-zÀ-ÿ]-$", ant) and re.match(r"[a-zà-ÿ]", l):
-                    partes[-1] = ant[:-1] + l
+                    partes[-1] = unir_hifen(ant, l)
                 else:
                     partes[-1] = ant + " " + l
             else:
@@ -380,7 +595,7 @@ def imagens_do_pdf(caminho, destino, primeira, log):
         rx_q = [rx for _, rx in ESTILOS_QUESTAO]
         marcas, imgs, hashes = [], [], collections.Counter()
         for pag in raiz.iter("page"):
-            pn, larg = int(pag.get("number")), float(pag.get("width"))
+            pn, larg, alt_pag = int(pag.get("number")), float(pag.get("width")), float(pag.get("height"))
             textos = [(float(t.get("top")), float(t.get("left")), "".join(t.itertext()).strip()) for t in pag.iter("text")]
             # duas colunas se houver bastante texto começando depois do meio da página
             direita = sum(1 for _, x, s in textos if x > larg * 0.45 and s)
@@ -396,15 +611,27 @@ def imagens_do_pdf(caminho, destino, primeira, log):
                 w, h = float(im.get("width")), float(im.get("height"))
                 if not os.path.isfile(arq) or w * h < 2500:      # ícones e marcas muito pequenas
                     continue
+                if w * h >= 0.5 * larg * alt_pag:                 # página digitalizada inteira, não é figura
+                    avisos.append(f"página {pn}: imagem do tamanho da página (página digitalizada) — não usada como figura")
+                    continue
                 dig = hashlib.sha1(open(arq, "rb").read()).hexdigest()
                 hashes[dig] += 1
                 imgs.append(((pn, col(float(im.get("left"))), float(im.get("top"))), arq, dig))
         # numeração sequencial das marcas (descarta números soltos que não são questões)
+        # cadeia crescente mais longa (saltos de até 5: páginas digitalizadas podem não ter o cabeçalho legível)
         marcas.sort()
-        seq, esperado = [], primeira
-        for chave, n, s in marcas:
-            if esperado <= n <= esperado + 2:
-                seq.append((chave, n)); esperado = n + 1
+        tam, ant = [0] * len(marcas), [-1] * len(marcas)
+        for k, (_, n, _) in enumerate(marcas):
+            tam[k] = 1 if primeira <= n <= primeira + 5 else 0
+            for j in range(k):
+                nj = marcas[j][1]
+                if tam[j] and nj < n <= nj + 5 and tam[j] + 1 > tam[k]:
+                    tam[k], ant[k] = tam[j] + 1, j
+        seq = []
+        k = max(range(len(marcas)), key=lambda i: tam[i]) if marcas else -1
+        while k >= 0 and tam[k]:
+            seq.append((marcas[k][0], marcas[k][1])); k = ant[k]
+        seq.reverse()
         repetidas = {d for d, c in hashes.items() if c >= 3}       # logotipo em todas as páginas
         os.makedirs(destino, exist_ok=True)
         cont = collections.Counter()
@@ -416,7 +643,9 @@ def imagens_do_pdf(caminho, destino, primeira, log):
                 if ch <= chave:
                     dono = n
             if dono is None:
-                avisos.append(f"figura na página {chave[0]} antes da primeira questão (capa?) — ignorada")
+                aviso = f"figura(s) na página {chave[0]} antes da primeira questão (capa?) — ignorada(s)"
+                if aviso not in avisos:
+                    avisos.append(aviso)
                 continue
             cont[dono] += 1
             nome = f"Q{dono}_{cont[dono]}{os.path.splitext(arq)[1]}"
@@ -428,6 +657,8 @@ def imagens_do_pdf(caminho, destino, primeira, log):
 # ======================================================================= 7. fidelidade
 def palavras(t):
     t = re.sub(r"([A-Za-zÀ-ÿ])-\s*\n\s*([a-zà-ÿ])", r"\1\2", t)          # hifenização de fim de linha
+    t = re.sub(r"([A-Za-zÀ-ÿ]{2})-([A-Za-zÀ-ÿ])", r"\1\2", t)           # "pré-natal" = "prénatal" na comparação
+    t = re.sub(r"\b(mm|cm|dm|m)\s+([23])\b", r"\1\2", t)                 # expoente solto: "mm 3" = "mm3"
     return [w for w in re.findall(r"[0-9A-Za-zÀ-ÿ%]+", sem_acento(t))]
 
 
@@ -487,9 +718,22 @@ def reparar_com_ia(cliente, numero, linhas, n_alt):
 
 # ======================================================================= importação de uma edição
 def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, cliente=None):
+    transcricoes = {}
+    caminho_t = os.path.join(os.path.dirname(os.path.abspath(arquivo)), "transcricoes.json")
+    if os.path.isfile(caminho_t):
+        transcricoes = (ler_json(caminho_t, {}) or {}).get(str(ano), {})
     rel = [f"# Importação {banca} {ano}", "", f"Arquivo: `{arquivo}`"]
     ext = os.path.splitext(arquivo)[1].lower()
-    paginas, metodo = texto_do_pdf(arquivo, log) if ext == ".pdf" else texto_do_txt(arquivo)
+    digitalizadas = []
+    if ext == ".pdf":
+        arquivo = reparar_se_preciso(arquivo, log)
+        digitalizadas = paginas_digitalizadas(arquivo)
+        paginas, metodo = texto_do_pdf(arquivo, log, args.colunas)
+    else:
+        paginas, metodo = texto_do_txt(arquivo)
+    preparar_vocabulario("\n".join(paginas))
+    em_pagina_digitalizada = sorted({int(m) for p in digitalizadas if p - 1 < len(paginas)
+                                     for m in re.findall(r"QUEST[AÃ]O\s*0*(\d{1,3})\b", paginas[p - 1], re.I)})
     if args.paginas:
         a, _, b = args.paginas.partition("-")
         paginas = paginas[int(a) - 1:int(b or len(paginas))]
@@ -497,18 +741,26 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
     pag_brutas, removidas = remover_ruido([p.split("\n") for p in paginas], args.remover)
     pag_linhas, colunas = [], 0
     for linhas_p in pag_brutas:
-        linhas, x = desdobrar("\n".join(linhas_p))
+        linhas, x = (linhas_p, None) if args.colunas == 2 else desdobrar("\n".join(linhas_p))
         colunas += x is not None
         pag_linhas.append(linhas)
     linhas = [l for pl in pag_linhas for l in pl + [""]]
     linhas, gab_texto, linhas_gab = separar_gabarito(linhas)
     estilo_q, blocos, antes = separar_questoes(linhas, args.primeira)
-    rel += [f"Método: {metodo} | páginas: {len(paginas)} | páginas em 2 colunas: {colunas}",
+    rel += [f"Método: {metodo} | páginas: {len(paginas)} | " + ("cada página lida por metades (--colunas 2)" if args.colunas == 2
+                                                               else f"páginas em 2 colunas: {colunas}"),
             f"Numeração reconhecida: {estilo_q} | questões encontradas: {len(blocos)}"]
 
     # gabarito: oficial (gabarito.json) > bloco do próprio arquivo
     avisos_gab = []
     gab_of = (gabarito_oficial.get(banca, {}) or {}).get(str(ano))
+    motivo_anulacao = {}
+    for k, v in (gab_of or {}).items():
+        v = sem_acento(str(v or "")).strip().lower()
+        if v.startswith("exclu"):
+            motivo_anulacao[int(k)] = "excluida"
+        elif "administrativ" in v:
+            motivo_anulacao[int(k)] = "anulada_administrativamente"
     if gab_of:
         gab = {int(k): (v.strip().upper() if isinstance(v, str) and v.strip().upper() in LETRAS else None)
                for k, v in gab_of.items()}
@@ -540,6 +792,8 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
 
     disc = ((disciplinas or {}).get(banca, {}) or {}).get(str(ano), {}) or {}
     qs = novo_arquivo_questoes(banca, ano)
+    if args.gabarito_preliminar:
+        qs["gabarito_situacao"] = "preliminar"
     problemas, fidelidade, compartilhados, notas = list(avisos_gab), [], {}, []
     for n in sorted(blocos):
         bloco = blocos[n]
@@ -582,6 +836,20 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
              "gabarito": gab.get(n), "imagem_pendente": cita and not figuras.get(n)}
         if figuras.get(n):
             q["imagem_conferir"] = True
+        if n in motivo_anulacao:
+            q["anulacao"] = motivo_anulacao[n]
+        t = (transcricoes or {}).get(str(n))
+        if t:
+            # questão de página digitalizada, transcrita da imagem da página e conferida
+            for campo in ("enunciado_html", "extras_html", "alternativas", "imagem_pendente"):
+                if campo in t:
+                    q[campo] = t[campo]
+            q["transcricao_manual"] = t.get("fonte", "transcrita da imagem da página")
+            notas.append(f"Q{n}: texto substituído pela transcrição manual ({q['transcricao_manual']})")
+        elif n in em_pagina_digitalizada:
+            q["texto_ocr"] = True
+            problemas.append(f"Q{n}: está em página digitalizada (texto vindo de OCR, pode ter erros) — "
+                             f"transcreva em provas/<BANCA>/transcricoes.json")
         qs["questoes"].append(q)
         if len(alternativas) != n_alt:
             problemas.append(f"Q{n}: {len(alternativas)} de {n_alt} alternativas reconhecidas{reparo}")
@@ -591,6 +859,8 @@ def importar(arquivo, banca, ano, args, gabarito_oficial, disciplinas, log, clie
             problemas.append(f"Q{n}: enunciado vazio")
         if n not in gab:
             problemas.append(f"Q{n}: sem gabarito")
+        if q.get("transcricao_manual"):
+            continue
         cobertura, faltando, sobrando = conferir_fidelidade(bloco, q, comp_html)
         fidelidade.append(cobertura)
         if faltando or sobrando:
@@ -709,6 +979,10 @@ def main():
     ap.add_argument("--gabarito", default="gabarito.json"); ap.add_argument("--disciplinas")
     ap.add_argument("--dados", default="dados"); ap.add_argument("--relatorios", default="relatorios/importacao")
     ap.add_argument("--alternativas", type=int, choices=[4, 5], help="força 4 ou 5 alternativas (padrão: automático)")
+    ap.add_argument("--gabarito-preliminar", action="store_true",
+                    help="o gabarito ainda é o preliminar: o site avisa que pode mudar após os recursos")
+    ap.add_argument("--colunas", type=int, choices=[1, 2], default=1,
+                    help="2 = lê cada metade da página separadamente (provas em 2 colunas, como o ENAMED)")
     ap.add_argument("--primeira", type=int, default=1, help="número da primeira questão do caderno")
     ap.add_argument("--paginas", help="só estas páginas do arquivo, ex.: 3-18 (pula capa e gabarito)")
     ap.add_argument("--remover", nargs="*", help="expressões regulares de linhas a remover (cabeçalhos teimosos)")
@@ -733,6 +1007,7 @@ def main():
         ap.error("informe --arquivo, --pasta ou --acervo")
     gabarito = ler_json(a.gabarito, {}) or {}
     disciplinas = ler_json(a.disciplinas, {}) if a.disciplinas else {}
+    vocabulario_do_acervo(a.dados, {(a.banca, str(ano)) for ano, _ in tarefas})
 
     cliente, contador = None, None
     if a.reparar_com_ia:

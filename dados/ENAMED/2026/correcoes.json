@@ -308,8 +308,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "ENAMED-2026-Q13": {
@@ -2520,8 +2522,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "ENAMED-2026-Q98": {

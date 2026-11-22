@@ -16,6 +16,15 @@ on:
         type: choice
         options: [automatico, "4", "5"]
         default: automatico
+      colunas:
+        description: "Leitura das páginas: automatico, ou 2 = ler cada metade (provas em 2 colunas com tabelas, como o ENAMED)"
+        type: choice
+        options: [automatico, "2"]
+        default: automatico
+      gabarito_preliminar:
+        description: "O gabarito ainda é o PRELIMINAR (o site avisa que pode mudar)"
+        type: boolean
+        default: false
       primeira:
         description: "Número da primeira questão do caderno"
         default: "1"
@@ -48,7 +57,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Instalar leitores de PDF e OCR
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-por
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-por
+          pip install -q pypdf pdfminer.six    # reparo de PDFs com fontes sem tabela de caracteres
       - name: Importar
         id: importar
         env:
@@ -60,6 +71,8 @@ jobs:
           PAGINAS: ${{ inputs.paginas }}
           SOBRESCREVER: ${{ inputs.sobrescrever }}
           REPARAR: ${{ inputs.reparar_com_ia }}
+          COLUNAS: ${{ inputs.colunas }}
+          PRELIMINAR: ${{ inputs.gabarito_preliminar }}
         run: |
           args=(--pasta provas --banca "$BANCA" --primeira "$PRIMEIRA" --gabarito gabarito.json)
           [ -n "$ANO" ] && args+=(--ano "$ANO")
@@ -68,6 +81,8 @@ jobs:
           [ -f exams/disciplinas.json ] && args+=(--disciplinas exams/disciplinas.json)
           [ "$SOBRESCREVER" = "true" ] && args+=(--sobrescrever)
           [ "$REPARAR" = "true" ] && args+=(--reparar-com-ia)
+          [ "$COLUNAS" = "2" ] && args+=(--colunas 2)
+          [ "$PRELIMINAR" = "true" ] && args+=(--gabarito-preliminar)
           set +e
           python -u ferramentas/importar_prova.py "${args[@]}" 2>&1 | tee saida.txt
           codigo=${PIPESTATUS[0]}
