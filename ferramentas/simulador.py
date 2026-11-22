@@ -1,7 +1,9 @@
 """
 Cliente FALSO da API, para testar o fluxo do gerador sem chave e sem custo (opção --simular).
 As respostas são textos de teste, não correções reais: nunca publique o resultado de uma simulação.
-Variável CRIVO_SIMULAR_REPROVAR=1 faz o "revisor" reprovar tudo (testa o caminho de reprovação).
+Variável CRIVO_SIMULAR_REPROVAR=1 faz o "revisor" reprovar tudo (testa o caminho de reprovação);
+=uma faz reprovar só a primeira verificação de cada questão (testa a correção só das seções apontadas).
+CRIVO_SIMULAR_SEM_CORRETA=1 faz a geração esquecer a alternativa correta na 2.4 (testa o pedido só do parágrafo).
 """
 import os
 import re
@@ -42,11 +44,18 @@ class ClienteSimulado:
     def _gerar(self, u):
         g = re.search(r"GABARITO OFICIAL: alternativa ([A-E])", u)
         g = g.group(1) if g else "A"
+        falta = re.search(r"ALTERNATIVAS QUE FALTAM NA SEÇÃO 2\.4: ([A-E, ]+)", u)
+        if falta:
+            return {"paragrafos": {l: f"<p><strong>Alternativa {l} — {'Correta' if l == g else 'Errada'}.</strong> {PREENCHIMENTO}</p>"
+                                   for l in re.findall(r"[A-E]", falta.group(1))}}
+        if "PROBLEMAS APONTADOS PELO REVISOR" in u:
+            return {"secoes": {"2.3": f"<p>A alternativa {g} é a correta (seção corrigida). {PREENCHIMENTO}</p>"}}
         letras = re.findall(r"^([A-E])\) ", u, re.M) or list("ABCDE")
         p = f"<p>{PREENCHIMENTO}</p>"
         secoes = {f"2.{k}": p for k in range(1, 15)}
         secoes["2.3"] = f"<p>A alternativa {g} é a correta. {PREENCHIMENTO}</p>"
-        secoes["2.4"] = "".join(f"<p><strong>Alternativa {l}</strong> - {PREENCHIMENTO}</p>" for l in letras)
+        sem = os.environ.get("CRIVO_SIMULAR_SEM_CORRETA") == "1"
+        secoes["2.4"] = "".join(f"<p><strong>Alternativa {l}</strong> - {PREENCHIMENTO}</p>" for l in letras if not (sem and l == g))
         secoes["2.8"] = ("<table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais</th><th>Exame</th>"
                          f"<th>Conduta</th></tr></thead><tbody><tr><td>X</td><td>{PREENCHIMENTO}</td><td>y</td>"
                          "<td>z</td></tr></tbody></table>")
@@ -70,7 +79,15 @@ class ClienteSimulado:
         return {"enunciado": "\n".join(enun), "alternativas": alts}
 
     def _verificar(self, u):
-        if os.environ.get("CRIVO_SIMULAR_REPROVAR") == "1":
+        modo = os.environ.get("CRIVO_SIMULAR_REPROVAR")
+        if modo == "uma":
+            qid = re.search(r"^Questão (\d+) — (\S+) (\S+)", u, re.M)
+            chave = qid.group(0) if qid else u[:80]
+            self._ja_reprovou = getattr(self, "_ja_reprovou", set())
+            if chave not in self._ja_reprovou:
+                self._ja_reprovou.add(chave)
+                modo = "1"
+        if modo == "1":
             return {"aprovado": False, "problemas": [{"secao": "2.3", "trecho": "x", "gravidade": "grave",
                                                       "explicacao": "erro simulado", "correcao_sugerida": "y"}]}
         return {"aprovado": True, "problemas": [{"secao": "2.5", "trecho": "x", "gravidade": "leve",

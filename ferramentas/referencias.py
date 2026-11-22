@@ -37,26 +37,49 @@ def limpar_busca(t):
     return re.sub(r"\s+", " ", t).strip()[:200]
 
 
+def _termos(busca):
+    """Separa a busca em termos (frases entre aspas ficam juntas)."""
+    return [t.strip('"') for t in re.findall(r'"[^"]+"|\S+', busca) if t.strip('"') and t.upper() not in ("AND", "OR", "NOT")]
+
+
+def _buscar_ids(termo, quantidade, intervalo):
+    r = _get_json(f"{EUTILS}/esearch.fcgi?db=pubmed&retmode=json&sort=relevance&retmax={quantidade * 3}&term="
+                  + urllib.parse.quote(termo), intervalo)
+    return (r.get("esearchresult") or {}).get("idlist") or []
+
+
 def buscar_artigos(busca, quantidade=2, anos=10, intervalo=0.4, log=print):
-    """Devolve [{pmid, titulo, revista, ano, doi, autores}] ou [] (e nunca inventa nada)."""
+    """Devolve [{pmid, titulo, revista, ano, doi, autores}] ou [] (e nunca inventa nada).
+    Se a busca não achar nada, amplia aos poucos: sem o limite de anos, depois com termos mais gerais."""
     busca = limpar_busca(busca)
     if not busca or quantidade <= 0:
         return []
-    termo = f"({busca}) AND {FILTRO_TIPO} AND hasabstract AND english[lang] AND (\"last {anos} years\"[dp])"
+    termos = _termos(busca)
+    geral = " ".join(f'"{t}"' if " " in t else t for t in termos[:max(1, (len(termos) + 1) // 2)])
+    tentativas = [
+        (busca, f"({busca}) AND {FILTRO_TIPO} AND hasabstract AND english[lang] AND (\"last {anos} years\"[dp])"),
+        (busca, f"({busca}) AND {FILTRO_TIPO} AND hasabstract"),
+        (geral, f"({geral}) AND {FILTRO_TIPO} AND hasabstract AND (\"last {anos} years\"[dp])"),
+        (geral, f"({geral}) AND review[pt]"),
+    ]
+    artigos, vistos = [], set()
     try:
-        r = _get_json(f"{EUTILS}/esearch.fcgi?db=pubmed&retmode=json&sort=relevance&retmax={quantidade * 3}&term="
-                      + urllib.parse.quote(termo), intervalo)
-        ids = (r.get("esearchresult") or {}).get("idlist") or []
-        if not ids:            # sem resultados com filtros: tenta só revisões, sem limite de ano
-            r = _get_json(f"{EUTILS}/esearch.fcgi?db=pubmed&retmode=json&sort=relevance&retmax={quantidade * 3}&term="
-                          + urllib.parse.quote(f"({busca}) AND review[pt]"), intervalo)
-            ids = (r.get("esearchresult") or {}).get("idlist") or []
-        if not ids:
-            return []
-        s = _get_json(f"{EUTILS}/esummary.fcgi?db=pubmed&retmode=json&id=" + ",".join(ids), intervalo)
+        for base, termo in tentativas:
+            if len(artigos) >= quantidade:
+                break
+            ids = [i for i in _buscar_ids(termo, quantidade, intervalo) if i not in vistos]
+            if not ids:
+                continue
+            s = _get_json(f"{EUTILS}/esummary.fcgi?db=pubmed&retmode=json&id=" + ",".join(ids), intervalo)
+            for a in _filtrar(s, ids, base):
+                if a["pmid"] not in vistos and len(artigos) < quantidade:
+                    vistos.add(a["pmid"]); artigos.append(a)
     except Exception as e:                          # sem internet, NCBI fora do ar etc.
-        log(f"   aviso: PubMed indisponível ({str(e)[:80]}); artigos não incluídos")
-        return []
+        log(f"   aviso: PubMed indisponível ({str(e)[:80]}); {len(artigos)} artigo(s) incluído(s)")
+    return artigos
+
+
+def _filtrar(s, ids, busca):
     res = s.get("result") or {}
     palavras_busca = {w.lower() for w in re.findall(r"[A-Za-z]{4,}", busca)}
     artigos = []
@@ -73,8 +96,6 @@ def buscar_artigos(busca, quantidade=2, anos=10, intervalo=0.4, log=print):
         artigos.append({"pmid": pmid, "titulo": titulo, "revista": d.get("source", ""),
                         "ano": (d.get("pubdate") or "")[:4], "doi": doi,
                         "autores": (autores[0] + (" et al." if len(autores) > 1 else "")) if autores else ""})
-        if len(artigos) >= quantidade:
-            break
     return artigos
 
 

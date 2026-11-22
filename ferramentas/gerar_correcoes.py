@@ -143,6 +143,59 @@ def validar(r, q, relevantes, todas, catalogo, config):
             "afirmacoes_criticas": afirm}, problemas
 
 
+RE_FALTA_ALT = re.compile(r"a seção 2\.4 não analisa a alternativa ([A-E])$")
+
+
+def _ordenar_alternativas(h):
+    """Põe os parágrafos da 2.4 na ordem A, B, C... (só quando a seção é feita apenas de parágrafos
+    que começam com a letra da alternativa; senão, deixa como está)."""
+    blocos = re.findall(r"<p\b.*?</p>", h, re.S)
+    if not blocos or re.sub(r"\s+", "", "".join(blocos)) != re.sub(r"\s+", "", h):
+        return h
+    def letra(b):
+        m = re.search(r"(?:Alternativa|Letra|Opção)\s*\(?([A-E])\b", texto_puro(b)[:40])
+        return m.group(1) if m else None
+    if not all(letra(b) for b in blocos):
+        return h
+    return "".join(sorted(blocos, key=letra))
+
+
+def completar_alternativas(r, q, faltam, cliente, config):
+    """Pede só os parágrafos que faltam na 2.4 e os encaixa na seção (sem refazer a correção)."""
+    secoes = dict(r.get("secoes") or {})
+    pedido = (texto_para_ia(q, com_gabarito=True) + "\n\nALTERNATIVAS QUE FALTAM NA SEÇÃO 2.4: " + ", ".join(faltam)
+              + "\n\nSEÇÃO 2.4 ATUAL:\n" + texto_puro(re.sub(r"</p>", "\n", secoes.get("2.4", "")))[:6000])
+    x = cliente.json("gerar", prompt("completar_alternativas.md", config), pedido)
+    novos = x.get("paragrafos") if isinstance(x.get("paragrafos"), dict) else {}
+    add = "".join(str(novos[l]) for l in faltam if novos.get(l))
+    if add:
+        secoes["2.4"] = _ordenar_alternativas(str(secoes.get("2.4", "")) + add)
+    return dict(r, secoes=secoes)
+
+
+def corrigir_secoes(r, serios, q, usuario_base, cliente, config):
+    """Reescreve só as seções apontadas pelo revisor e devolve a correção com elas substituídas."""
+    secoes = dict(r.get("secoes") or {})
+    apontadas = sorted({str(p.get("secao", "")).strip() for p in serios} & set(SECOES_IA))
+    atual = "\n".join(f"[{s}]\n{secoes.get(s, '')}" for s in SECOES_IA)
+    pedido = (usuario_base + f"\n\nAVISO DE DIRETRIZ ATUAL: {r.get('aviso_diretriz') or '(nenhum)'}"
+              + "\n\nCORREÇÃO ATUAL (HTML de todas as seções):\n" + atual
+              + "\n\nPROBLEMAS APONTADOS PELO REVISOR (corrija todos):\n" + json.dumps(serios, ensure_ascii=False, indent=1)
+              + (f"\n\nSeções apontadas: {', '.join(apontadas)}." if apontadas else ""))
+    x = cliente.json("gerar", prompt("corrigir_secoes.md", config), pedido)
+    novas = x.get("secoes") if isinstance(x.get("secoes"), dict) else {}
+    trocadas = [s for s in SECOES_IA if novas.get(s)]
+    for s in trocadas:
+        secoes[s] = str(novas[s])
+    log(f"   seções reescritas: {', '.join(trocadas) or 'nenhuma'}")
+    novo = dict(r, secoes=secoes)
+    if "aviso_diretriz" in x:
+        novo["aviso_diretriz"] = x.get("aviso_diretriz")
+    if isinstance(x.get("afirmacoes_criticas"), list) and x["afirmacoes_criticas"]:
+        novo["afirmacoes_criticas"] = x["afirmacoes_criticas"]
+    return novo
+
+
 def texto_para_verificar(c, q, relevantes, todas, catalogo):
     partes = [texto_para_ia(q, com_gabarito=True), "", f"TEMA: {c['tema']}"]
     if c["aviso_diretriz"]:
@@ -197,17 +250,43 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
 
     sistema = prompt("gerar_correcao.md", config)
     qual = config["qualidade"]
-    observacoes, verificacao, c = "", None, None
-    for rodada in range(1, qual["rodadas_de_verificacao"] + 1):
-        problemas = ["(ainda não gerada)"]
+
+    def validar_e_completar(r):
+        """Valida; se só faltar o parágrafo de alguma alternativa na 2.4, pede SÓ esse parágrafo (barato)."""
+        c, problemas = validar(r, q, relevantes, todas, catalogo, config)
+        faltam = [m.group(1) for p in problemas for m in [RE_FALTA_ALT.match(p)] if m]
+        if faltam and len(faltam) == len(problemas):
+            log(f"   2.4 sem a(s) alternativa(s) {', '.join(faltam)}: pedindo só esse(s) parágrafo(s)")
+            r = completar_alternativas(r, q, faltam, cliente, config)
+            c, problemas = validar(r, q, relevantes, todas, catalogo, config)
+        return r, c, problemas
+
+    def gerar_completa(observacoes):
+        r, c, problemas = None, None, ["(ainda não gerada)"]
         for tentativa in range(1, qual["tentativas_de_geracao"] + 1):
             r = cliente.json("gerar", sistema, usuario_base + observacoes)
-            c, problemas = validar(r, q, relevantes, todas, catalogo, config)
+            r, c, problemas = validar_e_completar(r)
             if not problemas:
                 break
             log(f"   validação reprovou (tentativa {tentativa}): " + "; ".join(problemas[:4]))
             observacoes = ("\n\nSUA RESPOSTA ANTERIOR FOI RECUSADA PELA VALIDAÇÃO AUTOMÁTICA. Corrija:\n- "
                            + "\n- ".join(problemas))
+        return r, c, problemas
+
+    verificacao, c, r, serios = None, None, None, []
+    for rodada in range(1, qual["rodadas_de_verificacao"] + 1):
+        if r is None:
+            r, c, problemas = gerar_completa("")
+        else:
+            # reescreve SÓ as seções apontadas pelo revisor; as aprovadas ficam como estão
+            r2 = corrigir_secoes(r, serios, q, usuario_base, cliente, config)
+            r2, c2, problemas = validar_e_completar(r2)
+            if problemas:
+                log("   correção parcial recusada pela validação (" + "; ".join(problemas[:3]) + "); refazendo a correção inteira")
+                r, c, problemas = gerar_completa("\n\nUM REVISOR MÉDICO REPROVOU SUA VERSÃO ANTERIOR. Corrija TODOS estes problemas:\n"
+                                                 + json.dumps(serios, ensure_ascii=False, indent=1))
+            else:
+                r, c = r2, c2
         if problemas:
             return None, {"motivo": "validacao", "problemas": problemas}, meta_hist
         v = cliente.json("verificar", prompt("verificar.md", config), texto_para_verificar(c, q, relevantes, todas, catalogo))
@@ -218,11 +297,11 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
         if not serios:
             log(f"   verificação: aprovada (rodada {rodada}, {len(probs)} observação(ões) leve(s))")
             break
-        log(f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) — refazendo")
+        secs = sorted({str(p.get("secao", "?")) for p in serios})
+        log(f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) — corrigindo só a(s) seção(ões) {', '.join(secs)}"
+            if rodada < qual["rodadas_de_verificacao"] else f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) na última rodada")
         for p in serios[:5]:
             log(f"      [{p.get('gravidade')}] {p.get('secao', '?')}: {str(p.get('explicacao', ''))[:150]}")
-        observacoes = ("\n\nUM REVISOR MÉDICO REPROVOU SUA VERSÃO ANTERIOR. Corrija TODOS estes problemas:\n"
-                       + json.dumps(serios, ensure_ascii=False, indent=1))
         verificacao["problemas_serios"] = serios
     if not verificacao or not verificacao["aprovado"]:
         return None, {"motivo": "verificacao", "correcao": c, "verificacao": verificacao}, meta_hist
@@ -427,9 +506,34 @@ def cmd_amostra(args, config):
                    texto_para_ia(q, com_gabarito=True), ""]
         for n in sorted(c.get("secoes_html", {}), key=lambda x: int(x.split(".")[1])):
             partes += [f"**{n}**", texto_puro(re.sub(r"</(p|li|tr)>", "\n", c["secoes_html"][n])), ""]
+    # questões reprovadas pelo revisor em todas as rodadas: para corrigir na conversa
+    pasta_rep = os.path.join(args.relatorios, "reprovadas")
+    reprovadas = sorted(f for f in (os.listdir(pasta_rep) if os.path.isdir(pasta_rep) else [])
+                        if f.startswith(args.banca + "-") and f.endswith(".json"))
+    if reprovadas:
+        partes += ["", "# Reprovadas pelo revisor (não publicadas)", "",
+                   "Para cada uma: corrija os problemas apontados e devolva a correção completa (seções 2.1 a 2.14).", ""]
+    todas_q = questoes_da_banca(args.dados, args.banca)
+    for f in reprovadas:
+        qid = f[:-5]
+        rep = ler_json(os.path.join(pasta_rep, f), {}) or {}
+        q = todas_q.get(qid)
+        if not q:
+            continue
+        partes += [f"## {qid} — reprovada na {rep.get('motivo', '?')} (gabarito oficial: {q.get('gabarito') or 'anulada'})", "",
+                   texto_para_ia(q, com_gabarito=True), ""]
+        probs = ((rep.get("verificacao") or {}).get("problemas_serios")) or [{"explicacao": p} for p in rep.get("problemas", [])]
+        partes += ["**Problemas apontados:**", *[f"- [{p.get('gravidade', '')}] {p.get('secao', '')}: {p.get('explicacao', '')}"
+                                                 + (f" Sugestão: {p['correcao_sugerida']}" if p.get("correcao_sugerida") else "")
+                                                 for p in probs], ""]
+        cr = rep.get("correcao") or {}
+        if cr.get("aviso_diretriz"):
+            partes += [f"**Aviso de diretriz:** {texto_puro(cr['aviso_diretriz'])}", ""]
+        for n in sorted(cr.get("secoes", {}), key=lambda x: int(x.split(".")[1])):
+            partes += [f"**{n}**", texto_puro(re.sub(r"</(p|li|tr)>", "\n", cr["secoes"][n])), ""]
     with open(caminho, "w", encoding="utf-8") as f:
         f.write("\n".join(partes) + "\n")
-    log(f"{len(pendentes)} correção(ões) aguardando conferência em {caminho}")
+    log(f"{len(pendentes)} correção(ões) da amostra e {len(reprovadas)} reprovada(s) em {caminho}")
     return 0
 
 
@@ -492,6 +596,9 @@ def cmd_gerar(args, config):
                 linhas.append((qid, "publicada", f"{entrada['historico_meta']['relevantes']} relacionadas no histórico"
                                + ("; IA discordou do gabarito" if entrada["revisao"]["alertas"] else "")))
                 log("   GRAVADA em correcoes.json")
+                antiga_reprovada = os.path.join(args.relatorios, "reprovadas", f"{qid}.json")
+                if os.path.isfile(antiga_reprovada):
+                    os.remove(antiga_reprovada)                    # foi publicada: sai da lista de reprovadas
             else:
                 pasta = os.path.join(args.relatorios, "reprovadas"); os.makedirs(pasta, exist_ok=True)
                 gravar_json(os.path.join(pasta, f"{qid}.json"), falha)
