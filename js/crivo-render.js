@@ -277,11 +277,27 @@
         submitBtn.classList.remove('correct');
         document.getElementById('viewCorrectionBtn').style.display = 'none';
         document.getElementById('resultContainer').style.display = 'none';
+        const rv = document.getElementById('crivoRevisao'); if (rv) rv.hidden = true;
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* classificação para a revisão espaçada: o site calcula os intervalos e guarda a escolha */
+    function classificar(nota) { notifyParent('REVIEW_RATED', { nota }); }
+    function mostrarRevisao(p) {
+        const rv = document.getElementById('crivoRevisao');
+        if (!rv || !p) return;
+        rv.querySelectorAll('button[data-nota]').forEach(b => {
+            const n = b.getAttribute('data-nota');
+            b.querySelector('small').textContent = p.intervalos && p.intervalos[n] ? ' · ' + p.intervalos[n] : '';
+            b.classList.toggle('escolhida', String(p.escolhida) === n);
+        });
+        document.getElementById('crivoRevisaoMsg').textContent = p.mensagem || '';
+        rv.hidden = false;
     }
 
     window.addEventListener('message', (event) => {
         if (!isInIframe || event.source !== window.parent) return;
+        if (event.data && event.data.type === 'REVIEW_OPTIONS') { mostrarRevisao(event.data.payload); return; }
         if (!event.data || event.data.type !== 'RESTORE_STATE') return;
         const { selected, correct } = event.data.payload || {};
         if (selected) {
@@ -297,6 +313,21 @@
             align-items: center; justify-content: space-between; }
         .crivo-selo a { color: #A63268; font-weight: 600; text-decoration: none; white-space: nowrap; }
         .crivo-selo a:hover { text-decoration: underline; }
+        .crivo-revisao { margin: 18px auto 0; max-width: 560px; padding: 12px 14px; border-radius: 12px;
+            background: #f3f7fb; border: 1px solid #d6e0ef; }
+        .crivo-revisao[hidden] { display: none; }
+        .crivo-revisao-titulo { font-size: 14px; color: #1a2a6c; font-weight: 600; margin-bottom: 8px; }
+        .crivo-revisao-botoes { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .crivo-revisao-botoes button { flex: 1 1 120px; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+            font-size: 15px; font-weight: 600; border: 2px solid; background: #fff; }
+        .crivo-revisao-botoes button small { font-weight: 400; font-size: 12px; }
+        .crivo-revisao-botoes button[data-nota="2"] { color: #b45309; border-color: #f59e0b; }
+        .crivo-revisao-botoes button[data-nota="3"] { color: #15803d; border-color: #22c55e; }
+        .crivo-revisao-botoes button[data-nota="4"] { color: #1d4ed8; border-color: #3b82f6; }
+        .crivo-revisao-botoes button.escolhida[data-nota="2"] { background: #f59e0b; color: #fff; }
+        .crivo-revisao-botoes button.escolhida[data-nota="3"] { background: #22c55e; color: #fff; }
+        .crivo-revisao-botoes button.escolhida[data-nota="4"] { background: #3b82f6; color: #fff; }
+        .crivo-revisao-msg { font-size: 12.5px; color: #4b5563; margin-top: 8px; }
         .crivo-aviso { margin: 15px 0; padding: 12px 15px; border-radius: 0 5px 5px 0;
             background: #fff3cd; border-left: 5px solid #e0a800; color: #5c4400; line-height: 1.5; }
         .crivo-aviso-anulada { background: #e2e3e5; border-left-color: #6c757d; color: #383d41; }
@@ -609,6 +640,15 @@ ${CSS_EXTRA}
         <div class="btn-container">
             <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Confirmar Resposta</button>
             <button class="view-correction-btn" id="viewCorrectionBtn" onclick="showCorrection()">Visualizar Correção Completa</button>
+            ${anulada ? '' : `<div class="crivo-revisao" id="crivoRevisao" hidden>
+                <div class="crivo-revisao-titulo">Como foi esta questão para você?</div>
+                <div class="crivo-revisao-botoes">
+                    <button type="button" data-nota="2" onclick="classificar(2)">Difícil<small></small></button>
+                    <button type="button" data-nota="3" onclick="classificar(3)">Bom<small></small></button>
+                    <button type="button" data-nota="4" onclick="classificar(4)">Fácil<small></small></button>
+                </div>
+                <div class="crivo-revisao-msg" id="crivoRevisaoMsg"></div>
+            </div>`}
         </div>
 
         <div class="result-container" id="resultContainer">
