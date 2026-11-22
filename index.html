@@ -968,6 +968,128 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ============================================================
+   AJUSTES DE ZOOM: barra superior em uma linha, barra inferior compacta
+   ============================================================ */
+/* barra superior: o campo "Questão" encolhe (some o rótulo, o campo estreita) em vez de abrir outra linha */
+.top-bar { flex-wrap: nowrap; container-type: inline-size; container-name: topo; }
+.top-bar-left { min-width: 0; flex-wrap: nowrap !important; }
+.nav-container { flex-shrink: 0 !important; }
+.top-bar .action-btn, .top-bar .icon-btn { flex-shrink: 0; }
+@container topo (max-width: 430px) {
+    .top-bar-left { flex-wrap: wrap !important; }      /* telas de celular: os controles quebram a linha sem se sobrepor */
+}
+.top-bar-left > .multiselect, .top-bar-left > .disciplina-select { flex: 0 1 auto; min-width: 3.2rem; }
+.top-bar .multiselect-btn, .top-bar .disciplina-select { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-container { flex: 0 1 auto; min-width: 0; }
+.go-to-input { min-width: 2.4rem; }
+@container topo (max-width: 1150px) {
+    .lbl-q { display: none; }
+    .go-to-input { width: 3rem; padding-left: .35rem; padding-right: .35rem; }
+    .go-btn { padding-left: .6rem; padding-right: .6rem; }
+}
+@container topo (max-width: 900px) {
+    .top-bar .action-btn .lbl:not(.keep) { display: none; }
+    .top-bar .action-btn { padding-left: .55rem; padding-right: .55rem; }
+}
+@container topo (max-width: 640px) {
+    .top-bar-left > .multiselect, .top-bar-left > .disciplina-select { min-width: 2.4rem; }
+    .top-bar .icon-btn { width: 2rem; height: 2rem; min-width: 2rem; font-size: 1rem; }
+    .top-bar .action-btn { padding-left: .4rem; padding-right: .4rem; min-width: 0; }
+    .top-bar .multiselect-btn, .top-bar .disciplina-select { padding-left: .45rem; padding-right: 1.2rem; font-size: .75rem; }
+    .go-btn { padding-left: .45rem; padding-right: .45rem; }
+    .nav-container { gap: .25rem; padding: .1rem; }
+    .go-to-input { width: 2.5rem; }
+}
+.grupo-aviso { display: inline-flex; align-items: center; gap: .3rem; flex: 0 1 auto; min-width: 0;
+    padding: .25rem .3rem .25rem .6rem; border-radius: 2rem; background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.35); color: #fff; font-size: .8rem; font-weight: 600; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; }
+.grupo-aviso[hidden] { display: none; }
+.grupo-aviso button { border: 0; background: rgba(255,255,255,.25); color: #fff; border-radius: 50%; width: 1.4rem;
+    height: 1.4rem; cursor: pointer; font-size: .95rem; line-height: 1; flex-shrink: 0; }
+
+/* barra inferior: Anterior sempre à esquerda, Próxima sempre à direita, centro em uma linha */
+.bottom-nav { display: grid !important; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+    flex-wrap: nowrap; container-type: inline-size; container-name: rodape; }
+#prevBtn { grid-column: 1; justify-self: start; }
+#nextBtn { grid-column: 3; justify-self: end; }
+.bottom-center { grid-column: 2; display: flex !important; flex-wrap: nowrap !important; align-items: center;
+    justify-content: center; gap: .5rem; min-width: 0; }
+.bottom-center > * { flex-shrink: 0; }
+.bottom-center, body.rodape-oculto .bottom-center { order: 0 !important; }
+.bottom-nav > .nav-btn { order: 0 !important; }
+.timer-container { flex-shrink: 1; min-width: 0; }
+.nav-btn .seta { width: 1.15em; height: 1.15em; vertical-align: -.2em; fill: none; stroke: currentColor;
+    stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.filtros-wrap { position: relative; }
+.filtros-btn { display: inline-flex; align-items: center; gap: .3rem; white-space: nowrap; cursor: pointer;
+    border: 1px solid var(--line-strong); background: #f1f4fc; color: var(--navy); font-weight: 600;
+    border-radius: 2rem; padding: .35rem .8rem; font-size: .85rem; }
+.filtros-btn:hover, .filtros-btn[aria-expanded="true"] { background: #e2e8f8; }
+.filtros-ativos { background: var(--navy-600, #2b3f9a); color: #fff; border-radius: 1rem; padding: 0 .4rem;
+    font-size: .72rem; line-height: 1.3rem; }
+.filtros-ativos:empty { display: none; }
+.filtros-painel { position: absolute; bottom: calc(100% + .5rem); left: 50%; transform: translateX(-50%);
+    display: flex !important; flex-direction: column; align-items: stretch; gap: .55rem; z-index: 600;
+    background: #fff; border: 1px solid var(--line-strong); border-radius: .9rem; padding: .75rem .9rem;
+    box-shadow: 0 10px 28px rgba(17,28,85,.22); min-width: 15rem; max-width: 90vw; }
+.filtros-painel[hidden] { display: none !important; }
+.filtros-painel label { display: flex; align-items: center; gap: .45rem; white-space: nowrap; font-size: .9rem; }
+.filtros-painel .max-q input { width: 4.5rem; }
+@container rodape (max-width: 760px) {
+    .nav-btn .lbl { display: none; }
+    .nav-btn { padding-left: .8rem; padding-right: .8rem; font-size: 1.3rem; line-height: 1; }
+    .filtros-txt { display: none; }
+    .tempo-modo-btn { font-size: 0; }
+    .tempo-modo-btn::before { content: '⏱'; font-size: 1rem; }
+    .tempo-modo-btn::after { font-size: .75rem; }
+}
+@container rodape (max-width: 520px) {
+    .bottom-center { gap: .3rem; }
+    .max-time-label { display: none; }
+    .max-time-input { width: 2.6rem; }
+    .timer { font-size: 1.1rem; }
+    .pos-indicator { padding-left: .45rem; padding-right: .45rem; font-size: .8rem; }
+}
+/* barra inferior minimizada: setas grandes e bem definidas */
+body.rodape-oculto .bottom-nav { display: grid !important; }
+body.rodape-oculto .filtros-wrap { display: none !important; }
+body.rodape-oculto .nav-btn { width: 3.2rem; height: 3.2rem; padding: 0; border-radius: 50%; display: inline-flex;
+    align-items: center; justify-content: center; font-size: 1rem; }
+body.rodape-oculto .nav-btn .seta { width: 1.7rem; height: 1.7rem; stroke-width: 3.6; vertical-align: 0; }
+body.rodape-oculto .nav-btn:disabled { opacity: .55; }
+
+/* tela prévia da revisão espaçada */
+.revisao-conteudo { display: flex; flex-direction: column; gap: 1rem; }
+.revisao-data { display: flex; align-items: center; justify-content: center; gap: .8rem; }
+.revisao-data-centro { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
+.revisao-data-texto { font-size: 1.35rem; font-weight: 800; color: var(--navy); text-align: center; }
+.revisao-data input[type="date"] { border: 1px solid var(--line-strong); border-radius: .55rem; padding: .3rem .5rem; font-size: .9rem; }
+.dia-btn { width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line-strong); background: #fff;
+    color: var(--navy); font-size: 1.5rem; font-weight: 700; cursor: pointer; line-height: 1; }
+.dia-btn:hover { background: #eef2fc; }
+.revisao-resumo { text-align: center; color: #3d4666; font-weight: 600; }
+.revisao-lista { display: flex; flex-direction: column; gap: .4rem; }
+.revisao-item { display: flex; align-items: center; justify-content: space-between; gap: .6rem; flex-wrap: wrap;
+    background: #fff; border: 1px solid var(--line); border-radius: .7rem; padding: .55rem .9rem; font-weight: 600; color: var(--ink); }
+.revisao-item .atraso { font-size: .78rem; font-weight: 600; color: #b45309; background: #fef3c7; border-radius: 1rem; padding: .1rem .55rem; }
+.revisao-vazia { text-align: center; color: var(--muted); padding: 1.5rem; }
+.revisao-iniciar { align-self: center; min-width: 14rem; }
+.revisao-iniciar:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Meu gabarito: filtro por data e menu "Refazer grupo" */
+.gab-data { display: inline-flex; align-items: center; gap: .3rem; }
+.gab-data[hidden] { display: none; }
+.gab-data button { border: 1px solid var(--line-strong); background: #fff; border-radius: .5rem; cursor: pointer;
+    font-size: 1rem; font-weight: 700; padding: .2rem .55rem; color: var(--navy); }
+.gab-data input[type="date"] { border: 1px solid var(--line-strong); border-radius: .5rem; padding: .25rem .4rem; }
+.grupo-menu { position: fixed; z-index: 1200; display: flex; flex-direction: column; gap: .3rem; background: #fff;
+    border: 1px solid var(--line-strong); border-radius: .7rem; padding: .4rem; box-shadow: 0 10px 28px rgba(17,28,85,.22); }
+.grupo-menu button { text-align: left; border: 0; background: #f4f6fc; border-radius: .5rem; padding: .55rem .9rem;
+    cursor: pointer; font-weight: 600; color: var(--navy); white-space: nowrap; }
+.grupo-menu button:hover { background: #e2e8f8; }
 </style>
 </head>
 <body>
@@ -1058,6 +1180,7 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                 <button class="action-btn grifar-fab" id="grifarBtn" title="Grifar seleção (Ctrl+Alt)" aria-label="Grifar"><span class="ico">🖍️</span><span class="lbl"> Grifar</span></button>
                 <button class="action-btn" id="saveBtn" title="Baixar um arquivo com todo o seu progresso" aria-label="Salvar progresso"><span class="ico">💾</span><span class="lbl"> Salvar</span></button>
                 <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
+                <span class="grupo-aviso" id="grupoAviso" hidden>📋 <span id="grupoAvisoTxt"></span><button type="button" id="grupoSairBtn" title="Sair do grupo e voltar aos filtros anteriores" aria-label="Sair do grupo">×</button></span>
                 <select id="examSelector" hidden></select>
                 <select id="yearSelector" hidden></select>
                 <button class="icon-btn bar-toggle" id="toggleTopBtn" type="button" title="Ocultar barra superior" aria-label="Ocultar barra superior">▴</button>
@@ -1070,16 +1193,19 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
         </div>
         <iframe id="questionFrame" class="iframe-container" title="Questão"></iframe>
         <div class="bottom-nav">
-            <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr">←</span><span class="lbl"> Anterior</span></button>
+            <button class="nav-btn" id="prevBtn" disabled aria-label="Questão anterior"><span class="arr"><svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span><span class="lbl"> Anterior</span></button>
             <div class="bottom-center">
                 <button class="icon-btn bar-toggle" id="toggleBottomBtn" type="button" title="Ocultar barra inferior" aria-label="Ocultar barra inferior">▾</button>
-                <div class="bottom-filters">
-                    <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
-                    <label title="Questões que você errou ou marcou para revisar, no dia certo da revisão"><input type="checkbox" id="soRevisao"> 🔁 Revisões pendentes <span class="revisao-conta" id="revisaoConta"></span></label>
-                    <label title="Ordem aleatória (a mesma até você desmarcar e marcar de novo)"><input type="checkbox" id="embaralharChk"> 🔀 Embaralhar</label>
-                    <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
-                    <span class="pos-indicator" id="posIndicator" title="Questão atual / total">0/0</span>
+                <div class="filtros-wrap">
+                    <button type="button" class="filtros-btn" id="filtrosBtn" aria-haspopup="true" aria-expanded="false" title="Apenas não realizadas, revisões pendentes, embaralhar e limitar">⚙️ <span class="filtros-txt">Filtros</span><span class="filtros-ativos" id="filtrosAtivos"></span> ▾</button>
+                    <div class="bottom-filters filtros-painel" id="filtrosPainel" hidden>
+                        <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
+                        <label title="Questões que você errou ou marcou para revisar, no dia certo da revisão"><input type="checkbox" id="soRevisao"> 🔁 Revisões pendentes <span class="revisao-conta" id="revisaoConta"></span></label>
+                        <label title="Ordem aleatória (a mesma até você desmarcar e marcar de novo)"><input type="checkbox" id="embaralharChk"> 🔀 Embaralhar</label>
+                        <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
+                    </div>
                 </div>
+                <span class="pos-indicator" id="posIndicator" title="Questão atual / total">0/0</span>
                 <div class="timer-container">
                     <button type="button" class="tempo-modo-btn" id="tempoModoBtn" aria-haspopup="true" aria-expanded="false" title="Escolher modo de contagem do tempo">Tempo máx.:</button>
                     <div class="tempo-menu" id="tempoMenu" role="menu" hidden>
@@ -1094,7 +1220,27 @@ body.rodape-oculto .nav-btn:disabled { box-shadow: 0 0 0 1px rgba(26,42,108,.18)
                     <div class="timer" id="timer">00:00</div>
                 </div>
             </div>
-            <button class="nav-btn" id="nextBtn" disabled aria-label="Próxima questão"><span class="lbl">Próxima </span><span class="arr">→</span></button>
+            <button class="nav-btn" id="nextBtn" disabled aria-label="Próxima questão"><span class="lbl">Próxima </span><span class="arr"><svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
+        </div>
+    </div>
+
+    <div id="revisaoScreen" class="screen hidden">
+        <div class="progress-header">
+            <button class="back-btn" id="backFromRevisaoBtn">← Voltar</button>
+            <h1>🔁 Revisão espaçada</h1>
+        </div>
+        <div class="progress-content revisao-conteudo">
+            <div class="revisao-data">
+                <button type="button" class="dia-btn" id="revDiaAnt" aria-label="Dia anterior">‹</button>
+                <div class="revisao-data-centro">
+                    <div class="revisao-data-texto" id="revDataTexto"></div>
+                    <input type="date" id="revDataInput" aria-label="Escolher a data">
+                </div>
+                <button type="button" class="dia-btn" id="revDiaProx" aria-label="Próximo dia">›</button>
+            </div>
+            <div class="revisao-resumo" id="revResumo"></div>
+            <div class="revisao-lista" id="revLista"></div>
+            <button type="button" class="auth-btn home-btn-review revisao-iniciar" id="revIniciarBtn">▶ Iniciar revisão</button>
         </div>
     </div>
 
@@ -1220,7 +1366,7 @@ const posIndicator = document.getElementById('posIndicator');
    UTILITÁRIOS
    ============================================================ */
 function showScreen(s) {
-    [authScreen, resolvingScreen, progressScreen].forEach(x => x.classList.add('hidden'));
+    [authScreen, resolvingScreen, progressScreen, document.getElementById('revisaoScreen')].forEach(x => x && x.classList.add('hidden'));
     s.classList.remove('hidden');
 }
 function escapeHtml(s) {
@@ -1326,7 +1472,10 @@ function lerFiltros() {
                 maxQuestoes: parseInt(v.maxQuestoes) || 0,
                 revisao: !!v.revisao,
                 embaralhar: !!v.embaralhar,
-                semente: parseInt(v.semente) || 0
+                semente: parseInt(v.semente) || 0,
+                revisaoDia: typeof v.revisaoDia === 'string' ? v.revisaoDia : null,
+                lista: Array.isArray(v.lista) ? v.lista : null,
+                antes: (v.antes && typeof v.antes === 'object') ? v.antes : null
             };
         }
     } catch {}
@@ -1507,7 +1656,7 @@ loginBtn.addEventListener('click', async () => {
     loginBtn.disabled = false;
 });
 raInput.addEventListener('keypress', e => { if (e.key === 'Enter') loginBtn.click(); });
-startBtnHome.addEventListener('click', () => startExam());
+startBtnHome.addEventListener('click', () => { try { restaurarFiltrosAnteriores(); } catch {} startExam(); });
 
 logoutBtn.addEventListener('click', () => {
     if (dirty && confirm('Você tem alterações não salvas. Deseja salvar o progresso em arquivo antes de sair?')) exportarProgresso();
@@ -1677,21 +1826,30 @@ async function rebuildQuestoes(navigateIfLost = true) {
     });
 
     let filtradas = todas;
-    if (filtros.disciplina && disciplinasLoaded) {
-        filtradas = filtradas.filter(q => {
-            return disciplinaDe(q.exam, q.year, q.num) === filtros.disciplina;
-        });
-    }
-    if (filtros.revisao) {
-        /* revisão espaçada: só as questões com revisão vencida, da mais atrasada para a mais recente */
-        filtradas = filtradas.filter(q => revisaoPendente(q.exam, q.year, q.num))
-            .sort((a, b) => vencimentoRevisao(a.exam, a.year, a.num) - vencimentoRevisao(b.exam, b.year, b.num));
-    } else if (filtros.somenteNaoRealizadas) {
-        filtradas = filtradas.filter(q => !isRealizada(q.exam, q.year, q.num));
-    }
-    if (filtros.embaralhar) filtradas = embaralharComSemente(filtradas, filtros.semente || 1);
-    if (filtros.maxQuestoes > 0) {
-        filtradas = filtradas.slice(0, filtros.maxQuestoes);
+    if (Array.isArray(filtros.lista) && filtros.lista.length) {
+        /* grupo vindo do Meu gabarito: lista fixa de questões, na ordem do gabarito */
+        filtradas = filtros.lista.map(k => {
+            const [b, a, n] = k.split('|');
+            const f = arquivoNoManifest(b, a, n);
+            return f ? { exam: b, year: a, num: String(n), filename: f, url: urlQuestao(b, a, f, String(n)) } : null;
+        }).filter(Boolean);
+    } else {
+        if (filtros.disciplina && disciplinasLoaded) {
+            filtradas = filtradas.filter(q => {
+                return disciplinaDe(q.exam, q.year, q.num) === filtros.disciplina;
+            });
+        }
+        if (filtros.revisao) {
+            /* revisão espaçada: só as questões com revisão vencida, da mais atrasada para a mais recente */
+            filtradas = filtradas.filter(q => revisaoPendente(q.exam, q.year, q.num))
+                .sort((a, b) => vencimentoRevisao(a.exam, a.year, a.num) - vencimentoRevisao(b.exam, b.year, b.num));
+        } else if (filtros.somenteNaoRealizadas) {
+            filtradas = filtradas.filter(q => !isRealizada(q.exam, q.year, q.num));
+        }
+        if (filtros.embaralhar) filtradas = embaralharComSemente(filtradas, filtros.semente || 1);
+        if (filtros.maxQuestoes > 0) {
+            filtradas = filtradas.slice(0, filtros.maxQuestoes);
+        }
     }
 
     questoes = filtradas;
@@ -2226,7 +2384,9 @@ function getGabFilters() {
         disciplina: document.getElementById('gabDisciplinaFilter')?.value || '',
         modo: document.getElementById('gabModoFilter')?.value || 'banca',
         mostrar: document.getElementById('gabMostrarFilter')?.value || 'tudo',
-        mostrarNaoRealizadas: document.getElementById('gabMostrarNaoRealizadas')?.checked === true
+        mostrarNaoRealizadas: document.getElementById('gabMostrarNaoRealizadas')?.checked === true,
+        ano: document.getElementById('gabAnoFilter')?.value || '',
+        data: document.getElementById('gabPorData')?.checked ? (document.getElementById('gabDataInput')?.value || '') : ''
     };
 }
 
@@ -2238,6 +2398,10 @@ function renderProgressV2() {
     let html = '<div class="gab-filters">';
     html += `<select id="gabBancaFilter"><option value="">Todas as bancas</option>`;
     Object.keys(exams).sort().forEach(b => { html += `<option value="${escapeHtml(b)}">${escapeHtml(b)}</option>`; });
+    html += `</select>`;
+    html += `<select id="gabAnoFilter"><option value="">Todas as edições</option>`;
+    [...new Set(Object.values(exams).flatMap(b => Object.keys(b || {})))].sort((a, b) => b.localeCompare(a))
+        .forEach(a => { html += `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`; });
     html += `</select>`;
     html += `<select id="gabDisciplinaFilter"><option value="">Todas as disciplinas</option>`;
     DISCIPLINAS_LISTA.forEach(d => { html += `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`; });
@@ -2253,6 +2417,8 @@ function renderProgressV2() {
         <option value="acertos">Só acertos</option>
     </select>`;
     html += `<label><input type="checkbox" id="gabMostrarNaoRealizadas"> Exibir questões não realizadas</label>`;
+    html += `<label title="Mostrar só as questões respondidas num dia, com o resultado daquele dia"><input type="checkbox" id="gabPorData"> 📅 Filtrar por data</label>`;
+    html += `<span class="gab-data" id="gabDataBox" hidden><button type="button" id="gabDataAnt" aria-label="Dia anterior">‹</button><input type="date" id="gabDataInput" aria-label="Data"><button type="button" id="gabDataProx" aria-label="Próximo dia">›</button></span>`;
     html += '</div><div id="gabDynamic"></div>';
     progressContent.innerHTML = html;
     if (!disciplinasLoaded) {
@@ -2260,7 +2426,8 @@ function renderProgressV2() {
         document.querySelectorAll('#gabModoFilter option:not([value="banca"])').forEach(o => { o.disabled = true; });
     }
 
-    ['gabBancaFilter','gabDisciplinaFilter','gabModoFilter','gabMostrarFilter','gabMostrarNaoRealizadas'].forEach(id => {
+    ligarFiltrosDeDataDoGabarito();
+    ['gabBancaFilter','gabAnoFilter','gabDisciplinaFilter','gabModoFilter','gabMostrarFilter','gabMostrarNaoRealizadas'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('change', () => updateProgressDynamic());
     });
@@ -2291,9 +2458,15 @@ function updateProgressDynamic() {
     const filters = getGabFilters();
     gabGrupos = {}; gabGrupoSeq = 0;
 
-    // Estatísticas globais
+    // Estatísticas globais (no modo por data: só as respostas daquele dia)
     let answered = 0, confirmed = 0, hits = 0;
-    for (const exam in progress.estado) {
+    const doDia = filters.data ? respostasDoDia(filters.data) : null;
+    if (doDia) for (const ev of doDia.values()) {
+        if (filters.banca && ev.prova !== filters.banca) continue;
+        if (filters.ano && ev.ano !== filters.ano) continue;
+        answered++; confirmed++; if (ev.opcao === ev.correta) hits++;
+    }
+    if (!doDia) for (const exam in progress.estado) {
         for (const year in progress.estado[exam]) {
             for (const num in progress.estado[exam][year]) {
                 if (isResetada(exam, year, num)) continue;
@@ -2320,6 +2493,7 @@ function updateProgressDynamic() {
         if (filters.banca && banca !== filters.banca) continue;
         const anos = Object.keys(exams[banca] || {}).sort((a, b) => b.localeCompare(a));
         for (const ano of anos) {
+            if (filters.ano && ano !== filters.ano) continue;
             const files = questoesDoManifest(banca, ano);
             if (!files) continue;
             for (const f of files) {
@@ -2328,7 +2502,11 @@ function updateProgressDynamic() {
                 const reset = isResetada(banca, ano, num);
                 const e = progress.estado?.[banca]?.[ano]?.[num];
                 let status = 'gray', selected = null, correctAnswer = null;
-                if (e && e.correct && !reset) {
+                if (doDia) {
+                    const ev = doDia.get(`${banca}|${ano}|${num}`);
+                    if (!ev) continue;                      /* não respondida naquele dia */
+                    status = ev.opcao === ev.correta ? 'ok' : 'bad'; selected = ev.opcao; correctAnswer = ev.correta;
+                } else if (e && e.correct && !reset) {
                     status = e.selected === e.correct ? 'ok' : 'bad';
                     selected = e.selected;
                     correctAnswer = e.correct;
@@ -2440,7 +2618,8 @@ function handleGrupoBtn(btn) {
     if (acao === 'restaurar') handleRestaurarGrupo(btn, qs);
     else handleRefazerGrupo(btn, qs);
 }
-function handleRefazerGrupo(btn, qs) {
+let handleRefazerGrupo = _refazerGrupoBase;
+function _refazerGrupoBase(btn, qs) {
     const alvo = qs.filter(q => isRealizada(q.banca, q.ano, q.num));
     if (!alvo.length) { avisoGrifo('Nenhuma questão confirmada neste grupo.'); return; }
     if (!confirm(`Refazer ${alvo.length} questão(ões) confirmada(s) de ${btn.dataset.grupoNome}? Grifos e histórico são mantidos.`)) return;
@@ -2452,6 +2631,7 @@ function handleRefazerGrupo(btn, qs) {
     updateFabBarButtons();
     avisoGrifo(`${alvo.length} questão(ões) marcada(s) para refazer.`);
 }
+const _refazerGrupoOriginal = (...x) => _refazerGrupoBase(...x);
 function handleRestaurarGrupo(btn, qs) {
     const alvo = qs.filter(q => isResetada(q.banca, q.ano, q.num));
     if (!alvo.length) { avisoGrifo('Nenhuma questão refeita neste grupo.'); return; }
@@ -3996,7 +4176,17 @@ function cartoesRevisao() {
 function notaFsrs(nota) { return _lim(nota, 2, 4); }
 function fimDeHoje() { const d = new Date(); d.setHours(23, 59, 59, 999); return +d; }
 function vencimentoRevisao(b, a, n) { const c = cartoesRevisao().get(`${b}|${a}|${n}`); return c ? c.proxima : Infinity; }
-function revisaoPendente(b, a, n) { return vencimentoRevisao(b, a, n) <= fimDeHoje(); }
+/* janela de vencimento: hoje (ou data já passada) = atrasadas + hoje; data futura = só aquele dia */
+const isoDoDia = t => { const d = new Date(t); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+function janelaRevisao(diaISO) {
+    if (!diaISO || diaISO <= isoDoDia(Date.now())) return [-Infinity, fimDeHoje()];
+    const ini = +new Date(diaISO + 'T00:00:00');
+    return [ini, ini + DIA_MS - 1];
+}
+function revisaoPendente(b, a, n) {
+    const v = vencimentoRevisao(b, a, n), [ini, fim] = janelaRevisao(filtros.revisaoDia);
+    return v >= ini && v <= fim;
+}
 function contarRevisoesPendentes() {
     const fim = fimDeHoje(); let n = 0;
     for (const [k, c] of cartoesRevisao()) {
@@ -4044,6 +4234,13 @@ renderBottomFilters = function () {
     atualizarContagemRevisao();
 };
 soRevisao.addEventListener('change', async () => {
+    if (!soRevisao.checked) {                     /* sair da revisão: voltam os filtros de antes */
+        filtros.revisao = false;
+        if (restaurarFiltrosAnteriores()) { renderAllFilterUI(); revisadasNaSessao.clear(); await rebuildQuestoes(); return; }
+    } else {
+        guardarFiltrosAnteriores();
+        filtros.revisaoDia = null;
+    }
     filtros.revisao = soRevisao.checked;
     soNaoRealizadas.disabled = filtros.revisao;
     revisadasNaSessao.clear();
@@ -4055,14 +4252,7 @@ embaralharChk.addEventListener('change', async () => {
     if (filtros.embaralhar) filtros.semente = (Math.random() * 4294967295) >>> 0;
     await rebuildQuestoes();
 });
-revisaoBtnHome.addEventListener('click', async () => {
-    garantirFiltros();
-    filtros.revisao = true;
-    revisadasNaSessao.clear();
-    salvarFiltros();
-    await startExam();
-    if (!questoes.length) avisoGrifo('Nenhuma revisão pendente para hoje com os filtros atuais. 🎉');
-});
+revisaoBtnHome.addEventListener('click', () => abrirTelaRevisao());
 const _showHomeRev = showHome;
 showHome = function () { _showHomeRev(); try { atualizarContagemRevisao(); } catch {} };
 
@@ -4182,6 +4372,226 @@ window.addEventListener('DOMContentLoaded', async () => {
     currentUser = 'CRIVO';
 });
 document.getElementById('saveBtnHome').addEventListener('click', exportarProgresso);
+
+/* ============================================================
+   FILTROS ANTERIORES (revisão espaçada e grupo do Meu gabarito)
+   Ao entrar na revisão ou num grupo, os filtros em uso são guardados; ao sair, voltam.
+   ============================================================ */
+function guardarFiltrosAnteriores() {
+    if (filtros.antes) return;
+    const { antes, ...resto } = filtros;
+    filtros.antes = JSON.parse(JSON.stringify(resto));
+}
+function restaurarFiltrosAnteriores() {
+    if (!filtros.antes) {
+        if (filtros.revisao || (filtros.lista && filtros.lista.length)) {
+            filtros.revisao = false; filtros.lista = null; filtros.revisaoDia = null;
+            salvarFiltros(); atualizarAvisoGrupo(); return true;
+        }
+        return false;
+    }
+    filtros = Object.assign({ bancas: [], anos: [], disciplina: '', somenteNaoRealizadas: false, maxQuestoes: 0,
+                              revisao: false, embaralhar: false, semente: 0 },
+                            filtros.antes, { revisao: false, lista: null, revisaoDia: null, antes: null });
+    salvarFiltros(); atualizarAvisoGrupo();
+    return true;
+}
+
+/* ---- painel "Filtros" da barra inferior ---- */
+const filtrosBtn = document.getElementById('filtrosBtn');
+const filtrosPainel = document.getElementById('filtrosPainel');
+const filtrosAtivos = document.getElementById('filtrosAtivos');
+function atualizarFiltrosAtivos() {
+    const n = [filtros.somenteNaoRealizadas && !filtros.revisao, filtros.revisao, filtros.embaralhar, filtros.maxQuestoes > 0].filter(Boolean).length;
+    filtrosAtivos.textContent = n ? String(n) : '';
+    filtrosBtn.title = n ? `${n} filtro(s) ativo(s): toque para ver` : 'Apenas não realizadas, revisões pendentes, embaralhar e limitar';
+}
+filtrosBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const abrir = filtrosPainel.hidden;
+    filtrosPainel.hidden = !abrir;
+    filtrosBtn.setAttribute('aria-expanded', String(abrir));
+});
+filtrosPainel.addEventListener('click', (e) => e.stopPropagation());
+document.addEventListener('click', () => {
+    if (!filtrosPainel.hidden) { filtrosPainel.hidden = true; filtrosBtn.setAttribute('aria-expanded', 'false'); }
+});
+const _renderBottomFilters8 = renderBottomFilters;
+renderBottomFilters = function () { _renderBottomFilters8(); atualizarFiltrosAtivos(); atualizarAvisoGrupo(); };
+const _rebuildQuestoes8 = rebuildQuestoes;
+rebuildQuestoes = async function (...a) {
+    const r = await _rebuildQuestoes8(...a);
+    try { atualizarFiltrosAtivos(); atualizarAvisoGrupo(); soRevisao.checked = !!filtros.revisao; maxQuestoesInput.value = filtros.maxQuestoes > 0 ? filtros.maxQuestoes : ''; } catch {}
+    return r;
+};
+
+/* ---- grupo do Meu gabarito na página de resolução ---- */
+const grupoAviso = document.getElementById('grupoAviso');
+const grupoAvisoTxt = document.getElementById('grupoAvisoTxt');
+function atualizarAvisoGrupo() {
+    const on = Array.isArray(filtros.lista) && filtros.lista.length > 0;
+    grupoAviso.hidden = !on;
+    if (on) grupoAvisoTxt.textContent = `Grupo do Meu Gabarito (${filtros.lista.length} ${filtros.lista.length === 1 ? 'questão' : 'questões'})`;
+}
+document.getElementById('grupoSairBtn').addEventListener('click', async () => {
+    restaurarFiltrosAnteriores();
+    renderAllFilterUI();
+    await rebuildQuestoes();
+});
+
+/* ============================================================
+   TELA PRÉVIA DA REVISÃO ESPAÇADA
+   ============================================================ */
+const revisaoScreen = document.getElementById('revisaoScreen');
+const revDataInput = document.getElementById('revDataInput');
+let revDiaSel = null;
+function dataPorExtenso(iso) {
+    return new Date(iso + 'T12:00:00').toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+function somarDias(iso, n) { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return isoDoDia(+d); }
+function listarRevisoes(diaISO) {
+    const [ini, fim] = janelaRevisao(diaISO);
+    const hoje0 = +new Date(isoDoDia(Date.now()) + 'T00:00:00');
+    const out = [];
+    for (const [k, c] of cartoesRevisao()) {
+        const [b, a, n] = k.split('|');
+        if (!exams?.[b]?.[a]?.[n]) continue;
+        if (c.proxima < ini || c.proxima > fim) continue;
+        out.push({ b, a, n, proxima: c.proxima, atrasada: c.proxima < hoje0, disc: disciplinaDe(b, a, n) });
+    }
+    return out.sort((x, y) => x.b.localeCompare(y.b) || y.a.localeCompare(x.a) || (parseInt(x.n) || 0) - (parseInt(y.n) || 0));
+}
+function renderTelaRevisao() {
+    const hoje = isoDoDia(Date.now());
+    if (!revDiaSel || revDiaSel < hoje) revDiaSel = hoje;
+    revDataInput.min = hoje; revDataInput.value = revDiaSel;
+    document.getElementById('revDiaAnt').disabled = revDiaSel <= hoje;
+    document.getElementById('revDataTexto').textContent = dataPorExtenso(revDiaSel) + (revDiaSel === hoje ? ' (hoje)' : '');
+    const lista = listarRevisoes(revDiaSel);
+    const atrasadas = lista.filter(x => x.atrasada).length;
+    document.getElementById('revResumo').textContent = lista.length
+        ? `${lista.length} ${lista.length === 1 ? 'questão programada' : 'questões programadas'}` + (atrasadas ? ` (${atrasadas} atrasada${atrasadas === 1 ? '' : 's'})` : '')
+          + (revDiaSel !== hoje ? ' para este dia. Você pode adiantá-las, mas os intervalos ficam um pouco menores.' : '')
+        : '';
+    document.getElementById('revLista').innerHTML = lista.length
+        ? lista.map(x => `<div class="revisao-item"><span>${escapeHtml(x.b)} ${escapeHtml(x.a)} - Q${escapeHtml(x.n)}${x.disc ? ' - ' + escapeHtml(x.disc) : ''}</span>`
+            + (x.atrasada ? `<span class="atraso">atrasada desde ${new Date(x.proxima).toLocaleDateString('pt-BR')}</span>` : '') + `</div>`).join('')
+        : `<div class="revisao-vazia">Nenhuma revisão programada para ${revDiaSel === hoje ? 'hoje' : 'este dia'}. 🎉</div>`;
+    const btn = document.getElementById('revIniciarBtn');
+    btn.disabled = !lista.length;
+    btn.textContent = lista.length ? `▶ Iniciar revisão (${lista.length})` : '▶ Iniciar revisão';
+}
+async function abrirTelaRevisao() {
+    await garantirDadosGabarito();
+    garantirFiltros();
+    revDiaSel = isoDoDia(Date.now());
+    renderTelaRevisao();
+    showScreen(revisaoScreen);
+}
+document.getElementById('revDiaAnt').addEventListener('click', () => { revDiaSel = somarDias(revDiaSel, -1); renderTelaRevisao(); });
+document.getElementById('revDiaProx').addEventListener('click', () => { revDiaSel = somarDias(revDiaSel, 1); renderTelaRevisao(); });
+revDataInput.addEventListener('change', () => { if (revDataInput.value) { revDiaSel = revDataInput.value; renderTelaRevisao(); } });
+document.getElementById('backFromRevisaoBtn').addEventListener('click', () => { showHome(); showScreen(authScreen); });
+document.getElementById('revIniciarBtn').addEventListener('click', async () => {
+    const lista = listarRevisoes(revDiaSel);
+    if (!lista.length) return;
+    garantirFiltros();
+    guardarFiltrosAnteriores();
+    filtros.lista = null;
+    filtros.bancas = [...new Set(lista.map(x => x.b))];
+    filtros.anos = [...new Set(lista.map(x => x.a))];
+    filtros.disciplina = '';
+    filtros.revisao = true;
+    filtros.revisaoDia = revDiaSel > isoDoDia(Date.now()) ? revDiaSel : null;
+    filtros.maxQuestoes = lista.length;
+    salvarFiltros();
+    revisadasNaSessao.clear();
+    await startExam();
+});
+
+/* ============================================================
+   MEU GABARITO: FILTRO POR DATA E "REFAZER GRUPO"
+   ============================================================ */
+function respostasDoDia(diaISO) {
+    const m = new Map();
+    for (const ev of progress.registro || []) {
+        if (ev.acao !== 'confirmou' || !ev.correta) continue;
+        if (isoDoDia(+new Date(ev.data)) !== diaISO) continue;
+        if (ehExcluida(ev.prova, ev.ano, ev.questao)) continue;
+        m.set(`${ev.prova}|${ev.ano}|${ev.questao}`, ev);      /* vale o resultado do fim daquele dia */
+    }
+    return m;
+}
+function ligarFiltrosDeDataDoGabarito() {
+    const chk = document.getElementById('gabPorData'), box = document.getElementById('gabDataBox');
+    const inp = document.getElementById('gabDataInput'), banca = document.getElementById('gabBancaFilter');
+    const ano = document.getElementById('gabAnoFilter');
+    if (!chk || !inp) return;
+    const hoje = isoDoDia(Date.now());
+    inp.value = hoje; inp.max = hoje;
+    const mudar = () => updateProgressDynamic();
+    chk.addEventListener('change', () => { box.hidden = !chk.checked; mudar(); });
+    inp.addEventListener('change', mudar);
+    const passo = n => { inp.value = somarDias(inp.value || hoje, n); if (inp.value > hoje) inp.value = hoje; mudar(); };
+    document.getElementById('gabDataAnt').addEventListener('click', () => passo(-1));
+    document.getElementById('gabDataProx').addEventListener('click', () => passo(1));
+    /* edições disponíveis acompanham a banca escolhida */
+    banca.addEventListener('change', () => {
+        const atual = ano.value;
+        const anos = [...new Set((banca.value ? [exams[banca.value] || {}] : Object.values(exams)).flatMap(b => Object.keys(b || {})))]
+            .sort((a, b) => b.localeCompare(a));
+        ano.innerHTML = '<option value="">Todas as edições</option>' + anos.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+        ano.value = anos.includes(atual) ? atual : '';
+    }, true);
+}
+
+function fecharMenuGrupo() { const m = document.getElementById('grupoMenu'); if (m) m.remove(); }
+handleRefazerGrupo = function (btn, qs) {
+    fecharMenuGrupo();
+    const r = btn.getBoundingClientRect();
+    const menu = document.createElement('div');
+    menu.className = 'grupo-menu'; menu.id = 'grupoMenu';
+    menu.innerHTML = `<button type="button" data-op="resetar">🔄 Apenas resetar</button>
+        <button type="button" data-op="resolver">▶ Refazer na página de resolução</button>`;
+    document.body.appendChild(menu);
+    const mr = menu.getBoundingClientRect();
+    menu.style.left = Math.max(8, Math.min(r.left, window.innerWidth - mr.width - 8)) + 'px';
+    menu.style.top = (r.bottom + mr.height + 8 > window.innerHeight ? Math.max(8, r.top - mr.height - 6) : r.bottom + 6) + 'px';
+    menu.addEventListener('click', async (ev) => {
+        const b = ev.target.closest('button[data-op]');
+        if (!b) return;
+        ev.stopPropagation();
+        fecharMenuGrupo();
+        if (b.dataset.op === 'resetar') _refazerGrupoOriginal(btn, qs);
+        else await refazerGrupoNaResolucao(btn);
+    });
+    setTimeout(() => document.addEventListener('click', (e) => { if (!e.target.closest('#grupoMenu')) fecharMenuGrupo(); }, { once: true }), 10);
+};
+async function refazerGrupoNaResolucao(btn) {
+    /* as questões exatamente como aparecem no grupo, com os filtros atuais do Meu gabarito, na mesma ordem */
+    const bloco = btn.closest('.exam-block');
+    const vistos = new Set(), lista = [];
+    (bloco ? [...bloco.querySelectorAll('.chip')] : []).forEach(c => {
+        const k = `${c.dataset.exam}|${c.dataset.year}|${c.dataset.num}`;
+        if (!vistos.has(k)) { vistos.add(k); lista.push(k); }
+    });
+    if (!lista.length) { avisoGrifo('Nenhuma questão visível neste grupo com os filtros atuais.'); return; }
+    const resetar = lista.map(k => k.split('|')).filter(([b, a, n]) => isRealizada(b, a, n));
+    if (!confirm(`Refazer na página de resolução as ${lista.length} questão(ões) mostradas em ${btn.dataset.grupoNome}?`
+        + (resetar.length ? ` As respostas de ${resetar.length} delas serão resetadas (grifos e histórico são mantidos).` : ''))) return;
+    resetar.forEach(([b, a, n]) => _marcarReset(b, a, n));
+    if (resetar.length) { setDirty(true); salvarBackup(); }
+    garantirFiltros();
+    guardarFiltrosAnteriores();
+    filtros.lista = lista;
+    filtros.revisao = false; filtros.revisaoDia = null;
+    salvarFiltros();
+    await loadDisciplinas();
+    await rebuildQuestoes(false);
+    renderAllFilterUI();
+    if (questoes.length) await carregarQuestao(0); else showEmptyMessage();
+    showScreen(resolvingScreen);
+}
 </script>
 </body>
 </html>

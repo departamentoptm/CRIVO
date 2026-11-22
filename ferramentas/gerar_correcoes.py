@@ -471,6 +471,7 @@ def cmd_gerar(args, config):
         catalogo = atualizar_catalogo(args.dados, args.banca, cliente, config, log)["questoes"]
         log(f"Catálogo de temas pronto: {len(catalogo)} questões.")
         for k, (ano, qid, motivo) in enumerate(fila, 1):
+            contador.checar()          # o orçamento só impede COMEÇAR uma questão; a começada vai até o fim
             q = todas[qid]
             log(f"\n[{k}/{len(fila)}] {qid} ({motivo}) — custo até agora US$ {contador.custo:.4f}")
             cs_arq = ler_correcoes(args.dados, args.banca, ano)

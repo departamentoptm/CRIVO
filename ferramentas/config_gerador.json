@@ -68,7 +68,7 @@
    "2.14": 60
   },
   "tentativas_de_geracao": 3,
-  "rodadas_de_verificacao": 2
+  "rodadas_de_verificacao": 3
  },
  "fontes_permitidas": [
   "Harrison — Medicina Interna",
@@ -138,5 +138,6 @@
   "intervalo_entre_buscas_s": 0.4
  },
  "teto_acumulado_usd": 30.0,
- "amostra_a_cada": 50
+ "amostra_a_cada": 50,
+ "max_tokens_teto": 32000
 }
