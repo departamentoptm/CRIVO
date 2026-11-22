@@ -143,16 +143,45 @@ class ClienteAPI:
         raise ErroAPI(f"API indisponível após {self.tentativas} tentativas: {ultimo}")
 
     def json(self, etapa, sistema, usuario):
-        """Chama o modelo da etapa e devolve o JSON da resposta (com uma nova tentativa se vier inválido)."""
-        self.contador.checar()
+        """Chama o modelo da etapa e devolve o JSON da resposta (com uma nova tentativa se vier inválido).
+        O orçamento NÃO é conferido aqui: ele só impede começar uma questão nova (o gerador confere entre
+        questões); uma questão começada é sempre terminada. Resposta cortada pelo limite de tamanho é pedida de
+        novo com um limite maior e, se ainda assim for cortada, sem o raciocínio estendido."""
+        base = self.config.get("max_tokens", {}).get(etapa, 4000)
+        teto = self.config.get("max_tokens_teto", 32000)
+        planos = [(base, None)]
+        if min(base * 2, teto) > base:
+            planos.append((min(base * 2, teto), None))
+        if self.config.get("raciocinio_por_etapa", {}).get(etapa):
+            planos.append((min(base * 2, teto), False))          # sem raciocínio estendido
+        ultimo = None
+        for n, (limite, raciocinio) in enumerate(planos):
+            try:
+                return self._json_uma_vez(etapa, sistema, usuario, limite, raciocinio)
+            except RespostaCortada as e:
+                ultimo = e
+                if n + 1 < len(planos):
+                    prox = planos[n + 1]
+                    self.log(f"   aviso: resposta cortada na etapa '{etapa}' ({limite} tokens); repetindo com "
+                             f"{prox[0]} tokens" + (" e sem raciocínio estendido" if prox[1] is False else ""))
+            except ErroAPI as e:
+                if limite != base and ("HTTP 400" in str(e) or "HTTP 422" in str(e)):
+                    self.log(f"   aviso: a API não aceitou {limite} tokens na etapa '{etapa}'; tentando outra forma")
+                    ultimo = e; continue
+                raise
+        raise ultimo
+
+    def _json_uma_vez(self, etapa, sistema, usuario, limite, raciocinio_forcado=None):
         esperar_fora_do_pico(self.config, self.log)      # nenhuma chamada paga é feita no horário de pico
         modelo = self.config["modelos"][etapa]
         corpo = {"model": modelo, "temperature": 0.2,
-                 "max_tokens": self.config.get("max_tokens", {}).get(etapa, 4000),
+                 "max_tokens": limite,
                  "response_format": {"type": "json_object"},
                  "messages": [{"role": "system", "content": sistema}, {"role": "user", "content": usuario}]}
         corpo.update(self.config.get("parametros_extras_por_modelo", {}).get(modelo, {}))
         raciocinio = self.config.get("raciocinio_por_etapa", {}).get(etapa)
+        if raciocinio_forcado is not None:
+            raciocinio = raciocinio_forcado
         extra_rac = {}
         if raciocinio is not None and modelo not in getattr(self, "_sem_param_raciocinio", set()):
             extra_rac = self.config.get("parametro_raciocinio", {}).get("ligado" if raciocinio else "desligado", {})

@@ -59,6 +59,12 @@ def _disciplina_valida(valor, config):
 
 
 # ------------------------------------------------------------------ 1. catálogo (+ disciplina)
+def _checar(cliente):
+    c = getattr(cliente, "contador", None)
+    if c:
+        c.checar()           # entre lotes do catálogo (o que já foi catalogado fica gravado)
+
+
 def _em_lotes(itens, tamanho):
     for k in range(0, len(itens), tamanho):
         yield itens[k:k + tamanho]
@@ -94,6 +100,7 @@ def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
         montar = lambda g: "\n\n".join(f"### id: {i}\n{texto_curto(todas[i])}" for i in g)
         feitas = 0
         for grupo in _em_lotes(faltam, config.get("temas_questoes_por_chamada", 10)):
+            _checar(cliente)
             recebidos = _pedir_dividindo(cliente, "temas", sistema, grupo, montar, log)
             for i in grupo:
                 x = recebidos.get(i)
@@ -117,6 +124,7 @@ def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
         sistema = prompt("disciplina.md", config)
         montar = lambda g: "\n\n".join(f"### id: {i}\n{texto_curto(todas[i], 700)}" for i in g)
         for grupo in _em_lotes(sem_disc, config.get("disciplina_questoes_por_chamada", 30)):
+            _checar(cliente)
             recebidos = _pedir_dividindo(cliente, "temas", sistema, grupo, montar, log)
             for i in grupo:
                 d = _disciplina_valida((recebidos.get(i) or {}).get("disciplina"), config)

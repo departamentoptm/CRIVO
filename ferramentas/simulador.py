@@ -14,7 +14,6 @@ class ClienteSimulado:
         self.config, self.contador = config, contador
 
     def _uso(self, etapa, usuario, saida):
-        self.contador.checar()
         uso = {"prompt_cache_hit_tokens": 800, "prompt_cache_miss_tokens": len(usuario) // 3,
                "completion_tokens": len(saida) // 3}
         self.contador.registrar(self.config["modelos"][etapa], uso)

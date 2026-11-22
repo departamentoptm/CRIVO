@@ -127,6 +127,11 @@ gerador nunca mais a sobrescreve.
   `gasto_usd` o que já foi gasto antes desta atualização (painel do DeepSeek). Aprove o PR de uma execução
   antes de rodar a próxima, senão a próxima não vê o gasto da anterior.
 - **Só fora do pico:** nenhuma chamada paga é feita no horário de pico; o gerador espera o pico acabar.
+- **Questão começada é sempre terminada:** o orçamento (da execução e o teto acumulado) só impede começar uma
+  questão nova; por isso a última questão pode passar alguns centavos do limite. Se uma etapa for cortada pelo
+  limite de tamanho (`max_tokens`), ela é pedida de novo com o dobro do limite (até `max_tokens_teto`) e, se
+  ainda assim for cortada, sem o raciocínio estendido. Uma correção reprovada pelo revisor é refeita até
+  3 vezes (`rodadas_de_verificacao`); se continuar reprovada, não é publicada.
 - **Amostra para conferência humana:** 1 de cada 50 correções geradas é marcada (`revisao.amostra =
   "pendente"`). Actions → Gerar correções → ação `amostra` gera `relatorios/amostra_<BANCA>.md` (baixe em
   Summary → Artifacts → relatorios) para enviar ao Claude numa conversa. Depois de conferidas, rode a ação
