@@ -672,8 +672,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "AMP-2026-Q25": {
@@ -1988,8 +1990,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "AMP-2026-Q72": {
@@ -2156,8 +2160,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "AMP-2026-Q78": {
@@ -2184,8 +2190,10 @@
    "historico": null,
    "origem": "convertido_html_v1",
    "revisao": {
-    "status": "nao_revisado",
-    "alertas": []
+    "status": "regerar",
+    "alertas": [
+     "texto_da_questao_mudou"
+    ]
    }
   },
   "AMP-2026-Q79": {

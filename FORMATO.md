@@ -51,12 +51,16 @@ pelo `conferir_gabarito.py`, para seguir o `gabarito.json` oficial.
       "gabarito_usado": "A",
       "secoes_html": {"2.1": "<p>...</p>", "...": "...", "2.15": "<p>...</p>"},
       "historico": [{"id": "AMP-2019-Q42", "ano": "2019", "numero": 42, "gabarito": "C",
-                     "resumo": "...", "cobrado": "conduta inicial", "relacao": "..."}],
-      "historico_meta": {"questoes_da_banca_avaliadas": 599, "candidatas_pela_triagem": 12, "relevantes": 3},
-      "referencias": [{"fonte": "Nelson — Tratado de Pediatria", "detalhe": "...", "busca": "ecthyma children"}],
+                     "resumo": "...", "cobrado": "conduta inicial", "resposta": "C (texto da alternativa)",
+                     "relacao": "Mesmo tema: ...", "tipo": "mesmo_tema"}],
+      "historico_meta": {"questoes_da_banca_avaliadas": 2074, "candidatas_pela_triagem": 150, "relevantes": 9,
+                         "anos": ["2006", "2026"], "provas_com_relacionadas": 7, "por_tipo": {"...": 0}},
+      "referencias": {"livros": [{"fonte": "Nelson — Tratado de Pediatria", "secao": "Impetigo e ectima"}],
+                      "busca_pubmed": "ecthyma children",
+                      "artigos": [{"pmid": "...", "titulo": "...", "revista": "...", "ano": "2023", "doi": "..."}]},
       "resolucao_cega": {"alternativa": "A", "concorda_com_gabarito": true},
       "verificacao": {"aprovado": true, "problemas_leves": []},
-      "origem": "api_v1", "modelo": "deepseek-flash", "gerado_em": "2026-11-20T03:11:08Z",
+      "origem": "api_v2", "modelo": "deepseek-flash", "gerado_em": "2026-11-20T03:11:08Z",
       "revisao": {"status": "nao_revisado", "alertas": [], "reportes": [], "reportes_atendidos": []}
     }
   }
@@ -66,11 +70,11 @@ pelo `conferir_gabarito.py`, para seguir o `gabarito.json` oficial.
 | Campo | Quem escreve | Observação |
 |---|---|---|
 | `gabarito_usado` | script | Letra para a qual a correção foi escrita. Se for diferente do gabarito oficial, o site mostra o aviso vermelho e o gerador refaz a correção. |
-| `historico` → `ano`, `numero`, `gabarito` | script | Vêm do `questoes.json`. A IA só escreve `resumo`, `cobrado` e `relacao`. |
-| `secoes_html["2.15"]` | script | Montada com as fontes permitidas; os links são pesquisas no PubMed, nunca links escritos pela IA. |
+| `historico` | script | Tabela da 2.10. Ano, número e resposta vêm do `questoes.json`; resumo e "o que foi cobrado", do catálogo; a relação, da etapa de relevância. |
+| `secoes_html["2.15"]` | script | Livros da lista permitida + artigos reais encontrados no PubMed + links de consulta (UpToDate, MSD, PubMed). |
 | `revisao.status` | pessoas / script | `nao_revisado`, `reportado` (será refeita), `revisado_humano` (o gerador nunca sobrescreve). |
 | `revisao.reportes` | pessoas | Erros apontados pelos estudantes, ex.: `[{"texto": "a dose da 2.7 está errada: ..."}]`. Na próxima geração, eles são enviados à IA e ao revisor. |
-| `revisao.alertas` | script | `ia_discorda_do_gabarito` = a IA, sem ver o gabarito, marcou outra letra. |
+| `revisao.alertas` | script | `ia_discorda_do_gabarito` = a IA, sem ver o gabarito, marcou outra letra; `texto_da_questao_mudou` = o enunciado foi corrigido depois que a correção foi escrita (ela será refeita). |
 
 Correções antigas, convertidas das páginas HTML, têm `origem: "convertido_html_v1"` e não têm os campos de
 verificação. Elas são refeitas só se você pedir (`--modo convertidas`) ou se forem reportadas.

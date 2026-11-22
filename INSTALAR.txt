@@ -1,0 +1,15 @@
+CRIVO — atualização 4
+
+1. No computador:   cd ~/CRIVO && git pull
+2. Descompacte este arquivo DENTRO da pasta ~/CRIVO, substituindo os arquivos:
+       unzip -o ~/Downloads/CRIVO_atualizacao4.zip -d ~/CRIVO
+3. Confira e envie:
+       cd ~/CRIVO
+       python3 ferramentas/gerar_indice.py --dados dados
+       git add -A && git commit -m "Atualização 4: acervo AMP completo, histórico em tabela, referências reais" && git push
+4. No GitHub: Actions > Gerar correções > Run workflow
+       a) ação = catalogar, banca = AMP, orçamento = 1.00   (uma vez; preenche as disciplinas e o catálogo)
+          -> aprove (Merge) o pull request que ele abrir
+       b) ação = gerar, banca = AMP, ano = 2020, questões = 1-5, orçamento = 1.00
+          -> confira o resultado e aprove o pull request
+       c) depois: ação = gerar, modo = pendentes, para as questões marcadas para refazer

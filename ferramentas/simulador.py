@@ -29,12 +29,13 @@ class ClienteSimulado:
         for qid, corpo in re.findall(r"### id: (\S+)\n(.*?)(?=\n### id: |\Z)", u, re.S):
             palavras = [w.lower() for w in re.findall(r"[A-Za-zÀ-ÿ]{9,}", corpo)][:3] or ["geral"]
             out.append({"id": qid, "temas": palavras, "resumo": "resumo simulado: " + " ".join(palavras),
-                        "abordagem": "outro"})
+                        "abordagem": "outro", "disciplina": "Pediatria"})
         return {"questoes": out}
 
     def _relevancia(self, u):
-        ids = re.findall(r"^- id: (\S+)", u, re.M)
-        return {"relevantes": [{"id": i, "motivo": "relação simulada"} for i in ids[:3]]}
+        ids = re.findall(r"^(\S+-\d{4}-Q\d+) \|", u, re.M)
+        tipos = ["mesmo_tema", "tema_relacionado", "caso_semelhante"]
+        return {"relacionadas": [{"id": i, "tipo": tipos[k % 3], "motivo": "relação simulada"} for k, i in enumerate(ids[:5])]}
 
     def _resolver_as_cegas(self, u):
         return {"alternativa": "A", "confianca": 0.5, "justificativa": "simulação"}
@@ -43,7 +44,6 @@ class ClienteSimulado:
         g = re.search(r"GABARITO OFICIAL: alternativa ([A-E])", u)
         g = g.group(1) if g else "A"
         letras = re.findall(r"^([A-E])\) ", u, re.M) or list("ABCDE")
-        ids = re.findall(r"^### id: (\S+)", u, re.M)
         p = f"<p>{PREENCHIMENTO}</p>"
         secoes = {f"2.{k}": p for k in range(1, 15)}
         secoes["2.3"] = f"<p>A alternativa {g} é a correta. {PREENCHIMENTO}</p>"
@@ -51,11 +51,10 @@ class ClienteSimulado:
         secoes["2.8"] = ("<table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais</th><th>Exame</th>"
                          f"<th>Conduta</th></tr></thead><tbody><tr><td>X</td><td>{PREENCHIMENTO}</td><td>y</td>"
                          "<td>z</td></tr></tbody></table>")
-        return {"tema": "Tema simulado", "aviso_diretriz": None, "secoes": secoes,
-                "historico": [{"id": i, "resumo": "resumo simulado", "cobrado": "diagnóstico",
-                               "relacao": "relação simulada"} for i in ids[:-1]],   # esquece 1 de propósito
-                "referencias": [{"fonte": "PubMed", "detalhe": "tema", "busca": "test search"},
-                                {"fonte": "Fonte inventada", "detalhe": "deve ser descartada", "busca": "x"}],
+        return {"tema": "Pediatria: tema simulado", "aviso_diretriz": None, "secoes": secoes,
+                "referencias": {"livros": [{"fonte": "Nelson — Tratado de Pediatria", "secao": "Capítulo 45, p. 300 — tema"},
+                                           {"fonte": "Livro inventado", "secao": "deve ser descartado"}],
+                                "busca_pubmed": "hemophilia children"},
                 "afirmacoes_criticas": ["afirmação simulada"]}
 
     def _reparar(self, u):

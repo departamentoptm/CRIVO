@@ -1,0 +1,1608 @@
+{
+ "formato": "crivo-questoes",
+ "versao": 1,
+ "banca": "AMP",
+ "ano": "2011",
+ "questoes": [
+  {
+   "id": "AMP-2011-Q1",
+   "numero": 1,
+   "disciplina": null,
+   "enunciado_html": "A partir de que idade espera-se que uma criança, quando colocada em decúbito ventral, possa rolar sobre seu eixo?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1 mês.",
+    "B": "3 meses.",
+    "C": "5 meses.",
+    "D": "7 meses.",
+    "E": "9 meses."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q2",
+   "numero": 2,
+   "disciplina": null,
+   "enunciado_html": "A partir de que idade espera-se que uma criança consiga copiar uma cruz e um quadrado?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1 ano",
+    "B": "2 anos",
+    "C": "3 anos",
+    "D": "4 anos",
+    "E": "5 anos"
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q3",
+   "numero": 3,
+   "disciplina": null,
+   "enunciado_html": "O distúrbio de aprendizagem MAIS COMUM na infância é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Dislexia",
+    "B": "Mutismo seletivo",
+    "C": "Apraxia verbal",
+    "D": "Síndrome de Williams",
+    "E": "Disfluência"
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q4",
+   "numero": 4,
+   "disciplina": null,
+   "enunciado_html": "Qual das orientações abaixo sobre a alimentação do lactente está INCORRETA?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O aleitamento materno exclusivo deve ser mantido até o sexto mês de vida.",
+    "B": "Durante a amamentação exclusiva a suplementação com ferro não é necessária em crianças normais de termo.",
+    "C": "O desmame deve ser iniciado a partir do sexto mês, com uma densidade calórica superior ao leite materno.",
+    "D": "A ingestão de fitatos a partir do sexto mês deve ser elevada, para facilitar a absorção de minerais.",
+    "E": "A ingestão de zinco deve ser estimulada a partir do sexto mês através de alimentos como a carne e os laticínios."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q5",
+   "numero": 5,
+   "disciplina": null,
+   "enunciado_html": "A causa MAIS COMUM de hiponatremia hipovolêmica em crianças é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Diabetes insipidus.",
+    "B": "Síndrome de secreção inadequada de ADH.",
+    "C": "Gastroenterite aguda.",
+    "D": "Insuficiência cardíaca congestiva.",
+    "E": "Síndrome nefrótica."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q6",
+   "numero": 6,
+   "disciplina": null,
+   "enunciado_html": "Qual o distúrbio metabólico que se espera em um bebê com estenose hipertrófica do piloro?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Acidose metabólica.",
+    "B": "Alcalose metabólica hipoclorêmica.",
+    "C": "Hiperpotassemia.",
+    "D": "Alcalose respiratória.",
+    "E": "Hiponatremia hipervolêmica."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q7",
+   "numero": 7,
+   "disciplina": null,
+   "enunciado_html": "Qual a melhor forma de se transportar uma criança de 10 meses e com peso de 8,5 kg, em veículos?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Em assento próprio em banco traseiro, virado para trás.",
+    "B": "Em assento próprio em banco traseiro, virado para frente.",
+    "C": "Em assento próprio em banco dianteiro, virado para trás.",
+    "D": "Em assento próprio em banco dianteiro, virado para frente.",
+    "E": "No colo da mãe, com cinto de três pontas prendendo somente a mãe."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q8",
+   "numero": 8,
+   "disciplina": null,
+   "enunciado_html": "Paciente com quadro de choque séptico, refratário a líquidos e resistente a dopamina, apresenta-se com pulsos amplos, taquicardia, extremidades quentes e hiperemiadas, deve ser tratado preferencialmente com:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Vasodilatadores.",
+    "B": "Epinefrina.",
+    "C": "Norepinefrina.",
+    "D": "Corticosteroides em dose elevada.",
+    "E": "Vasopressina."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q9",
+   "numero": 9,
+   "disciplina": null,
+   "enunciado_html": "Em uma criança com diagnóstico clínico de otite média aguda, não complicada, com suspeita de Streptococcus pneumoniae resistente por ser frequentadora de creche, a MELHOR opção terapêutica inicial é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Amoxicilina com clavulanato.",
+    "B": "Cefalexina.",
+    "C": "Amoxicilina na dose de 80 a 90 mg/kg/dia.",
+    "D": "Ceftriaxona.",
+    "E": "Amoxicilina em dose habitual, associada com descongestionante sistêmico."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q10",
+   "numero": 10,
+   "disciplina": null,
+   "enunciado_html": "Lactente de 10 meses inicia subitamente com febre alta e contínua, acompanhada de irritabilidade e anorexia. Após 3 dias a febre cessa bruscamente e aparece um exantema em tronco, inicialmente, com lesões maculopapulares rosadas e que desaparecem em 2 dias sem deixar descamação ou hiperpigmentação. O agente deste quadro é MAIS PROVAVELMENTE:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Parvovírus humano B19.",
+    "B": "Herpes-vírus humano 6.",
+    "C": "Coxsackievírus B.",
+    "D": "Vírus Epstein-Barr.",
+    "E": "Paramixovírus."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q11",
+   "numero": 11,
+   "disciplina": null,
+   "enunciado_html": "Pré-escolar de 3 anos, há 2 semanas com quadro gripal, inicia há 24 horas com lesões vinhosas em membros inferiores e nádegas, elevadas, evolui com dor e edema em joelhos e após em tornozelos, dor abdominal periumbilical, vômitos e diarreia com estrias de sangue e hematúria macroscópica. O diagnóstico MAIS PROVÁVEL é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Leucemia linfocítica aguda.",
+    "B": "Coagulação intravascular disseminada.",
+    "C": "Meningococcemia.",
+    "D": "Púrpura de Henoch-Schönlein.",
+    "E": "Púrpura trombocitopênica imune."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q12",
+   "numero": 12,
+   "disciplina": null,
+   "enunciado_html": "Criança de 3 anos, dá entrada no Pronto-Socorro 2 horas após ter ingerido vários comprimidos que a avó utiliza para \"problemas nos nervos\". A família não sabe informar qual o medicamento e a quantidade exata ingerida. A criança apresenta-se alternando períodos de irritabilidade e sonolência, temperatura de 37,8°C, frequência cardíaca de 90 bpm, frequência respiratória de 15 irpm. O médico que faz o primeiro atendimento realiza as seguintes medidas: - lavagem gástrica com SF 200 ml por sonda nasogástrica número 8; - carvão ativado 1 g/kg por sonda nasogástrica: - xarope de ipeca para provocar vômitos; - hidratação endovenosa com SF 0,9%; - oxigênio inalatório. Quantas destas medidas você caracteriza como INCORRETAS?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4",
+    "E": "5"
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q13",
+   "numero": 13,
+   "disciplina": null,
+   "enunciado_html": "Que exames complementares ESTÃO INDICADOS de rotina na avaliação pré-operatória de uma criança sem comorbidades, antes de uma cirurgia de adenoamigdalectomia?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Nenhum exame é necessário.",
+    "B": "Somente hemograma.",
+    "C": "Hemograma + coagulograma.",
+    "D": "Hemograma + coagulograma + raio X de tórax.",
+    "E": "Hemograma + coagulograma + raio X de tórax + ECG."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q14",
+   "numero": 14,
+   "disciplina": null,
+   "enunciado_html": "A actinomicose é uma infecção supurativa crônica causada pelo Actinomyces sp.. Este trata-se de um:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Bacilo gram-positivo.",
+    "B": "Bacilo gram-negativo.",
+    "C": "Fungo filamentoso.",
+    "D": "Fungo leveduriforme.",
+    "E": "Coco gram-negativo."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q15",
+   "numero": 15,
+   "disciplina": null,
+   "enunciado_html": "Paciente pré-escolar, com 2 anos e 6 meses, relata início súbito de otalgia e febre baixa. Na otoscopia visualiza-se membrana timpânica abaulada e com vasos visíveis. O médico assistente faz a seguinte prescrição: 1- anti-histamínico sistêmico;<br>2- descongestionante tópico; 3- analgésico (ibuprofeno); 4- mucolítico; 5- antimicrobiano (amoxicilina 50 mg/kg/dia). Quantas INCORREÇÕES você identifica?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4",
+    "E": "5"
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q16",
+   "numero": 16,
+   "disciplina": null,
+   "enunciado_html": "Paciente masculino de 12 anos iniciou, há 2 dias, com quadro de dor torácica precordial irradiada para o pescoço. Ao exame apresenta bulhas taquicárdicas e normofonéticas, frequência respiratória de 28 irpm, pulmões livres, pescoço sem alterações. ECG com supra ST em todas as derivações, exceto em AVR e V1. Ecocardiograma normal. A hipótese MAIS PROVÁVEL é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Infarto agudo do miocárdio.",
+    "B": "Pericardite.",
+    "C": "Doença reumática.",
+    "D": "Síndrome do pânico.",
+    "E": "Hiperparatireoidismo."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q17",
+   "numero": 17,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa INCORRETA sobre o choque distributivo em pediatria:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A principal causa de choque distributivo em pediatria é o choque séptico.",
+    "B": "Outras causas de choque distributivo são o choque neurogênico e o choque anafilático.",
+    "C": "Para a definição de choque séptico é necessária a presença de hipotensão.",
+    "D": "No choque quente deve-se utilizar preferencialmente a noradrenalina.",
+    "E": "No choque séptico a correção dos distúrbios metabólicos (principalmente de glicose e cálcio) é de suma importância."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q18",
+   "numero": 18,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa INCORRETA sobre a doença do refluxo gastroesofágico (DRGE) na infância:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Algumas crianças apresentam-se com torções cervicais, designadas síndrome de Sandifer.",
+    "B": "O monitoramento prolongado do pH esofágico não é mais considerado essencial para o diagnóstico de DRGE.",
+    "C": "Os agentes procinéticos, especialmente a domperidona, agem diminuindo a frequência do relaxamento transitório do esfíncter esofagiano inferior.",
+    "D": "A farmacoterapia é orientada para melhorar a acidez do conteúdo gástrico.",
+    "E": "A fundoplicatura é indicada em pacientes com DRGE intratável clinicamente."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q19",
+   "numero": 19,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa CORRETA sobre a ingestão de substâncias cáusticas:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A ingestão de produtos ácidos geralmente tem pior prognóstico que a ingestão de produtos álcalis.",
+    "B": "Uma endoscopia deve ser realizada em todos os pacientes sintomáticos.",
+    "C": "Deve-se tentar imediatamente após a ingestão, a tentativa de neutralização do produto ingerido, quando este for conhecido.",
+    "D": "Uma parcela significante destes pacientes apresentará, no futuro, carcinoma esofágico.",
+    "E": "Deve-se estimular o vômito em casa antes de procurar o atendimento médico."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q20",
+   "numero": 20,
+   "disciplina": null,
+   "enunciado_html": "O resfriado comum é uma doença viral em que os sintomas de rinorreia e obstrução nasal são proeminentes. Na orientação terapêutica desta situação são considerados tratamentos INEFICAZES, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Vitamina C.",
+    "B": "Extrato de equinácea.",
+    "C": "Expectorantes à base de guaifenesina.",
+    "D": "Antitussígenos como codeína ou dextrometorfan.",
+    "E": "Analgésicos como o acetaminofen."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q21",
+   "numero": 21,
+   "disciplina": null,
+   "enunciado_html": "A Secretaria de Estado da Saúde do Paraná (BOLETIM INFORMATIVO DENGUE N.° 7/2010) registrou, até 31 de julho de 2010, 24.000 casos de dengue no Estado do Paraná. No período foram informados 142 casos graves de dengue (56 casos de Febre Hemorrágica do Dengue - FHD e 86 casos de Dengue Com Complicação - DCC), com seis óbitos por FHD e dois óbitos por DCC. Considerando uma população estimada em torno de 10 milhões de habitantes no estado, assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O coeficiente de incidência de casos notificados de dengue é 24/1.000.",
+    "B": "O coeficiente de mortalidade do dengue é 0,08/100.000.",
+    "C": "O coeficiente de letalidade do dengue grave é de 0,08/100.000.",
+    "D": "O coeficiente de prevalência de dengue é 24/1.000.",
+    "E": "A mortalidade proporcional por dengue é de 5,6%."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q22",
+   "numero": 22,
+   "disciplina": null,
+   "enunciado_html": "Quanto à validade dos testes diagnósticos analise as afirmativas abaixo: I - A especificidade do teste avalia a probabilidade de uma pessoa com resultado do exame negativo não apresentar realmente a doença. II - A realização de testes em série melhora a especificidade do diagnóstico. III - Testes diagnósticos para uma doença têm menor valor preditivo positivo quando aplicados em programas de rastreamento na população geral. IV - A sensibilidade, especificidade e a prevalência da doença afetam os valores preditivos do teste. V - Um teste diagnóstico 100% sensível não apresenta casos falso-positivos. Assinale a resposta CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Somente as afirmativas I, II e V são verdadeiras.",
+    "B": "Somente as afirmativas I, II e IV são verdadeiras.",
+    "C": "Somente as afirmativas II, III e IV são verdadeiras.",
+    "D": "Somente as afirmativas II, III e V são verdadeiras.",
+    "E": "As afirmativas I, II, III, IV e V são verdadeiras."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q23",
+   "numero": 23,
+   "disciplina": null,
+   "enunciado_html": "Com relação aos estudos epidemiológicos de caso-controle assinale se FALSO ou VERDADEIRO: ( ) a seleção dos participantes do estudo inicia-se pela formação de grupos de acordo com a exposição a possíveis fatores de risco. ( ) é um delineamento observacional longitudinal. ( ) é o tipo mais indicado para investigações de fatores de risco para doenças raras. ( ) permite a avaliação de vários desfechos ou efeitos. ( ) pode-se interpretar um resultado que mostrou uma \"odds ratio\" igual a 1 como uma exposição protetora. Assinale a alternativa que apresenta a sequência CORRETA, de cima para baixo.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "F- V - V - V - F.",
+    "B": "V - V - F- F - V",
+    "C": "F - F - V - F- V.",
+    "D": "F - V - V- F - F.",
+    "E": "V - F - F - V- V."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q24",
+   "numero": 24,
+   "disciplina": null,
+   "enunciado_html": "Quanto aos ensaios clínicos controlados randomizados assinale a alternativa INCORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A exposição é uma intervenção promovida pelo investigador.",
+    "B": "A redução absoluta do risco (RAR), a redução relativa do risco (RRR) e a razão de prevalências (RP) são medidas para estimar o efeito da intervenção.",
+    "C": "A randomização garante a alocação aleatória entre o grupo tratado e o grupo controle.",
+    "D": "São estudos longitudinais experimentais",
+    "E": "O número necessário para tratar (NNT) é o inverso da redução absoluta do risco (RAR) e expressa o número de pacientes que devem ser tratados para que um evento adverso (morte, sequela, doença, etc) seja evitado."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q25",
+   "numero": 25,
+   "disciplina": null,
+   "enunciado_html": "Em relação à vigilância epidemiológica de doenças assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Nenhum caso suspeito deve ser notificado antes da confirmação laboratorial.",
+    "B": "Casos de raiva, sarampo, botulismo e poliomielite devem ser notificados em até 24 horas.",
+    "C": "O isolamento e tratamento de casos de doenças transmissíveis é uma das atividades da vigilância epidemiológica.",
+    "D": "A notificação dos casos pelos profissionais de saúde é uma das estratégias de busca ativa de casos.",
+    "E": "A confirmação diagnóstica em vigilância epidemiológica é necessária para a adoção de medidas de controle."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q26",
+   "numero": 26,
+   "disciplina": null,
+   "enunciado_html": "Sérgio Arouca (em 1982) formulou a compreensão teórica da saúde, síntese de múltiplas determinações, o que encaminhava a proposta de uma reforma sanitária que atuasse em todos os níveis que incidem no campo da saúde. Assinale a afirmativa que NÃO está compreendida entre estes postulados:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Possuir uma potência tecnológica específica que permita solucionar problemas tanto no nível individual como no coletivo.",
+    "B": "Um campo de necessidades geradas pelo fenômeno saúde-enfermidade.",
+    "C": "Movimento isento da contradição entre produção socializada e apropriação privada.",
+    "D": "A produção dos serviços de saúde com sua base técnico-material, seus agentes e instituições organizadas para satisfazer necessidades.",
+    "E": "Ser um espaço de hegemonia de classe, por meio das políticas sociais que têm a ver com a produção social."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q27",
+   "numero": 27,
+   "disciplina": null,
+   "enunciado_html": "A construção da Reforma Sanitária Brasileira e do SUS (a partir do processo de redemocratização do país, em 1985) passou pela produção de um conjunto de fatos sociais encadeados a seguir destacados. Assinale a resposta INCORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Nona Conferência Nacional de Saúde em 1986.",
+    "B": "Implantação do SUDS como estratégia ponte para o SUS.",
+    "C": "Instalação da Comissão Nacional da Reforma Sanitária.",
+    "D": "Os trabalhos da Assembleia Nacional Constituinte (1987-1988).",
+    "E": "Promulgação das Leis Orgânicas da Saúde."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q28",
+   "numero": 28,
+   "disciplina": null,
+   "enunciado_html": "O SUS tem sido reconhecido como uma política pública construída pelos movimentos sociais que lutaram pela democracia, ocupando espaços na Constituição e nas leis, tendo os governos a obrigação de implementá-la. É um dos caminhos para a garantia do direito à saúde dos cidadãos, como dever do Estado, constituindo o maior sistema público de saúde do mundo. Corresponde a um sistema de serviços de saúde de caráter público, organizado com as seguintes orientações, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Atendimento integral, com ênfase nas ações preventivas e sem prejuízo das ações assistenciais.",
+    "B": "Participação da comunidade através de Conselhos de Saúde paritários com a representação do governo.",
+    "C": "Descentralização, com direção única em cada esfera de governo.",
+    "D": "Saúde como direito social para todos, condição da cidadania, caracterizado pela igualdade, ou seja, assistência sem preconceitos ou privilégios.",
+    "E": "Equidade, com atenção de acordo com as necessidades, ou seja, \"discriminação positiva\", quando se priorizam os que têm mais necessidades."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q29",
+   "numero": 29,
+   "disciplina": null,
+   "enunciado_html": "Assinale a afirmativa VERDADEIRA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "No governo Itamar Franco foi criado o Programa de Agentes Comunitários de Saúde (PACS).",
+    "B": "No governo Collor de Melo ocorreu uma disputa entre a saúde e a previdência, porém foi criado o Programa de Saúde da Família (PSF).",
+    "C": "No governo Fernando Henrique Cardoso foi criada a Contribuição Provisória de Movimentação Financeira (CPMF).",
+    "D": "No primeiro governo de Luiz Inácio Lula da Silva foi criado o Piso da Atenção Básica (PAB).",
+    "E": "A ANVISA (Agência Nacional de Vigilância Sanitária) e a ANS (Agência Nacional de Saúde Suplementar) são mais recentes, constituídas a partir do segundo mandato de Luiz Inácio Lula da Silva."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q30",
+   "numero": 30,
+   "disciplina": null,
+   "enunciado_html": "A publicização da rede assistencial de saúde universal, pós-SUS é evidente. Houve ampliação do componente público, em termos de capacidade instalada, produção de serviços e repasses financeiros. Contudo, tal expansão não ocorreu de maneira proporcional e simultânea. Parte das mudanças na composição público-privada se acentuou ou se consolidou a partir dos anos 1990. Assinale o item que NÃO CORRESPONDE a estas mudanças:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Elevação da produção de consultas e de internações hospitalares por órgãos públicos.",
+    "B": "Aumento da capacidade instalada hospitalar.",
+    "C": "Crescimento exponencial da assistência ambulatorial.",
+    "D": "Municipalização dos postos de trabalho são marcas dos anos 90.",
+    "E": "A participação do subcomponente filantrópico, na produção de procedimentos de maior complexidade diminuiu significativamente neste período."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q31",
+   "numero": 31,
+   "disciplina": null,
+   "enunciado_html": "Em 1980 a população brasileira totalizava cerca de 119 milhões de pessoas. Qual o percentual de brasileiros contava nesta época com a cobertura de esquemas institucionalizados privados/particulares de assistência à saúde?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Cerca de 10%",
+    "B": "Cerca de 20%",
+    "C": "Cerca de 25%",
+    "D": "Cerca de 30%",
+    "E": "Mais de 30%"
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q32",
+   "numero": 32,
+   "disciplina": null,
+   "enunciado_html": "Durante os dois mandatos de Fernando Henrique Cardoso, no contexto de plena ascensão das teses de diminuição da intervenção estatal nas atividades econômicas, os planos privados de saúde foram encarados como emanações naturais, inevitáveis e benéficas do mercado. Uma alternativa de \"alívio\" das despesas públicas diante do subfinanciamento do SUS. Assinale a afirmativa INCORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "São palavras do então Ministro da Saúde Adib Jatene: \"todos os que podem pagar devem fazê-lo para que se viabilize o atendimento dos que não podem com os poucos recursos que o sistema possui\".",
+    "B": "A ANS (Agência Nacional de Saúde Suplementar) foi constituída no ano 2000.",
+    "C": "No primeiro governo Lula foram indicados sanitaristas para a direção da ANS, estabelecendo um novo relacionamento com a Saúde Suplementar, em claro movimento de reforço do SUS e à universalização do atendimento.",
+    "D": "As coberturas de planos e seguros de saúde foram consideradas variáveis independentes de um modelo causal, que pressupõe como desfecho favorável não a saúde e sim a capacidade individual de consumo.",
+    "E": "A vinculação dos planos privados de saúde, em certos casos, passou a ser rotulada, por dirigentes sindicais, como conquista dos trabalhadores. Conquista que inclui servidores públicos e seus familiares, em todas as esferas de governo."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q33",
+   "numero": 33,
+   "disciplina": null,
+   "enunciado_html": "A Emenda Constitucional 29 (EC-29) equaliza os critérios de cálculo das contrapartidas federal, estadual e municipal para o Setor Saúde. Em relação ao percentual da contrapartida estadual assinale o item CORRETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "10%.",
+    "B": "12%.",
+    "C": "15%.",
+    "D": "18%.",
+    "E": "20%."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q34",
+   "numero": 34,
+   "disciplina": null,
+   "enunciado_html": "No final da década de 1970, quando se iniciavam as articulações que deram origem ao chamado movimento da Reforma Sanitária, difundiu-se a ideia de resgatar a medicina social como uma proposta alternativa em defesa da saúde da população. Tratava-se de enfatizar os seguintes aspectos, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Ações preventivas.",
+    "B": "Centralidade da noção de doença.",
+    "C": "Higienização das cidades.",
+    "D": "Contínua tutela médica, através do médico da família.",
+    "E": "Preocupação com a salubridade."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q35",
+   "numero": 35,
+   "disciplina": null,
+   "enunciado_html": "Não há dúvida que a proposta do SUS, na sua origem, combate a privatização e a medicalização da Saúde. No entanto, não se pode esquecer que sua implantação enfrenta dificuldades. Dentre elas NÃO está incluída:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Características patrimonialistas e privativistas do Estado brasileiro.",
+    "B": "Expansão atual da expressão da ideologia do capital.",
+    "C": "Existência da luta entre projetos no âmbito histórico-social, na política e na economia capitalista.",
+    "D": "Parceria público-privada faz com que o valor ético e político das ações de saúde passem a ser distorcidos em nome de um bom gerenciamento das ações de saúde.",
+    "E": "Implantação de projetos de educação em saúde que buscam a emancipação, os valores<br><br>éticos-políticos orientados para o coletivo, reforçando a lógica do valor na produção imaterial que é a saúde."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q36",
+   "numero": 36,
+   "disciplina": null,
+   "enunciado_html": "No contexto do exame periódico de saúde, assinale a alternativa INCORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Um dos requisitos básicos é de que a doença a ser rastreada deve ser causa importante de morbidade e mortalidade, detectar a doença em fase pré-sintomática e ter taxas aceitáveis de falso-positivos.",
+    "B": "Devemos realizar rotineiramente rastreamento breve para depressão, problemas com bebidas alcoólicas e colpocitologia oncótica em mulheres sexualmente ativas pelo menos a cada 3 anos (idade entre 21 a 65 anos).",
+    "C": "Rastreamento para câncer colorretal em pacientes acima de 50 anos, com pesquisa de sangue oculto em fezes anualmente e sigmoidoscopia flexível a cada 5 a 10 anos, PSA e toque retal anualmente a todos os homens acima de 50 anos e densitometria óssea em mulheres por ocasião da menopausa.",
+    "D": "No que tange ao aconselhamento: incentivar a redução do tabagismo, prevenção do trauma com o uso de capacetes para motocicletas e bicicletas, guarda segura de armas de fogo e uso regular de fio dental.",
+    "E": "Quanto à quimioprevenção preconiza-se uso de ácido fólico em mulheres planejando gestação, uso da aspirina para redução do risco de IAM e AVC em adultos na meia idade, pesando os riscos desta intervenção."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q37",
+   "numero": 37,
+   "disciplina": null,
+   "enunciado_html": "Faz parte do elenco de ações que compõem a prevenção primária:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Inquéritos para descoberta de casos na comunidade.",
+    "B": "Terapia ocupacional.",
+    "C": "Isolamento para evitar a propagação de doenças.",
+    "D": "Aconselhamento genético.",
+    "E": "Exames periódicos individuais."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q38",
+   "numero": 38,
+   "disciplina": null,
+   "enunciado_html": "Assinale o conceito de prevalência:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "É o termo que descreve a força com que subsistem as doenças nas coletividades.",
+    "B": "É a observação sistemática e ativa de casos suspeitos ou confirmados de doenças transmissíveis e de seus contatos.",
+    "C": "Traduz a ideia de intensidade com que acontece a morbidade em determinada população.",
+    "D": "Maior ou menor poder que tem uma doença em provocar a morte das pessoas que adoeceram por esta doença.",
+    "E": "É o quociente entre as frequências absolutas de óbitos e o número dos expostos ao risco de morrer."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q39",
+   "numero": 39,
+   "disciplina": null,
+   "enunciado_html": "Dois conceitos dos abaixo relacionados caracterizam ENDEMIA. Assinale a alternativa CORRETA: 1<br>- A intensidade de caráter endêmico de determinada doença, em determinado lugar e intervalo cronológico. 2 - É uma alteração, espacial e cronologicamente delimitada, do estado de saúde-doença de uma população, caracterizada por uma elevação progressivamente crescente, ultrapassando o limiar epidêmico preestabelecido. 3 - Ocorrência coletiva de uma determinada doença que, no decorrer de um largo período histórico, acometendo sistematicamente grupos humanos distribuídos em espaços delimitados e caracterizados, mantém a sua incidência constante.<br>4 - Ocorrência epidêmica caracterizada por uma larga distribuição espacial, atingindo várias nações.<br>5 - Qualquer doença espacialmente localizada, temporalmente ilimitada, habitualmente presente entre os membros de uma população e cujo nível de incidência se situe sistematicamente nos limites de uma faixa que foi previamente convencionada para uma população e época determinadas.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "1 e 3.",
+    "B": "2 e 4.",
+    "C": "3 e 5.",
+    "D": "1 e 4.",
+    "E": "2 e 5."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q40",
+   "numero": 40,
+   "disciplina": null,
+   "enunciado_html": "Estudos de COORTE são os únicos capazes de abordar hipóteses etiológicas produzindo medidas de incidência e medidas diretas de risco. Assinale a característica que NÃO PERTENCE aos estudos de COORTE:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Em sua maioria partem da observação de grupos comprovadamente expostos a um fator de risco suposto como causa de doença a ser detectada no futuro.",
+    "B": "Uma mesma área ou população é investigada em momentos distintos no tempo. Os coeficientes de uma dada área implicam uma média da variação por subgrupos com características internas diferentes.",
+    "C": "Propõe como sequência lógica da pesquisa a antecipação das possíveis causas e a investigação de seus efeitos.",
+    "D": "Existem dois tipos de estudo de coorte: o concorrente (prospectivo) e o estudo não concorrente (retrospectivo).",
+    "E": "O acompanhamento diacrônico (evolução no tempo) tem por objetivo determinar diferenças na velocidade com que surge a doença em estudo nos subgrupos de expostos e não expostos ao suposto fator de risco."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q41",
+   "numero": 41,
+   "disciplina": null,
+   "enunciado_html": "Paciente do sexo masculino, com 50 anos de idade, relata três episódios de hematêmese, sendo o primeiro há 6 horas. Há 1 hora apresentou sangramento retal vermelho-vivo. Nega episódios prévios, nega dispepsia, nega história de etilismo, nega doenças ou uso de medicamentos. Ao exame, apresenta-se agitado, hipocorado, com FC = 130 bpm, FR = 24 mrm, PA = 92/64 mmHg, ausculta pulmonar normal, abdome sem particularidades. Sobre o caso clínico descrito acima, assinale a assertiva CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A evacuação de sangue vivo neste caso indica que o foco provável de sangramento encontra-se após o ângulo de Treitz.",
+    "B": "O sangramento estimado é menor que 20% do volume sanguíneo.",
+    "C": "As causas mais frequentes desta forma de sangramento são os tumores do trato gastrointestinal.",
+    "D": "A lavagem gástrica com solução salina gelada reduz o sangramento se este for de origem gástrica.",
+    "E": "O paciente não apresenta preditores de mau prognóstico e não necessita de endoscopia digestiva emergencial."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q42",
+   "numero": 42,
+   "disciplina": null,
+   "enunciado_html": "Paciente do sexo masculino com 62 anos de idade relata três meses de evolução de dispneia que piora com os esforços. Apresenta tosse produtiva de longa data, nega perda ponderal, nega febre. Hipertenso em uso de hidroclorotiazida. Tabagista de 1 maço/dia há 35 anos. Ao exame apresenta-se com FR = 22 mrm, murmúrio vesicular reduzido difusamente. Você solicitou uma espirometria, a qual apresentou o seguinte resultado: VEF1 = 62%, VEF1: CVF = 0,68, VEF1 pós-broncodilatador: 61%. Sobre o caso clínico apresentado, assinale a assertiva CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A cessação do tabagismo não influencia a história natural da doença, mas deve ser estimulada.",
+    "B": "O uso de glicocorticoides inalatórios é imprescindível, pois reduz a taxa de deterioração da função pulmonar.",
+    "C": "Deve ser iniciado o uso de agente anticolinérgico inalatório como o tiotrópio ou beta-agonista de ação prolongada.",
+    "D": "A teofilina não produz melhora de função pulmonar em pacientes como o descrito no caso clínico, portanto, não deve ser utilizada.",
+    "E": "Em pacientes com exacerbações frequentes (&gt; 2 em 1 ano), está indicado o uso de antibiótico profilático."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q43",
+   "numero": 43,
+   "disciplina": null,
+   "enunciado_html": "Paciente masculino, de 67 anos, sem doença prévia, procura o seu consultório para check-up. Nega uso de medicações. Relata história prévia de tabagismo, nega etilismo. Exame físico normal. Em relação ao rastreamento e profilaxias neste paciente, é CORRETO afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Está indicado o rastreamento de dislipidemia, hipertensão, diabetes e hipotireoidismo.",
+    "B": "Deve ser solicitada ultrassonografia para rastreamento de aneurisma de aorta abdominal.",
+    "C": "Está indicado o rastreamento de câncer colorretal, sendo a pesquisa de sangue nas fezes a estratégia mais sensível.",
+    "D": "Deve ser solicitada densitometria óssea, já que no estudo BRAZOS o tabagismo prévio foi identificado como um dos principais fatores de risco para osteoporose.",
+    "E": "Está indicado o uso anual de vacina antipneumocócica e anti-influenza."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q44",
+   "numero": 44,
+   "disciplina": null,
+   "enunciado_html": "Paciente de 17 anos, do sexo feminino procura o pronto-socorro por episódio de alteração do nível de consciência, que ocorreu quando a paciente caminhava, precedida de sensação de cabeça leve, com perda de tônus postural e queda. Acompanhante relata que não houve tremor ou liberação esfincteriana. O episódio durou alguns segundos, com recuperação completa 1 minuto após o episódio. O exame físico, incluindo o exame neurológico no momento do atendimento, são normais. Em relação ao quadro apresentado, assinale a assertiva CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Como o episódio foi único e não foi acompanhado de palpitações, o eletrocardiograma é dispensável.",
+    "B": "A causa mais comum do quadro apresentado pela paciente é o surto vasovagal.",
+    "C": "Deve ser realizado eletroencefalograma para investigação etiológica.",
+    "D": "Está indicado o uso de fludrocortisona 0, 1 a 1 mg/dia, para prevenção de novos episódios.",
+    "E": "Exame de neuroimagem, preferencialmente a ressonância magnética, é indicada de rotina."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q45",
+   "numero": 45,
+   "disciplina": null,
+   "enunciado_html": "São síndromes associadas à obesidade, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Síndrome de Präder-Willi.",
+    "B": "Síndrome de Cohen.",
+    "C": "Síndrome de Cushing.",
+    "D": "Síndrome de Ahlstrom.",
+    "E": "Síndrome de Williams."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q46",
+   "numero": 46,
+   "disciplina": null,
+   "enunciado_html": "Paciente masculino é levado ao pronto-socorro por familiares, por quadro confusional com 48 horas de evolução. Os familiares relatam que o paciente apresenta dificuldade de marcha desde o início do quadro. Previamente assintomático, etilista de 1 litro de destilado/dia há 15 anos. Há 2 dias sem ingestão alcoólica. Ao exame, apresenta-se confuso, emagrecido, afebril, anictérico, ausência de rigidez de nuca, com nistagmo pronunciado, marcha atáxica, sem outras alterações neurológicas. A conduta terapêutica MAIS CORRETA é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Reposição de glicose intravenosa, controle do quadro neurológico com uso de benzodiazepínicos.",
+    "B": "Abstinência, iniciar dieta enteral e lactulona, mantendo até resolução do quadro neurológico.",
+    "C": "Reposição de tiamina parenteral por 7 dias, seguida de tiamina por via oral.",
+    "D": "Solicitar dosagem sérica e iniciar reposição de cianocobalamina parenteral.",
+    "E": "Reposição de nicotinamida ou ácido nicotínico."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q47",
+   "numero": 47,
+   "disciplina": null,
+   "enunciado_html": "Em relação à epidemiologia da infecção pelo HIV/AIDS no Brasil, é CORRETO afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A taxa de incidência encontra-se estável em todas as regiões do país.",
+    "B": "Observa-se predomínio da notificação de novos casos em homens, mas a razão de sexos vem reduzindo.",
+    "C": "No Brasil, observa-se aumento da importância da transmissão por relações homossexuais.",
+    "D": "Os novos casos da doença concentram-se apenas nos grandes centros urbanos.",
+    "E": "Não há diferença entre as classes sociais no que se refere à epidemiologia da infecção pelo HIV."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q48",
+   "numero": 48,
+   "disciplina": null,
+   "enunciado_html": "Fazem parte dos critérios classificatórios do Lúpus Eritematoso Sistêmico todos os abaixo, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Erupção em borboleta, erupção discoide e artrite.",
+    "B": "Serosite, anemia hemolítica e linfopenia.",
+    "C": "Plaquetopenia, glomerulonefrite e fenômeno de Raynaud.",
+    "D": "Convulsões, FAN positivo, fotossensibilidade.",
+    "E": "Anticorpos antifosfolipides, psicose e artrite."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q49",
+   "numero": 49,
+   "disciplina": null,
+   "enunciado_html": "Faça a MELHOR associação: A- Anti-RO. B- Anti-RNP. C- Anti-Ds DNA. D- Anti-histona. E- FAN. ( ) Associado com síndrome de características superimpostas. ( ) Associado com lúpus induzido por drogas. ( ) Melhor teste de triagem para o LES.<br>( ) Associado com nefrite e com a atividade do Lúpus. ( ) Lúpus neonatal.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "B, D, E, C, A",
+    "B": "D, B, E, C, A",
+    "C": "D, B, E, A, C",
+    "D": "B, D, E, A, C",
+    "E": "B, D, C, E, A"
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q50",
+   "numero": 50,
+   "disciplina": null,
+   "enunciado_html": "Levando-se em conta a fisiopatologia da dor - os mecanismos de transmissão, modulação e da neuroplasticidade e o desafio da terapêutica, assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Na dor neuropática (neuralgia pós-herpética p.ex.) as drogas de primeira linha são os analgésicos não opioides, AINE e na segunda escolha os antidepressivos tricíclicos ou opioides fracos",
+    "B": "Nas dores nociceptivas de moderada intensidade (dor pós-operatória p.ex.) deveremos empregar sempre analgésicos opioides como a morfina e a meperidina e eventualmente o fentanil",
+    "C": "Em dores neuropáticas revisões sistemáticas sugerem que tem efetividade similar o uso de opioides, antidepressivos tricíclicos, gabapentina ou seu análogo a pregabalina",
+    "D": "Nas dores provenientes de câncer são ineficazes o uso de corticoides, pamidronato e os bloqueios de nervos",
+    "E": "Nos transtornos dolorosos multissomatiformes os antidepressivos dopaminérgicos ou antagonistas da COX 2 são as drogas de primeira escolha."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q51",
+   "numero": 51,
+   "disciplina": null,
+   "enunciado_html": "Quanto aos distúrbios da homeostase do sódio e da água, assinale a alternativa ERRADA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Distúrbios da água são distúrbios de osmolaridade, manifestados por alterações no sódio plasmático - detectado pela dosagem de sódio no plasma.",
+    "B": "Distúrbios do balanço de sódio são distúrbios de volume do espaço extracelular - detectado pelo simples exame físico: edema ou desidratação.",
+    "C": "Hiponatremia ou excesso de água: estado hiposmolar e hipotônico em que o sódio plasmático está abaixo de 135 mEq/L, com edema celular neuronal.",
+    "D": "Na correção da hiponatremia sintomática do adulto poderemos usar solução salina hipertônica a 3% - 1-2 ml/kg/hora, mas temos que ter a cautela de não ocasionar a síndrome de desmielinização osmótica, quando a correção é muito rápida.",
+    "E": "A síndrome do \"bebedor de cerveja\" consiste em hipernatremia hipervolêmica."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q52",
+   "numero": 52,
+   "disciplina": null,
+   "enunciado_html": "Marque a alternativa que expressa CORRETAMENTE o tratamento anti-isquêmico da Angina Instável e Infarto do Miocárdio sem Supradesnível do Segmento ST.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A administração por via endovenosa de nitratos é indicada quando os sintomas não forem completamente aliviados com três comprimidos de nitroglicerina sublingual e início de terapia com betabloqueadores.",
+    "B": "O sulfato de morfina é indicado se após a utilização de nitroglicerina por três dias houver a persistência dos sintomas.",
+    "C": "Os betabloqueadores somente são indicados para pacientes com infarto agudo do miocárdio confirmado.",
+    "D": "Em pacientes portadores de diabetes deve-se evitar a utilização de betabloqueadores.",
+    "E": "O Diltiazem e o Verapamil (bloqueador dos canais de cálcio) podem ser utilizados em pacientes com insuficiência cardíaca esquerda como alternativa aos betabloqueadores."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q53",
+   "numero": 53,
+   "disciplina": null,
+   "enunciado_html": "Em relação aos fármacos utilizados para tratamento da hipertensão arterial, CORRELACIONE a coluna que expressa o nome do medicamento com a contraindicação ou precaução correspondente. (VER IMAGEM)",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A, D, B, C;",
+    "B": "D, C, A, B;",
+    "C": "B, A, C, D;",
+    "D": "C, B, D, A;",
+    "E": "C, D, B, A."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q54",
+   "numero": 54,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa que NÃO pertence à classificação das doenças respiratórias de padrão obstrutivo:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Enfisema",
+    "B": "Fibrose cística",
+    "C": "Fibrose pulmonar idiopática",
+    "D": "Bronquiectasia",
+    "E": "Bronquiolite"
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q55",
+   "numero": 55,
+   "disciplina": null,
+   "enunciado_html": "Qual dos achados abaixo NÃO está incluído entre os fatores de maior risco para acidente vascular encefálico na Fibrilação Atrial?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "História de AVC prévia.",
+    "B": "Estenose Mitral.",
+    "C": "Insuficiência Cardíaca Congestiva.",
+    "D": "Idade &gt; 60 anos.",
+    "E": "Ecocardiograma com contraste espontâneo nas cavidades atriais."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q56",
+   "numero": 56,
+   "disciplina": null,
+   "enunciado_html": "Quanto à osteoporose assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Há maior risco de desenvolvimento da doença entre pessoas com peso corporal acima de 58 kg.",
+    "B": "Alcoolismo não figura entre os fatores de risco para osteoporose.",
+    "C": "As fraturas da pelve e do úmero proximal estão associadas claramente à osteoporose.",
+    "D": "A unidade molecular básica (UMB) movimenta-se ao longo da superfície trabecular com uma velocidade de aproximadamente 15 mcm/dia, dentro do mecanismo de remodelagem óssea.",
+    "E": "Um maior recrutamento dos locais de remodelagem óssea produz aumento do tecido ósseo e reforço da arquitetura esquelética."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q57",
+   "numero": 57,
+   "disciplina": null,
+   "enunciado_html": "Indique a alternativa que NÃO é indicativa de causa de cefaleia secundária:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Enxaqueca.",
+    "B": "Hemorragia subaracnoidea.",
+    "C": "Tumor Cerebral.",
+    "D": "Distúrbio vascular.",
+    "E": "Infecção sistêmica."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q58",
+   "numero": 58,
+   "disciplina": null,
+   "enunciado_html": "Em relação à radiculopatia lombossacra, quando existe dor na face anterolateral da coxa temos um comprometimento de:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "L2",
+    "B": "L3",
+    "C": "L4",
+    "D": "L5",
+    "E": "S1"
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q59",
+   "numero": 59,
+   "disciplina": null,
+   "enunciado_html": "Quanto à meningococemia aguda por Neisseria meningitidis é INCORRETO afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Pode haver púrpura fulminante secundária à coagulação intravascular disseminada.",
+    "B": "As petéquias aumentam rapidamente de número, algumas vezes crescendo, sem no entanto tornarem-se vesiculosas.",
+    "C": "As lesões iniciais são maculopapulosas que evoluem para petéquias.",
+    "D": "As lesões de pele acometem mais comumente o tronco e os membros.",
+    "E": "Podem surgir lesões na face, mãos e pés."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q60",
+   "numero": 60,
+   "disciplina": null,
+   "enunciado_html": "Na classificação fisiológica das anemias, apenas uma variável aparece como importante na morfologia do eritrócito, tanto no componente hipoproliferativo como no distúrbio de maturação. Qual é ela?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deficiência de folato.",
+    "B": "Toxicidade a fármaco.",
+    "C": "Deficiência de ferro.",
+    "D": "Deficiência de vitamina B12.",
+    "E": "Defeito metabólico."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q61",
+   "numero": 61,
+   "disciplina": null,
+   "enunciado_html": "Amanda, 29 anos, queixa-se de intenso prurido vulvovaginal que teve início há 4 dias. Relata que, somente neste ano, é a quinta vez que isto ocorre e que nas vezes anteriores prescreveram-lhe fluconazol por via oral e isoconazol por via vaginal, sem melhora nenhuma. Percebeu que o sintoma manifesta-se na semana que está para menstruar, cessando espontaneamente após o início da menstruação. Seus ciclos menstruais são eumenorrêicos, é laqueada há 2 anos, não apresenta comorbidades e o parceiro sexual é assintomático. Ao exame ginecológico observou-se hiperemia e edema de pequenos lábios, hipermia difusa de paredes vaginais, conteúdo vaginal esbranquiçado, grumoso e teste de Whiff negativo. Sobre o quadro clínico acima apresentado é(são) CORRETA(S) a(s) seguinte(s) alternativa(s): I- Trata-se de infecção recidivante por Torulopsis glabrata. II- Trata-se de proliferação exacerbada da flora lactobacilar saprófita da vagina. III- O tratamento é feito com aplicação tópica de violeta de genciana. IV- No exame microscópico observa-se: poucos leucócitos, citolise de células epiteliais com núcleo/citoplasma empalidecidos e reduzidos e bordos celulares mal definidos; V- Obtém-se alívio dos sintomas com banhos de acento com bicarbonato de sódio.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "I correta.",
+    "B": "I e III corretas.",
+    "C": "I, III e IV corretas.",
+    "D": "I e V corretas.",
+    "E": "II, IV e V corretas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q62",
+   "numero": 62,
+   "disciplina": null,
+   "enunciado_html": "Eudiclécia, 55 anos, apresenta sangramento genital há 7 dias, em quantidade moderada. Menopausada há 7 anos e nunca fez uso de terapia hormonal. É Gesta I, Para I (aos 32 anos), diabética em uso de insulina e hipertensa em uso de enalapril. Ao exame físico: peso 72 quilogramas, altura 158 cm, toque ginecológico e exame especular sem alterações. A conduta para esta paciente é:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Medroxiprogesterona 150 mg IM.",
+    "B": "Curetagem hormonal com contraceptivo hormonal oral monofásico 3 vezes por dia durante 7 dias.",
+    "C": "Conduta expectante por 15 dias.",
+    "D": "Curetagem uterina de prova.",
+    "E": "Ultrassom transvaginal."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q63",
+   "numero": 63,
+   "disciplina": null,
+   "enunciado_html": "Keyla, 28 anos, queixa-se que desde os 14 anos menstrua a cada 90-120 dias, em discreta quantidade e por 2 dias. Está casada há 4 anos e não consegue engravidar. No exame físico estatura de 168 cm, peso 62 quilogramas, sem outras alterações. No exame ginecológico observou-se hipoplasia mamária, pilificação ginecoide e escassa, vulva normal, vagina normal. Ao ultrassom transvaginal o útero media 41 mm de comprimento e os ovários não foram visualizados. Com os dados disponíveis podemos SUSPEITAR de:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Síndrome de Turner.",
+    "B": "Síndrome de Swyer.",
+    "C": "Síndrome de Klinefelter.",
+    "D": "Síndrome de insensibilidade androgênica parcial.",
+    "E": "Síndrome de Mayer-Rokitansky-Kuster-Hauser."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q64",
+   "numero": 64,
+   "disciplina": null,
+   "enunciado_html": "Nos casos de mastite lactacional ainda sem abscesso a orientação e tratamento CORRETOS são:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Deve ser orientada a pressão manual e o uso de antibióticos.",
+    "B": "Deve ser recomendada a interrupção da amamentação e o uso de anti-inflamatórios.",
+    "C": "Evitar a pressão manual, mas motivar a amamentação.",
+    "D": "Antibióticos e anti-inflamatórios e doação de leite materno.",
+    "E": "Suspender a amamentação para usar antibióticos e anti-inflamatórios por no mínimo 14 dias."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q65",
+   "numero": 65,
+   "disciplina": null,
+   "enunciado_html": "Para a suspeita diagnóstica da Doença Inflamatória Pélvica são necessários no mínimo os seguintes sintomas e/ou sinais:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Dor pélvica, dor à mobilização do colo ao toque e febre.",
+    "B": "O diagnóstico deve ser considerado em mulheres com qualquer sintoma genitourinário.",
+    "C": "Febre e corrimento fétido.",
+    "D": "Qualquer dor abdominal de início súbito.",
+    "E": "Colo uterino com edema, hiperemia e saída de secreção purulenta."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q66",
+   "numero": 66,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao TRATAMENTO ADJUVANTE SISTÊMICO do câncer de mama, temos como considerações gerais corretas, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A escolha do tratamento adjuvante sistêmico deve considerar o subtipo de câncer de mama e o risco de recidiva.",
+    "B": "Esses subtipos são: responsivos a hormônio, HER-2 positivo e triplo negativo.",
+    "C": "A estimativa do risco de recidiva e morte por câncer de mama pode ser feita utilizando o programa Adjuvant! Online (www.adjuvantonline.com).",
+    "D": "São consideradas pacientes de risco baixo (de recidiva e morte por câncer de mama), as sem necessidade de QT (quimioterapia) adjuvante, com risco de morte &lt; 10% em 10 anos.",
+    "E": "São consideradas pacientes de risco intermediário as com risco de morte entre 20 e 50% em 10 anos."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q67",
+   "numero": 67,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao TRATAMENTO do câncer de colo de útero, estão corretas, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Estádio clínico IA1- Histerectomia total é o tratamento recomendado para pacientes que apresentam tumor com invasão de até 3 mm, sem invasão linfática e vascular e sem dissecção linfonodal, pois o risco de metástases linfonodais é &lt; 1%.",
+    "B": "Estádio clínico IA1- A conização pode ser uma opção para pacientes que desejam manter a fertilidade, mas que apresentam tumores com invasão menor que 3 mm, sem invasão linfática e vascular, e margens livres.",
+    "C": "Estádios clínicos IA2 e IB1- Histerectomia total com pesquisa do LNS (linfonodo sentinela) e, caso a técnica não esteja disponível, realizar linfadenectomia pélvica bilateral; ou tratamento definitivo com RT (radioterapia) externa associada à braquiterapia.",
+    "D": "Estádios clínicos IB2 e IIA e que desejam manter a fertilidade, considerar traquelectomia com pesquisa de LNS ou linfadenectomia pélvica.",
+    "E": "Estádios clínicos IIB, III e IVA- RT externa (50,4 Gy) concomitante a QT (quimioterapia) com cisplatina, 40 mg/m²/semana, associada a gencitabina, 125 mg/m² EV, durante 6 semanas (iniciando no primeiro dia da RT externa), seguida de braquiterapia (30-35 Gy) seguida de 2 ciclos adicionais adjuvantes de cisplatina, 50 mg/m² EV, no D1, e gencitabina, 1.000 mg/m² EV, nos D1 e D8, a cada 21 dias."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q68",
+   "numero": 68,
+   "disciplina": null,
+   "enunciado_html": "Mulher de 22 anos refere contato sexual com um novo parceiro. Ao exame apresenta várias verrugas na região dos pequenos lábios e no introito vulvar. Assinale a alternativa CORRETA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "São verrugas altamente contagiosas causadas por vírus HPV muito oncogênicos.",
+    "B": "Um tratamento de remoção precoce das verrugas é o indicado para erradicar a infecção viral.",
+    "C": "As recorrências desse tipo de lesão são, na maioria das vezes, decorrentes da reinfecção pelo parceiro sexual.",
+    "D": "Entre os tratamentos indicados estão o Imiquimod 5% e a Podofilina 10% a serem aplicados pela paciente.",
+    "E": "A resposta terapêutica nesse tipo de lesão é melhor em lesões recentes que naquelas com mais de um ano."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q69",
+   "numero": 69,
+   "disciplina": null,
+   "enunciado_html": "Durante a investigação de infertilidade numa mulher de 24 anos com IMC de 29 o diagnóstico principal foi SOPC (Síndrome dos Ovários Policísticos). Num caso como este é INCORRETO afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Há um risco aumentado de esta paciente desenvolver intolerância à insulina.",
+    "B": "A perda de 10 a 20 Kg poderá levar a redução dos níveis plasmático de androgênios.",
+    "C": "A perda de peso nesse caso não chega a levar a ovulação espontânea.",
+    "D": "A paciente com SOPC obesa terá maior risco de desenvolver hipertensão arterial sistêmica.",
+    "E": "O medicamento de primeira linha para tratar a anovulação nesse caso é o Citrato de Clomifeno."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q70",
+   "numero": 70,
+   "disciplina": null,
+   "enunciado_html": "O termo Mittelschmerz está relacionado à (ao):",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Sinal clínico precoce de gestação, amolecimento do colo.",
+    "B": "Presença de sangue na punção de fundo de saco de Douglas.",
+    "C": "Aumento de volume abdominal da gravidez psicológica.",
+    "D": "Dor pélvica recorrente no meio do ciclo.",
+    "E": "Retração do mamilo decorrente de câncer de mama."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q71",
+   "numero": 71,
+   "disciplina": null,
+   "enunciado_html": "Um dos fatores presentes no desenvolvimento da doença hipertensiva específica da gestação é o desenvolvimento de proteinúria. São valores diagnósticos para doença hipertensiva específica da gestação o aparecimento de proteínas excretadas em amostra de urina de 24 horas:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "50 mg de proteína em urina de 24 horas.",
+    "B": "75 mg de proteína em urina de 24 horas.",
+    "C": "100 mg de proteína em urina de 24 horas.",
+    "D": "150 mg de proteína em urina de 24 horas.",
+    "E": "300 mg ou mais de proteína em urina de 24 horas."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q72",
+   "numero": 72,
+   "disciplina": null,
+   "enunciado_html": "O coriocarcinoma gestacional é uma forma extremamente agressiva de neoplasia trofoblástica gestacional e caracteriza-se por invadir profundamente o miométrio e os vasos sanguíneos, disseminando-se por via hematogênica. Este tipo de tumor emite metástases PREFERENCIALMENTE para:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Baço.",
+    "B": "Rins.",
+    "C": "Pulmão.",
+    "D": "Intestinos.",
+    "E": "Cérebro."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q73",
+   "numero": 73,
+   "disciplina": null,
+   "enunciado_html": "Define-se polidrâmnio quando o volume de líquido amniótico excede a 2000 mL. A etiologia desta situação é diversa, podendo envolver fatores tanto maternos quanto fetais. Assinale a alternativa que NÃO representa associação com polidrâmnio:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Diabetes mellitus.",
+    "B": "Macrossomia fetal.",
+    "C": "Malformações gastrointestinais fetais.",
+    "D": "Doença hipertensiva específica da gravidez.",
+    "E": "Anomalias do sistema nervoso central fetal."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q74",
+   "numero": 74,
+   "disciplina": null,
+   "enunciado_html": "Assinale a alternativa que contém a época ideal da gravidez para a realização do exame de avaliação da medida da translucência nucal, marcador utilizado no rastreamento de anomalias cromossômicas:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "5 a 7 semanas.",
+    "B": "8 a 9 semanas.",
+    "C": "11 a 13 semanas.",
+    "D": "18 a 24 semanas.",
+    "E": "A partir de 20 semanas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q75",
+   "numero": 75,
+   "disciplina": null,
+   "enunciado_html": "Após a fertilização seguem-se a clivagem do zigoto e a blastogênese. Com a fertilização o corpo lúteo torna-se gravídico, aumentando assim a produção de hormônios. A degeneração do corpo lúteo só não é possível graças à produção de HCG. O HCG é produzido pelo (a):",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Decídua basal.",
+    "B": "Citotrofoblasto, rico em LH.",
+    "C": "Sincíciotrofoblasto, rico em LH.",
+    "D": "Citotrofoblasto, rico em FSH.",
+    "E": "Sincíciotrofoblasto, rico em FSH."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q76",
+   "numero": 76,
+   "disciplina": null,
+   "enunciado_html": "As dimensões, a forma e a posição do útero alteram-se ao longo da gravidez de forma sincrônica e progressiva. Até a décima segunda semana, o útero é um órgão intrapélvico. A partir de então, toma forma mais arredondada e torna-se abdominal propriamente dito, ocupando os fórnices laterais da vagina, perceptível ao exame de toque vaginal. Este sinal é chamado:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Sinal de Hunter.",
+    "B": "Sinal de Piskacek.",
+    "C": "Sinal de Nobile-Budin.",
+    "D": "Sinal de Halban.",
+    "E": "Sinal de Braxton-Hicks."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q77",
+   "numero": 77,
+   "disciplina": null,
+   "enunciado_html": "O perfil biofísico fetal é um método propedêutico que visa avaliar o bem-estar fetal. É composto por quatro marcadores agudos e um marcador crônico. Os marcadores agudos são: frequência cardíaca fetal, movimentos respiratórios fetais, movimentos corpóreos fetais e tônus fetal. Assinale a seguir a alternativa que representa o primeiro parâmetro a se alterar na hipoxemia fetal:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Frequência cardíaca fetal.",
+    "B": "Movimentos respiratórios fetais.",
+    "C": "Movimentos corpóreos fetais.",
+    "D": "Tônus fetal.",
+    "E": "Não há relevância na ordem de aparecimento do marcador."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q78",
+   "numero": 78,
+   "disciplina": null,
+   "enunciado_html": "Para um exame ecográfico gestacional é CORRETO afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A medida do comprimento do fêmur é ideal para se avaliar a idade gestacional em qualquer situação.",
+    "B": "A medida da circunferência abdominal é o melhor parâmetro para avaliação do peso fetal e da idade gestacional.",
+    "C": "A medida do comprimento do fêmur é ideal em gestações com mais de 28 semanas porém sofre restrições em casos de crescimento intrauterino retardado.",
+    "D": "A medida da circunferência abdominal é a melhor como parâmetro de avaliação do peso fetal e a pior para a datação da idade gestacional.",
+    "E": "As medidas dos parâmetros citados, mesmo quando combinadas, não oferecem nenhum fator de segurança."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q79",
+   "numero": 79,
+   "disciplina": null,
+   "enunciado_html": "São medicações indicadas para o controle da hipertensão arterial na gestação, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Pindolol.",
+    "B": "Hidralazina.",
+    "C": "Anlodipina.",
+    "D": "Captopril.",
+    "E": "Metildopa."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q80",
+   "numero": 80,
+   "disciplina": null,
+   "enunciado_html": "Parturiente dá entrada em maternidade em período expulsivo, bolsa rota, feto em apresentação pélvica e procidência de pés. Em sua evolução peripartal há ocorrência de cabeça derradeira. Identifique a (s) manobra (s) para sua liberação:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Manobras de Rojas e Pajot.",
+    "B": "Manobra de Deventer-Müller.",
+    "C": "Manobra de Mauriceau e de Liverpool-McRoberts.",
+    "D": "Manobra de Bracht.",
+    "E": "Manobra de Champetier-Ribes para quando o polo cefálico estiver em plano vulvar."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q81",
+   "numero": 81,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao atendimento de pacientes politraumatizados, é INCORRETO afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Quando estão hemodinamicamente instáveis são considerados em choque hemorrágico.",
+    "B": "A radiografia de tórax revela hemotórax quando ele está presente.",
+    "C": "O estado neurológico é avaliado na admissão e a escala de coma de Glasgow é calculada.",
+    "D": "A remoção dos curativos estéreis e a limpeza das fraturas expostas devem iniciar na sala de trauma.",
+    "E": "As fraturas com instabilidade dos ossos da pelve levam à perda sanguínea significativa por lesão do plexo venoso e sangramento das superfícies ósseas."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q82",
+   "numero": 82,
+   "disciplina": null,
+   "enunciado_html": "Com relação ao tratamento da osteomielite bacteriana da coluna vertebral, é correto afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A drenagem cirúrgica está indicada na maioria dos casos.",
+    "B": "O tempo de tratamento com antibióticos adequados deve se prolongar, em geral, por 6 a 8 semanas.",
+    "C": "A melhora da dor não está relacionada à imobilização e repouso no leito.",
+    "D": "O tratamento com antibióticos deve ser descontinuado mesmo que a melhora dos níveis de VHS e PCR, com relação aos valores iniciais seja &lt; 30%.",
+    "E": "Os grandes abscessos epidurais não devem ser drenados."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q83",
+   "numero": 83,
+   "disciplina": null,
+   "enunciado_html": "Quanto às sequestrações pulmonares, podemos afirmar que:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "São massas de tecidos pulmonares não funcionantes, que não se comunicam com a árvore brônquica, geralmente nutrida pela circulação pulmonar.",
+    "B": "Localizam-se, mais frequentemente, nos lobos superiores.",
+    "C": "Podem ser intra ou extra lobares.",
+    "D": "A presença, na radiografia convencional do tórax, de opacificação persistente no lobo inferior esquerdo é diagnóstica.",
+    "E": "A correção cirúrgica está indicada se o manejo clínico com antibióticos e fisioterapia for insuficiente para o controle dos sintomas."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q84",
+   "numero": 84,
+   "disciplina": null,
+   "enunciado_html": "Assinale a afirmação CORRETA em relação ao nódulo solitário de pulmão:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A punção pulmonar deve ser indicada em todos os nódulos não calcificados.",
+    "B": "A chance de que um nódulo isolado, no pulmão de um paciente com antecedente de adenocarcinoma seja metastático, é de 80%.",
+    "C": "Os granulomas, ao contrário dos carcinomas, predominam nos lobos inferiores.",
+    "D": "O aumento da densidade de um nódulo na CT de tórax, pós-injeção de contraste iodado, é um dado altamente sugestivo de neoplasia maligna.",
+    "E": "A situação cortical de um nódulo periférico favorece sua natureza neoplásica."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q85",
+   "numero": 85,
+   "disciplina": null,
+   "enunciado_html": "Em relação ao carcinoma epidermoide do esôfago, em que porcentual ele é encontrado no segmento médio do esôfago intratorácico?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "6%",
+    "B": "13%",
+    "C": "38%",
+    "D": "37%",
+    "E": "51%"
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q86",
+   "numero": 86,
+   "disciplina": null,
+   "enunciado_html": "O anel de Schatzki ou membrana esofágica inferior é encontrado em qual das seguintes condições patológicas?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Doença do refluxo gastroesofágico.",
+    "B": "Anemia perniciosa.",
+    "C": "Estenoses pépticas do esôfago.",
+    "D": "Estenoses cáusticas do esôfago.",
+    "E": "Membrana congênita."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q87",
+   "numero": 87,
+   "disciplina": null,
+   "enunciado_html": "Os princípios dos cuidados pré-hospitalares no atendimento a vítimas traumatizadas são, em ordem de importância:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Garantir a segurança da área, iniciar o tratamento e transporte imediato ao hospital mais próximo.",
+    "B": "Iniciar atendimento rápido em qualquer situação e remoção do paciente após contato com controle médico.",
+    "C": "Garantir a segurança da área, realizar a triagem dos pacientes, iniciar o tratamento e transportar ao centro de trauma mais próximo independente da orientação da coordenação médica.",
+    "D": "Garantir a segurança da área, iniciar o tratamento e realizar a transferência rápida para o centro de trauma após comunicação com o controle médico.",
+    "E": "Iniciar o tratamento após triagem dos pacientes e aguardar estabilização hemodinâmica para o transporte ao centro de trauma."
+   },
+   "gabarito": "D",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q88",
+   "numero": 88,
+   "disciplina": null,
+   "enunciado_html": "Paciente de 25 anos de idade, chega ao pronto-socorro trazido por familiares, após queda de nível (cerca de 1,5 metro) em sua própria casa. Apresenta-se com queixa de dor torácica, dispneico e com murmúrio vesicular diminuído à direita. Dentre as alternativas abaixo a conduta ideal deve ser:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Realizar uma Tomografia de tórax após o exame primário.",
+    "B": "Descomprimir o espaço pleural direito.",
+    "C": "Solicitar Tomografia Computadorizada de crânio após término da avaliação secundária.",
+    "D": "Realizar radiografias de tórax, coluna cervical e pelve antes de qualquer procedimento invasivo.",
+    "E": "Fazer uma pericardiocentese."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q89",
+   "numero": 89,
+   "disciplina": null,
+   "enunciado_html": "A ruptura do Aneurisma de Aorta Abdominal pode ocorrer para o retroperitôneo ou para a cavidade abdominal. Os sintomas e sinais clínicos são descritos abaixo, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Hematúria.",
+    "B": "Dorsalgia e dor abdominal aguda excruciantes.",
+    "C": "Palidez, diaforese, síncope, choque hipovolêmico.",
+    "D": "Dor torácica.",
+    "E": "Hemorragia Digestiva alta."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q90",
+   "numero": 90,
+   "disciplina": null,
+   "enunciado_html": "A Síndrome de Reperfusão, que ocorre após Revascularização músculo-esquelética, pode apresentar os itens abaixo, EXCETO:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Alcalose Metabólica.",
+    "B": "Mioglobinuria.",
+    "C": "Hiperpotassemia.",
+    "D": "Contratilidade Miocárdica deprimida.",
+    "E": "Insuficiência Renal Aguda."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q91",
+   "numero": 91,
+   "disciplina": null,
+   "enunciado_html": "A obesidade mórbida pode ser causa das seguintes condições, MENOS UMA, qual seja:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Miocardiopatia.",
+    "B": "Asma.",
+    "C": "Osteoartrite.",
+    "D": "Nefropatia diabética.",
+    "E": "Transtornos do apetite."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q92",
+   "numero": 92,
+   "disciplina": null,
+   "enunciado_html": "A competência da Válvula Mitral requer um aparelho Mitral intacto. Quaisquer anormalidades de seus folhetos, nas cordoalhas tendinosas, no anel ou nos músculos papilares podem causar insuficiência. Assinale a alternativa CORRETA.",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Na ausculta cardíaca, o sopro diastólico é melhor audível no ápice e irradia-se para axila e região escapular esquerda.",
+    "B": "O Eletrocardiograma (ECG) é notável pelo aumento do Átrio Esquerdo e raramente pela Fibrilação Atrial.",
+    "C": "Quando houver indicação cirúrgica para a correção da Insuficiência Mitral, o reparo valvular Mitral, se possível, apresenta melhores resultados em relação à troca valvular.",
+    "D": "Na troca valvular Mitral por prótese mecânica ou bioprostética não é necessária a preservação das cordoalhas tendinosas.",
+    "E": "Pacientes portadores de prótese valvular Mitral mecânica devem ser anticoagulados com Warfarina Sódica somente nos três primeiros meses após a cirurgia."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q93",
+   "numero": 93,
+   "disciplina": null,
+   "enunciado_html": "No processo de cicatrização a fase também chamada regenerativa, que é responsável pelo processo reparador com reepitelização, síntese da matriz e neovascularização para aliviar a isquemia do traumatismo é chamada:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Fase maturacional.",
+    "B": "Fase proliferativa.",
+    "C": "Fase hiperêmica.",
+    "D": "Fase toxêmica.",
+    "E": "Fase maturacional final."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q94",
+   "numero": 94,
+   "disciplina": null,
+   "enunciado_html": "Hematoma retroperitoneal na zona II está associado MAIS PROVAVELMENTE a:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Trauma renal.",
+    "B": "Trauma de aorta abdominal.",
+    "C": "Trauma hepático.",
+    "D": "Trauma esplênico.",
+    "E": "Trauma de veia porta."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q95",
+   "numero": 95,
+   "disciplina": null,
+   "enunciado_html": "Em relação à dor no período pós-operatório, qual a alternativa CORRETA?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "A morfina não provoca aumento da pressão do esfíncter de Oddi.",
+    "B": "A codeína é um analgésico opiáceo forte se associado a outros analgésicos como paracetamol ou AINH.",
+    "C": "Todos os analgésicos opiáceos estão associados a diversos graus de depressão respiratória, hipotensão e íleo paralítico.",
+    "D": "As experiências dolorosas prévias não interferem na resposta ao tratamento da dor.",
+    "E": "A analgesia de demanda ou de autocontrole deve ser usada com cautela, pois pode levar a superdosagens."
+   },
+   "gabarito": "C",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q96",
+   "numero": 96,
+   "disciplina": null,
+   "enunciado_html": "Na hemorragia gastrointestinal baixa (distal ao ângulo de Treitz) qual a etiologia MAIS FREQUENTE?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Hemorroidas",
+    "B": "Angiodisplasia.",
+    "C": "Câncer/pólipos",
+    "D": "Doença inflamatória intestinal (RCU/Crohn).",
+    "E": "Doença diverticular dos cólons."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q97",
+   "numero": 97,
+   "disciplina": null,
+   "enunciado_html": "O diagnóstico específico de perfuração do intestino grosso, em um paciente com ferimento abdominal, é definido:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Pelo Rx simples de abdome.",
+    "B": "Pela ecografia abdominal.",
+    "C": "Pela TAC.",
+    "D": "Durante o exame físico do paciente.",
+    "E": "Na laparotomia."
+   },
+   "gabarito": "E",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q98",
+   "numero": 98,
+   "disciplina": null,
+   "enunciado_html": "Há diversas afecções que podem simular um abdome agudo, induzindo o médico a uma indicação errada de laparotomia - assinale a alternativa ERRADA:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Pneumonia de base pulmonar.",
+    "B": "Colangite aguda.",
+    "C": "Herpes-zóster.",
+    "D": "Cólica renoureteral.",
+    "E": "Gastroenterite aguda infecciosa."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q99",
+   "numero": 99,
+   "disciplina": null,
+   "enunciado_html": "Qual a neoplasia testicular MAIS FREQUENTE em paciente com criptorquidia?",
+   "extras_html": null,
+   "alternativas": {
+    "A": "Seminoma.",
+    "B": "Teratoma maduro.",
+    "C": "Coriocarcinoma.",
+    "D": "Carcinoma embrionário.",
+    "E": "Teratocarcinoma."
+   },
+   "gabarito": "A",
+   "imagem_pendente": false
+  },
+  {
+   "id": "AMP-2011-Q100",
+   "numero": 100,
+   "disciplina": null,
+   "enunciado_html": "A respeito da Hemorragia Intracerebral Espontânea (HICE), pode-se afirmar:",
+   "extras_html": null,
+   "alternativas": {
+    "A": "O vasoespasmo é uma das principais causas de morte.",
+    "B": "A hipertensão arterial é a principal causa de HICE.",
+    "C": "A cirurgia deve ser realizada para remoção do hematoma.",
+    "D": "Os gânglios da base raramente são afetados.",
+    "E": "Na HICE o aneurisma deve ser tratado com cirurgia ou embolização."
+   },
+   "gabarito": "B",
+   "imagem_pendente": false
+  }
+ ]
+}

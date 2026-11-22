@@ -78,11 +78,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nada novo em dados/."; exit 0; fi
+          if [ -z "$(git status --porcelain -- dados exams)" ]; then echo "Nada novo em dados/."; exit 0; fi
           ramo="importacao/${{ inputs.banca }}-$(date -u +%Y%m%d-%H%M%S)"
           git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
           git checkout -b "$ramo"
-          git add dados relatorios
+          git add dados exams relatorios
           git commit -m "Importa prova: ${{ inputs.banca }} ${{ inputs.ano }}"
           git push origin "$ramo"
           aviso=""; [ "${{ steps.importar.outputs.codigo }}" != "0" ] && aviso="[CONFERIR] "

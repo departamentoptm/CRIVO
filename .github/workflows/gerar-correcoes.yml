@@ -8,6 +8,11 @@ name: Gerar correções
 on:
   workflow_dispatch:
     inputs:
+      acao:
+        description: "gerar = escreve correções; catalogar = cataloga temas e disciplinas de todas as provas (uma vez, ~US$ 0,25); atualizar-referencias = refaz só a 2.15 com artigos reais (sem custo)"
+        type: choice
+        options: [gerar, catalogar, atualizar-referencias]
+        default: gerar
       banca:
         description: "Banca (ex.: AMP)"
         required: true
@@ -62,10 +67,17 @@ jobs:
           LIMITE: ${{ inputs.limite }}
           ORCAMENTO: ${{ inputs.orcamento }}
           SIMULAR: ${{ inputs.simular }}
+          ACAO: ${{ inputs.acao }}
         run: |
-          args=(gerar --banca "$BANCA" --modo "$MODO" --limite "$LIMITE" --orcamento "$ORCAMENTO")
-          [ -n "$ANO" ] && args+=(--ano $ANO)
-          [ -n "$QUESTOES" ] && args+=(--questoes "$QUESTOES")
+          if [ "$ACAO" = "atualizar-referencias" ]; then
+            args=(atualizar-referencias --banca "$BANCA")
+          elif [ "$ACAO" = "catalogar" ]; then
+            args=(catalogar --banca "$BANCA" --orcamento "$ORCAMENTO")
+          else
+            args=(gerar --banca "$BANCA" --modo "$MODO" --limite "$LIMITE" --orcamento "$ORCAMENTO")
+            [ -n "$ANO" ] && args+=(--ano $ANO)
+            [ -n "$QUESTOES" ] && args+=(--questoes "$QUESTOES")
+          fi
           glob=()
           [ "$SIMULAR" = "true" ] && glob=(--simular)
           set +e
@@ -80,7 +92,7 @@ jobs:
               2) echo "**Houve erro.** Leia as linhas com ERRO abaixo; as dicas dizem o que ajustar." ;;
               3) echo "Parou no teto de orçamento. Rode de novo para continuar de onde parou." ;;
             esac
-            echo; echo '```'; grep -E "ERRO|PULADA|fila|histórico|verificação|GRAVADA|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
+            echo; echo '```'; grep -E "ERRO|PULADA|fila|histórico|verificação|referências|Disciplina|GRAVADA|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Abrir pull request com o resultado
@@ -89,11 +101,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # status --porcelain também vê arquivos NOVOS (ex.: o catálogo de temas), não só os alterados
-          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nada mudou em dados/."; exit 0; fi
+          if [ -z "$(git status --porcelain -- dados exams)" ]; then echo "Nada mudou em dados/."; exit 0; fi
           ramo="correcoes/${{ inputs.banca }}-$(date -u +%Y%m%d-%H%M%S)"
           git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
           git checkout -b "$ramo"
-          git add dados relatorios
+          git add dados exams relatorios
           git commit -m "Correções geradas: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}"
           aviso=""; [ "${{ steps.gerar.outputs.codigo }}" = "2" ] && aviso="[PARCIAL - houve erro] "
           git push origin "$ramo"

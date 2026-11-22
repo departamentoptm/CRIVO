@@ -65,19 +65,25 @@ Questões com `imagem_pendente` são puladas.
 ## Como o gerador evita erros
 
 1. Enunciado, alternativas e gabarito vêm do `questoes.json`; a IA não pode alterá-los.
-2. **Histórico (2.10) sem omissões:** todas as questões da banca são catalogadas por tema (uma única vez,
-   em `dados/<BANCA>/temas.json`). Para cada questão, o script compara a atual com **todas** as outras da banca
-   por tema e por vocabulário, e a IA confirma quais tratam do mesmo assunto (na dúvida, inclui).
-   Ano, número e gabarito da tabela são preenchidos pelo script. Se a IA esquecer alguma questão
-   relacionada, o script a acrescenta.
+2. **Histórico (2.10) sem omissões:** todas as questões da banca (todas as provas do acervo) são catalogadas
+   uma única vez em `dados/<BANCA>/temas.json`, com temas, resumo, o que foi cobrado e disciplina. Para cada
+   questão, o script compara a atual com **todas** as outras da banca (temas, disciplina e vocabulário), e a IA
+   classifica as relacionadas em *mesmo tema*, *tema relacionado* ou *caso semelhante*. A tabela é sempre
+   montada pelo script, com os dados do catálogo e do `questoes.json`; sem questões relacionadas, a tabela
+   aparece com uma linha avisando isso.
 3. **Resolução às cegas:** antes de ver o gabarito, a IA resolve a questão. Se discordar, o site mostra um aviso.
 4. **Validação automática:** todas as seções com tamanho mínimo, as 5 alternativas analisadas na 2.4,
    a letra do gabarito citada na 2.3, a tabela de diferenciais na 2.8 e referências só da lista permitida.
 5. **Revisor independente:** outra chamada procura erros factuais. Com problema grave ou moderado, a correção é
    refeita com as observações. Se for reprovada de novo, **não é publicada**: a anterior fica, e o motivo vai
    para `relatorios/reprovadas/`.
-6. Referências: só fontes da lista em `config_gerador.json`; links são pesquisas no PubMed (nunca PMID ou URL
-   escritos pela IA).
+6. **Referências:** a IA indica 1 ou 2 livros da lista `fontes_permitidas` e termos de busca em inglês. O script
+   busca no PubMed (API oficial gratuita) 2 revisões, revisões sistemáticas ou diretrizes recentes que existem,
+   com link para o artigo e o DOI, e acrescenta links de consulta ao UpToDate, ao Manual MSD e ao PubMed.
+   A IA nunca escreve links, autores, PMID ou DOI. Para refazer só as referências das correções já geradas,
+   sem custo: Actions > Gerar correções > ação `atualizar-referencias`.
+7. **Sem pistas no topo da página:** a questão começa direto em "Questão N"; o tema e a disciplina não
+   aparecem antes da resposta.
 
 Mesmo assim, a correção é de IA e pode errar. Por isso o site mostra o selo "não revisado" e o botão
 "Reportar erro".

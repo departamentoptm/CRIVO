@@ -44,6 +44,7 @@
     const AVISOS_ALERTA = {
         correcao_contradiz_gabarito: 'A explicação abaixo foi escrita para outra alternativa e não corresponde ao gabarito oficial. Ela está na fila para ser refeita: considere apenas o gabarito oficial.',
         ia_discorda_do_gabarito: 'Ao resolver esta questão sem ver o gabarito, a IA chegou a outra alternativa. Pode haver ambiguidade no enunciado ou mudança de conduta desde a prova. Confira com cuidado e reporte se encontrar erro.',
+        texto_da_questao_mudou: 'O texto desta questão foi corrigido para ficar igual à prova oficial, e a explicação abaixo foi escrita para a versão antiga. Ela está na fila para ser refeita.',
         aguardando_imagem: 'Esta questão depende de uma imagem que ainda não foi adicionada. A correção pode estar incompleta.',
     };
 
@@ -128,7 +129,7 @@
             return Object.assign({}, q, {
                 tema: (c && c.tema) || q.disciplina || '',
                 aviso_diretriz: c ? c.aviso_diretriz : null,
-                correcao: c ? { secoes_html: c.secoes_html || {}, historico: c.historico || null } : null,
+                correcao: c ? { secoes_html: c.secoes_html || {}, historico: c.historico || null, historico_meta: c.historico_meta || null } : null,
                 revisao: { status: (c && c.revisao && c.revisao.status) || (c ? 'nao_revisado' : 'sem_correcao'), alertas },
             });
         });
@@ -146,17 +147,20 @@
             </div>`).join('');
     }
 
-    function tabelaHistorico(linhas) {
-        if (!Array.isArray(linhas) || !linhas.length) return '';
-        const tr = linhas.map(h => `
+    /* 2.10 no formato exato do template: frase de abertura + tabela (sempre) + parágrafos de análise */
+    function tabelaHistorico(linhas, meta) {
+        const anos = meta && Array.isArray(meta.anos) && meta.anos.length === 2 ? `${meta.anos[0]}–${meta.anos[1]}` : 'anteriores';
+        const tr = (Array.isArray(linhas) && linhas.length) ? linhas.map(h => `
             <tr>
                 <td>${esc(h.ano || '')} – Q${esc(h.numero || '')}</td>
                 <td>${esc(h.resumo || '')}</td>
                 <td>${esc(h.cobrado || '')}</td>
-                <td>${h.gabarito ? esc(h.gabarito) : 'anulada/não informado'}</td>
+                <td>${esc(h.resposta || (h.gabarito ? h.gabarito : 'Anulada'))}</td>
                 <td>${esc(h.relacao || '')}</td>
-            </tr>`).join('');
-        return `<table class="data-table"><thead><tr><th>Ano/Questão</th><th>Enunciado resumido</th>
+            </tr>`).join('')
+            : '<tr><td colspan="5">Nenhuma outra questão desta banca no acervo foi identificada sobre este tema.</td></tr>';
+        return `<p><strong>Questões das provas de ${esc(anos)} que abordaram o mesmo tema:</strong></p>
+            <table class="data-table"><thead><tr><th>Ano/Questão</th><th>Enunciado resumido</th>
             <th>O que foi cobrado</th><th>Resposta correta</th><th>Relação com a questão atual</th></tr></thead>
             <tbody>${tr}</tbody></table>`;
     }
@@ -168,7 +172,11 @@
         for (let k = 1; k <= 15; k++) {
             const n = `2.${k}`;
             let corpo = higienizar(sec[n] || '');
-            if (n === '2.10' && q.correcao && q.correcao.historico) corpo = tabelaHistorico(q.correcao.historico) + corpo;
+            if (n === '2.10' && corpo && !/<table/i.test(corpo)) {
+                corpo = corpo.replace(/^\s*<p>\s*<strong>\s*Quest[õo]es das provas[^<]*<\/strong>\s*<\/p>/i, '');
+                corpo = corpo.replace(/<p>\s*<em>\s*Busca no acervo:[\s\S]*?<\/p>/i, '');
+                corpo = tabelaHistorico(q.correcao.historico, q.correcao.historico_meta) + corpo;
+            }
             if (!corpo) corpo = '<p><em>Seção ainda não disponível para esta questão.</em></p>';
             out += `<h4>${n} ${esc(TITULOS_SECOES[n])}</h4>\n${corpo}\n`;
         }
@@ -285,7 +293,7 @@
         .crivo-aviso-correcao_contradiz_gabarito { background: #f8d7da; border-left-color: #dc3545; color: #721c24; }
         .crivo-diretriz { margin: 15px 0; padding: 12px 15px; border-radius: 0 5px 5px 0;
             background: #e7f1ff; border-left: 5px solid #007bff; color: #0b3d75; line-height: 1.5; }
-        .question-meta { text-align: center; color: #6c757d; font-size: 13px; margin-bottom: 15px; }`;
+        .crivo-aviso-texto_da_questao_mudou { background: #f8d7da; border-left-color: #dc3545; color: #721c24; }`;
 
     /* ---------- Página completa ---------- */
     function montarPagina(edicao, numero) {
@@ -295,8 +303,6 @@
         const gab = typeof q.gabarito === 'string' ? q.gabarito.trim().toUpperCase() : null;
         const anulada = !['A', 'B', 'C', 'D', 'E'].includes(gab);
         const id = q.id || `${edicao.banca}-${edicao.ano}-Q${q.numero}`;
-        const tema = q.tema || q.disciplina || '';
-        const meta = [edicao.banca, edicao.ano, q.disciplina].filter(Boolean).map(esc).join(' · ');
         const diretriz = q.aviso_diretriz
             ? `<div class="crivo-diretriz"><strong>Diretriz atual:</strong> ${higienizar(q.aviso_diretriz)}</div>` : '';
         const origemIA = !!q.correcao && (!q.revisao || q.revisao.status !== 'revisado_humano');
@@ -307,7 +313,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${esc(document.baseURI)}">
-    <title>Questão ${esc(q.numero)} - ${esc(tema)}</title>
+    <title>Questão ${esc(q.numero)}</title>
     <style>
         * {
             margin: 0;
@@ -581,9 +587,7 @@ ${CSS_EXTRA}
 </head>
 <body>
     <div class="container" data-questao-id="${esc(id)}">
-        <div class="theme">${esc(tema)}</div>
         <h1>Questão ${esc(q.numero)}</h1>
-        <div class="question-meta">${meta}</div>
         <div class="question-text">
             ${higienizar(q.enunciado_html)}
         </div>
