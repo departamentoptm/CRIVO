@@ -45,6 +45,7 @@
         correcao_contradiz_gabarito: 'A explicação abaixo foi escrita para outra alternativa e não corresponde ao gabarito oficial. Ela está na fila para ser refeita: considere apenas o gabarito oficial.',
         ia_discorda_do_gabarito: 'Ao resolver esta questão sem ver o gabarito, a IA chegou a outra alternativa. Pode haver ambiguidade no enunciado ou mudança de conduta desde a prova. Confira com cuidado e reporte se encontrar erro.',
         texto_da_questao_mudou: 'O texto desta questão foi corrigido para ficar igual à prova oficial, e a explicação abaixo foi escrita para a versão antiga. Ela está na fila para ser refeita.',
+        gabarito_preliminar: 'O gabarito desta prova ainda é o preliminar divulgado pela banca e pode mudar depois dos recursos.',
         aguardando_imagem: 'Esta questão depende de uma imagem que ainda não foi adicionada. A correção pode estar incompleta.',
     };
 
@@ -126,6 +127,7 @@
             if (c && gab && c.gabarito_usado && c.gabarito_usado !== gab && !alertas.includes('correcao_contradiz_gabarito'))
                 alertas.push('correcao_contradiz_gabarito');
             if (q.imagem_pendente && !alertas.includes('aguardando_imagem')) alertas.push('aguardando_imagem');
+            if (qs.gabarito_situacao === 'preliminar' && !alertas.includes('gabarito_preliminar')) alertas.push('gabarito_preliminar');
             return Object.assign({}, q, {
                 tema: (c && c.tema) || q.disciplina || '',
                 aviso_diretriz: c ? c.aviso_diretriz : null,
@@ -193,13 +195,18 @@
     function avisosDaQuestao(q, anulada) {
         const alertas = (q.revisao && q.revisao.alertas) || [];
         const itens = [];
-        if (anulada) itens.push(['anulada', 'Questão anulada pela banca. Como na prova, a pontuação conta para todos: qualquer alternativa confirmada é registrada como acerto.']);
+        const motivo = {
+            excluida: 'Questão excluída pela banca do cálculo do resultado (desajuste do modelo estatístico), sem gabarito.',
+            anulada_administrativamente: 'Questão anulada administrativamente pela banca.',
+        }[q.anulacao] || 'Questão anulada pela banca.';
+        if (anulada) itens.push(['anulada', motivo + ' Como na prova, a pontuação conta para todos: qualquer alternativa confirmada é registrada como acerto.']);
         for (const a of alertas) if (AVISOS_ALERTA[a]) itens.push([a, AVISOS_ALERTA[a]]);
         return itens.map(([cls, txt]) => `<div class="crivo-aviso crivo-aviso-${esc(cls)}"><strong>Atenção:</strong> ${esc(txt)}</div>`).join('');
     }
 
     /* ---------- Script que roda dentro da página da questão ---------- */
-    function scriptDaPagina(gabarito, anulada) {
+    function scriptDaPagina(gabarito, anulada, anulacao) {
+        const rotuloAnulada = anulacao === 'excluida' ? 'Questão excluída pela banca' : 'Questão anulada pela banca';
         // gabarito vai como JSON para nunca quebrar o JavaScript.
         return `
     let selectedOption = null;
@@ -231,7 +238,7 @@
         const viewCorrectionBtn = document.getElementById('viewCorrectionBtn');
         /* Anulada: como na prova, o ponto vale para todos -> a resposta dada conta como certa. */
         const certa = questaoAnulada ? selectedOption : correctAnswer;
-        document.getElementById('correctAnswer').textContent = questaoAnulada ? 'Questão anulada pela banca' : 'Alternativa ' + correctAnswer;
+        document.getElementById('correctAnswer').textContent = questaoAnulada ? ${JSON.stringify(rotuloAnulada)} : 'Alternativa ' + correctAnswer;
         document.getElementById('userAnswer').textContent = 'Alternativa ' + selectedOption;
         const resultContainer = document.getElementById('resultContainer');
         resultContainer.style.display = 'block';
@@ -620,7 +627,7 @@ ${CSS_EXTRA}
             <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
         </div>
     </div>
-<script>${scriptDaPagina(gab, anulada)}
+<script>${scriptDaPagina(gab, anulada, q.anulacao)}
 </script>
 </body>
 </html>`;

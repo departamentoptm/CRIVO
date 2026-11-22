@@ -45,7 +45,7 @@ CONTEÚDO DE CADA SEÇÃO:
 - 2.2 Conceito-Chave e Fisiopatologia: o mecanismo que explica a resposta correta, para que o aluno consiga
   deduzi-la mesmo sem lembrar do fato. Relacione com o histórico quando houver.
 - 2.3 Justificativa da Resposta Correta: explicação detalhada da alternativa do gabarito, citando a letra.
-- 2.4 Análise dos Distratores: um parágrafo para CADA alternativa (A a E), começando com
+- 2.4 Análise dos Distratores: um parágrafo para CADA alternativa apresentada (A a D ou A a E, conforme a questão), começando com
   <strong>Alternativa X</strong> — diga se está correta ou errada e por quê. Diga se o conteúdo dela já apareceu
   em alguma questão do HISTÓRICO (pelo assunto, sem citar ano/número).
 - 2.5 Palavras-Chave e "Pistas" no Enunciado: lista <ul> com pelo menos 3 itens no formato
