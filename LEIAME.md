@@ -74,9 +74,13 @@ Questões com `imagem_pendente` são puladas.
 3. **Resolução às cegas:** antes de ver o gabarito, a IA resolve a questão. Se discordar, o site mostra um aviso.
 4. **Validação automática:** todas as seções com tamanho mínimo, as 5 alternativas analisadas na 2.4,
    a letra do gabarito citada na 2.3, a tabela de diferenciais na 2.8 e referências só da lista permitida.
-5. **Revisor independente:** outra chamada procura erros factuais. Com problema grave ou moderado, a correção é
-   refeita com as observações. Se for reprovada de novo, **não é publicada**: a anterior fica, e o motivo vai
-   para `relatorios/reprovadas/`.
+5. **Revisor independente:** outra chamada procura erros factuais. Com problema grave ou moderado, só as seções
+   apontadas são reescritas (as aprovadas ficam como estão) e a correção inteira é conferida de novo, até 3
+   rodadas. Se faltar só o parágrafo de alguma alternativa na 2.4, o sistema pede só esse parágrafo. O revisor
+   não usa o gabarito de provas antigas do histórico como prova da conduta atual e aceita a explicação do
+   raciocínio da banca quando o aviso de diretriz registra o que mudou. Se continuar reprovada, a correção **não
+   é publicada**: a anterior fica, o motivo vai para `relatorios/reprovadas/` e ela entra no arquivo da ação
+   `amostra`, para ser corrigida numa conversa com o Claude.
 6. **Referências:** a IA indica 1 ou 2 livros da lista `fontes_permitidas` e termos de busca em inglês. O script
    busca no PubMed (API oficial gratuita) 2 revisões, revisões sistemáticas ou diretrizes recentes que existem,
    com link para o artigo e o DOI, e acrescenta links de consulta ao UpToDate, ao Manual MSD e ao PubMed.

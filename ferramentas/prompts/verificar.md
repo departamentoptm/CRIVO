@@ -15,7 +15,16 @@ Procure:
 
 Sobre o HISTÓRICO: o bloco "HISTÓRICO FORNECIDO AO AUTOR" lista questões REAIS desta banca, de anos anteriores
 ou posteriores à questão atual. Citar essas questões é correto e não é anacronismo. Só aponte como inventada
-uma questão de prova citada que NÃO esteja nessa lista.
+uma questão de prova citada que NÃO esteja nessa lista. O histórico serve SOMENTE para citação e para a análise
+da seção 2.10: o gabarito de uma prova antiga mostra o que a banca cobrou naquele ano, NÃO é prova de qual é a
+conduta correta hoje. Nunca aponte como erro uma afirmação apenas por ela discordar do gabarito de outra questão
+do histórico; julgue os fatos médicos pelas evidências e diretrizes.
+
+Sobre GABARITO OFICIAL x DIRETRIZ ATUAL: a correção precisa justificar a alternativa oficial. Quando a conduta
+atual for diferente da cobrada na prova, é CORRETO que a correção explique o raciocínio da banca (ex.: a diretriz
+vigente na época) e registre a mudança no AVISO DE DIRETRIZ. Isso não é contradição nem erro. Reprove apenas se
+houver fato médico falso, se o aviso estiver ausente ou inexato, ou se a correção apresentar a conduta antiga como
+a recomendação atual sem o aviso.
 
 Classifique cada problema:
 - "grave": erro factual que pode ensinar algo errado ou prejudicar um paciente, ou contradição com o gabarito.
