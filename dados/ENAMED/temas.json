@@ -1,0 +1,2626 @@
+{
+ "formato": "crivo-temas",
+ "versao": 1,
+ "banca": "ENAMED",
+ "questoes": {
+  "ENAMED-2025-Q1": {
+   "temas": [
+    "pré-natal de alto risco",
+    "referência a serviço especializado",
+    "atenção primária à gestante",
+    "pré-natal"
+   ],
+   "resumo": "gestante na atenção primária: identificação de condição que indica referência ao pré-natal de alto risco",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Obstetrícia",
+   "texto": "0d6d298b1051",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q2": {
+   "temas": [
+    "rotura prematura de membranas pré-termo",
+    "amniorrexe prematura",
+    "trabalho de parto prematuro",
+    "obstetrícia de alto risco"
+   ],
+   "resumo": "primigesta com 33 semanas e saída de líquido amniótico claro: conduta após antibiótico e corticoterapia antenatal",
+   "abordagem": "conduta inicial",
+   "disciplina": "Obstetrícia",
+   "texto": "836ea1ca3a51",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q3": {
+   "temas": [
+    "síndrome colestática",
+    "coledocolitíase",
+    "colangite",
+    "icterícia obstrutiva",
+    "vias biliares"
+   ],
+   "resumo": "mulher com icterícia, colúria e acolia, dilatação de vias biliares e cálculos móveis: diagnóstico sindrômico e exame complementar",
+   "abordagem": "exame complementar",
+   "disciplina": "Gastroenterologia",
+   "texto": "fcefe6a8c3c8",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q4": {
+   "temas": [
+    "baixa estatura familiar",
+    "baixa estatura",
+    "crescimento infantil",
+    "endocrinologia pediátrica"
+   ],
+   "resumo": "menina de 7 anos com baixa estatura, idade óssea atrasada e alvo familiar baixo: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "f2803fb8c3cc",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q5": {
+   "temas": [
+    "cancro mole",
+    "úlcera genital",
+    "doença sexualmente transmissível",
+    "Haemophilus ducreyi",
+    "infecções sexualmente transmissíveis"
+   ],
+   "resumo": "homem com úlcera peniana dolorosa, linfadenopatia inguinal e emagrecimento: investigação, achado esperado e tratamento",
+   "abordagem": "diagnóstico",
+   "disciplina": "Infectologia",
+   "texto": "368dd0fd52c6",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q6": {
+   "temas": [
+    "anemia ferropriva",
+    "anemia microcítica hipocrômica",
+    "deficiência de ferro",
+    "anemia na infância"
+   ],
+   "resumo": "menina de 11 anos com palidez, cansaço e anemia microcítica hipocrômica: conduta diante do hemograma",
+   "abordagem": "tratamento",
+   "disciplina": "Hematologia",
+   "texto": "adaad013e6a9",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q7": {
+   "temas": [
+    "hiperplasia endometrial",
+    "sangramento uterino anormal pós-menopausa",
+    "espessamento endometrial",
+    "pólipo cervical",
+    "mioma uterino"
+   ],
+   "resumo": "mulher de 72 anos com sangramento vaginal e endométrio espessado: principal hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Ginecologia",
+   "texto": "b5068afc1c1a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q8": {
+   "temas": [
+    "queimadura química ocular",
+    "trauma ocular",
+    "emergência oftalmológica",
+    "córnea"
+   ],
+   "resumo": "paciente com queimadura química ocular por alvejante: manejo adequado",
+   "abordagem": "conduta inicial",
+   "disciplina": "Oftalmologia",
+   "texto": "a7320f661d64",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q9": {
+   "temas": [
+    "asma grave na infância",
+    "exacerbação de asma",
+    "crise asmática",
+    "insuficiência respiratória na criança"
+   ],
+   "resumo": "lactente com crise asmática grave refratária a salbutamol: conduta além da internação",
+   "abordagem": "tratamento",
+   "disciplina": "Pediatria",
+   "texto": "e3597227a231",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q10": {
+   "temas": [
+    "síndrome coronariana aguda sem supra de ST",
+    "angina instável",
+    "estratificação de risco",
+    "cateterismo cardíaco",
+    "escore de risco GRACE"
+   ],
+   "resumo": "homem com síndrome coronariana aguda sem supra de ST e escore de risco elevado: conduta de estratificação invasiva",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cardiologia",
+   "texto": "efb73f222a2d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q11": {
+   "temas": [
+    "profilaxia da raiva",
+    "mordedura de animal",
+    "acidente por mordedura",
+    "imunização antirrábica"
+   ],
+   "resumo": "jovem mordido por gato de rua com raiva felina confirmada na cidade: conduta imediata",
+   "abordagem": "conduta inicial",
+   "disciplina": "Infectologia",
+   "texto": "59298620128c",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q12": {
+   "temas": [
+    "descolamento prematuro de placenta",
+    "hemorragia vaginal na gestação",
+    "sofrimento fetal agudo",
+    "uterina de Couvelaire"
+   ],
+   "resumo": "gestante com sangramento vaginal intenso, hipertonia uterina e bradicardia fetal após uso de cocaína: diagnóstico, conduta e complicação",
+   "abordagem": "diagnóstico",
+   "disciplina": "Obstetrícia",
+   "texto": "5587702e213d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q13": {
+   "temas": [
+    "câncer de pâncreas",
+    "icterícia obstrutiva",
+    "dor epigástrica com irradiação dorsal",
+    "investigação de neoplasia pancreática"
+   ],
+   "resumo": "idoso com dor epigástrica em faixa, perda de peso e icterícia obstrutiva: exames iniciais",
+   "abordagem": "exame complementar",
+   "disciplina": "Gastroenterologia",
+   "texto": "26ccdd5daf18",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q14": {
+   "temas": [
+    "acantose nigricans",
+    "obesidade na adolescência",
+    "resistência insulínica",
+    "síndrome metabólica"
+   ],
+   "resumo": "adolescente obeso com manchas hipercrômicas em dobras: conduta além das mudanças de hábito",
+   "abordagem": "exame complementar",
+   "disciplina": "Endocrinologia",
+   "texto": "8e3ac72acb9c",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q15": {
+   "temas": [
+    "arterite temporal",
+    "cefaleia secundária",
+    "cefaleia no idoso",
+    "velocidade de hemossedimentação"
+   ],
+   "resumo": "mulher de 55 anos com cefaleia persistente, amaurose fugaz, diplopia e artralgias: tipo de cefaleia e exame inicial",
+   "abordagem": "diagnóstico",
+   "disciplina": "Neurologia",
+   "texto": "36c326b0dd7f",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q16": {
+   "temas": [
+    "intoxicação por benzodiazepínicos",
+    "coma por depressão do sistema nervoso central",
+    "antídoto para benzodiazepínicos",
+    "flumazenil"
+   ],
+   "resumo": "mulher com ingestão de clonazepam, hipotensão e coma: medicação indicada",
+   "abordagem": "tratamento",
+   "disciplina": "Psiquiatria",
+   "texto": "10d3e3aae2cf",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q17": {
+   "temas": [
+    "violência institucional contra idosos",
+    "notificação compulsória",
+    "instituição de longa permanência para idosos",
+    "intersetorialidade na atenção primária"
+   ],
+   "resumo": "idosos em ILPI com isolamento, agressões e contenção física: conduta da equipe de saúde",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "9edc0def0a6f",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q18": {
+   "temas": [
+    "lesão intraepitelial de baixo grau",
+    "citologia oncótica cervical",
+    "rastreamento do câncer de colo uterino",
+    "conduta em preventivo alterado"
+   ],
+   "resumo": "mulher de 32 anos com primeiro preventivo mostrando lesão intraepitelial de baixo grau: conduta",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Ginecologia",
+   "texto": "4e7cc6155663",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q19": {
+   "temas": [
+    "insuficiência cervical",
+    "colo uterino curto",
+    "progesterona na prevenção do parto prematuro",
+    "prematuridade"
+   ],
+   "resumo": "gestante de 24 semanas com antecedentes de abortamento e parto prematuro e colo de 1,5 cm: conduta",
+   "abordagem": "tratamento",
+   "disciplina": "Obstetrícia",
+   "texto": "f78d488d74f0",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q20": {
+   "temas": [
+    "fissura anal",
+    "dor anal com sangramento vivo",
+    "constipação crônica",
+    "doença de Crohn perianal"
+   ],
+   "resumo": "adulto jovem com constipação e doença de Crohn com dor anal e sangramento ao evacuar: diagnóstico",
+   "abordagem": "diagnóstico",
+   "disciplina": "Gastroenterologia",
+   "texto": "bc67befe769a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q21": {
+   "temas": [
+    "hérnia diafragmática congênita",
+    "desconforto respiratório neonatal",
+    "reanimação neonatal",
+    "neonatologia"
+   ],
+   "resumo": "recém-nascido a termo com apneia, bradicardia e achados sugestivos de hérnia diafragmática: conduta na sala de parto",
+   "abordagem": "conduta inicial",
+   "disciplina": "Pediatria",
+   "texto": "a53132c8f76a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q22": {
+   "temas": [
+    "sepse de foco urinário",
+    "infecção do trato urinário complicada",
+    "antibioticoterapia empírica",
+    "sepse"
+   ],
+   "resumo": "mulher diabética com febre e sinais de infecção urinária: conduta antimicrobiana inicial",
+   "abordagem": "tratamento",
+   "disciplina": "Infectologia",
+   "texto": "2ec905eccc93",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q23": {
+   "temas": [
+    "saúde da população trans",
+    "afirmação de gênero",
+    "atenção primária à saúde",
+    "acolhimento"
+   ],
+   "resumo": "homem trans em processo de afirmação de gênero busca orientação na UBS: conduta adequada",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "01025c7e35d1",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q24": {
+   "temas": [
+    "competência cultural",
+    "saúde de populações ribeirinhas e indígenas",
+    "atenção primária à saúde",
+    "educação permanente em saúde"
+   ],
+   "resumo": "equipe de saúde da família em atendimento a comunidades ribeirinhas e indígenas: abordagem culturalmente adequada",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "ef532e4aeec3",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q25": {
+   "temas": [
+    "profilaxia pós-exposição ao HIV",
+    "infecções sexualmente transmissíveis",
+    "sífilis",
+    "HIV"
+   ],
+   "resumo": "mulher com parceiro HIV reagente e úlcera genital recente: manejo inicial",
+   "abordagem": "conduta inicial",
+   "disciplina": "Infectologia",
+   "texto": "84f4c3a55ab2",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q26": {
+   "temas": [
+    "contracepção em obesidade",
+    "sangramento uterino anovulatório",
+    "cirurgia bariátrica",
+    "anticoncepção"
+   ],
+   "resumo": "mulher obesa com ciclos irregulares e bariátrica programada: orientação contraceptiva",
+   "abordagem": "tratamento",
+   "disciplina": "Ginecologia",
+   "texto": "96c995544e3d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q27": {
+   "temas": [
+    "tireoidectomia total",
+    "lesão do nervo laríngeo recorrente",
+    "rouquidão pós-operatória",
+    "complicações cirúrgicas"
+   ],
+   "resumo": "paciente com rouquidão persistente após tireoidectomia total: nervo lesionado",
+   "abordagem": "complicação",
+   "disciplina": "Cirurgia",
+   "texto": "8aa9e697aa2e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q28": {
+   "temas": [
+    "convulsão febril simples",
+    "crise convulsiva na infância",
+    "neurologia pediátrica"
+   ],
+   "resumo": "criança de 2 anos com crise convulsiva febril única e breve: conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Pediatria",
+   "texto": "264a75981478",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q29": {
+   "temas": [
+    "supercrescimento bacteriano do intestino delgado",
+    "diarreia crônica",
+    "má absorção intestinal",
+    "teste respiratório com lactulose"
+   ],
+   "resumo": "homem com diarreia crônica, emagrecimento e teste respiratório positivo: plano terapêutico",
+   "abordagem": "tratamento",
+   "disciplina": "Gastroenterologia",
+   "texto": "87cf5acf5e0e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q30": {
+   "temas": [
+    "obsessão",
+    "transtorno obsessivo-compulsivo",
+    "pensamentos intrusivos",
+    "semiologia psiquiátrica"
+   ],
+   "resumo": "homem com pensamentos intrusivos recorrentes e egodistônicos: denominação clínica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "2501eb17058d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q31": {
+   "temas": [
+    "surto de escabiose em ambiente prisional",
+    "doenças parasitárias de pele",
+    "saúde no sistema prisional",
+    "vigilância epidemiológica de surtos"
+   ],
+   "resumo": "aumento de prurido e lesões cutâneas em presídio superlotado: conduta prioritária de manejo coletivo",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "813a2a6599e7",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q32": {
+   "temas": [
+    "transtorno por uso de álcool",
+    "critérios diagnósticos do DSM-5 para dependência química",
+    "dependência de substâncias psicoativas"
+   ],
+   "resumo": "homem com uso descontrolado de álcool: critério do DSM-5 a investigar para dependência",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "93b222046c61",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q33": {
+   "temas": [
+    "atipias escamosas de significado indeterminado não podendo afastar alto grau",
+    "rastreamento do câncer de colo uterino",
+    "citologia oncótica alterada"
+   ],
+   "resumo": "mulher com citologia ASC-H: conduta adequada diante do laudo",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ginecologia",
+   "texto": "2d6e4398a736",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q34": {
+   "temas": [
+    "hemorragia por ferimento vascular em membro",
+    "controle de hemorragia em atendimento pré-hospitalar",
+    "torniquete e reposição volêmica no trauma"
+   ],
+   "resumo": "jovem com ferimento por arma de fogo em braço e choque hemorrágico: manejo pré-hospitalar",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "64f79e9a0a7d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q35": {
+   "temas": [
+    "cetoacidose diabética",
+    "diabetes mellitus tipo 1 na infância",
+    "tratamento da cetoacidose diabética"
+   ],
+   "resumo": "menina com cetoacidose diabética: próximo passo após fluidoterapia",
+   "abordagem": "tratamento",
+   "disciplina": "Endocrinologia",
+   "texto": "75f1ddd2b288",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q36": {
+   "temas": [
+    "trombofilia hereditária",
+    "fator V de Leiden",
+    "trombose venosa profunda e história familiar"
+   ],
+   "resumo": "mulher com TVP prévia e história familiar de trombose: alteração laboratorial compatível com trombofilia hereditária",
+   "abordagem": "exame complementar",
+   "disciplina": "Hematologia",
+   "texto": "ce84c90af85a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q37": {
+   "temas": [
+    "risco de suicídio",
+    "transtorno depressivo maior",
+    "internação em saúde mental",
+    "avaliação de risco suicida"
+   ],
+   "resumo": "jovem com depressão e ideação suicida após tentativa: conduta adequada",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "661ac980be51",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q38": {
+   "temas": [
+    "desenho de estudo epidemiológico",
+    "ensaio clínico não randomizado",
+    "avaliação de intervenção coletiva em saúde"
+   ],
+   "resumo": "equipe de saúde da família elabora projeto de intervenção para complicações do diabetes: desenho de pesquisa para avaliar impacto",
+   "abordagem": "epidemiologia",
+   "disciplina": "Medicina Preventiva",
+   "texto": "8c0a22270538",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q39": {
+   "temas": [
+    "declaração de óbito",
+    "preenchimento de atestado de óbito",
+    "causa básica de morte"
+   ],
+   "resumo": "paciente hipertenso com AVE prévio e quadro gripal que evoluiu para óbito: preenchimento da declaração de óbito",
+   "abordagem": "ética e legislação",
+   "disciplina": "Medicina Preventiva",
+   "texto": "86f6b9e5a9ef",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q40": {
+   "temas": [
+    "vulvovaginite por Candida",
+    "candidíase vulvovaginal",
+    "corrimento vaginal e prurido genital"
+   ],
+   "resumo": "mulher diabética com prurido genital e corrimento esbranquiçado após antibiótico: tratamento do agente etiológico provável",
+   "abordagem": "tratamento",
+   "disciplina": "Ginecologia",
+   "texto": "16528877e2f4",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q41": {
+   "temas": [
+    "diverticulite aguda",
+    "doença diverticular dos cólons",
+    "dor abdominal em fossa ilíaca esquerda",
+    "gastroenterologia"
+   ],
+   "resumo": "homem de 59 anos com dor em fossa ilíaca esquerda, febre e leucocitose: exame de maior acurácia diagnóstica",
+   "abordagem": "exame complementar",
+   "disciplina": "Gastroenterologia",
+   "texto": "82ae53770367",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q42": {
+   "temas": [
+    "esclerose tuberosa",
+    "espasmos infantis",
+    "manchas hipomelanóticas",
+    "astrocitoma subependimário de células gigantes",
+    "neuropediatria"
+   ],
+   "resumo": "lactente com espasmos em flexão, atraso do desenvolvimento e manchas hipomelanóticas: principal hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "7c55696c517e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q43": {
+   "temas": [
+    "tireoidite subaguda de De Quervain",
+    "tireotoxicose",
+    "dor cervical anterior",
+    "captação tireoidiana de iodo radioativo",
+    "endocrinologia"
+   ],
+   "resumo": "mulher com dor cervical anterior, febre e tireotoxicose após infecção viral: exames de confirmação e tratamento",
+   "abordagem": "exame complementar",
+   "disciplina": "Endocrinologia",
+   "texto": "f856fd162387",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q44": {
+   "temas": [
+    "transtorno de déficit de atenção e hiperatividade",
+    "metilfenidato",
+    "monitoramento do tratamento farmacológico",
+    "psiquiatria infantil"
+   ],
+   "resumo": "criança em uso de metilfenidato: estratégias de monitoramento do tratamento",
+   "abordagem": "tratamento",
+   "disciplina": "Psiquiatria",
+   "texto": "f23fbca0b47e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q45": {
+   "temas": [
+    "controle de vetores",
+    "Aedes aegypti",
+    "manejo integrado de vetores",
+    "vigilância entomológica",
+    "saúde pública"
+   ],
+   "resumo": "controle do Aedes sp e ações do manejo integrado de vetores no ciclo de vigilância",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "1a8ea3839abb",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q46": {
+   "temas": [
+    "vacinação do idoso",
+    "calendário nacional de imunização",
+    "idoso restrito ao lar",
+    "abordagem familiar na atenção primária",
+    "saúde pública"
+   ],
+   "resumo": "idoso acamado não vacinado com cuidadora resistente: vacinas indicadas e forma de abordagem",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "138c872daedf",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q47": {
+   "temas": [
+    "contracepção hormonal combinada",
+    "enxaqueca com aura",
+    "contraindicações do contraceptivo combinado",
+    "risco de acidente vascular cerebral",
+    "ginecologia"
+   ],
+   "resumo": "adolescente com enxaqueca com aura que deseja iniciar contracepção: contraindicação do contraceptivo combinado",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ginecologia",
+   "texto": "41b23a49a640",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q48": {
+   "temas": [
+    "hematoma epidural agudo",
+    "traumatismo cranioencefálico",
+    "anisocoria",
+    "hipertensão intracraniana",
+    "neurocirurgia de emergência"
+   ],
+   "resumo": "jovem vítima de trauma craniano com rebaixamento e anisocoria: diagnóstico e conduta",
+   "abordagem": "diagnóstico",
+   "disciplina": "Neurologia",
+   "texto": "3b7f1ec89b4f",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q49": {
+   "temas": [
+    "reflexos primitivos",
+    "desenvolvimento neuropsicomotor",
+    "puericultura",
+    "pediatria"
+   ],
+   "resumo": "lactente de 11 meses em puericultura: reflexo primitivo usualmente presente nessa faixa etária",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "059b9f5249ea",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q50": {
+   "temas": [
+    "colangite esclerosante primária",
+    "retocolite ulcerativa",
+    "colestase crônica",
+    "colangiorressonância",
+    "hepatologia"
+   ],
+   "resumo": "paciente com retocolite ulcerativa e colestase: exame complementar indicado e resultado provável",
+   "abordagem": "exame complementar",
+   "disciplina": "Hepatologia",
+   "texto": "0b7d39cadd0d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q51": {
+   "temas": [
+    "insuficiência cardíaca com fração de ejeção reduzida",
+    "hipertrofia ventricular esquerda",
+    "antagonista do receptor mineralocorticoide",
+    "insuficiência cardíaca"
+   ],
+   "resumo": "Mulher hipertensa com insuficiência cardíaca de fração de ejeção reduzida: fármaco associado ao IECA com impacto na sobrevida",
+   "abordagem": "tratamento",
+   "disciplina": "Cardiologia",
+   "texto": "c051f0093bb4",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q52": {
+   "temas": [
+    "raquitismo resistente à vitamina D",
+    "distúrbio ácido-base",
+    "acidose tubular renal",
+    "nefrologia pediátrica"
+   ],
+   "resumo": "Lactente com vômitos, poliúria, desidratação e raquitismo resistente à vitamina D: distúrbio ácido-base associado",
+   "abordagem": "fisiopatologia",
+   "disciplina": "Pediatria",
+   "texto": "888eff6b80ad",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q53": {
+   "temas": [
+    "trauma cranioencefálico",
+    "trauma de face",
+    "trauma raquimedular",
+    "avaliação inicial do politraumatizado"
+   ],
+   "resumo": "Homem encontrado inconsciente após queda: exames de imagem e conduta na avaliação do trauma",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "07c1f6953ec1",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q54": {
+   "temas": [
+    "endometriose",
+    "dismenorreia secundária",
+    "dispareunia profunda",
+    "dor pélvica crônica"
+   ],
+   "resumo": "Mulher com dismenorreia progressiva e dispareunia profunda, dor à mobilização do colo: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Ginecologia",
+   "texto": "8c7624329813",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q55": {
+   "temas": [
+    "tuberculose",
+    "retratamento de tuberculose",
+    "interrupção do tratamento",
+    "teste rápido molecular para tuberculose"
+   ],
+   "resumo": "Homem que interrompeu tratamento de tuberculose: conduta conforme resultados de TRM-TB e baciloscopia",
+   "abordagem": "tratamento",
+   "disciplina": "Infectologia",
+   "texto": "352c1dd3ab8e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q56": {
+   "temas": [
+    "níveis de atenção à saúde",
+    "prevenção secundária",
+    "cardiopatia isquêmica",
+    "organização do sistema de saúde"
+   ],
+   "resumo": "Encaminhamento de paciente com cardiopatia isquêmica ao cardiologista: nível de atenção e tipo de prevenção",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "27eea7566009",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q57": {
+   "temas": [
+    "efeitos extrapiramidais de antipsicóticos",
+    "distonia aguda",
+    "antipsicóticos típicos",
+    "reações adversas a medicamentos"
+   ],
+   "resumo": "Paciente esquizofrênico com contratura cervical após troca de antipsicótico: hipótese e conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "87930d466368",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q58": {
+   "temas": [
+    "artrite reumatoide",
+    "poliartrite simétrica",
+    "rigidez matinal prolongada",
+    "fator reumatoide"
+   ],
+   "resumo": "Mulher jovem com poliartrite simétrica e rigidez matinal prolongada: hipótese, achado laboratorial e tratamento inicial",
+   "abordagem": "diagnóstico",
+   "disciplina": "Reumatologia",
+   "texto": "d37ba4055bf2",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q59": {
+   "temas": [
+    "neutropenia febril",
+    "sepse em paciente oncológico",
+    "leucemia linfocítica aguda",
+    "choque séptico"
+   ],
+   "resumo": "Criança em quimioterapia para leucemia com febre, taquicardia e hipotensão: classificação do quadro",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "79a4bdea152c",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q60": {
+   "temas": [
+    "hérnia inguinal encarcerada",
+    "hérnia femoral",
+    "abdome agudo obstrutivo",
+    "complicações de hérnia"
+   ],
+   "resumo": "Idosa com abaulamento inguinal não redutível, vômitos e parada de eliminação de flatos: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Cirurgia",
+   "texto": "1d579b2516c4",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q61": {
+   "temas": [
+    "sífilis gestacional",
+    "teste não treponêmico",
+    "seguimento pós-tratamento",
+    "infecção congênita"
+   ],
+   "resumo": "gestante com sífilis tratada com penicilina benzatina: interpretação de critérios de cura e acompanhamento sorológico",
+   "abordagem": "exame complementar",
+   "disciplina": "Obstetrícia",
+   "texto": "bf25db9cb608",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q62": {
+   "temas": [
+    "rastreamento de doenças crônicas",
+    "cessação do tabagismo",
+    "exames periódicos",
+    "atenção primária à saúde"
+   ],
+   "resumo": "homem de 52 anos tabagista em revisão clínica: condutas de rastreamento e prevenção na atenção primária",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "07619b6e6a7a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q63": {
+   "temas": [
+    "intoxicação por agrotóxicos",
+    "saúde do trabalhador",
+    "notificação compulsória",
+    "vigilância em saúde"
+   ],
+   "resumo": "trabalhadora rural com sintomas após pulverização de agrotóxicos: conduta na assistência e notificação",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "0f74742f9039",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q64": {
+   "temas": [
+    "transtorno de oposição desafiante",
+    "transtornos disruptivos do controle de impulsos",
+    "psiquiatria infantil"
+   ],
+   "resumo": "criança de 10 anos com comportamento desafiador e irritabilidade: diagnóstico diferencial psiquiátrico",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "0fcf88973039",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q65": {
+   "temas": [
+    "síndrome nefrótica",
+    "proteinúria",
+    "hipoalbuminemia",
+    "critérios diagnósticos"
+   ],
+   "resumo": "homem de 50 anos com edema e alterações laboratoriais: definição da síndrome renal",
+   "abordagem": "diagnóstico",
+   "disciplina": "Nefrologia",
+   "texto": "c388c8d57f75",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q66": {
+   "temas": [
+    "síndrome de Down",
+    "curvas de crescimento",
+    "acompanhamento pôndero-estatural",
+    "puericultura"
+   ],
+   "resumo": "recém-nascido com síndrome de Down em puericultura: escolha das curvas de crescimento para acompanhamento",
+   "abordagem": "exame complementar",
+   "disciplina": "Pediatria",
+   "texto": "da3b9a11d89b",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q67": {
+   "temas": [
+    "pneumotórax hipertensivo",
+    "trauma torácico",
+    "atendimento pré-hospitalar",
+    "descompressão torácica"
+   ],
+   "resumo": "politraumatizado com sinais de pneumotórax hipertensivo: conduta no atendimento pré-hospitalar",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "ef2925a9ca71",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q68": {
+   "temas": [
+    "insensibilidade androgênica",
+    "amenorreia primária",
+    "diferenciação sexual",
+    "cariótipo 46 XY"
+   ],
+   "resumo": "adolescente com amenorreia primária, ausência de útero e cariótipo 46 XY: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Ginecologia",
+   "texto": "93674d635d3c",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q69": {
+   "temas": [
+    "hipertensão arterial sistêmica",
+    "idoso",
+    "tratamento não farmacológico",
+    "monitoramento da pressão arterial"
+   ],
+   "resumo": "idosa com pressão arterial elevada em consulta: abordagem inicial da hipertensão",
+   "abordagem": "tratamento",
+   "disciplina": "Cardiologia",
+   "texto": "4cc903f85f2d",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q70": {
+   "temas": [
+    "profilaxia pós-exposição ao HIV",
+    "profilaxia pré-exposição ao HIV",
+    "infecções sexualmente transmissíveis",
+    "população-chave"
+   ],
+   "resumo": "mulher travesti com exposição sexual desprotegida: estratégia de prevenção ao HIV e ISTs",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Infectologia",
+   "texto": "66ec3a330b25",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q71": {
+   "temas": [
+    "anorexia nervosa",
+    "transtorno alimentar restritivo",
+    "amenorreia hipotalâmica",
+    "desnutrição grave",
+    "internação hospitalar"
+   ],
+   "resumo": "mulher jovem com perda ponderal acentuada, amenorreia e alterações eletrocardiográficas: conduta diante de anorexia nervosa grave",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "bd502a7e1d70",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q72": {
+   "temas": [
+    "doença de Parkinson",
+    "síndrome parkinsoniana",
+    "tremor de repouso",
+    "levodopa e carbidopa"
+   ],
+   "resumo": "mulher idosa com bradicinesia, rigidez em roda dentada e tremor de repouso: tratamento medicamentoso inicial",
+   "abordagem": "tratamento",
+   "disciplina": "Neurologia",
+   "texto": "a40dc11fd54e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q73": {
+   "temas": [
+    "violência contra a criança e o adolescente",
+    "notificação compulsória",
+    "Conselho Tutelar",
+    "maus-tratos"
+   ],
+   "resumo": "adolescentes em diferentes situações clínicas e sociais: identificação da situação que exige notificação ao Conselho Tutelar",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "beeb62dd4187",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q74": {
+   "temas": [
+    "apendicite aguda",
+    "dor em fossa ilíaca direita",
+    "abdome agudo inflamatório",
+    "ultrassonografia de abdome"
+   ],
+   "resumo": "mulher jovem com dor migratória para fossa ilíaca direita, febre e leucocitose: conduta diante de suspeita de apendicite aguda",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "01fe2d3e3ed0",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q75": {
+   "temas": [
+    "diabetes mellitus gestacional",
+    "puerpério imediato",
+    "insulinoterapia",
+    "manejo pós-parto"
+   ],
+   "resumo": "puérpera com diabetes mellitus gestacional controlada com insulina: conduta no puerpério imediato",
+   "abordagem": "tratamento",
+   "disciplina": "Obstetrícia",
+   "texto": "d2f1d6d0b444",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q76": {
+   "temas": [
+    "dengue",
+    "classificação de risco da dengue",
+    "hidratação parenteral",
+    "arbovirose"
+   ],
+   "resumo": "homem com febre, exantema, vômitos incontroláveis e dor abdominal: classificação e manejo da dengue",
+   "abordagem": "conduta inicial",
+   "disciplina": "Infectologia",
+   "texto": "9214f0c6b7f2",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q77": {
+   "temas": [
+    "lombalgia mecânica aguda",
+    "dor lombar sem sinais de alarme",
+    "tratamento conservador",
+    "atenção primária"
+   ],
+   "resumo": "homem com lombalgia insidiosa sem sinais de alarme: próximo passo na condução",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ortopedia",
+   "texto": "6db4be9827ad",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q78": {
+   "temas": [
+    "internação involuntária",
+    "Lei de Saúde Mental",
+    "transtornos por uso de substâncias",
+    "legislação em saúde mental"
+   ],
+   "resumo": "internação involuntária no Brasil: quem a autoriza e como é regulada pela legislação",
+   "abordagem": "ética e legislação",
+   "disciplina": "Psiquiatria",
+   "texto": "ba6605e73957",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q79": {
+   "temas": [
+    "acidente vascular encefálico isquêmico",
+    "trombólise",
+    "contraindicações à trombólise",
+    "território da artéria cerebral média"
+   ],
+   "resumo": "homem com déficit neurológico focal e tomografia mostrando isquemia extensa: contraindicação à terapia trombolítica",
+   "abordagem": "tratamento",
+   "disciplina": "Neurologia",
+   "texto": "cc15080e4987",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q80": {
+   "temas": [
+    "fimose",
+    "balanopostite recorrente",
+    "fibrose prepucial",
+    "cirurgia pediátrica"
+   ],
+   "resumo": "menino com fimose, balanopostites recorrentes e anel fibrótico prepucial: indicação cirúrgica",
+   "abordagem": "tratamento",
+   "disciplina": "Pediatria",
+   "texto": "5a9cabff2e61",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q81": {
+   "temas": [
+    "tumor de vias biliares",
+    "icterícia obstrutiva",
+    "massa abdominal cística",
+    "neoplasia de pâncreas",
+    "investigação por imagem"
+   ],
+   "resumo": "idosa com icterícia obstrutiva, prurido, emagrecimento e massa cística em hipocôndrio direito: exame de imagem indicado",
+   "abordagem": "exame complementar",
+   "disciplina": "Gastroenterologia",
+   "texto": "b8d963aaf8d9",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q82": {
+   "temas": [
+    "hipertensão arterial crônica na gestação",
+    "pré-eclâmpsia",
+    "teratogenicidade de anti-hipertensivos",
+    "profilaxia com ácido acetilsalicílico",
+    "suplementação de cálcio na gestação"
+   ],
+   "resumo": "gestante hipertensa crônica em uso de enalapril com antecedente de pré-eclâmpsia: conduta medicamentosa no pré-natal",
+   "abordagem": "tratamento",
+   "disciplina": "Obstetrícia",
+   "texto": "ea0c88ede0de",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q83": {
+   "temas": [
+    "diabetes mellitus tipo 2 descompensado",
+    "insulinização",
+    "insulina NPH",
+    "ajuste de hipoglicemiante oral",
+    "monitorização glicêmica"
+   ],
+   "resumo": "diabético em uso de metformina e glicazida com hemoglobina glicada elevada e função renal normal: conduta de seguimento",
+   "abordagem": "tratamento",
+   "disciplina": "Endocrinologia",
+   "texto": "d10c0124ff62",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q84": {
+   "temas": [
+    "sensibilidade e especificidade",
+    "valor preditivo positivo",
+    "prevalência e testes diagnósticos",
+    "teste de triagem",
+    "hanseníase"
+   ],
+   "resumo": "teste de triagem para hanseníase com alta sensibilidade e baixa especificidade em população de baixa prevalência: interpretação dos resultados",
+   "abordagem": "epidemiologia",
+   "disciplina": "Medicina Preventiva",
+   "texto": "e64031743765",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q85": {
+   "temas": [
+    "luto agudo",
+    "reação ao estresse grave",
+    "acolhimento em atenção primária",
+    "risco de suicídio",
+    "apoio longitudinal"
+   ],
+   "resumo": "mulher em luto recente pela morte do filho, com insônia e sofrimento intenso, sem ideação suicida: conduta no acolhimento da UBS",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "1513a7da5a12",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q86": {
+   "temas": [
+    "quedas em idosos",
+    "hipotensão ortostática",
+    "polifarmácia",
+    "iatrogenia medicamentosa",
+    "sarcopenia"
+   ],
+   "resumo": "idosa com quedas frequentes, polifarmácia e hipotensão postural: conduta no plano terapêutico",
+   "abordagem": "tratamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "c57edcbd8602",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q87": {
+   "temas": [
+    "febre reumática",
+    "artrite migratória",
+    "cardite reumática",
+    "Streptococcus pyogenes",
+    "penicilina benzatina"
+   ],
+   "resumo": "criança com poliartrite migratória, febre e sopro cardíaco após faringite: agente etiológico e tratamento de escolha",
+   "abordagem": "tratamento",
+   "disciplina": "Pediatria",
+   "texto": "881ba4fff80a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q88": {
+   "temas": [
+    "pancreatite crônica",
+    "dor epigástrica irradiada para dorso",
+    "alcoolismo crônico",
+    "insuficiência pancreática exócrina",
+    "diagnóstico clínico"
+   ],
+   "resumo": "homem alcoolista com dor epigástrica recorrente irradiada para dorso e enzimas pancreáticas normais: diagnóstico provável",
+   "abordagem": "diagnóstico",
+   "disciplina": "Gastroenterologia",
+   "texto": "9f44ccf3a2d9",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q89": {
+   "temas": [
+    "gestação prolongada",
+    "pós-termo",
+    "avaliação do bem-estar fetal",
+    "perfil biofísico fetal",
+    "indução do parto"
+   ],
+   "resumo": "primigesta com 41 semanas assintomática e perfil biofísico normal: conduta e planejamento do parto",
+   "abordagem": "conduta inicial",
+   "disciplina": "Obstetrícia",
+   "texto": "6e5683eb113e",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q90": {
+   "temas": [
+    "malária",
+    "quimioprofilaxia",
+    "doxiciclina",
+    "região endêmica",
+    "medicina de viagem"
+   ],
+   "resumo": "médica sem comorbidades que atuará em área endêmica de malária: quimioprofilaxia indicada",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Infectologia",
+   "texto": "08073356a004",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q91": {
+   "temas": [
+    "cetoacidose diabética",
+    "diabetes mellitus tipo 1 descompensado",
+    "emergências endocrinológicas",
+    "distúrbios hidroeletrolíticos"
+   ],
+   "resumo": "jovem com diabetes tipo 1 sem insulina há 3 dias, com dor abdominal, desidratação, hálito cetótico e acidose metabólica: diagnóstico e conduta inicial",
+   "abordagem": "conduta inicial",
+   "disciplina": "Endocrinologia",
+   "texto": "1532d2ab2685",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q92": {
+   "temas": [
+    "choque distributivo neonatal",
+    "onfalite",
+    "sepse neonatal",
+    "choque séptico pediátrico"
+   ],
+   "resumo": "recém-nascido de 14 dias com hipoatividade, desconforto respiratório, sinais de infecção do coto umbilical e hipoperfusão: diagnóstico e condutas",
+   "abordagem": "conduta inicial",
+   "disciplina": "Pediatria",
+   "texto": "a17b649a1de6",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q93": {
+   "temas": [
+    "diverticulite aguda complicada",
+    "abscesso peridiverticular",
+    "pós-operatório de revascularização cardíaca",
+    "complicações cirúrgicas"
+   ],
+   "resumo": "pós-operatório de revascularização cardíaca com dor abdominal, febre e coleção perissigmoide: conduta após antibioticoterapia",
+   "abordagem": "tratamento",
+   "disciplina": "Cirurgia",
+   "texto": "8df27badd869",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q94": {
+   "temas": [
+    "dequitação placentária",
+    "terceiro período do trabalho de parto",
+    "manejo ativo do terceiro período",
+    "hemorragia pós-parto"
+   ],
+   "resumo": "parturiente com 10 minutos após o desprendimento fetal sem expulsão da placenta, estável: conduta no terceiro período do parto",
+   "abordagem": "conduta inicial",
+   "disciplina": "Obstetrícia",
+   "texto": "262dc5f8bdae",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q95": {
+   "temas": [
+    "tuberculose em população privada de liberdade",
+    "busca ativa de sintomáticos respiratórios",
+    "diagnóstico de tuberculose",
+    "saúde prisional"
+   ],
+   "resumo": "paciente em regime fechado com tosse há 2 semanas: conduta do médico de família e comunidade",
+   "abordagem": "diagnóstico",
+   "disciplina": "Medicina Preventiva",
+   "texto": "99faca4d5f23",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q96": {
+   "temas": [
+    "espondilite anquilosante",
+    "espondiloartrite axial",
+    "dor lombar inflamatória",
+    "HLA-B27"
+   ],
+   "resumo": "homem jovem com dor lombar crônica inflamatória, rigidez matinal e HLA-B27 positivo: diagnóstico mais provável",
+   "abordagem": "diagnóstico",
+   "disciplina": "Reumatologia",
+   "texto": "e0c8852bc432",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q97": {
+   "temas": [
+    "calendário vacinal do adolescente",
+    "vacina HPV",
+    "vacina meningocócica ACWY",
+    "vacina febre amarela",
+    "imunização"
+   ],
+   "resumo": "adolescente de 12 anos com vacinas atualizadas até os 8 anos e uma dose de febre amarela: vacinas indicadas no momento",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "febee0cc25bd",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q98": {
+   "temas": [
+    "derrame pleural",
+    "tuberculose pleural",
+    "síndrome do lobo médio",
+    "toracocentese diagnóstica"
+   ],
+   "resumo": "homem tabagista com tosse crônica, febre vespertina e macicez em base pulmonar: exame complementar e conduta",
+   "abordagem": "exame complementar",
+   "disciplina": "Pneumologia",
+   "texto": "d0f79dd80c9a",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q99": {
+   "temas": [
+    "contracepção em lúpus eritematoso sistêmico",
+    "critérios de elegibilidade de métodos contraceptivos",
+    "DIU de levonorgestrel",
+    "sangramento menstrual aumentado"
+   ],
+   "resumo": "mulher com lúpus e história de trombose venosa, com sangramento menstrual intenso, buscando contracepção: melhor método",
+   "abordagem": "tratamento",
+   "disciplina": "Ginecologia",
+   "texto": "872e37d347f0",
+   "com_gabarito": true
+  },
+  "ENAMED-2025-Q100": {
+   "temas": [
+    "esporotricose cutânea",
+    "esporotricose linfocutânea",
+    "micoses profundas",
+    "itraconazol"
+   ],
+   "resumo": "homem com lesão cutânea ulcerada e nodulações após arranhadura de gato, com biópsia sugestiva: hipótese diagnóstica e tratamento",
+   "abordagem": "tratamento",
+   "disciplina": "Dermatologia",
+   "texto": "3fe793cd08d5",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q1": {
+   "temas": [
+    "dor torácica aguda",
+    "síndrome coronariana aguda",
+    "avaliação inicial da dor torácica",
+    "cardiologia"
+   ],
+   "resumo": "homem de 71 anos com dor retroesternal em queimação após refeição: conduta imediata na emergência",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cardiologia",
+   "texto": "e898ad6f65a0",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q2": {
+   "temas": [
+    "transtorno alimentar restritivo evitativo",
+    "transtornos alimentares na infância",
+    "perda de peso em pediatria",
+    "psiquiatria infantil"
+   ],
+   "resumo": "menina de 10 anos com perda de peso e recusa de sólidos após engasgo, sem causa orgânica: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "1cbb24e05981",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q3": {
+   "temas": [
+    "fratura de clavícula exposta",
+    "atendimento pré-hospitalar ao trauma",
+    "lesão de nervo periférico no trauma",
+    "trauma ortopédico"
+   ],
+   "resumo": "motociclista com fratura exposta de clavícula e déficit neurológico distal: conduta no local do acidente",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ortopedia",
+   "texto": "ada43b28d71a",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q4": {
+   "temas": [
+    "laqueadura tubária",
+    "planejamento familiar",
+    "legislação sobre esterilização cirúrgica",
+    "anticoncepção"
+   ],
+   "resumo": "mulher de 23 anos G3P3 solicita laqueadura tubária na atenção básica: conduta inicial conforme a lei de planejamento familiar",
+   "abordagem": "ética e legislação",
+   "disciplina": "Ginecologia",
+   "texto": "6508bd372f22",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q5": {
+   "temas": [
+    "rastreamento de câncer colorretal",
+    "história familiar de câncer de cólon",
+    "colonoscopia de rastreamento",
+    "prevenção e rastreamento"
+   ],
+   "resumo": "homem de 34 anos obeso com pai diagnosticado com câncer de cólon aos 53 anos: quando iniciar rastreamento pelo SUS",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "79849e4b3a95",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q6": {
+   "temas": [
+    "anafilaxia por picada de abelha",
+    "anafilaxia refratária à adrenalina",
+    "uso de glucagon na anafilaxia",
+    "bloqueio beta-adrenérgico e anafilaxia"
+   ],
+   "resumo": "homem em uso de propranolol com anafilaxia após picada de abelha sem resposta à adrenalina IM: próxima conduta medicamentosa",
+   "abordagem": "tratamento",
+   "disciplina": "Infectologia",
+   "texto": "f607eb924ce8",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q7": {
+   "temas": [
+    "bronquiolite viral aguda",
+    "prematuridade e displasia broncopulmonar",
+    "insuficiência respiratória em lactente",
+    "infecção respiratória em pediatria"
+   ],
+   "resumo": "lactente prematuro com displasia broncopulmonar e quadro respiratório com hipoxemia: conduta inicial",
+   "abordagem": "conduta inicial",
+   "disciplina": "Pediatria",
+   "texto": "8d94319a624e",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q8": {
+   "temas": [
+    "síndrome da cauda equina",
+    "hérnia discal lombar",
+    "lombociatalgia com déficit neurológico",
+    "emergência neurocirúrgica"
+   ],
+   "resumo": "homem com hérnia discal L4-L5 que evolui com anestesia em sela e incontinência urinária: conduta adequada",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ortopedia",
+   "texto": "09813e8bcf46",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q9": {
+   "temas": [
+    "toxoplasmose na gestação",
+    "sorologia pré-natal",
+    "interpretação de IgG e IgM",
+    "pré-natal"
+   ],
+   "resumo": "gestante de 11 semanas com IgG reagente e IgM não reagente para toxoplasmose: interpretação do resultado",
+   "abordagem": "exame complementar",
+   "disciplina": "Obstetrícia",
+   "texto": "fac4079585ea",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q10": {
+   "temas": [
+    "hesitação vacinal",
+    "vacina tríplice viral",
+    "mito da associação com autismo",
+    "comunicação em saúde e imunização"
+   ],
+   "resumo": "pais de lactente hesitantes em vacinar por associação da tríplice viral ao autismo: abordagem na consulta",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "aebdb817ceff",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q11": {
+   "temas": [
+    "crise vaso-oclusiva em anemia falciforme",
+    "dor aguda em anemia falciforme",
+    "analgesia em anemia falciforme",
+    "anemia falciforme"
+   ],
+   "resumo": "mulher jovem com anemia falciforme em crise dolorosa de membros inferiores: conduta analgésica imediata",
+   "abordagem": "tratamento",
+   "disciplina": "Hematologia",
+   "texto": "ed2a6b2193d3",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q12": {
+   "temas": [
+    "reposição volêmica em queimaduras",
+    "fórmula de Parkland",
+    "queimaduras de segundo e terceiro graus",
+    "superfície corporal queimada em pediatria",
+    "queimaduras"
+   ],
+   "resumo": "escolar com queimaduras de 2º e 3º graus em membros inferiores, tórax e abdome: cálculo e forma de administração do Ringer lactato",
+   "abordagem": "tratamento",
+   "disciplina": "Cirurgia",
+   "texto": "b461eeda8358",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q13": {
+   "temas": [
+    "hemotórax traumático",
+    "trauma torácico penetrante",
+    "drenagem torácica",
+    "derrame pleural maciço pós-trauma"
+   ],
+   "resumo": "jovem com ferimento por arma de fogo no hemitórax direito, instabilidade e velamento à radiografia: conduta imediata",
+   "abordagem": "conduta inicial",
+   "disciplina": "Pneumologia",
+   "texto": "1dfaf9e838a1",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q14": {
+   "temas": [
+    "comunicação em saúde",
+    "acolhimento e escuta ativa",
+    "teste rápido reagente para HIV no pré-natal",
+    "ética médica e sigilo",
+    "humanização do cuidado"
+   ],
+   "resumo": "gestante com teste rápido reagente para HIV, ansiosa e com medo de julgamento: conduta inicial segundo comunicação, ética e cuidado humanizado",
+   "abordagem": "ética e legislação",
+   "disciplina": "Medicina Preventiva",
+   "texto": "9d7c55f1b37e",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q15": {
+   "temas": [
+    "síndrome coronariana aguda com supradesnivelamento do ST",
+    "infarto agudo do miocárdio de parede inferior",
+    "bradicardia e hipotensão no infarto",
+    "conduta de suporte pré-hospitalar na síndrome coronariana aguda"
+   ],
+   "resumo": "mulher com fatores de risco, síncope, bradicardia, hipotensão e desconforto epigástrico em UBS sem eletrocardiograma: conduta de suporte além do acionamento do SAMU",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cardiologia",
+   "texto": "fd1f9a46f86e",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q16": {
+   "temas": [
+    "doença de Chagas cardíaca crônica",
+    "insuficiência cardíaca com fração de ejeção reduzida",
+    "bloqueio de ramo direito e dilatação ventricular",
+    "sorologia para doença de Chagas",
+    "cardiomiopatia chagásica"
+   ],
+   "resumo": "homem de zona rural com insuficiência cardíaca de fração de ejeção reduzida, bloqueio de ramo direito e dilatação ventricular: método laboratorial para confirmação diagnóstica",
+   "abordagem": "exame complementar",
+   "disciplina": "Cardiologia",
+   "texto": "dfd681f126dc",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q17": {
+   "temas": [
+    "exantema súbito",
+    "roseola infantum",
+    "herpes-vírus humano 6",
+    "exantema maculopapular em criança",
+    "linfadenopatia cervical"
+   ],
+   "resumo": "criança de 1 ano e 9 meses com febre seguida de rash maculopapular que surgiu com o fim da febre: agente etiológico",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "e7eb44f31fe4",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q18": {
+   "temas": [
+    "colecistite aguda",
+    "sinal de Murphy",
+    "colelitíase complicada",
+    "colecistectomia de urgência",
+    "dor em hipocôndrio direito"
+   ],
+   "resumo": "mulher obesa com dor em hipocôndrio direito, febre e sinal de Murphy, com vesícula de parede espessada e cálculos à ultrassonografia: conduta indicada",
+   "abordagem": "tratamento",
+   "disciplina": "Cirurgia",
+   "texto": "688f2ec0be39",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q19": {
+   "temas": [
+    "gravidez ectópica",
+    "gestação ectópica sem saco gestacional",
+    "beta-HCG seriado",
+    "massa anexial com sinal de anel tubário",
+    "manejo da gravidez ectópica"
+   ],
+   "resumo": "mulher com 8 semanas de amenorreia, sangramento vaginal leve, beta-HCG em queda e massa anexial sem saco gestacional: estratégia de manejo",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ginecologia",
+   "texto": "4d45611ee7d9",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q20": {
+   "temas": [
+    "educação alimentar e nutricional",
+    "Guia alimentar para a população brasileira",
+    "determinantes sociais da saúde",
+    "prevenção de doenças crônicas não transmissíveis",
+    "atenção primária à saúde"
+   ],
+   "resumo": "equipe de Saúde da Família com aumento de obesidade e hipertensão na população adscrita: estratégia educativa a ser priorizada segundo o Guia alimentar",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "d697d0a19d76",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q21": {
+   "temas": [
+    "intoxicação por chumbo",
+    "vigilância em saúde do trabalhador",
+    "notificação compulsória",
+    "saúde do trabalhador",
+    "atenção primária à saúde"
+   ],
+   "resumo": "Trabalhador de reciclagem de baterias com intoxicação por chumbo: papel da atenção primária na vigilância do caso",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "54cb537ee351",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q22": {
+   "temas": [
+    "episódio maníaco",
+    "humor hipertímico",
+    "taquipsiquismo",
+    "taquilalia",
+    "semiologia psiquiátrica"
+   ],
+   "resumo": "Mulher em CAPS com agitação, loquacidade e humor eufórico: identificação das alterações psicopatológicas",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "761425a3c373",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q23": {
+   "temas": [
+    "síndrome coronariana aguda sem supradesnivelamento do ST",
+    "infarto agudo do miocárdio sem supradesnivelamento do ST",
+    "troponina de alta sensibilidade",
+    "dor torácica"
+   ],
+   "resumo": "Mulher com dor torácica e infradesnivelamento de ST com troponina inicial normal: próxima conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cardiologia",
+   "texto": "5e11150ad598",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q24": {
+   "temas": [
+    "crise aguda de asma",
+    "asma grave",
+    "sulfato de magnésio",
+    "asma em pediatria"
+   ],
+   "resumo": "Escolar asmático em crise grave sem melhora após tratamento inicial: conduta medicamentosa",
+   "abordagem": "tratamento",
+   "disciplina": "Pneumologia",
+   "texto": "b0b8e7463509",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q25": {
+   "temas": [
+    "infecção de sítio cirúrgico",
+    "complicação de hernioplastia inguinal",
+    "ferida operatória",
+    "herniorrafia inguinal"
+   ],
+   "resumo": "Pós-operatório de hernioplastia inguinal com tumefação, rubor e calor na ferida: conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "495fc794abeb",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q26": {
+   "temas": [
+    "descolamento prematuro de placenta",
+    "hemorragia anteparto",
+    "sofrimento fetal agudo",
+    "hipertensão gestacional"
+   ],
+   "resumo": "Gestante de 38 semanas com sangramento vaginal, hipertonia uterina e sofrimento fetal: conduta imediata",
+   "abordagem": "conduta inicial",
+   "disciplina": "Obstetrícia",
+   "texto": "9692f467c0fa",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q27": {
+   "temas": [
+    "tuberculose pulmonar",
+    "abandono de tratamento",
+    "população em situação de rua",
+    "projeto terapêutico singular",
+    "atenção primária à saúde"
+   ],
+   "resumo": "Homem em situação de rua com tuberculose e interrupção do tratamento: local de reinício do tratamento",
+   "abordagem": "tratamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "10bf22e6f6d0",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q28": {
+   "temas": [
+    "hipertensão arterial sistêmica",
+    "adesão ao tratamento",
+    "crise hipertensiva",
+    "atenção primária à saúde",
+    "planejamento em saúde"
+   ],
+   "resumo": "Equipe de saúde da família com aumento de crises hipertensivas e queda da adesão: medida prioritária",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "4a7642594c11",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q29": {
+   "temas": [
+    "bulimia nervosa",
+    "transtornos alimentares",
+    "compulsão alimentar",
+    "adolescência"
+   ],
+   "resumo": "Adolescente com medo de engordar, compulsões alimentares e compensações: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "908e2cc8ecfe",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q30": {
+   "temas": [
+    "delirium",
+    "pneumonia em idoso",
+    "instituição de longa permanência",
+    "atenção primária à saúde"
+   ],
+   "resumo": "Idoso institucionalizado com confusão mental e sintomas respiratórios sem melhora com antibiótico: conduta inicial",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "3fa4f2c5992b",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q31": {
+   "temas": [
+    "epiglotite aguda",
+    "obstrução de via aérea superior",
+    "estridor inspiratório",
+    "emergência pediátrica"
+   ],
+   "resumo": "criança de 4 anos com estridor inspiratório súbito, sialorreia, postura em tripé e toxemia: principal hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "6542332eac2d",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q32": {
+   "temas": [
+    "trauma na gestação",
+    "síndrome da hipotensão supina",
+    "atendimento pré-hospitalar",
+    "deslocamento uterino manual"
+   ],
+   "resumo": "gestante de 32 semanas vítima de acidente automobilístico com instabilidade: conduta para otimizar retorno venoso durante transporte",
+   "abordagem": "conduta inicial",
+   "disciplina": "Obstetrícia",
+   "texto": "e2ca3c735034",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q33": {
+   "temas": [
+    "endometriose profunda",
+    "dismenorreia progressiva",
+    "disquezia catamenial",
+    "ultrassonografia endovaginal"
+   ],
+   "resumo": "mulher de 35 anos com dismenorreia progressiva e hematoquezia catamenial: exame de referência para investigação inicial",
+   "abordagem": "exame complementar",
+   "disciplina": "Ginecologia",
+   "texto": "f10d788f17cb",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q34": {
+   "temas": [
+    "dengue",
+    "sorologia IgM por ELISA",
+    "arbovirose",
+    "síndrome febril aguda"
+   ],
+   "resumo": "homem de 27 anos com febre, mialgia, dor retro-orbitária e exantema: método de confirmação diagnóstica",
+   "abordagem": "exame complementar",
+   "disciplina": "Infectologia",
+   "texto": "eb76607a1efa",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q35": {
+   "temas": [
+    "onda de calor",
+    "atenção primária à saúde",
+    "vulnerabilidade climática",
+    "promoção da saúde"
+   ],
+   "resumo": "UBS com aumento de atendimentos por desidratação e exaustão pelo calor: plano de intervenção para a população adstrita",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Medicina Preventiva",
+   "texto": "456c819a7496",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q36": {
+   "temas": [
+    "depressão na adolescência",
+    "ideação suicida",
+    "atenção primária em saúde mental",
+    "manejo inicial"
+   ],
+   "resumo": "adolescente com tristeza, anedonia e ideação suicida sem planejamento: conduta inicial na atenção primária",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "e30db125c681",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q37": {
+   "temas": [
+    "fibrilação atrial",
+    "arritmia cardíaca",
+    "anticoagulação",
+    "eletrocardiograma"
+   ],
+   "resumo": "mulher de 67 anos com palpitação e eletrocardiograma de arritmia, hemodinamicamente estável: conduta imediata",
+   "abordagem": "tratamento",
+   "disciplina": "Cardiologia",
+   "texto": "b12a8cf55d94",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q38": {
+   "temas": [
+    "sopro cardíaco inocente",
+    "sopro sistólico",
+    "avaliação cardiológica pediátrica",
+    "exame físico cardiovascular"
+   ],
+   "resumo": "adolescente assintomático com sopro sistólico suave em foco pulmonar: critério que sugere sopro inocente",
+   "abordagem": "diagnóstico",
+   "disciplina": "Cardiologia",
+   "texto": "8fd2067fa5e6",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q39": {
+   "temas": [
+    "toxicidade por anestésico local",
+    "lidocaína",
+    "convulsão",
+    "complicação anestésica"
+   ],
+   "resumo": "criança submetida a desbridamento sob lidocaína que evolui com parestesias, gosto metálico e convulsão: diagnóstico provável",
+   "abordagem": "complicação",
+   "disciplina": "Cirurgia",
+   "texto": "6fdd22dcd0e5",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q40": {
+   "temas": [
+    "diabetes mellitus gestacional",
+    "teste oral de tolerância à glicose",
+    "monitorização glicêmica",
+    "pré-natal"
+   ],
+   "resumo": "gestante de 27 semanas com curva glicêmica alterada: medida imediata no seguimento após orientações de dieta e atividade física",
+   "abordagem": "tratamento",
+   "disciplina": "Obstetrícia",
+   "texto": "3b4ea5191040",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q41": {
+   "temas": [
+    "rastreamento de dislipidemia em crianças",
+    "dislipidemia na infância",
+    "puericultura",
+    "prevenção de aterosclerose"
+   ],
+   "resumo": "criança de 6 anos com história familiar de hipercolesterolemia e sobrepeso: conduta de rastreamento segundo diretrizes brasileiras",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Pediatria",
+   "texto": "cde1a60b4ba4",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q42": {
+   "temas": [
+    "prevalência de HIV",
+    "medidas de frequência em epidemiologia",
+    "letalidade e duração da doença",
+    "indicadores epidemiológicos"
+   ],
+   "resumo": "série histórica de HIV com incidência estável, aumento de PVHA e queda de óbitos: interpretação da elevação da prevalência",
+   "abordagem": "epidemiologia",
+   "disciplina": "Medicina Preventiva",
+   "texto": "fc5e6b8cda66",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q43": {
+   "temas": [
+    "reação ao estresse agudo",
+    "primeiros cuidados psicológicos",
+    "saúde mental em desastres",
+    "atenção primária à saúde"
+   ],
+   "resumo": "mulher de 42 anos com sofrimento psíquico após desastre natural: ações iniciais de saúde mental na atenção primária",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "f47d8032fc86",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q44": {
+   "temas": [
+    "hiperglicemia não crítica",
+    "emergências hiperglicêmicas",
+    "diabetes mellitus tipo 2 descompensado",
+    "diagnóstico diferencial de cetoacidose e estado hiperosmolar"
+   ],
+   "resumo": "diabético tipo 2 com hiperglicemia acentuada, sem cetoacidose nem hiperosmolaridade: diagnóstico do quadro",
+   "abordagem": "diagnóstico",
+   "disciplina": "Endocrinologia",
+   "texto": "3b2cba152b3e",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q45": {
+   "temas": [
+    "anemia ferropriva na infância",
+    "anemia microcítica hipocrômica",
+    "deficiência de ferro",
+    "hematologia pediátrica"
+   ],
+   "resumo": "criança de 2 anos com palidez e anemia microcítica: conduta terapêutica",
+   "abordagem": "tratamento",
+   "disciplina": "Pediatria",
+   "texto": "b9f73ee7a36c",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q46": {
+   "temas": [
+    "íleo paralítico pós-operatório",
+    "íleo adinâmico",
+    "complicações pós-operatórias de cirurgia abdominal",
+    "pós-operatório de colectomia"
+   ],
+   "resumo": "paciente no 2º dia de pós-operatório de hemicolectomia com distensão e ausência de eliminação de gases: conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "b59ccb394cba",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q47": {
+   "temas": [
+    "doença inflamatória pélvica",
+    "vaginose bacteriana associada",
+    "infecção sexualmente transmissível",
+    "tratamento antimicrobiano combinado"
+   ],
+   "resumo": "mulher de 20 anos com corrimento, dor pélvica, febre e dor anexial: tratamento medicamentoso do quadro provável",
+   "abordagem": "tratamento",
+   "disciplina": "Ginecologia",
+   "texto": "cd97be1bebcf",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q48": {
+   "temas": [
+    "profilaxia pré-exposição ao HIV",
+    "PrEP",
+    "prevenção de IST",
+    "populações-chave"
+   ],
+   "resumo": "profissional do sexo com risco de HIV e sorologias negativas: modalidade de prescrição da PrEP",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Infectologia",
+   "texto": "58838e6a2864",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q49": {
+   "temas": [
+    "razão de verossimilhança positiva",
+    "acurácia de testes diagnósticos",
+    "rastreamento de diabetes mellitus",
+    "epidemiologia clínica"
+   ],
+   "resumo": "avaliação de teste rápido para diabetes em atenção primária: cálculo e interpretação da razão de verossimilhança positiva",
+   "abordagem": "exame complementar",
+   "disciplina": "Medicina Preventiva",
+   "texto": "38390e53263b",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q50": {
+   "temas": [
+    "transtorno de personalidade borderline",
+    "transtornos de personalidade",
+    "instabilidade afetiva e relacional",
+    "autolesão"
+   ],
+   "resumo": "homem de 29 anos com relações instáveis, explosões de raiva e autolesão: identificação do transtorno de personalidade",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "a88baf1213a7",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q51": {
+   "temas": [
+    "hipertireoidismo por doença de Graves",
+    "tireotoxicose",
+    "hipertireoidismo",
+    "endocrinologia"
+   ],
+   "resumo": "mulher com emagrecimento, palpitações, exoftalmia e TSH suprimido: esquema terapêutico indicado",
+   "abordagem": "tratamento",
+   "disciplina": "Endocrinologia",
+   "texto": "3bb91a7da5e4",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q52": {
+   "temas": [
+    "neuroblastoma",
+    "tumor abdominal pediátrico",
+    "massa abdominal na infância",
+    "oncologia pediátrica"
+   ],
+   "resumo": "criança com febre, perda ponderal, hipertensão e massa abdominal em flanco: diagnóstico mais provável",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "4cc68183d413",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q53": {
+   "temas": [
+    "hérnia inguinal na infância",
+    "hérnia inguinal indireta",
+    "cirurgia pediátrica"
+   ],
+   "resumo": "lactente com abaulamento inguinal redutível há 6 meses: conduta adequada",
+   "abordagem": "conduta inicial",
+   "disciplina": "Cirurgia",
+   "texto": "40167107f088",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q54": {
+   "temas": [
+    "aloimunização Rh",
+    "doença hemolítica perinatal",
+    "sangramento vaginal na gestação",
+    "pré-natal de alto risco"
+   ],
+   "resumo": "gestante Rh negativo com sangramento vaginal e Coombs indireto positivo: conduta neste momento",
+   "abordagem": "conduta inicial",
+   "disciplina": "Obstetrícia",
+   "texto": "f646b084773d",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q55": {
+   "temas": [
+    "efeitos do calor extremo na saúde",
+    "desidratação em idosos",
+    "vigilância em saúde",
+    "saúde pública e políticas de saúde"
+   ],
+   "resumo": "idosa com sintomas de exaustão pelo calor em área com ondas de calor: estratégias individual e coletiva",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "d15b0d15a6f1",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q56": {
+   "temas": [
+    "crise de desregulação comportamental",
+    "transtorno do espectro autista",
+    "diagnóstico diferencial de crise epiléptica",
+    "psiquiatria infantil"
+   ],
+   "resumo": "adolescente autista com episódio de agitação e movimentos amplos sem confusão pós-ictal: diagnóstico da crise",
+   "abordagem": "diagnóstico",
+   "disciplina": "Psiquiatria",
+   "texto": "4d8a519ea68b",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q57": {
+   "temas": [
+    "coqueluche",
+    "infecção respiratória em lactente",
+    "diagnóstico laboratorial de Bordetella pertussis",
+    "imunização incompleta"
+   ],
+   "resumo": "lactente com crises de tosse, cianose e vômitos pós-tosse, vacinação incompleta: exame confirmatório",
+   "abordagem": "exame complementar",
+   "disciplina": "Pediatria",
+   "texto": "a99323a76fe9",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q58": {
+   "temas": [
+    "negligência médica",
+    "erro médico",
+    "ética e legislação",
+    "responsabilidade profissional"
+   ],
+   "resumo": "pós-operatório de colecistectomia com fístula biliar após alta inadequada: natureza da conduta médica",
+   "abordagem": "ética e legislação",
+   "disciplina": "Medicina Preventiva",
+   "texto": "f37370b2ed01",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q59": {
+   "temas": [
+    "amenorreia primária",
+    "anomalia mülleriana",
+    "desenvolvimento puberal normal",
+    "ginecologia da adolescência"
+   ],
+   "resumo": "adolescente com amenorreia primária, telarca e pubarca normais e exame genital sem alterações: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Ginecologia",
+   "texto": "94d5fb0decfa",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q60": {
+   "temas": [
+    "transtorno por uso de álcool",
+    "intervenção breve",
+    "luto e sofrimento psíquico",
+    "atenção primária à saúde"
+   ],
+   "resumo": "homem com consumo aumentado de álcool após perda familiar: abordagem inicial na atenção básica",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "16c314609cb3",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q61": {
+   "temas": [
+    "hipertensão portal por esquistossomose",
+    "fibrose periportal",
+    "esquistossomose mansônica",
+    "hipertensão portal"
+   ],
+   "resumo": "homem com ascite, esplenomegalia e varizes esofágicas, com fibrose periportal à ultrassonografia: exame para confirmação diagnóstica",
+   "abordagem": "exame complementar",
+   "disciplina": "Gastroenterologia",
+   "texto": "87d22fcb9c67",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q62": {
+   "temas": [
+    "autolesão em adolescente",
+    "sigilo médico em adolescente",
+    "orientação sexual",
+    "ética médica"
+   ],
+   "resumo": "adolescente com autolesão e orientação sexual revelada em sigilo: conduta sobre confidencialidade",
+   "abordagem": "ética e legislação",
+   "disciplina": "Psiquiatria",
+   "texto": "6d76435dd1df",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q63": {
+   "temas": [
+    "declaração de óbito",
+    "causa básica de morte",
+    "preenchimento de declaração de óbito",
+    "sigilo médico"
+   ],
+   "resumo": "paciente com HIV e tuberculose que evolui a óbito por rotura aórtica: preenchimento da declaração de óbito",
+   "abordagem": "ética e legislação",
+   "disciplina": "Medicina Preventiva",
+   "texto": "a7f6750ee48c",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q64": {
+   "temas": [
+    "úlcera vulvar",
+    "carcinoma vulvar",
+    "lesão vulvar crônica",
+    "neoplasia vulvar"
+   ],
+   "resumo": "mulher idosa com lesão ulcerada vulvar crônica sem melhora: exame para confirmação diagnóstica",
+   "abordagem": "exame complementar",
+   "disciplina": "Ginecologia",
+   "texto": "743d91105a8e",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q65": {
+   "temas": [
+    "pneumonia adquirida na comunidade",
+    "pneumonia em atenção primária",
+    "manejo ambulatorial de pneumonia"
+   ],
+   "resumo": "agricultor com pneumonia comunitária e sinais vitais estáveis: manejo adequado",
+   "abordagem": "tratamento",
+   "disciplina": "Pneumologia",
+   "texto": "dc0c2b0118e4",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q66": {
+   "temas": [
+    "dermatofitose",
+    "tinea corporis",
+    "micose cutânea superficial"
+   ],
+   "resumo": "homem com lesão anular descamativa com clareamento central: medicamento indicado",
+   "abordagem": "tratamento",
+   "disciplina": "Dermatologia",
+   "texto": "cc9c7d0e2dad",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q67": {
+   "temas": [
+    "convulsão febril simples",
+    "crise convulsiva febril",
+    "convulsão febril"
+   ],
+   "resumo": "menina de 2 anos com primeira convulsão febril generalizada e exame neurológico normal: conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Pediatria",
+   "texto": "cba0a674a3da",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q68": {
+   "temas": [
+    "fratura de anel pélvico",
+    "trauma pélvico com instabilidade hemodinâmica",
+    "politraumatismo",
+    "hemorragia retroperitoneal"
+   ],
+   "resumo": "politraumatizado com bacia instável e hipotensão persistente após cinta pélvica e FAST negativo: próxima conduta",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ortopedia",
+   "texto": "18c0d3be59b5",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q69": {
+   "temas": [
+    "osteoporose pós-menopáusica",
+    "osteoporose de alto risco de fratura",
+    "tratamento medicamentoso da osteoporose"
+   ],
+   "resumo": "mulher idosa com osteoporose e alto risco de fratura: opção inicial de tratamento medicamentoso",
+   "abordagem": "tratamento",
+   "disciplina": "Endocrinologia",
+   "texto": "b0429e576012",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q70": {
+   "temas": [
+    "violência doméstica contra a mulher",
+    "violência por parceiro íntimo",
+    "notificação compulsória",
+    "acolhimento na atenção primária"
+   ],
+   "resumo": "mulher em relacionamento abusivo que não deseja romper imediatamente: condutas adequadas no planejamento do cuidado",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "0c1214a808e7",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q71": {
+   "temas": [
+    "articulação do cuidado com a comunidade",
+    "rede de apoio social",
+    "diabetes mellitus em idoso",
+    "atenção primária à saúde"
+   ],
+   "resumo": "idosa diabética com hipoglicemias por dificuldade no uso de insulina e rede familiar limitada: ação inicial da equipe de saúde da família",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "0fc29eb3f7f4",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q72": {
+   "temas": [
+    "redução de danos",
+    "transtorno por uso de cocaína/crack",
+    "políticas públicas de saúde mental",
+    "atenção psicossocial"
+   ],
+   "resumo": "homem com uso de crack em padrão de recaídas busca tratamento: conduta inicial segundo recomendações dos Ministérios da Saúde e da Justiça",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "5515e7c4399d",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q73": {
+   "temas": [
+    "peritonite bacteriana espontânea",
+    "ascite",
+    "cirrose hepática alcoólica",
+    "hipertensão portal"
+   ],
+   "resumo": "etilista crônico com ascite, febre e sinais de cirrose: conduta imediata diante de suspeita de peritonite bacteriana espontânea",
+   "abordagem": "conduta inicial",
+   "disciplina": "Gastroenterologia",
+   "texto": "a849305be0ed",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q74": {
+   "temas": [
+    "leucemia linfoblástica aguda",
+    "pancitopenia com blastos",
+    "leucemia aguda na infância",
+    "oncologia pediátrica"
+   ],
+   "resumo": "criança com febre prolongada, palidez, petéquias, hepatoesplenomegalia e blastos no hemograma: principal hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Hematologia",
+   "texto": "b2100e6f3a72",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q75": {
+   "temas": [
+    "via aérea definitiva em pediatria",
+    "particularidades anatômicas das vias aéreas da criança",
+    "intubação orotraqueal",
+    "atendimento ao politraumatizado pediátrico"
+   ],
+   "resumo": "criança de 5 anos politraumatizada com rebaixamento de consciência e comprometimento respiratório: particularidade anatômica relevante para obtenção de via aérea segura",
+   "abordagem": "fisiopatologia",
+   "disciplina": "Pediatria",
+   "texto": "960126415336",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q76": {
+   "temas": [
+    "rastreamento do câncer de colo uterino",
+    "teste de DNA-HPV oncogênico",
+    "citologia reflexa",
+    "HPV de alto risco"
+   ],
+   "resumo": "mulher assintomática de 46 anos com DNA-HPV oncogênico positivo e citologia prévia normal: conduta inicial no rastreamento",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Ginecologia",
+   "texto": "0fcad4bf1c00",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q77": {
+   "temas": [
+    "indicadores de qualidade da atenção primária",
+    "pré-natal",
+    "cofinanciamento federal da atenção primária",
+    "testes sorológicos na gestação"
+   ],
+   "resumo": "novos indicadores de qualidade do cofinanciamento federal da atenção primária: cuidado na gestação e puerpério a ser garantido",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "b3533ac8ed65",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q78": {
+   "temas": [
+    "diagnóstico de hipertensão arterial",
+    "ponto de corte da pressão arterial sistólica",
+    "sensibilidade e especificidade",
+    "rastreamento de hipertensão"
+   ],
+   "resumo": "redução do ponto de corte da pressão arterial sistólica para diagnóstico de hipertensão: efeito esperado sobre detecção e falsos positivos",
+   "abordagem": "epidemiologia",
+   "disciplina": "Medicina Preventiva",
+   "texto": "90ca86343ce6",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q79": {
+   "temas": [
+    "rede de atenção psicossocial",
+    "esquizofrenia",
+    "uso de álcool em transtorno mental grave",
+    "articulação do cuidado em saúde mental"
+   ],
+   "resumo": "homem com esquizofrenia em CAPS, com recaída no uso de álcool e vulnerabilidade social: pontos de atenção da rede psicossocial para articulação do cuidado",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Psiquiatria",
+   "texto": "3a9e6accac0b",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q80": {
+   "temas": [
+    "intoxicação por organofosforado",
+    "síndrome colinérgica",
+    "intoxicação exógena",
+    "bradicardia e broncorreia"
+   ],
+   "resumo": "homem encontrado desacordado com sialorreia, broncoespasmo, bradicardia e pupilas puntiformes: identificação do agente da intoxicação",
+   "abordagem": "diagnóstico",
+   "disciplina": "Infectologia",
+   "texto": "c278b28644cf",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q81": {
+   "temas": [
+    "impetigo",
+    "infecção cutânea bacteriana",
+    "piodermite",
+    "dermatologia pediátrica"
+   ],
+   "resumo": "criança com lesões periorbitais, labiais e nasais crostosas após bolhas que se romperam: diagnóstico provável",
+   "abordagem": "diagnóstico",
+   "disciplina": "Dermatologia",
+   "texto": "8d6a4bd1e051",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q82": {
+   "temas": [
+    "atresia esofágica",
+    "malformação congênita do esôfago",
+    "neonatologia",
+    "cirurgia pediátrica"
+   ],
+   "resumo": "recém-nascido com salivação excessiva e dificuldade de progressão de sonda orogástrica: tipo de atresia",
+   "abordagem": "diagnóstico",
+   "disciplina": "Pediatria",
+   "texto": "576a39b98180",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q83": {
+   "temas": [
+    "colo uterino curto",
+    "prevenção de parto prematuro",
+    "progesterona na gestação",
+    "prematuridade"
+   ],
+   "resumo": "gestante assintomática com antecedente de prematuridade e colo de 20 mm na ultrassonografia: manejo",
+   "abordagem": "tratamento",
+   "disciplina": "Obstetrícia",
+   "texto": "556b83eeeef8",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q84": {
+   "temas": [
+    "neuropatia diabética dolorosa",
+    "dor neuropática",
+    "complicações do diabetes mellitus",
+    "diabetes mellitus tipo 2"
+   ],
+   "resumo": "idoso diabético com dor e parestesias em bota de predomínio noturno: medicação de primeira linha",
+   "abordagem": "tratamento",
+   "disciplina": "Endocrinologia",
+   "texto": "ca26637ede8a",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q85": {
+   "temas": [
+    "estudo caso-controle",
+    "delineamento de estudo epidemiológico",
+    "fatores de risco",
+    "epidemiologia"
+   ],
+   "resumo": "estudo com pacientes hipertensos e controles pareados para investigar fatores de risco: tipo de delineamento",
+   "abordagem": "epidemiologia",
+   "disciplina": "Medicina Preventiva",
+   "texto": "c0c4a6b13c9d",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q86": {
+   "temas": [
+    "suicídio em população indígena",
+    "saúde mental e interculturalidade",
+    "atenção à saúde indígena",
+    "luto e rituais culturais"
+   ],
+   "resumo": "estudante indígena que cometeu suicídio atribuído a enfeitiçamento: abordagem da equipe de saúde",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "f0ce951c9c95",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q87": {
+   "temas": [
+    "tuberculose pulmonar",
+    "monitoramento do tratamento da tuberculose",
+    "teste rápido molecular para tuberculose",
+    "tuberculose"
+   ],
+   "resumo": "homem com tuberculose pulmonar confirmada e sensível à rifampicina: frequência de monitoramento durante o tratamento",
+   "abordagem": "tratamento",
+   "disciplina": "Pneumologia",
+   "texto": "383b4fe43603",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q88": {
+   "temas": [
+    "surto de hepatite A",
+    "vigilância sanitária",
+    "saneamento básico e qualidade da água",
+    "saúde pública"
+   ],
+   "resumo": "surto de hepatite A em comunidade sem esgoto formal com transmissão ativa: próxima ação além da vacinação",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "c329059c80cf",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q89": {
+   "temas": [
+    "abscesso hepático pós-colangiopancreatografia endoscópica",
+    "abscesso hepático",
+    "complicação de procedimento biliar",
+    "drenagem percutânea"
+   ],
+   "resumo": "paciente com febre e dor em hipocôndrio direito após colangiopancreatografia endoscópica, com imagem de abscesso hepático: manejo",
+   "abordagem": "tratamento",
+   "disciplina": "Gastroenterologia",
+   "texto": "9f2b9f177891",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q90": {
+   "temas": [
+    "anemia ferropriva na gestação",
+    "deficiência de ferro pós-bypass gástrico",
+    "ferro parenteral",
+    "pré-natal de alto risco"
+   ],
+   "resumo": "gestante com anemia crônica e bypass gástrico, hemoglobina baixa e ferritina muito reduzida: conduta terapêutica",
+   "abordagem": "tratamento",
+   "disciplina": "Obstetrícia",
+   "texto": "ec4649aca456",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q91": {
+   "temas": [
+    "cannabis medicinal",
+    "fibromialgia",
+    "medicamentos do SUS",
+    "medicina baseada em evidências"
+   ],
+   "resumo": "mulher com fibromialgia refratária solicita cannabis medicinal na UBS: papel do médico quanto à prescrição no SUS",
+   "abordagem": "conduta inicial",
+   "disciplina": "Medicina Preventiva",
+   "texto": "30281b059655",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q92": {
+   "temas": [
+    "anticoncepção em adolescentes",
+    "implante contraceptivo de longa duração",
+    "autonomia do adolescente",
+    "sigilo médico"
+   ],
+   "resumo": "adolescente de 16 anos assintomática solicita implante contraceptivo sem conhecimento dos pais: conduta do médico",
+   "abordagem": "conduta inicial",
+   "disciplina": "Ginecologia",
+   "texto": "510a5f5885ed",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q93": {
+   "temas": [
+    "esquizofrenia",
+    "rede de atenção psicossocial",
+    "cuidado intersetorial",
+    "saúde mental na atenção básica"
+   ],
+   "resumo": "homem com esquizofrenia em situação de rua e sem medicação: ações indicadas após acolhimento",
+   "abordagem": "conduta inicial",
+   "disciplina": "Psiquiatria",
+   "texto": "6e879475f0bf",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q94": {
+   "temas": [
+    "mononucleose infecciosa",
+    "infecção pelo vírus Epstein-Barr",
+    "exantema após amoxicilina",
+    "faringite em adolescente"
+   ],
+   "resumo": "adolescente com faringite exsudativa e linfadenopatia que evolui com exantema após sintomáticos: diagnóstico provável",
+   "abordagem": "diagnóstico",
+   "disciplina": "Infectologia",
+   "texto": "92b0e316add1",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q95": {
+   "temas": [
+    "vacinação em imunossuprimidos",
+    "síndrome nefrótica corticossensível",
+    "vacina tetraviral",
+    "calendário vacinal infantil"
+   ],
+   "resumo": "lactente com síndrome nefrótica em uso de prednisolona imunossupressora: orientação vacinal",
+   "abordagem": "prevenção e rastreamento",
+   "disciplina": "Pediatria",
+   "texto": "475d30a9239c",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q96": {
+   "temas": [
+    "hiperplasia prostática benigna",
+    "PSA elevado",
+    "fração livre de PSA",
+    "rastreamento de câncer de próstata"
+   ],
+   "resumo": "homem de 65 anos com sintomas urinários e PSA total de 6,5 ng/mL: exame para comprovar especificidade diagnóstica",
+   "abordagem": "exame complementar",
+   "disciplina": "Urologia",
+   "texto": "66b1a7c508c0",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q97": {
+   "temas": [
+    "cisto ovariano",
+    "cisto lúteo",
+    "dor pélvica aguda",
+    "ultrassonografia transvaginal"
+   ],
+   "resumo": "mulher de 28 anos com dor pélvica à direita e imagem cística ovariana com parede espessada e vascularização periférica: hipótese diagnóstica",
+   "abordagem": "diagnóstico",
+   "disciplina": "Ginecologia",
+   "texto": "b6144b336271",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q98": {
+   "temas": [
+    "transtorno de déficit de atenção e hiperatividade",
+    "metilfenidato",
+    "avaliação cardiológica pré-tratamento",
+    "psicofármacos na infância"
+   ],
+   "resumo": "menino de 9 anos com TDAH refratário a intervenções não farmacológicas e sem sinais cardíacos: conduta inicial",
+   "abordagem": "tratamento",
+   "disciplina": "Psiquiatria",
+   "texto": "e4ddb200d25b",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q99": {
+   "temas": [
+    "desastres naturais",
+    "vigilância epidemiológica",
+    "redução de risco",
+    "inundações"
+   ],
+   "resumo": "inundações no Rio Grande do Sul: etapa e ações da vigilância epidemiológica em desastres",
+   "abordagem": "saúde pública e políticas de saúde",
+   "disciplina": "Medicina Preventiva",
+   "texto": "480e2b15e143",
+   "com_gabarito": true
+  },
+  "ENAMED-2026-Q100": {
+   "temas": [
+    "hiponatremia por antidepressivo",
+    "síndrome de secreção inapropriada de ADH",
+    "paroxetina",
+    "tontura postural em idoso"
+   ],
+   "resumo": "idoso com depressão em uso de paroxetina e enalapril que evolui com tontura postural e confusão: exame laboratorial prioritário",
+   "abordagem": "exame complementar",
+   "disciplina": "Psiquiatria",
+   "texto": "4bb6387dbd84",
+   "com_gabarito": true
+  }
+ }
+}
