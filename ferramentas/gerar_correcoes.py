@@ -34,7 +34,8 @@ sys.path.insert(0, AQUI)
 from crivo_comum import (gravar_json, ler_json, ler_questoes, ler_correcoes, arq_correcoes, limpar_html,
                          texto_puro, listar_edicoes, LETRAS)
 from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionadas, bloco_para_prompt,
-                       linhas_da_tabela, ROTULO_TIPO)
+                       linhas_da_tabela, ROTULO_TIPO, ORDEM_TIPO)
+from crivo_comum import arq_temas
 import referencias as refs_mod
 from ia_cliente import ClienteAPI, Contador, OrcamentoEsgotado, ErroAPI
 
@@ -173,30 +174,56 @@ def completar_alternativas(r, q, faltam, cliente, config):
     return dict(r, secoes=secoes)
 
 
+def secoes_apontadas(serios):
+    """Seções citadas pelo revisor, inclusive em rótulos compostos ("2.4 e 2.10", "aviso/2.3")."""
+    secs, aviso = set(), False
+    for p in serios:
+        rot = str(p.get("secao", ""))
+        secs |= {f"2.{n}" for n in re.findall(r"2\.(1[0-4]|[1-9])(?!\d)", rot)}
+        aviso = aviso or bool(re.search(r"aviso|diretriz", rot, re.I))
+    return sorted(secs, key=lambda x: int(x.split(".")[1])), aviso
+
+
 def corrigir_secoes(r, serios, q, usuario_base, cliente, config):
-    """Reescreve só as seções apontadas pelo revisor e devolve a correção com elas substituídas."""
+    """Reescreve as seções apontadas pelo revisor (todas elas, obrigatoriamente) e devolve a correção com
+    elas substituídas. As demais seções ficam como estão. Devolve (correção, seções reescritas)."""
     secoes = dict(r.get("secoes") or {})
-    apontadas = sorted({str(p.get("secao", "")).strip() for p in serios} & set(SECOES_IA))
+    apontadas, aviso_apontado = secoes_apontadas(serios)
+    if not apontadas and not aviso_apontado:
+        apontadas = ["2.3", "2.4"]                         # rótulo irreconhecível: as seções centrais
     atual = "\n".join(f"[{s}]\n{secoes.get(s, '')}" for s in SECOES_IA)
+    obrig = ", ".join(apontadas + (["aviso_diretriz"] if aviso_apontado else []))
     pedido = (usuario_base + f"\n\nAVISO DE DIRETRIZ ATUAL: {r.get('aviso_diretriz') or '(nenhum)'}"
               + "\n\nCORREÇÃO ATUAL (HTML de todas as seções):\n" + atual
               + "\n\nPROBLEMAS APONTADOS PELO REVISOR (corrija todos):\n" + json.dumps(serios, ensure_ascii=False, indent=1)
-              + (f"\n\nSeções apontadas: {', '.join(apontadas)}." if apontadas else ""))
-    x = cliente.json("gerar", prompt("corrigir_secoes.md", config), pedido)
-    novas = x.get("secoes") if isinstance(x.get("secoes"), dict) else {}
-    trocadas = [s for s in SECOES_IA if novas.get(s)]
-    for s in trocadas:
-        secoes[s] = str(novas[s])
-    log(f"   seções reescritas: {', '.join(trocadas) or 'nenhuma'}")
+              + f"\n\nDEVOLVA OBRIGATORIAMENTE, reescritas: {obrig}. Pode incluir outras seções se for preciso para manter a coerência.")
+    sistema = prompt("corrigir_secoes.md", config)
+    trocadas, novo_aviso = [], None
+    for tentativa in (1, 2):
+        x = cliente.json("gerar", sistema, pedido)
+        novas = x.get("secoes") if isinstance(x.get("secoes"), dict) else {}
+        for s_ in SECOES_IA:
+            if novas.get(s_) and str(novas[s_]).strip() != str(secoes.get(s_, "")).strip():
+                secoes[s_] = str(novas[s_]); trocadas.append(s_)
+        if "aviso_diretriz" in x and x.get("aviso_diretriz") != r.get("aviso_diretriz"):
+            novo_aviso = x.get("aviso_diretriz")
+        if isinstance(x.get("afirmacoes_criticas"), list) and x["afirmacoes_criticas"]:
+            r = dict(r, afirmacoes_criticas=x["afirmacoes_criticas"])
+        faltam = [s_ for s_ in apontadas if s_ not in trocadas] + (["aviso_diretriz"] if aviso_apontado and novo_aviso is None else [])
+        if not faltam:
+            break
+        log(f"   seção(ões) apontada(s) não reescrita(s): {', '.join(faltam)}; pedindo de novo")
+        pedido += (f"\n\nVOCÊ NÃO REESCREVEU: {', '.join(faltam)}. Devolva essas seções reescritas, corrigindo os "
+                   "problemas apontados nelas.")
+    log(f"   seções reescritas: {', '.join(sorted(set(trocadas), key=lambda x: int(x.split('.')[1]))) or 'nenhuma'}"
+        + (" + aviso de diretriz" if novo_aviso is not None else ""))
     novo = dict(r, secoes=secoes)
-    if "aviso_diretriz" in x:
-        novo["aviso_diretriz"] = x.get("aviso_diretriz")
-    if isinstance(x.get("afirmacoes_criticas"), list) and x["afirmacoes_criticas"]:
-        novo["afirmacoes_criticas"] = x["afirmacoes_criticas"]
-    return novo
+    if novo_aviso is not None:
+        novo["aviso_diretriz"] = novo_aviso
+    return novo, sorted(set(trocadas) | ({"aviso"} if novo_aviso is not None else set()))
 
 
-def texto_para_verificar(c, q, relevantes, todas, catalogo):
+def texto_para_verificar(c, q, relevantes, todas, catalogo, evidencias=""):
     partes = [texto_para_ia(q, com_gabarito=True), "", f"TEMA: {c['tema']}"]
     if c["aviso_diretriz"]:
         partes.append(f"AVISO DE DIRETRIZ: {texto_puro(c['aviso_diretriz'])}")
@@ -212,7 +239,63 @@ def texto_para_verificar(c, q, relevantes, todas, catalogo):
                       f"gabarito {h.get('gabarito') or 'anulada'}): {res}")
     partes.append("\nHISTÓRICO FORNECIDO AO AUTOR (questões REAIS do acervo desta banca, de anos anteriores ou "
                   "posteriores; citá-las é correto):\n" + ("\n".join(linhas) if linhas else "(nenhuma)"))
+    if evidencias:
+        partes.append("\n" + evidencias)
     return "\n".join(partes)
+
+
+def texto_para_conferir(c, q, problemas_anteriores, reescritas, evidencias=""):
+    """Conferência das rodadas 2 e 3: a lista de problemas anteriores (um a um) + as seções reescritas,
+    com a correção inteira como contexto."""
+    partes = [texto_para_ia(q, com_gabarito=True), "", f"TEMA: {c['tema']}"]
+    if c["aviso_diretriz"]:
+        partes.append(f"AVISO DE DIRETRIZ: {texto_puro(c['aviso_diretriz'])}")
+    for s_ in SECOES_IA:
+        marca = "  <<< REESCRITA" if s_ in reescritas else ""
+        partes.append(f"\n[{s_}]{marca}\n{texto_puro(re.sub(r'</(p|li|tr)>', ' / ', c['secoes'][s_]))}")
+    partes.append("\nPROBLEMAS APONTADOS NA RODADA ANTERIOR (confira um a um, pelo índice):\n"
+                  + "\n".join(f"[{k}] seção {p.get('secao', '?')} — {p.get('explicacao', '')}"
+                               + (f" (sugestão: {p['correcao_sugerida']})" if p.get("correcao_sugerida") else "")
+                               for k, p in enumerate(problemas_anteriores)))
+    if evidencias:
+        partes.append("\n" + evidencias)
+    return "\n".join(partes)
+
+
+def evidencias_da_web(q, cega, cliente, config):
+    """Para questões em que o gabarito oficial diverge da resolução às cegas: busca na web (API de busca do
+    DeepSeek) o que as diretrizes dizem hoje e na época da prova. Devolve (bloco de texto, fontes)."""
+    bw = config.get("busca_web", {})
+    if not bw.get("ativa", True) or not hasattr(cliente, "buscar"):
+        return "", []
+    x = cliente.json("temas", prompt("consultas_busca.md", config),
+                     texto_para_ia(q, com_gabarito=True) + f"\n\nRESOLUÇÃO ÀS CEGAS: {cega.get('alternativa')} — "
+                     + str(cega.get("justificativa", ""))[:400])
+    consultas = [str(c_)[:110] for c_ in (x.get("consultas") or []) if str(c_).strip()][:bw.get("consultas", 2)]
+    vistos, itens = set(), []
+    for c_ in consultas:
+        for variante in (c_, f"{c_} before:{int(q['ano'][:4])}-12-31" if bw.get("buscar_epoca_da_prova", True) else None):
+            if not variante:
+                continue
+            for it in cliente.buscar(variante, bw.get("resultados_por_busca", 5)):
+                if it["url"] in vistos or (it["autoridade"] != -1 and it["autoridade"] < bw.get("autoridade_minima", 2)):
+                    continue
+                vistos.add(it["url"]); it["epoca"] = "before:" in variante; itens.append(it)
+    itens = sorted(itens, key=lambda i: (-i["autoridade"], -float(i["relevancia"] or 0)))[:bw.get("max_fontes", 6)]
+    if not itens:
+        log("   busca na web: nenhuma fonte confiável encontrada")
+        return "", []
+    log(f"   busca na web: {len(itens)} fonte(s) para conferir a diretriz ({', '.join(consultas)})")
+    linhas = [f"[W{k}] {i['titulo']} — {i['site'] or i['url']} — {i['data'] or 'data desconhecida'}"
+              + (f" (publicada até {q['ano'][:4]}: vale para a época da prova)" if i["epoca"] else "")
+              + f"\n     {i['url']}\n     {i['resumo'][:700]}" for k, i in enumerate(itens, 1)]
+    bloco = ("EVIDÊNCIAS DA WEB sobre a diretriz (resumos de páginas reais; use-as para afirmar o que uma diretriz "
+             "recomenda, hoje ou na época da prova; o que não estiver aqui nem for consenso consolidado, não atribua a "
+             "nenhuma diretriz):\n" + "\n".join(linhas))
+    return bloco, itens
+
+
+
 
 
 # ------------------------------------------------------------------ uma questão
@@ -234,6 +317,9 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
         base.append(f"\nOBSERVAÇÃO: uma resolução independente, sem ver o gabarito, escolheu a alternativa {alt_cega} "
                     f"({str(cega.get('justificativa', ''))[:400]}). Explique com cuidado por que a banca considera "
                     f"{q['gabarito']} correta. Se a divergência se deve a mudança de diretriz, use 'aviso_diretriz'.")
+    evidencias, fontes_web = evidencias_da_web(q, cega, cliente, config) if discorda else ("", [])
+    if evidencias:
+        base.append("\n" + evidencias)
     if reportes:
         base.append("\nERROS APONTADOS POR ESTUDANTES NA CORREÇÃO ANTERIOR (verifique e corrija se procederem):\n- "
                     + "\n- ".join((str(x.get("texto", x))[:500] + (f" (fonte indicada: {str(x['fonte'])[:200]})" if isinstance(x, dict) and x.get("fonte") else ""))
@@ -275,24 +361,45 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
 
     verificacao, c, r, serios = None, None, None, []
     for rodada in range(1, qual["rodadas_de_verificacao"] + 1):
+        conferencia, reescritas = False, []
         if r is None:
             r, c, problemas = gerar_completa("")
         else:
             # reescreve SÓ as seções apontadas pelo revisor; as aprovadas ficam como estão
-            r2 = corrigir_secoes(r, serios, q, usuario_base, cliente, config)
+            r2, reescritas = corrigir_secoes(r, serios, q, usuario_base, cliente, config)
             r2, c2, problemas = validar_e_completar(r2)
             if problemas:
                 log("   correção parcial recusada pela validação (" + "; ".join(problemas[:3]) + "); refazendo a correção inteira")
                 r, c, problemas = gerar_completa("\n\nUM REVISOR MÉDICO REPROVOU SUA VERSÃO ANTERIOR. Corrija TODOS estes problemas:\n"
                                                  + json.dumps(serios, ensure_ascii=False, indent=1))
             else:
-                r, c = r2, c2
+                r, c, conferencia = r2, c2, True
         if problemas:
             return None, {"motivo": "validacao", "problemas": problemas}, meta_hist
-        v = cliente.json("verificar", prompt("verificar.md", config), texto_para_verificar(c, q, relevantes, todas, catalogo))
-        probs = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
+        if conferencia:
+            # rodadas 2 e 3: conferência da lista de problemas + seções reescritas (sem raciocínio estendido)
+            v = cliente.json("conferir", prompt("conferir_correcao.md", config),
+                             texto_para_conferir(c, q, serios, reescritas, evidencias))
+            nao_resolvidos = []
+            for item in v.get("resolvidos") or []:
+                try:
+                    k = int(item.get("indice"))
+                except (TypeError, ValueError):
+                    continue
+                if 0 <= k < len(serios) and item.get("resolvido") is False:
+                    p_ = dict(serios[k]); p_["explicacao"] = "NÃO RESOLVIDO: " + str(item.get("comentario") or p_.get("explicacao", ""))
+                    nao_resolvidos.append(p_)
+            conferidos = {int(i.get("indice")) for i in (v.get("resolvidos") or []) if str(i.get("indice", "")).isdigit()}
+            sem_resposta = [dict(serios[k], explicacao="NÃO CONFERIDO: " + str(serios[k].get("explicacao", "")))
+                            for k in range(len(serios)) if k not in conferidos]
+            probs = nao_resolvidos + sem_resposta + [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
+        else:
+            v = cliente.json("verificar", prompt("verificar.md", config),
+                             texto_para_verificar(c, q, relevantes, todas, catalogo, evidencias))
+            probs = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
         serios = [p for p in probs if str(p.get("gravidade", "")).lower() in ("grave", "moderada")]
         verificacao = {"aprovado": not serios, "rodada": rodada, "modelo": config["modelos"]["verificar"],
+                       "tipo": "conferencia" if conferencia else "completa",
                        "problemas_leves": [p for p in probs if p not in serios][:10]}
         if not serios:
             log(f"   verificação: aprovada (rodada {rodada}, {len(probs)} observação(ões) leve(s))")
@@ -311,13 +418,15 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
     artigos = refs_mod.buscar_artigos(c["busca"], rc.get("artigos_pubmed", 2), rc.get("anos_artigos", 10),
                                       rc.get("intervalo_entre_buscas_s", 0.4), log)
     log(f"   referências: {len(c['livros'])} livro(s), {len(artigos)} artigo(s) do PubMed")
-    secoes["2.15"] = refs_mod.montar_html(c["livros"], artigos, c["busca"], c["tema"].split(":")[-1])
+    consultadas = [f for f in fontes_web if f.get("autoridade", -1) >= config.get("busca_web", {}).get("autoridade_para_referencia", 3)][:3]
+    secoes["2.15"] = refs_mod.montar_html(c["livros"], artigos, c["busca"], c["tema"].split(":")[-1], consultadas)
     alertas = ["ia_discorda_do_gabarito"] if discorda else []
     entrada = {
         "tema": c["tema"], "aviso_diretriz": c["aviso_diretriz"],
         "gabarito_usado": q.get("gabarito") if q.get("gabarito") in LETRAS else None,
         "secoes_html": secoes, "historico": linhas_da_tabela(relevantes, todas, catalogo), "historico_meta": meta_hist,
-        "referencias": {"livros": c["livros"], "busca_pubmed": c["busca"], "artigos": artigos},
+        "referencias": {"livros": c["livros"], "busca_pubmed": c["busca"], "artigos": artigos,
+                        "fontes_web": [{k: f.get(k) for k in ("titulo", "url", "site", "data", "autoridade")} for f in fontes_web]},
         "afirmacoes_criticas": c["afirmacoes_criticas"],
         "resolucao_cega": {"alternativa": alt_cega or None, "confianca": cega.get("confianca"),
                            "concorda_com_gabarito": None if q.get("gabarito") not in LETRAS else not discorda},
@@ -345,6 +454,8 @@ def intervalo(txt):
 def precisa(q, c, modo, forcar):
     if c and c.get("revisao", {}).get("status") == "revisado_humano" and not forcar:
         return False, "revisada por humano (use --forcar)"
+    if c and c.get("origem") == "conversa" and c.get("revisao", {}).get("status") not in ("reportado", "regerar") and not forcar:
+        return False, "escrita na conversa com o Claude (use --forcar)"
     if modo == "todas":
         return True, "modo todas"
     if not c:
@@ -473,6 +584,63 @@ def cmd_atualizar_referencias(args, config):
         if mudou:
             gravar_json(arq_correcoes(args.dados, b, ano), cs)
     log(f"Referências refeitas em {total} correção(ões), sem custo de API.")
+    return 0
+
+
+def cmd_inserir_manual(args, config):
+    """Grava uma correção escrita na conversa com o Claude (arquivo em correcoes_manuais/). Passa pela mesma
+    validação das correções da API; o histórico (2.10) é montado com as questões listadas no arquivo e a 2.15
+    com os livros, os artigos reais do PubMed e as fontes consultadas. Não usa a API do DeepSeek."""
+    m = ler_json(args.arquivo, None)
+    if not isinstance(m, dict) or not m.get("id"):
+        log(f"ERRO: {args.arquivo} não é um arquivo de correção manual válido."); return 1
+    todas = questoes_da_banca(args.dados, m["id"].split("-")[0])
+    q = todas.get(m["id"])
+    if not q:
+        log(f"ERRO: {m['id']} não existe em questoes.json."); return 1
+    if m.get("gabarito_conferido") != q.get("gabarito"):
+        log(f"ERRO: o arquivo foi escrito para o gabarito {m.get('gabarito_conferido')}, mas questoes.json diz {q.get('gabarito')}."); return 1
+    catalogo = ler_json(arq_temas(args.dados, q["banca"]), {"questoes": {}}).get("questoes", {})
+    relevantes = []
+    for x in m.get("historico") or []:
+        if x.get("id") not in todas or x.get("tipo") not in ORDEM_TIPO:
+            log(f"ERRO: questão do histórico inválida: {x}"); return 1
+        relevantes.append({"id": x["id"], "tipo": x["tipo"], "motivo": str(x.get("motivo", ""))[:200]})
+    relevantes.sort(key=lambda r: (ORDEM_TIPO[r["tipo"]], todas[r["id"]]["ano"], todas[r["id"]]["numero"]))
+    c, problemas = validar(m, q, relevantes, todas, catalogo, config)
+    if problemas:
+        log("ERRO: a correção não passou na validação:\n- " + "\n- ".join(problemas)); return 1
+    anos = sorted({todas[i]["ano"] for i in todas if todas[i]["banca"] == q["banca"]})
+    meta = {"metodo": "escolhidas_na_conversa", "questoes_da_banca_avaliadas": None, "candidatas_pela_triagem": None,
+            "relevantes": len(relevantes), "triagem_truncada": False, "provas_no_acervo": len(anos),
+            "anos": [anos[0], anos[-1]] if anos else None,
+            "provas_com_relacionadas": len({todas[r["id"]]["ano"] for r in relevantes}),
+            "por_tipo": {t: sum(1 for r in relevantes if r["tipo"] == t) for t in ORDEM_TIPO}}
+    rc = config.get("referencias", {})
+    artigos = refs_mod.buscar_artigos(c["busca"], rc.get("artigos_pubmed", 2), rc.get("anos_artigos", 10),
+                                      rc.get("intervalo_entre_buscas_s", 0.4), log)
+    fontes = [{k: f.get(k) for k in ("titulo", "url", "site", "data")} for f in (m.get("fontes_consultadas") or [])
+              if isinstance(f, dict) and str(f.get("url", "")).startswith("https://") and f.get("titulo")]
+    secoes = dict(c["secoes"])
+    secoes["2.15"] = refs_mod.montar_html(c["livros"], artigos, c["busca"], c["tema"].split(":")[-1], fontes)
+    entrada = {
+        "tema": c["tema"], "aviso_diretriz": c["aviso_diretriz"], "gabarito_usado": q.get("gabarito"),
+        "secoes_html": secoes, "historico": linhas_da_tabela(relevantes, todas, catalogo), "historico_meta": meta,
+        "referencias": {"livros": c["livros"], "busca_pubmed": c["busca"], "artigos": artigos, "fontes_web": fontes},
+        "afirmacoes_criticas": c["afirmacoes_criticas"],
+        "resolucao_cega": None, "verificacao": {"aprovado": True, "tipo": "conversa", "observacao": m.get("observacao", "")},
+        "origem": "conversa", "modelo": str(m.get("modelo") or "claude (conversa)"),
+        "gerado_em": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "revisao": {"status": "nao_revisado", "alertas": [], "reportes": [], "reportes_atendidos": []},
+    }
+    cs = ler_correcoes(args.dados, q["banca"], q["ano"])
+    cs["correcoes"][q["id"]] = entrada
+    gravar_json(arq_correcoes(args.dados, q["banca"], q["ano"]), cs)
+    reprovada = os.path.join(args.relatorios, "reprovadas", f"{q['id']}.json")
+    if os.path.isfile(reprovada):
+        os.remove(reprovada)
+    log(f"{q['id']} gravada em correcoes.json ({len(relevantes)} questões no histórico, {len(artigos)} artigo(s) do PubMed, "
+        f"{len(fontes)} fonte(s) consultada(s)). Sem custo de API.")
     return 0
 
 
@@ -628,6 +796,8 @@ def main():
     ar.add_argument("--banca", required=True)
     am = sub.add_parser("amostra", help="arquivo com as correções sorteadas para conferência humana")
     am.add_argument("--banca", required=True); am.add_argument("--conferidas", nargs="*", default=[])
+    im = sub.add_parser("inserir-manual", help="grava uma correção escrita na conversa (correcoes_manuais/*.json)")
+    im.add_argument("--arquivo", required=True)
     c = sub.add_parser("catalogar", help="cataloga os temas de todas as questões da banca")
     c.add_argument("--banca", required=True); c.add_argument("--orcamento", type=float)
     g = sub.add_parser("gerar", help="gera correções")
@@ -650,6 +820,8 @@ def main():
             return cmd_catalogar(args, config) or 0
         if args.cmd == "amostra":
             return cmd_amostra(args, config)
+        if args.cmd == "inserir-manual":
+            return cmd_inserir_manual(args, config)
         if args.cmd == "atualizar-referencias":
             return cmd_atualizar_referencias(args, config)
         return cmd_gerar(args, config)

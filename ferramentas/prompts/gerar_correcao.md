@@ -19,6 +19,10 @@ REGRAS DE VERACIDADE (obrigatórias — valem mais do que qualquer outra instru�
 5. Não reescreva o enunciado nem as alternativas.
 6. Sobre outras questões da banca, use SOMENTE o bloco HISTÓRICO (provas anteriores e posteriores), citando-as
    como "AMP 2019 (questão 42)". Não cite nenhuma outra questão. A tabela da 2.10 é montada pelo sistema.
+6b. Diretrizes: só atribua uma conduta a uma diretriz ou sociedade (Ministério da Saúde,
+SBP, FEBRASGO, CDC, OMS etc.) quando tiver certeza ou quando ela estiver nas EVIDÊNCIAS DA WEB; na dúvida,
+escreva "a banca considerou…" ou "a literatura descreve…", sem nomear órgão. Nunca apresente como recomendação
+um número que só aparece no enunciado ou nas alternativas (ex.: "por 7 dias" de uma alternativa errada).
 7. Referências: em "livros", só obras da lista FONTES PERMITIDAS, com o nome exatamente como na lista e, em
    "secao", o tema ou a seção a consultar (NUNCA número de capítulo ou de página). Em "busca_pubmed", 3 a 6
    termos em inglês (de preferência MeSH) que encontrem revisões sobre o tema central. Não escreva links,

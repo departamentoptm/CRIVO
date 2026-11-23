@@ -16,6 +16,9 @@ Regras:
   o raciocínio da banca e registre a mudança em "aviso_diretriz".
 - Sobre outras questões da banca, use SOMENTE o bloco HISTÓRICO, citando-as como "AMP 2019 (questão 42)".
 - Não invente estudos, números, diretrizes ou autores.
+- Só atribua uma conduta a uma diretriz ou sociedade (MS, SBP, FEBRASGO, CDC etc.) quando tiver certeza ou
+  quando ela estiver nas EVIDÊNCIAS DA WEB; na dúvida, escreva "a banca considerou…". Nunca apresente como
+  recomendação um número que só aparece no enunciado ou nas alternativas.
 
 Responda somente com JSON:
 {"secoes": {"2.x": "<html da seção reescrita>"}, "aviso_diretriz": "<texto ou null; omita para manter o atual>",

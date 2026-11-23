@@ -100,6 +100,10 @@ class Contador:
             self.custo += mult * (hit * precos["entrada_cache"] + miss * precos["entrada"] + out * precos["saida"]) / 1e6
         return self.custo
 
+    def registrar_busca(self):
+        self.custo += self.config.get("preco_busca_web_usd", 0.00075)
+        self.buscas = getattr(self, "buscas", 0) + 1
+
     def checar(self):
         if self.orcamento and self.custo >= self.orcamento:
             raise OrcamentoEsgotado(f"orçamento da execução atingido (US$ {self.custo:.4f} de US$ {self.orcamento:.2f})")
@@ -121,8 +125,24 @@ class ClienteAPI:
         self.timeout, self.tentativas = api.get("tempo_limite_s", 600), api.get("tentativas", 5)
         self.config, self.contador, self.log = config, contador, log
 
-    def _post(self, corpo):
-        req = urllib.request.Request(self.url, data=json.dumps(corpo).encode("utf-8"), method="POST",
+    def buscar(self, consulta, quantidade=5):
+        """Busca na web pela API de busca do DeepSeek (cobrada à parte, US$ 0,75 por 1.000 buscas com resultado).
+        Devolve [{titulo, url, site, data, resumo, autoridade, relevancia}] ou [] se a busca falhar."""
+        url = self.config["api"]["url_base"].rstrip("/") + "/v1/tools/search"
+        try:
+            r = self._post({"query": consulta[:128], "count": quantidade}, url=url)
+        except ErroAPI as e:
+            self.log(f"   aviso: busca na web indisponível ({str(e)[:100]}); seguindo sem ela")
+            return []
+        itens = r.get("results") or []
+        if itens:
+            self.contador.registrar_busca()
+        return [{"titulo": i.get("title") or "", "url": i.get("url") or "", "site": i.get("site_name") or "",
+                 "data": (i.get("date") or "")[:10], "resumo": i.get("summary") or i.get("snippet") or "",
+                 "autoridade": i.get("authority", -1), "relevancia": i.get("rerank_score", 0)} for i in itens]
+
+    def _post(self, corpo, url=None):
+        req = urllib.request.Request(url or self.url, data=json.dumps(corpo).encode("utf-8"), method="POST",
                                      headers={"Content-Type": "application/json",
                                               "Authorization": f"Bearer {self.chave}"})
         ultimo = None

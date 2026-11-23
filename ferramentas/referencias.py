@@ -110,7 +110,7 @@ def links_de_consulta(busca_en, tema_pt):
     ] if (q_en or q_pt) else []
 
 
-def montar_html(livros, artigos, busca_en, tema_pt):
+def montar_html(livros, artigos, busca_en, tema_pt, consultadas=()):
     """HTML da seção 2.15 no formato do template: <p>1. Referência</p>."""
     e = lambda t: html.escape(str(t or ""), quote=True)
     itens = []
@@ -122,6 +122,9 @@ def montar_html(livros, artigos, busca_en, tema_pt):
         doi = f' DOI: <a href="https://doi.org/{e(a["doi"])}">{e(a["doi"])}</a>.' if a.get("doi") else ""
         itens.append(f'{e(a["autores"])} <a href="{url}">{e(a["titulo"])}</a>. <em>{e(a["revista"])}</em>, {e(a["ano"])}. '
                      f'PMID {e(a["pmid"])}.{doi}')
+    for f in consultadas:          # diretrizes e documentos achados na busca na web (páginas reais)
+        quando = f" ({e(f['data'][:4])})" if f.get("data") else ""
+        itens.append(f'<a href="{e(f["url"])}">{e(f["titulo"])}</a>. {e(f.get("site") or "")}{quando}.')
     links = links_de_consulta(busca_en, tema_pt)
     if links:
         itens.append("Consulta do tema: " + " · ".join(f'<a href="{u}">{e(n)}</a>' for n, u in links)

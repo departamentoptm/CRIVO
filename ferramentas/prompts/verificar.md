@@ -12,6 +12,10 @@ Procure:
    que não está no enunciado.
 5. Contradições internas (ex.: a seção 2.4 diz que uma alternativa está certa e a 2.3 diz outra).
 6. Análise de alternativa ausente ou errada na seção 2.4.
+7. Conduta atribuída a uma diretriz ou sociedade (MS, SBP, FEBRASGO, CDC etc.) sem base: se não for consenso
+   consolidado nem estiver nas EVIDÊNCIAS DA WEB (quando houver), é "moderada". Número de uma alternativa
+   apresentado como recomendação sem base também é problema.
+Se houver EVIDÊNCIAS DA WEB, use-as para conferir o que as diretrizes dizem hoje e na época da prova.
 
 Sobre o HISTÓRICO: o bloco "HISTÓRICO FORNECIDO AO AUTOR" lista questões REAIS desta banca, de anos anteriores
 ou posteriores à questão atual. Citar essas questões é correto e não é anacronismo. Só aponte como inventada
