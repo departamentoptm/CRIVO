@@ -181,6 +181,7 @@ function atualizarCorGrifos() {
 
 function removerGrifo(doc, id) {
     progress.grifados = (progress.grifados || []).filter(g => g.id !== id);
+    (progress.grifosApagados ||= {})[id] = new Date().toISOString();      /* para não voltar ao sincronizar */
     doc.querySelectorAll(`.crivo-highlight[data-grifo-id="${id}"]`).forEach(sp => {
         const p = sp.parentNode;
         while (sp.firstChild) p.insertBefore(sp.firstChild, sp);

@@ -1081,3 +1081,49 @@ body.rodape-oculto .nav-btn:disabled { opacity: .55; }
 .grupo-menu button { text-align: left; border: 0; background: #f4f6fc; border-radius: .5rem; padding: .55rem .9rem;
     cursor: pointer; font-weight: 600; color: var(--navy); white-space: nowrap; }
 .grupo-menu button:hover { background: #e2e8f8; }
+
+/* ---- cartões dos grifos ---- */
+.cartoes-conteudo { display: flex; flex-direction: column; gap: 1rem; }
+.cartao { background: #fff; border: 1px solid var(--line); border-radius: 1rem; padding: 1.1rem 1.2rem;
+          box-shadow: 0 2px 10px rgba(17,28,85,.07); display: flex; flex-direction: column; gap: .9rem; }
+.cartao[hidden] { display: none; }
+.cartao-origem { font-size: .82rem; color: var(--muted); font-weight: 600; }
+.cartao-orfao { font-size: .85rem; color: #92400e; background: #fef3c7; border-radius: .6rem; padding: .45rem .7rem; }
+.cartao-orfao[hidden] { display: none; }
+.cartao-face { font-size: calc(1.08rem * var(--crivo-escala, 1)); line-height: 1.55; color: var(--ink, #1b2445); white-space: normal; }
+.cartao-verso { border-top: 2px dashed var(--line); padding-top: .9rem; }
+.cartao-face[hidden] { display: none; }
+.cartao-mostrar { align-self: center; min-width: 14rem; }
+.cartao-mostrar[hidden] { display: none; }
+.cartao-notas { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.cartao-notas[hidden] { display: none; }
+.cartao-notas button { border: none; border-radius: .7rem; padding: .6rem .3rem; font-weight: 700; color: #fff; cursor: pointer;
+                       display: flex; flex-direction: column; align-items: center; gap: .15rem; min-height: 44px; font-size: .95rem; }
+.cartao-quando { font-size: .72rem; font-weight: 500; opacity: .92; }
+.nota-errei { background: #b91c1c; } .nota-dificil { background: #b45309; } .nota-bom { background: #15803d; } .nota-facil { background: #1d4ed8; }
+.cartao-acoes { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: space-between; }
+.cartoes-exportar { background: #fff; border: 1px solid var(--line); border-radius: .8rem; padding: .7rem 1rem; }
+.cartoes-exportar summary { cursor: pointer; font-weight: 700; color: var(--navy); }
+.cartoes-exportar-campos { display: flex; flex-direction: column; gap: .6rem; margin-top: .7rem; }
+.cartoes-exportar-campos select { padding: .45rem; border-radius: .5rem; border: 1px solid var(--line-strong, #c9d1e6); font-size: .95rem; }
+.cartoes-exportar-msg { font-size: .85rem; color: #15803d; }
+@media (max-width: 430px) { .cartao-notas { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---- aparência: botões da tela inicial ---- */
+.aparencia { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem; margin: .9rem 0 .3rem; font-size: .9rem; }
+.aparencia-letra { display: inline-flex; align-items: center; gap: .35rem; }
+.aparencia-btn { border: 1px solid var(--line-strong, #c9d1e6); background: #fff; color: var(--navy, #1a2a6c); border-radius: .6rem;
+                 padding: .4rem .7rem; font-weight: 600; cursor: pointer; min-height: 36px; }
+.aparencia-btn:disabled { opacity: .45; cursor: not-allowed; }
+#letraValor { min-width: 3em; text-align: center; font-weight: 700; }
+
+/* ---- modo escuro: inversão de cores (imagens e grifos voltam às cores originais) ---- */
+html.tema-escuro { filter: invert(0.9) hue-rotate(180deg); background: #fff; }
+/* invertidos de volta (ficam com as cores originais): imagens, barras escuras e botões coloridos */
+html.tema-escuro img, html.tema-escuro video, html.tema-escuro picture, html.tema-escuro canvas,
+html.tema-escuro .top-bar, html.tema-escuro .progress-header, html.tema-escuro .auth-btn:not(.home-btn-secondary), html.tema-escuro .nav-btn,
+html.tema-escuro .cartao-notas button, html.tema-escuro #crivoToast { filter: invert(1) hue-rotate(180deg); }
+html.tema-escuro .top-bar img, html.tema-escuro .progress-header img { filter: none; }
+/* fundo da tela inicial: claro antes da inversão = escuro na tela */
+html.tema-escuro #authScreen { background: #e4e7ef; animation: none; }
+html.tema-escuro #authScreen::before, html.tema-escuro #authScreen::after { display: none; }

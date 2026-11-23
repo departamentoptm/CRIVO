@@ -25,7 +25,7 @@ logoutBtn.addEventListener('click', () => {
     if (dirty && confirm('Você tem alterações não salvas. Deseja salvar o progresso em arquivo antes de sair?')) exportarProgresso();
     pausarTimer();
     currentUser = null; currentRA = null; currentExam = null; currentYear = null; questoes = [];
-    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [] };
+    progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [], cartoes: {}, grifosApagados: {} };
     setDirty(false);
     showLoginForm();
     showScreen(authScreen);

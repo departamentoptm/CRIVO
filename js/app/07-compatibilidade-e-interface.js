@@ -82,6 +82,8 @@ function migrarProgresso(d) {
     if (!Array.isArray(x.grifados)) x.grifados = [];
     if (!x.resetados || typeof x.resetados !== 'object') x.resetados = {};
     if (!Array.isArray(x.avaliacoes)) x.avaliacoes = [];
+    if (!x.cartoes || typeof x.cartoes !== 'object') x.cartoes = {};
+    if (!x.grifosApagados || typeof x.grifosApagados !== 'object') x.grifosApagados = {};
     return x;
 }
 

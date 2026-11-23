@@ -21,7 +21,7 @@ let progressFrom = 'home';
 let loadingYear = false;
 let currentRA = null;
 let dirty = false;
-let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [] };
+let progress = { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [], cartoes: {}, grifosApagados: {} };
 
 let disciplinas = {};
 let disciplinasLoaded = false;
@@ -110,7 +110,7 @@ const posIndicator = document.getElementById('posIndicator');
    UTILITÁRIOS
    ============================================================ */
 function showScreen(s) {
-    [authScreen, resolvingScreen, progressScreen, document.getElementById('revisaoScreen')].forEach(x => x && x.classList.add('hidden'));
+    document.querySelectorAll('body > .screen, .screen').forEach(x => x.classList.add('hidden'));     /* todas as telas */
     s.classList.remove('hidden');
 }
 function escapeHtml(s) {
