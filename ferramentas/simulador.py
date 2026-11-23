@@ -6,6 +6,9 @@ Variável CRIVO_SIMULAR_REPROVAR=1 faz o "revisor" reprovar tudo (testa o caminh
 CRIVO_SIMULAR_REPETIR=1 faz a conferência achar o mesmo erro em outra seção (testa refazer a correção inteira).
 CRIVO_SIMULAR_PREMISSA=recusar faz o revisor recusar a premissa (testa a premissa corrigida).
 CRIVO_SIMULAR_SEM_CORRETA=1 faz a geração esquecer a alternativa correta na 2.4 (testa o pedido só do parágrafo).
+CRIVO_SIMULAR_CONTESTAR=autor|revisor faz o autor contestar a 1ª objeção e o árbitro dar razão a quem foi indicado
+(use com CRIVO_SIMULAR_REPROVAR=uma). CRIVO_SIMULAR_CONTRADIZ=autor|revisor faz o revisor apontar uma objeção que
+contradiz o gabarito, decidida pelo árbitro a favor de quem foi indicado.
 """
 import os
 import re
@@ -26,13 +29,19 @@ class ClienteSimulado:
         if "TAREFA: CONSULTAS_DE_BUSCA" in sistema:
             r = {"consultas": ["conduta simulada diretriz Ministério da Saúde", "conduta simulada sociedade brasileira"]}
         elif "TAREFA: LISTA_DE_TEMAS" in sistema:
-            r = {"temas": [f"Tema simulado {k}" for k in range(1, 6)]}
+            r = {"temas": [f"Tema simulado {k}" for k in range(1, 7)]}
         elif "TAREFA: ATRIBUIR_TEMAS" in sistema:
             ids = re.findall(r"^### (\S+)$", usuario, re.M)
-            r = {"atribuicoes": [{"id": i, "tema": k % 5 + 1} for k, i in enumerate(ids)]}
+            r = {"atribuicoes": [{"id": i, "novo_tema": "Tema novo simulado"} if k == 0 else {"id": i, "tema": k % 6 + 1}
+                                for k, i in enumerate(ids)]}
         elif "TAREFA: PREMISSA_DO_GABARITO" in sistema:
             r = {"raciocinio_da_banca": "premissa simulada", "por_que_o_gabarito": "simulado",
                  "por_que_nao_a_alternativa_cega": "simulado", "mudanca_de_diretriz": None}
+        elif "TAREFA: CONSULTAS_DE_DISPUTA" in sistema:
+            r = {"consultas": ["ponto em disputa simulado definição", "simulated dispute definition"]}
+        elif "TAREFA: ARBITRAR" in sistema:
+            quem = os.environ.get("CRIVO_SIMULAR_CONTESTAR") or os.environ.get("CRIVO_SIMULAR_CONTRADIZ") or "revisor"
+            r = {"vencedor": quem, "decisao": f"decisão simulada a favor do {quem} [W1]"}
         elif "TAREFA: CONFERIR_PREMISSA" in sistema:
             recusar = os.environ.get("CRIVO_SIMULAR_PREMISSA") == "recusar"
             r = {"correta": not recusar, "problema": "premissa simulada recusada" if recusar else "",
@@ -66,7 +75,11 @@ class ClienteSimulado:
             return {"paragrafos": {l: f"<p><strong>Alternativa {l} — {'Correta' if l == g else 'Errada'}.</strong> {PREENCHIMENTO}</p>"
                                    for l in re.findall(r"[A-E]", falta.group(1))}}
         if "PROBLEMAS APONTADOS PELO REVISOR" in u:
-            return {"secoes": {"2.3": f"<p>A alternativa {g} é a correta (seção corrigida). {PREENCHIMENTO}</p>"}}
+            r = {"secoes": {"2.3": f"<p>A alternativa {g} é a correta (seção corrigida). {PREENCHIMENTO}</p>"}}
+            if (os.environ.get("CRIVO_SIMULAR_CONTESTAR") and "CONFIRMADOS POR UM ÁRBITRO" not in u
+                    and "PONTOS JÁ DECIDIDOS" not in u):
+                r = {"secoes": {}, "contestacoes": [{"indice": 0, "justificativa": "contestação simulada (livro-texto X)"}]}
+            return r
         letras = re.findall(r"^([A-E])\) ", u, re.M) or list("ABCDE")
         p = f"<p>{PREENCHIMENTO}</p>"
         secoes = {f"2.{k}": p for k in range(1, 15)}
@@ -124,5 +137,8 @@ class ClienteSimulado:
         if modo == "1":
             return {"aprovado": False, "problemas": [{"secao": "2.3", "trecho": "x", "gravidade": "grave",
                                                       "explicacao": "erro simulado", "correcao_sugerida": "y"}]}
+        if os.environ.get("CRIVO_SIMULAR_CONTRADIZ") and "PONTOS JÁ DECIDIDOS" not in u:
+            return {"aprovado": False, "problemas": [{"secao": "2.4", "trecho": "x", "gravidade": "grave", "contradiz_gabarito": True,
+                                                      "explicacao": "objeção simulada contrária ao gabarito", "correcao_sugerida": "y"}]}
         return {"aprovado": True, "problemas": [{"secao": "2.5", "trecho": "x", "gravidade": "leve",
                                                  "explicacao": "observação simulada", "correcao_sugerida": ""}]}

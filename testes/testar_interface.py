@@ -345,12 +345,20 @@ def t_plano(page, url):
     page.click("#grupoSairBtn"); page.wait_for_timeout(300)
 
 
-@teste("meta diária e sequência de dias na tela inicial")
+@teste("meta diária no plano de estudo e sequência no desempenho")
 def t_meta(page, url):
-    page.click("#homeBtn"); page.wait_for_selector("#metaHoje", state="visible")
-    page.evaluate("progress.metaDiaria = { valor: 5, atualizado: new Date().toISOString() }; salvarBackup(); showHome();")
-    txt = page.inner_text("#metaHoje")
-    assert "/5 questões" in txt and "dia" in txt, f"meta/sequência não aparecem: {txt}"
+    page.click("#homeBtn") if page.locator("#homeBtn").is_visible() else None
+    assert page.locator("#metaHoje").count() == 0, "a meta diária não deveria estar na tela inicial"
+    page.evaluate("abrirTelaDesempenho()"); page.click("#abaDesempenho"); page.wait_for_selector("#painelDesempenho", state="visible")
+    assert "dias seguidos" in page.inner_text("#painelDesempenho"), "a sequência deveria estar na aba Desempenho"
+    page.click("#abaPlano"); page.wait_for_selector("#metaValor", state="visible")
+    page.fill("#metaValor", "5"); page.click("#metaSalvarBtn"); page.wait_for_timeout(200)
+    assert page.evaluate("progress.metaDiaria && progress.metaDiaria.valor") == 5, "a meta não foi salva"
+    txt = page.inner_text("#metaProgresso")
+    assert "/5 questões" in txt, f"o progresso da meta não aparece: {txt}"
+    page.click("#abaDesempenho"); page.click("#backFromDesempenhoBtn")
+    html = page.evaluate("document.body.innerHTML")
+    assert "🔥" not in html and "👏" not in html, "ainda há emojis de fogo ou palmas"
     m = page.evaluate("mesclarProgresso({ registro: [], metaDiaria: { valor: 3, atualizado: '2026-01-01' } }, { registro: [], metaDiaria: { valor: 9, atualizado: '2026-02-01' } }).metaDiaria.valor")
     assert m == 9, "a sincronização deveria ficar com a meta mais recente"
 

@@ -37,8 +37,12 @@ Classifique cada problema:
 Não aponte problema por mera preferência de redação. Não invente problemas: se estiver correto, aprove.
 
 Responda somente com JSON:
-{"aprovado": true|false, "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x", "..."], "trecho": "<trecho curto>",
+{"aprovado": true|false, "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x", "..."], "contradiz_gabarito": false, "trecho": "<trecho curto>",
   "gravidade": "grave|moderada|leve", "explicacao": "...", "correcao_sugerida": "..."}]}
+Marque "contradiz_gabarito": true quando aceitar a sua objeção tornaria a alternativa do GABARITO OFICIAL errada
+ou impossível (ex.: você afirma um fato que faria verdadeira uma afirmativa que a banca considerou falsa). Essas
+objeções vão para um árbitro com busca na web antes de qualquer reescrita, porque costumam ser engano do revisor.
+Se houver PONTOS JÁ DECIDIDOS POR UM ÁRBITRO, não aponte de novo o contrário deles.
 Em "secao" use UMA seção (ou "aviso"). Em "secoes_com_o_mesmo_erro", liste TODAS as outras seções em que a mesma
 afirmação errada aparece (procure em 2.1 a 2.14 e no aviso); lista vazia se só aparecer em uma.
 Se houver PREMISSA CONFERIDA, confira se a correção inteira segue essa premissa.

@@ -88,6 +88,14 @@ Questões com `imagem_pendente` são puladas.
      Se o mesmo erro reaparecer depois da correção por partes, a correção inteira é refeita uma vez, com a lista
      de todos os problemas como instrução. Se a última conferência resolveu algum problema (ou a correção
      inteira acabou de ser refeita), há uma rodada extra (`qualidade.rodada_extra_com_progresso`).
+   - O revisor também erra. O corretor pode **contestar** uma objeção que considere falsa, citando a fonte; e o
+     revisor marca `contradiz_gabarito` quando a objeção tornaria o gabarito oficial impossível. Nos dois casos,
+     um **árbitro** (raciocínio estendido + busca na web sobre o ponto em disputa) decide antes de qualquer
+     reescrita: objeção derrubada sai da lista; objeção confirmada é corrigida sem nova contestação. As
+     decisões entram nas revisões seguintes como "pontos já decididos" (no máximo
+     `qualidade.max_arbitragens` = 3 por questão; ficam em `verificacao.arbitragens`).
+   - O revisor recebe os números do histórico já contados pelo sistema (provas no acervo, provas com questões
+     relacionadas, por tipo), para não apontar como erro uma contagem correta.
    - Regra de diretrizes: a IA não pode atribuir uma conduta ao Ministério da Saúde, a uma sociedade ou a um
      protocolo sem base, nem repetir números das alternativas (dose, dias) como se fossem recomendação.
 5b. **Busca na web quando a IA discorda do gabarito:** se a resolução às cegas diverge, o gerador faz 2 buscas
@@ -119,10 +127,14 @@ Mesmo assim, a correção é de IA e pode errar. Por isso o site mostra o selo "
 Actions → Gerar correções → ação **temas-padrao** (o campo banca é ignorado; vale para todas as bancas):
 
 1. refaz o catálogo de todas as questões com a resposta oficial (uma vez por questão);
-2. cria uma lista fixa de 10 a 40 temas por disciplina (uma vez; `--refazer-listas` refaz);
-3. encaixa cada questão num tema da lista e grava `dados/temas_padrao.json`, usado pelo site.
+2. cria uma lista fixa de temas por disciplina, a mesma para todas as bancas e anos, baseada no currículo de
+   residência da disciplina, com cerca de 1 tema a cada 10 questões (mínimo 6, máximo 25). É feita uma vez
+   (`--refazer-listas` refaz; um arquivo da versão 1 é refeito sozinho);
+3. encaixa cada questão num tema da lista e grava `dados/temas_padrao.json`, usado pelo site. Se uma prova
+   nova trouxer um assunto que não cabe em nenhum tema, um tema novo é acrescentado ao fim da lista; os
+   temas existentes não mudam.
 
-Custo estimado da primeira vez: cerca de US$ 0,30. Depois, só as questões novas ou alteradas são processadas.
+Custo estimado da primeira vez: cerca de US$ 0,15 a 0,30. Depois, só as questões novas ou alteradas são processadas.
 Aprove o pull request para o site passar a usar os temas.
 
 ## Correções escritas na conversa com o Claude

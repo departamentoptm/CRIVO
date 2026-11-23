@@ -4,14 +4,23 @@ filtro por tema, no painel de desempenho e nos pontos fracos.
 
 Passos (comando: gerar_correcoes.py temas-padrao):
   1. Refaz o catálogo de todas as questões de todas as bancas com a resposta oficial (uma vez por questão).
-  2. Para cada disciplina sem lista, pede à IA uma lista de 10 a 40 temas, a partir dos temas mais frequentes
-     do catálogo (uma chamada por disciplina). Uma lista já criada é mantida (use --refazer-listas para refazer).
+  2. Para cada disciplina sem lista, pede à IA uma lista de temas baseada no currículo de residência da
+     disciplina, com cerca de 1 tema a cada 10 questões (mínimo 6, máximo 25); o acervo só confere a cobertura.
+     Uma lista já criada é mantida (use --refazer-listas para refazer; arquivos da versão 1 são refeitos sozinhos).
   3. Encaixa cada questão sem tema num dos temas da lista da disciplina dela (lotes de questões por chamada).
+     Se nenhum tema servir (assunto novo de uma prova nova), a IA propõe um tema, que entra no FIM da lista;
+     os temas existentes nunca mudam.
 A disciplina de cada questão é a mesma do site (exams/disciplinas.json); sem ela, a do questoes.json; sem ela,
 a do catálogo.
 """
 import os
 from collections import Counter
+
+VERSAO = 2
+
+
+def tamanho_da_lista(n_questoes):
+    return max(6, min(25, round(n_questoes / 10)))
 
 from crivo_comum import gravar_json, ler_json, listar_edicoes
 from historico import prompt, questoes_da_banca, atualizar_catalogo, texto_curto, resposta_correta, impressao
@@ -47,9 +56,13 @@ def disciplina_de(q, catalogo, site, permitidas):
 def gerar(dados, cliente, config, log=print, refazer_listas=False):
     permitidas = config.get("disciplinas_permitidas") or []
     site = disciplinas_do_site(dados)
-    saida = ler_json(arq_temas_padrao(dados), {"formato": "crivo-temas-padrao", "versao": 1, "disciplinas": {}, "questoes": {}})
+    saida = ler_json(arq_temas_padrao(dados), {"formato": "crivo-temas-padrao", "versao": VERSAO, "disciplinas": {}, "questoes": {}})
+    if int(saida.get("versao") or 1) < VERSAO:
+        log(f"temas_padrao.json da versão {saida.get('versao') or 1}: refazendo as listas pelo currículo (versão {VERSAO})")
+        refazer_listas = True
     if refazer_listas:
         saida["disciplinas"], saida["questoes"] = {}, {}
+    saida["versao"] = VERSAO
 
     # 1. catálogo com a resposta oficial, banca por banca
     todas, catalogo = {}, {}
@@ -78,8 +91,11 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
             for t in (catalogo[qid].get("temas") or [])[:2]:
                 contagem[str(t).strip().lower()] += 1
         frequentes = "\n".join(f"- {t} ({n})" for t, n in contagem.most_common(300))
+        alvo = tamanho_da_lista(len(por_disc[d]))
         r = cliente.json("temas", sistema_lista,
-                         f"DISCIPLINA: {d}\nQUESTÕES NO ACERVO: {len(por_disc[d])}\n\nTEMAS DO CATÁLOGO (frequência):\n{frequentes}")
+                         f"DISCIPLINA: {d}\nQUESTÕES NO ACERVO: {len(por_disc[d])}\nTAMANHO DA LISTA: {alvo} temas "
+                         f"(aceitável de {max(6, alvo - 2)} a {min(25, alvo + 2)})\n\n"
+                         f"TEMAS DO ACERVO (frequência; só para conferir a cobertura):\n{frequentes}")
         lista = []
         for t in r.get("temas") or []:
             t = " ".join(str(t).split())[:70]
@@ -88,7 +104,7 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
         if len(lista) < 3:
             log(f"   aviso: a lista de {d} veio vazia ou curta; será tentada de novo na próxima execução")
             continue
-        saida["disciplinas"][d] = lista[:45]
+        saida["disciplinas"][d] = lista[:min(25, alvo + 2)]
         log(f"   {d}: {len(saida['disciplinas'][d])} temas")
         gravar_json(arq_temas_padrao(dados), saida)
 
@@ -119,11 +135,22 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
                                  + "\n\n".join(linhas))
                 recebidas = {}
                 for x in r.get("atribuicoes") or []:
+                    if not isinstance(x, dict) or x.get("id") not in grupo:
+                        continue
+                    novo = " ".join(str(x.get("novo_tema") or "").split())[:70]
+                    if novo:
+                        existente = next((t for t in lista if t.lower() == novo.lower()), None)
+                        if not existente:
+                            lista.append(novo); existente = novo          # assunto novo: entra no fim da lista
+                            numerada += f"\n{len(lista)}. {novo}"
+                            log(f"   {d}: tema novo acrescentado ao fim da lista: {novo}")
+                        recebidas[x["id"]] = existente
+                        continue
                     try:
                         n = int(x.get("tema"))
-                    except (TypeError, ValueError, AttributeError):
+                    except (TypeError, ValueError):
                         continue
-                    if isinstance(x, dict) and x.get("id") in grupo and 1 <= n <= len(lista):
+                    if 1 <= n <= len(lista):
                         recebidas[x["id"]] = lista[n - 1]
                 for qid, t in recebidas.items():
                     saida["questoes"][qid] = {"disciplina": d, "tema": t, "texto": impressao(todas[qid])}

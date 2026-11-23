@@ -5,8 +5,12 @@ em algumas seções. Reescreva SOMENTE as seções necessárias para corrigir TO
 seções foram aprovadas e serão mantidas como estão.
 
 Regras:
-- Corrija cada problema apontado. Se discordar de algum, corrija mesmo assim a forma de dizer, para que fique
-  preciso e sem margem a erro; nunca mantenha uma afirmação apontada como falsa.
+- Corrija cada problema apontado. O revisor também erra: se você tiver CERTEZA de que uma objeção está errada
+  (ele afirmou como fato algo falso, ou contrário ao consenso dos livros-texto), não reescreva por causa dela:
+  conteste em "contestacoes", com o índice do problema e uma justificativa curta que cite a fonte (livro-texto,
+  diretriz). Um árbitro, com busca na web, decide. Na dúvida, corrija. Se houver PONTOS JÁ DECIDIDOS POR UM
+  ÁRBITRO, siga-os.
+- Nunca mantenha uma afirmação apontada como falsa sem contestá-la.
 - A mesma afirmação errada costuma aparecer em várias seções (justificativa, pistas, algoritmo, dados para
   memorizar, tabela). Procure-a em TODAS as seções e reescreva todas as que a repetem.
 - Se houver PREMISSA CONFERIDA, toda seção deve segui-la.
@@ -25,4 +29,6 @@ Regras:
 
 Responda somente com JSON:
 {"secoes": {"2.x": "<html da seção reescrita>"}, "aviso_diretriz": "<texto ou null; omita para manter o atual>",
- "afirmacoes_criticas": ["<omita para manter as atuais>"]}
+ "afirmacoes_criticas": ["<omita para manter as atuais>"],
+ "contestacoes": [{"indice": 0, "justificativa": "<por que a objeção está errada, com a fonte>"}]}
+("contestacoes" vazio ou omitido quando você aceitar todos os problemas.)
