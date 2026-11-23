@@ -178,7 +178,11 @@ def secoes_apontadas(serios):
     """Seções citadas pelo revisor, inclusive em rótulos compostos ("2.4 e 2.10", "aviso/2.3")."""
     secs, aviso = set(), False
     for p in serios:
-        rot = str(p.get("secao", ""))
+        mesmo = p.get("secoes_com_o_mesmo_erro") or []
+        rot = str(p.get("secao", "")) + " " + " ".join(str(x) for x in (mesmo if isinstance(mesmo, list) else [mesmo]))
+        for a, b in re.findall(r"2\.(1[0-4]|[1-9])\s*(?:[-–—]|\ba\b|\baté\b)\s*(?:2\.)?(1[0-4]|[1-9])(?!\d)", rot):
+            if int(a) < int(b):
+                secs |= {f"2.{n}" for n in range(int(a), int(b) + 1)}      # "2.2–2.4" = 2.2, 2.3 e 2.4
         secs |= {f"2.{n}" for n in re.findall(r"2\.(1[0-4]|[1-9])(?!\d)", rot)}
         aviso = aviso or bool(re.search(r"aviso|diretriz", rot, re.I))
     return sorted(secs, key=lambda x: int(x.split(".")[1])), aviso
@@ -196,7 +200,8 @@ def corrigir_secoes(r, serios, q, usuario_base, cliente, config):
     pedido = (usuario_base + f"\n\nAVISO DE DIRETRIZ ATUAL: {r.get('aviso_diretriz') or '(nenhum)'}"
               + "\n\nCORREÇÃO ATUAL (HTML de todas as seções):\n" + atual
               + "\n\nPROBLEMAS APONTADOS PELO REVISOR (corrija todos):\n" + json.dumps(serios, ensure_ascii=False, indent=1)
-              + f"\n\nDEVOLVA OBRIGATORIAMENTE, reescritas: {obrig}. Pode incluir outras seções se for preciso para manter a coerência.")
+              + f"\n\nDEVOLVA OBRIGATORIAMENTE, reescritas: {obrig}. A mesma afirmação errada costuma se repetir em outras "
+                "seções: procure-a em TODAS (2.1 a 2.14 e aviso) e reescreva também as que a repetem.")
     sistema = prompt("corrigir_secoes.md", config)
     trocadas, novo_aviso = [], None
     for tentativa in (1, 2):
@@ -299,6 +304,35 @@ def evidencias_da_web(q, cega, cliente, config):
 
 
 # ------------------------------------------------------------------ uma questão
+def premissa_conferida(q, cega, evidencias, cliente, config):
+    """Quando o gabarito diverge da resolução às cegas: antes de escrever a correção, uma chamada curta diz qual
+    diagnóstico/etiologia/mecanismo leva ao gabarito, e um revisor confere essa premissa. Devolve o texto da
+    premissa aprovada (ou None)."""
+    txt = (texto_para_ia(q, com_gabarito=True) + f"\n\nRESOLUÇÃO ÀS CEGAS (sem ver o gabarito): {cega.get('alternativa')} — "
+           + str(cega.get("justificativa", ""))[:500] + (("\n\n" + evidencias) if evidencias else ""))
+    campos = ("raciocinio_da_banca", "por_que_o_gabarito", "por_que_nao_a_alternativa_cega", "mudanca_de_diretriz")
+    def texto(p):
+        return "\n".join(f"- {k}: {str(p.get(k))[:700]}" for k in campos if p.get(k) not in (None, "", "null"))
+    obs, recusa = "", None
+    for tentativa in (1, 2):
+        p = cliente.json("premissa", prompt("premissa.md", config), txt + obs)
+        if not isinstance(p, dict) or not p.get("raciocinio_da_banca"):
+            continue
+        v = cliente.json("conferir_premissa", prompt("conferir_premissa.md", config), txt + "\n\nPREMISSA PROPOSTA:\n" + texto(p))
+        if v.get("correta") is True:
+            log(f"   premissa conferida: {str(p['raciocinio_da_banca'])[:140]}")
+            return texto(p)
+        recusa = v
+        log(f"   premissa recusada pelo revisor (tentativa {tentativa}): {str(v.get('problema', ''))[:150]}")
+        obs = f"\n\nUM REVISOR RECUSOU SUA PREMISSA ANTERIOR ({texto(p)[:600]}). Motivo: {str(v.get('problema', ''))[:600]}"
+    pc = (recusa or {}).get("premissa_corrigida")
+    if isinstance(pc, dict) and pc.get("raciocinio_da_banca"):
+        log(f"   premissa corrigida pelo revisor: {str(pc['raciocinio_da_banca'])[:140]}")
+        return texto(pc)
+    log("   premissa não confirmada: a correção será gerada sem ela")
+    return None
+
+
 def gerar_uma(q, todas, catalogo, cliente, config, reportes):
     relevantes, meta_hist = relacionadas(q["id"], todas, catalogo, cliente, config, log)
     pt = meta_hist["por_tipo"]
@@ -320,6 +354,13 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
     evidencias, fontes_web = evidencias_da_web(q, cega, cliente, config) if discorda else ("", [])
     if evidencias:
         base.append("\n" + evidencias)
+    premissa = premissa_conferida(q, cega, evidencias, cliente, config) if discorda else None
+    contexto_revisor = evidencias
+    if premissa:
+        bloco_p = ("PREMISSA CONFERIDA POR UM REVISOR (o raciocínio que leva ao gabarito). Construa TODA a correção sobre "
+                   "ela: não use outro diagnóstico, etiologia ou mecanismo para justificar o gabarito em nenhuma seção.\n" + premissa)
+        base.append("\n" + bloco_p)
+        contexto_revisor = (evidencias + "\n\n" if evidencias else "") + bloco_p
     if reportes:
         base.append("\nERROS APONTADOS POR ESTUDANTES NA CORREÇÃO ANTERIOR (verifique e corrija se procederem):\n- "
                     + "\n- ".join((str(x.get("texto", x))[:500] + (f" (fonte indicada: {str(x['fonte'])[:200]})" if isinstance(x, dict) and x.get("fonte") else ""))
@@ -360,10 +401,19 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
         return r, c, problemas
 
     verificacao, c, r, serios = None, None, None, []
-    for rodada in range(1, qual["rodadas_de_verificacao"] + 1):
-        conferencia, reescritas = False, []
+    limite, rodada, acumulados = qual["rodadas_de_verificacao"], 0, []
+    refazer_tudo, ja_refez = False, False
+    while rodada < limite:
+        rodada += 1
+        conferencia, reescritas, progresso, repetiu = False, [], 0, False
         if r is None:
             r, c, problemas = gerar_completa("")
+        elif refazer_tudo:
+            log("   o mesmo erro reapareceu depois da correção parcial: refazendo a correção inteira")
+            r, c, problemas = gerar_completa("\n\nUM REVISOR MÉDICO REPROVOU AS VERSÕES ANTERIORES. A nova correção não pode "
+                                             "conter NENHUM destes erros, em nenhuma seção:\n"
+                                             + json.dumps(acumulados[-12:], ensure_ascii=False, indent=1))
+            refazer_tudo, ja_refez = False, True
         else:
             # reescreve SÓ as seções apontadas pelo revisor; as aprovadas ficam como estão
             r2, reescritas = corrigir_secoes(r, serios, q, usuario_base, cliente, config)
@@ -379,23 +429,27 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
         if conferencia:
             # rodadas 2 e 3: conferência da lista de problemas + seções reescritas (sem raciocínio estendido)
             v = cliente.json("conferir", prompt("conferir_correcao.md", config),
-                             texto_para_conferir(c, q, serios, reescritas, evidencias))
+                             texto_para_conferir(c, q, serios, reescritas, contexto_revisor))
             nao_resolvidos = []
             for item in v.get("resolvidos") or []:
                 try:
                     k = int(item.get("indice"))
                 except (TypeError, ValueError):
                     continue
+                if 0 <= k < len(serios) and item.get("resolvido") is True:
+                    progresso += 1
                 if 0 <= k < len(serios) and item.get("resolvido") is False:
                     p_ = dict(serios[k]); p_["explicacao"] = "NÃO RESOLVIDO: " + str(item.get("comentario") or p_.get("explicacao", ""))
                     nao_resolvidos.append(p_)
             conferidos = {int(i.get("indice")) for i in (v.get("resolvidos") or []) if str(i.get("indice", "")).isdigit()}
             sem_resposta = [dict(serios[k], explicacao="NÃO CONFERIDO: " + str(serios[k].get("explicacao", "")))
                             for k in range(len(serios)) if k not in conferidos]
-            probs = nao_resolvidos + sem_resposta + [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
+            novos = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
+            repetiu = bool(nao_resolvidos) or any(p.get("mesmo_erro_de") not in (None, "", "null") for p in novos)
+            probs = nao_resolvidos + sem_resposta + novos
         else:
             v = cliente.json("verificar", prompt("verificar.md", config),
-                             texto_para_verificar(c, q, relevantes, todas, catalogo, evidencias))
+                             texto_para_verificar(c, q, relevantes, todas, catalogo, contexto_revisor))
             probs = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
         serios = [p for p in probs if str(p.get("gravidade", "")).lower() in ("grave", "moderada")]
         verificacao = {"aprovado": not serios, "rodada": rodada, "modelo": config["modelos"]["verificar"],
@@ -404,9 +458,18 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
         if not serios:
             log(f"   verificação: aprovada (rodada {rodada}, {len(probs)} observação(ões) leve(s))")
             break
+        acumulados += [p for p in serios if p.get("explicacao") not in {a.get("explicacao") for a in acumulados}]
+        if conferencia and repetiu and not ja_refez:
+            refazer_tudo = True
+        if (rodada == limite and conferencia and (progresso > 0 or refazer_tudo) and limite == qual["rodadas_de_verificacao"]
+                and qual.get("rodada_extra_com_progresso", True)):
+            limite += 1                                  # só uma rodada extra por questão
+            log("   rodada extra: " + ("a correção inteira será refeita e conferida" if refazer_tudo
+                                         else f"a última conferência resolveu {progresso} problema(s)"))
         secs = sorted({str(p.get("secao", "?")) for p in serios})
-        log(f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) — corrigindo só a(s) seção(ões) {', '.join(secs)}"
-            if rodada < qual["rodadas_de_verificacao"] else f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) na última rodada")
+        log(f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) na última rodada" if rodada >= limite else
+            f"   verificação: {len(serios)} problema(s) grave(s)/moderado(s) — " + ("o mesmo erro reapareceu" if refazer_tudo
+            else f"corrigindo só a(s) seção(ões) {', '.join(secs)}"))
         for p in serios[:5]:
             log(f"      [{p.get('gravidade')}] {p.get('secao', '?')}: {str(p.get('explicacao', ''))[:150]}")
         verificacao["problemas_serios"] = serios

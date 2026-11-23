@@ -12,7 +12,9 @@
   "gerar": "deepseek-flash",
   "verificar": "deepseek-flash",
   "reparar": "deepseek-flash",
-  "conferir": "deepseek-flash"
+  "conferir": "deepseek-flash",
+  "premissa": "deepseek-flash",
+  "conferir_premissa": "deepseek-flash"
  },
  "parametros_extras_por_modelo": {},
  "max_tokens": {
@@ -22,7 +24,9 @@
   "gerar": 16000,
   "verificar": 32000,
   "reparar": 6000,
-  "conferir": 12000
+  "conferir": 12000,
+  "premissa": 8000,
+  "conferir_premissa": 12000
  },
  "precos_usd_por_milhao_fora_do_pico": {
   "deepseek-flash": {
@@ -70,7 +74,8 @@
    "2.14": 60
   },
   "tentativas_de_geracao": 3,
-  "rodadas_de_verificacao": 3
+  "rodadas_de_verificacao": 3,
+  "rodada_extra_com_progresso": true
  },
  "fontes_permitidas": [
   "Harrison — Medicina Interna",
@@ -97,7 +102,9 @@
   "gerar": false,
   "verificar": true,
   "reparar": false,
-  "conferir": false
+  "conferir": false,
+  "premissa": true,
+  "conferir_premissa": true
  },
  "parametro_raciocinio": {
   "ligado": {

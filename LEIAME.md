@@ -84,12 +84,18 @@ Questões com `imagem_pendente` são puladas.
    - Da 2ª rodada em diante, o revisor recebe a lista dos problemas anteriores e confere um a um se foram
      resolvidos (sem raciocínio estendido, mais barato). Toda seção apontada é reescrita, inclusive quando o
      revisor escreve rótulos compostos como "2.4 e 2.10" ou "aviso/2.3".
+   - O revisor lista todas as seções que repetem o mesmo erro, e o corretor procura a afirmação errada em todas.
+     Se o mesmo erro reaparecer depois da correção por partes, a correção inteira é refeita uma vez, com a lista
+     de todos os problemas como instrução. Se a última conferência resolveu algum problema (ou a correção
+     inteira acabou de ser refeita), há uma rodada extra (`qualidade.rodada_extra_com_progresso`).
    - Regra de diretrizes: a IA não pode atribuir uma conduta ao Ministério da Saúde, a uma sociedade ou a um
      protocolo sem base, nem repetir números das alternativas (dose, dias) como se fossem recomendação.
 5b. **Busca na web quando a IA discorda do gabarito:** se a resolução às cegas diverge, o gerador faz 2 buscas
    (versão atual e versão até o ano da prova, com `before:`) na Search API do DeepSeek (US$ 0,00075 por
    busca) e entrega os trechos à geração e ao revisor como "EVIDÊNCIAS DA WEB". As fontes de maior
-   autoridade entram na 2.15. Configuração em `busca_web` no `config_gerador.json` (`"ativa": false` desliga).
+   autoridade entram na 2.15. Em seguida, antes de escrever a correção, uma chamada curta diz qual diagnóstico,
+   etiologia ou mecanismo leva ao gabarito, e um revisor confere essa premissa; a correção inteira é escrita
+   sobre a premissa conferida. Configuração em `busca_web` no `config_gerador.json` (`"ativa": false` desliga).
 6. **Referências:** a IA indica 1 ou 2 livros da lista `fontes_permitidas` e termos de busca em inglês. O script
    busca no PubMed (API oficial gratuita) 2 revisões, revisões sistemáticas ou diretrizes recentes que existem,
    com link para o artigo e o DOI, e acrescenta links de consulta ao UpToDate, ao Manual MSD e ao PubMed.
@@ -108,6 +114,7 @@ correção pode ser escrita numa conversa com o Claude e entregue como `correcoe
 
 ```bash
 python3 ferramentas/gerar_correcoes.py inserir-manual --arquivo correcoes_manuais/AMP-2020-Q10.json
+python3 ferramentas/gerar_correcoes.py inserir-manual --arquivo correcoes_manuais/AMP-2020-Q6.json
 ```
 
 O comando não usa a API do DeepSeek: passa pela mesma validação, monta a tabela 2.10 com as questões listadas

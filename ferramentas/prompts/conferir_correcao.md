@@ -18,6 +18,9 @@ Não aponte preferência de redação.
 
 Responda somente com JSON:
 {"resolvidos": [{"indice": 0, "resolvido": true, "comentario": "<curto>"}],
- "problemas": [{"secao": "2.x", "trecho": "<trecho curto>", "gravidade": "grave|moderada|leve",
-               "explicacao": "...", "correcao_sugerida": "..."}]}
+ "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x"], "mesmo_erro_de": null, "trecho": "<trecho curto>",
+               "gravidade": "grave|moderada|leve", "explicacao": "...", "correcao_sugerida": "..."}]}
+Se um problema novo for a MESMA afirmação errada de um item da lista (que reapareceu ou ficou em outra seção),
+preencha "mesmo_erro_de" com o índice desse item. Em "secoes_com_o_mesmo_erro", liste todas as seções em que
+ela aparece.
 Inclua TODOS os índices da lista em "resolvidos".
