@@ -37,6 +37,9 @@ from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionad
                        linhas_da_tabela, ROTULO_TIPO, ORDEM_TIPO, resposta_correta)
 from crivo_comum import arq_temas
 import referencias as refs_mod
+import afirmativas as afirm
+
+RODADAS = {}            # questão -> registro das rodadas de verificação (vai para o relatório da execução)
 from ia_cliente import ClienteAPI, Contador, OrcamentoEsgotado, ErroAPI
 
 SECOES_IA = [f"2.{k}" for k in range(1, 15)]          # 2.15 (referências) é montada pelo script
@@ -65,6 +68,10 @@ def texto_para_ia(q, com_gabarito):
                   "anulada_administrativamente": "QUESTÃO ANULADA ADMINISTRATIVAMENTE pela banca"}.get(
                       q.get("anulacao"), "QUESTÃO ANULADA pela banca")
         partes.append(f"GABARITO OFICIAL: {'alternativa ' + g if g in LETRAS else motivo}")
+        if g in LETRAS:
+            tab = afirm.texto_da_tabela(afirm.tabela_afirmativas(q))
+            if tab:
+                partes.append(tab)
     return "\n".join(partes)
 
 
@@ -212,7 +219,7 @@ def corrigir_secoes(r, serios, q, usuario_base, cliente, config, permitir_contes
                     k = int(ct.get("indice"))
                 except (TypeError, ValueError, AttributeError):
                     continue
-                if 0 <= k < len(serios) and str(ct.get("justificativa", "")).strip():
+                if 0 <= k < len(serios) and str(ct.get("justificativa", "")).strip() and serios[k].get("origem") != "gabarito":
                     contestadas[k] = str(ct["justificativa"])[:1200]
         aceitos = [p for k, p in enumerate(serios) if k not in contestadas]
         apontadas, aviso_apontado = secoes_apontadas(aceitos)
@@ -315,7 +322,11 @@ def evidencias_da_web(q, cega, cliente, config):
     return bloco, itens
 
 
-def buscar_evidencias(consultas, q, cliente, config, epoca=True):
+def _brasileira(i):
+    return ".br" in (i.get("site") or "") or ".br/" in (i.get("url") or "")
+
+
+def buscar_evidencias(consultas, q, cliente, config, epoca=True, priorizar_br=False):
     """Busca as consultas (e, se epoca, a versão até o ano da prova) e devolve (bloco de texto, fontes)."""
     bw = config.get("busca_web", {})
     vistos, itens = set(), []
@@ -327,11 +338,13 @@ def buscar_evidencias(consultas, q, cliente, config, epoca=True):
                 if it["url"] in vistos or (it["autoridade"] != -1 and it["autoridade"] < bw.get("autoridade_minima", 2)):
                     continue
                 vistos.add(it["url"]); it["epoca"] = "before:" in variante; itens.append(it)
-    itens = sorted(itens, key=lambda i: (-i["autoridade"], -float(i["relevancia"] or 0)))[:bw.get("max_fontes", 6)]
+    itens = sorted(itens, key=lambda i: (-(priorizar_br and _brasileira(i)), -i["autoridade"],
+                                         -float(i["relevancia"] or 0)))[:bw.get("max_fontes", 6)]
     if not itens:
         return "", []
     linhas = [f"[W{k}] {i['titulo']} — {i['site'] or i['url']} — {i['data'] or 'data desconhecida'}"
               + (f" (publicada até {q['ano'][:4]}: vale para a época da prova)" if i["epoca"] else "")
+              + (" [fonte brasileira]" if priorizar_br and _brasileira(i) else "")
               + f"\n     {i['url']}\n     {i['resumo'][:700]}" for k, i in enumerate(itens, 1)]
     bloco = ("EVIDÊNCIAS DA WEB sobre a diretriz (resumos de páginas reais; use-as para afirmar o que uma diretriz "
              "recomenda, hoje ou na época da prova; o que não estiver aqui nem for consenso consolidado, não atribua a "
@@ -353,16 +366,46 @@ def arbitrar(q, problema, contestacao, cliente, config):
     bloco, itens = "", []
     if config.get("busca_web", {}).get("ativa", True) and hasattr(cliente, "buscar"):
         x = cliente.json("temas", prompt("consultas_disputa.md", config), base)
-        consultas = [str(c_)[:110] for c_ in (x.get("consultas") or []) if str(c_).strip()][:2]
-        bloco, itens = buscar_evidencias(consultas, q, cliente, config, epoca=False)
+        consultas = [str(c_)[:110] for c_ in (x.get("consultas") or []) if str(c_).strip()][:3]
+        bloco, itens = buscar_evidencias(consultas, q, cliente, config, epoca=False, priorizar_br=True)
     v = cliente.json("arbitrar", prompt("arbitrar.md", config),
                      base + ("\n\n" + bloco if bloco else "\n\n(Sem evidências da web: decida pelo consenso dos livros-texto de referência.)"))
     vencedor = "autor" if str(v.get("vencedor", "")).strip().lower().startswith("autor") else "revisor"
     d = {"vencedor": vencedor, "secao": problema.get("secao"), "objecao": str(problema.get("explicacao", ""))[:300],
          "decisao": str(v.get("decisao", ""))[:700], "fontes": [i["url"] for i in itens][:3]}
+    tab = afirm.tabela_afirmativas(q)
+    if tab:
+        div = afirm.confere(tab, v.get("afirmativas_verdadeiras"))
+        if div:
+            # a decisão quebra o gabarito oficial: é descartada (o gabarito é a verdade)
+            d["descartada"] = "contrariava o gabarito oficial nas afirmativas " + ", ".join(div)
+            d["vencedor"] = "autor" if vencedor == "revisor" else "revisor"
+            log(f"   árbitro ({problema.get('secao', '?')}): decisão DESCARTADA — {d['descartada']}; "
+                + ("a objeção sai da lista" if vencedor == "revisor" else "a objeção segue para a correção"))
+            return d
     log(f"   árbitro ({problema.get('secao', '?')}): razão do {'AUTOR — objeção descartada' if vencedor == 'autor' else 'REVISOR — será corrigido'}"
         f"{f' ({len(itens)} fonte(s) da web)' if itens else ''}: {d['decisao'][:140]}")
     return d
+
+
+def conferir_afirmativas(c, q, cliente, config):
+    """Conferência final das questões de afirmativas: a correção declara cada afirmativa como o gabarito?
+    Devolve um problema grave (dict) ou None."""
+    tab = afirm.tabela_afirmativas(q)
+    if not tab or not config.get("qualidade", {}).get("conferir_afirmativas", True):
+        return None
+    secs = "\n".join(f"[{s}]\n{texto_puro(re.sub(r'</(p|li|tr)>', ' / ', c['secoes'].get(s, '')))}" for s in ("2.3", "2.4"))
+    x = cliente.json("conferir", prompt("conferir_afirmativas.md", config),
+                     texto_para_ia(q, com_gabarito=False) + f"\n\nRÓTULOS DAS AFIRMATIVAS: {', '.join(tab['rotulos'])}"
+                     + "\n\nCORREÇÃO (seções 2.3 e 2.4):\n" + secs, raciocinio=False)
+    div = afirm.confere(tab, x.get("verdadeiras"))
+    if not div:
+        return None
+    return {"secao": "2.3", "secoes_com_o_mesmo_erro": ["2.4"], "gravidade": "grave", "trecho": "",
+            "explicacao": ("A correção não trata as afirmativas como o gabarito oficial: " + ", ".join(div) + ". "
+                           + afirm.texto_da_tabela(tab)),
+            "correcao_sugerida": "Reescrever a justificativa de cada afirmativa de acordo com o gabarito oficial.",
+            "origem": "gabarito"}
 
 
 def bloco_arbitrados(decisoes):
@@ -485,6 +528,8 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
     limite, rodada, acumulados = qual["rodadas_de_verificacao"], 0, []
     decisoes, arbitragens = [], 0
     contexto_base = contexto_revisor
+    registro = RODADAS.setdefault(q["id"], [])
+    registro.clear()
 
     def julgar(lista):
         """Leva ao árbitro (com limite por questão) e devolve (mantidos, descartados)."""
@@ -495,13 +540,20 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
                 mantidos.append(p); continue
             arbitragens += 1
             d = arbitrar(q, p, just, cliente, config)
-            decisoes.append(d)
-            (descartados if d["vencedor"] == "autor" else mantidos).append(p)
+            registro[-1]["arbitragens"].append({k: d.get(k) for k in ("secao", "vencedor", "decisao", "descartada")})
+            if not d.get("descartada"):
+                decisoes.append(d)
+            if d["vencedor"] == "autor":
+                descartados.append(p)
+            else:
+                mantidos.append(dict(p, explicacao=("CONFIRMADO PELO ÁRBITRO: " if not d.get("descartada") else "")
+                                     + str(p.get("explicacao", ""))))
         contexto_revisor = contexto_base + bloco_arbitrados(decisoes)
         return mantidos, descartados
     refazer_tudo, ja_refez = False, False
     while rodada < limite:
         rodada += 1
+        registro.append({"rodada": rodada, "arbitragens": []})
         conferencia, reescritas, progresso, repetiu = False, [], 0, False
         if r is None:
             r, c, problemas = gerar_completa("")
@@ -517,11 +569,11 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
             r2, reescritas, contestadas = corrigir_secoes(r, serios, q, usuario_base, cliente, config,
                                                           extra=bloco_arbitrados(decisoes))
             if contestadas:
+                registro[-1]["contestacoes"] = [f"{p.get('secao', '?')}: {j[:200]}" for p, j in contestadas]
                 mantidos, descartados = julgar(contestadas)
                 serios = [p for p in serios if p not in descartados]
                 if mantidos:
-                    r2, mais, _ = corrigir_secoes(r2, [dict(p, explicacao="CONFIRMADO PELO ÁRBITRO: " + str(p.get("explicacao", "")))
-                                                       for p in mantidos], q, usuario_base, cliente, config,
+                    r2, mais, _ = corrigir_secoes(r2, mantidos, q, usuario_base, cliente, config,
                                                   permitir_contestar=False, extra=bloco_arbitrados(decisoes))
                     reescritas = sorted(set(reescritas) | set(mais))
             r2, c2, problemas = validar_e_completar(r2)
@@ -571,6 +623,16 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
                        "problemas_leves": [p for p in probs if p not in serios and str(p.get("gravidade", "")).lower() not in ("grave", "moderada")][:10]}
         if decisoes:
             verificacao["arbitragens"] = decisoes
+        if not serios:
+            falha = conferir_afirmativas(c, q, cliente, config)
+            if falha:
+                serios = [falha]
+                verificacao["aprovado"] = False
+                log("   conferência das afirmativas: a correção diverge do gabarito oficial")
+        registro[-1].update({"tipo": "conferencia" if conferencia else "completa",
+                             "reescritas": reescritas,
+                             "problemas": [f"[{p.get('gravidade')}] {p.get('secao', '?')}: {str(p.get('explicacao', ''))[:240]}"
+                                           for p in serios]})
         if not serios:
             log(f"   verificação: aprovada (rodada {rodada}, {len(probs)} observação(ões) leve(s))")
             break
@@ -658,6 +720,23 @@ def escrever_relatorio(pasta, linhas, contador, inicio):
         f.write("| Questão | Resultado | Detalhe |\n|---|---|---|\n")
         for l in linhas:
             f.write(f"| {l[0]} | {l[1]} | {l[2]} |\n")
+        com_problema = {k: v for k, v in RODADAS.items() if any(r.get("problemas") or r.get("arbitragens") for r in v)}
+        if com_problema:
+            f.write("\n## Rodadas de verificação (questões com algum problema apontado)\n")
+            for qid, rs in com_problema.items():
+                f.write(f"\n### {qid}\n")
+                for r_ in rs:
+                    f.write(f"- Rodada {r_['rodada']} ({r_.get('tipo', '?')}"
+                            + (f"; seções reescritas: {', '.join(r_['reescritas'])}" if r_.get("reescritas") else "")
+                            + (") — aprovada\n" if not r_.get("problemas") else ") — problemas:\n"))
+                    for p in r_.get("problemas") or []:
+                        f.write(f"  - {p}\n")
+                    for ct in r_.get("contestacoes") or []:
+                        f.write(f"  - contestação do autor — {ct}\n")
+                    for a in r_.get("arbitragens") or []:
+                        f.write(f"  - árbitro ({a.get('secao')}): "
+                                + (f"decisão descartada ({a['descartada']})" if a.get("descartada") else f"razão do {a.get('vencedor')}")
+                                + f" — {str(a.get('decisao') or '')[:300]}\n")
     return nome
 
 
@@ -847,6 +926,24 @@ def cmd_inserir_manual(args, config):
     return 0
 
 
+def cmd_remover(args, config):
+    """Tira do site a correção de uma questão (ex.: publicada com erro). A questão fica sem correção até ser
+    gerada de novo (gerar --questoes N). Não usa a API."""
+    qid = args.questao.strip()
+    m = re.fullmatch(r"([A-Za-z]+)-(\d{4}(?:\.\d)?)-Q(\d+)", qid)
+    if not m:
+        log(f"ERRO: identificador inválido: {qid} (exemplo: AMP-2020-Q85)"); return 1
+    banca, ano = m.group(1), m.group(2)
+    cs = ler_correcoes(args.dados, banca, ano)
+    if qid not in cs.get("correcoes", {}):
+        log(f"ERRO: {qid} não tem correção em {arq_correcoes(args.dados, banca, ano)}."); return 1
+    del cs["correcoes"][qid]
+    gravar_json(arq_correcoes(args.dados, banca, ano), cs)
+    log(f"{qid}: correção removida de {arq_correcoes(args.dados, banca, ano)}. Para publicar: python ferramentas/gerar_indice.py "
+        f"--dados {args.dados}, commit e push. Para gerar de novo: gerar --banca {banca} --ano {ano} --questoes {m.group(3)}.")
+    return 0
+
+
 def cmd_amostra(args, config):
     """Junta num arquivo as correções sorteadas para conferência humana (1 a cada 50), para enviar ao Claude
     numa conversa. Com --conferidas ID ..., marca essas como conferidas."""
@@ -1007,6 +1104,8 @@ def main():
     am.add_argument("--banca", required=True); am.add_argument("--conferidas", nargs="*", default=[])
     im = sub.add_parser("inserir-manual", help="grava uma correção escrita na conversa (correcoes_manuais/*.json)")
     im.add_argument("--arquivo", required=True)
+    rm = sub.add_parser("remover", help="tira do site a correção de uma questão (ex.: AMP-2020-Q85)")
+    rm.add_argument("--questao", required=True)
     tp = sub.add_parser("temas-padrao", help="catálogo com gabarito + lista fixa de temas + tema de cada questão (todas as bancas)")
     tp.add_argument("--orcamento", type=float); tp.add_argument("--refazer-listas", action="store_true")
     c = sub.add_parser("catalogar", help="cataloga os temas de todas as questões da banca")
@@ -1033,6 +1132,8 @@ def main():
             return cmd_catalogar(args, config) or 0
         if args.cmd == "amostra":
             return cmd_amostra(args, config)
+        if args.cmd == "remover":
+            return cmd_remover(args, config)
         if args.cmd == "inserir-manual":
             return cmd_inserir_manual(args, config)
         if args.cmd == "atualizar-referencias":

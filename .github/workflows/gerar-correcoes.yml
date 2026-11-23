@@ -89,6 +89,7 @@ jobs:
           fi
           glob=()
           [ "$SIMULAR" = "true" ] && glob=(--simular)
+          cp dados/gastos.json "$RUNNER_TEMP/gastos_antes.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/gastos_antes.json"
           set +e
           python -u ferramentas/gerar_correcoes.py "${glob[@]}" "${args[@]}" 2>&1 | tee saida.txt
           codigo=${PIPESTATUS[0]}
@@ -105,11 +106,38 @@ jobs:
             echo; echo '```'; grep -E "ERRO|Nada|PULADA|fila|histórico|verificação|referências|Disciplina|GRAVADA|amostra|Temas prontos|temas|Gasto acumulado|Teto|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # O gasto vai direto para o main (e não pelo PR): o teto acumulado conta o dinheiro mesmo se o PR
+      # for fechado sem aprovar. Se o main não aceitar o push (ex.: branch protegida), o gasto segue no PR.
+      - name: Registrar o gasto no main
+        id: gasto
+        if: ${{ always() && !inputs.simular }}
+        run: |
+          base="${{ github.ref_name }}"
+          git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
+          for tentativa in 1 2 3; do
+            git fetch -q origin "$base"
+            rm -rf "$RUNNER_TEMP/principal"; git worktree prune
+            git worktree add -q --detach "$RUNNER_TEMP/principal" FETCH_HEAD
+            n=$(python ferramentas/somar_gastos.py --antes "$RUNNER_TEMP/gastos_antes.json" --depois dados/gastos.json \
+                  --destino "$RUNNER_TEMP/principal/dados/gastos.json")
+            if [ "$n" = "0" ]; then echo "Nenhum gasto novo a registrar."; echo "no_main=sim" >> "$GITHUB_OUTPUT"; exit 0; fi
+            git -C "$RUNNER_TEMP/principal" add dados/gastos.json
+            git -C "$RUNNER_TEMP/principal" commit -q -m "Gasto registrado: ${{ inputs.acao }} ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}"
+            if git -C "$RUNNER_TEMP/principal" push -q origin "HEAD:$base"; then
+              echo "Gasto registrado no $base."; echo "no_main=sim" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            sleep 5
+          done
+          echo "::warning::Não foi possível gravar o gasto direto no $base; ele fica no pull request."
+          echo "no_main=nao" >> "$GITHUB_OUTPUT"
+
       - name: Abrir pull request com o resultado
         if: ${{ !inputs.simular }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # o gasto já foi para o main: o PR não leva gastos.json (evita conflito entre PRs)
+          [ "${{ steps.gasto.outputs.no_main }}" = "sim" ] && git checkout -- dados/gastos.json 2>/dev/null
           # status --porcelain também vê arquivos NOVOS (ex.: o catálogo de temas), não só os alterados
           if [ -z "$(git status --porcelain -- dados exams)" ]; then echo "Nada mudou em dados/."; exit 0; fi
           ramo="correcoes/${{ inputs.banca }}-$(date -u +%Y%m%d-%H%M%S)"

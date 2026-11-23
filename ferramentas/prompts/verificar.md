@@ -39,6 +39,8 @@ Não aponte problema por mera preferência de redação. Não invente problemas:
 Responda somente com JSON:
 {"aprovado": true|false, "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x", "..."], "contradiz_gabarito": false, "trecho": "<trecho curto>",
   "gravidade": "grave|moderada|leve", "explicacao": "...", "correcao_sugerida": "..."}]}
+Se houver a linha "PELO GABARITO OFICIAL, as afirmativas VERDADEIRAS são...", ela é a verdade: aponte como GRAVE
+a seção que tratar uma afirmativa de forma diferente e nunca aponte o contrário dela.
 Marque "contradiz_gabarito": true quando aceitar a sua objeção tornaria a alternativa do GABARITO OFICIAL errada
 ou impossível (ex.: você afirma um fato que faria verdadeira uma afirmativa que a banca considerou falsa). Essas
 objeções vão para um árbitro com busca na web antes de qualquer reescrita, porque costumam ser engano do revisor.

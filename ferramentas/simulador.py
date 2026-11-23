@@ -9,6 +9,8 @@ CRIVO_SIMULAR_SEM_CORRETA=1 faz a geração esquecer a alternativa correta na 2.
 CRIVO_SIMULAR_CONTESTAR=autor|revisor faz o autor contestar a 1ª objeção e o árbitro dar razão a quem foi indicado
 (use com CRIVO_SIMULAR_REPROVAR=uma). CRIVO_SIMULAR_CONTRADIZ=autor|revisor faz o revisor apontar uma objeção que
 contradiz o gabarito, decidida pelo árbitro a favor de quem foi indicado.
+CRIVO_SIMULAR_ARBITRO_QUEBRA=1 faz o árbitro decidir contra a tabela de afirmativas do gabarito (deve ser descartado).
+CRIVO_SIMULAR_AFIRMATIVAS=errada faz a conferência final das afirmativas achar divergência uma vez.
 """
 import os
 import re
@@ -26,13 +28,24 @@ class ClienteSimulado:
         self.contador.registrar(self.config["modelos"][etapa], uso, etapa)
 
     def json(self, etapa, sistema, usuario, raciocinio=None):
+        m = re.search(r"VERDADEIRAS são: ([^;]+);", usuario)
+        if m:
+            self._verdadeiras = [] if m.group(1).strip() == "nenhuma" else [x.strip() for x in m.group(1).split(",")]
+        if "TAREFA: CONFERIR_AFIRMATIVAS" in sistema:
+            certas = list(getattr(self, "_verdadeiras", []))
+            if os.environ.get("CRIVO_SIMULAR_AFIRMATIVAS") == "errada" and not getattr(self, "_afirm_errou", False):
+                self._afirm_errou = True
+                certas = certas[:-1]
+            r = {"verdadeiras": certas, "contraditorias": []}
+            self._uso(etapa, usuario, str(r))
+            return r
         if "TAREFA: CONSULTAS_DE_BUSCA" in sistema:
             r = {"consultas": ["conduta simulada diretriz Ministério da Saúde", "conduta simulada sociedade brasileira"]}
         elif "TAREFA: LISTA_DE_TEMAS" in sistema:
             r = {"temas": [f"Tema simulado {k}" for k in range(1, 7)]}
         elif "TAREFA: ATRIBUIR_TEMAS" in sistema:
             ids = re.findall(r"^### (\S+)$", usuario, re.M)
-            r = {"atribuicoes": [{"id": i, "novo_tema": "Tema novo simulado"} if k == 0 else {"id": i, "tema": k % 6 + 1}
+            r = {"atribuicoes": [{"id": i, "tema": 1, "sem_encaixe": True, "assunto": "assunto simulado"} if k == 0 else {"id": i, "tema": k % 6 + 1}
                                 for k, i in enumerate(ids)]}
         elif "TAREFA: PREMISSA_DO_GABARITO" in sistema:
             r = {"raciocinio_da_banca": "premissa simulada", "por_que_o_gabarito": "simulado",
@@ -41,7 +54,10 @@ class ClienteSimulado:
             r = {"consultas": ["ponto em disputa simulado definição", "simulated dispute definition"]}
         elif "TAREFA: ARBITRAR" in sistema:
             quem = os.environ.get("CRIVO_SIMULAR_CONTESTAR") or os.environ.get("CRIVO_SIMULAR_CONTRADIZ") or "revisor"
-            r = {"vencedor": quem, "decisao": f"decisão simulada a favor do {quem} [W1]"}
+            certas = list(getattr(self, "_verdadeiras", []))
+            if os.environ.get("CRIVO_SIMULAR_ARBITRO_QUEBRA") == "1":
+                certas = certas[:-1]
+            r = {"vencedor": quem, "decisao": f"decisão simulada a favor do {quem} [W1]", "afirmativas_verdadeiras": certas}
         elif "TAREFA: CONFERIR_PREMISSA" in sistema:
             recusar = os.environ.get("CRIVO_SIMULAR_PREMISSA") == "recusar"
             r = {"correta": not recusar, "problema": "premissa simulada recusada" if recusar else "",

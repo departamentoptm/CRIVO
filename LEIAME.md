@@ -93,7 +93,17 @@ Questões com `imagem_pendente` são puladas.
      um **árbitro** (raciocínio estendido + busca na web sobre o ponto em disputa) decide antes de qualquer
      reescrita: objeção derrubada sai da lista; objeção confirmada é corrigida sem nova contestação. As
      decisões entram nas revisões seguintes como "pontos já decididos" (no máximo
-     `qualidade.max_arbitragens` = 3 por questão; ficam em `verificacao.arbitragens`).
+     `qualidade.max_arbitragens` = 3 por questão; ficam em `verificacao.arbitragens`). O árbitro busca primeiro
+     fontes brasileiras (2 buscas em português e 1 em inglês) e segue o gabarito oficial quando só houver fontes
+     estrangeiras divergentes.
+   - **Questões de afirmativas** (I, II, III… / 1, 2, 3… / "( )" com V e F): o sistema lê a alternativa do
+     gabarito e monta quais afirmativas são verdadeiras e quais são falsas (ferramentas/afirmativas.py). Essa
+     tabela vai para o autor, o revisor e o árbitro. Uma decisão do árbitro que a contrarie é descartada. Antes
+     de aprovar, uma conferência barata (`qualidade.conferir_afirmativas`) lê as seções 2.3 e 2.4 e confere se a
+     correção declara cada afirmativa como a tabela; se não, é um problema grave, corrigido como os outros.
+     Alternativas com "exceto", contagens ou mistura de verdadeiras e falsas ficam sem tabela.
+   - O relatório da execução (`relatorios/execucao_*.md`) traz as rodadas de cada questão com algum problema:
+     os problemas apontados, as seções reescritas, as contestações e as decisões do árbitro.
    - O revisor recebe os números do histórico já contados pelo sistema (provas no acervo, provas com questões
      relacionadas, por tipo), para não apontar como erro uma contagem correta.
    - Regra de diretrizes: a IA não pode atribuir uma conduta ao Ministério da Saúde, a uma sociedade ou a um
@@ -130,9 +140,10 @@ Actions → Gerar correções → ação **temas-padrao** (o campo banca é igno
 2. cria uma lista fixa de temas por disciplina, a mesma para todas as bancas e anos, baseada no currículo de
    residência da disciplina, com cerca de 1 tema a cada 10 questões (mínimo 6, máximo 25). É feita uma vez
    (`--refazer-listas` refaz; um arquivo da versão 1 é refeito sozinho);
-3. encaixa cada questão num tema da lista e grava `dados/temas_padrao.json`, usado pelo site. Se uma prova
-   nova trouxer um assunto que não cabe em nenhum tema, um tema novo é acrescentado ao fim da lista; os
-   temas existentes não mudam.
+3. encaixa cada questão no tema mais próximo da lista da disciplina dela e grava `dados/temas_padrao.json`,
+   usado pelo site. Nenhum tema é criado automaticamente. As questões em que nenhum tema serviu de verdade
+   ficam em `relatorios/temas_sem_encaixe.md`; se um assunto se repetir, acrescente um tema no FIM da lista
+   da disciplina (no `temas_padrao.json`) e rode `temas-padrao` de novo. Os temas existentes não mudam.
 
 Custo estimado da primeira vez: cerca de US$ 0,15 a 0,30. Depois, só as questões novas ou alteradas são processadas.
 Aprove o pull request para o site passar a usar os temas.
@@ -151,6 +162,16 @@ O comando não usa a API do DeepSeek: passa pela mesma validação, monta a tabe
 no arquivo, busca os artigos do PubMed e acrescenta as fontes consultadas à 2.15. A correção fica com
 `origem: "conversa"`, continua com o selo "sem revisão humana" e o gerador não a substitui (nem em
 `--questoes`), a não ser que seja reportada ou que se use `--forcar`.
+
+## Tirar do site uma correção publicada com erro
+
+```bash
+python3 ferramentas/gerar_correcoes.py remover --questao AMP-2020-Q85
+python3 ferramentas/gerar_indice.py --dados dados
+git add dados && git commit -m "Remove a correção da AMP-2020-Q85" && git push
+```
+
+A questão fica sem correção até ser gerada de novo (`gerar --questoes 85` ou no modo pendentes). Não usa a API.
 
 ## Quando um estudante reporta um erro
 
@@ -238,10 +259,11 @@ O histórico dos simulados vai para o arquivo de progresso e para o Google Drive
 ## Custos e configuração (`ferramentas/config_gerador.json`)
 
 - **Teto acumulado do projeto:** `dados/gastos.json` guarda quanto já foi gasto (`gasto_usd`) e o teto
-  (`teto_usd`, US$ 30). Cada execução soma o seu custo nesse arquivo (pelo pull request que ela abre) e
-  nenhuma execução passa do que resta. Ao atingir o teto, o gerador para sem chamar a API. Some ao
-  `gasto_usd` o que já foi gasto antes desta atualização (painel do DeepSeek). Aprove o PR de uma execução
-  antes de rodar a próxima, senão a próxima não vê o gasto da anterior.
+  (`teto_usd`, US$ 30). Ao fim de cada execução, o workflow grava o custo dela **direto no main** (passo
+  "Registrar o gasto no main"), mesmo que o pull request com as correções não seja aprovado; o PR não leva
+  `gastos.json`. Se o main não aceitar o push (branch protegida), o gasto segue no PR, como antes. Nenhuma
+  execução passa do que resta. Ao atingir o teto, o gerador para sem chamar a API. O arquivo foi conferido
+  com o painel da DeepSeek em 23/11/2026 (entradas "ajuste").
 - **Só fora do pico:** nenhuma chamada paga é feita no horário de pico; o gerador espera o pico acabar.
 - **Questão começada é sempre terminada:** o orçamento (da execução e o teto acumulado) só impede começar uma
   questão nova; por isso a última questão pode passar alguns centavos do limite. Se uma etapa for cortada pelo
