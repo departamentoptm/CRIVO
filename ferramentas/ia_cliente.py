@@ -85,8 +85,9 @@ class Contador:
         self.config, self.orcamento = config, orcamento_usd
         self.custo, self.chamadas = 0.0, 0
         self.tokens = {"entrada_cache": 0, "entrada": 0, "saida": 0}
+        self.por_etapa = {}
 
-    def registrar(self, modelo, uso):
+    def registrar(self, modelo, uso, etapa=None):
         precos = self.config.get("precos_usd_por_milhao_fora_do_pico", {}).get(modelo)
         hit = uso.get("prompt_cache_hit_tokens", 0) or 0
         miss = uso.get("prompt_cache_miss_tokens")
@@ -97,16 +98,30 @@ class Contador:
         self.chamadas += 1
         if precos:
             mult = self.config.get("multiplicador_no_pico", 2.0) if em_horario_de_pico(self.config)[0] else 1.0
+            antes = self.custo
             self.custo += mult * (hit * precos["entrada_cache"] + miss * precos["entrada"] + out * precos["saida"]) / 1e6
+            e = self.por_etapa.setdefault(etapa or "?", {"chamadas": 0, "saida": 0, "custo": 0.0})
+            e["chamadas"] += 1; e["saida"] += out; e["custo"] += self.custo - antes
         return self.custo
 
     def registrar_busca(self):
-        self.custo += self.config.get("preco_busca_web_usd", 0.00075)
+        preco = self.config.get("preco_busca_web_usd", 0.00075)
+        self.custo += preco
         self.buscas = getattr(self, "buscas", 0) + 1
+        e = self.por_etapa.setdefault("busca_web", {"chamadas": 0, "saida": 0, "custo": 0.0})
+        e["chamadas"] += 1; e["custo"] += preco
 
     def checar(self):
         if self.orcamento and self.custo >= self.orcamento:
             raise OrcamentoEsgotado(f"orçamento da execução atingido (US$ {self.custo:.4f} de US$ {self.orcamento:.2f})")
+
+    def resumo_por_etapa(self):
+        """Tabela markdown do custo por etapa, da mais cara para a mais barata."""
+        total = self.custo or 1e-12
+        linhas = ["| Etapa | Chamadas | Tokens de saída | Custo (US$) | % |", "|---|---|---|---|---|"]
+        for etapa, e in sorted(self.por_etapa.items(), key=lambda x: -x[1]["custo"]):
+            linhas.append(f"| {etapa} | {e['chamadas']} | {e['saida']:,} | {e['custo']:.4f} | {100 * e['custo'] / total:.0f}% |".replace(",", "."))
+        return "\n".join(linhas)
 
     def resumo(self):
         t = self.tokens
@@ -162,17 +177,17 @@ class ClienteAPI:
             time.sleep(espera)
         raise ErroAPI(f"API indisponível após {self.tentativas} tentativas: {ultimo}")
 
-    def json(self, etapa, sistema, usuario):
+    def json(self, etapa, sistema, usuario, raciocinio=None):
         """Chama o modelo da etapa e devolve o JSON da resposta (com uma nova tentativa se vier inválido).
         O orçamento NÃO é conferido aqui: ele só impede começar uma questão nova (o gerador confere entre
         questões); uma questão começada é sempre terminada. Resposta cortada pelo limite de tamanho é pedida de
         novo com um limite maior e, se ainda assim for cortada, sem o raciocínio estendido."""
         base = self.config.get("max_tokens", {}).get(etapa, 4000)
         teto = self.config.get("max_tokens_teto", 32000)
-        planos = [(base, None)]
+        planos = [(base, raciocinio)]                       # raciocinio=False desliga o raciocínio estendido
         if min(base * 2, teto) > base:
-            planos.append((min(base * 2, teto), None))
-        if self.config.get("raciocinio_por_etapa", {}).get(etapa):
+            planos.append((min(base * 2, teto), raciocinio))
+        if self.config.get("raciocinio_por_etapa", {}).get(etapa) and raciocinio is not False:
             planos.append((min(base * 2, teto), False))          # sem raciocínio estendido
         ultimo = None
         for n, (limite, raciocinio) in enumerate(planos):
@@ -220,7 +235,7 @@ class ClienteAPI:
                     r = self._post(corpo)
                 else:
                     raise
-            self.contador.registrar(modelo, r.get("usage", {}) or {})
+            self.contador.registrar(modelo, r.get("usage", {}) or {}, etapa)
             escolha = (r.get("choices") or [{}])[0]
             texto = (escolha.get("message") or {}).get("content", "")
             if escolha.get("finish_reason") == "length":

@@ -20,9 +20,9 @@ class ClienteSimulado:
     def _uso(self, etapa, usuario, saida):
         uso = {"prompt_cache_hit_tokens": 800, "prompt_cache_miss_tokens": len(usuario) // 3,
                "completion_tokens": len(saida) // 3}
-        self.contador.registrar(self.config["modelos"][etapa], uso)
+        self.contador.registrar(self.config["modelos"][etapa], uso, etapa)
 
-    def json(self, etapa, sistema, usuario):
+    def json(self, etapa, sistema, usuario, raciocinio=None):
         if "TAREFA: CONSULTAS_DE_BUSCA" in sistema:
             r = {"consultas": ["conduta simulada diretriz Ministério da Saúde", "conduta simulada sociedade brasileira"]}
         elif "TAREFA: PREMISSA_DO_GABARITO" in sistema:
@@ -51,7 +51,7 @@ class ClienteSimulado:
         return {"relacionadas": [{"id": i, "tipo": tipos[k % 3], "motivo": "relação simulada"} for k, i in enumerate(ids[:5])]}
 
     def _resolver_as_cegas(self, u):
-        return {"alternativa": "A", "confianca": 0.5, "justificativa": "simulação"}
+        return {"alternativa": "A", "confianca": 0.9, "justificativa": "simulação"}
 
     def _gerar(self, u):
         g = re.search(r"GABARITO OFICIAL: alternativa ([A-E])", u)

@@ -26,7 +26,7 @@
   "reparar": 6000,
   "conferir": 12000,
   "premissa": 8000,
-  "conferir_premissa": 12000
+  "conferir_premissa": 24000
  },
  "precos_usd_por_milhao_fora_do_pico": {
   "deepseek-flash": {
@@ -75,7 +75,9 @@
   },
   "tentativas_de_geracao": 3,
   "rodadas_de_verificacao": 3,
-  "rodada_extra_com_progresso": true
+  "rodada_extra_com_progresso": true,
+  "tolerancia_minimos": 0.03,
+  "confianca_para_revisao_sem_raciocinio": 0.8
  },
  "fontes_permitidas": [
   "Harrison — Medicina Interna",
