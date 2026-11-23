@@ -24,5 +24,7 @@ Se um problema novo for a MESMA afirmação errada de um item da lista (que reap
 preencha "mesmo_erro_de" com o índice desse item. Em "secoes_com_o_mesmo_erro", liste todas as seções em que
 ela aparece.
 Inclua TODOS os índices da lista em "resolvidos".
+Se houver a linha "PELO GABARITO OFICIAL, as afirmativas VERDADEIRAS são...", ela é a verdade: aponte como GRAVE
+a seção que tratar uma afirmativa de forma diferente.
 Marque "contradiz_gabarito": true num problema novo quando aceitá-lo tornaria a alternativa do gabarito oficial
 errada ou impossível. Se houver PONTOS JÁ DECIDIDOS POR UM ÁRBITRO, não aponte de novo o contrário deles.

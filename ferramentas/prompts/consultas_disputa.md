@@ -6,9 +6,10 @@ buscas na web que permitem decidir QUEM TEM RAZÃO sobre esse ponto (uma defini�
 conduta).
 
 Regras:
-- 2 consultas curtas (até 12 palavras cada) sobre o fato em disputa, com os termos técnicos exatos.
-- 1ª em português (livros-texto e protocolos brasileiros: ex. "Zugaib", "Rezende", "Ministério da Saúde",
-  "FEBRASGO", "SBP"); 2ª em inglês (diretriz internacional ou revisão).
+- 3 consultas curtas (até 12 palavras cada) sobre o fato em disputa, com os termos técnicos exatos.
+- 1ª e 2ª em português, para achar fontes BRASILEIRAS: uma com o órgão ou a sociedade (ex. "Ministério da
+  Saúde", "FEBRASGO", "SBP", "SBC") e outra com o livro-texto ou protocolo (ex. "Zugaib", "Rezende", "protocolo
+  hospital universitário"); 3ª em inglês (diretriz internacional ou revisão).
 - Não inclua na consulta a resposta que você acha certa.
 
 Responda somente com JSON: {"consultas": ["...", "..."]}

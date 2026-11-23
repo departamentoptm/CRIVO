@@ -80,7 +80,8 @@
   "rodada_extra_com_progresso": true,
   "tolerancia_minimos": 0.03,
   "confianca_para_revisao_sem_raciocinio": 0.8,
-  "max_arbitragens": 3
+  "max_arbitragens": 3,
+  "conferir_afirmativas": true
  },
  "fontes_permitidas": [
   "Harrison — Medicina Interna",
