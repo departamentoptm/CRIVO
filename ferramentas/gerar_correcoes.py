@@ -34,7 +34,7 @@ sys.path.insert(0, AQUI)
 from crivo_comum import (gravar_json, ler_json, ler_questoes, ler_correcoes, arq_correcoes, limpar_html,
                          texto_puro, listar_edicoes, LETRAS)
 from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionadas, bloco_para_prompt,
-                       linhas_da_tabela, ROTULO_TIPO, ORDEM_TIPO)
+                       linhas_da_tabela, ROTULO_TIPO, ORDEM_TIPO, resposta_correta)
 from crivo_comum import arq_temas
 import referencias as refs_mod
 from ia_cliente import ClienteAPI, Contador, OrcamentoEsgotado, ErroAPI
@@ -77,6 +77,7 @@ def validar(r, q, relevantes, todas, catalogo, config):
     """Devolve (correcao_normalizada, problemas). Problemas fazem a geração ser refeita."""
     problemas = []
     qual = config["qualidade"]
+    tol = 1 - float(qual.get("tolerancia_minimos", 0.03))      # aceita até 3% abaixo do mínimo
     secoes_in = r.get("secoes") if isinstance(r.get("secoes"), dict) else {}
     secoes, total = {}, 0
     for s in SECOES_IA:
@@ -84,10 +85,10 @@ def validar(r, q, relevantes, todas, catalogo, config):
         n = len(texto_puro(h))
         total += n
         minimo = qual["min_caracteres_por_secao"].get(s, 100)
-        if n < minimo:
+        if n < minimo * tol:
             problemas.append(f"seção {s} curta ou ausente ({n} caracteres; mínimo {minimo})")
         secoes[s] = h
-    if total < qual["min_caracteres_total"]:
+    if total < qual["min_caracteres_total"] * tol:
         problemas.append(f"correção curta no total ({total} caracteres; mínimo {qual['min_caracteres_total']})")
     g = q.get("gabarito")
     t23, t24 = texto_puro(secoes["2.3"]), texto_puro(secoes["2.4"])
@@ -240,8 +241,8 @@ def texto_para_verificar(c, q, relevantes, todas, catalogo, evidencias=""):
     for r in relevantes:
         h = todas[r["id"]]
         res = catalogo.get(r["id"], {}).get("resumo") or texto_puro(h.get("enunciado_html"))[:200]
-        linhas.append(f"- {h['banca']} {h['ano']}, questão {h['numero']} ({ROTULO_TIPO[r['tipo']]}; "
-                      f"gabarito {h.get('gabarito') or 'anulada'}): {res}")
+        linhas.append(f"- {h['banca']} {h['ano']}, questão {h['numero']} ({ROTULO_TIPO[r['tipo']]}): {res} | "
+                      f"RESPOSTA OFICIAL: {resposta_correta(h)}")
     partes.append("\nHISTÓRICO FORNECIDO AO AUTOR (questões REAIS do acervo desta banca, de anos anteriores ou "
                   "posteriores; citá-las é correto):\n" + ("\n".join(linhas) if linhas else "(nenhuma)"))
     if evidencias:
@@ -333,8 +334,10 @@ def premissa_conferida(q, cega, evidencias, cliente, config):
     return None
 
 
-def gerar_uma(q, todas, catalogo, cliente, config, reportes):
+def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
     relevantes, meta_hist = relacionadas(q["id"], todas, catalogo, cliente, config, log)
+    if recatalogar and relevantes:
+        recatalogar([r_["id"] for r_ in relevantes])          # resumo da tabela 2.10 com a resposta oficial
     pt = meta_hist["por_tipo"]
     log(f"   histórico: {meta_hist['questoes_da_banca_avaliadas']} questões avaliadas, "
         f"{meta_hist['candidatas_pela_triagem']} candidatas, {meta_hist['relevantes']} relacionadas "
@@ -377,6 +380,15 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
 
     sistema = prompt("gerar_correcao.md", config)
     qual = config["qualidade"]
+    try:
+        conf_cega = float(cega.get("confianca") or 0)
+    except (TypeError, ValueError):
+        conf_cega = 0.0
+    lim_conf = qual.get("confianca_para_revisao_sem_raciocinio")
+    rev_leve = (not discorda and q.get("gabarito") in LETRAS and alt_cega == q["gabarito"]
+                and lim_conf is not None and conf_cega >= float(lim_conf))
+    if rev_leve:
+        log(f"   revisão sem raciocínio estendido (resolução às cegas concorda, confiança {conf_cega:.2f})")
 
     def validar_e_completar(r):
         """Valida; se só faltar o parágrafo de alguma alternativa na 2.4, pede SÓ esse parágrafo (barato)."""
@@ -449,7 +461,8 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes):
             probs = nao_resolvidos + sem_resposta + novos
         else:
             v = cliente.json("verificar", prompt("verificar.md", config),
-                             texto_para_verificar(c, q, relevantes, todas, catalogo, contexto_revisor))
+                             texto_para_verificar(c, q, relevantes, todas, catalogo, contexto_revisor),
+                             raciocinio=False if rev_leve else None)
             probs = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
         serios = [p for p in probs if str(p.get("gravidade", "")).lower() in ("grave", "moderada")]
         verificacao = {"aprovado": not serios, "rodada": rodada, "modelo": config["modelos"]["verificar"],
@@ -537,6 +550,8 @@ def escrever_relatorio(pasta, linhas, contador, inicio):
     nome = os.path.join(pasta, f"execucao_{inicio:%Y%m%d_%H%M%S}.md")
     with open(nome, "w", encoding="utf-8") as f:
         f.write(f"# Geração de correções — {inicio:%d/%m/%Y %H:%M} UTC\n\n{contador.resumo()}\n\n")
+        if getattr(contador, "por_etapa", None):
+            f.write("## Custo por etapa\n\n" + contador.resumo_por_etapa() + "\n\n")
         f.write("| Questão | Resultado | Detalhe |\n|---|---|---|\n")
         for l in linhas:
             f.write(f"| {l[0]} | {l[1]} | {l[2]} |\n")
@@ -686,9 +701,13 @@ def cmd_inserir_manual(args, config):
               if isinstance(f, dict) and str(f.get("url", "")).startswith("https://") and f.get("titulo")]
     secoes = dict(c["secoes"])
     secoes["2.15"] = refs_mod.montar_html(c["livros"], artigos, c["busca"], c["tema"].split(":")[-1], fontes)
+    resumos = {x["id"]: str(x["resumo"])[:300] for x in m.get("historico") or [] if x.get("resumo")}
+    linhas = linhas_da_tabela(relevantes, todas, catalogo)
+    for l in linhas:                        # resumo escrito na conversa tem prioridade sobre o do catálogo
+        l["resumo"] = resumos.get(l["id"], l["resumo"])
     entrada = {
         "tema": c["tema"], "aviso_diretriz": c["aviso_diretriz"], "gabarito_usado": q.get("gabarito"),
-        "secoes_html": secoes, "historico": linhas_da_tabela(relevantes, todas, catalogo), "historico_meta": meta,
+        "secoes_html": secoes, "historico": linhas, "historico_meta": meta,
         "referencias": {"livros": c["livros"], "busca_pubmed": c["busca"], "artigos": artigos, "fontes_web": fontes},
         "afirmacoes_criticas": c["afirmacoes_criticas"],
         "resolucao_cega": None, "verificacao": {"aprovado": True, "tipo": "conversa", "observacao": m.get("observacao", "")},
@@ -812,8 +831,12 @@ def cmd_gerar(args, config):
             cs_arq = ler_correcoes(args.dados, args.banca, ano)
             antiga = cs_arq["correcoes"].get(qid)
             reportes = (antiga or {}).get("revisao", {}).get("reportes", []) if antiga else []
+            def recatalogar(ids):
+                catalogo.update(atualizar_catalogo(args.dados, args.banca, cliente, config, log, ids=ids,
+                                                   com_gabarito=True)["questoes"])
             try:
-                entrada, falha, _ = gerar_uma(q, todas, catalogo, cliente, config, reportes)
+                recatalogar([qid])                 # temas da questão atual descritos pela resposta oficial
+                entrada, falha, _ = gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar)
             except ErroAPI as e:
                 log(f"   ERRO: {e}"); linhas.append((qid, "erro", str(e)[:120])); saida = 2; continue
             if entrada:
@@ -840,6 +863,8 @@ def cmd_gerar(args, config):
         log(f"\nPARADO: {e}. Rode de novo para continuar de onde parou."); saida = 3
     finally:
         log("\n" + contador.resumo())
+        if contador.por_etapa:
+            log("Custo por etapa:\n" + contador.resumo_por_etapa())
         registrar_gasto(args, config, contador, f"gerar {args.banca} {' '.join(args.ano or [])} {args.questoes or args.modo}".strip(),
                         geradas)
         if linhas:

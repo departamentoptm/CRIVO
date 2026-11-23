@@ -96,6 +96,13 @@ Questões com `imagem_pendente` são puladas.
    autoridade entram na 2.15. Em seguida, antes de escrever a correção, uma chamada curta diz qual diagnóstico,
    etiologia ou mecanismo leva ao gabarito, e um revisor confere essa premissa; a correção inteira é escrita
    sobre a premissa conferida. Configuração em `busca_web` no `config_gerador.json` (`"ativa": false` desliga).
+5c. **Catálogo com a resposta oficial:** antes de gerar uma questão, o catálogo dela e o das questões escolhidas
+   para o histórico são refeitos com o gabarito (uma vez por questão), para que o resumo da tabela 2.10 não traga
+   chutes da IA. O revisor recebe o texto da resposta oficial de cada questão do histórico.
+5d. **Economia:** quando a resolução às cegas concorda com o gabarito com confiança de pelo menos 0,8
+   (`qualidade.confianca_para_revisao_sem_raciocinio`), a revisão completa é feita sem raciocínio estendido. Os
+   mínimos de tamanho aceitam até 3% a menos (`qualidade.tolerancia_minimos`). O relatório de cada execução traz
+   o custo por etapa.
 6. **Referências:** a IA indica 1 ou 2 livros da lista `fontes_permitidas` e termos de busca em inglês. O script
    busca no PubMed (API oficial gratuita) 2 revisões, revisões sistemáticas ou diretrizes recentes que existem,
    com link para o artigo e o DOI, e acrescenta links de consulta ao UpToDate, ao Manual MSD e ao PubMed.

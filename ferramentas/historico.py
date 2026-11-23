@@ -84,20 +84,28 @@ def _pedir_dividindo(cliente, etapa, sistema, grupo, montar, log):
                 **_pedir_dividindo(cliente, etapa, sistema, grupo[m:], montar, log)}
 
 
-def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
+def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None, com_gabarito=False):
+    """Cataloga o que falta. Com com_gabarito=True (só para os ids dados), refaz com a resposta oficial as
+    entradas catalogadas sem ela: o resumo e os temas passam a descrever a resposta correta, sem os chutes
+    que a IA fazia quando não via o gabarito."""
     caminho = arq_temas(dados, banca)
     catalogo = ler_json(caminho, {"formato": "crivo-temas", "versao": 1, "banca": banca, "questoes": {}})
     todas = questoes_da_banca(dados, banca)
 
     # cataloga o que falta e REFAZ o que foi catalogado com outro texto (ou antes de existir a impressão digital)
     faltam = [i for i in (ids or todas) if i in todas and
-              (catalogo["questoes"].get(i) or {}).get("texto") != impressao(todas[i])]
+              ((catalogo["questoes"].get(i) or {}).get("texto") != impressao(todas[i])
+               or (com_gabarito and not (catalogo["questoes"].get(i) or {}).get("com_gabarito")))]
     if faltam:
         novas = sum(1 for i in faltam if i not in catalogo["questoes"])
-        log(f"Catálogo de temas de {banca}: {novas} questão(ões) novas e {len(faltam) - novas} com texto "
-            f"diferente do catalogado (cada texto é catalogado uma única vez).")
+        if com_gabarito:
+            log(f"   catálogo: refazendo {len(faltam)} questão(ões) com a resposta oficial")
+        else:
+            log(f"Catálogo de temas de {banca}: {novas} questão(ões) novas e {len(faltam) - novas} com texto "
+                f"diferente do catalogado (cada texto é catalogado uma única vez).")
         sistema = prompt("temas.md", config)
-        montar = lambda g: "\n\n".join(f"### id: {i}\n{texto_curto(todas[i])}" for i in g)
+        montar = lambda g: "\n\n".join(f"### id: {i}\n{texto_curto(todas[i])}\nRESPOSTA OFICIAL: {resposta_correta(todas[i])}"
+                                         for i in g)
         feitas = 0
         for grupo in _em_lotes(faltam, config.get("temas_questoes_por_chamada", 10)):
             _checar(cliente)
@@ -111,10 +119,11 @@ def atualizar_catalogo(dados, banca, cliente, config, log=print, ids=None):
                                            "resumo": str(x.get("resumo", ""))[:300],
                                            "abordagem": str(x.get("abordagem", ""))[:60],
                                            "disciplina": _disciplina_valida(x.get("disciplina"), config),
-                                           "texto": impressao(todas[i])}
+                                           "texto": impressao(todas[i]), "com_gabarito": True}
             feitas += len(grupo)
             gravar_json(caminho, catalogo)
-            log(f"   catalogadas {feitas}/{len(faltam)}")
+            if not com_gabarito:
+                log(f"   catalogadas {feitas}/{len(faltam)}")
 
     # questões catalogadas antes de existir o campo disciplina (pedido mínimo: só id -> disciplina)
     sem_disc = [i for i, c in catalogo["questoes"].items()

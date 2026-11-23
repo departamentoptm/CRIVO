@@ -41,32 +41,38 @@
   {
    "id": "AMP-2009-Q3",
    "tipo": "mesmo_tema",
-   "motivo": "encefalite herpética com lesão temporal na tomografia: PCR e aciclovir"
+   "motivo": "encefalite herpética com lesão temporal na tomografia: PCR e aciclovir",
+   "resumo": "jovem com febre, confusão, hemiparesia e lesão temporal na tomografia: conduta"
   },
   {
    "id": "AMP-2019-Q1",
    "tipo": "mesmo_tema",
-   "motivo": "lactente com meningoencefalite, líquor linfomonocitário e hipodensidade temporal bilateral: aciclovir"
+   "motivo": "lactente com meningoencefalite, líquor linfomonocitário e hipodensidade temporal bilateral: aciclovir",
+   "resumo": "lactente com meningoencefalite, líquor linfomonocitário e hipodensidade temporal bilateral: medicamento fundamental"
   },
   {
    "id": "AMP-2017-Q13",
    "tipo": "caso_semelhante",
-   "motivo": "meningite tuberculosa com líquor de mononucleares e pares cranianos: diferencial deste caso"
+   "motivo": "meningite tuberculosa com líquor de mononucleares e pares cranianos: diferencial deste caso",
+   "resumo": "pré-escolar com quadro de duas semanas, estrabismo, ptose e líquor com mononucleares e glicose baixa: diagnóstico"
   },
   {
    "id": "AMP-2006-Q32",
    "tipo": "tema_relacionado",
-   "motivo": "interpretação do líquor com pleocitose na criança febril"
+   "motivo": "interpretação do líquor com pleocitose na criança febril",
+   "resumo": "criança com febre e irritabilidade e líquor com pleocitose leve: conduta"
   },
   {
    "id": "AMP-2019-Q6",
    "tipo": "tema_relacionado",
-   "motivo": "encefalomielite disseminada aguda: lesões desmielinizantes (alternativa C)"
+   "motivo": "encefalomielite disseminada aguda: lesões desmielinizantes (alternativa C)",
+   "resumo": "pré-escolar com encefalopatia e sinais multifocais duas semanas após infecção respiratória: diagnóstico"
   },
   {
    "id": "AMP-2024-Q12",
    "tipo": "tema_relacionado",
-   "motivo": "encefalomielite disseminada aguda: ressonância e diagnóstico diferencial"
+   "motivo": "encefalomielite disseminada aguda: ressonância e diagnóstico diferencial",
+   "resumo": "escolar com déficits neurológicos multifocais e lesões extensas na ressonância: asserções sobre o diagnóstico"
   }
  ],
  "fontes_consultadas": [

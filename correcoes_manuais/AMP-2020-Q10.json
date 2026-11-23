@@ -46,32 +46,38 @@
   {
    "id": "AMP-2008-Q42",
    "tipo": "mesmo_tema",
-   "motivo": "conduta no recém-nascido assintomático de mãe com sífilis (tratada com eritromicina)"
+   "motivo": "conduta no recém-nascido assintomático de mãe com sífilis (tratada com eritromicina)",
+   "resumo": "recém-nascido assintomático de mãe com sífilis tratada com eritromicina na gestação: conduta"
   },
   {
    "id": "AMP-2014-Q29",
    "tipo": "tema_relacionado",
-   "motivo": "sífilis na gestação: rastreamento com VDRL e transmissão vertical"
+   "motivo": "sífilis na gestação: rastreamento com VDRL e transmissão vertical",
+   "resumo": "sífilis na gestação: rastreamento com VDRL, confirmação e transmissão vertical (assinalar a incorreta)"
   },
   {
    "id": "AMP-2019-Q95",
    "tipo": "tema_relacionado",
-   "motivo": "sífilis na gestação: rastreamento com VDRL e transmissão vertical"
+   "motivo": "sífilis na gestação: rastreamento com VDRL e transmissão vertical",
+   "resumo": "sífilis na gestação: rastreamento com VDRL, confirmação e transmissão vertical (assinalar a incorreta)"
   },
   {
    "id": "AMP-2021-Q59",
    "tipo": "tema_relacionado",
-   "motivo": "sífilis: tratamento e seguimento com testes não treponêmicos"
+   "motivo": "sífilis: tratamento e seguimento com testes não treponêmicos",
+   "resumo": "sífilis adquirida: diagnóstico, tratamento e seguimento com testes não treponêmicos"
   },
   {
    "id": "AMP-2022-Q31",
    "tipo": "tema_relacionado",
-   "motivo": "sífilis na gestação: rastreamento, transmissão vertical e desfechos"
+   "motivo": "sífilis na gestação: rastreamento, transmissão vertical e desfechos",
+   "resumo": "sífilis na gestação: rastreamento com VDRL e desfechos da transmissão vertical (afirmativas)"
   },
   {
    "id": "AMP-2024-Q94",
    "tipo": "tema_relacionado",
-   "motivo": "tratamento da sífilis na gestante com penicilina benzatina"
+   "motivo": "tratamento da sífilis na gestante com penicilina benzatina",
+   "resumo": "gestante de 28 semanas com VDRL 1:64 sem tratamento prévio: esquema de penicilina"
   }
  ],
  "fontes_consultadas": [
