@@ -11967,6 +11967,340 @@
     "reportes_atendidos": [],
     "amostra": "pendente"
    }
+  },
+  "AMP-2020-Q47": {
+   "tema": "Gastroenterologia: Pancreatite aguda biliar — diagnóstico, tratamento e complicações",
+   "aviso_diretriz": null,
+   "gabarito_usado": "C",
+   "secoes_html": {
+    "2.1": "<p><strong>Disciplina:</strong> Gastroenterologia / Cirurgia do Aparelho Digestivo.</p><p><strong>Tema:</strong> Pancreatite aguda de provável etiologia biliar, com ênfase no diagnóstico sindrômico, na reposição volêmica agressiva e no papel da CPRE.</p><p><strong>Contextualização:</strong> A pancreatite aguda é uma das principais causas de dor abdominal aguda no pronto atendimento e tema recorrente em provas de residência. A banca AMP já cobrou o tema em diversas ocasiões, alternando entre etiologia, conduta inicial, tratamento e complicações. Nesta questão, o foco está na interpretação de um quadro clínico-laboratorial típico e na análise de assertivas sobre manejo, especialmente a hidratação e a indicação de CPRE.</p>",
+    "2.2": "<p><strong>Conceito-chave:</strong> A pancreatite aguda é uma inflamação do pâncreas desencadeada pela ativação intraparenquimatosa de enzimas digestivas, levando a autodigestão e resposta inflamatória sistêmica. A causa mais comum é a litíase biliar (cálculos que impactam na ampola de Vater ou migram pelo ducto biliar comum).</p><p><strong>Fisiopatologia:</strong> A obstrução do ducto pancreático ou biliar aumenta a pressão intraductal e promove refluxo de bile para o pâncreas, ativando prematuramente o tripsinogênio em tripsina. Isso desencadeia cascata enzimática, lesão acinar e liberação de mediadores inflamatórios, que causam extravasamento capilar e sequestro de líquidos para o terceiro espaço, resultando em hipovolemia e risco de choque. A lesão biliar transitória (cálculo que passa espontaneamente) explica por que a obstrução do ducto biliar geralmente é temporária e não requer desobstrução endoscópica de rotina.</p><p><strong>Relação com o histórico:</strong> Em questões anteriores da banca (AMP 2008, 2014, 2017, 2018, 2021), o tema foi abordado com ênfase na etiologia biliar, na conduta inicial com jejum e hidratação, e no papel da tomografia e da CPRE. Esta questão reforça a importância da reposição volêmica agressiva como pilar terapêutico e a não indicação rotineira de CPRE na pancreatite biliar sem colangite.</p>",
+    "2.3": "<p><strong>Justificativa da resposta correta (alternativa C):</strong> As assertivas II e IV estão corretas.</p><ul><li><strong>Assertiva II:</strong> A base do tratamento da pancreatite aguda é a reposição agressiva de líquidos e eletrólitos com solução cristaloide. A hipovolemia é comum devido ao sequestro de líquidos e à inflamação sistêmica, e a reposição precoce melhora a perfusão pancreática e reduz complicações. Diretrizes recomendam cristaloides isotônicos (como Ringer lactato) em volumes adequados, com monitorização.</li><li><strong>Assertiva IV:</strong> O uso rotineiro de CPRE não está indicado na pancreatite aguda biliar, pois a obstrução do ducto biliar é geralmente transitória (o cálculo migra espontaneamente). A CPRE de urgência é reservada para casos com colangite aguda ou obstrução biliar persistente com icterícia progressiva e dilatação de vias biliares. Na ausência dessas complicações, a CPRE precoce não traz benefício e pode aumentar riscos.</li></ul><p>As assertivas I e III estão incorretas, conforme detalhado na análise dos distratores.</p>",
+    "2.4": "<p><strong>Alternativa A — Errada.</strong> Afirma que apenas I e III estão corretas. A assertiva I é falsa: o quadro é de pancreatite aguda, não de hepatite crônica agudizada. A elevação de transaminases é discreta e transitória, compatível com passagem de cálculo biliar, e não com hepatite crônica. A assertiva III é falsa: a taxa de reposição hidroeletrolítica deve ser individualizada, considerando idade, comorbidades (especialmente cardiovasculares e renais) e resposta clínica. O conteúdo sobre hepatite crônica e reposição volêmica já apareceu em questões anteriores da banca, como na AMP 2017 (questão 24), que tratou da reposição agressiva de fluidos como elemento mais importante do tratamento.</p><p><strong>Alternativa B — Errada.</strong> Considera corretas I e IV. A assertiva I é falsa pelos motivos acima. A assertiva IV é verdadeira, mas a combinação está incorreta.</p><p><strong>Alternativa C — Correta.</strong> Aponta II e IV como verdadeiras, o que está de acordo com a literatura: reposição volêmica agressiva é a base do tratamento e a CPRE não é indicada rotineiramente na pancreatite biliar sem colangite.</p><p><strong>Alternativa D — Errada.</strong> Inclui a assertiva III, que é falsa, pois a reposição deve ser individualizada. A assertiva I também é falsa, mas a alternativa D a considera correta.</p><p><strong>Alternativa E — Errada.</strong> Diz que todas as assertivas estão corretas, o que não procede, pois I e III são falsas.</p>",
+    "2.5": "<p><strong>Palavras-chave e pistas no enunciado:</strong></p><ul><li><strong>Dor abdominal em andar superior com náuseas e vômitos:</strong> sintoma típico de pancreatite aguda, geralmente irradiada para dorso e aliviada com inclinação para frente.</li><li><strong>Amilase e lipase elevadas (lipase &gt; 3x o limite superior):</strong> confirmação bioquímica de pancreatite aguda; a lipase é mais específica e permanece elevada por mais tempo.</li><li><strong>Elevação de enzimas canaliculares (FA e GGT) e bilirrubinas:</strong> sugere obstrução biliar transitória por cálculo, etiologia biliar da pancreatite.</li><li><strong>Creatinina elevada (1,9 mg/dl):</strong> indica lesão renal aguda, provavelmente por hipovolemia, reforçando a necessidade de reposição volêmica agressiva.</li><li><strong>48 horas de evolução:</strong> tempo suficiente para o cálculo ter migrado espontaneamente, tornando a CPRE de rotina desnecessária.</li></ul>",
+    "2.6": "<p><strong>Algoritmo de decisão:</strong></p><ol><li><strong>Primeiro:</strong> Reconhecer a síndrome clínica — dor abdominal típica + elevação de amilase/lipase &gt; 3x o limite superior — e confirmar pancreatite aguda.</li><li><strong>Segundo:</strong> Identificar a etiologia provável: elevação de enzimas canaliculares e bilirrubinas sugere origem biliar (cálculo).</li><li><strong>Terceiro:</strong> Avaliar gravidade e complicações: creatinina elevada indica lesão renal aguda por hipovolemia; avaliar necessidade de UTI e hidratação vigorosa.</li><li><strong>Quarto:</strong> Iniciar tratamento de suporte: reposição volêmica agressiva com cristaloides isotônicos, analgesia, jejum inicial e monitorização.</li><li><strong>Quinto:</strong> Indicar CPRE apenas se houver colangite aguda ou obstrução biliar persistente com icterícia progressiva e dilatação de vias biliares; não de rotina.</li><li><strong>Sexto:</strong> Considerar colecistectomia precoce (na mesma internação) para prevenção de recidiva, após estabilização.</li></ol>",
+    "2.7": "<p><strong>Dados para memorizar:</strong></p><ul><li><strong>Fatos que definem:</strong> Pancreatite aguda é definida por pelo menos dois de três critérios: dor abdominal típica, amilase/lipase &gt; 3x o limite superior da normalidade e imagem compatível (TC, RM ou US). A lipase é mais sensível e específica que a amilase.</li><li><strong>Números e doses:</strong> A reposição volêmica inicial recomendada é de 5 a 10 ml/kg/h de cristaloide isotônico (Ringer lactato preferencialmente), com reavaliação frequente. Não há um volume fixo; deve-se individualizar conforme idade, comorbidades e resposta (débito urinário, pressão arterial, hematócrito).</li><li><strong>Mnemônicos:</strong> \"I GET SMASHED\" para causas de pancreatite: Idiopática, Gallstones (cálculos biliares), Etanol, Trauma, Steroides, Microrganismos (infecções), Autoimune, Scorpion (picada de escorpião), Hipercalcemia, Hipertrigliceridemia, ERCP (pós-CPRE), Drogas. A causa mais comum é biliar (cálculos) e a segunda é álcool.</li></ul>",
+    "2.8": "<p><strong>Near-neighbours e diagnósticos diferenciais:</strong></p><table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr></thead><tbody><tr><td>Pancreatite aguda biliar (condição correta)</td><td>Dor epigástrica intensa irradiada para dorso, náuseas, vômitos, elevação de amilase/lipase &gt; 3x, enzimas canaliculares elevadas</td><td>Clínica + laboratório (lipase) + imagem (USG para cálculos, TC para complicações)</td><td>Hidratação agressiva, analgesia, jejum, CPRE se colangite, colecistectomia precoce</td></tr><tr><td>Colecistite aguda</td><td>Dor em hipocôndrio direito, sinal de Murphy positivo, febre, leucocitose; amilase/lipase podem estar levemente elevadas</td><td>USG de abdome (espessamento da parede vesicular, líquido pericolecístico)</td><td>Antibióticos, colecistectomia laparoscópica precoce</td></tr><tr><td>Colangite aguda</td><td>Tríade de Charcot (dor, febre, icterícia), pode evoluir com choque e confusão (pêntade de Reynolds)</td><td>Clínica + laboratório (bilirrubinas, FA, GGT) + imagem (dilatação de vias biliares)</td><td>Antibióticos + drenagem biliar urgente (CPRE)</td></tr><tr><td>Úlcera péptica perfurada</td><td>Dor súbita em faca, abdome em tábua, pneumoperitônio</td><td>Radiografia de tórax/abdome com ar livre, TC</td><td>Cirurgia de emergência</td></tr></tbody></table>",
+    "2.9": "<p><strong>Variações de abordagem em provas:</strong></p><ul><li><strong>Diagnóstico:</strong> cobrança dos critérios de Atlanta (dor típica, enzimas &gt; 3x, imagem) e da etiologia mais comum (biliar). Resposta: reconhecer pancreatite biliar.</li><li><strong>Tratamento inicial:</strong> ênfase na hidratação agressiva com cristaloides e analgesia. Resposta: reposição volêmica é a pedra angular.</li><li><strong>Complicações:</strong> necrose pancreática infectada, pseudocisto, falência orgânica. Resposta: TC com contraste após 72h para necrose; antibióticos apenas se infecção.</li><li><strong>Prevenção de recidiva:</strong> colecistectomia laparoscópica na mesma internação para pancreatite biliar leve. Resposta: colecistectomia precoce.</li><li><strong>Indicação de CPRE:</strong> apenas em colangite ou obstrução persistente. Resposta: não é rotina.</li></ul>",
+    "2.10": "<p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 21 das 21 provas analisadas (15 provas diferentes), com 6 questões do mesmo tema, 10 de tema relacionado e 5 com caso semelhante. A banca alterna entre cobrar etiologia (AMP 2008), conduta inicial (AMP 2014), tratamento (AMP 2017, 2021), papel da tomografia (AMP 2018) e diagnóstico diferencial (AMP 2019, 2020, 2021, 2024, 2026).</p><p><strong>Abordagem ainda não cobrada:</strong> Não foram identificadas, no histórico, questões que abordem especificamente o momento ideal da colecistectomia na pancreatite biliar leve ou o uso de antibióticos profiláticos na necrose pancreática. Esses aspectos merecem atenção.</p><p><strong>Evolução da cobrança:</strong> As questões evoluíram de conceitos básicos de etiologia e conduta inicial para análises mais complexas de assertivas sobre diagnóstico, tratamento e complicações, exigindo raciocínio clínico integrado.</p><p><strong>O que isso sugere para a próxima prova:</strong> A banca pode cobrar novamente a indicação de CPRE, o papel da hidratação e a identificação de complicações como necrose infectada e pseudocisto, além de reforçar a etiologia biliar e a conduta cirúrgica precoce.</p>",
+    "2.11": "<p><strong>Conexão com outros temas:</strong></p><ul><li><strong>Se você viu litíase biliar, lembre-se de pancreatite aguda biliar:</strong> a migração do cálculo pode obstruir a ampola e desencadear pancreatite.</li><li><strong>Se você viu colangite aguda, lembre-se da tríade de Charcot e da indicação de CPRE urgente:</strong> a pancreatite biliar sem colangite não requer CPRE de rotina.</li><li><strong>Se você viu lesão renal aguda, lembre-se da hipovolemia na pancreatite:</strong> a reposição volêmica agressiva é fundamental para prevenir complicações renais.</li><li><strong>Se você viu dor abdominal aguda, lembre-se dos diferenciais:</strong> úlcera perfurada, colecistite, colangite e infarto mesentérico.</li></ul>",
+    "2.12": "<p><strong>Erro do usuário e estratégia de correção:</strong></p><ul><li><strong>Se marcou A (I e III):</strong> provavelmente interpretou a elevação de transaminases como hepatite crônica e não individualizou a reposição volêmica. Erro de lacuna de conhecimento sobre a fisiopatologia da pancreatite e a necessidade de individualização. Ação: revisar critérios diagnósticos e fisiopatologia da pancreatite aguda, com ênfase na etiologia biliar e no manejo hídrico.</li><li><strong>Se marcou B (I e IV):</strong> reconheceu a não indicação de CPRE, mas errou ao considerar a hepatite crônica. Erro de confusão conceitual entre elevação de transaminases e hepatite crônica. Ação: estudar as causas de elevação de transaminases na pancreatite aguda (passagem de cálculo) e diferenciar de hepatites virais.</li><li><strong>Se marcou D (I, II e III):</strong> acertou a importância da hidratação, mas errou ao considerar a reposição independente de idade/comorbidades e ao achar que se trata de hepatite crônica. Erro de interpretação e lacuna de conhecimento. Ação: revisar individualização da fluidoterapia e critérios diagnósticos.</li><li><strong>Se marcou E (todas):</strong> não identificou os erros nas assertivas I e III. Erro de leitura/interpretação. Ação: treinar análise de assertivas, destacando palavras absolutas como \"independe\" e \"crônica\" que costumam indicar falsidade.</li></ul>",
+    "2.13": "<p><strong>Conexão com a prática:</strong> No pronto atendimento, o reconhecimento rápido da pancreatite aguda biliar e a instituição precoce de hidratação agressiva com cristaloides são fundamentais para reduzir morbimortalidade. A CPRE deve ser reservada para casos com colangite ou obstrução biliar persistente, evitando procedimentos desnecessários e seus riscos. A colecistectomia precoce previne recidivas. O médico deve estar atento à individualização da reposição volêmica, especialmente em idosos e cardiopatas, monitorando sinais de sobrecarga.</p>",
+    "2.14": "<p><strong>Conceitos relacionados para revisar:</strong></p><ul><li>Critérios de Atlanta para pancreatite aguda (leve, moderada, grave).</li><li>Etiologia da pancreatite aguda: biliar, alcoólica, hipertrigliceridemia, hipercalcemia, drogas.</li><li>Indicações de CPRE na pancreatite aguda biliar.</li><li>Momento da colecistectomia na pancreatite biliar.</li><li>Complicações locais: necrose pancreática, pseudocisto, abscesso.</li><li>Manejo da lesão renal aguda na pancreatite.</li></ul>",
+    "2.15": "<p>1. <strong>Harrison — Medicina Interna</strong> — Pancreatite aguda.</p><p>2. <strong>Schwartz — Princípios de Cirurgia</strong> — Pancreatite aguda.</p><p>3. McDermott J et al. <a href=\"https://pubmed.ncbi.nlm.nih.gov/38691369/\">Management of Gallstone Pancreatitis: A Review</a>. <em>JAMA Surg</em>, 2024. PMID 38691369. DOI: <a href=\"https://doi.org/10.1001/jamasurg.2023.8111\">10.1001/jamasurg.2023.8111</a>.</p><p>4. Guilabert L et al. <a href=\"https://pubmed.ncbi.nlm.nih.gov/39880529/\">Initial Management of Acute Pancreatitis</a>. <em>Gastroenterol Clin North Am</em>, 2025. PMID 39880529. DOI: <a href=\"https://doi.org/10.1016/j.gtc.2024.07.001\">10.1016/j.gtc.2024.07.001</a>.</p><p>5. Consulta do tema: <a href=\"https://www.uptodate.com/contents/search?search=acute%20pancreatitis%20biliary%20diagnosis%20treatment%20ERCP%20fluid%20resuscitation\">UpToDate</a> · <a href=\"https://www.google.com/search?q=site%3Amsdmanuals.com/pt/profissional%20Pancreatite%20aguda%20biliar%20diagn%C3%B3stico%20tratamento%20e%20complica%C3%A7%C3%B5es\">Manual MSD (busca no site)</a> · <a href=\"https://pubmed.ncbi.nlm.nih.gov/?term=acute%20pancreatitis%20biliary%20diagnosis%20treatment%20ERCP%20fluid%20resuscitation\">PubMed</a> <em>(UpToDate exige assinatura institucional)</em>.</p>"
+   },
+   "historico": [
+    {
+     "id": "AMP-2008-Q81",
+     "ano": "2008",
+     "numero": 81,
+     "gabarito": "D",
+     "resumo": "etiologia mais frequente da pancreatite aguda",
+     "cobrado": "fisiopatologia",
+     "resposta": "D (Litiase biliar.)",
+     "relacao": "Mesmo tema: Etiologia da pancreatite aguda, litíase biliar",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2014-Q72",
+     "ano": "2014",
+     "numero": 72,
+     "gabarito": "E",
+     "resumo": "mulher de 50 anos com pancreatite aguda biliar e necrose peripancreática: conduta inicial",
+     "cobrado": "conduta inicial",
+     "resposta": "E (Jejum, hidratação e analgesia.)",
+     "relacao": "Mesmo tema: Pancreatite aguda biliar: conduta inicial e manejo",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2017-Q24",
+     "ano": "2017",
+     "numero": 24,
+     "gabarito": "B",
+     "resumo": "paciente com pancreatite biliar e alterações laboratoriais: assertiva correta sobre manejo",
+     "cobrado": "tratamento",
+     "resposta": "B (A reposição agressiva de fluidos e eletrólitos é o elemento mais importante do tratamento …)",
+     "relacao": "Mesmo tema: Pancreatite biliar com reposição volêmica e manejo",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2017-Q36",
+     "ano": "2017",
+     "numero": 36,
+     "gabarito": "B",
+     "resumo": "mulher com dor abdominal e enzimas pancreáticas elevadas: análise de assertivas sobre diagnóstico e tratamento da pancreatite aguda",
+     "cobrado": "tratamento",
+     "resposta": "B (IV e V apenas.)",
+     "relacao": "Mesmo tema: Pancreatite aguda: assertivas sobre diagnóstico e tratamento",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2018-Q56",
+     "ano": "2018",
+     "numero": 56,
+     "gabarito": "E",
+     "resumo": "pancreatite aguda: analisar asserções sobre o papel da tomografia computadorizada precoce no diagnóstico e prognóstico",
+     "cobrado": "exame complementar",
+     "resposta": "E (As duas assertivas são proposições falsas.)",
+     "relacao": "Mesmo tema: Pancreatite aguda: assertivas sobre diagnóstico e prognóstico",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2021-Q88",
+     "ano": "2021",
+     "numero": 88,
+     "gabarito": "E",
+     "resumo": "mulher com dor abdominal súbita e hipótese de pancreatite aguda: assertivas sobre diagnóstico, marcadores, tratamento e etiologia",
+     "cobrado": "diagnóstico",
+     "resposta": "E (todas assertivas estão corretas.)",
+     "relacao": "Mesmo tema: Pancreatite aguda: diagnóstico, marcadores e tratamento em assertivas",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2012-Q93",
+     "ano": "2012",
+     "numero": 93,
+     "gabarito": "D",
+     "resumo": "afirmações sobre doenças das vias biliares: fator de risco, exame complementar, tríade de Charcot e tratamento",
+     "cobrado": "tratamento",
+     "resposta": "D (O tratamento padrão para a colelitíase sintomática é a colecistectomia laparoscópica eleti…)",
+     "relacao": "Tema relacionado: Coledocolitíase e tríade de Charcot, vias biliares",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2015-Q29",
+     "ano": "2015",
+     "numero": 29,
+     "gabarito": "A",
+     "resumo": "etilista com dor em hipocôndrio direito, icterícia e encefalopatia, sem obstrução biliar: afirmação correta sobre a doença",
+     "cobrado": "tratamento",
+     "resposta": "A (O uso de inibidor do TNF como a pentoxifilina pode ser útil em casos severos da doença.)",
+     "relacao": "Tema relacionado: Icterícia colestática e dor abdominal, diferencial de obstrução biliar",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2015-Q67",
+     "ano": "2015",
+     "numero": 67,
+     "gabarito": "D",
+     "resumo": "paciente com dor epigástrica súbita e sinais de gravidade: avaliação de asserções sobre conduta inicial e laparotomia",
+     "cobrado": "conduta inicial",
+     "resposta": "D (A asserção I é uma proposição falsa e a II é uma proposição verdadeira.)",
+     "relacao": "Tema relacionado: Pancreatite aguda grave e conduta inicial no abdome agudo",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2019-Q52",
+     "ano": "2019",
+     "numero": 52,
+     "gabarito": "C",
+     "resumo": "Mulher com dor em hipocôndrio direito, icterícia e febre três semanas após colecistectomia: diagnóstico provável",
+     "cobrado": "diagnóstico",
+     "resposta": "C (Coledocolitiase residual.)",
+     "relacao": "Tema relacionado: Coledocolitíase residual com icterícia obstrutiva",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2019-Q53",
+     "ano": "2019",
+     "numero": 53,
+     "gabarito": "C",
+     "resumo": "Paciente queimado internado em UTI com dor em hipocôndrio direito e vesícula espessada sem cálculos: diagnóstico provável",
+     "cobrado": "diagnóstico",
+     "resposta": "C (Colecistite aguda alitiásica.)",
+     "relacao": "Tema relacionado: Doença biliar aguda com dor em hipocôndrio direito",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2020-Q42",
+     "ano": "2020",
+     "numero": 42,
+     "gabarito": "A",
+     "resumo": "paciente com icterícia e coledocolitíase após colecistectomia prévia: classificação dos cálculos e achados laboratoriais",
+     "cobrado": "diagnóstico",
+     "resposta": "A (I e III apenas.)",
+     "relacao": "Tema relacionado: Coledocolitíase e CPRE, obstrução biliar relacionada",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2021-Q91",
+     "ano": "2021",
+     "numero": 91,
+     "gabarito": "A",
+     "resumo": "assertivas verdadeiro/falso sobre investigação de síndromes colestáticas e icterícia",
+     "cobrado": "diagnóstico",
+     "resposta": "A (V - F - F - F - V.)",
+     "relacao": "Tema relacionado: Síndrome colestática e icterícia, investigação de obstrução biliar",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2024-Q55",
+     "ano": "2024",
+     "numero": 55,
+     "gabarito": "E",
+     "resumo": "paciente com icterícia progressiva, prurido e perda ponderal: análise de hipóteses diagnósticas e investigação",
+     "cobrado": "diagnóstico",
+     "resposta": "E (F - F - V - F - F.)",
+     "relacao": "Tema relacionado: Icterícia obstrutiva e investigação de vias biliares",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2026-Q65",
+     "ano": "2026",
+     "numero": 65,
+     "gabarito": "A",
+     "resumo": "Identificação da tríade clássica descrita por Charcot na colangite aguda",
+     "cobrado": "diagnóstico",
+     "resposta": "A (Dor, febre e icterícia.)",
+     "relacao": "Tema relacionado: Colangite aguda e obstrução de colédoco, diferencial biliar",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2026-Q76",
+     "ano": "2026",
+     "numero": 76,
+     "gabarito": "D",
+     "resumo": "mulher com colelitíase sintomática submetida a colecistectomia laparoscópica: indicações e limitações da colangiografia intraoperatória",
+     "cobrado": "exame complementar",
+     "resposta": "D (A colangiografia intraoperatória tem como desvantagens o acréscimo de tempo operatório e a…)",
+     "relacao": "Tema relacionado: Coledocolitíase e colangiografia, avaliação de via biliar",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2007-Q46",
+     "ano": "2007",
+     "numero": 46,
+     "gabarito": "A",
+     "resumo": "mulher com dor epigástrica irradiada para dorso e amilase elevada: causa mais provável",
+     "cobrado": "diagnóstico",
+     "resposta": "A (Litíase biliar.)",
+     "relacao": "Caso semelhante: Mulher com dor epigástrica irradiada e amilase elevada",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2012-Q95",
+     "ano": "2012",
+     "numero": 95,
+     "gabarito": "A",
+     "resumo": "paciente com dor epigástrica irradiada para dorso e litíase biliar: quadro clínico da pancreatite aguda",
+     "cobrado": "diagnóstico",
+     "resposta": "A (O aumento da amilase sérica faz paralelo com a gravidade do episódio agudo.)",
+     "relacao": "Caso semelhante: Dor epigástrica irradiada com litíase biliar: pancreatite aguda",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2016-Q63",
+     "ano": "2016",
+     "numero": 63,
+     "gabarito": "A",
+     "resumo": "Mulher com dor abdominal epigástrica, vômitos biliares e icterícia: provável diagnóstico e fisiopatologia.",
+     "cobrado": "fisiopatologia",
+     "resposta": "A (Pancreatite aguda - obstrução do ducto pancreático, induzida por cálculos biliares e hiper…)",
+     "relacao": "Caso semelhante: Mulher com dor epigástrica, vômitos e icterícia: pancreatite biliar",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2022-Q54",
+     "ano": "2022",
+     "numero": 54,
+     "gabarito": "C",
+     "resumo": "paciente com cistite e vômitos incoercíveis que evolui com disfunção renal aguda: etiologia da lesão renal",
+     "cobrado": "diagnóstico",
+     "resposta": "C (IRA pré-renal - por depleção, secundária aos vômitos.)",
+     "relacao": "Caso semelhante: Vômitos e disfunção renal aguda por depleção volêmica",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2023-Q55",
+     "ano": "2023",
+     "numero": 55,
+     "gabarito": "A",
+     "resumo": "Mulher com dor epigástrica após alimentação excessiva, icterícia e enzimas elevadas: conduta inicial na pancreatite aguda.",
+     "cobrado": "tratamento",
+     "resposta": "A (O tratamento inicial desta paciente envolve a hidratação com correção dos distúrbios hidro…)",
+     "relacao": "Caso semelhante: Mulher com dor epigástrica pós-alimentação, icterícia e enzimas elevadas",
+     "tipo": "caso_semelhante"
+    }
+   ],
+   "historico_meta": {
+    "metodo": "catalogo+disciplina+lexico+ia_v2",
+    "questoes_da_banca_avaliadas": 2074,
+    "candidatas_pela_triagem": 100,
+    "relevantes": 21,
+    "triagem_truncada": true,
+    "provas_no_acervo": 21,
+    "anos": [
+     "2006",
+     "2026"
+    ],
+    "provas_com_relacionadas": 15,
+    "por_tipo": {
+     "mesmo_tema": 6,
+     "tema_relacionado": 10,
+     "caso_semelhante": 5
+    }
+   },
+   "referencias": {
+    "livros": [
+     {
+      "fonte": "Harrison — Medicina Interna",
+      "secao": "Pancreatite aguda"
+     },
+     {
+      "fonte": "Schwartz — Princípios de Cirurgia",
+      "secao": "Pancreatite aguda"
+     }
+    ],
+    "busca_pubmed": "acute pancreatitis biliary diagnosis treatment ERCP fluid resuscitation",
+    "artigos": [
+     {
+      "pmid": "38691369",
+      "titulo": "Management of Gallstone Pancreatitis: A Review",
+      "revista": "JAMA Surg",
+      "ano": "2024",
+      "doi": "10.1001/jamasurg.2023.8111",
+      "autores": "McDermott J et al."
+     },
+     {
+      "pmid": "39880529",
+      "titulo": "Initial Management of Acute Pancreatitis",
+      "revista": "Gastroenterol Clin North Am",
+      "ano": "2025",
+      "doi": "10.1016/j.gtc.2024.07.001",
+      "autores": "Guilabert L et al."
+     }
+    ],
+    "fontes_web": []
+   },
+   "afirmacoes_criticas": [
+    "A pancreatite aguda é definida por dois de três critérios: dor abdominal típica, amilase/lipase > 3x o limite superior e imagem compatível.",
+    "A causa mais comum de pancreatite aguda é biliar (cálculos), seguida pelo álcool.",
+    "A reposição volêmica agressiva com cristaloides isotônicos é a base do tratamento inicial da pancreatite aguda.",
+    "A CPRE não está indicada de rotina na pancreatite aguda biliar sem colangite, pois a obstrução biliar é geralmente transitória.",
+    "A reposição hidroeletrolítica deve ser individualizada conforme idade, comorbidades e resposta clínica.",
+    "A elevação de transaminases na pancreatite biliar é geralmente discreta e transitória, não indicando hepatite crônica."
+   ],
+   "resolucao_cega": {
+    "alternativa": "C",
+    "confianca": 0.92,
+    "concorda_com_gabarito": true
+   },
+   "verificacao": {
+    "aprovado": true,
+    "rodada": 1,
+    "modelo": "deepseek-flash",
+    "tipo": "completa",
+    "problemas_leves": []
+   },
+   "origem": "api_v2",
+   "modelo": "deepseek-flash",
+   "gerado_em": "2026-11-23T14:02:11Z",
+   "revisao": {
+    "status": "nao_revisado",
+    "alertas": [],
+    "reportes": [],
+    "reportes_atendidos": []
+   }
   }
  }
 }
