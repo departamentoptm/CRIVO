@@ -177,25 +177,39 @@
             <h1>🃏 Cartões dos grifos</h1>
         </div>
         <div class="progress-content cartoes-conteudo">
-            <div class="revisao-resumo" id="cartResumo"></div>
-            <div class="cartao" id="cartao" hidden>
-                <div class="cartao-origem" id="cartOrigem"></div>
-                <div class="cartao-orfao" id="cartOrfao" hidden>⚠️ O grifo de origem foi apagado ou mudou. Você pode continuar revisando este cartão ou apagá-lo.</div>
-                <div class="cartao-face cartao-frente" id="cartFrente"></div>
-                <div class="cartao-face cartao-verso" id="cartVerso" hidden></div>
-                <button type="button" class="auth-btn home-btn-review cartao-mostrar" id="cartMostrarBtn">Mostrar resposta <small>(espaço)</small></button>
-                <div class="cartao-notas" id="cartNotas" hidden>
-                    <button type="button" data-nota="1" class="nota-errei">Errei <span class="cartao-quando"></span></button>
-                    <button type="button" data-nota="2" class="nota-dificil">Difícil <span class="cartao-quando"></span></button>
-                    <button type="button" data-nota="3" class="nota-bom">Bom <span class="cartao-quando"></span></button>
-                    <button type="button" data-nota="4" class="nota-facil">Fácil <span class="cartao-quando"></span></button>
+            <div class="revisao-conteudo" id="cartListaArea">
+                <div class="revisao-data">
+                    <button type="button" class="dia-btn" id="cartDiaAnt" aria-label="Dia anterior">‹</button>
+                    <div class="revisao-data-centro">
+                        <div class="revisao-data-texto" id="cartDataTexto"></div>
+                        <input type="date" id="cartDataInput" aria-label="Escolher a data">
+                    </div>
+                    <button type="button" class="dia-btn" id="cartDiaProx" aria-label="Próximo dia">›</button>
                 </div>
-                <div class="cartao-acoes">
-                    <button type="button" class="aparencia-btn" id="cartAbrirBtn">📄 Abrir a questão</button>
-                    <button type="button" class="aparencia-btn" id="cartApagarBtn">🗑️ Apagar cartão</button>
+                <div class="revisao-resumo" id="cartResumo"></div>
+                <div class="revisao-lista" id="cartLista"></div>
+                <button type="button" class="auth-btn home-btn-review revisao-iniciar" id="cartIniciarBtn">▶ Iniciar revisão</button>
+            </div>
+            <div class="cartoes-sessao" id="cartSessao" hidden>
+                <div class="revisao-resumo" id="cartSessaoResumo"></div>
+                <div class="cartao" id="cartao">
+                    <div class="cartao-origem" id="cartOrigem"></div>
+                    <div class="cartao-orfao" id="cartOrfao" hidden>⚠️ O grifo de origem foi apagado ou mudou. Você pode continuar revisando este cartão ou apagá-lo.</div>
+                    <div class="cartao-face cartao-frente" id="cartFrente"></div>
+                    <div class="cartao-face cartao-verso" id="cartVerso" hidden></div>
+                    <button type="button" class="auth-btn home-btn-review cartao-mostrar" id="cartMostrarBtn">Mostrar resposta <small>(espaço)</small></button>
+                    <div class="cartao-notas" id="cartNotas" hidden>
+                        <button type="button" data-nota="1" class="nota-errei">Errei <span class="cartao-quando"></span></button>
+                        <button type="button" data-nota="2" class="nota-dificil">Difícil <span class="cartao-quando"></span></button>
+                        <button type="button" data-nota="3" class="nota-bom">Bom <span class="cartao-quando"></span></button>
+                        <button type="button" data-nota="4" class="nota-facil">Fácil <span class="cartao-quando"></span></button>
+                    </div>
+                    <div class="cartao-acoes">
+                        <button type="button" class="aparencia-btn" id="cartAbrirBtn">📄 Abrir a questão</button>
+                        <button type="button" class="aparencia-btn" id="cartApagarBtn">🗑️ Apagar cartão</button>
+                    </div>
                 </div>
             </div>
-            <div class="revisao-vazia" id="cartVazio" hidden></div>
             <details class="cartoes-exportar">
                 <summary>📦 Exportar cartões para o Anki</summary>
                 <div class="cartoes-exportar-campos">

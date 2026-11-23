@@ -162,7 +162,7 @@ def t_recarregar(page, url):
     assert ok, "progresso perdido ao recarregar"
 
 
-@teste("cartões dos grifos: cria, revisa nos dois sentidos e repete o Errei")
+@teste("cartões dos grifos: lista do dia, revisão nos dois sentidos e repetição do Errei")
 def t_cartoes(page, url):
     page.evaluate("""() => {
         const q = questoes[questaoAtualIndex];
@@ -176,6 +176,10 @@ def t_cartoes(page, url):
     assert "2 para hoje" in page.inner_text("#cartoesBtnHome"), "contagem de cartões errada: " + page.inner_text("#cartoesBtnHome")
     page.click("#cartoesBtnHome")
     page.wait_for_selector("#cartoesScreen:not(.hidden)", timeout=10000)
+    assert "(hoje)" in page.inner_text("#cartDataTexto"), "a data de hoje não aparece"
+    assert page.locator("#cartLista .cartao-item").count() == 2, "a lista de hoje não tem os 2 cartões"
+    assert "2 cartões programados" in page.inner_text("#cartResumo"), "resumo do dia"
+    page.click("#cartIniciarBtn")
     assert "Frente de teste" in page.inner_text("#cartFrente"), "frente do 1º cartão"
     page.click("#cartMostrarBtn")
     assert "Verso de teste" in page.inner_text("#cartVerso"), "verso do 1º cartão"
@@ -186,9 +190,30 @@ def t_cartoes(page, url):
     page.keyboard.press("1")                                  # Errei: volta no fim da sessão
     assert "Verso de teste" in page.inner_text("#cartFrente"), "o cartão do Errei não voltou"
     page.click("#cartMostrarBtn"); page.click("#cartNotas button[data-nota='4']")
-    assert page.locator("#cartVazio").is_visible(), "a sessão não terminou"
+    assert page.locator("#cartListaArea").is_visible(), "ao terminar, não voltou para a lista"
+    assert page.locator("#cartLista .cartao-item").count() == 0, "ainda há cartões para hoje"
     n = page.evaluate("Object.values(progress.cartoes).reduce((t, c) => t + c.revisoes.length, 0)")
     assert n == 3, f"esperava 3 revisões, encontrei {n}"
+
+
+@teste("cartões: dias futuros (adiantar um cartão) e histórico de dias passados")
+def t_cartoes_dias(page, url):
+    page.click("#cartDiaProx"); page.click("#cartDiaProx")           # 'Bom' do 1º cartão: em 2 dias
+    assert page.locator("#cartLista .cartao-item").count() >= 1, "o cartão programado para daqui a 2 dias não aparece"
+    assert "adiantá-los" in page.inner_text("#cartResumo"), "falta o aviso de adiantar"
+    page.click("#cartLista .cartao-item >> nth=0")                   # abre só esse cartão
+    assert page.locator("#cartSessao").is_visible(), "o cartão escolhido não abriu"
+    page.click("#cartMostrarBtn"); page.click("#cartNotas button[data-nota='3']")
+    assert page.locator("#cartListaArea").is_visible(), "não voltou para a lista depois do cartão único"
+    page.fill("#cartDataInput", page.evaluate("isoDoDia(Date.now())")); page.dispatch_event("#cartDataInput", "change")
+    page.click("#cartDiaAnt")                                        # ontem: nada revisado
+    assert not page.locator("#cartIniciarBtn").is_visible(), "dia passado não deve ter botão de iniciar"
+    assert "Nenhum cartão revisado" in page.inner_text("#cartLista"), "histórico de ontem deveria estar vazio"
+    page.click("#cartDiaProx")                                       # hoje
+    hoje = page.evaluate("listarCartoesDoDia(somarDias(isoDoDia(Date.now()), -0)).length")
+    assert hoje == 0, "hoje deveria estar vazio"
+    hist = page.evaluate("listarCartoesDoDia(isoDoDia(Date.now())).length + listarCartoes().filter(x => (x.c.revisoes || []).length).length")
+    assert hist >= 2, "revisões de hoje não registradas"
 
 
 @teste("exporta todos os cartões para o Anki")
@@ -235,13 +260,20 @@ def t_aparencia(page, url):
     page.click("#startBtnHome")
     page.wait_for_selector("#resolvingScreen:not(.hidden)", timeout=20000)
     quadro(page); page.wait_for_timeout(700)
-    zoom, css = page.evaluate("""() => { const d = document.getElementById('questionFrame').contentDocument;
-        return [d.body.style.zoom, (d.getElementById('crivoAparencia') || {}).textContent || '']; }""")
-    assert zoom == "1.1" and "invert" in css, f"aparência não chegou à questão: {zoom!r} {css!r}"
+    zoom, escuro, cor = page.evaluate("""() => { const d = document.getElementById('questionFrame').contentDocument;
+        const p = [...d.querySelectorAll('.question-text, .question-text *')].find(e => [...e.childNodes].some(n => n.nodeType === 3 && n.nodeValue.trim().length > 20));
+        return [d.body.style.zoom, d.documentElement.classList.contains('tema-escuro') && !!d.getElementById('crivoEscuro'),
+                getComputedStyle(p).color]; }""")
+    assert zoom == "1.1" and escuro, f"aparência não chegou à questão: {zoom!r} {escuro!r}"
+    rgb = [int(x) for x in cor[cor.index("(") + 1:cor.index(")")].split(",")[:3]]
+    assert sum(rgb) / 3 > 150, f"o texto da questão não ficou claro no modo escuro: {cor}"
+    filtro = page.evaluate("getComputedStyle(document.documentElement).filter")
+    assert filtro in ("none", ""), "o modo escuro não deve inverter as cores"
     page.click("#homeBtn")
     page.wait_for_selector("#temaBtn", state="visible")
     page.click("#temaBtn"); page.click("#letraMenosBtn")
     assert not page.evaluate("document.documentElement.classList.contains('tema-escuro')"), "modo escuro não desligou"
+    assert page.evaluate("document.querySelectorAll('[data-crivo-escuro]').length") == 0, "sobraram cores do modo escuro"
 
 
 def main():
@@ -256,7 +288,7 @@ def main():
             page = ctx.new_page()
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
-            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_exportar_cartoes,
+            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias, t_exportar_cartoes,
                       t_orfao, t_mescla, t_aparencia, t_recarregar):
                 t(page, url)
             ctx.close()
