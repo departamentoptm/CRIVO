@@ -34,6 +34,13 @@ logoutBtn.addEventListener('click', () => {
 /* ============================================================
    DISCIPLINAS
    ============================================================ */
+async function carregarTemasPadrao() {
+    if (temasPadrao) return;
+    try {
+        const r = await fetch('dados/temas_padrao.json', { cache: 'no-cache' });
+        if (r.ok) { const t = await r.json(); if (t && t.questoes) temasPadrao = t; }
+    } catch (e) { console.warn('temas_padrao.json não carregado:', e); }
+}
 async function loadDisciplinas() {
     if (disciplinasLoaded) return;
     try {
@@ -41,6 +48,7 @@ async function loadDisciplinas() {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         disciplinas = await res.json();
         disciplinasLoaded = true;
+        await carregarTemasPadrao();
     } catch (e) {
         console.warn('disciplinas.json não carregado:', e);
         if (!disciplinasFailed) {
@@ -201,6 +209,7 @@ async function rebuildQuestoes(navigateIfLost = true) {
             filtradas = filtradas.filter(q => {
                 return disciplinaDe(q.exam, q.year, q.num) === filtros.disciplina;
             });
+            if (filtros.tema && temasPadrao) filtradas = filtradas.filter(q => temaDe(q.exam, q.year, q.num) === filtros.tema);
         }
         if (filtros.revisao) {
             /* revisão espaçada: só as questões com revisão vencida, da mais atrasada para a mais recente */
@@ -323,6 +332,18 @@ function renderDisciplinaSelector() {
         html += `<option value="${escapeHtml(d)}" ${filtros.disciplina === d ? 'selected' : ''}>${escapeHtml(d)}</option>`;
     });
     disciplinaSelector.innerHTML = html;
+    renderTemaSelector();
+}
+/* tema: aparece quando uma disciplina está escolhida e a lista de temas existe */
+function renderTemaSelector() {
+    const sel = document.getElementById('temaSelector');
+    if (!sel) return;
+    const lista = (filtros.disciplina && temasPadrao?.disciplinas?.[filtros.disciplina]) || null;
+    if (!lista) { sel.hidden = true; sel.innerHTML = ''; return; }
+    if (filtros.tema && !lista.includes(filtros.tema)) filtros.tema = '';
+    sel.innerHTML = '<option value="">Todos os temas</option>'
+        + lista.map(t => `<option value="${escapeHtml(t)}" ${filtros.tema === t ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('');
+    sel.hidden = false;
 }
 
 function renderBottomFilters() {
@@ -412,6 +433,12 @@ anoMultiPanel.addEventListener('change', async (e) => {
 
 disciplinaSelector.addEventListener('change', async () => {
     filtros.disciplina = disciplinaSelector.value;
+    filtros.tema = '';
+    renderTemaSelector();
+    await rebuildQuestoes();
+});
+document.getElementById('temaSelector').addEventListener('change', async (e) => {
+    filtros.tema = e.target.value;
     await rebuildQuestoes();
 });
 

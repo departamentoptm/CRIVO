@@ -16,11 +16,16 @@ arquivos, carregados **nesta ordem** pelo `index.html`:
 | `09-revisao-espacada-fsrs.js` | revisão espaçada (FSRS-6) e embaralhar |
 | `10-inicio-filtros-e-grupos.js` | abertura sem identificação, filtros anteriores, painel "Filtros", tela prévia da revisão, filtro por data e "Refazer grupo" |
 | `11-cartoes-dos-grifos.js` | cartões criados a partir dos grifos (frente/verso com o mesmo número): tela com data e calendário (hoje, dias futuros e histórico), revisão com FSRS e exportação de todos para o Anki |
+| `13-desempenho-e-plano.js` | tela "Desempenho e plano": acerto por disciplina e tema, pontos fracos, evolução semanal, plano de estudo; meta diária e sequência de dias na tela inicial |
 | `12-aparencia.js` | modo escuro (fundos brancos viram escuros e letras pretas viram claras; as outras cores ficam) e tamanho da letra |
 
 Dados no progresso (`progress`, salvo no navegador, no arquivo e no Drive): `registro` (respostas), `avaliacoes`
 (Difícil/Bom/Fácil das questões), `grifados` (grifos), `grifosApagados` (grifos apagados, para não voltarem ao
-sincronizar), `cartoes` (texto e revisões de cada cartão) e `resetados`.
+sincronizar), `cartoes` (texto e revisões de cada cartão), `plano` (plano de estudo), `metaDiaria` e `resetados`.
+
+Temas: o filtro por tema e o desempenho por tema usam `dados/temas_padrao.json` (lista fixa de temas por
+disciplina e o tema de cada questão), gerado pelo Actions > Gerar correções > ação `temas-padrao`. Sem esse
+arquivo, o site funciona normalmente, só sem os temas.
 
 ## Regras para quem for mexer
 

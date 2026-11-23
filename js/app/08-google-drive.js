@@ -154,8 +154,11 @@ function mesclarProgresso(a, b) {
         if (v && v.data) { const k = [v.data, v.prova, v.ano, v.questao, v.nota].join('|'); if (!am.has(k)) am.set(k, v); }
     });
     const avaliacoes = [...am.values()].sort((x, y) => new Date(x.data) - new Date(y.data));
+    /* plano de estudo e meta diária: vale a versão alterada por último */
+    const maisNovo = (x, y) => (!x ? y || null : !y ? x : (String(y.atualizado || '') > String(x.atualizado || '') ? y : x));
     return { registro, grifados, resetados, ultimaPosicao, avaliacoes, grifosApagados,
-             cartoes: mesclarCartoes(a.cartoes, b.cartoes) };
+             cartoes: mesclarCartoes(a.cartoes, b.cartoes),
+             plano: maisNovo(a.plano, b.plano), metaDiaria: maisNovo(a.metaDiaria, b.metaDiaria) };
 }
 /* cartões dos grifos: as revisões dos dois lados são somadas; "apagado" vale a data mais recente */
 function mesclarCartoes(a, b) {
@@ -175,7 +178,7 @@ function mesclarCartoes(a, b) {
 
 function driveAssinatura() {
     return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || [],
-                           progress.cartoes || {}, progress.grifosApagados || {}]);
+                           progress.cartoes || {}, progress.grifosApagados || {}, progress.plano || null, progress.metaDiaria || null]);
 }
 function driveDadosParaNuvem() {
     return JSON.stringify({
@@ -188,7 +191,9 @@ function driveDadosParaNuvem() {
         resetados: progress.resetados || {},
         avaliacoes: progress.avaliacoes || [],
         cartoes: progress.cartoes || {},
-        grifosApagados: progress.grifosApagados || {}
+        grifosApagados: progress.grifosApagados || {},
+        plano: progress.plano || null,
+        metaDiaria: progress.metaDiaria || null
     });
 }
 
@@ -221,7 +226,8 @@ async function sincronizarDrive(interativo) {
         if (ra !== currentRA) return;
         if (remoto) {
             const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao,
-                           avaliacoes: progress.avaliacoes, cartoes: progress.cartoes, grifosApagados: progress.grifosApagados };
+                           avaliacoes: progress.avaliacoes, cartoes: progress.cartoes, grifosApagados: progress.grifosApagados,
+                           plano: progress.plano, metaDiaria: progress.metaDiaria };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
             driveSalvandoInterno = true;
             try { salvarBackup(); } finally { driveSalvandoInterno = false; }

@@ -276,6 +276,85 @@ def t_aparencia(page, url):
     assert page.evaluate("document.querySelectorAll('[data-crivo-escuro]').length") == 0, "sobraram cores do modo escuro"
 
 
+def temas_de_teste():
+    """dados/temas_padrao.json falso (o real é gerado pelo Actions): AMP 2026, ímpares = Tema teste 1, pares = Tema teste 2."""
+    import json
+    disc = json.load(open(os.path.join(RAIZ, "exams", "disciplinas.json"), encoding="utf-8")).get("AMP", {}).get("2026", {})
+    itens = disc.items() if isinstance(disc, dict) else ((str(i + 1), d) for i, d in enumerate(disc))
+    q, ds = {}, set()
+    for n, d in itens:
+        if d:
+            q[f"AMP-2026-Q{n}"] = {"disciplina": d, "tema": "Tema teste 1" if int(n) % 2 else "Tema teste 2"}
+            ds.add(d)
+    return json.dumps({"formato": "crivo-temas-padrao", "versao": 1, "disciplinas": {d: ["Tema teste 1", "Tema teste 2"] for d in ds}, "questoes": q})
+
+
+@teste("filtro por tema (aparece ao escolher a disciplina)")
+def t_temas(page, url):
+    page.click("#homeBtn") if page.locator("#homeBtn").is_visible() else None
+    page.wait_for_selector("#startBtnHome", state="visible"); page.click("#startBtnHome")
+    page.wait_for_selector("#resolvingScreen:not(.hidden)")
+    if not page.locator("#disciplinaSelector").is_visible():
+        page.click("#toggleFiltrosBtn")
+    assert not page.locator("#temaSelector").is_visible(), "o tema não deve aparecer sem disciplina"
+    page.select_option("#disciplinaSelector", "Pediatria"); page.wait_for_timeout(400)
+    assert page.locator("#temaSelector").is_visible(), "o seletor de tema não apareceu"
+    assert page.locator("#temaSelector option").count() == 3, "esperava 'Todos os temas' + 2 temas"
+    page.select_option("#temaSelector", "Tema teste 2"); page.wait_for_timeout(400)
+    ok = page.evaluate("questoes.length > 0 && questoes.every(q => temaDe(q.exam, q.year, q.num) === 'Tema teste 2')")
+    assert ok, "o filtro por tema não filtrou as questões"
+    page.select_option("#disciplinaSelector", ""); page.wait_for_timeout(300)
+    assert not page.locator("#temaSelector").is_visible(), "o tema deve sumir ao voltar para todas as disciplinas"
+
+
+@teste("desempenho: pontos fracos e estudar os pontos fracos")
+def t_desempenho(page, url):
+    page.evaluate("""() => {
+        const pares = Object.keys(temasPadrao.questoes).filter(k => temasPadrao.questoes[k].tema === 'Tema teste 2'
+            && temasPadrao.questoes[k].disciplina === 'Pediatria').slice(0, 6);
+        const t0 = Date.now() - 3 * 86400000;
+        pares.forEach((k, i) => { const n = k.split('-Q')[1];
+            progress.registro.push({ acao: 'confirmou', prova: 'AMP', ano: '2026', questao: n, opcao: 'X', correta: 'A',
+                                     data: new Date(t0 + i * 1000).toISOString(), tempoMs: 60000 }); });
+        progress = normalizar(progress); salvarBackup(); showHome(); showScreen(authScreen);
+    }""")
+    page.click("#desempenhoBtnHome")
+    page.wait_for_selector("#desempenhoScreen:not(.hidden)")
+    txt = page.inner_text("#painelDesempenho")
+    assert "questões respondidas" in txt and "Evolução semanal" in txt, "painel de desempenho incompleto"
+    assert "Tema teste 2" in page.inner_text("#painelDesempenho .desemp-bloco >> nth=0"), "o ponto fraco não apareceu"
+    page.click("#estudarFracosBtn")
+    page.wait_for_selector("#resolvingScreen:not(.hidden)")
+    assert "Pontos fracos" in page.inner_text("#grupoAviso"), "o grupo dos pontos fracos não abriu"
+    page.click("#grupoSairBtn"); page.wait_for_timeout(300)
+
+
+@teste("plano de estudo: cria o plano e começa as questões de hoje")
+def t_plano(page, url):
+    page.click("#homeBtn"); page.wait_for_selector("#desempenhoBtnHome", state="visible")
+    page.click("#desempenhoBtnHome"); page.click("#abaPlano")
+    page.fill("#planoData", page.evaluate("somarDias(isoDoDia(Date.now()), 60)"))
+    page.fill("#planoHoras", "12"); page.select_option("#planoProva", "AMP")
+    page.click("#planoSalvarBtn")
+    txt = page.inner_text("#painelPlano")
+    assert "Faltam 60 dias" in txt and "Questões novas para hoje" in txt, "o plano não foi calculado: " + txt[:200]
+    assert page.evaluate("!!progress.plano && progress.plano.horasSemana === 12"), "o plano não foi salvo"
+    page.click("#planoComecarBtn")
+    page.wait_for_selector("#resolvingScreen:not(.hidden)")
+    assert "Plano de hoje" in page.inner_text("#grupoAviso"), "as questões do plano não abriram"
+    page.click("#grupoSairBtn"); page.wait_for_timeout(300)
+
+
+@teste("meta diária e sequência de dias na tela inicial")
+def t_meta(page, url):
+    page.click("#homeBtn"); page.wait_for_selector("#metaHoje", state="visible")
+    page.evaluate("progress.metaDiaria = { valor: 5, atualizado: new Date().toISOString() }; salvarBackup(); showHome();")
+    txt = page.inner_text("#metaHoje")
+    assert "/5 questões" in txt and "dia" in txt, f"meta/sequência não aparecem: {txt}"
+    m = page.evaluate("mesclarProgresso({ registro: [], metaDiaria: { valor: 3, atualizado: '2026-01-01' } }, { registro: [], metaDiaria: { valor: 9, atualizado: '2026-02-01' } }).metaDiaria.valor")
+    assert m == 9, "a sincronização deveria ficar com a meta mais recente"
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -285,11 +364,13 @@ def main():
             print(f"--- {nome} ({largura}px)")
             ctx = nav.new_context(viewport={"width": largura, "height": 800})
             ctx.route("**/*", lambda r: r.abort() if not r.request.url.startswith(url) and not r.request.url.startswith(("blob:", "data:", "about:")) else r.continue_())
+            fake = temas_de_teste()
+            ctx.route("**/dados/temas_padrao.json", lambda r: r.fulfill(status=200, content_type="application/json", body=fake))
             page = ctx.new_page()
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias, t_exportar_cartoes,
-                      t_orfao, t_mescla, t_aparencia, t_recarregar):
+                      t_orfao, t_mescla, t_aparencia, t_temas, t_desempenho, t_plano, t_meta, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

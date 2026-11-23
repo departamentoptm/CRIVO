@@ -25,6 +25,11 @@ class ClienteSimulado:
     def json(self, etapa, sistema, usuario, raciocinio=None):
         if "TAREFA: CONSULTAS_DE_BUSCA" in sistema:
             r = {"consultas": ["conduta simulada diretriz Ministério da Saúde", "conduta simulada sociedade brasileira"]}
+        elif "TAREFA: LISTA_DE_TEMAS" in sistema:
+            r = {"temas": [f"Tema simulado {k}" for k in range(1, 6)]}
+        elif "TAREFA: ATRIBUIR_TEMAS" in sistema:
+            ids = re.findall(r"^### (\S+)$", usuario, re.M)
+            r = {"atribuicoes": [{"id": i, "tema": k % 5 + 1} for k, i in enumerate(ids)]}
         elif "TAREFA: PREMISSA_DO_GABARITO" in sistema:
             r = {"raciocinio_da_banca": "premissa simulada", "por_que_o_gabarito": "simulado",
                  "por_que_nao_a_alternativa_cega": "simulado", "mudanca_de_diretriz": None}

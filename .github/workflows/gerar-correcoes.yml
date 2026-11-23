@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       acao:
-        description: "gerar = escreve correções; catalogar = temas e disciplinas (uma vez); atualizar-referencias = refaz a 2.15 (sem custo); amostra = arquivo com as correções sorteadas para conferência"
+        description: "gerar = escreve correções; catalogar = temas e disciplinas (uma vez); temas-padrao = lista de temas do site (todas as bancas; banca é ignorada); atualizar-referencias = refaz a 2.15 (sem custo); amostra = arquivo com as correções sorteadas para conferência"
         type: choice
-        options: [gerar, catalogar, atualizar-referencias, amostra]
+        options: [gerar, catalogar, temas-padrao, atualizar-referencias, amostra]
         default: gerar
       banca:
         description: "Banca (ex.: AMP)"
@@ -78,6 +78,8 @@ jobs:
           elif [ "$ACAO" = "amostra" ]; then
             args=(amostra --banca "$BANCA")
             [ -n "$CONFERIDAS" ] && args+=(--conferidas $CONFERIDAS)
+          elif [ "$ACAO" = "temas-padrao" ]; then
+            args=(temas-padrao --orcamento "$ORCAMENTO")
           elif [ "$ACAO" = "catalogar" ]; then
             args=(catalogar --banca "$BANCA" --orcamento "$ORCAMENTO")
           else
@@ -100,7 +102,7 @@ jobs:
               2) echo "**Houve erro.** Leia as linhas com ERRO abaixo; as dicas dizem o que ajustar." ;;
               3) echo "Parou no teto de orçamento. Rode de novo para continuar de onde parou." ;;
             esac
-            echo; echo '```'; grep -E "ERRO|Nada|PULADA|fila|histórico|verificação|referências|Disciplina|GRAVADA|amostra|Gasto acumulado|Teto|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
+            echo; echo '```'; grep -E "ERRO|Nada|PULADA|fila|histórico|verificação|referências|Disciplina|GRAVADA|amostra|Temas prontos|temas|Gasto acumulado|Teto|NÃO publicada|PARADO|custo estimado|Conexão|AVISO" saida.txt | tail -60; echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Abrir pull request com o resultado

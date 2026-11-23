@@ -114,6 +114,17 @@ Questões com `imagem_pendente` são puladas.
 Mesmo assim, a correção é de IA e pode errar. Por isso o site mostra o selo "não revisado" e o botão
 "Reportar erro".
 
+## Temas das questões (filtro por tema, desempenho e pontos fracos)
+
+Actions → Gerar correções → ação **temas-padrao** (o campo banca é ignorado; vale para todas as bancas):
+
+1. refaz o catálogo de todas as questões com a resposta oficial (uma vez por questão);
+2. cria uma lista fixa de 10 a 40 temas por disciplina (uma vez; `--refazer-listas` refaz);
+3. encaixa cada questão num tema da lista e grava `dados/temas_padrao.json`, usado pelo site.
+
+Custo estimado da primeira vez: cerca de US$ 0,30. Depois, só as questões novas ou alteradas são processadas.
+Aprove o pull request para o site passar a usar os temas.
+
 ## Correções escritas na conversa com o Claude
 
 Quando a API não consegue uma correção confiável (por exemplo, divergência entre o gabarito e a diretriz), a
