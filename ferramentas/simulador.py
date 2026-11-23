@@ -3,6 +3,8 @@ Cliente FALSO da API, para testar o fluxo do gerador sem chave e sem custo (opç
 As respostas são textos de teste, não correções reais: nunca publique o resultado de uma simulação.
 Variável CRIVO_SIMULAR_REPROVAR=1 faz o "revisor" reprovar tudo (testa o caminho de reprovação);
 =uma faz reprovar só a primeira verificação de cada questão (testa a correção só das seções apontadas).
+CRIVO_SIMULAR_REPETIR=1 faz a conferência achar o mesmo erro em outra seção (testa refazer a correção inteira).
+CRIVO_SIMULAR_PREMISSA=recusar faz o revisor recusar a premissa (testa a premissa corrigida).
 CRIVO_SIMULAR_SEM_CORRETA=1 faz a geração esquecer a alternativa correta na 2.4 (testa o pedido só do parágrafo).
 """
 import os
@@ -23,6 +25,13 @@ class ClienteSimulado:
     def json(self, etapa, sistema, usuario):
         if "TAREFA: CONSULTAS_DE_BUSCA" in sistema:
             r = {"consultas": ["conduta simulada diretriz Ministério da Saúde", "conduta simulada sociedade brasileira"]}
+        elif "TAREFA: PREMISSA_DO_GABARITO" in sistema:
+            r = {"raciocinio_da_banca": "premissa simulada", "por_que_o_gabarito": "simulado",
+                 "por_que_nao_a_alternativa_cega": "simulado", "mudanca_de_diretriz": None}
+        elif "TAREFA: CONFERIR_PREMISSA" in sistema:
+            recusar = os.environ.get("CRIVO_SIMULAR_PREMISSA") == "recusar"
+            r = {"correta": not recusar, "problema": "premissa simulada recusada" if recusar else "",
+                 "premissa_corrigida": {"raciocinio_da_banca": "premissa corrigida simulada"} if recusar else None}
         else:
             r = getattr(self, "_" + etapa)(usuario)
         self._uso(etapa, usuario, str(r))
@@ -91,6 +100,11 @@ class ClienteSimulado:
 
     def _conferir(self, u):
         n = len(re.findall(r"^\[\d+\] seção", u, re.M))
+        if os.environ.get("CRIVO_SIMULAR_REPETIR") == "1" and not getattr(self, "_repetiu", False):
+            self._repetiu = True        # testa: o mesmo erro reaparece em outra seção -> refaz a correção inteira
+            return {"resolvidos": [{"indice": k, "resolvido": True, "comentario": "simulado"} for k in range(n)],
+                    "problemas": [{"secao": "2.7", "secoes_com_o_mesmo_erro": ["2.8"], "mesmo_erro_de": 0, "trecho": "x",
+                                   "gravidade": "moderada", "explicacao": "mesmo erro simulado em outra seção"}]}
         return {"resolvidos": [{"indice": k, "resolvido": True, "comentario": "simulado"} for k in range(n)], "problemas": []}
 
     def _verificar(self, u):

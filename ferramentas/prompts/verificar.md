@@ -37,6 +37,9 @@ Classifique cada problema:
 Não aponte problema por mera preferência de redação. Não invente problemas: se estiver correto, aprove.
 
 Responda somente com JSON:
-{"aprovado": true|false, "problemas": [{"secao": "2.x", "trecho": "<trecho curto>", "gravidade": "grave|moderada|leve",
-  "explicacao": "...", "correcao_sugerida": "..."}]}
+{"aprovado": true|false, "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x", "..."], "trecho": "<trecho curto>",
+  "gravidade": "grave|moderada|leve", "explicacao": "...", "correcao_sugerida": "..."}]}
+Em "secao" use UMA seção (ou "aviso"). Em "secoes_com_o_mesmo_erro", liste TODAS as outras seções em que a mesma
+afirmação errada aparece (procure em 2.1 a 2.14 e no aviso); lista vazia se só aparecer em uma.
+Se houver PREMISSA CONFERIDA, confira se a correção inteira segue essa premissa.
 "aprovado" deve ser false se houver qualquer problema grave ou moderado.

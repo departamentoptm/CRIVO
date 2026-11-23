@@ -7,6 +7,9 @@ seções foram aprovadas e serão mantidas como estão.
 Regras:
 - Corrija cada problema apontado. Se discordar de algum, corrija mesmo assim a forma de dizer, para que fique
   preciso e sem margem a erro; nunca mantenha uma afirmação apontada como falsa.
+- A mesma afirmação errada costuma aparecer em várias seções (justificativa, pistas, algoritmo, dados para
+  memorizar, tabela). Procure-a em TODAS as seções e reescreva todas as que a repetem.
+- Se houver PREMISSA CONFERIDA, toda seção deve segui-la.
 - Mantenha a coerência com as seções que não vai reescrever (você recebe o texto delas). Se para isso precisar
   ajustar outra seção, inclua-a também.
 - Mesmo formato HTML simples da correção (<p>, <strong>, <em>, <ul>, <li>, <table>), sem links.
