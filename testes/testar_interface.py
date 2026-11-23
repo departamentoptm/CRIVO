@@ -162,6 +162,88 @@ def t_recarregar(page, url):
     assert ok, "progresso perdido ao recarregar"
 
 
+@teste("cartões dos grifos: cria, revisa nos dois sentidos e repete o Errei")
+def t_cartoes(page, url):
+    page.evaluate("""() => {
+        const q = questoes[questaoAtualIndex];
+        const base = { prova: currentExam, ano: currentYear, questao: String(q.num), numero: 7 };
+        progress.grifados.push(Object.assign({ id: 'gteste1', texto: 'Frente de teste', lado: 'frente', startOffset: 1 }, base),
+                               Object.assign({ id: 'gteste2', texto: 'Verso de teste', lado: 'verso', startOffset: 2 }, base));
+        salvarBackup();
+        showHome(); showScreen(authScreen);
+    }""")
+    page.wait_for_selector("#cartoesBtnHome", state="visible")
+    assert "2 para hoje" in page.inner_text("#cartoesBtnHome"), "contagem de cartões errada: " + page.inner_text("#cartoesBtnHome")
+    page.click("#cartoesBtnHome")
+    page.wait_for_selector("#cartoesScreen:not(.hidden)", timeout=10000)
+    assert "Frente de teste" in page.inner_text("#cartFrente"), "frente do 1º cartão"
+    page.click("#cartMostrarBtn")
+    assert "Verso de teste" in page.inner_text("#cartVerso"), "verso do 1º cartão"
+    assert page.locator("#cartNotas button").count() == 4, "faltam as 4 notas"
+    page.click("#cartNotas button[data-nota='3']")
+    assert "Verso de teste" in page.inner_text("#cartFrente"), "o 2º cartão (verso → frente) não apareceu"
+    page.keyboard.press(" ")
+    page.keyboard.press("1")                                  # Errei: volta no fim da sessão
+    assert "Verso de teste" in page.inner_text("#cartFrente"), "o cartão do Errei não voltou"
+    page.click("#cartMostrarBtn"); page.click("#cartNotas button[data-nota='4']")
+    assert page.locator("#cartVazio").is_visible(), "a sessão não terminou"
+    n = page.evaluate("Object.values(progress.cartoes).reduce((t, c) => t + c.revisoes.length, 0)")
+    assert n == 3, f"esperava 3 revisões, encontrei {n}"
+
+
+@teste("exporta todos os cartões para o Anki")
+def t_exportar_cartoes(page, url):
+    page.click(".cartoes-exportar summary")
+    with page.expect_download() as d:
+        page.click("#cartExpBtn")
+    txt = open(d.value.path(), encoding="utf-8").read()
+    assert "#deck column:4" in txt and "Frente de teste\tVerso de teste" in txt, "arquivo do Anki incompleto"
+    assert txt.count("Frente de teste") == 1, "o par foi exportado mais de uma vez"
+
+
+@teste("cartão sem grifo de origem continua e é marcado")
+def t_orfao(page, url):
+    o = page.evaluate("""() => {
+        progress.grifados = progress.grifados.filter(g => g.id !== 'gteste2'); salvarBackup();
+        return listarCartoes().filter(x => x.orfao).length;
+    }""")
+    assert o == 2, f"esperava 2 cartões órfãos, encontrei {o}"
+    page.click("#backFromCartoesBtn")
+
+
+@teste("sincronização: grifo apagado não volta e revisões de cartões são somadas")
+def t_mescla(page, url):
+    r = page.evaluate("""() => {
+        const g = { id: 'gx', prova: 'AMP', ano: '2020', questao: '1', texto: 't' };
+        const a = { registro: [], grifados: [], grifosApagados: { gx: '2026-01-02T00:00:00Z' },
+                    cartoes: { c1: { criado: '2026-01-01', revisoes: [{ data: '2026-01-03T00:00:00Z', nota: 3 }] } } };
+        const b = { registro: [], grifados: [g], grifosApagados: {},
+                    cartoes: { c1: { criado: '2026-01-01', revisoes: [{ data: '2026-01-05T00:00:00Z', nota: 4 }] } } };
+        const m = mesclarProgresso(a, b);
+        return [m.grifados.length, m.cartoes.c1.revisoes.length, !!m.grifosApagados.gx];
+    }""")
+    assert r == [0, 2, True], f"mescla inesperada: {r}"
+
+
+@teste("modo escuro e tamanho da letra")
+def t_aparencia(page, url):
+    page.wait_for_selector("#temaBtn", state="visible")
+    page.click("#temaBtn")
+    assert page.evaluate("document.documentElement.classList.contains('tema-escuro')"), "modo escuro não ligou"
+    page.click("#letraMaisBtn")
+    assert page.inner_text("#letraValor") == "110%", "tamanho da letra não mudou"
+    page.click("#startBtnHome")
+    page.wait_for_selector("#resolvingScreen:not(.hidden)", timeout=20000)
+    quadro(page); page.wait_for_timeout(700)
+    zoom, css = page.evaluate("""() => { const d = document.getElementById('questionFrame').contentDocument;
+        return [d.body.style.zoom, (d.getElementById('crivoAparencia') || {}).textContent || '']; }""")
+    assert zoom == "1.1" and "invert" in css, f"aparência não chegou à questão: {zoom!r} {css!r}"
+    page.click("#homeBtn")
+    page.wait_for_selector("#temaBtn", state="visible")
+    page.click("#temaBtn"); page.click("#letraMenosBtn")
+    assert not page.evaluate("document.documentElement.classList.contains('tema-escuro')"), "modo escuro não desligou"
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -174,7 +256,8 @@ def main():
             page = ctx.new_page()
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
-            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_recarregar):
+            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_exportar_cartoes,
+                      t_orfao, t_mescla, t_aparencia, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

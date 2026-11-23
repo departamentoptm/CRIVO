@@ -122,9 +122,13 @@ function mesclarProgresso(a, b) {
     [...(a.registro || []), ...(b.registro || [])].forEach(e => { if (e && e.data) { const k = _driveChaveEv(e); if (!mapa.has(k)) mapa.set(k, e); } });
     const registro = [...mapa.values()].sort((x, y) => new Date(x.data) - new Date(y.data));
 
+    const grifosApagados = {};
+    [a.grifosApagados || {}, b.grifosApagados || {}].forEach(x => {
+        for (const [id, quando] of Object.entries(x)) if (!grifosApagados[id] || quando > grifosApagados[id]) grifosApagados[id] = quando;
+    });
     const gm = new Map(), grifados = [];
     [...(a.grifados || []), ...(b.grifados || [])].forEach(g => {
-        if (!g) return;
+        if (!g || (g.id && grifosApagados[g.id])) return;
         if (!g.id) { grifados.push(g); return; }
         if (!gm.has(g.id)) { gm.set(g.id, g); grifados.push(g); }
     });
@@ -150,11 +154,28 @@ function mesclarProgresso(a, b) {
         if (v && v.data) { const k = [v.data, v.prova, v.ano, v.questao, v.nota].join('|'); if (!am.has(k)) am.set(k, v); }
     });
     const avaliacoes = [...am.values()].sort((x, y) => new Date(x.data) - new Date(y.data));
-    return { registro, grifados, resetados, ultimaPosicao, avaliacoes };
+    return { registro, grifados, resetados, ultimaPosicao, avaliacoes, grifosApagados,
+             cartoes: mesclarCartoes(a.cartoes, b.cartoes) };
+}
+/* cartões dos grifos: as revisões dos dois lados são somadas; "apagado" vale a data mais recente */
+function mesclarCartoes(a, b) {
+    const r = {};
+    for (const fonte of [a || {}, b || {}]) for (const [id, c] of Object.entries(fonte)) {
+        if (!c || typeof c !== 'object') continue;
+        const x = r[id];
+        if (!x) { r[id] = Object.assign({}, c, { revisoes: Array.isArray(c.revisoes) ? [...c.revisoes] : [] }); continue; }
+        const m = new Map();
+        [...x.revisoes, ...(Array.isArray(c.revisoes) ? c.revisoes : [])].forEach(v => { if (v && v.data) m.set(v.data + '|' + v.nota, v); });
+        x.revisoes = [...m.values()].sort((p, q) => new Date(p.data) - new Date(q.data));
+        if (c.criado && (!x.criado || c.criado < x.criado)) x.criado = c.criado;
+        if (c.apagado && (!x.apagado || c.apagado > x.apagado)) x.apagado = c.apagado;
+    }
+    return r;
 }
 
 function driveAssinatura() {
-    return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || []]);
+    return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || [],
+                           progress.cartoes || {}, progress.grifosApagados || {}]);
 }
 function driveDadosParaNuvem() {
     return JSON.stringify({
@@ -165,7 +186,9 @@ function driveDadosParaNuvem() {
         registro: progress.registro,
         grifados: progress.grifados || [],
         resetados: progress.resetados || {},
-        avaliacoes: progress.avaliacoes || []
+        avaliacoes: progress.avaliacoes || [],
+        cartoes: progress.cartoes || {},
+        grifosApagados: progress.grifosApagados || {}
     });
 }
 
@@ -197,7 +220,8 @@ async function sincronizarDrive(interativo) {
         if (remoto && !remoto.formato) remoto.formato = 'crivo-progresso';
         if (ra !== currentRA) return;
         if (remoto) {
-            const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao, avaliacoes: progress.avaliacoes };
+            const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao,
+                           avaliacoes: progress.avaliacoes, cartoes: progress.cartoes, grifosApagados: progress.grifosApagados };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
             driveSalvandoInterno = true;
             try { salvarBackup(); } finally { driveSalvandoInterno = false; }

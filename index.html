@@ -7,6 +7,7 @@
 <meta name="google-site-verification" content="cte36TqGAb28TXoN38mqOED4MFYix3fuIW9jmS1wnEg" />
 <title>CRIVO - UNIOESTE</title>
 <link rel="stylesheet" href="css/crivo-app.css?v=dev">
+<script>try { if ((JSON.parse(localStorage.getItem('crivo_ui')) || {}).tema === 'escuro') document.documentElement.classList.add('tema-escuro'); } catch (e) {}</script>
 </head>
 <body>
     <input type="file" id="progressFile" accept=".json,application/json" hidden>
@@ -61,11 +62,21 @@
                 <div class="home-buttons">
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
                     <button class="auth-btn home-btn-review" id="revisaoBtnHome" title="Questões que você errou ou marcou para revisar, nos intervalos calculados pelo FSRS">🔁 Revisão espaçada</button>
+                    <button class="auth-btn home-btn-review" id="cartoesBtnHome" title="Cartões criados a partir dos seus grifos (frente e verso com o mesmo número)">🃏 Cartões dos grifos</button>
                     <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
                     <button class="auth-btn home-btn-secondary" id="saveBtnHome" type="button" title="Baixa um arquivo com todo o seu progresso">💾 Salvar progresso em arquivo</button>
                     <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
                     <button class="auth-btn home-btn-secondary" id="driveBtnHome" type="button" title="Salva e carrega o seu progresso na sua conta Google Drive">☁️ Sincronizar com Google Drive</button>
                     <button class="auth-btn home-btn-danger" id="logoutBtn" hidden>Sair</button>
+                </div>
+                <div class="aparencia" role="group" aria-label="Aparência">
+                    <button type="button" class="aparencia-btn" id="temaBtn" aria-pressed="false">🌙 Modo escuro</button>
+                    <span class="aparencia-letra">
+                        <span>Letra</span>
+                        <button type="button" class="aparencia-btn" id="letraMenosBtn" aria-label="Diminuir a letra">A−</button>
+                        <span id="letraValor" aria-live="polite">100%</span>
+                        <button type="button" class="aparencia-btn" id="letraMaisBtn" aria-label="Aumentar a letra">A+</button>
+                    </span>
                 </div>
                 <div class="drive-status" id="driveStatus" aria-live="polite"></div>
                 <div class="drive-aviso">Ao sincronizar, o CRIVO grava o seu progresso na pasta “CRIVO - Progresso” do seu Google Drive e não acessa nenhum outro arquivo. <a href="privacidade.html" target="_blank" rel="noopener">Saiba mais</a></div>
@@ -160,6 +171,44 @@
         </div>
     </div>
 
+    <div id="cartoesScreen" class="screen hidden">
+        <div class="progress-header">
+            <button class="back-btn" id="backFromCartoesBtn">← Voltar</button>
+            <h1>🃏 Cartões dos grifos</h1>
+        </div>
+        <div class="progress-content cartoes-conteudo">
+            <div class="revisao-resumo" id="cartResumo"></div>
+            <div class="cartao" id="cartao" hidden>
+                <div class="cartao-origem" id="cartOrigem"></div>
+                <div class="cartao-orfao" id="cartOrfao" hidden>⚠️ O grifo de origem foi apagado ou mudou. Você pode continuar revisando este cartão ou apagá-lo.</div>
+                <div class="cartao-face cartao-frente" id="cartFrente"></div>
+                <div class="cartao-face cartao-verso" id="cartVerso" hidden></div>
+                <button type="button" class="auth-btn home-btn-review cartao-mostrar" id="cartMostrarBtn">Mostrar resposta <small>(espaço)</small></button>
+                <div class="cartao-notas" id="cartNotas" hidden>
+                    <button type="button" data-nota="1" class="nota-errei">Errei <span class="cartao-quando"></span></button>
+                    <button type="button" data-nota="2" class="nota-dificil">Difícil <span class="cartao-quando"></span></button>
+                    <button type="button" data-nota="3" class="nota-bom">Bom <span class="cartao-quando"></span></button>
+                    <button type="button" data-nota="4" class="nota-facil">Fácil <span class="cartao-quando"></span></button>
+                </div>
+                <div class="cartao-acoes">
+                    <button type="button" class="aparencia-btn" id="cartAbrirBtn">📄 Abrir a questão</button>
+                    <button type="button" class="aparencia-btn" id="cartApagarBtn">🗑️ Apagar cartão</button>
+                </div>
+            </div>
+            <div class="revisao-vazia" id="cartVazio" hidden></div>
+            <details class="cartoes-exportar">
+                <summary>📦 Exportar cartões para o Anki</summary>
+                <div class="cartoes-exportar-campos">
+                    <select id="cartExpBanca" aria-label="Banca"></select>
+                    <select id="cartExpDisc" aria-label="Disciplina"></select>
+                    <label><input type="checkbox" id="cartExpOrfaos"> incluir cartões sem grifo de origem</label>
+                    <button type="button" class="auth-btn home-btn-secondary" id="cartExpBtn">Baixar arquivo .txt</button>
+                    <div class="cartoes-exportar-msg" id="cartExpMsg" aria-live="polite"></div>
+                </div>
+            </details>
+        </div>
+    </div>
+
     <div id="progressScreen" class="screen hidden">
         <div class="progress-header">
             <button class="back-btn" id="backFromProgressBtn">← Voltar</button>
@@ -180,5 +229,7 @@
 <script src="js/app/08-google-drive.js?v=dev"></script>
 <script src="js/app/09-revisao-espacada-fsrs.js?v=dev"></script>
 <script src="js/app/10-inicio-filtros-e-grupos.js?v=dev"></script>
+<script src="js/app/11-cartoes-dos-grifos.js?v=dev"></script>
+<script src="js/app/12-aparencia.js?v=dev"></script>
 </body>
 </html>

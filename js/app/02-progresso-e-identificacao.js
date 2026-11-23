@@ -50,6 +50,8 @@ function lerBackup(ra) {
             if (!Array.isArray(v.grifados)) v.grifados = [];
             if (!v.resetados || typeof v.resetados !== 'object') v.resetados = {};
             if (!Array.isArray(v.avaliacoes)) v.avaliacoes = [];
+            if (!v.cartoes || typeof v.cartoes !== 'object') v.cartoes = {};
+            if (!v.grifosApagados || typeof v.grifosApagados !== 'object') v.grifosApagados = {};
             return v;
         }
         return null;
@@ -61,7 +63,10 @@ function normalizar(d) {
                 registro: (Array.isArray(d.registro) ? d.registro : []).filter(e => e && e.prova && e.ano && e.questao && e.opcao),
                 grifados: Array.isArray(d.grifados) ? d.grifados : [],
                 resetados: (d.resetados && typeof d.resetados === 'object') ? d.resetados : {},
-                avaliacoes: Array.isArray(d.avaliacoes) ? d.avaliacoes.filter(a => a && a.data && a.prova && a.ano && a.questao && a.nota) : [] };
+                avaliacoes: Array.isArray(d.avaliacoes) ? d.avaliacoes.filter(a => a && a.data && a.prova && a.ano && a.questao && a.nota) : [],
+                cartoes: (d.cartoes && typeof d.cartoes === 'object') ? d.cartoes : {},
+                grifosApagados: (d.grifosApagados && typeof d.grifosApagados === 'object') ? d.grifosApagados : {} };
+    p.grifados = p.grifados.filter(g => !(g && g.id && p.grifosApagados[g.id]));   /* grifo apagado em outro aparelho */
     if (p.registro.length) p.registro.forEach(ev => aplicarEvento(p.estado, ev));
     else if (d.estado) p.estado = d.estado;
     return p;
@@ -184,7 +189,9 @@ function exportarProgresso() {
         registro: progress.registro,
         grifados: progress.grifados || [],
         resetados: progress.resetados || {},
-        avaliacoes: progress.avaliacoes || []
+        avaliacoes: progress.avaliacoes || [],
+        cartoes: progress.cartoes || {},
+        grifosApagados: progress.grifosApagados || {}
     };
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' }));
@@ -217,10 +224,12 @@ async function loginWithRA(raBruto) {
     const nome = String(raBruto).trim().replace(/\s+/g, ' ');
     currentRA = ra; currentUser = /^\d+$/.test(ra) ? `RA ${ra}` : nome;
     const bk = lerBackup(ra);
-    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [] };
+    progress = bk || { estado: {}, registro: [], ultimaPosicao: null, grifados: [], resetados: {}, avaliacoes: [], cartoes: {}, grifosApagados: {} };
     if (!Array.isArray(progress.grifados)) progress.grifados = [];
     if (!progress.resetados) progress.resetados = {};
     if (!Array.isArray(progress.avaliacoes)) progress.avaliacoes = [];
+    if (!progress.cartoes || typeof progress.cartoes !== 'object') progress.cartoes = {};
+    if (!progress.grifosApagados || typeof progress.grifosApagados !== 'object') progress.grifosApagados = {};
     setDirty(!!(bk && bk.registro && bk.registro.length));
     showHome();
     showScreen(authScreen);
