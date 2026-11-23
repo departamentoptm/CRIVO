@@ -21,7 +21,10 @@ class ClienteSimulado:
         self.contador.registrar(self.config["modelos"][etapa], uso)
 
     def json(self, etapa, sistema, usuario):
-        r = getattr(self, "_" + etapa)(usuario)
+        if "TAREFA: CONSULTAS_DE_BUSCA" in sistema:
+            r = {"consultas": ["conduta simulada diretriz Ministério da Saúde", "conduta simulada sociedade brasileira"]}
+        else:
+            r = getattr(self, "_" + etapa)(usuario)
         self._uso(etapa, usuario, str(r))
         return r
 
@@ -77,6 +80,18 @@ class ClienteSimulado:
         if os.environ.get("CRIVO_SIMULAR_ALTERAR") == "1":
             alts["A"] = alts.get("A", "") + " palavra inventada"
         return {"enunciado": "\n".join(enun), "alternativas": alts}
+
+    def buscar(self, consulta, quantidade=5):
+        self.contador.registrar_busca()
+        epoca = "before:" in consulta
+        return [{"titulo": f"Documento simulado {'antigo' if epoca else 'atual'} {k}", "url": f"https://exemplo.gov.br/{abs(hash(consulta)) % 9999}/{k}",
+                 "site": "exemplo.gov.br", "data": "2019-05-01" if epoca else "2024-03-01",
+                 "resumo": "Resumo simulado de diretriz, sem valor médico.", "autoridade": 4 - k, "relevancia": 2.0}
+                for k in range(min(quantidade, 3))]
+
+    def _conferir(self, u):
+        n = len(re.findall(r"^\[\d+\] seção", u, re.M))
+        return {"resolvidos": [{"indice": k, "resolvido": True, "comentario": "simulado"} for k in range(n)], "problemas": []}
 
     def _verificar(self, u):
         modo = os.environ.get("CRIVO_SIMULAR_REPROVAR")

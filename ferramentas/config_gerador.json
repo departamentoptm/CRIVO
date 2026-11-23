@@ -11,7 +11,8 @@
   "resolver_as_cegas": "deepseek-flash",
   "gerar": "deepseek-flash",
   "verificar": "deepseek-flash",
-  "reparar": "deepseek-flash"
+  "reparar": "deepseek-flash",
+  "conferir": "deepseek-flash"
  },
  "parametros_extras_por_modelo": {},
  "max_tokens": {
@@ -20,7 +21,8 @@
   "resolver_as_cegas": 8000,
   "gerar": 16000,
   "verificar": 32000,
-  "reparar": 6000
+  "reparar": 6000,
+  "conferir": 12000
  },
  "precos_usd_por_milhao_fora_do_pico": {
   "deepseek-flash": {
@@ -94,7 +96,8 @@
   "resolver_as_cegas": true,
   "gerar": false,
   "verificar": true,
-  "reparar": false
+  "reparar": false,
+  "conferir": false
  },
  "parametro_raciocinio": {
   "ligado": {
@@ -139,5 +142,15 @@
  },
  "teto_acumulado_usd": 30.0,
  "amostra_a_cada": 50,
- "max_tokens_teto": 32000
+ "max_tokens_teto": 32000,
+ "preco_busca_web_usd": 0.00075,
+ "busca_web": {
+  "ativa": true,
+  "consultas": 2,
+  "resultados_por_busca": 5,
+  "buscar_epoca_da_prova": true,
+  "autoridade_minima": 2,
+  "max_fontes": 6,
+  "autoridade_para_referencia": 3
+ }
 }

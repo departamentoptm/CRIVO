@@ -81,6 +81,15 @@ Questões com `imagem_pendente` são puladas.
    raciocínio da banca quando o aviso de diretriz registra o que mudou. Se continuar reprovada, a correção **não
    é publicada**: a anterior fica, o motivo vai para `relatorios/reprovadas/` e ela entra no arquivo da ação
    `amostra`, para ser corrigida numa conversa com o Claude.
+   - Da 2ª rodada em diante, o revisor recebe a lista dos problemas anteriores e confere um a um se foram
+     resolvidos (sem raciocínio estendido, mais barato). Toda seção apontada é reescrita, inclusive quando o
+     revisor escreve rótulos compostos como "2.4 e 2.10" ou "aviso/2.3".
+   - Regra de diretrizes: a IA não pode atribuir uma conduta ao Ministério da Saúde, a uma sociedade ou a um
+     protocolo sem base, nem repetir números das alternativas (dose, dias) como se fossem recomendação.
+5b. **Busca na web quando a IA discorda do gabarito:** se a resolução às cegas diverge, o gerador faz 2 buscas
+   (versão atual e versão até o ano da prova, com `before:`) na Search API do DeepSeek (US$ 0,00075 por
+   busca) e entrega os trechos à geração e ao revisor como "EVIDÊNCIAS DA WEB". As fontes de maior
+   autoridade entram na 2.15. Configuração em `busca_web` no `config_gerador.json` (`"ativa": false` desliga).
 6. **Referências:** a IA indica 1 ou 2 livros da lista `fontes_permitidas` e termos de busca em inglês. O script
    busca no PubMed (API oficial gratuita) 2 revisões, revisões sistemáticas ou diretrizes recentes que existem,
    com link para o artigo e o DOI, e acrescenta links de consulta ao UpToDate, ao Manual MSD e ao PubMed.
@@ -91,6 +100,20 @@ Questões com `imagem_pendente` são puladas.
 
 Mesmo assim, a correção é de IA e pode errar. Por isso o site mostra o selo "não revisado" e o botão
 "Reportar erro".
+
+## Correções escritas na conversa com o Claude
+
+Quando a API não consegue uma correção confiável (por exemplo, divergência entre o gabarito e a diretriz), a
+correção pode ser escrita numa conversa com o Claude e entregue como `correcoes_manuais/<ID>.json`. Para gravar:
+
+```bash
+python3 ferramentas/gerar_correcoes.py inserir-manual --arquivo correcoes_manuais/AMP-2020-Q10.json
+```
+
+O comando não usa a API do DeepSeek: passa pela mesma validação, monta a tabela 2.10 com as questões listadas
+no arquivo, busca os artigos do PubMed e acrescenta as fontes consultadas à 2.15. A correção fica com
+`origem: "conversa"`, continua com o selo "sem revisão humana" e o gerador não a substitui (nem em
+`--questoes`), a não ser que seja reportada ou que se use `--forcar`.
 
 ## Quando um estudante reporta um erro
 
