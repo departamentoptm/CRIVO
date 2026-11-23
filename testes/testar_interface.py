@@ -355,6 +355,56 @@ def t_meta(page, url):
     assert m == 9, "a sincronização deveria ficar com a meta mais recente"
 
 
+@teste("simulado: correção escondida, finalização, resultado e histórico")
+def t_simulado(page, url):
+    page.click("#homeBtn") if page.locator("#homeBtn").is_visible() else None
+    page.wait_for_selector("#simuladoBtnHome", state="visible")
+    antes = page.evaluate("progress.registro.filter(e => e.acao === 'confirmou').length")
+    page.click("#simuladoBtnHome")
+    page.wait_for_selector("#simuladoScreen:not(.hidden)")
+    page.fill("#simQtd", "3"); page.fill("#simMin", "30")
+    page.click("#simIniciarBtn")
+    page.wait_for_selector("#resolvingScreen:not(.hidden)")
+    f = quadro(page); page.wait_for_timeout(400)
+    assert page.locator("#simBarra").is_visible(), "a barra do simulado não apareceu"
+    assert not f.locator("#submitBtn").is_visible(), "o botão de confirmar deveria estar escondido no simulado"
+    f.locator(".option").first.click(); page.wait_for_timeout(300)
+    assert "1/3" in page.inner_text("#simRespondidas"), "a resposta não foi contada no simulado"
+    depois = page.evaluate("progress.registro.filter(e => e.acao === 'confirmou').length")
+    assert depois == antes, "durante o simulado, nada deve ir para o progresso"
+    page.click("#nextBtn"); f = quadro(page); page.wait_for_timeout(400)
+    f.locator(".option").nth(1).click(); page.wait_for_timeout(300)
+    page.click("#prevBtn"); f = quadro(page); page.wait_for_timeout(500)
+    assert f.locator(".option.selected").count() == 1, "a escolha não foi restaurada ao voltar"
+    page.click("#simFinalizarBtn")
+    page.wait_for_selector("#simuladoScreen:not(.hidden)", timeout=15000)
+    assert page.locator("#simResultado").is_visible() and "acertos" in page.inner_text("#simResultado"), "resultado não apareceu"
+    n = page.evaluate("progress.registro.filter(e => e.acao === 'confirmou').length") - antes
+    assert n == 2, f"esperava 2 respostas no progresso depois do simulado, vieram {n}"
+    assert page.evaluate("progress.simulados.length") == 1, "o simulado não foi para o histórico"
+    assert page.evaluate("!localStorage.getItem('crivo_simulado_atual')"), "o simulado em andamento não foi apagado"
+    av = page.evaluate("progress.avaliacoes.length")
+    page.click(".sim-notas button[data-nota='3'] >> nth=0")
+    assert page.evaluate("progress.avaliacoes.length") == av + 1, "a classificação não foi salva"
+    assert page.locator("#simHistorico .sim-hist").count() == 1, "o histórico não mostra o simulado"
+    assert not page.locator("#simBarra").is_visible(), "a barra do simulado deveria sumir"
+    page.click("#backFromSimuladoBtn")
+
+
+@teste("página da questão: selo de revisão da liga e dúvidas respondidas")
+def t_selo_duvidas(page, url):
+    html = page.evaluate("""() => CrivoRender.montarPagina({ banca: 'AMP', ano: '2020', questoes: [{ id: 'AMP-2020-Q1', numero: 1,
+        enunciado_html: 'Enunciado', alternativas: { A: 'a', B: 'b' }, gabarito: 'A', correcao: { secoes_html: { '2.1': '<p>x</p>' } },
+        revisao: { status: 'revisado_humano', alertas: [], revisores: [{ nome: 'Ana Souza', funcao: 'estudante' }] },
+        duvidas: [{ pergunta: 'Por que A?', resposta: 'Porque sim.', respondido_por: 'Liga de Pediatria' }] }] }, 1)""")
+    assert "Correção revisada por Ana Souza (estudante)" in html, "o selo de revisão não apareceu"
+    assert "Dúvidas sobre esta questão" in html and "Liga de Pediatria" in html, "as dúvidas não apareceram"
+    html2 = page.evaluate("""() => CrivoRender.montarPagina({ banca: 'AMP', ano: '2020', questoes: [{ id: 'AMP-2020-Q2', numero: 2,
+        enunciado_html: 'E', alternativas: { A: 'a', B: 'b' }, gabarito: 'B', correcao: { secoes_html: {} },
+        revisao: { status: 'nao_revisado', alertas: [], revisores: [] }, duvidas: [] }] }, 2)""")
+    assert "gerada por IA" in html2 and "Dúvidas sobre" not in html2, "selo de IA ou bloco de dúvidas vazio errado"
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -370,7 +420,8 @@ def main():
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias, t_exportar_cartoes,
-                      t_orfao, t_mescla, t_aparencia, t_temas, t_desempenho, t_plano, t_meta, t_recarregar):
+                      t_orfao, t_mescla, t_aparencia, t_temas, t_desempenho, t_plano, t_meta,
+                      t_simulado, t_selo_duvidas, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

@@ -20,6 +20,9 @@
         // Link do Google Forms para "Reportar erro". Use {id} onde deve entrar o ID da questão
         // (ex.: '...viewform?usp=pp_url&entry.123456={id}'). Vazio = usa e-mail.
         urlReportarErro: '',      // cole aqui o link pré-preenchido do formulário (veja o LEIAME)
+        // Formulário de revisão da liga e formulário de dúvidas (também com {id}). Vazio = o link não aparece.
+        urlRevisarLiga: '',
+        urlEnviarDuvida: '',
         emailContato: 'departamento.ptm@gmail.com',
     };
 
@@ -99,6 +102,14 @@
         return r.json();
     }
 
+    /* dúvidas respondidas pela liga (dados/duvidas.json, opcional) */
+    let promessaDuvidas = null;
+    function carregarDuvidas() {
+        if (!promessaDuvidas) promessaDuvidas = fetch(`${CONFIG.pastaDados}/duvidas.json`, { cache: 'no-cache' })
+            .then(r => r.ok ? r.json() : null).then(d => (d && d.duvidas) || {}).catch(() => ({}));
+        return promessaDuvidas;
+    }
+
     async function carregarEdicao(banca, ano) {
         const chave = `${banca}/${ano}`;
         if (!cacheEdicoes.has(chave)) {
@@ -109,7 +120,8 @@
                 // correções são opcionais: sem o arquivo, as questões abrem sem correção
                 fetch(`${base}/correcoes.json`, { cache: 'no-cache' })
                     .then(r => r.ok ? r.json() : null).catch(() => null),
-            ]).then(([qs, cs]) => juntar(qs, cs));
+                carregarDuvidas(),
+            ]).then(([qs, cs, dv]) => juntar(qs, cs, dv));
             cacheEdicoes.set(chave, p);
             p.catch(() => cacheEdicoes.delete(chave));   // erro de rede não fica guardado
         }
@@ -117,7 +129,7 @@
     }
 
     /* Junta questão (fixa) + correção (editável) no objeto que a página usa. */
-    function juntar(qs, cs) {
+    function juntar(qs, cs, dv) {
         if (!qs || qs.formato !== 'crivo-questoes') throw new Error('questoes.json não está no formato do CRIVO');
         const corr = (cs && cs.formato === 'crivo-correcoes' && cs.correcoes) || {};
         const questoes = qs.questoes.map(q => {
@@ -132,7 +144,9 @@
                 tema: (c && c.tema) || q.disciplina || '',
                 aviso_diretriz: c ? c.aviso_diretriz : null,
                 correcao: c ? { secoes_html: c.secoes_html || {}, historico: c.historico || null, historico_meta: c.historico_meta || null } : null,
-                revisao: { status: (c && c.revisao && c.revisao.status) || (c ? 'nao_revisado' : 'sem_correcao'), alertas },
+                revisao: { status: (c && c.revisao && c.revisao.status) || (c ? 'nao_revisado' : 'sem_correcao'), alertas,
+                           revisores: (c && c.revisao && Array.isArray(c.revisao.revisores_publicos)) ? c.revisao.revisores_publicos : [] },
+                duvidas: (dv && Array.isArray(dv[q.id])) ? dv[q.id] : [],
             });
         });
         const ed = { banca: qs.banca, ano: String(qs.ano), questoes };
@@ -191,6 +205,31 @@
         const assunto = `CRIVO - erro na questão ${id}`;
         const corpo = `Questão: ${banca} ${ano}, nº ${numero} (${id})\n\nO que está errado:\n\nFonte que confirma (se tiver):\n`;
         return `mailto:${CONFIG.emailContato}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+    }
+
+    function linkComId(url, id) { return url.replace(/\{id\}|%7Bid%7D/gi, encodeURIComponent(id)); }
+    /* selo da correção: revisada pela liga (com os nomes autorizados) ou gerada por IA */
+    function seloCorrecao(q, id, edicao) {
+        if (!q.correcao) return '';
+        const reportar = `<a href="${esc(linkReportar(id, edicao.banca, edicao.ano, q.numero))}" target="_blank" rel="noopener">Reportar erro nesta questão</a>`;
+        const revisar = CONFIG.urlRevisarLiga ? ` <a href="${esc(linkComId(CONFIG.urlRevisarLiga, id))}" target="_blank" rel="noopener">Revisar (liga)</a>` : '';
+        if (q.revisao && q.revisao.status === 'revisado_humano') {
+            const nomes = (q.revisao.revisores || []).map(r => `${esc(r.nome)} (${esc(r.funcao)})`).join(', ');
+            return `<div class="crivo-selo crivo-selo-ok"><span>✔ Correção revisada${nomes ? ' por ' + nomes : ' pela liga'}.</span><span>${reportar}</span></div>`;
+        }
+        return `<div class="crivo-selo"><span>Correção gerada por IA, ainda sem revisão humana.</span><span>${reportar}${revisar}</span></div>`;
+    }
+    /* dúvidas de estudantes respondidas pela liga (a pergunta é anônima) */
+    function blocoDuvidas(q, id) {
+        const lista = q.duvidas || [];
+        const enviar = CONFIG.urlEnviarDuvida
+            ? `<a class="crivo-duvida-enviar" href="${esc(linkComId(CONFIG.urlEnviarDuvida, id))}" target="_blank" rel="noopener">💬 Enviar uma dúvida sobre esta questão</a>` : '';
+        if (!lista.length && !enviar) return '';
+        return `<div class="crivo-duvidas"><h3>💬 Dúvidas sobre esta questão${lista.length ? ` (${lista.length})` : ''}</h3>`
+            + lista.map(d => `<div class="crivo-duvida"><p class="crivo-duvida-p"><strong>Pergunta:</strong> ${esc(d.pergunta)}</p>`
+                + `<p class="crivo-duvida-r"><strong>Resposta:</strong> ${esc(d.resposta)}</p>`
+                + `<p class="crivo-duvida-quem">Respondida por ${esc(d.respondido_por)}${d.data ? ' em ' + esc(new Date(d.data).toLocaleDateString('pt-BR')) : ''}</p></div>`).join('')
+            + enviar + '</div>';
     }
 
     function avisosDaQuestao(q, anulada) {
@@ -313,6 +352,14 @@
             align-items: center; justify-content: space-between; }
         .crivo-selo a { color: #A63268; font-weight: 600; text-decoration: none; white-space: nowrap; }
         .crivo-selo a:hover { text-decoration: underline; }
+        .crivo-selo-ok { background: #e8f5ec; color: #14532d; }
+        .crivo-selo > span:last-child { display: flex; gap: 14px; flex-wrap: wrap; }
+        .crivo-duvidas { margin-top: 28px; padding-top: 14px; border-top: 2px solid #eee; }
+        .crivo-duvidas h3 { font-size: 18px; color: #4C2D59; margin: 0 0 10px; }
+        .crivo-duvida { background: #f7f7fb; border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; }
+        .crivo-duvida p { margin: 4px 0; }
+        .crivo-duvida-quem { font-size: 12.5px; color: #666; }
+        .crivo-duvida-enviar { display: inline-block; margin-top: 4px; color: #A63268; font-weight: 600; text-decoration: none; }
         .crivo-revisao { margin: 18px auto 0; max-width: 560px; padding: 12px 14px; border-radius: 12px;
             background: #f3f7fb; border: 1px solid #d6e0ef; }
         .crivo-revisao[hidden] { display: none; }
@@ -346,7 +393,6 @@
         const id = q.id || `${edicao.banca}-${edicao.ano}-Q${q.numero}`;
         const diretriz = q.aviso_diretriz
             ? `<div class="crivo-diretriz"><strong>Diretriz atual:</strong> ${higienizar(q.aviso_diretriz)}</div>` : '';
-        const origemIA = !!q.correcao && (!q.revisao || q.revisao.status !== 'revisado_humano');
 
         return `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -663,9 +709,9 @@ ${CSS_EXTRA}
             ${avisosDaQuestao(q, anulada)}
             <div class="explanation" id="correctionContent">
                 <h3>Correção da Questão</h3>
-                ${origemIA ? `<div class="crivo-selo"><span>Correção gerada por IA, ainda sem revisão humana.</span>
-                    <a href="${esc(linkReportar(id, edicao.banca, edicao.ano, q.numero))}" target="_blank" rel="noopener">Reportar erro nesta questão</a></div>` : ''}
+                ${seloCorrecao(q, id, edicao)}
                 ${blocoCorrecao(q)}
+                ${blocoDuvidas(q, id)}
             </div>
             <button class="reset-btn" onclick="resetQuiz()">Refazer Questão</button>
         </div>

@@ -143,7 +143,7 @@ no arquivo, busca os artigos do PubMed e acrescenta as fontes consultadas à 2.1
 ## Quando um estudante reporta um erro
 
 O botão "Reportar erro" de cada questão abre um Formulário Google já com o código da questão preenchido.
-Para trazer os reportes ao projeto: **Actions → Importar erros reportados → Run workflow**. Sai um pull
+Para trazer os reportes ao projeto: **Actions → Importar formulários (reportes, revisões e dúvidas) → Run workflow**. Sai um pull
 request: os reportes de questões com correção entram em `revisao.reportes` e a correção fica "reportado";
 depois de aprovar, rode **Gerar correções** no modo pendentes e elas são refeitas levando o reporte em conta.
 Reportes de questões sem correção, de correções revisadas por pessoas ou com código inválido aparecem em
@@ -170,6 +170,58 @@ Também dá para editar à mão: abra `dados/<BANCA>/<ANO>/correcoes.json`, proc
   a questão é refeita levando o reporte em conta.
 Se um médico revisou e aprovou a correção, use `"status": "revisado_humano"`: o selo de IA some e o
 gerador nunca mais a sobrescreve.
+
+## Revisão das correções pela liga
+
+Cada página de questão com correção de IA ganha o link **"Revisar (liga)"**, que abre um Formulário Google com
+o código da questão preenchido. O mesmo workflow **Importar formulários** traz as revisões:
+
+- **"Tem erro"**: a correção vai para "regerar" e o apontamento entra nos reportes; na próxima execução de
+  **Gerar correções** (modo pendentes) ela é refeita levando o apontamento em conta.
+- **Selo "Correção revisada"**: 2 estudantes diferentes **ou** 1 médico(a) com CRM conferido marcam "Correta",
+  sem nenhum "Tem erro" depois da última geração. O selo mostra os nomes de quem autorizou; quem não autorizou
+  aparece como "revisor(a) da liga". Revisões de uma versão anterior da correção não contam.
+- **CRM**: o relatório (`relatorios/revisoes.md`) lista os CRMs a conferir. Depois de conferir no site do CFM,
+  acrescente o médico em `dados/revisores.json`, em `"medicos_conferidos"`:
+  `{"nome": "Dra. Fulana", "crm": "12345-PR"}`, e rode o workflow de novo (o selo é recalculado).
+- Uma correção com selo não é refeita pelo gerador, a não ser que alguém aponte erro depois.
+
+Configuração (uma vez):
+1. Crie o formulário "CRIVO — revisão da liga" com estas perguntas, **com estes títulos** (o importador
+   reconhece pelo começo do título):
+   **Questão (código)** (resposta curta), **A correção está** (múltipla escolha: `Correta` / `Tem erro`),
+   **Seção com erro** (resposta curta, opcional, ex.: 2.4), **O que está errado** (parágrafo, opcional),
+   **Nome** (resposta curta), **Você é** (múltipla escolha: `Estudante` / `Médico(a)`),
+   **CRM (se for médico)** (resposta curta, opcional) e
+   **Autorizo que meu nome apareça no site** (múltipla escolha: `Sim` / `Não`).
+2. Gere o link pré-preenchido com `{id}` na pergunta Questão e cole em `js/crivo-render.js`, em `urlRevisarLiga: ''`.
+3. Vincule ao Planilhas, publique a aba de respostas como **CSV** e crie a variável `URL_REVISOES_CSV` com o link.
+   Atenção: o CSV publicado pode ser lido por quem tiver o link e contém os nomes e CRMs dos revisores;
+   compartilhe o link só com quem mantém o projeto.
+
+## Dúvidas dos estudantes (respondidas pela liga)
+
+A página da questão mostra, depois da correção, as dúvidas já respondidas e o link **"Enviar uma dúvida sobre
+esta questão"**. A pergunta é anônima; a resposta aparece com o nome de quem respondeu.
+
+Configuração (uma vez):
+1. Crie o formulário "CRIVO — dúvidas" com 2 perguntas: **Questão (código)** (resposta curta) e
+   **Sua dúvida** (parágrafo). Em Configurações → Respostas: **não coletar e-mail** e não exigir login.
+2. Gere o link pré-preenchido com `{id}` e cole em `js/crivo-render.js`, em `urlEnviarDuvida: ''`.
+3. Vincule ao Planilhas e, **na planilha**, acrescente duas colunas no fim: **Resposta** e **Respondido por**.
+   A liga responde preenchendo essas colunas.
+4. Publique a aba como **CSV** e crie a variável `URL_DUVIDAS_CSV`.
+5. Rode **Importar formulários**: só as linhas com Resposta e Respondido por vão para `dados/duvidas.json` (e
+   para o site, depois de aprovar o PR). As pendentes aparecem no relatório. Apagar a linha da planilha tira a
+   dúvida do site na importação seguinte.
+
+## Simulado
+
+Botão **📝 Simulado** na tela inicial. O aluno escolhe quantidade, bancas, disciplinas, se quer só questões
+não feitas, e o tempo total. Durante o simulado a correção e o gabarito ficam escondidos e o relógio não para
+(nem fora da página). No fim (ou quando o tempo acaba), as respostas entram no progresso e na revisão espaçada,
+e a tela de resultado mostra o acerto geral e por disciplina, com Difícil/Bom/Fácil para cada questão.
+O histórico dos simulados vai para o arquivo de progresso e para o Google Drive.
 
 ## Custos e configuração (`ferramentas/config_gerador.json`)
 

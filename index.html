@@ -65,6 +65,7 @@
                     <button class="auth-btn home-btn-review" id="revisaoBtnHome" title="Questões que você errou ou marcou para revisar, nos intervalos calculados pelo FSRS">🔁 Revisão espaçada</button>
                     <button class="auth-btn home-btn-review" id="cartoesBtnHome" title="Cartões criados a partir dos seus grifos (frente e verso com o mesmo número)">🃏 Cartões dos grifos</button>
                     <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
+                    <button class="auth-btn home-btn-review" id="simuladoBtnHome" type="button" title="Prova montada por você, com tempo total e correção só no fim">📝 Simulado</button>
                     <button class="auth-btn home-btn-secondary" id="desempenhoBtnHome" type="button" title="Acerto por disciplina e tema, pontos fracos, evolução semanal e plano de estudo">📈 Desempenho e plano de estudo</button>
                     <button class="auth-btn home-btn-secondary" id="saveBtnHome" type="button" title="Baixa um arquivo com todo o seu progresso">💾 Salvar progresso em arquivo</button>
                     <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
@@ -120,6 +121,10 @@
                 <input type="number" id="goToInput" class="go-to-input" min="1" placeholder="X" inputmode="numeric" enterkeyhint="go" aria-label="Número da questão">
                 <button class="go-btn" id="goBtn">Ir</button>
             </div>
+        </div>
+        <div class="sim-barra" id="simBarra" hidden>
+            <span>📝 Simulado</span><span id="simRespondidas"></span><span>⏱ <b id="simTempo"></b></span>
+            <button type="button" id="simFinalizarBtn">Finalizar simulado</button>
         </div>
         <iframe id="questionFrame" class="iframe-container" title="Questão"></iframe>
         <div class="bottom-nav">
@@ -226,6 +231,18 @@
         </div>
     </div>
 
+    <div id="simuladoScreen" class="screen hidden">
+        <div class="progress-header">
+            <button class="back-btn" id="backFromSimuladoBtn">← Voltar</button>
+            <h1>📝 Simulado</h1>
+        </div>
+        <div class="progress-content desempenho-conteudo">
+            <div id="simResultado" hidden></div>
+            <div id="simConfig"></div>
+            <div id="simHistorico"></div>
+        </div>
+    </div>
+
     <div id="desempenhoScreen" class="screen hidden">
         <div class="progress-header">
             <button class="back-btn" id="backFromDesempenhoBtn">← Voltar</button>
@@ -264,5 +281,6 @@
 <script src="js/app/11-cartoes-dos-grifos.js?v=dev"></script>
 <script src="js/app/12-aparencia.js?v=dev"></script>
 <script src="js/app/13-desempenho-e-plano.js?v=dev"></script>
+<script src="js/app/14-simulado.js?v=dev"></script>
 </body>
 </html>

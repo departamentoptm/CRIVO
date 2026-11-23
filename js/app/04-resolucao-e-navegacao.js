@@ -120,7 +120,7 @@ function reiniciarTimer() {
         timerDisplay.textContent = formatTime(el);
         checarLimiteTotal(el);
     }, 500);
-    if (modoTempo === 'questao') expirationTimer = setTimeout(() => {
+    if (modoTempo === 'questao' && !modoSimulado) expirationTimer = setTimeout(() => {
         if (questaoAtualIndex < questoes.length - 1) {
             alert('Tempo máximo atingido. Pulando para a próxima.');
             carregarQuestao(questaoAtualIndex + 1);
@@ -146,6 +146,7 @@ window.addEventListener('message', (event) => {
     if (!data || !data.type) return;
     const q = questoes[questaoAtualIndex];
     if (!q || !currentExam || !currentYear) return;
+    if (modoSimulado) return;                 /* no simulado, a escolha fica no simulado (14-simulado.js) */
     if (data.type === 'OPTION_SELECTED') {
         saveProgressForQuestion(currentExam, currentYear, q.num, { selected: data.payload.selected });
     } else if (data.type === 'QUESTION_ANSWERED') {
