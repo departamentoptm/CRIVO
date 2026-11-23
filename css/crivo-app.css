@@ -1124,5 +1124,60 @@ body.rodape-oculto .nav-btn:disabled { opacity: .55; }
 .aparencia-btn:disabled { opacity: .45; cursor: not-allowed; }
 #letraValor { min-width: 3em; text-align: center; font-weight: 700; }
 
+/* ---- filtro por tema (barra superior) ---- */
+.tema-select[hidden] { display: none !important; }
+
+/* ---- meta diária e sequência (tela inicial) ---- */
+.meta-hoje { display: block; margin: .2rem auto .6rem; border: 1px dashed var(--line-strong, #c9d1e6); background: transparent;
+             color: var(--navy, #1a2a6c); border-radius: 2rem; padding: .35rem .9rem; font-weight: 700; font-size: .9rem; cursor: pointer; }
+.meta-hoje:hover { border-style: solid; }
+
+/* ---- desempenho e plano ---- */
+.desempenho-conteudo { display: flex; flex-direction: column; gap: 1rem; }
+.abas { display: flex; gap: .4rem; border-bottom: 2px solid var(--line); }
+.aba { border: none; background: none; padding: .6rem 1rem; font-weight: 700; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.aba[aria-selected="true"] { color: var(--navy); border-bottom-color: var(--magenta); }
+#painelDesempenho[hidden], #painelPlano[hidden] { display: none; }
+.desemp-resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.desemp-resumo > div { background: #fff; border: 1px solid var(--line); border-radius: .8rem; padding: .7rem; text-align: center; display: flex; flex-direction: column; }
+.desemp-resumo b { font-size: 1.5rem; color: var(--navy); }
+.desemp-resumo span { font-size: .8rem; color: var(--muted); }
+.desemp-nota { font-size: .82rem; color: var(--muted); margin: .4rem 0; }
+.desemp-bloco { background: #fff; border: 1px solid var(--line); border-radius: .9rem; padding: .8rem 1rem; display: flex; flex-direction: column; gap: .5rem; }
+.desemp-bloco h2 { font-size: 1rem; margin: 0; color: var(--navy); }
+.desemp-lista { display: flex; flex-direction: column; gap: .35rem; }
+.desemp-linha, .desemp-disc > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto 6rem auto; align-items: center; gap: .6rem; font-size: .9rem; }
+.desemp-disc > summary { grid-template-columns: minmax(0, 1fr) auto 6rem; cursor: pointer; padding: .45rem 0; font-weight: 700; list-style: none; }
+.desemp-disc > summary::-webkit-details-marker { display: none; }
+.desemp-disc > summary .desemp-nome::before { content: '▸ '; color: var(--muted); }
+.desemp-disc[open] > summary .desemp-nome::before { content: '▾ '; }
+.desemp-disc { border-bottom: 1px solid var(--line); }
+.desemp-disc .desemp-linha { padding: .25rem 0 .25rem 1.1rem; }
+.desemp-nome { overflow: hidden; text-overflow: ellipsis; }
+.desemp-nome small { color: var(--muted); font-weight: 500; margin-left: .3rem; }
+.desemp-num { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .85rem; white-space: nowrap; }
+.desemp-barra { display: block; height: .5rem; border-radius: 1rem; background: var(--line); overflow: hidden; }
+.desemp-barra > span { display: block; height: 100%; }
+.desemp-barra > .bom { background: #16a34a; } .desemp-barra > .fraco { background: #dc2626; }
+.desemp-praticar { padding: .25rem .6rem; min-height: 30px; font-size: .8rem; }
+.desemp-semanas { display: grid; grid-template-columns: repeat(8, 1fr); gap: .4rem; align-items: end; }
+.desemp-semana { display: flex; flex-direction: column; align-items: center; gap: .2rem; font-size: .72rem; color: var(--muted); }
+.desemp-semana-col { width: 100%; height: 6rem; display: flex; align-items: flex-end; background: var(--bg); border-radius: .4rem; overflow: hidden; }
+.desemp-semana-col > span { width: 100%; background: linear-gradient(180deg, var(--navy-600), var(--magenta)); border-radius: .4rem .4rem 0 0; min-height: 0; }
+.desemp-semana-pct { font-weight: 700; color: var(--navy); min-height: 1em; }
+.desemp-semana-n { font-weight: 700; color: var(--ink); }
+.plano-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .6rem; }
+.plano-form label { display: flex; flex-direction: column; gap: .25rem; font-size: .85rem; font-weight: 600; color: var(--ink); }
+.plano-form input, .plano-form select { padding: .45rem; border: 1px solid var(--line-strong); border-radius: .5rem; font-size: .95rem; }
+.plano-botoes { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; grid-column: 1 / -1; }
+.plano-destaque { font-size: 1.05rem; margin: 0; }
+@media (max-width: 520px) {
+    .desemp-linha { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "nome num" "barra botao"; row-gap: .3rem; }
+    .desemp-linha .desemp-nome { grid-area: nome; } .desemp-linha .desemp-num { grid-area: num; }
+    .desemp-linha .desemp-barra { grid-area: barra; } .desemp-linha .desemp-praticar { grid-area: botao; }
+    .desemp-disc > summary { grid-template-columns: minmax(0, 1fr) auto; }
+    .desemp-disc > summary .desemp-barra { grid-column: 1 / -1; }
+}
+
 /* ---- modo escuro: as regras escuras são geradas por js/app/12-aparencia.js a partir destas ---- */
 html.tema-escuro { color-scheme: dark; }

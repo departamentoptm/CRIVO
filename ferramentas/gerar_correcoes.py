@@ -633,6 +633,24 @@ def cmd_catalogar(args, config):
         registrar_gasto(args, config, contador, f"catalogar {args.banca}")
 
 
+def cmd_temas_padrao(args, config):
+    """Catálogo com a resposta oficial (todas as bancas) + lista fixa de temas por disciplina + tema de cada
+    questão, em dados/temas_padrao.json (usado pelo site: filtro por tema, desempenho e pontos fracos)."""
+    import temas_padrao
+    contador = Contador(config, orcamento_da_execucao(args, config))
+    cliente = criar_cliente(args, config, contador)
+    try:
+        temas_padrao.gerar(args.dados, cliente, config, log, refazer_listas=args.refazer_listas)
+    except OrcamentoEsgotado as e:
+        log(f"\nPARADO: {e}. O que já foi feito está gravado; rode de novo para continuar."); return 3
+    finally:
+        log(contador.resumo())
+        if contador.por_etapa:
+            log("Custo por etapa:\n" + contador.resumo_por_etapa())
+        registrar_gasto(args, config, contador, "temas-padrao")
+    return 0
+
+
 def cmd_atualizar_referencias(args, config):
     """Refaz só a seção 2.15 das correções já geradas pela API, com artigos reais do PubMed. Não usa a IA."""
     rc = config.get("referencias", {})
@@ -886,6 +904,8 @@ def main():
     am.add_argument("--banca", required=True); am.add_argument("--conferidas", nargs="*", default=[])
     im = sub.add_parser("inserir-manual", help="grava uma correção escrita na conversa (correcoes_manuais/*.json)")
     im.add_argument("--arquivo", required=True)
+    tp = sub.add_parser("temas-padrao", help="catálogo com gabarito + lista fixa de temas + tema de cada questão (todas as bancas)")
+    tp.add_argument("--orcamento", type=float); tp.add_argument("--refazer-listas", action="store_true")
     c = sub.add_parser("catalogar", help="cataloga os temas de todas as questões da banca")
     c.add_argument("--banca", required=True); c.add_argument("--orcamento", type=float)
     g = sub.add_parser("gerar", help="gera correções")
@@ -904,6 +924,8 @@ def main():
     try:
         if args.cmd == "modelos":
             return cmd_modelos(args, config) or 0
+        if args.cmd == "temas-padrao":
+            return cmd_temas_padrao(args, config)
         if args.cmd == "catalogar":
             return cmd_catalogar(args, config) or 0
         if args.cmd == "amostra":

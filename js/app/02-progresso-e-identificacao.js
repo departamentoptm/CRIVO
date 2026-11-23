@@ -65,7 +65,9 @@ function normalizar(d) {
                 resetados: (d.resetados && typeof d.resetados === 'object') ? d.resetados : {},
                 avaliacoes: Array.isArray(d.avaliacoes) ? d.avaliacoes.filter(a => a && a.data && a.prova && a.ano && a.questao && a.nota) : [],
                 cartoes: (d.cartoes && typeof d.cartoes === 'object') ? d.cartoes : {},
-                grifosApagados: (d.grifosApagados && typeof d.grifosApagados === 'object') ? d.grifosApagados : {} };
+                grifosApagados: (d.grifosApagados && typeof d.grifosApagados === 'object') ? d.grifosApagados : {},
+                plano: (d.plano && typeof d.plano === 'object') ? d.plano : null,
+                metaDiaria: (d.metaDiaria && typeof d.metaDiaria === 'object') ? d.metaDiaria : null };
     p.grifados = p.grifados.filter(g => !(g && g.id && p.grifosApagados[g.id]));   /* grifo apagado em outro aparelho */
     if (p.registro.length) p.registro.forEach(ev => aplicarEvento(p.estado, ev));
     else if (d.estado) p.estado = d.estado;
@@ -80,7 +82,7 @@ function salvarFiltros() {
 function garantirFiltros() { if (filtrosCarregadosPara !== currentRA) { lerFiltros(); filtrosCarregadosPara = currentRA; } }
 function lerFiltros() {
     if (!currentRA) return;
-    filtros = { bancas: [], anos: [], disciplina: '', somenteNaoRealizadas: false, maxQuestoes: 0, revisao: false, embaralhar: false, semente: 0 };
+    filtros = { bancas: [], anos: [], disciplina: '', tema: '', somenteNaoRealizadas: false, maxQuestoes: 0, revisao: false, embaralhar: false, semente: 0 };
     try {
         const v = JSON.parse(localStorage.getItem(filtrosKey(currentRA)));
         if (v && typeof v === 'object') {
@@ -88,6 +90,8 @@ function lerFiltros() {
                 bancas: Array.isArray(v.bancas) ? v.bancas : [],
                 anos: Array.isArray(v.anos) ? v.anos : [],
                 disciplina: v.disciplina || '',
+                tema: typeof v.tema === 'string' ? v.tema : '',
+                listaNome: typeof v.listaNome === 'string' ? v.listaNome : null,
                 somenteNaoRealizadas: !!v.somenteNaoRealizadas,
                 maxQuestoes: parseInt(v.maxQuestoes) || 0,
                 revisao: !!v.revisao,
@@ -191,7 +195,9 @@ function exportarProgresso() {
         resetados: progress.resetados || {},
         avaliacoes: progress.avaliacoes || [],
         cartoes: progress.cartoes || {},
-        grifosApagados: progress.grifosApagados || {}
+        grifosApagados: progress.grifosApagados || {},
+        plano: progress.plano || null,
+        metaDiaria: progress.metaDiaria || null
     };
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' }));

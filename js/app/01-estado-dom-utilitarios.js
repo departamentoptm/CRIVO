@@ -41,13 +41,20 @@ const DISCIPLINAS_LISTA = [
 function disciplinaDe(banca, ano, num) {
     const y = disciplinas?.[banca]?.[ano];
     const d = String((Array.isArray(y) ? y[(parseInt(num) || 0) - 1] : y?.[num]) || '').trim();
-    return DISCIPLINAS_LISTA.includes(d) ? d : null;
+    if (DISCIPLINAS_LISTA.includes(d)) return d;
+    const t = temaInfo(banca, ano, num);                 /* questões sem disciplina na planilha: a do catálogo */
+    return t && DISCIPLINAS_LISTA.includes(t.disciplina) ? t.disciplina : null;
 }
+/* lista fixa de temas (dados/temas_padrao.json, gerado pelo Actions > Gerar correções > temas-padrao) */
+let temasPadrao = null;
+function temaInfo(banca, ano, num) { return temasPadrao?.questoes?.[`${banca}-${ano}-Q${num}`] || null; }
+function temaDe(banca, ano, num) { const t = temaInfo(banca, ano, num); return t && t.tema ? t.tema : null; }
 
 let filtros = {
     bancas: [],
     anos: [],
     disciplina: '',
+    tema: '',
     somenteNaoRealizadas: false,
     maxQuestoes: 0,
     revisao: false,

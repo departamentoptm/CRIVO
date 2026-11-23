@@ -37,14 +37,14 @@ function guardarFiltrosAnteriores() {
 function restaurarFiltrosAnteriores() {
     if (!filtros.antes) {
         if (filtros.revisao || (filtros.lista && filtros.lista.length)) {
-            filtros.revisao = false; filtros.lista = null; filtros.revisaoDia = null;
+            filtros.revisao = false; filtros.lista = null; filtros.listaNome = null; filtros.revisaoDia = null;
             salvarFiltros(); atualizarAvisoGrupo(); return true;
         }
         return false;
     }
-    filtros = Object.assign({ bancas: [], anos: [], disciplina: '', somenteNaoRealizadas: false, maxQuestoes: 0,
+    filtros = Object.assign({ bancas: [], anos: [], disciplina: '', tema: '', somenteNaoRealizadas: false, maxQuestoes: 0,
                               revisao: false, embaralhar: false, semente: 0 },
-                            filtros.antes, { revisao: false, lista: null, revisaoDia: null, antes: null });
+                            filtros.antes, { revisao: false, lista: null, listaNome: null, revisaoDia: null, antes: null });
     salvarFiltros(); atualizarAvisoGrupo();
     return true;
 }
@@ -83,7 +83,7 @@ const grupoAvisoTxt = document.getElementById('grupoAvisoTxt');
 function atualizarAvisoGrupo() {
     const on = Array.isArray(filtros.lista) && filtros.lista.length > 0;
     grupoAviso.hidden = !on;
-    if (on) grupoAvisoTxt.textContent = `Grupo do Meu Gabarito (${filtros.lista.length} ${filtros.lista.length === 1 ? 'questão' : 'questões'})`;
+    if (on) grupoAvisoTxt.textContent = `${filtros.listaNome || 'Grupo do Meu Gabarito'} (${filtros.lista.length} ${filtros.lista.length === 1 ? 'questão' : 'questões'})`;
 }
 document.getElementById('grupoSairBtn').addEventListener('click', async () => {
     restaurarFiltrosAnteriores();
