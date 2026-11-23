@@ -71,7 +71,8 @@ function cartoesDeHoje() {
 
 const cartoesScreen = document.getElementById('cartoesScreen');
 const cartoesBtnHome = document.getElementById('cartoesBtnHome');
-let cartFila = [], cartFeitos = 0, cartMostrando = false;
+const cartDataInput = document.getElementById('cartDataInput');
+let cartDiaSel = null, cartFila = [], cartFeitos = 0, cartMostrando = false, cartEmSessao = false;
 
 function atualizarContagemCartoes() {
     if (!cartoesBtnHome || !currentRA) return;
@@ -81,8 +82,23 @@ function atualizarContagemCartoes() {
 const _showHomeCartoes = showHome;
 showHome = function () { _showHomeCartoes(); try { atualizarContagemCartoes(); } catch (e) { console.warn('cartões:', e); } };
 
+/* cartões de um dia: hoje = vencidos e novos; dia futuro = os programados para ele; dia passado = os revisados nele */
+function listarCartoesDoDia(dia) {
+    const hoje = isoDoDia(Date.now());
+    if (dia === hoje) return cartoesDeHoje();
+    const todos = listarCartoes();
+    if (dia > hoje) return todos.filter(x => x.estado && isoDoDia(x.estado.proxima) === dia)
+        .sort((a, b) => a.estado.proxima - b.estado.proxima);
+    const out = [];
+    for (const x of todos) {
+        const doDia = (x.c.revisoes || []).filter(v => isoDoDia(+new Date(v.data)) === dia);
+        if (doDia.length) out.push(Object.assign({}, x, { notaDoDia: +doDia[doDia.length - 1].nota, quando: doDia[doDia.length - 1].data }));
+    }
+    return out.sort((a, b) => String(a.quando).localeCompare(String(b.quando)));
+}
+
 const _paraHtml = linhas => linhas.map(t => escapeHtml(t)).join('<br><br>');
-function _origemCartao(c) {
+function _rotuloCartao(c) {
     const disc = disciplinaDe(c.prova, c.ano, c.questao);
     return `${escapeHtml(c.prova)} ${escapeHtml(c.ano)} - Q${escapeHtml(c.questao)}${disc ? ' - ' + escapeHtml(disc) : ''}`
         + ` · cartão nº ${escapeHtml(c.numero)} · ${c.dir === 'vf' ? 'verso → frente' : 'frente → verso'}`;
@@ -91,22 +107,64 @@ function _textoProximo(estado, g) {
     if (g === 1) return 'de novo agora';
     return textoIntervalo(fsrsRevisar(estado ? { ...estado } : null, g, Date.now()));
 }
-function renderCartao() {
-    const caixa = document.getElementById('cartao'), vazio = document.getElementById('cartVazio');
-    const resumo = document.getElementById('cartResumo');
-    const atual = cartFila[0] && progress.cartoes[cartFila[0]];
-    const restantes = cartFila.length;
-    resumo.textContent = restantes ? `${restantes} ${restantes === 1 ? 'cartão' : 'cartões'} para hoje` + (cartFeitos ? ` · ${cartFeitos} revisado${cartFeitos === 1 ? '' : 's'} nesta sessão` : '') : '';
-    if (!atual) {
-        caixa.hidden = true; vazio.hidden = false;
-        vazio.innerHTML = cartFeitos ? 'Você terminou os cartões de hoje. 🎉'
-            : 'Nenhum cartão para hoje. Para criar cartões, grife trechos da correção e marque, com o mesmo número, um trecho como "Frente" e outro como "Verso". 🖍️';
-        return;
+
+/* ---- lista do dia (como na tela da revisão espaçada) ---- */
+function renderListaCartoes() {
+    const hoje = isoDoDia(Date.now());
+    if (!cartDiaSel) cartDiaSel = hoje;
+    cartDataInput.value = cartDiaSel;
+    document.getElementById('cartDataTexto').textContent = dataPorExtenso(cartDiaSel) + (cartDiaSel === hoje ? ' (hoje)' : '');
+    const lista = listarCartoesDoDia(cartDiaSel);
+    const passado = cartDiaSel < hoje, futuro = cartDiaSel > hoje;
+    const fim0 = +new Date(hoje + 'T00:00:00');
+    const atrasados = passado ? 0 : lista.filter(x => x.estado && x.estado.proxima < fim0).length;
+    const plural = (n, s, p) => `${n} ${n === 1 ? s : p}`;
+    let resumo = '';
+    if (lista.length) {
+        if (passado) resumo = plural(lista.length, 'cartão revisado', 'cartões revisados') + ' neste dia.';
+        else resumo = plural(lista.length, 'cartão programado', 'cartões programados') + (atrasados ? ` (${plural(atrasados, 'atrasado', 'atrasados')})` : '')
+            + (futuro ? ' para este dia. Você pode adiantá-los, mas os intervalos ficam um pouco menores.' : '');
     }
-    const ativo = paresDosGrifos().has(cartFila[0]);
-    caixa.hidden = false; vazio.hidden = true;
-    document.getElementById('cartOrigem').innerHTML = _origemCartao(atual);
-    document.getElementById('cartOrfao').hidden = ativo;
+    document.getElementById('cartResumo').textContent = resumo;
+    document.getElementById('cartLista').innerHTML = lista.length
+        ? lista.map(x => {
+            let selo = '';
+            if (passado) selo = `<span class="cartao-selo nota-${x.notaDoDia}">${escapeHtml(NOTAS[x.notaDoDia] || '')}</span>`;
+            else if (!x.estado) selo = '<span class="cartao-selo novo">novo</span>';
+            else if (x.estado.proxima < fim0) selo = `<span class="atraso">atrasado desde ${new Date(x.estado.proxima).toLocaleDateString('pt-BR')}</span>`;
+            return `<div class="revisao-item cartao-item" role="button" tabindex="0" data-id="${escapeHtml(x.id)}" title="Revisar só este cartão">`
+                + `<span>${_rotuloCartao(x.c)}${x.orfao ? ' · ⚠️ sem grifo de origem' : ''}</span>${selo}</div>`;
+        }).join('')
+        : `<div class="revisao-vazia">${passado ? 'Nenhum cartão revisado neste dia.'
+            : `Nenhum cartão programado para ${cartDiaSel === hoje ? 'hoje' : 'este dia'}.`
+              + (Object.keys(progress.cartoes || {}).length ? ' 🎉' : ' Para criar cartões, grife trechos da correção e marque, com o mesmo número, um trecho como "Frente" e outro como "Verso". 🖍️')}</div>`;
+    const btn = document.getElementById('cartIniciarBtn');
+    btn.hidden = passado;
+    btn.disabled = !lista.length;
+    btn.textContent = lista.length ? `▶ Iniciar revisão (${lista.length})` : '▶ Iniciar revisão';
+}
+function mostrarListaCartoes() {
+    cartEmSessao = false;
+    document.getElementById('cartListaArea').hidden = false;
+    document.getElementById('cartSessao').hidden = true;
+    renderListaCartoes();
+}
+
+/* ---- sessão de revisão ---- */
+function iniciarSessaoCartoes(ids) {
+    cartFila = ids.slice(); cartFeitos = 0; cartMostrando = false; cartEmSessao = true;
+    document.getElementById('cartListaArea').hidden = true;
+    document.getElementById('cartSessao').hidden = false;
+    renderCartao();
+}
+function renderCartao() {
+    const id = cartFila[0], atual = id && progress.cartoes[id];
+    if (!atual) { mostrarListaCartoes(); return; }          /* terminou: volta para a lista do dia */
+    const restantes = cartFila.length;
+    document.getElementById('cartSessaoResumo').textContent = `${restantes} ${restantes === 1 ? 'cartão restante' : 'cartões restantes'}`
+        + (cartFeitos ? ` · ${cartFeitos} revisado${cartFeitos === 1 ? '' : 's'} nesta sessão` : '');
+    document.getElementById('cartOrigem').innerHTML = _rotuloCartao(atual);
+    document.getElementById('cartOrfao').hidden = paresDosGrifos().has(id);
     const [ladoA, ladoB] = atual.dir === 'vf' ? [atual.verso, atual.frente] : [atual.frente, atual.verso];
     document.getElementById('cartFrente').innerHTML = _paraHtml(ladoA || []);
     document.getElementById('cartVerso').innerHTML = _paraHtml(ladoB || []);
@@ -117,18 +175,9 @@ function renderCartao() {
     if (cartMostrando) {
         const estado = estadoCartao(atual);
         notas.querySelectorAll('button[data-nota]').forEach(b => {
-            const g = +b.dataset.nota;
-            b.querySelector('.cartao-quando').textContent = _textoProximo(estado, g);
+            b.querySelector('.cartao-quando').textContent = _textoProximo(estado, +b.dataset.nota);
         });
     }
-}
-async function abrirTelaCartoes() {
-    try { await loadDisciplinas(); } catch {}
-    cartFila = cartoesDeHoje().map(x => x.id);
-    cartFeitos = 0; cartMostrando = false;
-    preencherFiltrosExportacao();
-    renderCartao();
-    showScreen(cartoesScreen);
 }
 function avaliarCartao(g) {
     const id = cartFila[0], c = id && progress.cartoes[id];
@@ -137,12 +186,36 @@ function avaliarCartao(g) {
     c.revisoes.push({ data: new Date().toISOString(), nota: g });
     setDirty(true); salvarBackup();
     cartFila.shift();
-    if (g === 1) cartFila.push(id);               /* Errei: volta no fim da sessão de hoje */
+    if (g === 1) cartFila.push(id);               /* Errei: volta no fim da sessão */
     cartFeitos++; cartMostrando = false;
     renderCartao();
 }
+
+async function abrirTelaCartoes() {
+    try { await loadDisciplinas(); } catch {}
+    cartDiaSel = isoDoDia(Date.now());
+    preencherFiltrosExportacao();
+    mostrarListaCartoes();
+    showScreen(cartoesScreen);
+}
 cartoesBtnHome.addEventListener('click', abrirTelaCartoes);
-document.getElementById('backFromCartoesBtn').addEventListener('click', () => { showHome(); showScreen(authScreen); });
+document.getElementById('backFromCartoesBtn').addEventListener('click', () => {
+    if (cartEmSessao) { mostrarListaCartoes(); return; }
+    showHome(); showScreen(authScreen);
+});
+document.getElementById('cartDiaAnt').addEventListener('click', () => { cartDiaSel = somarDias(cartDiaSel, -1); renderListaCartoes(); });
+document.getElementById('cartDiaProx').addEventListener('click', () => { cartDiaSel = somarDias(cartDiaSel, 1); renderListaCartoes(); });
+cartDataInput.addEventListener('change', () => { if (cartDataInput.value) { cartDiaSel = cartDataInput.value; renderListaCartoes(); } });
+document.getElementById('cartIniciarBtn').addEventListener('click', () => {
+    const lista = listarCartoesDoDia(cartDiaSel);
+    if (lista.length && cartDiaSel >= isoDoDia(Date.now())) iniciarSessaoCartoes(lista.map(x => x.id));
+});
+const _abrirItem = e => {
+    const it = e.target.closest('.cartao-item');
+    if (it && progress.cartoes[it.dataset.id]) iniciarSessaoCartoes([it.dataset.id]);
+};
+document.getElementById('cartLista').addEventListener('click', _abrirItem);
+document.getElementById('cartLista').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); _abrirItem(e); } });
 document.getElementById('cartMostrarBtn').addEventListener('click', () => { cartMostrando = true; renderCartao(); });
 document.getElementById('cartNotas').addEventListener('click', e => {
     const b = e.target.closest('button[data-nota]');
@@ -169,7 +242,7 @@ document.getElementById('cartAbrirBtn').addEventListener('click', async () => {
     if (c) await abrirQuestaoDoGabarito(c.prova, c.ano, c.questao);
 });
 document.addEventListener('keydown', e => {
-    if (cartoesScreen.classList.contains('hidden') || e.target.closest('input, select, textarea')) return;
+    if (cartoesScreen.classList.contains('hidden') || !cartEmSessao || e.target.closest('input, select, textarea, summary')) return;
     if (!cartMostrando && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); if (cartFila.length) { cartMostrando = true; renderCartao(); } }
     else if (cartMostrando && /^[1-4]$/.test(e.key)) { e.preventDefault(); avaliarCartao(+e.key); }
 });

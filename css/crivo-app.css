@@ -1086,7 +1086,14 @@ body.rodape-oculto .nav-btn:disabled { opacity: .55; }
 .cartoes-conteudo { display: flex; flex-direction: column; gap: 1rem; }
 .cartao { background: #fff; border: 1px solid var(--line); border-radius: 1rem; padding: 1.1rem 1.2rem;
           box-shadow: 0 2px 10px rgba(17,28,85,.07); display: flex; flex-direction: column; gap: .9rem; }
-.cartao[hidden] { display: none; }
+.cartao[hidden], .cartoes-sessao[hidden], #cartListaArea[hidden], #cartIniciarBtn[hidden] { display: none; }
+.cartoes-sessao { display: flex; flex-direction: column; gap: 1rem; }
+.cartao-item { cursor: pointer; }
+.cartao-item:hover, .cartao-item:focus-visible { border-color: var(--navy-600); outline: none; }
+.cartao-selo { font-size: .78rem; font-weight: 700; border-radius: 1rem; padding: .1rem .6rem; color: #fff; }
+.cartao-selo.novo { background: #0f766e; }
+.cartao-selo.nota-1 { background: #b91c1c; } .cartao-selo.nota-2 { background: #b45309; }
+.cartao-selo.nota-3 { background: #15803d; } .cartao-selo.nota-4 { background: #1d4ed8; }
 .cartao-origem { font-size: .82rem; color: var(--muted); font-weight: 600; }
 .cartao-orfao { font-size: .85rem; color: #92400e; background: #fef3c7; border-radius: .6rem; padding: .45rem .7rem; }
 .cartao-orfao[hidden] { display: none; }
@@ -1117,13 +1124,5 @@ body.rodape-oculto .nav-btn:disabled { opacity: .55; }
 .aparencia-btn:disabled { opacity: .45; cursor: not-allowed; }
 #letraValor { min-width: 3em; text-align: center; font-weight: 700; }
 
-/* ---- modo escuro: inversão de cores (imagens e grifos voltam às cores originais) ---- */
-html.tema-escuro { filter: invert(0.9) hue-rotate(180deg); background: #fff; }
-/* invertidos de volta (ficam com as cores originais): imagens, barras escuras e botões coloridos */
-html.tema-escuro img, html.tema-escuro video, html.tema-escuro picture, html.tema-escuro canvas,
-html.tema-escuro .top-bar, html.tema-escuro .progress-header, html.tema-escuro .auth-btn:not(.home-btn-secondary), html.tema-escuro .nav-btn,
-html.tema-escuro .cartao-notas button, html.tema-escuro #crivoToast { filter: invert(1) hue-rotate(180deg); }
-html.tema-escuro .top-bar img, html.tema-escuro .progress-header img { filter: none; }
-/* fundo da tela inicial: claro antes da inversão = escuro na tela */
-html.tema-escuro #authScreen { background: #e4e7ef; animation: none; }
-html.tema-escuro #authScreen::before, html.tema-escuro #authScreen::after { display: none; }
+/* ---- modo escuro: as regras escuras são geradas por js/app/12-aparencia.js a partir destas ---- */
+html.tema-escuro { color-scheme: dark; }
