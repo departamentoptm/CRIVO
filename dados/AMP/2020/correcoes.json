@@ -1726,6 +1726,601 @@
     "reportes": [],
     "reportes_atendidos": []
    }
+  },
+  "AMP-2020-Q6": {
+   "tema": "Pediatria: encefalite herpética e diagnóstico diferencial das meningoencefalites na infância",
+   "aviso_diretriz": null,
+   "gabarito_usado": "B",
+   "secoes_html": {
+    "2.1": "<p><strong>Disciplina:</strong> Pediatria — Infectologia Pediátrica / Neurologia Pediátrica.</p><p><strong>Tema:</strong> Encefalite viral aguda (herpes-vírus simples) em lactente, com foco no reconhecimento do quadro clínico-laboratorial e no achado característico de neuroimagem (áreas de hemorragia bitemporal), em contraste com a meningite tuberculosa e outras meningoencefalites.</p><p><strong>Contextualização:</strong> O tema se encaixa no grande grupo das infecções do sistema nervoso central na infância, que a AMP cobra com frequência em provas de Pediatria. A banca costuma apresentar um caso clínico com febre, alteração do sensório e líquor, pedindo o agente etiológico, a conduta ou o exame complementar. Aqui, o diferencial é a encefalite herpética, cuja apresentação aguda e o achado de neuroimagem (hemorragia/necrose bitemporal) precisam ser reconhecidos rapidamente, pois o atraso no aciclovir piora o prognóstico. A questão exige que o aluno diferencie encefalite viral de meningite tuberculosa, uma confusão clássica em provas.</p>",
+    "2.2": "<p><strong>Conceito-chave:</strong> A encefalite herpética é uma infecção necrosante do parênquima cerebral causada pelo herpes-vírus simples (HSV), geralmente o tipo 1, que acomete preferencialmente os lobos temporais e o sistema límbico. O vírus atinge o SNC por via hematogênica ou neural (reativação do gânglio trigêmeo), causando inflamação, edema e necrose hemorrágica. O quadro clínico típico é de febre, cefaleia, alteração do nível de consciência, convulsões e sinais focais (afasia, hemiparesia, alterações de pares cranianos). O líquor mostra pleocitose linfomononuclear, glicose normal ou levemente reduzida e proteína elevada, com hemácias frequentes. A neuroimagem (TC ou RM) evidencia hipodensidade/hipersinal em lobos temporais, frequentemente bilateral e assimétrico, com áreas de hemorragia. A evolução é aguda, em dias, diferentemente da meningite tuberculosa, que é subaguda/ crônica, com liquor de predomínio linfocitário, proteína muito elevada e glicose baixa, e realce meníngeo basal na neuroimagem. O raciocínio da banca é: quadro agudo febril + encefalopatia + liquor linfomononuclear = encefalite herpética; logo, o achado esperado é hemorragia bitemporal.</p>",
+    "2.3": "<p><strong>Justificativa da resposta correta (alternativa B):</strong> O caso descreve um lactente de 8 meses com febre há 2 dias, irritabilidade, alteração do nível de consciência (Glasgow 12), alteração de pares cranianos e líquor com 120 células, predomínio de monomorfonucleares, glicose 45 mg/dL e proteínas 85 mg/dL. Esse perfil é típico de encefalite viral aguda, e o agente mais provável nessa faixa etária é o HSV. A neuroimagem característica da encefalite herpética mostra áreas de hemorragia e necrose nos lobos temporais, frequentemente bilaterais e assimétricas. Portanto, a alternativa B é a que descreve o achado esperado. A banca considerou a evolução aguda (2 dias) e o liquor com predomínio mononuclear, compatíveis com encefalite viral, e não com meningite tuberculosa, que tem curso subagudo e liquor com proteína muito elevada e glicose baixa.</p>",
+    "2.4": "<p><strong>Alternativa A — Errada.</strong> Hematoma subdural é uma coleção hemática, tipicamente pós-traumática, e não um achado da encefalite herpética. A complicação subdural clássica da meningite bacteriana por <em>Haemophilus influenzae</em> é o derrame/empiema subdural, não o hematoma subdural, e de todo modo não é o achado esperado no quadro descrito. O histórico da AMP já cobrou complicações de meningite bacteriana, mas não hematoma subdural como achado de encefalite viral.</p><p><strong>Alternativa B — Correta.</strong> Áreas de hemorragia bitemporal são o achado clássico da encefalite herpética, decorrente da necrose hemorrágica dos lobos temporais. O quadro agudo com febre, alteração de consciência e liquor linfomononuclear reforça essa etiologia. A banca já abordou encefalite herpética em questão anterior (AMP 2009, questão 3), que tratava de conduta com aciclovir, mas não cobrou o achado de neuroimagem.</p><p><strong>Alternativa C — Errada.</strong> Áreas de desmielinização difusas são sugestivas de encefalomielite aguda disseminada (ADEM) ou de doenças desmielinizantes, que geralmente têm instalação mais arrastada e liquor com poucas células. A AMP já cobrou ADEM em outra questão (AMP 2024, questão 12), mas o quadro aqui é agudo e focal, mais compatível com encefalite herpética.</p><p><strong>Alternativa D — Errada.</strong> Lesão expansiva em fossa posterior sugere tumor, abscesso ou tuberculoma, não sendo o achado típico da encefalite herpética, que acomete preferencialmente lobos temporais.</p><p><strong>Alternativa E — Errada.</strong> Captação de contraste nas meninges é um achado de meningite, especialmente a tuberculosa (realce basal), mas não é o sinal mais característico da encefalite herpética. Além disso, a evolução em 2 dias é aguda demais para tuberculose, e o liquor não mostra o perfil clássico de TB (proteína muito elevada e glicose muito baixa). A banca considerou que o quadro é de encefalite viral, não de meningite tuberculosa.</p>",
+    "2.5": "<p><strong>Palavras-chave e pistas no enunciado:</strong></p><ul><li><strong>Febre há 2 dias:</strong> evolução aguda, favorecendo encefalite viral ou meningite bacteriana, e afastando doenças subagudas como tuberculose.</li><li><strong>Alteração do nível de consciência e irritabilidade:</strong> indicam acometimento encefálico (encefalite), não apenas meníngeo.</li><li><strong>Alteração de pares cranianos:</strong> é mais sugestiva de meningite de base (tuberculosa), mas, no conjunto, a evolução aguda e o liquor linfomononuclear com glicose limítrofe e proteína apenas moderadamente elevada apontam para encefalite viral por HSV.</li><li><strong>Líquor com 120 células, predomínio mononuclear, glicose 45 mg/dL e proteína 85 mg/dL:</strong> perfil linfomononuclear com glicose normal/limítrofe e proteína elevada, típico de encefalite viral; na TB, a proteína costuma ser muito mais elevada e a glicose mais baixa.</li><li><strong>Lactente de 8 meses:</strong> faixa etária em que o HSV é importante agente de encefalite.</li></ul>",
+    "2.6": "<p><strong>Algoritmo de decisão:</strong></p><ol><li>Primeiro, reconhecer a síndrome clínica: febre + alteração de consciência + sinais focais = encefalite até prova em contrário.</li><li>Segundo, analisar o líquor: pleocitose mononuclear com glicose normal/limítrofe e proteína elevada sugere etiologia viral.</li><li>Terceiro, considerar a evolução: quadro agudo (dias) afasta tuberculose e outras doenças subagudas.</li><li>Quarto, lembrar que o HSV é a principal causa de encefalite viral grave, com predileção pelos lobos temporais.</li><li>Quinto, correlacionar com a neuroimagem: hemorragia/necrose bitemporal é o achado clássico.</li><li>Sexto, iniciar aciclovir empírico precocemente, sem esperar confirmação, pois melhora o prognóstico.</li></ol>",
+    "2.7": "<p><strong>Dados para memorizar:</strong></p><ul><li><strong>Fatos que definem:</strong> encefalite herpética = febre + alteração de consciência + convulsões + liquor linfomononuclear + hemorragia bitemporal na neuroimagem.</li><li><strong>Números e doses:</strong> o tema não depende de números específicos para a resposta, mas lembre-se de que a glicose no liquor na encefalite viral costuma ser normal ou levemente reduzida, e a proteína pode estar elevada. Na meningite tuberculosa, a proteína costuma ultrapassar 1 g/L e a glicose é baixa.</li><li><strong>Mnemônicos:</strong> \"Temporal = Herpes\" — o acometimento dos lobos temporais é a marca da encefalite herpética.</li></ul>",
+    "2.8": "<p><strong>Near-neighbours e diagnósticos diferenciais:</strong></p><table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr></thead><tbody><tr><td>Encefalite herpética</td><td>Febre, alteração de consciência, convulsões, sinais focais temporais; liquor linfomononuclear com glicose normal/limítrofe</td><td>RM/TC com hemorragia bitemporal; PCR para HSV no liquor</td><td>Aciclovir intravenoso precoce</td></tr><tr><td>Meningite tuberculosa</td><td>Evolução subaguda, cefaleia, febre, paralisia de pares cranianos; liquor com proteína muito elevada e glicose baixa</td><td>Realce meníngeo basal na RM; pesquisa de BAAR/PCR no liquor</td><td>Esquema anti-tuberculose + corticosteroide</td></tr><tr><td>Meningite bacteriana</td><td>Instalação aguda, rigidez de nuca, liquor com predomínio de polimorfonucleares, glicose baixa e proteína elevada</td><td>Cultura e bacterioscopia do liquor</td><td>Antibióticos empíricos + dexametasona</td></tr></tbody></table>",
+    "2.9": "<p><strong>Variações de abordagem em provas:</strong></p><ul><li><strong>Diagnóstico etiológico:</strong> poderia perguntar qual o agente mais provável diante de um liquor linfomononuclear com hemorragia temporal — resposta: HSV.</li><li><strong>Tratamento:</strong> qual a droga de escolha e quando iniciar — resposta: aciclovir intravenoso imediatamente.</li><li><strong>Complicação:</strong> quais as sequelas neurológicas da encefalite herpética — resposta: déficits cognitivos, convulsões, alterações de memória.</li><li><strong>Prevenção:</strong> não há vacina disponível; a prevenção é evitar contato com lesões herpéticas ativas.</li><li><strong>Diagnóstico diferencial:</strong> como diferenciar de meningite tuberculosa — resposta: evolução aguda, liquor com glicose normal/limítrofe e proteína não tão elevada, e neuroimagem com hemorragia temporal em vez de realce basal.</li></ul>",
+    "2.10": "<p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 20 questões de 15 provas diferentes do acervo (8 do mesmo tema, 6 de tema relacionado e 6 com caso semelhante). A banca alterna entre cobrar tratamento (esquemas antibióticos, dexametasona, duração), prevenção (quimioprofilaxia), conduta inicial e interpretação do liquor. A encefalite herpética já foi tema de questão sobre conduta (AMP 2009, questão 3), mas o achado de neuroimagem não havia sido cobrado.</p><p><strong>Abordagem ainda não cobrada:</strong> O achado específico de neuroimagem da encefalite herpética (hemorragia bitemporal) não havia aparecido em questões anteriores da banca, sendo esta uma abordagem nova. Também não foi cobrada a diferenciação entre encefalite herpética e meningite tuberculosa com base na evolução clínica e no liquor.</p><p><strong>Evolução da cobrança:</strong> As questões anteriores focaram principalmente em meningite bacteriana (agentes, tratamento, profilaxia). Esta questão é de 2020; posteriormente, houve diversificação para encefalomielite aguda disseminada (AMP 2024, questão 12) e outras infecções do SNC, sugerindo que a banca passou a explorar outros quadros infecciosos do SNC.</p><p><strong>O que isso sugere para a próxima prova:</strong> É provável que a banca continue cobrando diagnósticos diferenciais das meningoencefalites, com ênfase em achados de neuroimagem e líquor, além de condutas específicas como o uso precoce de aciclovir. O aluno deve estar atento às características que distinguem encefalite viral de meningite tuberculosa e bacteriana.</p>",
+    "2.11": "<p><strong>Conexão com outros temas:</strong></p><ul><li>Se você viu meningite bacteriana, lembre-se de que o liquor tem predomínio de polimorfonucleares e glicose baixa, enquanto na encefalite viral o predomínio é mononuclear e a glicose é normal/limítrofe.</li><li>Se você viu meningite tuberculosa, lembre-se de que a evolução é subaguda e o achado de neuroimagem é realce meníngeo basal, não hemorragia temporal.</li><li>Se você viu convulsão febril, lembre-se de que a encefalite herpética pode se apresentar com convulsões e alteração de consciência, mas o liquor e a neuroimagem são fundamentais para diferenciar.</li></ul>",
+    "2.12": "<p><strong>Erro do usuário e estratégia de correção:</strong> O erro mais comum é escolher a alternativa E (captação de contraste nas meninges), confundindo o quadro com meningite tuberculosa. Isso ocorre por lacuna de conhecimento sobre a apresentação aguda da encefalite herpética e por erro de interpretação do liquor, que mostra glicose limítrofe e proteína apenas moderadamente elevada, não compatíveis com TB. A ação corretiva é revisar os critérios diferenciais entre encefalite viral e meningite tuberculosa, com ênfase na evolução clínica e nos achados de neuroimagem. Outro erro possível é escolher a alternativa C (desmielinização), por confundir com ADEM, mas a instalação aguda e o liquor com pleocitose moderada favorecem encefalite viral. A estratégia é sempre correlacionar o tempo de evolução com o agente provável.</p>",
+    "2.13": "<p><strong>Conexão com a prática:</strong> Na emergência pediátrica, todo lactente com febre e alteração de consciência deve ter encefalite herpética como hipótese até prova em contrário, iniciando aciclovir intravenoso precocemente, sem aguardar exames confirmatórios. A neuroimagem (RM preferencialmente) e a PCR para HSV no liquor auxiliam no diagnóstico, mas o tratamento não deve ser postergado. O reconhecimento do padrão de hemorragia bitemporal é importante para reforçar a suspeita e justificar a manutenção do aciclovir.</p>",
+    "2.14": "<p><strong>Conceitos relacionados para revisar:</strong></p><ul><li>Encefalite herpética: quadro clínico, liquor, neuroimagem e tratamento.</li><li>Meningite tuberculosa: evolução, liquor, neuroimagem e tratamento.</li><li>Meningite bacteriana: agentes, liquor, tratamento e profilaxia.</li><li>Encefalomielite aguda disseminada (ADEM): diagnóstico diferencial.</li><li>Interpretação do líquor nas infecções do SNC.</li></ul>",
+    "2.15": "<p>1. <strong>Nelson — Tratado de Pediatria</strong> — Infecções do sistema nervoso central: encefalites virais.</p><p>2. <strong>Harrison — Medicina Interna</strong> — Encefalite herpética e meningites.</p><p>3. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC8778027/pdf/pathogens-11-00038.pdf#2#5#2\">the relationship between TBM in children and the health system response, is through</a>. National Institutes of Health (NIH) | (.gov).</p><p>4. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC5399942/table/T2/#1\">Table 2. - Table 2.</a>. National Institutes of Health (NIH) | (.gov) (2016).</p><p>5. <a href=\"https://pubmed.ncbi.nlm.nih.gov/17981170/#1\">Contrast medium-enhanced MRI findings and changes over time in stage I tuberculous meningitis - PubMed - . 2007 Dec;62(12):1206-15.\ndoi: 10.1016/j.crad.2007.06.001. Epub 2007 Sep 27. \n\n# Contrast medium-enhanced MRI findings and chan</a>. National Institutes of Health (NIH) | (.gov) (2007).</p><p>6. Consulta do tema: <a href=\"https://www.uptodate.com/contents/search?search=herpes%20simplex%20encephalitis%20children%20diagnosis%20neuroimaging%20tuberculous%20meningitis%20children%20diagnosis%20viral%20encephalitis%20pediatric%20cerebrospinal%20fluid%20temporal%20lobe%20hemorrhage%20herpes%20encephalitis\">UpToDate</a> · <a href=\"https://www.google.com/search?q=site%3Amsdmanuals.com/pt/profissional%20encefalite%20herp%C3%A9tica%20e%20diagn%C3%B3stico%20diferencial%20das%20meningoencefalites%20na%20inf%C3%A2ncia\">Manual MSD (busca no site)</a> · <a href=\"https://pubmed.ncbi.nlm.nih.gov/?term=herpes%20simplex%20encephalitis%20children%20diagnosis%20neuroimaging%20tuberculous%20meningitis%20children%20diagnosis%20viral%20encephalitis%20pediatric%20cerebrospinal%20fluid%20temporal%20lobe%20hemorrhage%20herpes%20encephalitis\">PubMed</a> <em>(UpToDate exige assinatura institucional)</em>.</p>"
+   },
+   "historico": [
+    {
+     "id": "AMP-2012-Q25",
+     "ano": "2012",
+     "numero": 25,
+     "gabarito": "E",
+     "resumo": "Meningite bacteriana: benefício da dexametasona conforme etiologia e idade",
+     "cobrado": "tratamento",
+     "resposta": "E (não existem evidências sobre o benefício da corticoterapia na infecção meníngea bacteriana)",
+     "relacao": "Mesmo tema: Meningite bacteriana e dexametasona conforme etiologia e idade",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2013-Q11",
+     "ano": "2013",
+     "numero": 11,
+     "gabarito": "C",
+     "resumo": "Meningite bacteriana na infância: afirmações sobre manifestações, liquor, tratamento e profilaxia",
+     "cobrado": "tratamento",
+     "resposta": "C (Estudos realizados em países desenvolvidos são inconclusivos sobre o benefício da corticot…)",
+     "relacao": "Mesmo tema: Meningite bacteriana na infância: manifestações, liquor, tratamento e profilaxia",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2014-Q47",
+     "ano": "2014",
+     "numero": 47,
+     "gabarito": "C",
+     "resumo": "criança com meningite bacteriana: conduta correta no tratamento",
+     "cobrado": "tratamento",
+     "resposta": "C (Manter o tratamento com antibióticos na meningite meningocócica por 5 dias em média.)",
+     "relacao": "Mesmo tema: Meningite bacteriana na infância: tratamento e profilaxia",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2015-Q20",
+     "ano": "2015",
+     "numero": 20,
+     "gabarito": "C",
+     "resumo": "Escolar com meningite bacteriana: condutas diagnósticas e terapêuticas corretas",
+     "cobrado": "conduta inicial",
+     "resposta": "C (I, III, V.)",
+     "relacao": "Mesmo tema: Meningite bacteriana: diagnóstico liquórico e tratamento",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2016-Q45",
+     "ano": "2016",
+     "numero": 45,
+     "gabarito": "E",
+     "resumo": "duração da quimioprofilaxia com rifampicina para contatos de meningite por Haemophilus e meningococo",
+     "cobrado": "prevenção e rastreamento",
+     "resposta": "E (4 e 2 dias.)",
+     "relacao": "Mesmo tema: Meningite por Haemophilus influenzae e quimioprofilaxia",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2024-Q11",
+     "ano": "2024",
+     "numero": 11,
+     "gabarito": "D",
+     "resumo": "meningite bacteriana na infância: esquema antimicrobiano em lactentes e prognóstico",
+     "cobrado": "tratamento",
+     "resposta": "D (As afirmativas I, II e III são verdadeiras.)",
+     "relacao": "Mesmo tema: Meningite bacteriana em lactentes: esquema e prognóstico",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2025-Q17",
+     "ano": "2025",
+     "numero": 17,
+     "gabarito": "E",
+     "resumo": "Meningite bacteriana na infância: duração do tratamento, vancomicina isolada, dexametasona, esquema empírico em lactentes e agentes a partir dos 2 meses",
+     "cobrado": "tratamento",
+     "resposta": "E (A partir dos dois meses de vida os principais agentes são o meningococo, hemófilus e o pne…)",
+     "relacao": "Mesmo tema: Meningite bacteriana infantil: agentes por faixa etária e tratamento",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2026-Q7",
+     "ano": "2026",
+     "numero": 7,
+     "gabarito": "C",
+     "resumo": "lactente com meningite bacteriana e LCR típico: conduta antibiótica imediata e agente etiológico provável",
+     "cobrado": "tratamento",
+     "resposta": "C (Iniciar ceftriaxona associada à vancomicina; o agente mais provável é o Streptococcus pneu…)",
+     "relacao": "Mesmo tema: Lactente com meningite bacteriana e LCR típico: agente e conduta",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2009-Q3",
+     "ano": "2009",
+     "numero": 3,
+     "gabarito": "C",
+     "resumo": "jovem com febre, confusão e hemiparesia, TC com lesão temporal e LCR linfocitário: conduta",
+     "cobrado": "conduta inicial",
+     "resposta": "C (Solicitar PCR para Herpes simples tipo I no LCR e iniciar aciclovir.)",
+     "relacao": "Tema relacionado: Meningoencefalite com LCR linfocitário e neuroimagem, diagnóstico diferencial de meningite",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2012-Q75",
+     "ano": "2012",
+     "numero": 75,
+     "gabarito": "C",
+     "resumo": "agente etiológico mais comum de meningite em pacientes com linfoma",
+     "cobrado": "epidemiologia",
+     "resposta": "C (L. Monocytogenes.)",
+     "relacao": "Tema relacionado: Meningite e identificação do agente etiológico conforme faixa etária",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2016-Q41",
+     "ano": "2016",
+     "numero": 41,
+     "gabarito": "E",
+     "resumo": "afirmação sobre uso de aminoglicosídeos em meningite bacteriana pediátrica e sua penetração no líquor",
+     "cobrado": "tratamento",
+     "resposta": "E (Ambas as assertivas estão incorretas.)",
+     "relacao": "Tema relacionado: Antibioticoterapia e penetração liquórica na meningite bacteriana",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2022-Q19",
+     "ano": "2022",
+     "numero": 19,
+     "gabarito": "E",
+     "resumo": "pré-escolar com meningite e líquor com polimorfonucleares: valor do líquor na definição etiológica",
+     "cobrado": "exame complementar",
+     "resposta": "E (As asserções I e II são proposições falsas.)",
+     "relacao": "Tema relacionado: Análise do liquor na meningite bacteriana e diagnóstico diferencial",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2023-Q15",
+     "ano": "2023",
+     "numero": 15,
+     "gabarito": "B",
+     "resumo": "Lactente com meningite por diplococos gram-negativos: análise de duração do tratamento, corticosteroide e quimioprofilaxia",
+     "cobrado": "tratamento",
+     "resposta": "B (As afirmativas I e III são verdadeiras. A afirmativa II é falsa.)",
+     "relacao": "Tema relacionado: Lactente com meningite: tratamento, corticoide e profilaxia",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2024-Q12",
+     "ano": "2024",
+     "numero": 12,
+     "gabarito": "A",
+     "resumo": "escolar com encefalomielite aguda disseminada: seguimento por RM e diagnóstico diferencial",
+     "cobrado": "exame complementar",
+     "resposta": "A (As asserções I e II são proposições verdadeiras, e a II é uma justificativa da I.)",
+     "relacao": "Tema relacionado: Encefalomielite/desmielinização com RM cerebral, diferencial de encefalopatia e neuroimagem",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2006-Q32",
+     "ano": "2006",
+     "numero": 32,
+     "gabarito": "A",
+     "resumo": "criança com febre e irritabilidade, líquor com pleocitose: interpretação e conduta",
+     "cobrado": "conduta inicial",
+     "resposta": "A (liberação para casa com medicação sintomática.)",
+     "relacao": "Caso semelhante: Criança com febre, irritabilidade e pleocitose no liquor",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2013-Q1",
+     "ano": "2013",
+     "numero": 1,
+     "gabarito": "D",
+     "resumo": "Pré-escolar com pneumonia grave e choque séptico quente: escolha da droga vasoativa",
+     "cobrado": "tratamento",
+     "resposta": "D (noradrenalina)",
+     "relacao": "Caso semelhante: Criança com febre e alteração de consciência evoluindo para choque séptico",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2018-Q74",
+     "ano": "2018",
+     "numero": 74,
+     "gabarito": "C",
+     "resumo": "lactente com alteração de consciência e equimoses após queda não testemunhada: lesão esperada na tomografia",
+     "cobrado": "diagnóstico",
+     "resposta": "C (Hematoma subdural.)",
+     "relacao": "Caso semelhante: Lactente com alteração de consciência: hematoma subdural na tomografia",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2019-Q1",
+     "ano": "2019",
+     "numero": 1,
+     "gabarito": "B",
+     "resumo": "Lactente com meningoencefalite e hipodensidade temporal bilateral: droga fundamental no tratamento",
+     "cobrado": "tratamento",
+     "resposta": "B (aciclovir.)",
+     "relacao": "Caso semelhante: Lactente com síndrome meníngea e hipodensidade temporal bilateral",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2020-Q11",
+     "ano": "2020",
+     "numero": 11,
+     "gabarito": "E",
+     "resumo": "escolar com TCE e piora neurológica: achado indicativo de maior risco",
+     "cobrado": "prognóstico",
+     "resposta": "E (Queda na pontuação da escala de coma.)",
+     "relacao": "Caso semelhante: Criança com alteração de consciência e Glasgow baixo, avaliação neurológica",
+     "tipo": "caso_semelhante"
+    },
+    {
+     "id": "AMP-2025-Q100",
+     "ano": "2025",
+     "numero": 100,
+     "gabarito": "B",
+     "resumo": "jovem com TCE grave e anisocoria: conduta inicial mais apropriada",
+     "cobrado": "conduta inicial",
+     "resposta": "B (Estabelecimento de uma via aérea definitiva através da realização de intubação orotraqueal…)",
+     "relacao": "Caso semelhante: Alteração de consciência e pares cranianos, neuroimagem e conduta",
+     "tipo": "caso_semelhante"
+    }
+   ],
+   "historico_meta": {
+    "metodo": "catalogo+disciplina+lexico+ia_v2",
+    "questoes_da_banca_avaliadas": 2074,
+    "candidatas_pela_triagem": 150,
+    "relevantes": 20,
+    "triagem_truncada": true,
+    "provas_no_acervo": 21,
+    "anos": [
+     "2006",
+     "2026"
+    ],
+    "provas_com_relacionadas": 15,
+    "por_tipo": {
+     "mesmo_tema": 8,
+     "tema_relacionado": 6,
+     "caso_semelhante": 6
+    }
+   },
+   "referencias": {
+    "livros": [
+     {
+      "fonte": "Nelson — Tratado de Pediatria",
+      "secao": "Infecções do sistema nervoso central: encefalites virais"
+     },
+     {
+      "fonte": "Harrison — Medicina Interna",
+      "secao": "Encefalite herpética e meningites"
+     }
+    ],
+    "busca_pubmed": "herpes simplex encephalitis children diagnosis neuroimaging tuberculous meningitis children diagnosis viral encephalitis pediatric cerebrospinal fluid temporal lobe hemorrhage herpes encephalitis",
+    "artigos": [],
+    "fontes_web": [
+     {
+      "titulo": "the relationship between TBM in children and the health system response, is through",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8778027/pdf/pathogens-11-00038.pdf#2#5#2",
+      "site": "National Institutes of Health (NIH) | (.gov)",
+      "data": "",
+      "autoridade": 4
+     },
+     {
+      "titulo": "Table 2. - Table 2.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5399942/table/T2/#1",
+      "site": "National Institutes of Health (NIH) | (.gov)",
+      "data": "2016-11-14",
+      "autoridade": 4
+     },
+     {
+      "titulo": "Contrast medium-enhanced MRI findings and changes over time in stage I tuberculous meningitis - PubMed - . 2007 Dec;62(12):1206-15.\ndoi: 10.1016/j.crad.2007.06.001. Epub 2007 Sep 27. \n\n# Contrast medium-enhanced MRI findings and chan",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17981170/#1",
+      "site": "National Institutes of Health (NIH) | (.gov)",
+      "data": "2007-09-26",
+      "autoridade": 4
+     },
+     {
+      "titulo": "The Many Faces of Central Nervous System Tuberculosis",
+      "url": "https://epos.myesr.org/poster/esr/ecr2013/C-2347/Imaging%20findings%20OR%20Procedure#poster",
+      "site": "ESR | European Society of Radiology",
+      "data": "2013-03-06",
+      "autoridade": 4
+     },
+     {
+      "titulo": "Neurotuberculose: relato de caso com diagnóstico por imagem",
+      "url": "https://bioscience.org.br/bioscience/index.php/bioscience/article/download/226/141#1#1#1",
+      "site": "",
+      "data": "",
+      "autoridade": 3
+     },
+     {
+      "titulo": "Introdução: Tuberculose miliar ocorre pela disseminação hematogênica do Mycobacterium tuberculosis",
+      "url": "https://www.sprs.com.br/sprs2013/bancoimg/210823164323bcped_09_01.pdf#34#36#34",
+      "site": "Sociedade de Pediatria do RS",
+      "data": "",
+      "autoridade": 3
+     }
+    ]
+   },
+   "afirmacoes_criticas": [
+    "A encefalite herpética é a principal causa de encefalite viral grave, com predileção pelos lobos temporais, e o achado clássico de neuroimagem é hemorragia/necrose bitemporal.",
+    "A alteração de pares cranianos é mais sugestiva de meningite de base (tuberculosa) do que de encefalite herpética, mas o conjunto (evolução aguda e liquor linfomononuclear com glicose limítrofe e proteína moderadamente elevada) aponta para encefalite viral por HSV.",
+    "O hematoma subdural é uma coleção hemática tipicamente pós-traumática; a complicação subdural clássica da meningite bacteriana por Haemophilus influenzae é o derrame/empiema subdural, não o hematoma subdural."
+   ],
+   "resolucao_cega": {
+    "alternativa": "E",
+    "confianca": 0.75,
+    "concorda_com_gabarito": false
+   },
+   "verificacao": {
+    "aprovado": true,
+    "rodada": 2,
+    "modelo": "deepseek-flash",
+    "tipo": "conferencia",
+    "problemas_leves": []
+   },
+   "origem": "api_v2",
+   "modelo": "deepseek-flash",
+   "gerado_em": "2026-11-23T00:45:00Z",
+   "revisao": {
+    "status": "nao_revisado",
+    "alertas": [
+     "ia_discorda_do_gabarito"
+    ],
+    "reportes": [],
+    "reportes_atendidos": []
+   }
+  },
+  "AMP-2020-Q10": {
+   "tema": "Pediatria: sífilis congênita — classificação e tratamento do recém-nascido",
+   "aviso_diretriz": "Pelo PCDT/MS 2019 e protocolos atuais, RN assintomático de mãe adequadamente tratada, com VDRL ≤ materno e exames normais, é classificado como exposto e não recebe antibiótico (alternativa A). A alternativa D reflete protocolo que trata sífilis congênita latente com benzatina dose única.",
+   "gabarito_usado": "D",
+   "secoes_html": {
+    "2.1": "<p><strong>Disciplina:</strong> Pediatria — Infectologia Pediátrica / Neonatologia.</p><p><strong>Tema:</strong> Sífilis congênita: classificação do recém-nascido (RN) e indicação de tratamento antibiótico.</p><p><strong>Contextualização:</strong> A sífilis congênita é uma infecção de transmissão vertical com grande impacto perinatal, sendo tema recorrente em provas de residência. A questão cobra a conduta diante de um RN assintomático, filho de mãe com sífilis tratada adequadamente, com VDRL reagente em título igual ao materno e exames complementares normais. O ponto central é diferenciar o RN exposto (que não necessita de antibiótico) do RN com sífilis congênita latente (que necessita de tratamento). A banca, no entanto, adotou uma interpretação em que o VDRL reagente no RN é suficiente para o diagnóstico de sífilis congênita latente, indicando penicilina benzatina em dose única. É fundamental compreender o raciocínio da banca e, ao mesmo tempo, conhecer a recomendação atual do Ministério da Saúde, que classifica esse RN como exposto e não indica tratamento.</p>",
+    "2.2": "<p><strong>Conceito-chave e fisiopatologia:</strong> A sífilis congênita resulta da transmissão transplacentária do <em>Treponema pallidum</em> da gestante infectada para o concepto. Os anticorpos IgG maternos atravessam a placenta, podendo gerar VDRL reagente no RN mesmo na ausência de infecção. Por isso, o título do VDRL no RN deve ser comparado ao materno: títulos iguais ou menores sugerem transferência passiva de anticorpos, enquanto títulos quatro vezes maiores (duas diluições) ou mais indicam infecção ativa. A avaliação do RN inclui exame físico, VDRL, hemograma, análise do líquor, raio X de ossos longos e, quando disponível, outros exames. A presença de alterações clínicas ou laboratoriais define sífilis congênita sintomática ou neurossífilis, que requerem tratamento com penicilina cristalina por 10 dias. A ausência de alterações, mas com VDRL reagente, pode ser classificada como sífilis congênita latente, tratada com penicilina benzatina em dose única. Já o RN exposto (mãe adequadamente tratada, RN assintomático, VDRL ≤ materno e exames normais) não necessita de antibiótico, apenas seguimento sorológico. A banca, no caso em questão, considerou o VDRL reagente como evidência de infecção latente, optando pela benzatina.</p>",
+    "2.3": "<p><strong>Justificativa da resposta correta (alternativa D):</strong> A banca considerou que o RN apresenta sífilis congênita latente, pois o VDRL foi reagente (1:4), mesmo com título igual ao materno, e os exames complementares (hemograma, líquor e raio X) eram normais, afastando neurossífilis e formas graves. Nessa classificação, o tratamento indicado é penicilina benzatina em dose única (50.000 UI/kg IM), conforme protocolos que tratam a sífilis congênita latente. A alternativa D é, portanto, a correta para a banca. É importante ressaltar que a recomendação atual do Ministério da Saúde (PCDT 2019) classifica esse RN como exposto e não indica tratamento antibiótico, mas a banca adotou a interpretação de que o VDRL reagente é suficiente para o diagnóstico de sífilis congênita latente.</p>",
+    "2.4": "<p><strong>Alternativa A — Errada.</strong> A conduta de liberar com orientações seria correta se o RN fosse classificado como exposto (mãe adequadamente tratada, RN assintomático, VDRL ≤ materno e exames normais). No entanto, a banca considerou o VDRL reagente como evidência de sífilis congênita latente, tornando a alternativa A incorreta para o gabarito. O tema já apareceu em questão anterior (AMP 2008, questão 42), que tratava de RN assintomático de mãe tratada com eritromicina (tratamento inadequado), cujo gabarito foi C (penicilina cristalina).</p><p><strong>Alternativa B — Errada.</strong> Penicilina cristalina por 7 dias não é esquema recomendado para sífilis congênita. O tratamento com penicilina cristalina é reservado para neurossífilis ou formas graves, geralmente por 10 dias.</p><p><strong>Alternativa C — Errada.</strong> Penicilina cristalina por 10 dias é indicada para sífilis congênita sintomática ou neurossífilis, não para formas latentes/assintomáticas. Como o RN não tem alterações clínicas ou laboratoriais, esse esquema não se aplica.</p><p><strong>Alternativa D — Correta.</strong> Penicilina benzatina em dose única é o tratamento da sífilis congênita latente (assintomática, sem neurossífilis) segundo a interpretação da banca. A questão cobra exatamente esse conceito.</p><p><strong>Alternativa E — Errada.</strong> Manter em observação hospitalar e tratar se desenvolver clínica não é conduta recomendada; o RN com sífilis congênita latente deve ser tratado imediatamente, e não aguardar sintomas.</p>",
+    "2.5": "<p><strong>Palavras-chave e pistas no enunciado:</strong></p><ul><li><strong>Mãe com sífilis adequadamente tratada:</strong> indica que o tratamento materno foi completo, mas não exclui a possibilidade de infecção congênita; é preciso avaliar o RN.</li><li><strong>VDRL materno 1:4:</strong> título baixo, mas reagente; serve de comparação com o VDRL do RN.</li><li><strong>RN assintomático:</strong> ausência de sinais clínicos de sífilis congênita.</li><li><strong>VDRL do RN 1:4:</strong> título igual ao materno; pode representar transferência passiva de anticorpos ou infecção latente.</li><li><strong>Hemograma, líquor e raio X normais:</strong> afastam neurossífilis e formas graves, permitindo classificar como latente ou exposto.</li></ul>",
+    "2.6": "<p><strong>Algoritmo de decisão:</strong></p><ol><li>Primeiro, verificar se a mãe foi adequadamente tratada (esquema completo, penicilina, início oportuno, títulos decrescentes).</li><li>Segundo, avaliar o RN: exame físico, VDRL, hemograma, líquor e raio X de ossos longos.</li><li>Terceiro, comparar o VDRL do RN com o materno: títulos iguais ou menores sugerem exposição; títulos quatro vezes maiores indicam infecção.</li><li>Quarto, se houver alterações clínicas ou laboratoriais (incluindo neurossífilis), tratar com penicilina cristalina por 10 dias.</li><li>Quinto, se o RN estiver assintomático, com exames normais, mas VDRL reagente, classificar como sífilis congênita latente e tratar com penicilina benzatina dose única (segundo a banca).</li><li>Sexto, se o RN for classificado como exposto (mãe adequadamente tratada, VDRL ≤ materno, exames normais), não tratar e acompanhar com VDRL seriado.</li></ol>",
+    "2.7": "<p><strong>Dados para memorizar:</strong></p><ul><li><strong>Fatos que definem:</strong> Sífilis congênita latente = RN assintomático, exames normais, VDRL reagente; tratamento com penicilina benzatina dose única. Neurossífilis = alterações no líquor; tratamento com penicilina cristalina por 10 dias.</li><li><strong>Números e doses:</strong> Penicilina benzatina 50.000 UI/kg IM dose única para sífilis congênita latente. Penicilina cristalina 100.000 UI/kg/dia EV por 10 dias para neurossífilis. VDRL do RN quatro vezes maior que o materno indica infecção.</li><li><strong>Mnemônicos:</strong> \"Benzatina para latente, Cristalina para grave\" — ajuda a lembrar os esquemas.</li></ul>",
+    "2.8": "<p><strong>Near-neighbours e diagnósticos diferenciais:</strong></p><table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr></thead><tbody><tr><td>Sífilis congênita latente</td><td>RN assintomático, exames normais, VDRL reagente</td><td>VDRL reagente, líquor normal, raio X normal</td><td>Penicilina benzatina dose única</td></tr><tr><td>Sífilis congênita sintomática/neurossífilis</td><td>Hepatomegalia, esplenomegalia, icterícia, alterações ósseas, neurológicas</td><td>Alterações no líquor (pleocitose, hiperproteinorraquia), VDRL no líquor reagente, raio X com periostite</td><td>Penicilina cristalina EV por 10 dias</td></tr><tr><td>RN exposto (sem infecção)</td><td>Assintomático, VDRL ≤ materno, exames normais</td><td>VDRL não reagente ou igual ao materno, exames normais</td><td>Não tratar; seguimento sorológico</td></tr></tbody></table>",
+    "2.9": "<p><strong>Variações de abordagem em provas:</strong></p><ul><li><strong>Diagnóstico:</strong> cobrar critérios para sífilis congênita (VDRL quatro vezes maior, alterações clínicas ou laboratoriais).</li><li><strong>Tratamento:</strong> indicar esquema correto conforme classificação (benzatina vs cristalina).</li><li><strong>Complicação:</strong> reconhecer neurossífilis e suas manifestações.</li><li><strong>Prevenção:</strong> rastreamento pré-natal e tratamento materno adequado.</li></ul>",
+    "2.10": "<p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 9 das 21 provas da banca (2006–2026), sendo 1 do mesmo tema e 8 de tema relacionado. A banca alterna entre cobrar diagnóstico, tratamento e prevenção, com ênfase em sífilis na gestação e conduta no RN.</p><p><strong>Abordagem ainda não cobrada:</strong> Não foi identificada questão sobre sífilis congênita tardia ou manifestações clínicas específicas em crianças maiores.</p><p><strong>Evolução da cobrança:</strong> As questões evoluíram de temas gerais (transmissão vertical, diagnóstico) para condutas específicas no RN, como visto nesta prova e na AMP 2008.</p><p><strong>O que isso sugere para a próxima prova:</strong> A banca pode voltar a cobrar classificação e tratamento do RN, incluindo a diferenciação entre exposto e latente, além de esquemas antibióticos.</p>",
+    "2.11": "<p><strong>Conexão com outros temas:</strong></p><ul><li>Se você viu sífilis na gestação, lembre-se de que o tratamento materno adequado é fundamental para prevenir a congênita.</li><li>Se você viu neurossífilis, lembre-se de que o líquor alterado indica penicilina cristalina por 10 dias.</li><li>Se você viu VDRL no RN, lembre-se de comparar com o título materno para diferenciar exposição de infecção.</li></ul>",
+    "2.12": "<p><strong>Erro do usuário e estratégia de correção:</strong> O erro mais comum é escolher a alternativa A, aplicando o conceito atual de RN exposto, sem considerar a interpretação da banca de que o VDRL reagente indica sífilis congênita latente. Isso é uma lacuna de conhecimento sobre a classificação adotada pela banca. A estratégia é revisar os critérios de classificação e as recomendações do Ministério da Saúde, além de praticar questões que abordem a conduta no RN. Outro erro é confundir os esquemas de tratamento (benzatina vs cristalina), o que pode levar a escolher B ou C. Para corrigir, é importante memorizar as indicações de cada esquema.</p>",
+    "2.13": "<p><strong>Conexão com a prática:</strong> Na prática clínica, é essencial classificar corretamente o RN para evitar tratamento desnecessário ou omissão. O seguimento sorológico é fundamental para confirmar a ausência de infecção nos casos de exposição. A decisão terapêutica deve ser baseada em protocolos atualizados, mas é preciso estar atento às interpretações adotadas em provas.</p>",
+    "2.14": "<p><strong>Conceitos relacionados para revisar:</strong></p><ul><li>Critérios de tratamento materno adequado.</li><li>Interpretação do VDRL no RN.</li><li>Diagnóstico de neurossífilis congênita.</li><li>Esquemas de tratamento da sífilis congênita.</li><li>Seguimento sorológico do RN exposto.</li></ul>",
+    "2.15": "<p>1. <strong>Nelson — Tratado de Pediatria</strong> — Sífilis congênita.</p><p>2. <strong>Protocolos e cadernos do Ministério da Saúde</strong> — Sífilis congênita.</p><p>3. Cooper JM et al. <a href=\"https://pubmed.ncbi.nlm.nih.gov/29627075/\">Congenital syphilis</a>. <em>Semin Perinatol</em>, 2018. PMID 29627075. DOI: <a href=\"https://doi.org/10.1053/j.semperi.2018.02.005\">10.1053/j.semperi.2018.02.005</a>.</p><p>4. Rowe CR et al. <a href=\"https://pubmed.ncbi.nlm.nih.gov/30020089/\">Congenital Syphilis: A Discussion of Epidemiology, Diagnosis, Management, and Nurses&#x27; Role in Early Identification and Treatment</a>. <em>Adv Neonatal Care</em>, 2018. PMID 30020089. DOI: <a href=\"https://doi.org/10.1097/ANC.0000000000000534\">10.1097/ANC.0000000000000534</a>.</p><p>5. <a href=\"https://bvsms.saude.gov.br/bvs/publicacoes/doencas_infecciosas_guia_bolso_7ed_2008.pdf#49#59#49\">• Recém-nascidos de mães adequadamente tratadas - Nos recém- nascidos de mães adequadamente tratadas: realizar o VDRL em amostra...</a>. Biblioteca Virtual em Saúde.</p><p>6. <a href=\"https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hu-ufgd/acesso-a-informacao/pops-protocolos-e-processos/gad/prt-ctes-001-manejo-da-sifilis-materno-infantil-v-2.pdf/#1#4#1\">&lt;table&gt;&lt;tr&gt;&lt;td&gt;Tipo do Documento&lt;/td&gt;&lt;td&gt;PROTOCOLO&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;PRT</a>. GOV.BR.</p><p>7. <a href=\"https://bvsms.saude.gov.br/bvs/publicacoes/legislacao_dst_aids_brasil.pdf#43#192#43\">8 - Tratamento - A penicilina é o antibiótico de eleição para o tratamento da sífilis</a>. Biblioteca Virtual em Saúde.</p><p>8. Consulta do tema: <a href=\"https://www.uptodate.com/contents/search?search=congenital%20syphilis%20management%20newborn%20syphilis%20pregnancy%20treatment%20neonatal%20syphilis%20diagnosis%20penicillin%20congenital%20syphilis%20syphilis%20screening%20prenatal\">UpToDate</a> · <a href=\"https://www.google.com/search?q=site%3Amsdmanuals.com/pt/profissional%20s%C3%ADfilis%20cong%C3%AAnita%20classifica%C3%A7%C3%A3o%20e%20tratamento%20do%20rec%C3%A9m-nascido\">Manual MSD (busca no site)</a> · <a href=\"https://pubmed.ncbi.nlm.nih.gov/?term=congenital%20syphilis%20management%20newborn%20syphilis%20pregnancy%20treatment%20neonatal%20syphilis%20diagnosis%20penicillin%20congenital%20syphilis%20syphilis%20screening%20prenatal\">PubMed</a> <em>(UpToDate exige assinatura institucional)</em>.</p>"
+   },
+   "historico": [
+    {
+     "id": "AMP-2008-Q42",
+     "ano": "2008",
+     "numero": 42,
+     "gabarito": "C",
+     "resumo": "recém-nascido assintomático de mãe com sífilis tratada com eritromicina: conduta com penicilina cristalina",
+     "cobrado": "tratamento",
+     "resposta": "C (Penicilina benzatina 50.000 U IM em dose única.)",
+     "relacao": "Mesmo tema: RN assintomático de mãe com sífilis tratada: conduta com penicilina cristalina",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2012-Q60",
+     "ano": "2012",
+     "numero": 60,
+     "gabarito": "B",
+     "resumo": "Úlcera vulvar indolor e corrimento fétido: sífilis primária e vaginose bacteriana",
+     "cobrado": "diagnóstico",
+     "resposta": "B (as afirmativas 1, 4 e 5 são FALSAS.)",
+     "relacao": "Tema relacionado: sífilis primária como diagnóstico diferencial de úlcera genital",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2014-Q29",
+     "ano": "2014",
+     "numero": 29,
+     "gabarito": "C",
+     "resumo": "Sífilis na gestação: diagnóstico, rastreamento e transmissão vertical, identificando a incorreta",
+     "cobrado": "diagnóstico",
+     "resposta": "C (A transmissão vertical da sífilis primária e secundária ocorre em menos de 5% dos casos nã…)",
+     "relacao": "Tema relacionado: sífilis na gestação: diagnóstico, rastreamento e transmissão vertical",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2018-Q1",
+     "ano": "2018",
+     "numero": 1,
+     "gabarito": "B",
+     "resumo": "Jovem com úlcera indolor de bordos endurecidos na língua e linfadenopatia: diagnóstico provável e tratamento de escolha",
+     "cobrado": "tratamento",
+     "resposta": "B (penicilina.)",
+     "relacao": "Tema relacionado: sífilis primária: diagnóstico e tratamento de escolha com penicilina",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2019-Q95",
+     "ano": "2019",
+     "numero": 95,
+     "gabarito": "C",
+     "resumo": "Sífilis na gestação: diagnóstico, tratamento e transmissão vertical, identificando a alternativa incorreta",
+     "cobrado": "diagnóstico",
+     "resposta": "C (A transmissão vertical da sífilis primária e secundária ocorre em menos de 5% dos casos nã…)",
+     "relacao": "Tema relacionado: sífilis gestacional e congênita: diagnóstico, tratamento e transmissão vertical",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2021-Q59",
+     "ano": "2021",
+     "numero": 59,
+     "gabarito": "D",
+     "resumo": "conhecimentos gerais sobre sífilis: diagnóstico, tratamento e acompanhamento",
+     "cobrado": "diagnóstico",
+     "resposta": "D (O cancro duro, característico da sífilis primária, por ser indolor, pode passar despercebi…)",
+     "relacao": "Tema relacionado: sífilis: diagnóstico, testes e tratamento com penicilina",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2022-Q31",
+     "ano": "2022",
+     "numero": 31,
+     "gabarito": "D",
+     "resumo": "sífilis na gestação: rastreamento com VDRL, transmissão vertical e tratamento",
+     "cobrado": "prevenção e rastreamento",
+     "resposta": "D (As afirmativas I, II e III são verdadeiras.)",
+     "relacao": "Tema relacionado: sífilis gestacional, VDRL pré-natal e transmissão vertical",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2024-Q94",
+     "ano": "2024",
+     "numero": 94,
+     "gabarito": "E",
+     "resumo": "gestante de 28 semanas com VDRL 1:64 sem tratamento prévio: conduta adequada",
+     "cobrado": "tratamento",
+     "resposta": "E (Penicilina G benzatina 2,4 milhões de unidades, IM, semanalmente, totalizando 3 doses.)",
+     "relacao": "Tema relacionado: tratamento da sífilis na gestação com penicilina benzatina",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2026-Q92",
+     "ano": "2026",
+     "numero": 92,
+     "gabarito": "D",
+     "resumo": "Gestante de 8 semanas com exames de pré-natal: conduta diante de urocultura positiva e sorologias",
+     "cobrado": "conduta inicial",
+     "resposta": "D (Solicitar teste oral de tolerância à glicose (TOTG) 75 g; estimular hábitos alimentares sa…)",
+     "relacao": "Tema relacionado: sífilis na gestação e conduta diante de sorologias no pré-natal",
+     "tipo": "tema_relacionado"
+    }
+   ],
+   "historico_meta": {
+    "metodo": "catalogo+disciplina+lexico+ia_v2",
+    "questoes_da_banca_avaliadas": 2074,
+    "candidatas_pela_triagem": 150,
+    "relevantes": 9,
+    "triagem_truncada": true,
+    "provas_no_acervo": 21,
+    "anos": [
+     "2006",
+     "2026"
+    ],
+    "provas_com_relacionadas": 9,
+    "por_tipo": {
+     "mesmo_tema": 1,
+     "tema_relacionado": 8,
+     "caso_semelhante": 0
+    }
+   },
+   "referencias": {
+    "livros": [
+     {
+      "fonte": "Nelson — Tratado de Pediatria",
+      "secao": "Sífilis congênita"
+     },
+     {
+      "fonte": "Protocolos e cadernos do Ministério da Saúde",
+      "secao": "Sífilis congênita"
+     }
+    ],
+    "busca_pubmed": "congenital syphilis management newborn syphilis pregnancy treatment neonatal syphilis diagnosis penicillin congenital syphilis syphilis screening prenatal",
+    "artigos": [
+     {
+      "pmid": "29627075",
+      "titulo": "Congenital syphilis",
+      "revista": "Semin Perinatol",
+      "ano": "2018",
+      "doi": "10.1053/j.semperi.2018.02.005",
+      "autores": "Cooper JM et al."
+     },
+     {
+      "pmid": "30020089",
+      "titulo": "Congenital Syphilis: A Discussion of Epidemiology, Diagnosis, Management, and Nurses' Role in Early Identification and Treatment",
+      "revista": "Adv Neonatal Care",
+      "ano": "2018",
+      "doi": "10.1097/ANC.0000000000000534",
+      "autores": "Rowe CR et al."
+     }
+    ],
+    "fontes_web": [
+     {
+      "titulo": "• Recém-nascidos de mães adequadamente tratadas - Nos recém- nascidos de mães adequadamente tratadas: realizar o VDRL em amostra...",
+      "url": "https://bvsms.saude.gov.br/bvs/publicacoes/doencas_infecciosas_guia_bolso_7ed_2008.pdf#49#59#49",
+      "site": "Biblioteca Virtual em Saúde",
+      "data": "",
+      "autoridade": 4
+     },
+     {
+      "titulo": "<table><tr><td>Tipo do Documento</td><td>PROTOCOLO</td><td colspan=\"2\">PRT",
+      "url": "https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hu-ufgd/acesso-a-informacao/pops-protocolos-e-processos/gad/prt-ctes-001-manejo-da-sifilis-materno-infantil-v-2.pdf/#1#4#1",
+      "site": "GOV.BR",
+      "data": "",
+      "autoridade": 4
+     },
+     {
+      "titulo": "8 - Tratamento - A penicilina é o antibiótico de eleição para o tratamento da sífilis",
+      "url": "https://bvsms.saude.gov.br/bvs/publicacoes/legislacao_dst_aids_brasil.pdf#43#192#43",
+      "site": "Biblioteca Virtual em Saúde",
+      "data": "",
+      "autoridade": 4
+     },
+     {
+      "titulo": "penicilina G procafna 50.000UI/kg/dose, intramuscular (IM), uma vez por dia, durante",
+      "url": "https://ares.unasus.gov.br/acervo/bitstream/ARES/27864/1/Marialva_Passos_Cianeli.pdf#4#5#4",
+      "site": "Acervo de Recursos Educacionais em Saúde",
+      "data": "",
+      "autoridade": 4
+     },
+     {
+      "titulo": "No teste não treponêmico, um título maior que o materno em pelo menos duas diluições (ex",
+      "url": "https://arca.fiocruz.br/bitstreams/6628159c-84bd-4e75-9469-408109938ce9/download#4#9#4",
+      "site": "Fundação Oswaldo Cruz (Fiocruz)",
+      "data": "",
+      "autoridade": 4
+     },
+     {
+      "titulo": "A - Para todos os RN de mães com sífilis não tratada ou inadequadamente tratada, independentemente do resultado do teste não tre...",
+      "url": "https://www.prefeitura.sp.gov.br/cidade/secretarias/upload/saude/arquivos/linha_de_cuidados-ISTsAids_2019-atualizada.pdf#16#22#16",
+      "site": "Prefeitura de São Paulo",
+      "data": "",
+      "autoridade": 4
+     }
+    ]
+   },
+   "afirmacoes_criticas": [
+    "RN assintomático de mãe adequadamente tratada, com VDRL ≤ materno e exames normais, é classificado como exposto e não recebe antibiótico pelo PCDT/MS 2019.",
+    "A banca considerou o VDRL reagente (1:4) como evidência de sífilis congênita latente, indicando penicilina benzatina dose única.",
+    "Sífilis congênita latente é tratada com penicilina benzatina 50.000 UI/kg IM dose única.",
+    "Neurossífilis congênita requer penicilina cristalina 100.000 UI/kg/dia EV por 10 dias.",
+    "VDRL no RN quatro vezes maior que o materno indica infecção ativa.",
+    "O seguimento sorológico é essencial para o RN exposto."
+   ],
+   "resolucao_cega": {
+    "alternativa": "A",
+    "confianca": 0.96,
+    "concorda_com_gabarito": false
+   },
+   "verificacao": {
+    "aprovado": true,
+    "rodada": 2,
+    "modelo": "deepseek-flash",
+    "tipo": "conferencia",
+    "problemas_leves": []
+   },
+   "origem": "api_v2",
+   "modelo": "deepseek-flash",
+   "gerado_em": "2026-11-23T00:53:53Z",
+   "revisao": {
+    "status": "nao_revisado",
+    "alertas": [
+     "ia_discorda_do_gabarito"
+    ],
+    "reportes": [],
+    "reportes_atendidos": []
+   }
   }
  }
 }
