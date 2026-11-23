@@ -1,7 +1,7 @@
 {
  "formato": "crivo-gastos",
  "teto_usd": 30.0,
- "gasto_usd": 0.481,
+ "gasto_usd": 0.5036,
  "observacao": "Gastos anteriores a esta atualização não foram registrados aqui: some o valor que aparece no painel do DeepSeek em gasto_usd.",
  "correcoes_geradas": 10,
  "execucoes": [
@@ -22,6 +22,12 @@
    "acao": "gerar AMP 2020 1-10",
    "custo_usd": 0.2063,
    "chamadas": 87
+  },
+  {
+   "data": "2026-11-23T00:24Z",
+   "acao": "gerar AMP 2020 6",
+   "custo_usd": 0.0226,
+   "chamadas": 11
   }
  ]
 }
