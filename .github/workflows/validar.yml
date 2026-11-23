@@ -3,9 +3,9 @@ name: Validar dados
 
 on:
   push:
-    paths: ["dados/**", "ferramentas/**", "gabarito.json", "js/**"]
+    paths: ["dados/**", "ferramentas/**", "gabarito.json", "js/**", "css/**", "index.html", "testes/**"]
   pull_request:
-    paths: ["dados/**", "ferramentas/**", "gabarito.json", "js/**"]
+    paths: ["dados/**", "ferramentas/**", "gabarito.json", "js/**", "css/**", "index.html", "testes/**"]
 
 jobs:
   validar:
@@ -31,3 +31,18 @@ jobs:
           cp -r dados /tmp/dados_teste
           python ferramentas/gerar_correcoes.py --simular --dados /tmp/dados_teste --relatorios /tmp/rel \
             gerar --banca "$(ls dados | grep -v indice | head -1)" --limite 1 --modo todas --nao-esperar-pico
+
+  interface:
+    # abre o site num navegador de verdade e confere as funções principais (testes/testar_interface.py)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Instalar o navegador de teste
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Testes da interface
+        run: python testes/testar_interface.py
