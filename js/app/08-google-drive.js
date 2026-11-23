@@ -158,7 +158,9 @@ function mesclarProgresso(a, b) {
     const maisNovo = (x, y) => (!x ? y || null : !y ? x : (String(y.atualizado || '') > String(x.atualizado || '') ? y : x));
     return { registro, grifados, resetados, ultimaPosicao, avaliacoes, grifosApagados,
              cartoes: mesclarCartoes(a.cartoes, b.cartoes),
-             plano: maisNovo(a.plano, b.plano), metaDiaria: maisNovo(a.metaDiaria, b.metaDiaria) };
+             plano: maisNovo(a.plano, b.plano), metaDiaria: maisNovo(a.metaDiaria, b.metaDiaria),
+             simulados: [...new Map([...(a.simulados || []), ...(b.simulados || [])].filter(s => s && s.id).map(s => [s.id, s])).values()]
+                 .sort((x, y) => String(x.inicio).localeCompare(String(y.inicio))) };
 }
 /* cartões dos grifos: as revisões dos dois lados são somadas; "apagado" vale a data mais recente */
 function mesclarCartoes(a, b) {
@@ -178,7 +180,8 @@ function mesclarCartoes(a, b) {
 
 function driveAssinatura() {
     return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || [],
-                           progress.cartoes || {}, progress.grifosApagados || {}, progress.plano || null, progress.metaDiaria || null]);
+                           progress.cartoes || {}, progress.grifosApagados || {}, progress.plano || null, progress.metaDiaria || null,
+                           progress.simulados || []]);
 }
 function driveDadosParaNuvem() {
     return JSON.stringify({
@@ -193,7 +196,8 @@ function driveDadosParaNuvem() {
         cartoes: progress.cartoes || {},
         grifosApagados: progress.grifosApagados || {},
         plano: progress.plano || null,
-        metaDiaria: progress.metaDiaria || null
+        metaDiaria: progress.metaDiaria || null,
+        simulados: progress.simulados || []
     });
 }
 
@@ -227,7 +231,7 @@ async function sincronizarDrive(interativo) {
         if (remoto) {
             const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao,
                            avaliacoes: progress.avaliacoes, cartoes: progress.cartoes, grifosApagados: progress.grifosApagados,
-                           plano: progress.plano, metaDiaria: progress.metaDiaria };
+                           plano: progress.plano, metaDiaria: progress.metaDiaria, simulados: progress.simulados };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
             driveSalvandoInterno = true;
             try { salvarBackup(); } finally { driveSalvandoInterno = false; }

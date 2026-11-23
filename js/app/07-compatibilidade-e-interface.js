@@ -270,7 +270,7 @@ aplicarModoTempo(uiPrefs.modoTempo, true);
 const maxTimeTodasInput = document.getElementById('maxTimeTodasInput');
 maxTimeTodasInput.value = uiPrefs.maxTodas;
 function checarLimiteTotal(el) {
-    if (modoTempo !== 'todas' || limiteTotalAvisado || !(uiPrefs.maxTodas > 0)) return;
+    if (modoTempo !== 'todas' || limiteTotalAvisado || !(uiPrefs.maxTodas > 0) || modoSimulado) return;
     if (el >= uiPrefs.maxTodas * 60000) {
         limiteTotalAvisado = true;
         setTimeout(() => alert('Tempo máximo total atingido (' + uiPrefs.maxTodas + ' min).'), 0);

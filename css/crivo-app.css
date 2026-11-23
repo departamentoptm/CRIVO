@@ -1179,5 +1179,34 @@ body.rodape-oculto .nav-btn:disabled { opacity: .55; }
     .desemp-disc > summary .desemp-barra { grid-column: 1 / -1; }
 }
 
+/* ---- simulado ---- */
+.sim-barra { display: flex; align-items: center; justify-content: center; gap: .9rem; flex-wrap: wrap; padding: .4rem .8rem;
+             background: #fef3c7; color: #78350f; font-weight: 700; font-size: .9rem; border-bottom: 1px solid #f5d77a; }
+.sim-barra[hidden] { display: none; }
+.sim-barra button { border: none; background: #b45309; color: #fff; font-weight: 700; border-radius: .6rem; padding: .35rem .8rem; cursor: pointer; }
+body.modo-simulado #refazerBtn, body.modo-simulado #historicoBtn, body.modo-simulado #ankiBtn,
+body.modo-simulado .top-bar-left .multiselect, body.modo-simulado #disciplinaSelector, body.modo-simulado #temaSelector,
+body.modo-simulado #toggleFiltrosBtn, body.modo-simulado .filtros-wrap, body.modo-simulado .timer-container,
+body.modo-simulado #grupoAviso { display: none !important; }
+.sim-check { flex-direction: row !important; align-items: center; gap: .4rem; }
+.sim-grupo { grid-column: 1 / -1; border: 1px solid var(--line); border-radius: .6rem; padding: .5rem .8rem; display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+.sim-grupo legend { font-weight: 700; font-size: .85rem; color: var(--ink); padding: 0 .3rem; }
+.sim-grupo legend small { font-weight: 500; color: var(--muted); }
+.sim-grupo label { display: inline-flex; flex-direction: row; align-items: center; gap: .3rem; font-weight: 500; font-size: .88rem; }
+.sim-itens { display: flex; flex-direction: column; gap: .35rem; }
+.sim-item { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: .5rem; align-items: center; padding: .4rem .6rem;
+            border: 1px solid var(--line); border-left-width: 4px; border-radius: .6rem; font-size: .88rem; }
+.sim-certa { border-left-color: #16a34a; } .sim-errada { border-left-color: #dc2626; } .sim-branco { border-left-color: #b45309; }
+.sim-anulada { border-left-color: #6b7280; }
+.sim-res { font-weight: 700; white-space: nowrap; }
+.sim-notas { display: inline-flex; gap: .25rem; }
+.sim-notas button { border: 1px solid var(--line-strong); background: #fff; border-radius: .5rem; padding: .2rem .45rem; font-size: .78rem; cursor: pointer; }
+.sim-notas button.ativo { background: var(--navy); color: #fff; border-color: var(--navy); }
+.sim-abrir { padding: .2rem .6rem; min-height: 30px; font-size: .8rem; }
+@media (max-width: 560px) {
+    .sim-item { grid-template-columns: minmax(0, 1fr) auto; }
+    .sim-notas { grid-column: 1 / 2; }
+}
+
 /* ---- modo escuro: as regras escuras são geradas por js/app/12-aparencia.js a partir destas ---- */
 html.tema-escuro { color-scheme: dark; }

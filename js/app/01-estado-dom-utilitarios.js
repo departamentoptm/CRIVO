@@ -47,6 +47,8 @@ function disciplinaDe(banca, ano, num) {
 }
 /* lista fixa de temas (dados/temas_padrao.json, gerado pelo Actions > Gerar correções > temas-padrao) */
 let temasPadrao = null;
+/* simulado em andamento (js/app/14-simulado.js); enquanto existir, respostas não vão para o progresso */
+let modoSimulado = null;
 function temaInfo(banca, ano, num) { return temasPadrao?.questoes?.[`${banca}-${ano}-Q${num}`] || null; }
 function temaDe(banca, ano, num) { const t = temaInfo(banca, ano, num); return t && t.tema ? t.tema : null; }
 

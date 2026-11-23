@@ -1,8 +1,12 @@
-# Botão "Run workflow": traz os erros reportados pelos estudantes (Formulário Google) para o correcoes.json
-# e abre um pull request. Não usa IA. Depois de aprovar o PR, rode "Gerar correções" no modo pendentes.
-# Pré-requisito (uma vez): Settings > Secrets and variables > Actions > aba Variables > New repository variable
-#   nome: URL_REPORTES_CSV   valor: link "Publicar na Web" (formato CSV) da planilha de respostas do formulário
-name: Importar erros reportados
+# Botão "Run workflow": traz os formulários do Google para o site e abre um pull request. Não usa IA.
+#   - erros reportados pelos estudantes  -> correções marcadas para refazer   (variável URL_REPORTES_CSV)
+#   - revisões da liga                   -> selo "revisada" ou refazer         (variável URL_REVISOES_CSV)
+#   - dúvidas respondidas pela liga      -> dados/duvidas.json                 (variável URL_DUVIDAS_CSV)
+# Cada parte só roda se a variável existir. Depois de aprovar o PR, rode "Gerar correções" no modo pendentes
+# para refazer as correções apontadas.
+# Variáveis (uma vez): Settings > Secrets and variables > Actions > aba Variables > New repository variable,
+#   com o link "Publicar na Web" (formato CSV) da planilha de respostas de cada formulário. Veja o LEIAME.
+name: Importar formulários (reportes, revisões e dúvidas)
 
 on:
   workflow_dispatch:
@@ -23,25 +27,40 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - name: Importar reportes
+      - name: Importar
         env:
-          URL_CSV: ${{ vars.URL_REPORTES_CSV }}
+          URL_REPORTES: ${{ vars.URL_REPORTES_CSV }}
+          URL_REVISOES: ${{ vars.URL_REVISOES_CSV }}
+          URL_DUVIDAS: ${{ vars.URL_DUVIDAS_CSV }}
         run: |
-          if [ -z "$URL_CSV" ]; then
-            echo "::error::Crie a variável URL_REPORTES_CSV (veja o LEIAME, seção 'Quando um estudante reporta um erro')."; exit 1
+          if [ -z "$URL_REPORTES$URL_REVISOES$URL_DUVIDAS" ]; then
+            echo "::error::Crie ao menos uma das variáveis URL_REPORTES_CSV, URL_REVISOES_CSV ou URL_DUVIDAS_CSV (veja o LEIAME)."; exit 1
           fi
-          python ferramentas/importar_reportes.py --csv "$URL_CSV" --dados dados --relatorio relatorios/reportes.md
+          : > relatorios_formularios.md
+          if [ -n "$URL_REPORTES" ]; then
+            python ferramentas/importar_reportes.py --csv "$URL_REPORTES" --dados dados --relatorio relatorios/reportes.md
+            cat relatorios/reportes.md >> relatorios_formularios.md
+          fi
+          if [ -n "$URL_REVISOES" ]; then
+            python ferramentas/importar_revisoes.py --csv "$URL_REVISOES" --dados dados --relatorio relatorios/revisoes.md
+            cat relatorios/revisoes.md >> relatorios_formularios.md
+          fi
+          if [ -n "$URL_DUVIDAS" ]; then
+            python ferramentas/importar_duvidas.py --csv "$URL_DUVIDAS" --dados dados --relatorio relatorios/duvidas.md
+            cat relatorios/duvidas.md >> relatorios_formularios.md
+          fi
           python ferramentas/gerar_indice.py --dados dados
-          cat relatorios/reportes.md >> "$GITHUB_STEP_SUMMARY"
+          cat relatorios_formularios.md >> "$GITHUB_STEP_SUMMARY"
       - name: Abrir pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nenhum reporte novo."; exit 0; fi
-          ramo="reportes/$(date -u +%Y%m%d-%H%M%S)"
+          if [ -z "$(git status --porcelain -- dados)" ]; then echo "Nada novo nos formulários."; exit 0; fi
+          ramo="formularios/$(date -u +%Y%m%d-%H%M%S)"
           git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
           git checkout -b "$ramo"
-          git add dados relatorios/reportes.md
-          git commit -m "Erros reportados pelos estudantes"
+          git add dados
+          for f in relatorios/reportes.md relatorios/revisoes.md relatorios/duvidas.md; do [ -f "$f" ] && git add "$f"; done
+          git commit -m "Formulários: reportes, revisões e dúvidas"
           git push origin "$ramo"
-          gh pr create --title "Erros reportados pelos estudantes" --body-file relatorios/reportes.md --base "${{ github.ref_name }}" --head "$ramo"
+          gh pr create --title "Formulários: reportes, revisões e dúvidas" --body-file relatorios_formularios.md --base "${{ github.ref_name }}" --head "$ramo"
