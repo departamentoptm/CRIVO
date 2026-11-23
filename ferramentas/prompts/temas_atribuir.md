@@ -7,6 +7,10 @@ mostra o que é cobrado).
 
 Regras:
 - Uma entrada para cada questão recebida, com o id exatamente igual.
-- Use só números da lista. Use o tema "Outros…" apenas se nenhum outro servir.
+- Use os números da lista sempre que algum tema servir, mesmo que não seja perfeito.
+- Só se o assunto não couber em NENHUM tema (assunto novo na disciplina), use "novo_tema" com o nome de um tema
+  novo, com o mesmo nível de generalidade dos temas da lista (um grande assunto, não um detalhe). Use o mesmo
+  nome para questões do mesmo assunto novo.
 
-Responda somente com JSON: {"atribuicoes": [{"id": "<id>", "tema": <número>}]}
+Responda somente com JSON:
+{"atribuicoes": [{"id": "<id>", "tema": <número>}, {"id": "<id>", "novo_tema": "<nome>"}]}

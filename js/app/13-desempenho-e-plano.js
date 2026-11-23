@@ -104,26 +104,17 @@ function questoesDeHoje() {
     (progress.registro || []).forEach(e => { if (e.acao === 'confirmou' && isoDoDia(+new Date(e.data)) === hoje) s.add(_chaveQ(e.prova, e.ano, e.questao)); });
     return s.size;
 }
-function atualizarMetaHoje() {
-    const el = document.getElementById('metaHoje');
-    if (!el || !currentRA) return;
-    const meta = progress.metaDiaria && +progress.metaDiaria.valor > 0 ? +progress.metaDiaria.valor : 0;
-    const feitas = questoesDeHoje(), seq = sequenciaDeDias();
-    const partes = [meta ? `🎯 Hoje: ${feitas}/${meta} ${meta === 1 ? 'questão' : 'questões'}${feitas >= meta ? ' ✅' : ''}` : `🎯 Definir meta diária${feitas ? ` (hoje: ${feitas})` : ''}`];
-    if (seq) partes.push(`🔥 ${_plural(seq, 'dia seguido', 'dias seguidos')}`);
-    el.textContent = partes.join('  ·  ');
-    el.title = 'Toque para definir quantas questões quer resolver por dia. A sequência conta os dias com pelo menos 1 questão ou 1 cartão.';
+function metaDiariaAtual() {
+    return progress.metaDiaria && +progress.metaDiaria.valor > 0 ? +progress.metaDiaria.valor : 0;
 }
-document.getElementById('metaHoje').addEventListener('click', () => {
-    const atual = progress.metaDiaria && +progress.metaDiaria.valor > 0 ? +progress.metaDiaria.valor : '';
-    const r = prompt('Quantas questões você quer resolver por dia? (0 desliga a meta)', atual);
-    if (r === null) return;
-    const v = Math.max(0, Math.min(500, parseInt(r) || 0));
-    progress.metaDiaria = { valor: v, atualizado: new Date().toISOString() };
-    setDirty(true); salvarBackup(); atualizarMetaHoje();
-});
-const _showHomeMeta = showHome;
-showHome = function () { _showHomeMeta(); try { atualizarMetaHoje(); } catch (e) { console.warn('meta:', e); } };
+function blocoMetaDiaria() {
+    const meta = metaDiariaAtual(), feitas = questoesDeHoje();
+    return '<section class="desemp-bloco"><h2>🎯 Meta diária</h2><div class="plano-form">'
+        + `<label>Questões por dia (0 desliga) <input type="number" id="metaValor" min="0" max="500" value="${meta}"></label>`
+        + '<div class="plano-botoes"><button type="button" class="aparencia-btn" id="metaSalvarBtn">Salvar meta</button></div></div>'
+        + `<p class="plano-destaque" id="metaProgresso">${meta ? `Hoje: <b>${feitas}/${meta}</b> ${meta === 1 ? 'questão' : 'questões'}${feitas >= meta ? ' ✅ meta cumprida' : ''}`
+                                                      : `Sem meta definida. Hoje: ${_plural(feitas, 'questão', 'questões')}.`}</p></section>`;
+}
 
 /* ---------- tela: abas ---------- */
 let abaAtual = 'desempenho';
@@ -183,7 +174,7 @@ function renderDesempenho() {
         + '<p class="desemp-nota">Considera a primeira resposta de cada questão (antes de ver a correção). Anuladas e excluídas ficam de fora.</p>';
     h += '<section class="desemp-bloco"><h2>🎯 Pontos fracos</h2>';
     if (!temasPadrao) h += '<p class="desemp-nota">Os temas das questões ainda não foram classificados. Rode Actions → Gerar correções → ação <b>temas-padrao</b>.</p>';
-    else if (!fracos.length) h += `<p class="desemp-nota">Nenhum tema com menos de ${LIMITE_PONTO_FRACO * 100}% de acerto entre os que têm pelo menos ${MINIMO_PONTO_FRACO} questões respondidas. 👏</p>`;
+    else if (!fracos.length) h += `<p class="desemp-nota">Nenhum tema com menos de ${LIMITE_PONTO_FRACO * 100}% de acerto entre os que têm pelo menos ${MINIMO_PONTO_FRACO} questões respondidas.</p>`;
     else {
         h += '<div class="desemp-lista">' + fracos.map((f, i) => `<div class="desemp-linha"><span class="desemp-nome">${escapeHtml(f.t)} <small>${escapeHtml(f.d)}</small></span>`
             + `<span class="desemp-num">${f.certas}/${f.n} · ${_pct(f.certas, f.n)}%</span>${_barra(f.certas, f.n)}`
@@ -279,7 +270,7 @@ function renderPlano() {
     const pl = planoAtivo();
     const bancas = Object.keys(exams || {}).sort();
     const v = pl || { prova: bancas[0] || '', data: '', horasSemana: 10, diasSemana: 6, minPorQuestao: _minutosPorQuestaoDoAluno() };
-    let h = '<section class="desemp-bloco"><h2>⚙️ Meu plano</h2><div class="plano-form">'
+    let h = blocoMetaDiaria() + '<section class="desemp-bloco"><h2>⚙️ Meu plano</h2><div class="plano-form">'
         + `<label>Prova alvo <select id="planoProva">${bancas.map(b => `<option ${b === v.prova ? 'selected' : ''}>${escapeHtml(b)}</option>`).join('')}</select></label>`
         + `<label>Data da prova <input type="date" id="planoData" value="${escapeHtml(v.data || '')}" min="${isoDoDia(Date.now())}"></label>`
         + `<label>Horas de estudo por semana <input type="number" id="planoHoras" min="1" max="100" value="${v.horasSemana}"></label>`
@@ -312,7 +303,11 @@ function renderPlano() {
 }
 document.getElementById('painelPlano').addEventListener('click', async e => {
     const el = e.currentTarget, id = e.target.id;
-    if (id === 'planoSalvarBtn') {
+    if (id === 'metaSalvarBtn') {
+        const v = Math.max(0, Math.min(500, parseInt(document.getElementById('metaValor').value) || 0));
+        progress.metaDiaria = { valor: v, atualizado: new Date().toISOString() };
+        setDirty(true); salvarBackup(); renderPlano();
+    } else if (id === 'planoSalvarBtn') {
         const val = x => document.getElementById(x).value;
         const p = { prova: val('planoProva'), data: val('planoData'), horasSemana: Math.max(1, Math.min(100, +val('planoHoras') || 0)),
                     diasSemana: Math.max(1, Math.min(7, parseInt(val('planoDias')) || 0)), minPorQuestao: Math.max(1, Math.min(10, +val('planoMin') || 3)),
