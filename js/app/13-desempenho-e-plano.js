@@ -415,7 +415,15 @@ function calcularPlano(pl, leve) {
     const minDia = minutosDoDia(disp, dow);
     const revQ = contarRevisoesPendentes(), revC = cartoesDeHoje().length;
     const minRev = revQ * minQ + revC * SEGUNDOS_POR_CARTAO / 60;
-    const novas = Math.max(0, Math.floor((minDia - minRev) / minQ));
+    const novasPeloTempo = Math.max(0, Math.floor((minDia - minRev) / minQ));
+    /* quantas questões cabem hoje pelo tempo médio (descontados os cartões) e o limite diário, se houver:
+       o limite conta revisões + novas; o tempo que sobra vira mais tempo por questão (a previsão do plano
+       continua usando o tempo medido) */
+    const minCartoes = revC * SEGUNDOS_POR_CARTAO / 60;
+    const cabem = Math.max(0, Math.floor((minDia - minCartoes) / minQ));
+    const limite = +pl.limiteDiario > 0 ? +pl.limiteDiario : 0;
+    const novas = limite ? Math.max(0, Math.min(novasPeloTempo, limite - revQ)) : novasPeloTempo;
+    const minPorQuestaoNoLimite = limite ? Math.max(0, minDia - minCartoes) / limite : null;
     const { anos, pesos } = pesosDaProva(_priorizar(pl) ? pl.prova : null);
     const feitas = _novasDeHojePorDisciplina();
     const dist = _distribuir(novas, pesos).map(x => Object.assign(x, { feitas: feitas.get(x.d) || 0 }));
@@ -429,8 +437,9 @@ function calcularPlano(pl, leve) {
         if (hi < 16) { for (let i = 0; i < 12; i++) { const m = (lo + hi) / 2; if (simularPlano(pl, alvo, minQ, m).resta > 0) lo = m; else hi = m; } horasExtra = Math.ceil(minSemana * (hi - 1) / 60); }
         else horasExtra = null;
     }
-    const metaHoje = novas + revQ;
-    return { dias, minDia, minSemana, dow, minQ, mq, revQ, revC, minRev, novas, anos, dist, falt, alvo, sim, horasExtra, metaHoje };
+    const metaHoje = limite ? Math.min(limite, novas + revQ) : novas + revQ;
+    return { dias, minDia, minSemana, dow, minQ, mq, revQ, revC, minRev, novas, anos, dist, falt, alvo, sim, horasExtra, metaHoje,
+             cabem, limite, minPorQuestaoNoLimite };
 }
 function questoesDoPlanoDeHoje(pl, dist, so) {
     let naoFeitas = _questoesDoAcervo().filter(q => !isRealizada(q.b, q.a, q.n));
@@ -455,7 +464,8 @@ function _rascunhoPlano(el) {
     const disp = JSON.parse(JSON.stringify(disponibilidadeDoPlano(pl)));
     ORDEM_DIAS.forEach(d => { if (!Array.isArray(disp[d])) disp[d] = []; });
     if (!pl) [1, 2, 3, 4, 5].forEach(d => { disp[d] = [{ ini: '19:00', fim: '21:00' }]; });
-    el._rasc = { prova: pl ? pl.prova : (bancas[0] || ''), data: pl ? pl.data : '', priorizar: pl ? _priorizar(pl) : true, disponibilidade: disp };
+    el._rasc = { prova: pl ? pl.prova : (bancas[0] || ''), data: pl ? pl.data : '', priorizar: pl ? _priorizar(pl) : true, disponibilidade: disp,
+                 limiteDiario: pl && +pl.limiteDiario > 0 ? +pl.limiteDiario : 0 };
     return el._rasc;
 }
 function _formPlanoHtml(r, pl) {
@@ -467,6 +477,8 @@ function _formPlanoHtml(r, pl) {
         + `<label>Data da prova <input type="date" id="planoData" value="${escapeHtml(r.data || '')}" min="${isoDoDia(Date.now())}"></label>`
         + `<label class="plano-check"><span><input type="checkbox" id="planoPriorizar" ${r.priorizar ? 'checked' : ''}> Priorizar a prova principal</span>`
         + '<small>Desmarcado: as questões novas vêm misturadas de todas as bancas.</small></label>'
+        + `<label class="plano-check"><span><input type="checkbox" id="planoLimiteChk" ${r.limiteDiario ? 'checked' : ''}> Limitar as questões por dia</span>`
+        + `<span class="plano-limite" ${r.limiteDiario ? '' : 'hidden'}><input type="number" id="planoLimite" min="1" max="500" value="${r.limiteDiario || ''}" aria-label="Máximo de questões por dia"> questões no máximo (revisões + novas)</span></label>`
         + '<div class="plano-dias"><div class="plano-dias-tit">Dias e horários disponíveis</div>'
         + ORDEM_DIAS.map(d => {
             const lista = r.disponibilidade[d] || [], on = lista.length > 0;
@@ -496,6 +508,10 @@ function renderPlano() {
             h += `<section class="desemp-bloco"><h2>📆 Hoje</h2><p class="plano-destaque">Faltam <b>${_plural(c.dias, 'dia', 'dias')}</b> para a prova ${prov} (${_dataBr(pl.data)}).</p>`
                 + `<p>Tempo de estudo hoje (${DIAS_SEMANA[c.dow].toLowerCase()}): <b>${c.minDia ? _hm(c.minDia) : 'nenhum'}</b> · na semana: <b>${_hm(c.minSemana)}</b>.</p>`
                 + `<p>Revisões de hoje: ${_plural(c.revQ, 'questão', 'questões')} e ${_plural(c.revC, 'cartão', 'cartões')} (≈ ${_hm(c.minRev)}).</p>`
+                + (c.minDia ? `<p class="plano-capacidade">Pelo seu tempo médio (${String(c.minQ).replace('.', ',')} min por questão), cabem <b>${_plural(c.cabem, 'questão', 'questões')}</b> hoje.`
+                    + (c.limite ? ` Com o seu limite de <b>${c.limite}</b>, você tem <b>${_hm(c.minDia)}</b> hoje e cerca de <b>${String(Math.round(c.minPorQuestaoNoLimite * 10) / 10).replace('.', ',')} min por questão</b>`
+                        + (c.minPorQuestaoNoLimite < c.minQ ? ' — menos que o seu tempo médio: talvez não dê para fazer todas.' : '.')
+                        + (c.revQ >= c.limite ? ' As revisões já ocupam o limite: hoje não entram questões novas.' : '') : '') + '</p>' : '')
                 + '<div class="plano-botoes"><button type="button" class="aparencia-btn" id="planoRevisaoBtn">🔁 Revisão espaçada</button><button type="button" class="aparencia-btn" id="planoCartoesBtn">🃏 Cartões</button></div>'
                 + (c.minDia ? `<p>Questões novas para hoje: <b>${c.novas}</b>${c.novas ? (_priorizar(pl) ? `, distribuídas pelo peso de cada disciplina na ${prov} (${escapeHtml(c.anos.slice(-1)[0] || '')}–${escapeHtml(c.anos[0] || '')}):` : ', misturadas de todas as bancas, pelo peso de cada disciplina no acervo:') : '. As revisões ocupam todo o tempo de hoje.'}</p>`
                     : '<p>Hoje não é um dia de estudo no seu plano: sem questões novas. Se quiser, faça as revisões.</p>');
@@ -527,6 +543,8 @@ function _lerRascunho(el) {
     r.prova = document.getElementById('planoProva')?.value || r.prova;
     r.data = document.getElementById('planoData')?.value || '';
     r.priorizar = !!document.getElementById('planoPriorizar')?.checked;
+    const lim = parseInt(document.getElementById('planoLimite')?.value);
+    r.limiteDiario = document.getElementById('planoLimiteChk')?.checked && lim > 0 ? Math.min(500, lim) : 0;
     el.querySelectorAll('.plano-dia').forEach(linha => {
         const d = +linha.dataset.dia;
         linha.querySelectorAll('input[type=time]').forEach(inp => { const x = r.disponibilidade[d][+inp.dataset.i]; if (x) x[inp.dataset.campo] = inp.value; });
@@ -535,7 +553,10 @@ function _lerRascunho(el) {
 }
 document.getElementById('painelPlano').addEventListener('change', e => {
     const el = e.currentTarget, r = _lerRascunho(el), linha = e.target.closest('.plano-dia');
-    if (linha && e.target.dataset.acao === 'dia') {
+    if (e.target.id === 'planoLimiteChk') {
+        const box = el.querySelector('.plano-limite'); box.hidden = !e.target.checked;
+        if (e.target.checked) { const i = document.getElementById('planoLimite'); if (!i.value) i.value = 30; i.focus(); }
+    } else if (linha && e.target.dataset.acao === 'dia') {
         const d = +linha.dataset.dia;
         r.disponibilidade[d] = e.target.checked ? [{ ini: '19:00', fim: '21:00' }] : [];
         renderPlano();
@@ -560,8 +581,9 @@ document.getElementById('painelPlano').addEventListener('click', async e => {
             if (_min(x.ini) == null || _min(x.fim) == null || _min(x.fim) <= _min(x.ini)) return msg(`${DIAS_SEMANA[d]}: o fim de cada horário deve ser depois do início.`);
         }
         if (!ORDEM_DIAS.some(d => r.disponibilidade[d].length)) return msg('Marque pelo menos um dia de estudo.');
+        if (document.getElementById('planoLimiteChk')?.checked && !r.limiteDiario) return msg('Informe o número máximo de questões por dia.');
         progress.plano = { prova: r.prova, data: r.data, priorizar: r.priorizar, disponibilidade: JSON.parse(JSON.stringify(r.disponibilidade)),
-                           atualizado: new Date().toISOString() };
+                           limiteDiario: r.limiteDiario || null, atualizado: new Date().toISOString() };
         el._rasc = null;
         setDirty(true); salvarBackup(); renderPlano();
     } else if (id === 'planoRemoverBtn') {
