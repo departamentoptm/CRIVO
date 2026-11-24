@@ -149,6 +149,19 @@ def t_revisao(page, url):
     page.click("#revisaoBtnHome")
     page.wait_for_selector("#revisaoScreen:not(.hidden)", timeout=10000)
     assert visivel(page, "#revIniciarBtn"), "botão Iniciar revisão ausente"
+    # histórico: uma revisão programada para ontem e não feita aparece em vermelho; uma feita, em verde
+    page.evaluate("""() => {
+        const t = Date.now() - 6 * 86400000;
+        const reg = progress.registro;
+        reg.push({ acao: 'confirmou', prova: 'AMP', ano: '2026', questao: '3', opcao: 'B', correta: 'A', data: new Date(t).toISOString() });
+        progress = normalizar(progress); _cartoesCache = null;
+    }""")
+    dia = page.evaluate("""() => { const h = historicoRevisoes(); return [...h.keys()].sort().pop() || null; }""")
+    assert dia, "o histórico não encontrou a revisão programada"
+    page.evaluate(f"revDiaSel = '{dia}'; renderTelaRevisao()")
+    assert page.locator("#revLista .rev-perdida, #revLista .rev-feita").count() > 0, "o dia passado não mostra as revisões programadas"
+    assert not visivel(page, "#revIniciarBtn"), "num dia passado não se inicia revisão"
+    assert not page.locator("#revDiaAnt").is_disabled(), "deve ser possível voltar aos dias anteriores"
     page.click("#backFromRevisaoBtn")
 
 
@@ -224,6 +237,10 @@ def t_exportar_cartoes(page, url):
     txt = open(d.value.path(), encoding="utf-8").read()
     assert "#deck column:4" in txt and "Frente de teste\tVerso de teste" in txt, "arquivo do Anki incompleto"
     assert txt.count("Frente de teste") == 1, "o par foi exportado mais de uma vez"
+    for sel in ("#cartExpBanca", "#cartExpAno", "#cartExpDisc", "#cartExpTema"):
+        assert page.locator(sel).count() == 1, f"falta o filtro {sel} na exportação"
+    assert page.locator("#cartExpAno option").count() >= 2, "o filtro de edição não tem opções"
+    assert page.locator("#cartNotas kbd.tecla").count() == 4, "os botões dos cartões devem mostrar as teclas 1 a 4"
 
 
 @teste("cartão sem grifo de origem continua e é marcado")
@@ -323,6 +340,14 @@ def t_desempenho(page, url):
     txt = page.inner_text("#painelDesempenho")
     assert "questões respondidas" in txt and "Evolução semanal" in txt, "painel de desempenho incompleto"
     assert "Tema teste 2" in page.inner_text("#painelDesempenho .desemp-bloco >> nth=0"), "o ponto fraco não apareceu"
+    # gráfico por disciplina e tema: barras divididas, lado a lado e filtros como no Meu gabarito
+    assert page.locator("#desempGrafico .graf-dividida .seg.erro").count() > 0, "as barras divididas não mostram os erros"
+    page.select_option("#dfDisc", "Pediatria"); page.wait_for_timeout(200)
+    assert page.locator("#desempGrafico details.desemp-disc").count() == 1, "o filtro de disciplina não filtrou o gráfico"
+    page.click("#dvLado"); page.wait_for_timeout(200)
+    assert page.locator("#desempGrafico .graf-lado").count() > 0, "a vista lado a lado não apareceu"
+    assert "Disponíveis" in page.inner_text("#desempGrafico"), "a vista lado a lado deve comparar com o total disponível"
+    page.click("#dvDividida"); page.select_option("#dfDisc", "")
     page.click("#estudarFracosBtn")
     page.wait_for_selector("#resolvingScreen:not(.hidden)")
     assert "Pontos fracos" in page.inner_text("#grupoAviso"), "o grupo dos pontos fracos não abriu"
@@ -334,29 +359,34 @@ def t_plano(page, url):
     page.click("#homeBtn"); page.wait_for_selector("#desempenhoBtnHome", state="visible")
     page.click("#desempenhoBtnHome"); page.click("#abaPlano")
     page.fill("#planoData", page.evaluate("somarDias(isoDoDia(Date.now()), 60)"))
-    page.fill("#planoHoras", "12"); page.select_option("#planoProva", "AMP")
+    page.select_option("#planoProva", "AMP")
+    hoje = page.evaluate("new Date().getDay()")
+    linha = f'.plano-dia[data-dia="{hoje}"]'
+    if not page.locator(f"{linha} input[data-acao=dia]").is_checked():
+        page.check(f"{linha} input[data-acao=dia]"); page.wait_for_timeout(100)
+    page.click(f"{linha} [data-acao=add]"); page.wait_for_timeout(100)      # segundo horário no dia de hoje
+    assert page.locator(f"{linha} .plano-horario").count() == 2, "não acrescentou o segundo horário"
     page.click("#planoSalvarBtn")
     txt = page.inner_text("#painelPlano")
     assert "Faltam 60 dias" in txt and "Questões novas para hoje" in txt, "o plano não foi calculado: " + txt[:200]
-    assert page.evaluate("!!progress.plano && progress.plano.horasSemana === 12"), "o plano não foi salvo"
+    assert "Ritmo" in txt or "Todas as questões" in txt, "faltou a situação do plano (ritmo)"
+    assert "No ritmo do plano" not in txt, "a frase antiga do ritmo deveria ter saído"
+    assert page.evaluate(f"!!progress.plano && progress.plano.disponibilidade[{hoje}].length === 2"), "o plano não foi salvo com os horários"
+    assert page.locator("#metaValor").count() == 0, "a meta diária não deve ser escolhida à mão"
     page.click("#planoComecarBtn")
     page.wait_for_selector("#resolvingScreen:not(.hidden)")
     assert "Plano de hoje" in page.inner_text("#grupoAviso"), "as questões do plano não abriram"
     page.click("#grupoSairBtn"); page.wait_for_timeout(300)
 
 
-@teste("meta diária no plano de estudo e sequência no desempenho")
+@teste("meta do dia calculada pelo plano (tela inicial) e sequência no desempenho")
 def t_meta(page, url):
     page.click("#homeBtn") if page.locator("#homeBtn").is_visible() else None
-    assert page.locator("#metaHoje").count() == 0, "a meta diária não deveria estar na tela inicial"
     page.evaluate("abrirTelaDesempenho()"); page.click("#abaDesempenho"); page.wait_for_selector("#painelDesempenho", state="visible")
     assert "dias seguidos" in page.inner_text("#painelDesempenho"), "a sequência deveria estar na aba Desempenho"
-    page.click("#abaPlano"); page.wait_for_selector("#metaValor", state="visible")
-    page.fill("#metaValor", "5"); page.click("#metaSalvarBtn"); page.wait_for_timeout(200)
-    assert page.evaluate("progress.metaDiaria && progress.metaDiaria.valor") == 5, "a meta não foi salva"
-    txt = page.inner_text("#metaProgresso")
-    assert "/5 questões" in txt, f"o progresso da meta não aparece: {txt}"
-    page.click("#abaDesempenho"); page.click("#backFromDesempenhoBtn")
+    page.click("#backFromDesempenhoBtn"); page.wait_for_timeout(200)
+    page.wait_for_selector("#metaPlanoHoje", state="visible")
+    assert "Plano de hoje" in page.inner_text("#metaPlanoHoje"), "a meta do plano deveria aparecer na tela inicial"
     html = page.evaluate("document.body.innerHTML")
     assert "🔥" not in html and "👏" not in html, "ainda há emojis de fogo ou palmas"
     m = page.evaluate("mesclarProgresso({ registro: [], metaDiaria: { valor: 3, atualizado: '2026-01-01' } }, { registro: [], metaDiaria: { valor: 9, atualizado: '2026-02-01' } }).metaDiaria.valor")
@@ -399,6 +429,31 @@ def t_simulado(page, url):
     page.click("#backFromSimuladoBtn")
 
 
+@teste("pausa por inatividade: o tempo para, a tela embaça e 'Continuar estudando' retoma")
+def t_inatividade(page, url):
+    page.click("#homeBtn") if page.locator("#homeBtn").is_visible() else None
+    page.click("#startBtnHome"); page.wait_for_selector("#resolvingScreen:not(.hidden)")
+    page.wait_for_timeout(1500)
+    antes = page.evaluate("relogioAtivo()")
+    page.evaluate("_ultimaAtividade = Date.now() - LIMITE_INATIVIDADE_MS - 1000")
+    page.wait_for_selector("#inatividade:not([hidden])", timeout=5000)
+    assert "você ainda está estudando" in page.inner_text("#inatividade"), "a mensagem de inatividade não apareceu"
+    parado = page.evaluate("relogioAtivo()"); page.wait_for_timeout(1500)
+    assert page.evaluate("relogioAtivo()") == parado, "o tempo deveria ficar parado"
+    assert parado <= antes + 1500, "o período parado não deveria contar"
+    page.click("#inatividadeBtn"); page.wait_for_timeout(1300)
+    assert page.locator("#inatividade").is_hidden(), "a tela não voltou"
+    assert page.evaluate("relogioAtivo()") > parado, "o tempo deveria voltar a contar"
+    assert page.locator("#refazerBtn").count() == 0, "o botão Refazer da barra superior deveria ter saído"
+
+
+@teste("tela inicial: botão Solicitar novas provas")
+def t_solicitar(page, url):
+    page.evaluate("showHome(); showScreen(authScreen)")
+    page.click("#solicitarProvasBtn")
+    assert "ainda não foi configurado" in page.inner_text("#homeMsg"), "sem o link, o botão deve avisar"
+
+
 @teste("página da questão: selo de revisão da liga e dúvidas respondidas")
 def t_selo_duvidas(page, url):
     html = page.evaluate("""() => CrivoRender.montarPagina({ banca: 'AMP', ano: '2020', questoes: [{ id: 'AMP-2020-Q1', numero: 1,
@@ -429,7 +484,7 @@ def main():
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias, t_exportar_cartoes,
                       t_orfao, t_mescla, t_aparencia, t_temas, t_desempenho, t_plano, t_meta,
-                      t_simulado, t_selo_duvidas, t_recarregar):
+                      t_simulado, t_inatividade, t_solicitar, t_selo_duvidas, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

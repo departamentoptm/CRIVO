@@ -24,10 +24,28 @@ const _fmtRestante = ms => { const s = Math.max(0, Math.floor(ms / 1000)); retur
 const _chaveDaAtual = () => { const q = questoes[questaoAtualIndex]; return q ? `${q.exam}|${q.year}|${q.num}` : null; };
 
 /* ---------- tempo por questão (somado enquanto ela está aberta) ---------- */
-function _acumularTempo() {
+function _acumularTempo(ate) {
     if (!modoSimulado || !simChaveAtual || !simInicioQuestao) return;
-    modoSimulado.tempos[simChaveAtual] = (modoSimulado.tempos[simChaveAtual] || 0) + (Date.now() - simInicioQuestao);
+    const fim = ate || Date.now();
+    modoSimulado.tempos[simChaveAtual] = (modoSimulado.tempos[simChaveAtual] || 0) + Math.max(0, fim - simInicioQuestao);
     simInicioQuestao = Date.now();
+}
+/* pausa por inatividade (15-tempo-e-inatividade.js): o relógio da prova para; o tempo da questão conta só
+   até a última atividade */
+const _agoraSim = () => (modoSimulado && modoSimulado.pausadoEm) ? modoSimulado.pausadoEm : Date.now();
+function pausarSimulado(ultimaAtividade) {
+    if (!modoSimulado || modoSimulado.pausadoEm) return;
+    _acumularTempo(Math.max(simInicioQuestao || 0, ultimaAtividade || Date.now()));
+    simInicioQuestao = null;
+    modoSimulado.pausadoEm = Date.now();
+    _gravarSimulado();
+}
+function retomarSimulado() {
+    if (!modoSimulado || !modoSimulado.pausadoEm) return;
+    modoSimulado.fimPrevisto += Date.now() - modoSimulado.pausadoEm;
+    delete modoSimulado.pausadoEm;
+    simInicioQuestao = Date.now();
+    _gravarSimulado(); atualizarBarraSimulado();
 }
 const _carregarQuestaoSim = carregarQuestao;
 carregarQuestao = async function (index) {
@@ -66,12 +84,12 @@ function atualizarBarraSimulado() {
     if (!modoSimulado) return;
     const n = modoSimulado.chaves.length, r = Object.keys(modoSimulado.respostas).filter(k => modoSimulado.chaves.includes(k)).length;
     document.getElementById('simRespondidas').textContent = `${r}/${n} respondidas`;
-    document.getElementById('simTempo').textContent = _fmtRestante(modoSimulado.fimPrevisto - Date.now());
+    document.getElementById('simTempo').textContent = _fmtRestante(modoSimulado.fimPrevisto - _agoraSim());
 }
 setInterval(() => {
     if (!modoSimulado || !currentRA) return;
     atualizarBarraSimulado();
-    if (Date.now() >= modoSimulado.fimPrevisto) finalizarSimulado('tempo');
+    if (!modoSimulado.pausadoEm && Date.now() >= modoSimulado.fimPrevisto) finalizarSimulado('tempo');
     if (!authScreen.classList.contains('hidden')) atualizarBotaoSimuladoHome();
 }, 1000);
 document.getElementById('simFinalizarBtn').addEventListener('click', () => {
@@ -211,7 +229,7 @@ function renderConfigSimulado() {
         + `<fieldset class="sim-grupo" id="simBancas"><legend>Bancas</legend>${bancas.map(b => `<label><input type="checkbox" value="${escapeHtml(b)}" checked> ${escapeHtml(b)}</label>`).join('')}</fieldset>`
         + `<fieldset class="sim-grupo sim-discs" id="simDiscs"><legend>Disciplinas <small>(nenhuma marcada = todas)</small></legend>${discs.map(d => `<label><input type="checkbox" value="${escapeHtml(d)}"> ${escapeHtml(d)}</label>`).join('')}</fieldset>`
         + '<p class="desemp-nota" id="simPool"></p>'
-        + '<div class="plano-botoes"><button type="button" class="auth-btn home-btn-start" id="simIniciarBtn">▶ Iniciar simulado</button></div>'
+        + '<div class="plano-botoes centro"><button type="button" class="auth-btn home-btn-start" id="simIniciarBtn">▶ Iniciar simulado</button></div>'
         + '<p class="desemp-nota" id="simMsg"></p>'
         + '<p class="desemp-nota">Durante o simulado, a correção fica escondida e o relógio não para. No fim, as respostas entram no seu progresso e na revisão espaçada.</p>'
         + '</div></section>';

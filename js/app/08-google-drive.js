@@ -45,11 +45,11 @@ function driveObterToken(interativo) {
                 client_id: DRIVE_CLIENT_ID,
                 scope: DRIVE_SCOPE,
                 callback: (r) => driveResolver && driveResolver(r),
-                error_callback: (e) => driveRejeitar && driveRejeitar(new Error('auth')),
+                error_callback: (e) => driveRejeitar && driveRejeitar(Object.assign(new Error('auth'), { motivo: e && e.type })),
             });
         }
         driveResolver = (r) => {
-            if (!r || r.error || !r.access_token) return rej(new Error('auth'));
+            if (!r || r.error || !r.access_token) return rej(Object.assign(new Error('auth'), { motivo: r && r.error }));
             driveTok = r.access_token;
             driveTokExp = Date.now() + (parseInt(r.expires_in) || 3600) * 1000;
             res(driveTok);
@@ -159,6 +159,7 @@ function mesclarProgresso(a, b) {
     return { registro, grifados, resetados, ultimaPosicao, avaliacoes, grifosApagados,
              cartoes: mesclarCartoes(a.cartoes, b.cartoes),
              plano: maisNovo(a.plano, b.plano), metaDiaria: maisNovo(a.metaDiaria, b.metaDiaria),
+             leituras: Object.assign({}, a.leituras || {}, b.leituras || {}),
              simulados: [...new Map([...(a.simulados || []), ...(b.simulados || [])].filter(s => s && s.id).map(s => [s.id, s])).values()]
                  .sort((x, y) => String(x.inicio).localeCompare(String(y.inicio))) };
 }
@@ -181,7 +182,7 @@ function mesclarCartoes(a, b) {
 function driveAssinatura() {
     return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || [],
                            progress.cartoes || {}, progress.grifosApagados || {}, progress.plano || null, progress.metaDiaria || null,
-                           progress.simulados || []]);
+                           progress.simulados || [], progress.leituras || {}]);
 }
 function driveDadosParaNuvem() {
     return JSON.stringify({
@@ -197,6 +198,7 @@ function driveDadosParaNuvem() {
         grifosApagados: progress.grifosApagados || {},
         plano: progress.plano || null,
         metaDiaria: progress.metaDiaria || null,
+        leituras: progress.leituras || {},
         simulados: progress.simulados || []
     });
 }
@@ -231,7 +233,7 @@ async function sincronizarDrive(interativo) {
         if (remoto) {
             const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao,
                            avaliacoes: progress.avaliacoes, cartoes: progress.cartoes, grifosApagados: progress.grifosApagados,
-                           plano: progress.plano, metaDiaria: progress.metaDiaria, simulados: progress.simulados };
+                           plano: progress.plano, metaDiaria: progress.metaDiaria, simulados: progress.simulados, leituras: progress.leituras };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
             driveSalvandoInterno = true;
             try { salvarBackup(); } finally { driveSalvandoInterno = false; }
@@ -252,7 +254,11 @@ async function sincronizarDrive(interativo) {
     } catch (e) {
         const m = String(e && e.message);
         if (m === 'auth' && !interativo) { driveUltimaTentativa = 0; driveMsg('☁️ Toque em “Sincronizar com Google Drive” (ou em qualquer lugar da tela) para continuar sincronizando.'); }
-        else if (m === 'auth') driveMsg('Não foi possível entrar na conta Google (permissão negada ou janela fechada).', true);
+        else if (m === 'auth') driveMsg({
+            popup_failed_to_open: 'O navegador bloqueou a janela do Google. Permita janelas (pop-ups) para este site e tente de novo.',
+            popup_closed: 'A janela do Google foi fechada antes de terminar. Tente de novo.',
+            access_denied: 'A permissão não foi concedida. Se apareceu "Acesso bloqueado", o CRIVO ainda está em teste no Google: avise o centro acadêmico.',
+        }[e.motivo] || 'Não foi possível entrar na conta Google (permissão negada ou janela fechada).', true);
         else if (m === 'gis') driveMsg('Não foi possível carregar o login do Google. Verifique a conexão.', true);
         else if (m === 'invalido') driveMsg('O arquivo de progresso no Drive está inválido. Nada foi sobrescrito.', true);
         else driveMsg('Falha ao sincronizar (' + m + '). Seu progresso continua salvo neste aparelho.', true);

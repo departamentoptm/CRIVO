@@ -265,6 +265,37 @@ não feitas, e o tempo total. Durante o simulado a correção e o gabarito ficam
 e a tela de resultado mostra o acerto geral e por disciplina, com Difícil/Bom/Fácil para cada questão.
 O histórico dos simulados vai para o arquivo de progresso e para o Google Drive.
 
+## Desempenho e plano de estudo
+
+- **Desempenho:** acerto pela última resposta de cada questão; gráfico por disciplina e tema (ou por banca)
+  com os mesmos filtros do Meu gabarito, em barras divididas (acertos, erros e não respondidas, somando o total
+  disponível) ou lado a lado (disponíveis, acertos e erros); pontos fracos, evolução semanal e dias seguidos.
+- **Plano de estudo:** prova principal (com a opção de priorizá-la ou misturar todas as bancas), data da prova
+  e os horários disponíveis em cada dia da semana. As horas da semana e do dia saem desses horários. O tempo do
+  dia vai primeiro para as revisões (questões e cartões); o resto vira questões novas, ainda não feitas,
+  distribuídas pelo peso das disciplinas. Uma simulação dia a dia, com as revisões que o FSRS vai programar,
+  diz se o ritmo basta para terminar a tempo ("Ritmo adequado") ou quantas horas por semana faltam. A meta do
+  dia (questões novas + revisões) aparece na tela inicial.
+- **Tempo por questão:** medido pelo próprio aluno: até confirmar a resposta e lendo a correção até sair da
+  questão, só com a aba visível, no máximo 20 minutos por questão (mediana das últimas 300 respostas, contando
+  as refeitas; 3 minutos até haver 20 respostas). O tempo de leitura fica em `progress.leituras`.
+- **Pausa por inatividade:** 20 minutos sem mexer o mouse, digitar, rolar ou tocar, com tempo correndo
+  (questões, simulado ou cartões): o tempo para, o período parado não conta, o cronômetro e o relógio do
+  simulado param, a tela embaça e aparece "Amigo, você ainda está estudando?" até tocar em "Continuar estudando".
+
+## Solicitar novas provas
+
+O botão **📨 Solicitar novas provas** da tela inicial abre um Formulário Google. Crie o formulário com os
+campos: banca (obrigatório), ano ou edição, link da prova, número de questões por prova e quantidade de provas
+anteriores (todos opcionais, menos a banca). Em **Enviar → link**, copie o endereço e cole em
+`URL_SOLICITAR_PROVAS`, no fim de `js/app/10-inicio-filtros-e-grupos.js`. Até lá, o botão avisa que o
+formulário não foi configurado. As respostas ficam na planilha do formulário.
+
+## Google Drive para todos os alunos
+
+Veja `GUIA-GOOGLE-DRIVE.md`: publicar o app no Google Cloud (qualquer conta passa a sincronizar) e pedir a
+verificação de marca (nome e logo do CRIVO na tela de permissão). O logo de 120 × 120 está em `img/`.
+
 ## Custos e configuração (`ferramentas/config_gerador.json`)
 
 - **Teto acumulado do projeto:** `dados/gastos.json` guarda quanto já foi gasto (`gasto_usd`) e o teto

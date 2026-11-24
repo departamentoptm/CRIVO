@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p _site/exams
           cp index.html sobre.html privacidade.html previa.html .nojekyll _site/
-          cp -r js css dados _site/
+          cp -r js css dados img _site/
           rm -f _site/js/app/LEIA-ME.md
           cp exams/disciplinas.json _site/exams/
           # versão nos endereços de css/js: o navegador baixa de novo a cada publicação

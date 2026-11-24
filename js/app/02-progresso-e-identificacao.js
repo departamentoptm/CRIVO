@@ -68,6 +68,7 @@ function normalizar(d) {
                 grifosApagados: (d.grifosApagados && typeof d.grifosApagados === 'object') ? d.grifosApagados : {},
                 plano: (d.plano && typeof d.plano === 'object') ? d.plano : null,
                 metaDiaria: (d.metaDiaria && typeof d.metaDiaria === 'object') ? d.metaDiaria : null,
+                leituras: (d.leituras && typeof d.leituras === 'object') ? d.leituras : {},
                 simulados: Array.isArray(d.simulados) ? d.simulados : [] };
     p.grifados = p.grifados.filter(g => !(g && g.id && p.grifosApagados[g.id]));   /* grifo apagado em outro aparelho */
     if (p.registro.length) p.registro.forEach(ev => aplicarEvento(p.estado, ev));
@@ -199,6 +200,7 @@ function exportarProgresso() {
         grifosApagados: progress.grifosApagados || {},
         plano: progress.plano || null,
         metaDiaria: progress.metaDiaria || null,
+        leituras: progress.leituras || {},
         simulados: progress.simulados || []
     };
     const a = document.createElement('a');

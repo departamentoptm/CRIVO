@@ -150,7 +150,8 @@ window.addEventListener('message', (event) => {
     if (data.type === 'OPTION_SELECTED') {
         saveProgressForQuestion(currentExam, currentYear, q.num, { selected: data.payload.selected });
     } else if (data.type === 'QUESTION_ANSWERED') {
-        const tempoMs = questaoStartTime ? (Date.now() - questaoStartTime) : undefined;
+        const tempoMs = typeof tempoAteConfirmar === 'function' ? tempoAteConfirmar()
+            : (questaoStartTime ? (Date.now() - questaoStartTime) : undefined);
         saveProgressForQuestion(currentExam, currentYear, q.num, {
             selected: data.payload.selected,
             correct: data.payload.correct,
@@ -215,28 +216,17 @@ progressBtnResolving.addEventListener('click', async () => {
 });
 
 /* ============================================================
-   FAB-BAR: Refazer / Histórico
+   FAB-BAR: Histórico (refazer fica nos botões da própria questão)
    ============================================================ */
 function updateFabBarButtons() {
     const q = questoes[questaoAtualIndex];
     if (!q || !currentExam || !currentYear || resolvingScreen.classList.contains('hidden')) {
-        refazerBtn.hidden = true; historicoBtn.hidden = true;
+        historicoBtn.hidden = true;
         return;
     }
-    const e = progress.estado?.[currentExam]?.[currentYear]?.[q.num];
-    const conf = !!(e && e.correct);
-    const reset = isResetada(currentExam, currentYear, q.num);
-    refazerBtn.hidden = !(conf && !reset);
     historicoBtn.hidden = respostasAnteriores(currentExam, currentYear, q.num).length === 0;
 }
 
-refazerBtn.addEventListener('click', async () => {
-    const q = questoes[questaoAtualIndex];
-    if (!q) return;
-    refazerQuestao(currentExam, currentYear, q.num);
-    updateFabBarButtons();
-    await carregarQuestao(questaoAtualIndex);
-});
 
 historicoBtn.addEventListener('click', () => {
     const q = questoes[questaoAtualIndex];
