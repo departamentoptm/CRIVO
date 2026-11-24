@@ -1,4 +1,5 @@
-# Botão "Run workflow" (aba Actions) que gera correções via API e abre um pull request para revisão.
+# Botão "Run workflow" (aba Actions) que gera correções via API, abre um pull request e o aprova sozinho
+# depois de validar os dados (as correções reprovadas pela revisão automática não entram).
 # Pré-requisitos (uma vez):
 #   1. Settings > Secrets and variables > Actions > New repository secret: DEEPSEEK_API_KEY
 #   2. Settings > Actions > General > Workflow permissions: marcar
@@ -44,6 +45,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write               # para disparar "Publicar site" depois de aprovar o PR sozinho
 
 concurrency:
   group: dados-crivo            # nunca duas tarefas mexendo em dados/ ao mesmo tempo
@@ -90,6 +92,7 @@ jobs:
           glob=()
           [ "$SIMULAR" = "true" ] && glob=(--simular)
           cp dados/gastos.json "$RUNNER_TEMP/gastos_antes.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/gastos_antes.json"
+          touch "$RUNNER_TEMP/inicio"; sleep 1          # marca: só relatórios desta execução vão para o PR
           set +e
           python -u ferramentas/gerar_correcoes.py "${glob[@]}" "${args[@]}" 2>&1 | tee saida.txt
           codigo=${PIPESTATUS[0]}
@@ -147,10 +150,36 @@ jobs:
           git commit -m "Correções geradas: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}"
           aviso=""; [ "${{ steps.gerar.outputs.codigo }}" = "2" ] && aviso="[PARCIAL - houve erro] "
           git push origin "$ramo"
-          rel=$(ls -t relatorios/execucao_*.md 2>/dev/null | head -1)
+          rel=$(find relatorios -maxdepth 1 -name 'execucao_*.md' -newer "$RUNNER_TEMP/inicio" 2>/dev/null | sort | tail -1)
           { [ -n "$rel" ] && cat "$rel"; echo; echo "Saída da execução:"; echo '```'; tail -40 saida.txt; echo '```'
-            echo "Aprovar este PR guarda o que já foi feito (ex.: o catálogo de temas, que não precisa ser pago de novo)."; } > corpo.md
-          gh pr create --title "${aviso}Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo"
+            echo "Este PR é aprovado sozinho depois da validação (as correções reprovadas já ficam fora do site)."; } > corpo.md
+          url=$(gh pr create --title "${aviso}Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+        id: pr
+
+      # Aprovação automática: confere os dados como o "Validar dados" faria (um PR aberto pelo robô não dispara
+      # outros workflows), aprova o PR, apaga o ramo e publica o site. Se algo falhar, o PR fica aberto para você.
+      - name: Validar e aprovar o pull request
+        if: ${{ !inputs.simular && steps.pr.outputs.url != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          python -m py_compile ferramentas/*.py
+          python ferramentas/gerar_indice.py --dados dados > /dev/null
+          [ -f gabarito.json ] && python ferramentas/conferir_gabarito.py --gabarito gabarito.json --dados dados
+          if ! git diff --quiet -- dados exams; then
+            echo "::warning::A validação alterou arquivos de dados; o PR fica aberto para conferência."; exit 0
+          fi
+          for tentativa in 1 2 3 4 5 6; do          # o GitHub leva alguns segundos para calcular se o PR pode ser aprovado
+            sleep 5
+            if gh pr merge "${{ steps.pr.outputs.url }}" --repo "$GITHUB_REPOSITORY" --merge --delete-branch; then
+              echo "PR aprovado automaticamente."
+              gh workflow run publicar-site.yml --ref "${{ github.ref_name }}" || echo "::warning::Rode Actions > Publicar site."
+              exit 0
+            fi
+          done
+          echo "::warning::Não foi possível aprovar o PR sozinho (ex.: branch protegida ou conflito); aprove-o à mão."
 
       - name: Falhar se houve erro
         if: ${{ steps.gerar.outputs.codigo == '2' }}

@@ -276,14 +276,23 @@ def linhas_da_tabela(relevantes, todas, catalogo):
     return linhas
 
 
-def bloco_para_prompt(relevantes, todas, catalogo, maximo=15):
+def quando(ano, ano_ref):
+    """'ANTERIOR', 'POSTERIOR' ou 'MESMA PROVA' em relação à prova da questão corrigida."""
+    try:
+        a, b = int(str(ano)[:4]), int(str(ano_ref)[:4])
+    except (TypeError, ValueError):
+        return ""
+    return "ANTERIOR à prova" if a < b else "POSTERIOR à prova" if a > b else "MESMA PROVA"
+
+
+def bloco_para_prompt(relevantes, todas, catalogo, maximo=15, ano_ref=None):
     """Resumo compacto (não o texto inteiro) das relacionadas, para a análise da 2.10 — economiza tokens."""
     if not relevantes:
         return "(vazio: nenhuma outra questão desta banca no acervo se relaciona a esta)"
     partes = []
     for r in relevantes[:maximo]:
         h, c = todas[r["id"]], catalogo.get(r["id"], {})
-        partes.append(f"- {h['banca']} {h['ano']} (questão {h['numero']}) | {ROTULO_TIPO[r['tipo']]} | "
+        partes.append(f"- {h['banca']} {h['ano']} (questão {h['numero']}{', ' + quando(h['ano'], ano_ref) if ano_ref else ''}) | {ROTULO_TIPO[r['tipo']]} | "
                       f"{c.get('abordagem', '')} | {c.get('resumo', '')} | resposta: {resposta_correta(h)}")
     if len(relevantes) > maximo:
         partes.append(f"(+ {len(relevantes) - maximo} questões de relação mais distante, listadas na tabela)")

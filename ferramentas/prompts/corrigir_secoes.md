@@ -11,6 +11,8 @@ Regras:
   diretriz). Um árbitro, com busca na web, decide. Na dúvida, corrija. Se houver PONTOS JÁ DECIDIDOS POR UM
   ÁRBITRO, siga-os.
 - Nunca mantenha uma afirmação apontada como falsa sem contestá-la.
+- Nunca ponha o gabarito oficial em dúvida ("a banca teria", "critério discutível", "em tese seria"). Se o revisor
+  pedir algo que contrarie a linha "PELO GABARITO OFICIAL...", siga o gabarito.
 - A mesma afirmação errada costuma aparecer em várias seções (justificativa, pistas, algoritmo, dados para
   memorizar, tabela). Procure-a em TODAS as seções e reescreva todas as que a repetem.
 - Se houver PREMISSA CONFERIDA, toda seção deve segui-la.

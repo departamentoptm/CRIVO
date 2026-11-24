@@ -53,7 +53,8 @@ Para rodar um botão: clique nele → **Run workflow** → preencha os campos �
 ## 5. Tarefas de vez em quando
 
 **Gerar mais correções** (enquanto houver orçamento): Gerar correções → ação `gerar`, banca, edições
-(ex.: `2024`), modo `pendentes`, limite `20`, orçamento `1.00`. O relatório mostra o custo; aprove o PR.
+(ex.: `2024`), modo `pendentes`, limite `20`, orçamento `1.00`. O relatório mostra o custo; o PR é aprovado sozinho
+depois da validação (se ficar aberto, leia o aviso na execução e aprove à mão).
 
 **Prova nova** (ex.: AMP 2027): siga a seção "Adicionar provas novas" do `LEIAME.md`. Depois de aprovar,
 rode **Gerar correções** → ação `temas-padrao` para classificar os temas das questões novas.

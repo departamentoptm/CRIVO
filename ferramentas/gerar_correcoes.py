@@ -34,7 +34,7 @@ sys.path.insert(0, AQUI)
 from crivo_comum import (gravar_json, ler_json, ler_questoes, ler_correcoes, arq_correcoes, limpar_html,
                          texto_puro, listar_edicoes, LETRAS)
 from historico import (prompt, questoes_da_banca, atualizar_catalogo, relacionadas, bloco_para_prompt,
-                       linhas_da_tabela, ROTULO_TIPO, ORDEM_TIPO, resposta_correta)
+                       linhas_da_tabela, ROTULO_TIPO, ORDEM_TIPO, resposta_correta, quando)
 from crivo_comum import arq_temas
 import referencias as refs_mod
 import afirmativas as afirm
@@ -76,6 +76,16 @@ def texto_para_ia(q, com_gabarito):
 
 
 # ------------------------------------------------------------------ validação
+DUVIDA_GABARITO = re.compile(
+    r"crit[ée]rio\s+(?:\w+\s+){0,2}(?:discut[íi]vel|question[áa]vel|controverso|duvidoso)"
+    r"|gabarito\s+(?:\w+\s+){0,2}(?:discut[íi]vel|question[áa]vel|controverso|duvidoso|equivocado|incorreto|errado)"
+    r"|banca\s+(?:teria\s+\w+|parece\s+ter\s+\w+|(?:provavelmente|possivelmente|talvez|pode\s+ter)\s+"
+    r"(?:considerou|considerado|adotou|adotado|quis|entendeu|entendido|aceitou|usou|usado|seguiu|seguido|interpretou))"
+    r"|crit[ée]rio\s+mais\s+prov[áa]vel"
+    r"|(?:poss[íi]vel|prov[áa]vel)\s+erro\s+(?:da|de)\s+banca"
+    r"|a\s+banca\s+errou"
+    r"|em\s+tese,?\s+(?:seria|é|seriam)", re.I)
+
 def _sem_links(h):
     return re.sub(r"</?a\b[^>]*>", "", h or "")
 
@@ -147,6 +157,14 @@ def validar(r, q, relevantes, todas, catalogo, config):
         problemas.append("campo 'tema' vazio")
     aviso = r.get("aviso_diretriz")
     aviso = limpar_html(str(aviso))[:800] if aviso not in (None, "", "null") else None
+    if not aviso:
+        # o gabarito oficial é a verdade: sem aviso de diretriz (com fonte), não se põe o gabarito em dúvida
+        for s_ in SECOES_IA:
+            m = DUVIDA_GABARITO.search(texto_puro(secoes[s_]))
+            if m:
+                problemas.append(f"a seção {s_} põe o gabarito em dúvida (\"{m.group(0)}\"); explique o gabarito com segurança "
+                                 "ou, se a diretriz mudou, use o aviso de diretriz com a fonte")
+                break
     afirm = [str(a)[:400] for a in (r.get("afirmacoes_criticas") or []) if a][:10]
     return {"tema": tema, "aviso_diretriz": aviso, "secoes": secoes, "livros": livros, "busca": busca,
             "afirmacoes_criticas": afirm}, problemas
@@ -265,7 +283,7 @@ def texto_para_verificar(c, q, relevantes, todas, catalogo, evidencias="", meta=
     for r in relevantes:
         h = todas[r["id"]]
         res = catalogo.get(r["id"], {}).get("resumo") or texto_puro(h.get("enunciado_html"))[:200]
-        linhas.append(f"- {h['banca']} {h['ano']}, questão {h['numero']} ({ROTULO_TIPO[r['tipo']]}): {res} | "
+        linhas.append(f"- {h['banca']} {h['ano']}, questão {h['numero']} ({quando(h['ano'], q['ano'])}; {ROTULO_TIPO[r['tipo']]}): {res} | "
                       f"RESPOSTA OFICIAL: {resposta_correta(h)}")
     if meta:
         partes.append(numeros_do_historico(meta))
@@ -486,7 +504,9 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
                 f"relacionadas, em {meta_hist['provas_com_relacionadas']} provas diferentes "
                 f"({pt['mesmo_tema']} do mesmo tema, {pt['tema_relacionado']} de tema relacionado, "
                 f"{pt['caso_semelhante']} com caso semelhante). Resumo das principais:\n"
-                f"{bloco_para_prompt(relevantes, todas, catalogo, config['historico'].get('max_no_pedido_de_geracao', 15))}")
+                f"{bloco_para_prompt(relevantes, todas, catalogo, config['historico'].get('max_no_pedido_de_geracao', 15), q['ano'])}"
+                "\nAs marcadas como POSTERIOR à prova foram aplicadas DEPOIS desta: cite-as como questões posteriores (a banca "
+                "voltou ao tema), nunca como \"questões anteriores\".")
     base.append(f"\nFONTES PERMITIDAS:\n{fontes}")
     usuario_base = "\n".join(base)
 
@@ -547,7 +567,7 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
                 descartados.append(p)
             else:
                 mantidos.append(dict(p, explicacao=("CONFIRMADO PELO ÁRBITRO: " if not d.get("descartada") else "")
-                                     + str(p.get("explicacao", ""))))
+                                     + str(p.get("explicacao", "")), arbitrado=True))
         contexto_revisor = contexto_base + bloco_arbitrados(decisoes)
         return mantidos, descartados
     refazer_tudo, ja_refez = False, False
@@ -613,11 +633,14 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
             probs = [p for p in (v.get("problemas") or []) if isinstance(p, dict)]
         serios = [p for p in probs if str(p.get("gravidade", "")).lower() in ("grave", "moderada")]
         # objeção que tornaria o gabarito oficial impossível: o árbitro decide ANTES de qualquer reescrita
-        suspeitos = [p for p in serios if p.get("contradiz_gabarito") is True]
+        # (em questões de afirmativas: objeção que mudaria uma afirmativa de verdadeira para falsa, ou o contrário)
+        tem_tabela = bool(afirm.tabela_afirmativas(q))
+        suspeitos = [p for p in serios if not p.get("arbitrado") and (
+            p.get("contradiz_gabarito") is True or (tem_tabela and [x for x in (p.get("afirmativas_que_mudam") or []) if str(x).strip()]))]
         if suspeitos:
             log(f"   {len(suspeitos)} objeção(ões) contradiz(em) o gabarito oficial: levando ao árbitro")
-            _, descartados = julgar([(p, None) for p in suspeitos])
-            serios = [p for p in serios if p not in descartados]
+            mantidos, _ = julgar([(p, None) for p in suspeitos])
+            serios = [p for p in serios if p not in suspeitos] + mantidos
         verificacao = {"aprovado": not serios, "rodada": rodada, "modelo": config["modelos"]["verificar"],
                        "tipo": "conferencia" if conferencia else "completa",
                        "problemas_leves": [p for p in probs if p not in serios and str(p.get("gravidade", "")).lower() not in ("grave", "moderada")][:10]}

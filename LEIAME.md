@@ -35,7 +35,10 @@ Preparação (uma vez):
 
 Uso: aba **Actions → Gerar correções → Run workflow**. Escolha a banca, as edições/questões, o limite
 de questões e o teto de custo. Ao terminar, o GitHub abre um **pull request** com as correções novas e um
-relatório (quais foram publicadas, quais foram reprovadas e quanto custou). Leia, e só então aprove (Merge).
+relatório (quais foram publicadas, quais foram reprovadas e quanto custou). O próprio workflow valida os dados,
+aprova o PR, apaga o ramo e publica o site (as correções reprovadas pela revisão automática não entram). Se a
+validação falhar ou o GitHub não deixar aprovar (ex.: branch protegida), o PR fica aberto para você.
+Isso vale para a ação **gerar** e as outras ações do mesmo workflow (catalogar, temas-padrao…).
 
 Para ver o resultado, clique na execução: a página **Summary** mostra o que foi gerado, o custo e, se houver erro,
 a causa em português (chave recusada, sem saldo, nome de modelo errado...). Execução vermelha = erro;
@@ -101,7 +104,12 @@ Questões com `imagem_pendente` são puladas.
      tabela vai para o autor, o revisor e o árbitro. Uma decisão do árbitro que a contrarie é descartada. Antes
      de aprovar, uma conferência barata (`qualidade.conferir_afirmativas`) lê as seções 2.3 e 2.4 e confere se a
      correção declara cada afirmativa como a tabela; se não, é um problema grave, corrigido como os outros.
-     Alternativas com "exceto", contagens ou mistura de verdadeiras e falsas ficam sem tabela.
+     Alternativas com "exceto", contagens ou mistura de verdadeiras e falsas ficam sem tabela. O revisor diz,
+     em cada objeção, quais afirmativas ela mudaria (`afirmativas_que_mudam`); se mudar alguma, a objeção vai ao
+     árbitro antes de qualquer reescrita.
+   - A validação recusa expressões que põem o gabarito em dúvida ("a banca teria", "critério discutível", "em
+     tese seria"...) quando não há aviso de diretriz.
+   - No histórico entregue ao autor e ao revisor, cada questão vem marcada como ANTERIOR ou POSTERIOR à prova.
    - O relatório da execução (`relatorios/execucao_*.md`) traz as rodadas de cada questão com algum problema:
      os problemas apontados, as seções reescritas, as contestações e as decisões do árbitro.
    - O revisor recebe os números do histórico já contados pelo sistema (provas no acervo, provas com questões
@@ -138,7 +146,8 @@ Actions → Gerar correções → ação **temas-padrao** (o campo banca é igno
 
 1. refaz o catálogo de todas as questões com a resposta oficial (uma vez por questão);
 2. cria uma lista fixa de temas por disciplina, a mesma para todas as bancas e anos, baseada no currículo de
-   residência da disciplina, com cerca de 1 tema a cada 10 questões (mínimo 6, máximo 25). É feita uma vez
+   residência da disciplina, com cerca de 1 tema a cada 10 questões (6 a 25; nas disciplinas com menos de 60
+   questões, cerca de 1 a cada 5, de 3 a 6, para os temas terem questões suficientes). É feita uma vez
    (`--refazer-listas` refaz; um arquivo da versão 1 é refeito sozinho);
 3. encaixa cada questão no tema mais próximo da lista da disciplina dela e grava `dados/temas_padrao.json`,
    usado pelo site. Nenhum tema é criado automaticamente. As questões em que nenhum tema serviu de verdade
@@ -146,7 +155,7 @@ Actions → Gerar correções → ação **temas-padrao** (o campo banca é igno
    da disciplina (no `temas_padrao.json`) e rode `temas-padrao` de novo. Os temas existentes não mudam.
 
 Custo estimado da primeira vez: cerca de US$ 0,15 a 0,30. Depois, só as questões novas ou alteradas são processadas.
-Aprove o pull request para o site passar a usar os temas.
+O pull request é aprovado sozinho (veja acima).
 
 ## Correções escritas na conversa com o Claude
 
