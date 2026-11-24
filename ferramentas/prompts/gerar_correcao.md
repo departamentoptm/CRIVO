@@ -22,7 +22,9 @@ REGRAS DE VERACIDADE (obrigatórias — valem mais do que qualquer outra instru�
 4. Não descreva o conteúdo de imagens, tabelas ou exames que não estejam no texto da questão.
 5. Não reescreva o enunciado nem as alternativas.
 6. Sobre outras questões da banca, use SOMENTE o bloco HISTÓRICO (provas anteriores e posteriores), citando-as
-   como "AMP 2019 (questão 42)". Não cite nenhuma outra questão. A tabela da 2.10 é montada pelo sistema.
+   como "AMP 2019 (questão 42)", e SÓ nas seções 2.10 e 2.11. Nas outras seções, não cite questões de outras
+   provas (nem banca e ano): explique o conteúdo. Não cite nenhuma outra questão. A tabela da 2.10 é montada
+   pelo sistema.
 6b. Diretrizes: só atribua uma conduta a uma diretriz ou sociedade (Ministério da Saúde,
 SBP, FEBRASGO, CDC, OMS etc.) quando tiver certeza ou quando ela estiver nas EVIDÊNCIAS DA WEB; na dúvida,
 escreva "a banca considerou…" ou "a literatura descreve…", sem nomear órgão. Nunca apresente como recomendação
@@ -51,27 +53,28 @@ CONTEÚDO DE CADA SEÇÃO:
 - 2.1 Tema Central e Contextualização: três parágrafos iniciando com <strong>Disciplina:</strong>,
   <strong>Tema:</strong> e <strong>Contextualização:</strong> (onde o tema se encaixa e sua relevância para a prova).
 - 2.2 Conceito-Chave e Fisiopatologia: o mecanismo que explica a resposta correta, para que o aluno consiga
-  deduzi-la mesmo sem lembrar do fato. Relacione com o histórico quando houver.
+  deduzi-la mesmo sem lembrar do fato.
 - 2.3 Justificativa da Resposta Correta: explicação detalhada da alternativa do gabarito, citando a letra.
 - 2.4 Análise dos Distratores: um parágrafo para TODAS as alternativas apresentadas (A a D ou A a E, conforme a
   questão), INCLUSIVE A CORRETA (a do gabarito), em ordem, começando com <strong>Alternativa X — Correta.</strong>
   ou <strong>Alternativa X — Errada.</strong> e explicando por quê. Uma resposta sem o parágrafo da alternativa
-  correta é recusada. Diga se o conteúdo dela já apareceu
-  em alguma questão do HISTÓRICO (pelo assunto, sem citar ano/número).
+  correta é recusada. Não cite questões de outras provas aqui (isso fica na 2.10).
 - 2.5 Palavras-Chave e "Pistas" no Enunciado: lista <ul> com pelo menos 3 itens no formato
   <li><strong>termo:</strong> o que significa e como direciona o raciocínio</li>.
 - 2.6 Algoritmo de Decisão: lista <ol> com 4 a 6 passos do raciocínio clínico ("Primeiro", "Segundo"...).
 - 2.7 Dados para Memorizar: lista com <strong>Fatos que definem:</strong>, <strong>Números e doses:</strong>
   (apenas números consensuais; se não houver, diga que o tema não depende de números) e
-  <strong>Mnemônicos:</strong> (apenas mnemônicos conhecidos; não invente), explicando por que cada dado importa.
+  <strong>Mnemônicos:</strong> NUNCA crie mnemônicos. Só inclua um mnemônico consagrado na literatura, dizendo
+  em qual livro-texto ou diretriz ele aparece; sem isso, escreva que não há mnemônico consagrado para o tema.
+  Explique por que cada dado importa.
 - 2.8 Near-Neighbours e Diagnósticos Diferenciais: <table class="data-table"> com cabeçalho
   Condição | Sinais/Sintomas que diferenciam | Exame/Diagnóstico | Conduta, com a condição correta e ao menos 2 diferenciais.
   Em questões não clínicas (saúde pública, ética), compare conceitos próximos que costumam ser confundidos.
 - 2.9 Variações de Abordagem em Provas: lista de como o mesmo tema poderia ser cobrado (diagnóstico,
   tratamento, complicação, prevenção), dizendo qual seria a resposta em cada caso.
 - 2.10 Histórico do Tema nas Provas Anteriores: NÃO faça tabela (o sistema monta a tabela). Escreva exatamente
-  quatro parágrafos: <strong>Padrão de cobrança identificado:</strong> (comece com "O tema apareceu em X das Y
-  provas", usando os números já contados no bloco HISTÓRICO, e diga o que a banca alterna entre cobrar),
+  quatro parágrafos: <strong>Padrão de cobrança identificado:</strong> (NÃO escreva contagens de questões ou de
+  provas: o sistema escreve a frase com os números antes do seu texto; diga o que a banca alterna entre cobrar),
   <strong>Abordagem ainda não cobrada:</strong>, <strong>Evolução da cobrança:</strong> e
   <strong>O que isso sugere para a próxima prova:</strong>, baseados SOMENTE no bloco HISTÓRICO. Se o bloco
   estiver vazio, diga que nenhuma questão relacionada foi identificada nas demais provas desta banca no acervo

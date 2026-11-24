@@ -110,6 +110,11 @@ Questões com `imagem_pendente` são puladas.
    - A validação recusa expressões que põem o gabarito em dúvida ("a banca teria", "critério discutível", "em
      tese seria"...) quando não há aviso de diretriz.
    - No histórico entregue ao autor e ao revisor, cada questão vem marcada como ANTERIOR ou POSTERIOR à prova.
+   - A frase com a contagem do histórico na 2.10 ("N questões relacionadas em P das T provas…") é escrita pelo
+     sistema; a IA não escreve contagens, e a validação recusa uma contagem diferente da do sistema. Questões de
+     outras provas só podem ser citadas nas seções 2.10 e 2.11. Nos dois casos, só a seção com o problema é
+     reescrita, antes da revisão. Mnemônicos só os consagrados, com a fonte.
+   - `gerar_correcoes.py ajustar-contagens` corrige, sem API, as contagens nas correções já publicadas.
    - O relatório da execução (`relatorios/execucao_*.md`) traz as rodadas de cada questão com algum problema:
      os problemas apontados, as seções reescritas, as contestações e as decisões do árbitro.
    - O revisor recebe os números do histórico já contados pelo sistema (provas no acervo, provas com questões

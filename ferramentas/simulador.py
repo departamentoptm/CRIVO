@@ -11,6 +11,8 @@ CRIVO_SIMULAR_CONTESTAR=autor|revisor faz o autor contestar a 1ª objeção e o 
 contradiz o gabarito, decidida pelo árbitro a favor de quem foi indicado.
 CRIVO_SIMULAR_ARBITRO_QUEBRA=1 faz o árbitro decidir contra a tabela de afirmativas do gabarito (deve ser descartado).
 CRIVO_SIMULAR_MUDA=1 faz o revisor apontar uma objeção que mudaria uma afirmativa (deve ir ao árbitro).
+CRIVO_SIMULAR_HISTORICO=1 faz a geração escrever uma contagem errada na 2.10 e citar o histórico na 2.4
+(a validação deve pedir só essas seções de novo).
 CRIVO_SIMULAR_AFIRMATIVAS=errada faz a conferência final das afirmativas achar divergência uma vez.
 """
 import os
@@ -91,6 +93,11 @@ class ClienteSimulado:
         if falta:
             return {"paragrafos": {l: f"<p><strong>Alternativa {l} — {'Correta' if l == g else 'Errada'}.</strong> {PREENCHIMENTO}</p>"
                                    for l in re.findall(r"[A-E]", falta.group(1))}}
+        if ("PROBLEMAS APONTADOS PELO REVISOR" in u and os.environ.get("CRIVO_SIMULAR_HISTORICO") == "1"
+                and ("não escreva contagens" in u or "só podem ser citadas" in u)):
+            secs = set(re.findall(r'"secao": "(2\.\d+)"', u))
+            return {"secoes": {s: (f"<p><strong>Padrão de cobrança identificado:</strong> {PREENCHIMENTO}</p>" if s == "2.10" else
+                                   "".join(f"<p><strong>Alternativa {l}</strong> - {PREENCHIMENTO}</p>" for l in "ABCDE")) for s in secs}}
         if "PROBLEMAS APONTADOS PELO REVISOR" in u:
             r = {"secoes": {"2.3": f"<p>A alternativa {g} é a correta (seção corrigida). {PREENCHIMENTO}</p>"}}
             if (os.environ.get("CRIVO_SIMULAR_CONTESTAR") and "CONFIRMADOS POR UM ÁRBITRO" not in u
@@ -103,6 +110,9 @@ class ClienteSimulado:
         secoes["2.3"] = f"<p>A alternativa {g} é a correta. {PREENCHIMENTO}</p>"
         sem = os.environ.get("CRIVO_SIMULAR_SEM_CORRETA") == "1"
         secoes["2.4"] = "".join(f"<p><strong>Alternativa {l}</strong> - {PREENCHIMENTO}</p>" for l in letras if not (sem and l == g))
+        if os.environ.get("CRIVO_SIMULAR_HISTORICO") == "1":
+            secoes["2.10"] = f"<p><strong>Padrão de cobrança identificado:</strong> O tema apareceu em 99 das 21 provas. {PREENCHIMENTO}</p>"
+            secoes["2.4"] = secoes["2.4"].replace("Alternativa A</strong> -", "Alternativa A</strong> - Como na AMP 2010 (questão 3),", 1)
         secoes["2.8"] = ("<table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais</th><th>Exame</th>"
                          f"<th>Conduta</th></tr></thead><tbody><tr><td>X</td><td>{PREENCHIMENTO}</td><td>y</td>"
                          "<td>z</td></tr></tbody></table>")

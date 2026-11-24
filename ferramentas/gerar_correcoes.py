@@ -76,6 +76,61 @@ def texto_para_ia(q, com_gabarito):
 
 
 # ------------------------------------------------------------------ validação
+SECOES_COM_HISTORICO = ("2.10", "2.11")
+RE_SECAO_HIST = re.compile(r"^a seção (2\.\d+) (?:diz|cita) ")
+
+
+def contagem_do_historico(q, relevantes, todas):
+    anos = sorted({todas[i]["ano"] for i in todas if todas[i]["banca"] == q["banca"]})
+    return {"n": len(relevantes), "p": len({todas[r["id"]]["ano"] for r in relevantes}), "t": len(anos),
+            "anos": anos, "tipos": {t: sum(1 for r in relevantes if r["tipo"] == t) for t in ORDEM_TIPO}}
+
+
+def frase_contagem(q, relevantes, todas):
+    """Frase da 2.10 com os números contados pelo sistema (a IA não escreve contagens)."""
+    k = contagem_do_historico(q, relevantes, todas)
+    if not k["n"]:
+        return ""
+    tp = k["tipos"]
+    partes = [f"{tp.get('mesmo_tema', 0)} do mesmo tema", f"{tp.get('tema_relacionado', 0)} de tema relacionado",
+              f"{tp.get('caso_semelhante', 0)} com caso semelhante"]
+    anos = f" ({k['anos'][0]}–{k['anos'][-1]})" if k["anos"] else ""
+    return (f'<p class="hist-contagem"><strong>No acervo:</strong> {k["n"]} {"questão relacionada" if k["n"] == 1 else "questões relacionadas"} '
+            f'em {k["p"]} das {k["t"]} provas da {q["banca"]}{anos}: {", ".join(partes)}.</p>')
+
+
+def com_contagem(html, q, relevantes, todas):
+    html = re.sub(r'<p class="hist-contagem">.*?</p>\s*', "", html or "", flags=re.S)
+    return frase_contagem(q, relevantes, todas) + html
+
+
+def checar_historico(secoes, q, relevantes, todas):
+    """(1) contagens de questões/provas escritas pela IA têm de bater com as do sistema; (2) questões de outras
+    provas só podem ser citadas nas seções 2.10 e 2.11."""
+    probs = []
+    k = contagem_do_historico(q, relevantes, todas)
+    bancas = sorted({h["banca"] for h in todas.values()}, key=len, reverse=True)
+    re_cita = re.compile(r"\b(" + "|".join(map(re.escape, bancas)) + r")\s+(\d{4}(?:\.\d)?)\b") if bancas else None
+    for s_ in SECOES_IA:
+        txt = texto_puro(re.sub(r'<p class="hist-contagem">.*?</p>', "", secoes.get(s_, ""), flags=re.S))
+        for m in re.finditer(r"(\d+)\s+(?:das|de)\s+(\d+)\s+provas", txt):
+            if (int(m.group(1)), int(m.group(2))) != (k["p"], k["t"]):
+                probs.append(f"a seção {s_} diz \"{m.group(0)}\", mas o sistema contou {k['n']} questões em {k['p']} das "
+                             f"{k['t']} provas; não escreva contagens (o sistema já escreve a frase com os números)")
+                break
+        else:
+            m = re.search(r"(\d+)\s+quest(?:ões|ão)\s+relacionad", txt)
+            if m and int(m.group(1)) != k["n"]:
+                probs.append(f"a seção {s_} diz \"{m.group(0)}\", mas o sistema contou {k['n']}; não escreva contagens")
+        if s_ in SECOES_COM_HISTORICO or not re_cita:
+            continue
+        outras = [m.group(0) for m in re_cita.finditer(txt) if not (m.group(1) == q["banca"] and m.group(2) == str(q["ano"]))]
+        if outras:
+            probs.append(f"a seção {s_} cita {outras[0]}: questões de outras provas só podem ser citadas nas seções 2.10 e 2.11; "
+                         "aqui, explique o conteúdo sem citar a prova")
+    return probs
+
+
 DUVIDA_GABARITO = re.compile(
     r"crit[ée]rio\s+(?:\w+\s+){0,2}(?:discut[íi]vel|question[áa]vel|controverso|duvidoso)"
     r"|gabarito\s+(?:\w+\s+){0,2}(?:discut[íi]vel|question[áa]vel|controverso|duvidoso|equivocado|incorreto|errado)"
@@ -126,6 +181,8 @@ def validar(r, q, relevantes, todas, catalogo, config):
             h = todas[i]
             return f"{h['banca']} {h['ano']} (questão {h['numero']})"
         secoes[s_] = re.sub(r"\b[A-Z][A-Z0-9-]*?-\d{4}-Q\d{1,3}\b", legivel, secoes[s_])
+    secoes["2.10"] = com_contagem(secoes["2.10"], q, relevantes, todas)
+    problemas += checar_historico(secoes, q, relevantes, todas)
     if "<table" not in secoes["2.8"]:
         problemas.append("a seção 2.8 deve conter a tabela de diagnósticos diferenciais")
     if "<table" in secoes["2.10"]:
@@ -523,12 +580,21 @@ def gerar_uma(q, todas, catalogo, cliente, config, reportes, recatalogar=None):
         log(f"   revisão sem raciocínio estendido (resolução às cegas concorda, confiança {conf_cega:.2f})")
 
     def validar_e_completar(r):
-        """Valida; se só faltar o parágrafo de alguma alternativa na 2.4, pede SÓ esse parágrafo (barato)."""
+        """Valida; se só faltar o parágrafo de alguma alternativa na 2.4, pede SÓ esse parágrafo (barato); se o
+        problema for uma contagem do histórico ou uma citação fora da 2.10/2.11, reescreve SÓ aquela seção."""
         c, problemas = validar(r, q, relevantes, todas, catalogo, config)
         faltam = [m.group(1) for p in problemas for m in [RE_FALTA_ALT.match(p)] if m]
         if faltam and len(faltam) == len(problemas):
             log(f"   2.4 sem a(s) alternativa(s) {', '.join(faltam)}: pedindo só esse(s) parágrafo(s)")
             r = completar_alternativas(r, q, faltam, cliente, config)
+            c, problemas = validar(r, q, relevantes, todas, catalogo, config)
+        for tentativa in (1, 2):
+            secs = [(m.group(1), p) for p in problemas for m in [RE_SECAO_HIST.match(p)] if m]
+            if not secs or len(secs) != len(problemas):
+                break
+            log(f"   validação: {len(secs)} problema(s) de histórico ({', '.join(sorted({s for s, _ in secs}))}); reescrevendo só essa(s) seção(ões)")
+            r, _, _ = corrigir_secoes(r, [{"secao": s, "gravidade": "grave", "explicacao": p} for s, p in secs], q,
+                                      usuario_base, cliente, config, permitir_contestar=False)
             c, problemas = validar(r, q, relevantes, todas, catalogo, config)
         return r, c, problemas
 
@@ -949,6 +1015,52 @@ def cmd_inserir_manual(args, config):
     return 0
 
 
+def ajustar_contagem_texto(html, p, t, n=None):
+    """Corrige, no texto já publicado, contagens como "12 das 21 provas" (questões contadas como provas) para
+    "P das T provas" (e o percentual entre parênteses, se houver) e tira a repetição "em P provas diferentes".
+    Devolve (html, mudou)."""
+    def troca(m):
+        if (int(m.group(1)), int(m.group(3))) == (p, t) and not m.group(5):
+            return m.group(0)
+        pct = f" ({round(100 * p / t)}%)" if m.group(5) else ""
+        return f"{p}{m.group(2)}{t}{m.group(4)}{pct}"
+    novo = re.sub(r"(\d+)(\s+das\s+)(\d+)(\s+provas)(\s*\(\d+\s*%\))?", troca, html)
+    if f"{p} das {t} provas" in texto_puro(novo):
+        novo = re.sub(rf",?\s+em\s+{p}\s+provas\s+diferentes", "", novo)
+        novo = re.sub(rf"\s*\({p}\s+provas\s+diferentes\)", "", novo)
+        if n:                                   # "..., sendo 7 de tema relacionado" passa a falar de questões
+            novo = re.sub(rf"({p}\s+das\s+{t}\s+provas[^,.;<]{{0,40}}),\s+sendo\s+",
+                          lambda m: f"{m.group(1)}, com {n} {'questão relacionada' if n == 1 else 'questões relacionadas'}: ", novo)
+    return novo, novo != html
+
+
+def cmd_ajustar_contagens(args, config):
+    """Corrige as contagens do histórico nas correções publicadas (sem usar a API)."""
+    total = 0
+    for banca, ano in listar_edicoes(args.dados):
+        cs = ler_correcoes(args.dados, banca, ano)
+        mudou_arq = False
+        for qid, e in cs.get("correcoes", {}).items():
+            meta = e.get("historico_meta") or {}
+            p, t = meta.get("provas_com_relacionadas"), meta.get("provas_no_acervo")
+            if not p or not t:
+                continue
+            mudou_q = False
+            for s_ in SECOES_IA:
+                h = (e.get("secoes_html") or {}).get(s_)
+                if not h:
+                    continue
+                novo, mudou = ajustar_contagem_texto(h, p, t, meta.get("relevantes"))
+                if mudou:
+                    e["secoes_html"][s_] = novo; mudou_q = True
+            if mudou_q:
+                total += 1; mudou_arq = True
+        if mudou_arq:
+            gravar_json(arq_correcoes(args.dados, banca, ano), cs)
+    log(f"Contagens do histórico corrigidas em {total} correção(ões). Sem custo de API.")
+    return 0
+
+
 def cmd_remover(args, config):
     """Tira do site a correção de uma questão (ex.: publicada com erro). A questão fica sem correção até ser
     gerada de novo (gerar --questoes N). Não usa a API."""
@@ -1127,6 +1239,7 @@ def main():
     am.add_argument("--banca", required=True); am.add_argument("--conferidas", nargs="*", default=[])
     im = sub.add_parser("inserir-manual", help="grava uma correção escrita na conversa (correcoes_manuais/*.json)")
     im.add_argument("--arquivo", required=True)
+    sub.add_parser("ajustar-contagens", help="corrige as contagens do histórico (2.10) nas correções publicadas, sem API")
     rm = sub.add_parser("remover", help="tira do site a correção de uma questão (ex.: AMP-2020-Q85)")
     rm.add_argument("--questao", required=True)
     tp = sub.add_parser("temas-padrao", help="catálogo com gabarito + lista fixa de temas + tema de cada questão (todas as bancas)")
@@ -1155,6 +1268,8 @@ def main():
             return cmd_catalogar(args, config) or 0
         if args.cmd == "amostra":
             return cmd_amostra(args, config)
+        if args.cmd == "ajustar-contagens":
+            return cmd_ajustar_contagens(args, config)
         if args.cmd == "remover":
             return cmd_remover(args, config)
         if args.cmd == "inserir-manual":
