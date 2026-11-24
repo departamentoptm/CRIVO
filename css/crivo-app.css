@@ -1268,3 +1268,6 @@ body.inativo .container, body.inativo .screen { filter: blur(4px); }
     .desemp-disc > summary, .desemp-linha.graf { grid-template-columns: 1fr; }
 }
 .graf-dividida > .graf-trilho { flex: none; width: 100%; }
+.plano-limite { display: flex; align-items: center; gap: .4rem; font-weight: 400; font-size: .82rem; }
+.plano-limite[hidden] { display: none; }
+.plano-limite input { width: 5rem; }

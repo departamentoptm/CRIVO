@@ -373,6 +373,14 @@ def t_plano(page, url):
     assert "No ritmo do plano" not in txt, "a frase antiga do ritmo deveria ter saído"
     assert page.evaluate(f"!!progress.plano && progress.plano.disponibilidade[{hoje}].length === 2"), "o plano não foi salvo com os horários"
     assert page.locator("#metaValor").count() == 0, "a meta diária não deve ser escolhida à mão"
+    assert "cabem" in page.inner_text(".plano-capacidade"), "faltou quantas questões cabem hoje"
+    page.check("#planoLimiteChk"); page.fill("#planoLimite", "4"); page.click("#planoSalvarBtn")
+    assert page.evaluate("progress.plano.limiteDiario") == 4, "o limite diário não foi salvo"
+    txt = page.inner_text(".plano-capacidade")
+    assert "limite de 4" in txt and "min por questão" in txt, "faltou o tempo por questão com o limite: " + txt
+    assert page.evaluate("calcularPlano(planoAtivo()).metaHoje") <= 4, "a meta do dia deve respeitar o limite"
+    page.uncheck("#planoLimiteChk"); page.click("#planoSalvarBtn")
+    assert not page.evaluate("progress.plano.limiteDiario"), "o limite deveria ter sido desligado"
     page.click("#planoComecarBtn")
     page.wait_for_selector("#resolvingScreen:not(.hidden)")
     assert "Plano de hoje" in page.inner_text("#grupoAviso"), "as questões do plano não abriram"

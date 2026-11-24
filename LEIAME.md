@@ -275,7 +275,10 @@ O histórico dos simulados vai para o arquivo de progresso e para o Google Drive
   dia vai primeiro para as revisões (questões e cartões); o resto vira questões novas, ainda não feitas,
   distribuídas pelo peso das disciplinas. Uma simulação dia a dia, com as revisões que o FSRS vai programar,
   diz se o ritmo basta para terminar a tempo ("Ritmo adequado") ou quantas horas por semana faltam. A meta do
-  dia (questões novas + revisões) aparece na tela inicial.
+  dia (questões novas + revisões) aparece na tela inicial. O plano mostra quantas questões cabem no dia pelo
+  tempo médio; o aluno pode ligar um **limite de questões por dia** (revisões + novas; se as revisões já
+  ocupam o limite, não entram novas), e então vê o tempo do dia e quanto tempo tem para cada questão. O
+  limite não muda a previsão do ritmo, que usa o tempo medido.
 - **Tempo por questão:** medido pelo próprio aluno: até confirmar a resposta e lendo a correção até sair da
   questão, só com a aba visível, no máximo 20 minutos por questão (mediana das últimas 300 respostas, contando
   as refeitas; 3 minutos até haver 20 respostas). O tempo de leitura fica em `progress.leituras`.
