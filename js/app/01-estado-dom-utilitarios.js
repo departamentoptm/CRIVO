@@ -87,7 +87,6 @@ const homeMsg = document.getElementById('homeMsg');
 const saveBtn = document.getElementById('saveBtn');
 const grifarBtn = document.getElementById('grifarBtn');
 const ankiBtn = document.getElementById('ankiBtn');
-const refazerBtn = document.getElementById('refazerBtn');
 const historicoBtn = document.getElementById('historicoBtn');
 const progressFile = document.getElementById('progressFile');
 const startBtnHome = document.getElementById('startBtnHome');

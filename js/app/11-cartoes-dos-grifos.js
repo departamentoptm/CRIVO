@@ -242,7 +242,8 @@ document.getElementById('cartAbrirBtn').addEventListener('click', async () => {
     if (c) await abrirQuestaoDoGabarito(c.prova, c.ano, c.questao);
 });
 document.addEventListener('keydown', e => {
-    if (cartoesScreen.classList.contains('hidden') || !cartEmSessao || e.target.closest('input, select, textarea, summary')) return;
+    if (cartoesScreen.classList.contains('hidden') || !cartEmSessao || e.repeat || e.ctrlKey || e.metaKey || e.altKey
+        || e.target.closest('input, select, textarea')) return;
     if (!cartMostrando && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); if (cartFila.length) { cartMostrando = true; renderCartao(); } }
     else if (cartMostrando && /^[1-4]$/.test(e.key)) { e.preventDefault(); avaliarCartao(+e.key); }
 });
@@ -253,11 +254,17 @@ function preencherFiltrosExportacao() {
     const bancas = [...new Set(todos.map(c => c.prova))].sort();
     const discs = [...new Set(todos.map(c => disciplinaDe(c.prova, c.ano, c.questao)).filter(Boolean))].sort();
     const opc = (lista, rotulo) => `<option value="">${rotulo}</option>` + lista.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
-    document.getElementById('cartExpBanca').innerHTML = opc(bancas, 'Todas as bancas');
-    document.getElementById('cartExpDisc').innerHTML = opc(discs, 'Todas as disciplinas');
+    const anos = [...new Set(todos.map(c => String(c.ano)))].sort((a, b) => b.localeCompare(a));
+    const temas = [...new Set(todos.map(c => temaDe(c.prova, c.ano, c.questao)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+    const manter = (id, html) => { const el = document.getElementById(id), v = el.value; el.innerHTML = html; if ([...el.options].some(o => o.value === v)) el.value = v; };
+    manter('cartExpBanca', opc(bancas, 'Todas as bancas'));
+    manter('cartExpAno', opc(anos, 'Todas as edições'));
+    manter('cartExpDisc', opc(discs, 'Todas as disciplinas'));
+    manter('cartExpTema', opc(temas, 'Todos os temas'));
 }
 function exportarTodosCartoes() {
     const banca = document.getElementById('cartExpBanca').value, disc = document.getElementById('cartExpDisc').value;
+    const ano = document.getElementById('cartExpAno').value, tema = document.getElementById('cartExpTema').value;
     const comOrfaos = document.getElementById('cartExpOrfaos').checked;
     const atuais = paresDosGrifos();
     const notas = new Map();
@@ -265,8 +272,10 @@ function exportarTodosCartoes() {
         if (!c || c.apagado || c.dir !== 'fv') continue;
         if (!comOrfaos && !atuais.has(id)) continue;
         if (banca && c.prova !== banca) continue;
+        if (ano && String(c.ano) !== ano) continue;
         const d = disciplinaDe(c.prova, c.ano, c.questao);
         if (disc && d !== disc) continue;
+        if (tema && temaDe(c.prova, c.ano, c.questao) !== tema) continue;
         notas.set(id, { c, d });
     }
     if (!notas.size) { alert('Nenhum cartão com esses filtros.'); return; }
@@ -276,7 +285,7 @@ function exportarTodosCartoes() {
         const deck = `${c.prova}_${c.ano}_Q_${c.questao}`.replace(/[\t\n]/g, ' ');
         linhas.push([(c.frente || []).map(escAnki).join('<br><br>'), (c.verso || []).map(escAnki).join('<br><br>'), tag, deck].join('\t'));
     }
-    const nome = ['CRIVO_cartoes', banca, disc].filter(Boolean).join('_').replace(/[\\/:*?"<>|\s]+/g, '-') + '.txt';
+    const nome = ['CRIVO_cartoes', banca, ano, disc, tema].filter(Boolean).join('_').replace(/[\\/:*?"<>|\s]+/g, '-') + '.txt';
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([linhas.join('\n') + '\n'], { type: 'text/plain;charset=utf-8' }));
     a.download = nome;

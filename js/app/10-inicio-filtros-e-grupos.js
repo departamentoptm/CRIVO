@@ -113,12 +113,77 @@ function listarRevisoes(diaISO) {
     }
     return out.sort((x, y) => x.b.localeCompare(y.b) || y.a.localeCompare(x.a) || (parseInt(x.n) || 0) - (parseInt(y.n) || 0));
 }
+/* Histórico dos dias passados: refaz a sequência de revisões de cada questão (a mesma do FSRS) e, para cada
+   data programada que já passou, diz se a questão foi revisada naquele dia (verde) ou não (vermelho, mesmo que
+   tenha sido feita depois). Revisões adiantadas não contam para o dia original. */
+let _histRevCache = null, _histRevAssin = '';
+function historicoRevisoes() {
+    const reg = progress.registro || [], av = progress.avaliacoes || [];
+    const assin = reg.length + '|' + av.length + '|' + (reg.length ? reg[reg.length - 1].data : '') + '|' + (av.length ? av[av.length - 1].data : '') + '|' + isoDoDia(Date.now());
+    if (_histRevCache && assin === _histRevAssin) return _histRevCache;
+    const eventos = [];
+    reg.forEach(e => { if (e.acao === 'confirmou' && e.correta) eventos.push({ t: +new Date(e.data), k: `${e.prova}|${e.ano}|${e.questao}`, certa: e.opcao === e.correta }); });
+    av.forEach(v => eventos.push({ t: +new Date(v.data), k: `${v.prova}|${v.ano}|${v.questao}`, nota: +v.nota }));
+    eventos.sort((x, y) => x.t - y.t);
+    const estado = new Map(), ultimo = new Map(), linha = new Map();       /* linha: k -> [{t, proxima}] */
+    for (const ev of eventos) {
+        if (!ev.t || semGabarito.has(ev.k)) continue;
+        const u = ultimo.get(ev.k), lista = linha.get(ev.k) || [];
+        if (ev.nota) {
+            if (!u) continue;
+            const s = fsrsRevisar(u.antes ? { ...u.antes } : null, notaFsrs(ev.nota, u.certa), u.t);
+            estado.set(ev.k, s);
+            if (lista.length && lista[lista.length - 1].t === u.t) lista[lista.length - 1].proxima = s.proxima;
+            else lista.push({ t: u.t, proxima: s.proxima });
+            linha.set(ev.k, lista);
+            continue;
+        }
+        if (u && _diaLocal(u.t) === _diaLocal(ev.t)) continue;
+        const atual = estado.get(ev.k);
+        ultimo.set(ev.k, { t: ev.t, certa: ev.certa, antes: atual ? { ...atual } : null });
+        let s = null;
+        if (!ev.certa) s = fsrsRevisar(atual, 1, ev.t);
+        else if (atual) s = fsrsRevisar(atual, 3, ev.t);
+        if (s) { estado.set(ev.k, s); lista.push({ t: ev.t, proxima: s.proxima }); linha.set(ev.k, lista); }
+        else if (lista.length) { lista.push({ t: ev.t, proxima: null }); linha.set(ev.k, lista); }
+    }
+    const hoje = isoDoDia(Date.now()), porDia = new Map();
+    for (const [k, lista] of linha) {
+        for (let i = 0; i < lista.length; i++) {
+            if (!lista[i].proxima) continue;
+            const dia = isoDoDia(lista[i].proxima);
+            if (dia >= hoje) continue;
+            const prox = lista[i + 1] ? lista[i + 1].t : null;
+            if (prox && isoDoDia(prox) < dia) continue;                 /* adiantada: saiu daquele dia */
+            if (!porDia.has(dia)) porDia.set(dia, []);
+            porDia.get(dia).push({ k, feita: !!prox && isoDoDia(prox) === dia, depois: prox && isoDoDia(prox) > dia ? prox : null });
+        }
+    }
+    _histRevCache = porDia; _histRevAssin = assin;
+    return porDia;
+}
+function renderHistoricoRevisao(dia) {
+    const lista = (historicoRevisoes().get(dia) || []).map(x => { const [b, a, n] = x.k.split('|'); return Object.assign({ b, a, n, disc: disciplinaDe(b, a, n) }, x); })
+        .filter(x => exams?.[x.b]?.[x.a]?.[x.n])
+        .sort((x, y) => (x.feita === y.feita ? 0 : x.feita ? 1 : -1) || x.b.localeCompare(y.b) || y.a.localeCompare(x.a) || (parseInt(x.n) || 0) - (parseInt(y.n) || 0));
+    const feitas = lista.filter(x => x.feita).length;
+    document.getElementById('revResumo').textContent = lista.length
+        ? `${feitas} de ${lista.length} ${lista.length === 1 ? 'revisão programada feita' : 'revisões programadas feitas'} neste dia.` : '';
+    document.getElementById('revLista').innerHTML = lista.length
+        ? lista.map(x => `<div class="revisao-item ${x.feita ? 'rev-feita' : 'rev-perdida'}"><span>${x.feita ? '✓' : '✗'} ${escapeHtml(x.b)} ${escapeHtml(x.a)} - Q${escapeHtml(x.n)}${x.disc ? ' - ' + escapeHtml(x.disc) : ''}</span>`
+            + `<span class="atraso">${x.feita ? 'feita no dia' : x.depois ? 'feita depois, em ' + new Date(x.depois).toLocaleDateString('pt-BR') : 'não feita'}</span></div>`).join('')
+        : '<div class="revisao-vazia">Nenhuma revisão estava programada para este dia.</div>';
+    const btn = document.getElementById('revIniciarBtn');
+    btn.hidden = true;
+}
 function renderTelaRevisao() {
     const hoje = isoDoDia(Date.now());
-    if (!revDiaSel || revDiaSel < hoje) revDiaSel = hoje;
-    revDataInput.min = hoje; revDataInput.value = revDiaSel;
-    document.getElementById('revDiaAnt').disabled = revDiaSel <= hoje;
+    if (!revDiaSel) revDiaSel = hoje;
+    revDataInput.removeAttribute('min'); revDataInput.value = revDiaSel;
+    document.getElementById('revDiaAnt').disabled = false;
     document.getElementById('revDataTexto').textContent = dataPorExtenso(revDiaSel) + (revDiaSel === hoje ? ' (hoje)' : '');
+    document.getElementById('revIniciarBtn').hidden = false;
+    if (revDiaSel < hoje) return renderHistoricoRevisao(revDiaSel);
     const lista = listarRevisoes(revDiaSel);
     const atrasadas = lista.filter(x => x.atrasada).length;
     document.getElementById('revResumo').textContent = lista.length
@@ -244,3 +309,14 @@ async function refazerGrupoNaResolucao(btn) {
     if (questoes.length) await carregarQuestao(0); else showEmptyMessage();
     showScreen(resolvingScreen);
 }
+
+/* ---- botão "Solicitar novas provas": abre o Formulário Google (endereço em URL_SOLICITAR_PROVAS) ---- */
+/* Cole aqui o link do formulário (Formulários Google > Enviar > link). Vazio = o botão avisa que falta configurar. */
+const URL_SOLICITAR_PROVAS = '';
+document.getElementById('solicitarProvasBtn').addEventListener('click', () => {
+    if (!/^https:\/\//.test(URL_SOLICITAR_PROVAS)) {
+        homeMsg.textContent = 'O formulário para solicitar novas provas ainda não foi configurado. Avise o centro acadêmico.';
+        return;
+    }
+    window.open(URL_SOLICITAR_PROVAS, '_blank', 'noopener');
+});

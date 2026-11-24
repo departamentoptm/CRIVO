@@ -91,7 +91,9 @@ Settings → Secrets and variables → Actions:
 | `URL_DUVIDAS_CSV` | Variable | link CSV da planilha de dúvidas |
 
 Os links dos formulários (para o site) ficam no começo de `js/crivo-render.js` (`urlReportarErro`,
-`urlRevisarLiga`, `urlEnviarDuvida`) e o login do Google Drive em `js/app/08-google-drive.js` (`DRIVE_CLIENT_ID`).
+`urlRevisarLiga`, `urlEnviarDuvida`), o formulário "Solicitar novas provas" em `js/app/10-inicio-filtros-e-grupos.js`
+(`URL_SOLICITAR_PROVAS`) e o login do Google Drive em `js/app/08-google-drive.js` (`DRIVE_CLIENT_ID`; para liberar a
+sincronização a todos, siga `GUIA-GOOGLE-DRIVE.md`).
 
 ## 8. Quando algo dá errado
 

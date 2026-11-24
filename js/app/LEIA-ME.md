@@ -16,8 +16,9 @@ arquivos, carregados **nesta ordem** pelo `index.html`:
 | `09-revisao-espacada-fsrs.js` | revisão espaçada (FSRS-6) e embaralhar |
 | `10-inicio-filtros-e-grupos.js` | abertura sem identificação, filtros anteriores, painel "Filtros", tela prévia da revisão, filtro por data e "Refazer grupo" |
 | `11-cartoes-dos-grifos.js` | cartões criados a partir dos grifos (frente/verso com o mesmo número): tela com data e calendário (hoje, dias futuros e histórico), revisão com FSRS e exportação de todos para o Anki |
-| `13-desempenho-e-plano.js` | tela "Desempenho e plano": acerto por disciplina e tema, pontos fracos, evolução semanal, plano de estudo com a meta diária (aba Plano); sequência de dias (aba Desempenho) |
-| `14-simulado.js` | simulado montado pelo aluno (correção escondida, relógio sem pausa), resultado com classificação para a revisão e histórico |
+| `13-desempenho-e-plano.js` | tela "Desempenho e plano": gráficos por disciplina e tema com os filtros do Meu gabarito, pontos fracos, evolução semanal e dias seguidos; plano por dias e horários, ritmo até a prova e meta do dia (também na tela inicial) |
+| `14-simulado.js` | simulado montado pelo aluno (correção escondida; o relógio só para na pausa por inatividade), resultado com classificação para a revisão e histórico |
+| `15-tempo-e-inatividade.js` | relógio de estudo (só com a aba visível), tempo de cada questão (até confirmar + leitura da correção, máx. 20 min), média para o plano e pausa por inatividade (20 min) com a tela embaçada |
 | `12-aparencia.js` | modo escuro (fundos brancos viram escuros e letras pretas viram claras; as outras cores ficam) e tamanho da letra |
 
 Dados no progresso (`progress`, salvo no navegador, no arquivo e no Drive): `registro` (respostas), `avaliacoes`
