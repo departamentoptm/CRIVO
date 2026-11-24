@@ -5,8 +5,7 @@ sincronizar. Para qualquer aluno usar, são duas etapas:
 
 1. **Publicar o app** (Parte A, cerca de 10 minutos). Depois disso, qualquer conta Google já consegue sincronizar.
    A tela de permissão do Google mostra o endereço do site, sem o nome e o logo do CRIVO.
-2. **Verificar a marca** (Partes B e C). A tela passa a mostrar "CRIVO - UNIOESTE" com o logo. O Google pode
-   levar de alguns minutos a 2 ou 3 dias úteis para aprovar.
+2. Verificar a marca (opcional, não feito por enquanto; veja o fim deste guia).
 
 O CRIVO usa só a permissão `drive.file` (o site enxerga apenas a pasta "CRIVO - Progresso" que ele mesmo cria).
 O Google classifica essa permissão como **não sensível**: por isso não é preciso passar pela verificação
@@ -39,44 +38,13 @@ Faça tudo com a conta Google que é **proprietária** do projeto no Google Clou
 6. Teste com uma conta Google que **não** está na lista de usuários de teste: abra o CRIVO, toque em
    "Sincronizar com Google Drive" e autorize. Deve funcionar.
 
-## Parte B — Comprovar que o site é do CRIVO (Search Console)
+## Verificação de marca (opcional, não feita)
 
-O Google pede a verificação do "domínio privado de nível mais alto", que no GitHub Pages é
-`departamentoptm.github.io` (a raiz do endereço, não só a pasta `/CRIVO/`). As páginas do CRIVO já têm uma
-etiqueta de verificação, mas ela fica em `/CRIVO/`. Para verificar a raiz:
-
-1. No GitHub, crie um repositório **público** na organização `departamentoptm` com o nome exato
-   **`departamentoptm.github.io`**.
-2. Abra <https://search.google.com/search-console> com a mesma conta do Google Cloud → **Adicionar
-   propriedade** → **Prefixo do URL** → `https://departamentoptm.github.io/` → método **Tag HTML** → copie a
-   etiqueta `<meta name="google-site-verification" …>` que aparecer.
-3. No repositório novo, crie o arquivo `index.html` com o conteúdo abaixo, trocando a linha da etiqueta pela
-   que você copiou:
-
-   ```html
-   <!DOCTYPE html>
-   <html lang="pt-BR">
-   <head>
-   <meta charset="UTF-8">
-   <meta name="google-site-verification" content="COLE_AQUI_O_CODIGO" />
-   <meta http-equiv="refresh" content="0; url=/CRIVO/">
-   <title>CRIVO - UNIOESTE</title>
-   </head>
-   <body><p><a href="/CRIVO/">CRIVO - UNIOESTE: banco de questões de residência médica</a></p></body>
-   </html>
-   ```
-
-4. No repositório novo: **Settings → Pages → Branch: main / (root) → Save**. Espere 1 ou 2 minutos e abra
-   `https://departamentoptm.github.io/`: ele deve levar ao CRIVO.
-5. Volte ao Search Console e clique em **Verificar**.
-
-## Parte C — Pedir a verificação de marca
-
-1. No Google Cloud → Google Auth Platform → **Central de verificação** (Verification Center) → **Verificar
-   marca** (Verify branding).
-2. Se o Google pedir explicações, diga que o app usa só `drive.file` para salvar o progresso de estudo do
-   próprio aluno numa pasta criada pelo site, e mande o link da política de privacidade.
-3. Acompanhe o status na mesma página. Quando aprovado, a tela de permissão mostra o nome e o logo.
+Sem ela, a tela de permissão do Google mostra o endereço do site no lugar do nome e do logo do CRIVO; a
+sincronização funciona do mesmo jeito para qualquer conta. Decidimos não fazê-la por enquanto. Se um dia for
+retomada: o Google exige a página inicial na raiz verificada (`https://departamentoptm.github.io/`, num
+repositório `departamentoptm.github.io`), com o mesmo nome do app, sem login, explicando a finalidade, e uma
+política de privacidade detalhada; depois de verificar o site no Search Console, é preciso esperar 24 horas.
 
 ## Se algo der errado
 

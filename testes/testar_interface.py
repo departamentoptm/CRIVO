@@ -11,6 +11,10 @@ import socketserver
 import sys
 import threading
 import functools
+import json
+import re
+import time
+import urllib.parse
 
 from playwright.sync_api import sync_playwright
 
@@ -455,6 +459,136 @@ def t_inatividade(page, url):
     assert page.locator("#refazerBtn").count() == 0, "o botão Refazer da barra superior deveria ter saído"
 
 
+class DriveFalso:
+    """Google Drive de mentira (só o que o CRIVO usa), servido pelo Playwright no lugar de googleapis.com."""
+    def __init__(self):
+        self.arq, self.n = {}, 0
+
+    def _novo(self, nome, pai=None, conteudo="", pasta=False):
+        self.n += 1
+        fid = f"f{self.n}"
+        self.arq[fid] = {"id": fid, "name": nome, "parents": [pai] if pai else [], "conteudo": conteudo,
+                         "pasta": pasta, "trashed": False, "modifiedTime": f"2026-01-01T00:00:{self.n:02d}Z", "t": self.n}
+        return fid
+
+    def ativos(self, prefixo=""):
+        return [a for a in self.arq.values() if not a["trashed"] and a["name"].startswith(prefixo)]
+
+    def rota(self, route):
+        r = route.request
+        u = urllib.parse.urlparse(r.url); qs = urllib.parse.parse_qs(u.query); m = r.method
+        resp = lambda obj: route.fulfill(status=200, content_type="application/json", body=json.dumps(obj))
+        if m == "GET" and u.path == "/drive/v3/files":
+            q = qs.get("q", [""])[0]
+            res = [a for a in self.arq.values() if not a["trashed"]]
+            if "mimeType='application/vnd.google-apps.folder'" in q: res = [a for a in res if a["pasta"]]
+            nm = re.search(r"name='([^']+)'", q); ct = re.search(r"name contains '([^']+)'", q); pai = re.search(r"'([^']+)' in parents", q)
+            if nm: res = [a for a in res if a["name"] == nm.group(1)]
+            if ct: res = [a for a in res if ct.group(1) in a["name"]]
+            if pai: res = [a for a in res if pai.group(1) in a["parents"]]
+            res.sort(key=lambda a: -a["t"])
+            return resp({"files": [{k: a[k] for k in ("id", "name", "modifiedTime")} for a in res]})
+        if m == "POST" and u.path == "/drive/v3/files":
+            meta = json.loads(r.post_data or "{}")
+            return resp({"id": self._novo(meta["name"], pasta=True)})
+        mm = re.match(r"^/drive/v3/files/([^/]+)$", u.path)
+        if mm and m == "GET":
+            a = self.arq.get(mm.group(1))
+            return route.fulfill(status=200 if a else 404, body=a["conteudo"] if a else "")
+        if mm and m == "PATCH":
+            a = self.arq.get(mm.group(1))
+            if a: a.update(json.loads(r.post_data or "{}")); self.n += 1; a["t"] = self.n
+            return resp({"id": mm.group(1)})
+        mu = re.match(r"^/upload/drive/v3/files/([^/]+)$", u.path)
+        if mu and m == "PATCH":
+            a = self.arq[mu.group(1)]; a["conteudo"] = r.post_data; self.n += 1; a["t"] = self.n
+            return resp({"id": a["id"]})
+        if u.path == "/upload/drive/v3/files" and m == "POST":
+            partes = (r.post_data or "").split("\r\n\r\n")
+            meta = json.loads(partes[1].split("\r\n")[0])
+            conteudo = partes[2].rsplit("\r\n--", 1)[0]
+            return resp({"id": self._novo(meta["name"], meta["parents"][0], conteudo)})
+        return route.fulfill(status=404, body="")
+
+
+@teste("Drive: salva sozinho em 10 s, junta com outro aparelho, envio ao sair sem sobrescrever, cópias e restauração")
+def t_drive(page, url):
+    fd = DriveFalso()
+    page.route("https://www.googleapis.com/**", fd.rota)
+    page.route("https://accounts.google.com/**", lambda r: r.fulfill(status=200, content_type="text/javascript", body=""))
+    page.evaluate("showHome(); showScreen(authScreen)")
+    page.evaluate("driveTok = 'falso'; driveTokExp = Date.now() + 3600e3; driveAtivo = true; void sincronizarDrive(false)")
+    page.wait_for_function("driveUltimaAssinatura !== '' && !driveSincronizando", timeout=10000)
+    assert len(fd.ativos("crivo_progresso.json")) == 1, "não criou o arquivo de progresso no Drive"
+    hoje = page.evaluate("isoDoDia(Date.now())")
+    assert len(fd.ativos(f"crivo_copia_{hoje}")) == 1, "não criou a cópia de segurança do dia"
+    assert "Salvo às" in page.inner_text("#nuvemIndicador"), "o indicador flutuante não mostra o salvamento"
+    # outro aparelho gravou uma resposta no Drive
+    principal = fd.ativos("crivo_progresso.json")[0]
+    d = json.loads(principal["conteudo"])
+    d["registro"].append({"data": "2026-01-02T10:00:00.000Z", "prova": "AMP", "ano": "2026", "questao": "96", "acao": "confirmou", "opcao": "B", "correta": "A"})
+    principal["conteudo"] = json.dumps(d)
+    # mudança aqui: deve ir sozinha ao Drive em até ~10 s, juntando com a do outro aparelho
+    page.evaluate("saveProgressForQuestion('AMP', '2026', 97, { selected: 'C', correct: 'C' })")
+    t0 = time.time()
+    while time.time() - t0 < 16:
+        regs = json.loads(fd.ativos("crivo_progresso.json")[0]["conteudo"])["registro"]
+        if any(e["questao"] == "97" for e in regs): break
+        page.wait_for_timeout(500)
+    regs = json.loads(fd.ativos("crivo_progresso.json")[0]["conteudo"])["registro"]
+    assert any(e["questao"] == "97" for e in regs), "a mudança não foi salva sozinha no Drive"
+    assert any(e["questao"] == "96" for e in regs), "a resposta do outro aparelho foi perdida"
+    for _ in range(20):
+        if page.evaluate("progress.registro.some(e => e.questao === '96' && e.ano === '2026')"): break
+        page.wait_for_timeout(300)
+    assert page.evaluate("progress.registro.some(e => e.questao === '96' && e.ano === '2026')"), (
+        "a resposta do outro aparelho não veio para cá: local=" + page.evaluate("progress.registro.map(e => e.ano + '/' + e.questao).join(',')")
+        + " drive=" + ",".join(e["ano"] + "/" + e["questao"] for e in regs))
+    # envio ao sair: não grava por cima do principal, cria um pendente
+    antes = fd.ativos("crivo_progresso.json")[0]["conteudo"]
+    page.evaluate("clearTimeout(driveTimer); driveTimer = 1; saveProgressForQuestion('AMP', '2026', 98, { selected: 'D', correct: 'D' }); driveEnvioRapido()")
+    page.wait_for_timeout(800)
+    assert fd.ativos("crivo_progresso.json")[0]["conteudo"] == antes, "o envio ao sair gravou por cima do arquivo principal"
+    assert len(fd.ativos("crivo_pendente_")) == 1, "o envio ao sair não criou o arquivo pendente"
+    page.evaluate("driveTimer = null; driveUltimaAssinatura = ''; void sincronizarDrive(false)")
+    page.wait_for_function("!driveSincronizando", timeout=10000); page.wait_for_timeout(300)
+    assert len(fd.ativos("crivo_pendente_")) == 0, "o pendente não foi juntado e mandado para a lixeira"
+    regs = json.loads(fd.ativos("crivo_progresso.json")[0]["conteudo"])["registro"]
+    assert any(e["questao"] == "98" for e in regs), "a mudança do pendente não entrou no arquivo principal"
+    # restaurar a cópia do dia (que não tem as questões 96, 97 e 98)
+    page.evaluate("void abrirRestaurarCopia()")
+    page.wait_for_selector(".modal .escolha-botoes button[data-i='0']", timeout=10000)
+    page.click(".modal .escolha-botoes button[data-i='0']")
+    page.wait_for_selector("text=Sim, restaurar"); page.click("text=Sim, restaurar")
+    page.wait_for_function("!driveSincronizando && !document.querySelector('.modal')", timeout=10000); page.wait_for_timeout(300)
+    assert not page.evaluate("progress.registro.some(e => e.questao === '98')"), "a cópia não foi restaurada"
+    regs = json.loads(fd.ativos("crivo_progresso.json")[0]["conteudo"])["registro"]
+    assert not any(e["questao"] == "98" for e in regs), "o Drive não ficou com a cópia restaurada"
+    assert len(fd.ativos("crivo_copia_antes-de-restaurar")) == 1, "não guardou a cópia antes de restaurar"
+    page.evaluate("driveAtivo = false; driveTok = null; mostrarIndicadorDrive()")
+    page.unroute("https://www.googleapis.com/**"); page.unroute("https://accounts.google.com/**")
+
+
+@teste("carregar arquivo: compara, avisa e pergunta (somar, substituir ou cancelar)")
+def t_carregar_arquivo(page, url):
+    page.evaluate("showHome(); showScreen(authScreen)")
+    outro = {"formato": "crivo-progresso", "versao": 2, "registro": [
+        {"data": "2020-01-01T10:00:00.000Z", "prova": "AMP", "ano": "2026", "questao": "50", "acao": "confirmou", "opcao": "A", "correta": "A"}]}
+    caminho = os.path.join(os.environ.get("TMPDIR", "/tmp"), "progresso_teste.json")
+    with open(caminho, "w", encoding="utf-8") as f:
+        json.dump(outro, f)
+    page.set_input_files("#progressFile", caminho)
+    page.wait_for_selector(".modal >> text=Carregar arquivo de progresso")
+    txt = page.inner_text(".modal")
+    assert "mais antigo" in txt and "Somar ao meu progresso" in txt and "Substituir" in txt, "a comparação não apareceu: " + txt[:200]
+    page.click("text=Cancelar")
+    assert not page.evaluate("progress.registro.some(e => e.questao === '50')"), "cancelar não deveria carregar"
+    page.set_input_files("#progressFile", caminho)
+    page.wait_for_selector(".modal >> text=Somar ao meu progresso"); page.click("text=Somar ao meu progresso")
+    page.wait_for_timeout(200)
+    assert page.evaluate("progress.registro.some(e => e.questao === '50')"), "somar não juntou o arquivo"
+
+
 @teste("tela inicial: botão Solicitar novas provas")
 def t_solicitar(page, url):
     page.evaluate("showHome(); showScreen(authScreen)")
@@ -492,7 +626,7 @@ def main():
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias, t_exportar_cartoes,
                       t_orfao, t_mescla, t_aparencia, t_temas, t_desempenho, t_plano, t_meta,
-                      t_simulado, t_inatividade, t_solicitar, t_selo_duvidas, t_recarregar):
+                      t_simulado, t_inatividade, t_solicitar, t_drive, t_carregar_arquivo, t_selo_duvidas, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

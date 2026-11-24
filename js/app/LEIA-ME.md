@@ -19,6 +19,7 @@ arquivos, carregados **nesta ordem** pelo `index.html`:
 | `13-desempenho-e-plano.js` | tela "Desempenho e plano": gráficos por disciplina e tema com os filtros do Meu gabarito, pontos fracos, evolução semanal e dias seguidos; plano por dias e horários, ritmo até a prova e meta do dia (também na tela inicial) |
 | `14-simulado.js` | simulado montado pelo aluno (correção escondida; o relógio só para na pausa por inatividade), resultado com classificação para a revisão e histórico |
 | `15-tempo-e-inatividade.js` | relógio de estudo (só com a aba visível), tempo de cada questão (até confirmar + leitura da correção, máx. 20 min), média para o plano e pausa por inatividade (20 min) com a tela embaçada |
+| `16-drive-seguranca.js` | aviso flutuante do salvamento na nuvem, restaurar uma cópia do Drive e "Carregar arquivo" com comparação e confirmação (somar, substituir ou cancelar) |
 | `12-aparencia.js` | modo escuro (fundos brancos viram escuros e letras pretas viram claras; as outras cores ficam) e tamanho da letra |
 
 Dados no progresso (`progress`, salvo no navegador, no arquivo e no Drive): `registro` (respostas), `avaliacoes`

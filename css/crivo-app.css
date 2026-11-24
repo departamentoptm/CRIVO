@@ -1271,3 +1271,19 @@ body.inativo .container, body.inativo .screen { filter: blur(4px); }
 .plano-limite { display: flex; align-items: center; gap: .4rem; font-weight: 400; font-size: .82rem; }
 .plano-limite[hidden] { display: none; }
 .plano-limite input { width: 5rem; }
+
+/* ---- indicador flutuante do salvamento na nuvem (lateral esquerda) ---- */
+.nuvem-indicador { position: fixed; left: .6rem; bottom: calc(env(safe-area-inset-bottom, 0px) + 5.2rem); z-index: 1500;
+                   display: inline-flex; align-items: center; gap: .35rem; max-width: min(19rem, calc(100vw - 1.2rem));
+                   padding: .35rem .7rem; border-radius: 2rem; border: 1px solid var(--line-strong, #c9d1e6);
+                   background: rgba(255, 255, 255, .94); color: var(--navy, #1a2a6c); font-size: .78rem; font-weight: 600;
+                   box-shadow: 0 4px 14px rgba(17, 28, 85, .15); cursor: default; opacity: .92; }
+.nuvem-indicador[hidden] { display: none; }
+.nuvem-indicador .nuvem-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nuvem-indicador.alerta { background: #fff7ed; border-color: #f59e0b; color: #9a3412; cursor: pointer; }
+.nuvem-indicador.offline { background: #f1f5f9; color: #475569; }
+@media (min-width: 900px) { .nuvem-indicador { bottom: 1rem; } }
+.restaurar-copia { margin: .3rem auto 0; display: block; font-size: .82rem; }
+.escolha-botoes { display: flex; flex-direction: column; gap: .45rem; margin-top: .8rem; }
+.escolha-botoes button { text-align: left; }
+.escolha-aviso { color: #9a3412; background: #fff7ed; border-radius: .5rem; padding: .5rem .7rem; }

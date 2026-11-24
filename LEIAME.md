@@ -299,6 +299,24 @@ anteriores (todos opcionais, menos a banca). Em **Enviar → link**, copie o end
 `URL_SOLICITAR_PROVAS`, no fim de `js/app/10-inicio-filtros-e-grupos.js`. Até lá, o botão avisa que o
 formulário não foi configurado. As respostas ficam na planilha do formulário.
 
+## Salvamento automático no Google Drive
+
+- Com a sincronização ligada, cada mudança vai para o Drive em até 10 segundos (no máximo a cada 10 s
+  enquanto houver mudanças), a cada 2 minutos, ao tocar em "Salvar progresso em arquivo" e ao sair, trocar de
+  aba ou fechar a página.
+- Cada sincronização lê o arquivo do Drive, junta com o deste aparelho e grava o resultado: nenhuma resposta,
+  grifo, revisão ou cartão de nenhum lado é apagado; plano e preferências ficam com a alteração mais recente.
+- Ao sair ou fechar, não dá tempo de ler e juntar: o site grava um arquivo "pendente"
+  (`crivo_pendente_…json`), que a próxima sincronização, de qualquer aparelho, junta ao principal e manda
+  para a lixeira do Drive. O arquivo principal nunca é sobrescrito sem ser lido antes.
+- Cópia de segurança diária no Drive (`crivo_copia_AAAA-MM-DD.json`, as 7 mais recentes) e o botão
+  "🗂️ Restaurar uma cópia do Drive" na tela inicial. Antes de restaurar ou de substituir por um arquivo, o
+  progresso atual é guardado como mais uma cópia.
+- "Carregar arquivo" mostra o resumo do arquivo e do progresso atual, avisa se o arquivo é mais antigo, tem
+  menos questões ou parece de outra pessoa, e pergunta: somar, substituir ou cancelar.
+- Um aviso flutuante no canto inferior esquerdo mostra "Salvo às …", "Salvando…" ou, se a autorização do
+  Google expirou, "Não salvo na nuvem — toque para reconectar".
+
 ## Google Drive para todos os alunos
 
 Veja `GUIA-GOOGLE-DRIVE.md`: publicar o app no Google Cloud (qualquer conta passa a sincronizar) e pedir a
