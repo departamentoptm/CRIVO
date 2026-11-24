@@ -522,7 +522,7 @@ def t_drive(page, url):
     assert len(fd.ativos("crivo_progresso.json")) == 1, "não criou o arquivo de progresso no Drive"
     hoje = page.evaluate("isoDoDia(Date.now())")
     assert len(fd.ativos(f"crivo_copia_{hoje}")) == 1, "não criou a cópia de segurança do dia"
-    assert "Salvo às" in page.inner_text("#nuvemIndicador"), "o indicador flutuante não mostra o salvamento"
+    assert "Salvo" in page.inner_text("#nuvemBarra"), "o indicador da barra inferior não mostra o salvamento"
     # outro aparelho gravou uma resposta no Drive
     principal = fd.ativos("crivo_progresso.json")[0]
     d = json.loads(principal["conteudo"])
@@ -610,6 +610,115 @@ def t_selo_duvidas(page, url):
     assert "gerada por IA" in html2 and "Dúvidas sobre" not in html2, "selo de IA ou bloco de dúvidas vazio errado"
 
 
+@teste("barra superior: desmarcar 'Todas' desmarca tudo; sem nenhuma, pede para escolher")
+def t_todas(page, url):
+    page.click("#bancaMultiBtn")
+    page.uncheck("#bancaAllChk"); page.wait_for_timeout(300)
+    assert page.locator("#bancaMultiPanel input[data-banca-value]:checked").count() == 0, "desmarcar Todas deveria desmarcar as bancas"
+    assert page.evaluate("questoes.length") == 0 and "nenhuma" in page.inner_text("#bancaMultiBtn"), "sem banca, não deveria haver questões"
+    page.wait_for_function("document.getElementById('questionFrame').contentDocument?.body?.innerText.includes('Escolha pelo menos uma banca')", timeout=5000)
+    page.check("#bancaMultiPanel input[data-banca-value='AMP']"); page.wait_for_timeout(300)
+    assert page.evaluate("filtros.bancas.join()") == "AMP" and page.evaluate("questoes.length") > 0, "marcar uma banca deveria mostrar só ela"
+    page.check("#bancaAllChk"); page.wait_for_timeout(300)
+    assert page.evaluate("filtros.bancas.length") == 0, "marcar Todas deveria voltar para todas"
+    page.click("#anoMultiBtn")
+    page.uncheck("#anoAllChk"); page.wait_for_timeout(300)
+    assert page.locator("#anoMultiPanel input[data-ano-value]:checked").count() == 0 and page.evaluate("questoes.length") == 0, "edições: desmarcar Todas"
+    page.check("#anoMultiPanel input[data-ano-value] >> nth=0"); page.wait_for_timeout(300)
+    assert page.evaluate("filtros.anos.length") == 1 and page.evaluate("questoes.length") > 0, "marcar uma edição"
+    page.check("#anoAllChk"); page.wait_for_timeout(300)
+    page.mouse.click(5, 300); page.wait_for_timeout(200)
+    quadro(page)
+
+
+@teste("cartão continua quando o texto dos grifos muda e cartões antigos são juntados")
+def t_cartao_texto(page, url):
+    r = page.evaluate("""() => {
+        const g = progress.grifados.find(x => x.id === 'gteste1');
+        progress.grifados.push(Object.assign({}, g, { id: 'gteste3', texto: 'Frente extra', startOffset: 5 }));
+        const l = listarCartoes();
+        const c = l.find(x => x.c.numero == 7 && x.c.dir === 'fv');
+        const r = [l.filter(x => x.orfao).length, c.c.frente.length, c.c.revisoes.length > 0];
+        progress.grifados = progress.grifados.filter(x => x.id !== 'gteste3');
+        const base = `${c.c.prova}|${c.c.ano}|${c.c.questao}|7|vf`;
+        progress.cartoes[base + '|antigo'] = Object.assign({}, c.c, { dir: 'vf', revisoes: [{ data: '2025-01-01T00:00:00.000Z', nota: 2 }] });
+        const antes = progress.cartoes[base].revisoes.length;
+        listarCartoes();
+        r.push(!progress.cartoes[base + '|antigo'], progress.cartoes[base].revisoes.length === antes + 1);
+        return r;
+    }""")
+    assert r == [0, 2, True, True, True], f"cartões com texto mudado ou ids antigos: {r}"
+
+
+@teste("Desempenho: tempo médio até confirmar, na correção e total")
+def t_tempos(page, url):
+    r = page.evaluate("""() => { progress.leituras = Object.assign({}, progress.leituras, { 'x1': 30000 });
+        renderDesempenho(); return [document.getElementById('painelDesempenho').innerText, temposMedios()]; }""")
+    txt, t = r
+    for rot in ("até confirmar (média)", "na correção (média)", "total por questão"):
+        assert rot in txt, f"faltou '{rot}' no Desempenho"
+    assert t["nConf"] > 0 and t["leit"] > 0, f"tempos não calculados: {t}"
+
+
+@teste("filtro 'Questões do plano de hoje' no painel Filtros")
+def t_filtro_plano(page, url):
+    page.evaluate("showScreen(resolvingScreen)")
+    page.click("#filtrosBtn"); page.check("#soPlanoHoje"); page.wait_for_timeout(500)
+    esperado = page.evaluate("questoesDoPlanoDeHoje(planoAtivo(), calcularPlano(planoAtivo()).dist).length")
+    if esperado:
+        assert page.evaluate("filtros.listaNome") == "Plano de hoje" and page.evaluate("questoes.length") == esperado, "o filtro do plano não abriu as questões de hoje"
+        assert page.is_checked("#soPlanoHoje"), "o filtro do plano deveria ficar marcado"
+        if not page.is_visible("#soPlanoHoje"): page.click("#filtrosBtn")
+        page.uncheck("#soPlanoHoje"); page.wait_for_timeout(400)
+        assert not page.evaluate("filtros.lista"), "desmarcar deveria voltar aos filtros anteriores"
+    else:
+        assert not page.is_checked("#soPlanoHoje"), "sem questões no plano, o filtro não deveria ficar marcado"
+    page.mouse.click(5, 300); page.wait_for_timeout(200)
+
+
+@teste("tamanho dos ícones e preferências de letra/ícones no progresso (Drive)")
+def t_icones(page, url):
+    page.evaluate("showHome(); showScreen(authScreen)")
+    page.click("#iconeMaisBtn")
+    assert page.inner_text("#iconeValor") == "110%", "tamanho dos ícones não mudou"
+    assert page.evaluate("getComputedStyle(document.documentElement).getPropertyValue('--crivo-icones').trim()") == "1.1"
+    assert page.evaluate("progress.preferencias && progress.preferencias.icones") == 1.1, "os ícones não foram para o progresso"
+    r = page.evaluate("""() => { progress.preferencias = mesclarProgresso({ registro: [], preferencias: progress.preferencias },
+            { registro: [], preferencias: { escala: 1.2, icones: 1.5, atualizado: '2099-01-01T00:00:00.000Z' } }).preferencias;
+        aplicarPrefsDoProgresso(); const r = [uiPrefs.escala, uiPrefs.icones];
+        uiPrefs.prefsEm = ''; progress.preferencias = { escala: 1, icones: 1, atualizado: new Date().toISOString() };
+        aplicarPrefsDoProgresso(); return r; }""")
+    assert r == [1.2, 1.5], f"as preferências mais novas do Drive não foram aplicadas: {r}"
+    assert page.inner_text("#iconeValor") == "100%", "não voltou para 100%"
+
+
+@teste("salvamento: indicador na barra inferior (sem cobrir Anterior) e aviso arrastável só sem autorização")
+def t_indicador(page, url):
+    page.evaluate("showScreen(resolvingScreen); driveAtivo = true; mostrarIndicadorDrive('salvo')")
+    assert page.evaluate("document.querySelector('.bottom-center').firstElementChild.id") == "nuvemBarra", "o indicador deve ficar antes do ▾"
+    a = page.locator("#nuvemBarra").bounding_box(); b = page.locator("#prevBtn").bounding_box()
+    sobrepoe = a["x"] < b["x"] + b["width"] and b["x"] < a["x"] + a["width"] and a["y"] < b["y"] + b["height"] and b["y"] < a["y"] + a["height"]
+    assert not sobrepoe, "o indicador cobre o botão Anterior"
+    assert not page.is_visible("#nuvemAviso"), "o aviso flutuante não deve aparecer quando está salvo"
+    page.evaluate("mostrarIndicadorDrive('reconectar')")
+    assert page.is_visible("#nuvemAviso") and "reconectar" in page.inner_text("#nuvemAviso"), "o aviso de autorização expirada não apareceu"
+    caixa = page.locator("#nuvemAviso").bounding_box()
+    page.evaluate("window._recon = 0; window._sd = sincronizarDrive; sincronizarDrive = async () => { window._recon++; window._pilha = new Error().stack; }; 0")
+    page.mouse.move(caixa["x"] + 20, caixa["y"] + 15); page.mouse.down()
+    page.mouse.move(caixa["x"] - 60, caixa["y"] + 120, steps=5); page.mouse.up()
+    pos = page.evaluate("JSON.parse(localStorage.getItem('crivo_aviso_pos'))")
+    assert pos and abs(pos["y"] - (caixa["y"] + 105)) < 8, f"o aviso não foi arrastado/lembrado: {pos}"
+    assert page.evaluate("window._recon") == 0, "arrastar não deve abrir o login: " + str(page.evaluate("window._pilha")).replace(chr(10), " | ")
+    page.click("#nuvemAviso")
+    assert page.evaluate("window._recon") == 1, "tocar no aviso deveria reconectar"
+    page.evaluate("sincronizarDrive = window._sd; mostrarIndicadorDrive('offline')")
+    assert "Sem internet" in page.inner_text("#nuvemAviso"), "aviso de sem internet"
+    page.evaluate("document.body.classList.add('rodape-oculto'); mostrarIndicadorDrive('salvo')")
+    assert not page.is_visible("#nuvemAviso"), "salvo: o aviso deveria sumir"
+    assert page.is_visible("#nuvemBarra") and not page.is_visible("#nuvemBarra .nuvem-txt"), "barra minimizada: só o ícone"
+    page.evaluate("document.body.classList.remove('rodape-oculto'); localStorage.removeItem('crivo_aviso_pos'); driveAtivo = false; mostrarIndicadorDrive()")
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -624,9 +733,9 @@ def main():
             page = ctx.new_page()
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
-            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias, t_exportar_cartoes,
-                      t_orfao, t_mescla, t_aparencia, t_temas, t_desempenho, t_plano, t_meta,
-                      t_simulado, t_inatividade, t_solicitar, t_drive, t_carregar_arquivo, t_selo_duvidas, t_recarregar):
+            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
+                      t_exportar_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_plano, t_meta,
+                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

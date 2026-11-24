@@ -81,6 +81,12 @@
                         <span id="letraValor" aria-live="polite">100%</span>
                         <button type="button" class="aparencia-btn" id="letraMaisBtn" aria-label="Aumentar a letra">A+</button>
                     </span>
+                    <span class="aparencia-letra" title="Tamanho dos botões das barras superior e inferior da resolução">
+                        <span>Ícones</span>
+                        <button type="button" class="aparencia-btn" id="iconeMenosBtn" aria-label="Diminuir os ícones">−</button>
+                        <span id="iconeValor" class="aparencia-valor" aria-live="polite">100%</span>
+                        <button type="button" class="aparencia-btn" id="iconeMaisBtn" aria-label="Aumentar os ícones">+</button>
+                    </span>
                 </div>
                 <div class="drive-status" id="driveStatus" aria-live="polite"></div>
                 <div class="drive-aviso">Ao sincronizar, o CRIVO grava o seu progresso na pasta “CRIVO - Progresso” do seu Google Drive e não acessa nenhum outro arquivo. <a href="privacidade.html" target="_blank" rel="noopener">Saiba mais</a></div>
@@ -136,6 +142,7 @@
                     <div class="bottom-filters filtros-painel" id="filtrosPainel" hidden>
                         <label><input type="checkbox" id="soNaoRealizadas"> Apenas questões não realizadas</label>
                         <label title="Questões que você errou ou marcou para revisar, no dia certo da revisão"><input type="checkbox" id="soRevisao"> 🔁 Revisões pendentes <span class="revisao-conta" id="revisaoConta"></span></label>
+                        <label title="Só as questões novas do seu plano de estudo para hoje (as mesmas de “Começar as questões de hoje”)"><input type="checkbox" id="soPlanoHoje"> 📅 Questões do plano de hoje</label>
                         <label title="Ordem aleatória (a mesma até você desmarcar e marcar de novo)"><input type="checkbox" id="embaralharChk"> 🔀 Embaralhar</label>
                         <label class="max-q" title="Limitar a quantidade de questões do filtro atual"><span class="max-q-txt">Limitar a</span><input type="number" id="maxQuestoesInput" placeholder="todas" min="0" inputmode="numeric"></label>
                     </div>

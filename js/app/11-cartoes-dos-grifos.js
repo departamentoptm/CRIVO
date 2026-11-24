@@ -4,15 +4,13 @@
    vira um cartão nos dois sentidos: frente → verso e verso → frente, como o tipo "Basic (and reversed card)"
    do Anki. Os cartões têm fila própria ("Cartões de hoje") e usam o mesmo FSRS-6 das questões, com as notas
    Errei, Difícil, Bom e Fácil.
-   O texto do cartão é guardado no progresso. Se o aluno apagar ou mudar um grifo, o cartão antigo continua
-   (marcado como "sem grifo de origem") até o aluno apagá-lo; o par novo vira um cartão novo.
+   O cartão é identificado pela questão, pelo número e pelo sentido. Se o texto dos grifos daquele número mudar
+   (um grifo novo, um grifo apagado, grifos juntados de outro aparelho), o cartão continua o mesmo, com o texto
+   atualizado e o histórico de revisões mantido. Só fica "sem grifo de origem" se não sobrar par frente/verso
+   com aquele número. Cartões antigos (identificados também pelo texto) são juntados no cartão da questão e
+   número, somando as revisões. Um cartão apagado volta, sem o histórico, se o texto dos grifos mudar.
    As revisões ficam em progress.cartoes e são somadas entre aparelhos na sincronização com o Drive.
    ============================================================ */
-function _hashTexto(s) {
-    let h = 2166136261;
-    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-    return (h >>> 0).toString(36);
-}
 /* pares completos dos grifos atuais: id do cartão -> dados (um id por sentido) */
 function paresDosGrifos() {
     const porNumero = new Map();
@@ -22,32 +20,70 @@ function paresDosGrifos() {
         if (!porNumero.has(k)) porNumero.set(k, { frente: [], verso: [] });
         porNumero.get(k)[g.lado].push(g);
     }
-    const ordenar = lista => lista.slice().sort((a, b) => (a.startOffset || 0) - (b.startOffset || 0)).map(x => x.texto);
+    /* em ordem no texto; o mesmo trecho grifado em dois aparelhos conta uma vez */
+    const ordenar = lista => [...new Map(lista.map(x => [`${x.startOffset || 0}|${x.texto}`, x])).values()]
+        .sort((a, b) => (a.startOffset || 0) - (b.startOffset || 0)).map(x => x.texto);
     const pares = new Map();
     for (const [k, p] of porNumero) {
         if (!p.frente.length || !p.verso.length) continue;
         const frente = ordenar(p.frente), verso = ordenar(p.verso);
-        const h = _hashTexto(frente.join('\n') + '\u0000' + verso.join('\n'));
         const [prova, ano, questao, numero] = k.split('|');
-        for (const dir of ['fv', 'vf']) pares.set(`${k}|${dir}|${h}`, { prova, ano, questao, numero, dir, frente, verso });
+        for (const dir of ['fv', 'vf']) pares.set(`${k}|${dir}`, { prova, ano, questao, numero, dir, frente, verso });
     }
     return pares;
 }
-/* cria no progresso os cartões dos pares novos; devolve os ids dos pares atuais */
+const _baseCartao = id => String(id).replace(/\|(fv|vf)(\|[^|]*)?$/, '');
+function cartaoApagado(c) { return !!(c && c.apagado && !(c.reativado && c.reativado > c.apagado)); }
+/* ids antigos "prova|ano|questão|número|sentido|texto" -> "prova|ano|questão|número|sentido", somando as revisões */
+function migrarIdsCartoes() {
+    const grupos = {};
+    let mudou = false;
+    for (const [id, c] of Object.entries(progress.cartoes || {})) {
+        if (!c || typeof c !== 'object') continue;
+        const m = id.match(/^(.*\|(?:fv|vf))\|[^|]*$/);
+        const novo = m ? m[1] : id;
+        if (novo !== id) mudou = true;
+        (grupos[novo] ||= []).push(c);
+    }
+    if (!mudou) return false;
+    const r = {};
+    for (const [id, lista] of Object.entries(grupos)) {
+        if (lista.length === 1) { r[id] = lista[0]; continue; }
+        const vivos = lista.filter(c => !cartaoApagado(c)), fonte = vivos.length ? vivos : lista;
+        const revs = new Map();
+        fonte.forEach(c => (c.revisoes || []).forEach(v => { if (v && v.data) revs.set(v.data + '|' + v.nota, v); }));
+        const x = Object.assign({}, fonte.reduce((a, b) => String(b.criado || '') > String(a.criado || '') ? b : a));
+        x.revisoes = [...revs.values()].sort((p, q) => new Date(p.data) - new Date(q.data));
+        x.criado = fonte.map(c => c.criado).filter(Boolean).sort()[0] || x.criado;
+        if (vivos.length) { delete x.apagado; delete x.reativado; }
+        else x.apagado = lista.map(c => c.apagado).filter(Boolean).sort().pop();
+        r[id] = x;
+    }
+    progress.cartoes = r;
+    return true;
+}
+/* cria no progresso os cartões dos pares novos e atualiza o texto dos que mudaram; devolve os pares atuais */
 function sincronizarCartoes() {
     const pares = paresDosGrifos();
     if (!progress.cartoes || typeof progress.cartoes !== 'object') progress.cartoes = {};
+    let mudou = migrarIdsCartoes();
     const agora = new Date().toISOString();
-    let novos = 0;
+    const mesmo = (a, b) => JSON.stringify(a || []) === JSON.stringify(b || []);
     for (const [id, p] of pares) {
-        if (!progress.cartoes[id]) { progress.cartoes[id] = Object.assign({}, p, { criado: agora, revisoes: [] }); novos++; }
+        const c = progress.cartoes[id];
+        if (!c) { progress.cartoes[id] = Object.assign({}, p, { criado: agora, revisoes: [] }); mudou = true; continue; }
+        if (mesmo(c.frente, p.frente) && mesmo(c.verso, p.verso)) continue;
+        if (cartaoApagado(c)) c.reativado = agora;          /* apagado e o texto mudou: volta como cartão novo */
+        c.frente = p.frente; c.verso = p.verso; mudou = true;
     }
-    if (novos) { setDirty(true); salvarBackup(); }
+    if (mudou) { setDirty(true); salvarBackup(); }
     return pares;
 }
 function estadoCartao(c) {
     let s = null;
+    const desde = c.reativado && c.apagado ? c.reativado : '';
     for (const v of c.revisoes || []) {
+        if (desde && String(v.data) < desde) continue;
         const t = +new Date(v.data), g = +v.nota;
         if (t && g >= 1 && g <= 4) s = fsrsRevisar(s ? { ...s } : null, g, t);
     }
@@ -56,7 +92,7 @@ function estadoCartao(c) {
 function listarCartoes() {
     const atuais = sincronizarCartoes();
     return Object.entries(progress.cartoes || {})
-        .filter(([, c]) => c && !c.apagado)
+        .filter(([, c]) => c && !cartaoApagado(c))
         .map(([id, c]) => ({ id, c, orfao: !atuais.has(id), estado: estadoCartao(c) }));
 }
 /* vencidos (os mais atrasados primeiro) e depois os novos, na ordem em que foram criados */
@@ -224,14 +260,13 @@ document.getElementById('cartNotas').addEventListener('click', e => {
 document.getElementById('cartApagarBtn').addEventListener('click', () => {
     const id = cartFila[0], c = id && progress.cartoes[id];
     if (!c) return;
-    /* apaga os dois sentidos do mesmo par (mesma questão, número e texto) */
-    const partes = id.split('|'), h = partes.pop(); partes.pop();
-    const irmaos = ['fv', 'vf'].map(d => [...partes, d, h].join('|')).filter(x => progress.cartoes[x]);
+    /* apaga os dois sentidos do mesmo par (mesma questão e número) */
+    const irmaos = ['fv', 'vf'].map(d => `${_baseCartao(id)}|${d}`).filter(x => progress.cartoes[x]);
     const ativo = paresDosGrifos().has(id);
     if (!confirm('Apagar este cartão (nos dois sentidos) e o histórico de revisões dele?'
         + (ativo ? '\n\nOs grifos continuam na questão; o cartão só volta se você mudar o texto ou o número desses grifos.' : ''))) return;
     const agora = new Date().toISOString();
-    irmaos.forEach(x => { progress.cartoes[x].apagado = agora; });
+    irmaos.forEach(x => { progress.cartoes[x].apagado = agora; delete progress.cartoes[x].reativado; });
     setDirty(true); salvarBackup();
     cartFila = cartFila.filter(x => !irmaos.includes(x));
     cartMostrando = false;
@@ -250,7 +285,7 @@ document.addEventListener('keydown', e => {
 
 /* ---- exportar todos os cartões para o Anki (uma nota por par; o tipo do Anki cria os dois sentidos) ---- */
 function preencherFiltrosExportacao() {
-    const todos = Object.values(progress.cartoes || {}).filter(c => c && !c.apagado);
+    const todos = Object.values(progress.cartoes || {}).filter(c => c && !cartaoApagado(c));
     const bancas = [...new Set(todos.map(c => c.prova))].sort();
     const discs = [...new Set(todos.map(c => disciplinaDe(c.prova, c.ano, c.questao)).filter(Boolean))].sort();
     const opc = (lista, rotulo) => `<option value="">${rotulo}</option>` + lista.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
@@ -269,7 +304,7 @@ function exportarTodosCartoes() {
     const atuais = paresDosGrifos();
     const notas = new Map();
     for (const [id, c] of Object.entries(progress.cartoes || {})) {
-        if (!c || c.apagado || c.dir !== 'fv') continue;
+        if (!c || cartaoApagado(c) || c.dir !== 'fv') continue;
         if (!comOrfaos && !atuais.has(id)) continue;
         if (banca && c.prova !== banca) continue;
         if (ano && String(c.ano) !== ano) continue;

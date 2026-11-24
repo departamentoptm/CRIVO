@@ -8,15 +8,22 @@
         vira clara; letra clara sobre fundo claro (ex.: dentro de um grifo) vira escura.
    Desligar o modo escuro desfaz tudo, sem recarregar a página.
    Tamanho da letra: aumenta ou diminui o texto da questão, da correção e dos cartões.
-   As escolhas ficam neste navegador (localStorage, chave crivo_ui).
+   Tamanho dos ícones: aumenta ou diminui os botões das barras superior e inferior da resolução (80% a 160%).
+   As escolhas ficam neste navegador (localStorage, chave crivo_ui). A letra e os ícones também vão para o
+   progresso (progress.preferencias) e, com o Drive ligado, valem nos outros aparelhos (vale a mudança mais
+   recente). O modo escuro fica só neste aparelho.
    ============================================================ */
 const ESCALAS_LETRA = [0.85, 0.9, 1, 1.1, 1.2, 1.35, 1.5];
 if (uiPrefs.tema !== 'escuro') uiPrefs.tema = 'claro';
+const ESCALAS_ICONE = [0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6];
 if (!ESCALAS_LETRA.includes(uiPrefs.escala)) uiPrefs.escala = 1;
+if (!ESCALAS_ICONE.includes(uiPrefs.icones)) uiPrefs.icones = 1;
 try {
     const v = JSON.parse(localStorage.getItem(UI_KEY));
     if (v && v.tema === 'escuro') uiPrefs.tema = 'escuro';
     if (v && ESCALAS_LETRA.includes(+v.escala)) uiPrefs.escala = +v.escala;
+    if (v && ESCALAS_ICONE.includes(+v.icones)) uiPrefs.icones = +v.icones;
+    if (v && typeof v.prefsEm === 'string') uiPrefs.prefsEm = v.prefsEm;
 } catch {}
 
 /* ---------- cores ---------- */
@@ -235,13 +242,55 @@ function aplicarAparencia() {
     const menos = document.getElementById('letraMenosBtn'), mais = document.getElementById('letraMaisBtn');
     if (menos) menos.disabled = i <= 0;
     if (mais) mais.disabled = i >= ESCALAS_LETRA.length - 1;
+    document.documentElement.style.setProperty('--crivo-icones', String(uiPrefs.icones));
+    const iv = document.getElementById('iconeValor');
+    if (iv) iv.textContent = Math.round(uiPrefs.icones * 100) + '%';
+    const j = ESCALAS_ICONE.indexOf(uiPrefs.icones);
+    const imenos = document.getElementById('iconeMenosBtn'), imais = document.getElementById('iconeMaisBtn');
+    if (imenos) imenos.disabled = j <= 0;
+    if (imais) imais.disabled = j >= ESCALAS_ICONE.length - 1;
     try { aplicarAparenciaNoQuadro(); } catch (e) { console.warn('aparência na questão:', e); }
+}
+/* letra e ícones vão para o progresso (e para o Drive) */
+function guardarPrefsNoProgresso() {
+    uiPrefs.prefsEm = new Date().toISOString();
+    salvarUi();
+    if (!currentRA || !progress) return;
+    progress.preferencias = { escala: uiPrefs.escala, icones: uiPrefs.icones, atualizado: uiPrefs.prefsEm };
+    setDirty(true); salvarBackup();
+}
+/* aplica as preferências do progresso (vindas do Drive) se forem mais novas que as deste aparelho */
+function aplicarPrefsDoProgresso() {
+    const p = progress && progress.preferencias;
+    if (!p || !p.atualizado || String(p.atualizado) <= String(uiPrefs.prefsEm || '')) return;
+    if (ESCALAS_LETRA.includes(+p.escala)) uiPrefs.escala = +p.escala;
+    if (ESCALAS_ICONE.includes(+p.icones)) uiPrefs.icones = +p.icones;
+    uiPrefs.prefsEm = String(p.atualizado);
+    salvarUi(); aplicarAparencia();
 }
 function mudarLetra(passo) {
     const i = ESCALAS_LETRA.indexOf(uiPrefs.escala);
     uiPrefs.escala = ESCALAS_LETRA[Math.min(ESCALAS_LETRA.length - 1, Math.max(0, i + passo))];
-    salvarUi(); aplicarAparencia();
+    guardarPrefsNoProgresso(); aplicarAparencia();
 }
+function mudarIcones(passo) {
+    const i = ESCALAS_ICONE.indexOf(uiPrefs.icones);
+    uiPrefs.icones = ESCALAS_ICONE[Math.min(ESCALAS_ICONE.length - 1, Math.max(0, i + passo))];
+    guardarPrefsNoProgresso(); aplicarAparencia();
+}
+document.getElementById('iconeMenosBtn').addEventListener('click', () => mudarIcones(-1));
+document.getElementById('iconeMaisBtn').addEventListener('click', () => mudarIcones(1));
+const _sincronizarDrivePrefs = sincronizarDrive;
+sincronizarDrive = async function (...a) {
+    try { return await _sincronizarDrivePrefs(...a); }
+    finally { try { aplicarPrefsDoProgresso(); } catch {} }
+};
+const _loginWithRAPrefs = loginWithRA;
+loginWithRA = async function (...a) {
+    const r = await _loginWithRAPrefs(...a);
+    try { aplicarPrefsDoProgresso(); } catch {}
+    return r;
+};
 document.getElementById('temaBtn').addEventListener('click', () => {
     uiPrefs.tema = uiPrefs.tema === 'escuro' ? 'claro' : 'escuro';
     salvarUi(); aplicarAparencia();

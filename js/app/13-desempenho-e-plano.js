@@ -246,6 +246,20 @@ function _blocoGrafico() {
     }).join('') + '<p class="desemp-nota graf-legenda-geral"><span class="ok">■ acertos</span> <span class="erro">■ erros</span> <span class="nao">■ não respondidas</span> · '
         + 'Acerto e erro pela última resposta de cada questão.</p></section>';
 }
+/* tempos médios: até confirmar (todas as respostas com tempo medido) e lendo a correção (as leituras medidas) */
+function temposMedios() {
+    const lim = typeof MAX_TEMPO_QUESTAO_MS === 'number' ? MAX_TEMPO_QUESTAO_MS : 20 * 60000;
+    const conf = (progress.registro || []).filter(e => e.acao === 'confirmou' && +e.tempoMs > 0).map(e => Math.min(lim, +e.tempoMs));
+    const leit = Object.values(progress.leituras || {}).map(Number).filter(v => v > 0).map(v => Math.min(lim, v));
+    const media = l => l.length ? l.reduce((a, b) => a + b, 0) / l.length : 0;
+    return { conf: media(conf), nConf: conf.length, leit: media(leit), nLeit: leit.length };
+}
+function _tempoCurto(ms) {
+    const s = Math.round(ms / 1000);
+    if (s < 60) return `${s} s`;
+    const m = Math.floor(s / 60), r = s % 60;
+    return r ? `${m} min ${r} s` : `${m} min`;
+}
 function renderDesempenho() {
     const el = document.getElementById('painelDesempenho');
     const est = estatisticas();
@@ -256,8 +270,14 @@ function renderDesempenho() {
     const fracos = temasPadrao ? pontosFracos(est) : [];
     const semanas = _semanas(8), maxN = Math.max(1, ...semanas.map(s => s.n));
     let h = `<div class="desemp-resumo"><div><b>${est.n}</b><span>questões respondidas</span></div><div><b>${_pct(est.certas, est.n)}%</b><span>de acerto</span></div>`
-        + `<div><b>${sequenciaDeDias()}</b><span>dias seguidos</span></div></div>`
-        + '<p class="desemp-nota">Considera a última resposta de cada questão. Anuladas e excluídas ficam de fora.</p>';
+        + `<div><b>${sequenciaDeDias()}</b><span>dias seguidos</span></div>`
+        + (() => { const t = temposMedios(); const f = ms => t.nConf ? _tempoCurto(ms) : '—';
+            return `<div title="Média de ${t.nConf} respostas"><b>${f(t.conf)}</b><span>até confirmar (média)</span></div>`
+                + `<div title="Média de ${t.nLeit} leituras"><b>${t.nLeit ? _tempoCurto(t.leit) : '—'}</b><span>na correção (média)</span></div>`
+                + `<div><b>${t.nConf ? _tempoCurto(t.conf + t.leit) : '—'}</b><span>total por questão</span></div>`; })()
+        + '</div>'
+        + '<p class="desemp-nota">Acerto: considera a última resposta de cada questão; anuladas e excluídas ficam de fora. '
+        + 'Tempos: média de todas as respostas (refeitas e revisões incluídas), até 20 min por questão; o total soma as duas médias.</p>';
     h += '<section class="desemp-bloco"><h2>🎯 Pontos fracos</h2>';
     if (!temasPadrao) h += '<p class="desemp-nota">Os temas das questões ainda não foram classificados. Rode Actions → Gerar correções → ação <b>temas-padrao</b>.</p>';
     else if (!fracos.length) h += `<p class="desemp-nota">Nenhum tema com menos de ${LIMITE_PONTO_FRACO * 100}% de acerto entre os que têm pelo menos ${MINIMO_PONTO_FRACO} questões respondidas.</p>`;
@@ -618,3 +638,26 @@ function atualizarMetaDoPlano() {
 document.getElementById('metaPlanoHoje')?.addEventListener('click', () => abrirTelaDesempenho('plano'));
 const _showHomePlano = showHome;
 showHome = function () { _showHomePlano(); setTimeout(atualizarMetaDoPlano, 0); };
+
+/* ---------- filtro "Questões do plano de hoje" (painel Filtros da barra inferior) ---------- */
+const soPlanoHoje = document.getElementById('soPlanoHoje');
+const _ehPlanoHoje = () => !!(Array.isArray(filtros.lista) && filtros.lista.length && /^Plano de hoje/.test(filtros.listaNome || ''));
+const _atualizarFiltrosAtivosPlano = atualizarFiltrosAtivos;
+atualizarFiltrosAtivos = function () {
+    _atualizarFiltrosAtivosPlano();
+    const on = _ehPlanoHoje();
+    soPlanoHoje.checked = on;
+    if (on) filtrosAtivos.textContent = String((parseInt(filtrosAtivos.textContent) || 0) + 1);
+};
+soPlanoHoje.addEventListener('change', async () => {
+    if (!soPlanoHoje.checked) {
+        restaurarFiltrosAnteriores(); renderAllFilterUI(); await rebuildQuestoes();
+        return;
+    }
+    const pl = planoAtivo();
+    if (!pl || !pl.data) { soPlanoHoje.checked = false; alert('Você ainda não tem um plano de estudo. Crie o seu em Desempenho → Plano.'); return; }
+    const c = calcularPlano(pl);
+    const lista = c.dias < 0 ? [] : questoesDoPlanoDeHoje(pl, c.dist);
+    if (!lista.length) { soPlanoHoje.checked = false; alert('Não há questões novas do plano para hoje.'); return; }
+    await estudarGrupo(lista, 'Plano de hoje');
+});

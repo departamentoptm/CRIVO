@@ -174,6 +174,7 @@ function mesclarProgresso(a, b) {
     return { registro, grifados, resetados, ultimaPosicao, avaliacoes, grifosApagados,
              cartoes: mesclarCartoes(a.cartoes, b.cartoes),
              plano: maisNovo(a.plano, b.plano), metaDiaria: maisNovo(a.metaDiaria, b.metaDiaria),
+             preferencias: maisNovo(a.preferencias, b.preferencias),
              leituras: Object.assign({}, a.leituras || {}, b.leituras || {}),
              simulados: [...new Map([...(a.simulados || []), ...(b.simulados || [])].filter(s => s && s.id).map(s => [s.id, s])).values()]
                  .sort((x, y) => String(x.inicio).localeCompare(String(y.inicio))) };
@@ -190,13 +191,14 @@ function mesclarCartoes(a, b) {
         x.revisoes = [...m.values()].sort((p, q) => new Date(p.data) - new Date(q.data));
         if (c.criado && (!x.criado || c.criado < x.criado)) x.criado = c.criado;
         if (c.apagado && (!x.apagado || c.apagado > x.apagado)) x.apagado = c.apagado;
+        if (c.reativado && (!x.reativado || c.reativado > x.reativado)) { x.reativado = c.reativado; x.frente = c.frente; x.verso = c.verso; }
     }
     return r;
 }
 
 function driveAssinatura() {
     return JSON.stringify([progress.registro, progress.grifados || [], progress.resetados || {}, progress.ultimaPosicao, progress.avaliacoes || [],
-                           progress.cartoes || {}, progress.grifosApagados || {}, progress.plano || null, progress.metaDiaria || null,
+                           progress.cartoes || {}, progress.grifosApagados || {}, progress.plano || null, progress.metaDiaria || null, progress.preferencias || null,
                            progress.simulados || [], progress.leituras || {}]);
 }
 function driveDadosParaNuvem() {
@@ -213,6 +215,7 @@ function driveDadosParaNuvem() {
         grifosApagados: progress.grifosApagados || {},
         plano: progress.plano || null,
         metaDiaria: progress.metaDiaria || null,
+        preferencias: progress.preferencias || null,
         leituras: progress.leituras || {},
         simulados: progress.simulados || []
     });
@@ -263,7 +266,7 @@ async function sincronizarDrive(interativo, op = {}) {
         if (remoto) {
             const base = { registro: progress.registro, grifados: progress.grifados, resetados: progress.resetados, ultimaPosicao: progress.ultimaPosicao,
                            avaliacoes: progress.avaliacoes, cartoes: progress.cartoes, grifosApagados: progress.grifosApagados,
-                           plano: progress.plano, metaDiaria: progress.metaDiaria, simulados: progress.simulados, leituras: progress.leituras };
+                           plano: progress.plano, metaDiaria: progress.metaDiaria, preferencias: progress.preferencias, simulados: progress.simulados, leituras: progress.leituras };
             progress = normalizar(mesclarProgresso(base, migrarProgresso(remoto)));
             driveSalvandoInterno = true;
             try { salvarBackup(); } finally { driveSalvandoInterno = false; }

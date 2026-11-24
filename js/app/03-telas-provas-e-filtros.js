@@ -169,7 +169,7 @@ async function rebuildQuestoes(navigateIfLost = true) {
     if (!Object.keys(exams).length) { questoes = []; updatePositionIndicator(); return; }
 
     const allBancas = Object.keys(exams).sort();
-    const bancasSel = filtros.bancas.length === 0 || filtros.bancas.length === allBancas.length
+    const bancasSel = filtros.bancas.length === 0 || (!filtros.bancas.includes(NENHUMA) && filtros.bancas.length === allBancas.length)
         ? allBancas : filtros.bancas.filter(b => exams[b]);
 
     const todas = [];
@@ -261,10 +261,14 @@ function updateNavButtons() {
     }
 }
 function showEmptyMessage() {
+    const semLista = !(Array.isArray(filtros.lista) && filtros.lista.length);
+    const nenhuma = semLista && (filtros.bancas.includes(NENHUMA) ? 'banca' : filtros.anos.includes(NENHUMA) ? 'edição' : '');
+    const [tit, txt] = nenhuma ? [`Escolha pelo menos uma ${nenhuma}`, `Marque uma ou mais ${nenhuma === 'banca' ? 'bancas' : 'edições'} na barra superior.`]
+        : ['Nenhuma questão corresponde aos filtros atuais', 'Ajuste os filtros para ver questões.'];
     const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
         body{font-family:'Segoe UI',Tahoma,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f8f9fa;color:#6c757d;text-align:center;padding:20px;}
         h2{color:#495057;font-size:1.2rem;}
-    </style></head><body><div><h2>Nenhuma questão corresponde aos filtros atuais</h2><p>Ajuste os filtros para ver questões.</p></div></body></html>`;
+    </style></head><body><div><h2>${tit}</h2><p>${txt}</p></div></body></html>`;
     if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
     currentBlobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
     questionFrame.src = currentBlobUrl;
@@ -272,14 +276,19 @@ function showEmptyMessage() {
 
 /* ============================================================
    MULTI-SELECT UI
+   Lista vazia = todas. Desmarcar "Todas" desmarca tudo (filtros.bancas/anos = [NENHUMA]) para o aluno
+   escolher só as que quer; sem nenhuma marcada, não aparece questão e a página pede para escolher.
    ============================================================ */
+const NENHUMA = '∅';
+const _semNenhuma = l => l.filter(x => x !== NENHUMA);
 function renderBancaMulti() {
     const bancas = Object.keys(exams).sort();
     const selected = filtros.bancas;
-    const all = selected.length === 0 || selected.length === bancas.length;
+    const all = selected.length === 0 || (!selected.includes(NENHUMA) && selected.length === bancas.length);
 
     let label;
-    if (all) label = 'Bancas: todas';
+    if (selected.includes(NENHUMA)) label = 'Bancas: nenhuma';
+    else if (all) label = 'Bancas: todas';
     else if (selected.length === 1) label = selected[0];
     else label = `${selected.length} bancas`;
     bancaMultiBtn.textContent = label;
@@ -293,20 +302,21 @@ function renderBancaMulti() {
 }
 
 function renderAnoMulti() {
-    const bancas = filtros.bancas.length === 0 || filtros.bancas.length === Object.keys(exams).length
+    const bancas = filtros.bancas.length === 0 || (!filtros.bancas.includes(NENHUMA) && filtros.bancas.length === Object.keys(exams).length)
         ? Object.keys(exams).sort()
         : filtros.bancas.filter(b => exams[b]);
     const anosSet = new Set();
     bancas.forEach(b => Object.keys(exams[b] || {}).forEach(a => anosSet.add(a)));
     const anos = Array.from(anosSet).sort((a, b) => b.localeCompare(a));
 
-    filtros.anos = filtros.anos.filter(a => anos.includes(a));
+    filtros.anos = filtros.anos.filter(a => a === NENHUMA || anos.includes(a));
 
     const selected = filtros.anos;
-    const all = selected.length === 0 || selected.length === anos.length;
+    const all = selected.length === 0 || (!selected.includes(NENHUMA) && selected.length === anos.length);
 
     let label;
-    if (all) label = 'Edições: todas';
+    if (selected.includes(NENHUMA)) label = 'Edições: nenhuma';
+    else if (all) label = 'Edições: todas';
     else if (selected.length === 1) label = `Edição: ${selected[0]}`;
     else label = `Edições: ${selected.length}`;
     anoMultiBtn.textContent = label;
@@ -386,18 +396,17 @@ bancaMultiPanel.addEventListener('change', async (e) => {
     const t = e.target;
     const allBancas = Object.keys(exams).sort();
     if (t.id === 'bancaAllChk') {
-        filtros.bancas = t.checked ? [] : allBancas.slice();
-        if (filtros.bancas.length === allBancas.length) filtros.bancas = [];
+        filtros.bancas = t.checked ? [] : [NENHUMA];
     } else if (t.dataset.bancaValue) {
         const b = t.dataset.bancaValue;
-        let current = filtros.bancas.length === 0 ? allBancas.slice() : filtros.bancas.slice();
+        let current = filtros.bancas.length === 0 ? allBancas.slice() : _semNenhuma(filtros.bancas);
         if (t.checked) {
             if (!current.includes(b)) current.push(b);
         } else {
             current = current.filter(x => x !== b);
         }
         if (current.length === allBancas.length) filtros.bancas = [];
-        else filtros.bancas = current;
+        else filtros.bancas = current.length ? current : [NENHUMA];
     }
     renderBancaMulti();
     renderAnoMulti();
@@ -406,7 +415,7 @@ bancaMultiPanel.addEventListener('change', async (e) => {
 
 anoMultiPanel.addEventListener('change', async (e) => {
     const t = e.target;
-    const bancas = filtros.bancas.length === 0 || filtros.bancas.length === Object.keys(exams).length
+    const bancas = filtros.bancas.length === 0 || (!filtros.bancas.includes(NENHUMA) && filtros.bancas.length === Object.keys(exams).length)
         ? Object.keys(exams).sort()
         : filtros.bancas.filter(b => exams[b]);
     const anosSet = new Set();
@@ -414,18 +423,17 @@ anoMultiPanel.addEventListener('change', async (e) => {
     const allAnos = Array.from(anosSet).sort((a, b) => b.localeCompare(a));
 
     if (t.id === 'anoAllChk') {
-        filtros.anos = t.checked ? [] : allAnos.slice();
-        if (filtros.anos.length === allAnos.length) filtros.anos = [];
+        filtros.anos = t.checked ? [] : [NENHUMA];
     } else if (t.dataset.anoValue) {
         const a = t.dataset.anoValue;
-        let current = filtros.anos.length === 0 ? allAnos.slice() : filtros.anos.slice();
+        let current = filtros.anos.length === 0 ? allAnos.slice() : _semNenhuma(filtros.anos);
         if (t.checked) {
             if (!current.includes(a)) current.push(a);
         } else {
             current = current.filter(x => x !== a);
         }
         if (current.length === allAnos.length) filtros.anos = [];
-        else filtros.anos = current;
+        else filtros.anos = current.length ? current : [NENHUMA];
     }
     renderAnoMulti();
     await rebuildQuestoes();

@@ -1,7 +1,7 @@
 /* ============================================================
    SALVAMENTO NA NUVEM: INDICADOR, CÓPIAS DE SEGURANÇA E CARREGAR ARQUIVO COM CONFIRMAÇÃO
-   - Indicador flutuante (lateral esquerda): "Salvo às 14:32", "Salvando…", "Alterações a salvar",
-     "Não salvo na nuvem — toque para reconectar", "Sem internet — salvo neste aparelho".
+   - Indicador na barra inferior ("Salvo 14:32", "Salvando…", "A salvar…", "Não salvo", "Sem internet") e um
+     aviso flutuante arrastável só quando a autorização do Google expirou ou falta internet.
    - Cópias de segurança no Drive (uma por dia, as 7 mais recentes; feitas em 08-google-drive.js) e o botão
      "Restaurar uma cópia do Drive", que mostra a data e o resumo de cada cópia.
    - Carregar arquivo de progresso: mostra o resumo do arquivo e do progresso atual, avisa se o arquivo é
@@ -49,38 +49,115 @@ function escolherOpcao(titulo, html, botoes) {
     });
 }
 
-/* ---------- indicador flutuante ---------- */
-let _indicadorEstado = '';
+/* ---------- indicador na barra inferior e aviso arrastável ----------
+   O estado do salvamento aparece só na barra inferior da resolução, entre "Anterior" e o botão ▾ (com a barra
+   minimizada, só o ícone, ao lado do contador). O aviso flutuante aparece só quando a autorização do Google
+   expirou ou falta internet; pode ser arrastado, e o site lembra onde ele ficou. */
+let _indicadorEstado = '', _avisoArrastado = false;
+/* o clique no aviso é tratado aqui, antes dos outros ouvintes: depois de arrastar, não faz nada; senão, reconecta */
+window.addEventListener('click', e => {
+    if (!e.target || !e.target.closest || !e.target.closest('#nuvemAviso')) return;
+    e.stopPropagation(); e.preventDefault();
+    const arrastou = _avisoArrastado; _avisoArrastado = false;
+    if (!arrastou && _indicadorEstado === 'reconectar') sincronizarDrive(true).catch(() => {});
+}, true);
+const AVISO_POS_KEY = 'crivo_aviso_pos';
+function _elIndicadorBarra() {
+    let el = document.getElementById('nuvemBarra');
+    if (el) return el;
+    const centro = document.querySelector('.bottom-center');
+    if (!centro) return null;
+    el = document.createElement('button');
+    el.type = 'button'; el.id = 'nuvemBarra'; el.className = 'nuvem-barra'; el.hidden = true;
+    el.setAttribute('aria-live', 'polite');
+    el.addEventListener('click', () => {
+        if (['reconectar', 'erro', 'pendente'].includes(_indicadorEstado)) sincronizarDrive(true).catch(() => {});
+    });
+    centro.insertBefore(el, centro.firstChild);
+    return el;
+}
+function _posicionarAviso(el) {
+    let p = null;
+    try { p = JSON.parse(localStorage.getItem(AVISO_POS_KEY)); } catch {}
+    if (!p || !isFinite(p.x) || !isFinite(p.y)) { el.style.left = ''; el.style.top = ''; el.style.right = ''; return; }
+    const w = el.offsetWidth || 260, h = el.offsetHeight || 60;
+    el.style.right = 'auto';
+    el.style.left = Math.max(4, Math.min(window.innerWidth - w - 4, p.x)) + 'px';
+    el.style.top = Math.max(4, Math.min(window.innerHeight - h - 4, p.y)) + 'px';
+}
+function _elAviso() {
+    let el = document.getElementById('nuvemAviso');
+    if (el) return el;
+    el = document.createElement('div');
+    el.id = 'nuvemAviso'; el.className = 'nuvem-aviso'; el.hidden = true;
+    el.setAttribute('role', 'alert'); el.tabIndex = 0;
+    document.body.appendChild(el);
+    let ini = null, moveu = false;
+    el.addEventListener('pointerdown', e => {
+        if (e.button) return;
+        const r = el.getBoundingClientRect();
+        ini = { x: e.clientX, y: e.clientY, l: r.left, t: r.top }; moveu = false;
+        try { el.setPointerCapture(e.pointerId); } catch {}
+    });
+    el.addEventListener('pointermove', e => {
+        if (!ini) return;
+        const dx = e.clientX - ini.x, dy = e.clientY - ini.y;
+        if (!moveu && Math.hypot(dx, dy) < 6) return;
+        moveu = true;
+        el.classList.add('arrastando');
+        el.style.right = 'auto';
+        el.style.left = Math.max(4, Math.min(window.innerWidth - el.offsetWidth - 4, ini.l + dx)) + 'px';
+        el.style.top = Math.max(4, Math.min(window.innerHeight - el.offsetHeight - 4, ini.t + dy)) + 'px';
+    });
+    const soltar = () => {
+        if (!ini) return;
+        ini = null; el.classList.remove('arrastando');
+        if (moveu) { try { localStorage.setItem(AVISO_POS_KEY, JSON.stringify({ x: parseFloat(el.style.left), y: parseFloat(el.style.top) })); } catch {} }
+        _avisoArrastado = moveu;
+    };
+    el.addEventListener('pointerup', soltar);
+    el.addEventListener('pointercancel', () => { ini = null; el.classList.remove('arrastando'); });
+    el.addEventListener('keydown', e => {
+        if ((e.key === 'Enter' || e.key === ' ') && _indicadorEstado === 'reconectar') { e.preventDefault(); sincronizarDrive(true).catch(() => {}); }
+    });
+    return el;
+}
 function mostrarIndicadorDrive(estado) {
-    let el = document.getElementById('nuvemIndicador');
-    if (!el) {
-        el = document.createElement('button');
-        el.type = 'button'; el.id = 'nuvemIndicador'; el.className = 'nuvem-indicador'; el.hidden = true;
-        el.setAttribute('aria-live', 'polite');
-        el.addEventListener('click', () => {
-            if (_indicadorEstado === 'reconectar' || _indicadorEstado === 'erro' || _indicadorEstado === 'pendente') sincronizarDrive(true).catch(() => {});
-        });
-        document.body.appendChild(el);
-    }
     if (estado) _indicadorEstado = estado;
-    if (!currentRA || !driveAtivo) { el.hidden = true; return; }
+    const barra = _elIndicadorBarra(), aviso = _elAviso();
+    const ligado = !!(currentRA && driveAtivo);
     const hh = driveUltimoSalvo ? new Date(driveUltimoSalvo).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : null;
     const textos = {
-        salvando: ['☁️', 'Salvando no Drive…'],
-        salvo: ['☁️', hh ? `Salvo às ${hh}` : 'Salvo no Drive'],
-        pendente: ['☁️', 'Alterações a salvar…'],
-        reconectar: ['⚠️', `Não salvo na nuvem${hh ? ` (último: ${hh})` : ''} — toque para reconectar`],
-        offline: ['📴', 'Sem internet — salvo neste aparelho'],
-        erro: ['⚠️', 'Falha ao salvar no Drive — toque para tentar de novo'],
+        salvando: ['☁️', 'Salvando…', 'Salvando no Drive…'],
+        salvo: ['☁️', hh ? `Salvo ${hh}` : 'Salvo', hh ? `Salvo no Drive às ${hh}` : 'Salvo no Drive'],
+        pendente: ['☁️', 'A salvar…', 'Alterações a salvar no Drive'],
+        reconectar: ['⚠️', 'Não salvo', `Não salvo na nuvem${hh ? ` (último: ${hh})` : ''} — toque para reconectar`],
+        offline: ['📴', 'Sem internet', 'Sem internet — salvo neste aparelho'],
+        erro: ['⚠️', 'Falha', 'Falha ao salvar no Drive — toque para tentar de novo'],
     };
-    const [ico, txt] = textos[_indicadorEstado] || textos.salvo;
-    el.innerHTML = `<span aria-hidden="true">${ico}</span><span class="nuvem-txt">${escapeHtml(txt)}</span>`;
-    el.className = 'nuvem-indicador ' + (_indicadorEstado === 'reconectar' || _indicadorEstado === 'erro' ? 'alerta' : _indicadorEstado === 'offline' ? 'offline' : '');
-    el.title = txt;
-    el.hidden = false;
+    const [ico, curto, longo] = textos[_indicadorEstado] || textos.salvo;
+    if (barra) {
+        barra.hidden = !ligado;
+        barra.innerHTML = `<span aria-hidden="true">${ico}</span><span class="nuvem-txt">${escapeHtml(curto)}</span>`;
+        barra.className = 'nuvem-barra' + (_indicadorEstado === 'reconectar' || _indicadorEstado === 'erro' ? ' alerta' : _indicadorEstado === 'offline' ? ' offline' : '');
+        barra.title = longo; barra.setAttribute('aria-label', longo);
+    }
+    const problema = ligado && (_indicadorEstado === 'reconectar' || _indicadorEstado === 'offline');
+    if (!problema) { aviso.hidden = true; return; }
+    aviso.className = 'nuvem-aviso ' + (_indicadorEstado === 'offline' ? 'offline' : 'alerta');
+    aviso.innerHTML = _indicadorEstado === 'offline'
+        ? '<b>📴 Sem internet</b><span>Seu progresso está salvo neste aparelho e vai para o Drive quando a conexão voltar.</span>'
+        : `<b>⚠️ Não salvo na nuvem</b><span>A autorização do Google expirou${hh ? ` (último salvamento: ${hh})` : ''}. Seu progresso está salvo neste aparelho. Toque aqui para reconectar.</span>`;
+    const estavaOculto = aviso.hidden;
+    aviso.hidden = false;
+    if (estavaOculto) _posicionarAviso(aviso);
 }
+window.addEventListener('resize', () => { const a = document.getElementById('nuvemAviso'); if (a && !a.hidden) _posicionarAviso(a); });
 setInterval(() => { try { mostrarIndicadorDrive(); } catch {} }, 30000);
 window.addEventListener('offline', () => mostrarIndicadorDrive('offline'));
+window.addEventListener('online', () => {
+    if (_indicadorEstado === 'offline') mostrarIndicadorDrive(driveTok && Date.now() < driveTokExp - 60000 ? 'pendente' : 'reconectar');
+});
 const _loginIndicador = loginWithRA;
 loginWithRA = async function (ra) { const ok = await _loginIndicador(ra); setTimeout(() => mostrarIndicadorDrive(), 0); return ok; };
 logoutBtn.addEventListener('click', () => setTimeout(() => mostrarIndicadorDrive(), 0));
