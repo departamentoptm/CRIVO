@@ -1,6 +1,6 @@
 {
  "formato": "crivo-temas-padrao",
- "versao": 2,
+ "versao": 3,
  "disciplinas": {
   "Cardiologia": [
    "Hipertensão arterial sistêmica",
@@ -202,11 +202,8 @@
   ],
   "Oftalmologia": [
    "Oftalmologia pediátrica e estrabismo",
-   "Córnea e superfície ocular",
-   "Infecções e inflamações oculares",
-   "Trauma ocular e emergências oftalmológicas",
-   "Órbita e vias lacrimais",
-   "Doenças palpebrais e anexos oculares"
+   "Infecções e inflamações oculares e orbitárias",
+   "Trauma ocular e emergências oftalmológicas"
   ],
   "Ortopedia": [
    "Trauma ortopédico e fraturas",
@@ -219,10 +216,9 @@
   "Otorrinolaringologia": [
    "Otites médias e complicações",
    "Rinossinusites agudas e crônicas",
-   "Faringoamigdalites e infecções de vias aéreas superiores",
+   "Faringites e infecções das vias aéreas superiores",
    "Massas e linfadenopatias cervicais",
-   "Vertigem e distúrbios vestibulares",
-   "Doenças obstrutivas e cirúrgicas da faringe e laringe"
+   "Vertigem e distúrbios vestibulares"
   ],
   "Pediatria": [
    "Aleitamento materno e alimentação na infância",
@@ -262,13 +258,11 @@
   ],
   "Psiquiatria": [
    "Transtornos de ansiedade e transtorno obsessivo-compulsivo",
-   "Transtornos do humor e risco de suicídio",
+   "Transtornos do humor: depressão e transtorno bipolar",
    "Transtornos por uso de substâncias e dependência química",
-   "Transtornos psicóticos e uso de antipsicóticos",
+   "Transtornos psicóticos e esquizofrenia",
    "Transtornos do neurodesenvolvimento e da infância/adolescência",
-   "Transtornos alimentares, de personalidade e somatoformes",
-   "Delirium, demências e saúde mental no idoso",
-   "Políticas de saúde mental, reforma psiquiátrica e aspectos legais"
+   "Transtornos alimentares, de personalidade e psiquiatria legal/atenção "
   ],
   "Reumatologia": [
    "Artrite reumatoide e espondiloartrites",
@@ -280,13 +274,10 @@
   ],
   "Urologia": [
    "Litíase urinária e cólica renal",
-   "Câncer de próstata: rastreamento e diagnóstico",
-   "Câncer de testículo e massas escrotais",
-   "Escroto agudo e torção testicular",
-   "Infecções do trato urinário",
-   "Trauma urogenital",
-   "Disfunções miccionais e incontinência urinária",
-   "Anomalias urológicas na infância"
+   "Câncer de próstata e rastreamento pelo PSA",
+   "Escroto agudo e doenças testiculares",
+   "Infecções do trato urinário e hiperplasia prostática benigna",
+   "Trauma urológico e hematúria"
   ]
  },
  "questoes": {
@@ -1001,13 +992,13 @@
    "texto": "d07f2e95a059"
   },
   "AMP-2007-Q61": {
-   "disciplina": "Cirurgia",
-   "tema": "Complicações pós-operatórias e cuidados perioperatórios",
+   "disciplina": "Ginecologia",
+   "tema": "Câncer de mama e rastreamento mamográfico",
    "texto": "38ab81e394d4"
   },
   "AMP-2007-Q62": {
-   "disciplina": "Cirurgia",
-   "tema": "Câncer colorretal e cirurgia oncológica",
+   "disciplina": "Ginecologia",
+   "tema": "Câncer de mama e rastreamento mamográfico",
    "texto": "698d2ed7ca72"
   },
   "AMP-2007-Q96": {
@@ -2341,8 +2332,8 @@
    "texto": "9f2b9f177891"
   },
   "ENAMED-2026-Q96": {
-   "disciplina": "Cirurgia",
-   "tema": "Avaliação pré-operatória e risco cirúrgico",
+   "disciplina": "Urologia",
+   "tema": "Câncer de próstata e rastreamento pelo PSA",
    "texto": "66b1a7c508c0"
   },
   "AMP-2006-Q41": {
@@ -2901,8 +2892,8 @@
    "texto": "1532d2ab2685"
   },
   "ENAMED-2026-Q14": {
-   "disciplina": "Endocrinologia",
-   "tema": "Diabetes mellitus: diagnóstico, rastreamento e classificação",
+   "disciplina": "Obstetrícia",
+   "tema": "Infecções na gestação e sorologias pré-natais",
    "texto": "9d7c55f1b37e"
   },
   "ENAMED-2026-Q44": {
@@ -3181,8 +3172,8 @@
    "texto": "d849ffc83cc5"
   },
   "AMP-2014-Q52": {
-   "disciplina": "Gastroenterologia",
-   "tema": "Doenças funcionais e infecciosas do intestino",
+   "disciplina": "Hepatologia",
+   "tema": "Hepatites virais agudas e crônicas",
    "texto": "c28b707c5a07"
   },
   "AMP-2014-Q57": {
@@ -6091,8 +6082,8 @@
    "texto": "1142ca6a9d6c"
   },
   "AMP-2011-Q87": {
-   "disciplina": "Medicina Preventiva",
-   "tema": "Modelos assistenciais e organização da atenção à saúde",
+   "disciplina": "Cirurgia",
+   "tema": "Atendimento inicial ao politraumatizado",
    "texto": "62996673b384"
   },
   "AMP-2012-Q2": {
@@ -9162,17 +9153,17 @@
   },
   "AMP-2012-Q17": {
    "disciplina": "Oftalmologia",
-   "tema": "Córnea e superfície ocular",
+   "tema": "Oftalmologia pediátrica e estrabismo",
    "texto": "ca90ba06502e"
   },
   "AMP-2024-Q6": {
    "disciplina": "Oftalmologia",
-   "tema": "Infecções e inflamações oculares",
+   "tema": "Infecções e inflamações oculares e orbitárias",
    "texto": "dfa38899078b"
   },
   "AMP-2024-Q16": {
    "disciplina": "Oftalmologia",
-   "tema": "Órbita e vias lacrimais",
+   "tema": "Infecções e inflamações oculares e orbitárias",
    "texto": "14ed27b700e4"
   },
   "ENAMED-2025-Q8": {
@@ -9301,18 +9292,18 @@
    "texto": "09813e8bcf46"
   },
   "ENAMED-2026-Q69": {
-   "disciplina": "Ortopedia",
-   "tema": "Trauma ortopédico e fraturas",
+   "disciplina": "Reumatologia",
+   "tema": "Osteoporose e doenças metabólicas ósseas",
    "texto": "b0429e576012"
   },
   "AMP-2006-Q44": {
    "disciplina": "Otorrinolaringologia",
-   "tema": "Faringoamigdalites e infecções de vias aéreas superiores",
+   "tema": "Faringites e infecções das vias aéreas superiores",
    "texto": "7876d46118da"
   },
   "AMP-2006-Q71": {
    "disciplina": "Otorrinolaringologia",
-   "tema": "Doenças obstrutivas e cirúrgicas da faringe e laringe",
+   "tema": "Faringites e infecções das vias aéreas superiores",
    "texto": "bffd65f36dfb"
   },
   "AMP-2009-Q38": {
@@ -9402,7 +9393,7 @@
   },
   "AMP-2018-Q67": {
    "disciplina": "Otorrinolaringologia",
-   "tema": "Faringoamigdalites e infecções de vias aéreas superiores",
+   "tema": "Faringites e infecções das vias aéreas superiores",
    "texto": "d090c375f582"
   },
   "AMP-2019-Q20": {
@@ -11117,7 +11108,7 @@
   },
   "AMP-2009-Q1": {
    "disciplina": "Psiquiatria",
-   "tema": "Delirium, demências e saúde mental no idoso",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "0ce461cb885f"
   },
   "AMP-2009-Q10": {
@@ -11132,22 +11123,22 @@
   },
   "AMP-2012-Q49": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "c6c2830113f1"
   },
   "AMP-2012-Q65": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos alimentares, de personalidade e somatoformes",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "1fea67431545"
   },
   "AMP-2012-Q66": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "57e175bfdc93"
   },
   "AMP-2014-Q21": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "4a3794b2c988"
   },
   "AMP-2014-Q63": {
@@ -11162,12 +11153,12 @@
   },
   "AMP-2018-Q87": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "bd79f2cd5e90"
   },
   "AMP-2018-Q88": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "2551183be644"
   },
   "AMP-2018-Q89": {
@@ -11187,12 +11178,12 @@
   },
   "AMP-2019-Q31": {
    "disciplina": "Psiquiatria",
-   "tema": "Políticas de saúde mental, reforma psiquiátrica e aspectos legais",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "3db2096ee71a"
   },
   "AMP-2019-Q87": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "08c3f075eea4"
   },
   "AMP-2021-Q6": {
@@ -11207,7 +11198,7 @@
   },
   "AMP-2022-Q90": {
    "disciplina": "Psiquiatria",
-   "tema": "Políticas de saúde mental, reforma psiquiátrica e aspectos legais",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "c109b6572612"
   },
   "AMP-2024-Q9": {
@@ -11217,7 +11208,7 @@
   },
   "AMP-2024-Q25": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos alimentares, de personalidade e somatoformes",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "d6457837324f"
   },
   "AMP-2025-Q45": {
@@ -11247,7 +11238,7 @@
   },
   "ENAMED-2025-Q37": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "661ac980be51"
   },
   "ENAMED-2025-Q44": {
@@ -11257,7 +11248,7 @@
   },
   "ENAMED-2025-Q57": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos psicóticos e uso de antipsicóticos",
+   "tema": "Transtornos psicóticos e esquizofrenia",
    "texto": "87930d466368"
   },
   "ENAMED-2025-Q64": {
@@ -11267,42 +11258,42 @@
   },
   "ENAMED-2025-Q71": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos alimentares, de personalidade e somatoformes",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "bd502a7e1d70"
   },
   "ENAMED-2025-Q78": {
    "disciplina": "Psiquiatria",
-   "tema": "Políticas de saúde mental, reforma psiquiátrica e aspectos legais",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "ba6605e73957"
   },
   "ENAMED-2025-Q85": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "1513a7da5a12"
   },
   "ENAMED-2026-Q2": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos alimentares, de personalidade e somatoformes",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "1cbb24e05981"
   },
   "ENAMED-2026-Q22": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "761425a3c373"
   },
   "ENAMED-2026-Q29": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos alimentares, de personalidade e somatoformes",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "908e2cc8ecfe"
   },
   "ENAMED-2026-Q36": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos do humor: depressão e transtorno bipolar",
    "texto": "e30db125c681"
   },
   "ENAMED-2026-Q50": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos alimentares, de personalidade e somatoformes",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "a88baf1213a7"
   },
   "ENAMED-2026-Q56": {
@@ -11327,17 +11318,17 @@
   },
   "ENAMED-2026-Q79": {
    "disciplina": "Psiquiatria",
-   "tema": "Políticas de saúde mental, reforma psiquiátrica e aspectos legais",
+   "tema": "Transtornos psicóticos e esquizofrenia",
    "texto": "3a9e6accac0b"
   },
   "ENAMED-2026-Q86": {
    "disciplina": "Psiquiatria",
-   "tema": "Transtornos do humor e risco de suicídio",
+   "tema": "Transtornos alimentares, de personalidade e psiquiatria legal/atenção ",
    "texto": "f0ce951c9c95"
   },
   "ENAMED-2026-Q93": {
    "disciplina": "Psiquiatria",
-   "tema": "Políticas de saúde mental, reforma psiquiátrica e aspectos legais",
+   "tema": "Transtornos psicóticos e esquizofrenia",
    "texto": "6e879475f0bf"
   },
   "ENAMED-2026-Q98": {
@@ -11552,12 +11543,12 @@
   },
   "AMP-2007-Q47": {
    "disciplina": "Urologia",
-   "tema": "Disfunções miccionais e incontinência urinária",
+   "tema": "Infecções do trato urinário e hiperplasia prostática benigna",
    "texto": "f8e815d4aa06"
   },
   "AMP-2008-Q51": {
    "disciplina": "Urologia",
-   "tema": "Anomalias urológicas na infância",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "afea715aef64"
   },
   "AMP-2008-Q67": {
@@ -11567,12 +11558,12 @@
   },
   "AMP-2009-Q30": {
    "disciplina": "Urologia",
-   "tema": "Escroto agudo e torção testicular",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "990b859290b0"
   },
   "AMP-2011-Q99": {
    "disciplina": "Urologia",
-   "tema": "Câncer de testículo e massas escrotais",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "bb8da74f7e25"
   },
   "AMP-2012-Q82": {
@@ -11582,37 +11573,37 @@
   },
   "AMP-2013-Q51": {
    "disciplina": "Urologia",
-   "tema": "Trauma urogenital",
+   "tema": "Trauma urológico e hematúria",
    "texto": "68742fc6d3fb"
   },
   "AMP-2015-Q78": {
    "disciplina": "Urologia",
-   "tema": "Câncer de próstata: rastreamento e diagnóstico",
+   "tema": "Câncer de próstata e rastreamento pelo PSA",
    "texto": "5823d9f06120"
   },
   "AMP-2017-Q40": {
    "disciplina": "Urologia",
-   "tema": "Câncer de próstata: rastreamento e diagnóstico",
+   "tema": "Câncer de próstata e rastreamento pelo PSA",
    "texto": "fb4cd96e179f"
   },
   "AMP-2017-Q100": {
    "disciplina": "Urologia",
-   "tema": "Câncer de próstata: rastreamento e diagnóstico",
+   "tema": "Câncer de próstata e rastreamento pelo PSA",
    "texto": "448ce02f91c4"
   },
   "AMP-2018-Q60": {
    "disciplina": "Urologia",
-   "tema": "Câncer de próstata: rastreamento e diagnóstico",
+   "tema": "Câncer de próstata e rastreamento pelo PSA",
    "texto": "3f087cf50d95"
   },
   "AMP-2019-Q9": {
    "disciplina": "Urologia",
-   "tema": "Trauma urogenital",
+   "tema": "Trauma urológico e hematúria",
    "texto": "aa8f22428745"
   },
   "AMP-2020-Q96": {
    "disciplina": "Urologia",
-   "tema": "Infecções do trato urinário",
+   "tema": "Infecções do trato urinário e hiperplasia prostática benigna",
    "texto": "f419e7aa11d8"
   },
   "AMP-2021-Q4": {
@@ -11622,7 +11613,7 @@
   },
   "AMP-2021-Q9": {
    "disciplina": "Urologia",
-   "tema": "Escroto agudo e torção testicular",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "ee7746b1fe3c"
   },
   "AMP-2022-Q53": {
@@ -11632,12 +11623,12 @@
   },
   "AMP-2022-Q68": {
    "disciplina": "Urologia",
-   "tema": "Escroto agudo e torção testicular",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "92d743e84b7f"
   },
   "AMP-2022-Q78": {
    "disciplina": "Urologia",
-   "tema": "Escroto agudo e torção testicular",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "a521494a1456"
   },
   "AMP-2023-Q59": {
@@ -11647,17 +11638,17 @@
   },
   "AMP-2024-Q1": {
    "disciplina": "Urologia",
-   "tema": "Escroto agudo e torção testicular",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "2e67fefc128b"
   },
   "AMP-2024-Q59": {
    "disciplina": "Urologia",
-   "tema": "Câncer de testículo e massas escrotais",
+   "tema": "Escroto agudo e doenças testiculares",
    "texto": "37f13bb64b9b"
   },
   "AMP-2025-Q98": {
    "disciplina": "Urologia",
-   "tema": "Câncer de próstata: rastreamento e diagnóstico",
+   "tema": "Câncer de próstata e rastreamento pelo PSA",
    "texto": "793bac8c2fbe"
   },
   "AMP-2017-Q78": {
