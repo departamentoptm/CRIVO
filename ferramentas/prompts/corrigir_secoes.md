@@ -23,7 +23,9 @@ Regras:
   <strong>Alternativa X — Correta.</strong> ou <strong>Alternativa X — Errada.</strong>.
 - A alternativa do gabarito oficial é a correta. Se a conduta atual for diferente da cobrada na prova, explique
   o raciocínio da banca e registre a mudança em "aviso_diretriz".
-- Sobre outras questões da banca, use SOMENTE o bloco HISTÓRICO, citando-as como "AMP 2019 (questão 42)".
+- Sobre outras questões da banca, use SOMENTE o bloco HISTÓRICO, citando-as como "AMP 2019 (questão 42)", e só
+  nas seções 2.10 e 2.11. Não escreva contagens de questões ou de provas (o sistema as escreve). Não crie
+  mnemônicos.
 - Não invente estudos, números, diretrizes ou autores.
 - Só atribua uma conduta a uma diretriz ou sociedade (MS, SBP, FEBRASGO, CDC etc.) quando tiver certeza ou
   quando ela estiver nas EVIDÊNCIAS DA WEB; na dúvida, escreva "a banca considerou…". Nunca apresente como

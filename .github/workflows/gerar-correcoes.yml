@@ -153,6 +153,7 @@ jobs:
           rel=$(find relatorios -maxdepth 1 -name 'execucao_*.md' -newer "$RUNNER_TEMP/inicio" 2>/dev/null | sort | tail -1)
           { [ -n "$rel" ] && cat "$rel"; echo; echo "Saída da execução:"; echo '```'; tail -40 saida.txt; echo '```'
             echo "Este PR é aprovado sozinho depois da validação (as correções reprovadas já ficam fora do site)."; } > corpo.md
+          sed -i 's/#\([0-9]\)/#\xE2\x80\x8B\1/g' corpo.md     # "#4" no texto não vira link para o PR nº 4
           url=$(gh pr create --title "${aviso}Correções: ${{ inputs.banca }} ${{ inputs.ano }} ${{ inputs.questoes }}" --body-file corpo.md --base "${{ github.ref_name }}" --head "$ramo")
           echo "url=$url" >> "$GITHUB_OUTPUT"
         id: pr
