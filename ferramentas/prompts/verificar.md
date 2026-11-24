@@ -37,10 +37,13 @@ Classifique cada problema:
 Não aponte problema por mera preferência de redação. Não invente problemas: se estiver correto, aprove.
 
 Responda somente com JSON:
-{"aprovado": true|false, "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x", "..."], "contradiz_gabarito": false, "trecho": "<trecho curto>",
+{"aprovado": true|false, "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x", "..."], "contradiz_gabarito": false, "afirmativas_que_mudam": [], "trecho": "<trecho curto>",
   "gravidade": "grave|moderada|leve", "explicacao": "...", "correcao_sugerida": "..."}]}
 Se houver a linha "PELO GABARITO OFICIAL, as afirmativas VERDADEIRAS são...", ela é a verdade: aponte como GRAVE
-a seção que tratar uma afirmativa de forma diferente e nunca aponte o contrário dela.
+a seção que tratar uma afirmativa de forma diferente e nunca aponte o contrário dela. Em cada problema, preencha
+"afirmativas_que_mudam" com os rótulos das afirmativas que mudariam de verdadeira para falsa (ou o contrário) se
+a sua objeção fosse aceita; [] se nenhuma muda. Ex.: se você diz que uma ação é de outro nível de prevenção do
+que a afirmativa diz, ela mudaria. Essas objeções vão para um árbitro.
 Marque "contradiz_gabarito": true quando aceitar a sua objeção tornaria a alternativa do GABARITO OFICIAL errada
 ou impossível (ex.: você afirma um fato que faria verdadeira uma afirmativa que a banca considerou falsa). Essas
 objeções vão para um árbitro com busca na web antes de qualquer reescrita, porque costumam ser engano do revisor.

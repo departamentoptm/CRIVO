@@ -18,13 +18,14 @@ Não aponte preferência de redação.
 
 Responda somente com JSON:
 {"resolvidos": [{"indice": 0, "resolvido": true, "comentario": "<curto>"}],
- "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x"], "mesmo_erro_de": null, "contradiz_gabarito": false, "trecho": "<trecho curto>",
+ "problemas": [{"secao": "2.x", "secoes_com_o_mesmo_erro": ["2.x"], "mesmo_erro_de": null, "contradiz_gabarito": false, "afirmativas_que_mudam": [], "trecho": "<trecho curto>",
                "gravidade": "grave|moderada|leve", "explicacao": "...", "correcao_sugerida": "..."}]}
 Se um problema novo for a MESMA afirmação errada de um item da lista (que reapareceu ou ficou em outra seção),
 preencha "mesmo_erro_de" com o índice desse item. Em "secoes_com_o_mesmo_erro", liste todas as seções em que
 ela aparece.
 Inclua TODOS os índices da lista em "resolvidos".
 Se houver a linha "PELO GABARITO OFICIAL, as afirmativas VERDADEIRAS são...", ela é a verdade: aponte como GRAVE
-a seção que tratar uma afirmativa de forma diferente.
+a seção que tratar uma afirmativa de forma diferente. Num problema novo, preencha "afirmativas_que_mudam" com os
+rótulos das afirmativas que mudariam de verdadeira para falsa (ou o contrário) se a objeção fosse aceita.
 Marque "contradiz_gabarito": true num problema novo quando aceitá-lo tornaria a alternativa do gabarito oficial
 errada ou impossível. Se houver PONTOS JÁ DECIDIDOS POR UM ÁRBITRO, não aponte de novo o contrário deles.

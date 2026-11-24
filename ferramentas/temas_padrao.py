@@ -5,7 +5,8 @@ filtro por tema, no painel de desempenho e nos pontos fracos.
 Passos (comando: gerar_correcoes.py temas-padrao):
   1. Refaz o catálogo de todas as questões de todas as bancas com a resposta oficial (uma vez por questão).
   2. Para cada disciplina sem lista, pede à IA uma lista de temas baseada no currículo de residência da
-     disciplina, com cerca de 1 tema a cada 10 questões (mínimo 6, máximo 25); o acervo só confere a cobertura.
+     disciplina, com cerca de 1 tema a cada 10 questões (6 a 25; nas disciplinas com menos de 60 questões,
+     cerca de 1 a cada 5, de 3 a 6); o acervo só confere a cobertura.
      Uma lista já criada é mantida (use --refazer-listas para refazer; arquivos da versão 1 são refeitos sozinhos).
   3. Encaixa cada questão sem tema num dos temas da lista da disciplina dela (lotes de questões por chamada).
      Nenhum tema é criado automaticamente: cada questão vai para o tema mais próximo da lista da disciplina dela
@@ -18,14 +19,25 @@ import datetime as dt
 import os
 from collections import Counter
 
-VERSAO = 2
+from crivo_comum import gravar_json, ler_json, listar_edicoes
+from historico import prompt, questoes_da_banca, atualizar_catalogo, texto_curto, resposta_correta, impressao
+
+VERSAO = 3
 
 
 def tamanho_da_lista(n_questoes):
+    """Cerca de 1 tema a cada 10 questões (6 a 25). Disciplinas pequenas (menos de 60 questões): cerca de 1 tema
+    a cada 5 questões, de 3 a 6, para cada tema ter questões suficientes para aparecer nos pontos fracos."""
+    if n_questoes < 60:
+        return max(3, min(6, round(n_questoes / 5)))
     return max(6, min(25, round(n_questoes / 10)))
 
-from crivo_comum import gravar_json, ler_json, listar_edicoes
-from historico import prompt, questoes_da_banca, atualizar_catalogo, texto_curto, resposta_correta, impressao
+
+def faixa_da_lista(n_questoes):
+    alvo = tamanho_da_lista(n_questoes)
+    if n_questoes < 60:
+        return max(3, alvo - 1), min(6, alvo + 1)
+    return max(6, alvo - 2), min(25, alvo + 2)
 
 
 def arq_temas_padrao(dados):
@@ -59,9 +71,11 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
     permitidas = config.get("disciplinas_permitidas") or []
     site = disciplinas_do_site(dados)
     saida = ler_json(arq_temas_padrao(dados), {"formato": "crivo-temas-padrao", "versao": VERSAO, "disciplinas": {}, "questoes": {}})
-    if int(saida.get("versao") or 1) < VERSAO:
-        log(f"temas_padrao.json da versão {saida.get('versao') or 1}: refazendo as listas pelo currículo (versão {VERSAO})")
+    versao_lida = int(saida.get("versao") or 1)
+    if versao_lida < 2:
+        log(f"temas_padrao.json da versão {versao_lida}: refazendo as listas pelo currículo (versão {VERSAO})")
         refazer_listas = True
+    ajustar_tamanho = versao_lida < 3            # versão 3: listas das disciplinas pequenas ficam menores
     if refazer_listas:
         saida["disciplinas"], saida["questoes"] = {}, {}
     saida["versao"] = VERSAO
@@ -86,8 +100,11 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
     # 2. lista de temas de cada disciplina (uma vez)
     sistema_lista = prompt("temas_lista.md", config)
     for d in sorted(por_disc):
+        lo, hi = faixa_da_lista(len(por_disc[d]))
         if saida["disciplinas"].get(d):
-            continue
+            if not (ajustar_tamanho and len(saida["disciplinas"][d]) > hi):
+                continue
+            log(f"   {d}: a lista tem {len(saida['disciplinas'][d])} temas para {len(por_disc[d])} questões; refazendo com {lo} a {hi}")
         contagem = Counter()
         for qid in por_disc[d]:
             for t in (catalogo[qid].get("temas") or [])[:2]:
@@ -96,7 +113,7 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
         alvo = tamanho_da_lista(len(por_disc[d]))
         r = cliente.json("temas", sistema_lista,
                          f"DISCIPLINA: {d}\nQUESTÕES NO ACERVO: {len(por_disc[d])}\nTAMANHO DA LISTA: {alvo} temas "
-                         f"(aceitável de {max(6, alvo - 2)} a {min(25, alvo + 2)})\n\n"
+                         f"(aceitável de {lo} a {hi})\n\n"
                          f"TEMAS DO ACERVO (frequência; só para conferir a cobertura):\n{frequentes}")
         lista = []
         for t in r.get("temas") or []:
@@ -106,7 +123,7 @@ def gerar(dados, cliente, config, log=print, refazer_listas=False):
         if len(lista) < 3:
             log(f"   aviso: a lista de {d} veio vazia ou curta; será tentada de novo na próxima execução")
             continue
-        saida["disciplinas"][d] = lista[:min(25, alvo + 2)]
+        saida["disciplinas"][d] = lista[:hi]
         log(f"   {d}: {len(saida['disciplinas'][d])} temas")
         gravar_json(arq_temas_padrao(dados), saida)
 

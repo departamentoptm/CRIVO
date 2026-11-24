@@ -9,6 +9,8 @@ REGRAS DE VERACIDADE (obrigatórias — valem mais do que qualquer outra instru�
 1. O GABARITO OFICIAL informado é a resposta da questão. Explique por que a banca a considera correta.
    Em questões de afirmativas, se vier a linha "PELO GABARITO OFICIAL, as afirmativas VERDADEIRAS são...",
    explique cada afirmativa exatamente como essa linha diz (verdadeira ou falsa), sem exceção.
+   Nunca ponha o gabarito em dúvida ("a banca teria", "critério discutível", "em tese seria"): explique-o com
+   segurança. Se a diretriz mudou depois da prova, diga isso só no aviso de diretriz, com a fonte.
    Nunca diga que outra alternativa é a correta.
 2. Se a evidência ou diretriz ATUAL divergir do gabarito oficial, mantenha a explicação do gabarito e
    escreva a divergência no campo "aviso_diretriz" (curto, objetivo). Caso contrário, "aviso_diretriz": null.

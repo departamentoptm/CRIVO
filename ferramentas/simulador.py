@@ -10,6 +10,7 @@ CRIVO_SIMULAR_CONTESTAR=autor|revisor faz o autor contestar a 1ª objeção e o 
 (use com CRIVO_SIMULAR_REPROVAR=uma). CRIVO_SIMULAR_CONTRADIZ=autor|revisor faz o revisor apontar uma objeção que
 contradiz o gabarito, decidida pelo árbitro a favor de quem foi indicado.
 CRIVO_SIMULAR_ARBITRO_QUEBRA=1 faz o árbitro decidir contra a tabela de afirmativas do gabarito (deve ser descartado).
+CRIVO_SIMULAR_MUDA=1 faz o revisor apontar uma objeção que mudaria uma afirmativa (deve ir ao árbitro).
 CRIVO_SIMULAR_AFIRMATIVAS=errada faz a conferência final das afirmativas achar divergência uma vez.
 """
 import os
@@ -153,6 +154,9 @@ class ClienteSimulado:
         if modo == "1":
             return {"aprovado": False, "problemas": [{"secao": "2.3", "trecho": "x", "gravidade": "grave",
                                                       "explicacao": "erro simulado", "correcao_sugerida": "y"}]}
+        if os.environ.get("CRIVO_SIMULAR_MUDA") == "1" and "PONTOS JÁ DECIDIDOS" not in u:
+            return {"aprovado": False, "problemas": [{"secao": "2.3", "trecho": "x", "gravidade": "grave", "afirmativas_que_mudam": ["3"],
+                                                      "explicacao": "objeção simulada que muda a afirmativa 3", "correcao_sugerida": "y"}]}
         if os.environ.get("CRIVO_SIMULAR_CONTRADIZ") and "PONTOS JÁ DECIDIDOS" not in u:
             return {"aprovado": False, "problemas": [{"secao": "2.4", "trecho": "x", "gravidade": "grave", "contradiz_gabarito": True,
                                                       "explicacao": "objeção simulada contrária ao gabarito", "correcao_sugerida": "y"}]}
