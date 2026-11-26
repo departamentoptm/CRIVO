@@ -53,24 +53,41 @@ def main():
         print("Planilha vazia."); return 0
     cab = linhas[0]
     c_data = coluna(cab, "carimbo", "timestamp", "data")
-    c_id = coluna(cab, "questão", "questao", "código", "codigo", "id")
     c_txt = coluna(cab, "errado", "erro", "descri", "problema")
     c_fonte = coluna(cab, "fonte", "referência", "referencia")
-    if c_id is None or c_txt is None:
+    # formulário com 3 campos (banca, edição, número da questão) ou com um campo só com o código (AMP-2026-Q17)
+    c_banca = coluna(cab, "banca")
+    c_ano = coluna(cab, "edição", "edicao", "ano")
+    c_num = coluna(cab, "número", "numero")
+    separado = None not in (c_banca, c_ano, c_num)
+    c_id = None if separado else coluna(cab, "questão", "questao", "código", "codigo", "id")
+    if (not separado and c_id is None) or c_txt is None:
         print(f"ERRO: não achei as colunas da questão e do texto do erro no cabeçalho: {cab}"); return 1
+
+    def codigo(ln):
+        if not separado:
+            return ln[c_id].strip() if c_id < len(ln) else ""
+        cel = lambda i: ln[i].strip() if i < len(ln) else ""
+        banca = re.sub(r"\s+", "", cel(c_banca)).upper()
+        ano = re.search(r"(?:19|20)\d{2}", cel(c_ano))
+        num = re.search(r"\d{1,3}", cel(c_num))
+        if not (banca and ano and num):
+            return f"{cel(c_banca)} / {cel(c_ano)} / {cel(c_num)}"
+        return f"{banca}-{ano.group(0)}-Q{int(num.group(0))}"
 
     edicoes = {(b, str(ano)) for b, ano in listar_edicoes(a.dados)}
     cache, mudou = {}, set()
     novos, guardados, sem_correcao, invalidos, ja = [], [], [], [], 0
     for ln in linhas[1:]:
-        if len(ln) <= max(c_id, c_txt) or not ln[c_txt].strip():
+        if len(ln) <= c_txt or not ln[c_txt].strip():
             continue
         texto = ln[c_txt].strip()[:2000]
         quando = ln[c_data].strip() if c_data is not None and c_data < len(ln) else ""
         fonte = ln[c_fonte].strip()[:500] if c_fonte is not None and c_fonte < len(ln) else ""
-        m = RE_ID.search(ln[c_id].strip().upper())
+        cod = codigo(ln)
+        m = RE_ID.search(cod.upper())
         if not m or (m.group(1), m.group(2)) not in edicoes:
-            invalidos.append((ln[c_id].strip(), texto)); continue
+            invalidos.append((cod, texto)); continue
         banca, ano, num = m.group(1), m.group(2), int(m.group(3))
         qid = f"{banca}-{ano}-Q{num}"
         if (banca, ano) not in cache:

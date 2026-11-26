@@ -19,7 +19,7 @@
         pastaDados: 'dados',
         // Link do Google Forms para "Reportar erro". Use {id} onde deve entrar o ID da questão
         // (ex.: '...viewform?usp=pp_url&entry.123456={id}'). Vazio = usa e-mail.
-        urlReportarErro: '',      // cole aqui o link pré-preenchido do formulário (veja o LEIAME)
+        urlReportarErro: 'https://docs.google.com/forms/d/e/1FAIpQLSeIwZE2_9nRz6wGghnsRKAcd44bMdZOneZcL-hcbGNhbs2aiw/viewform',
         // Formulário de revisão da liga e formulário de dúvidas (também com {id}). Vazio = o link não aparece.
         urlRevisarLiga: '',
         urlEnviarDuvida: '',

@@ -589,11 +589,21 @@ def t_carregar_arquivo(page, url):
     assert page.evaluate("progress.registro.some(e => e.questao === '50')"), "somar não juntou o arquivo"
 
 
-@teste("tela inicial: botão Solicitar novas provas")
+@teste("formulários: Solicitar provas / Ajudar, ⚠️ Reportar e o link da página da questão")
 def t_solicitar(page, url):
     page.evaluate("showHome(); showScreen(authScreen)")
+    page.evaluate("window._abertos = []; window.open = (u) => { window._abertos.push(u); return null; }")
     page.click("#solicitarProvasBtn")
-    assert "ainda não foi configurado" in page.inner_text("#homeMsg"), "sem o link, o botão deve avisar"
+    assert "forms" in (page.evaluate("window._abertos")[-1:] or [""])[0], "o botão deveria abrir o formulário de solicitar provas"
+    assert "Ajudar o CRIVO" in page.inner_text("#solicitarProvasBtn"), "o botão deveria se chamar Solicitar provas / Ajudar o CRIVO"
+    page.click("#startBtnHome"); quadro(page)
+    page.click("#reportarBtn")
+    assert "1FAIpQLSeIwZE2" in page.evaluate("window._abertos")[-1], "o ⚠️ Reportar deveria abrir o formulário de reporte"
+    q = page.evaluate("[currentExam, currentYear, String(questoes[questaoAtualIndex].num)]")
+    assert all(x in page.inner_text("body") for x in q), "o aviso deveria lembrar banca, edição e número"
+    html = page.evaluate("CrivoRender.montarPagina({ banca: 'AMP', ano: '2020', questoes: [{ id: 'AMP-2020-Q1', numero: 1, enunciado_html: 'E', alternativas: { A: 'a', B: 'b' }, gabarito: 'A', correcao: { secoes_html: {} }, revisao: { status: 'nao_revisado', alertas: [], revisores: [] }, duvidas: [] }] }, 1)")
+    assert "1FAIpQLSeIwZE2" in html and "mailto:" not in html, "o link Reportar erro da página da questão deveria abrir o formulário"
+    page.click("#homeBtn")
 
 
 @teste("página da questão: selo de revisão da liga e dúvidas respondidas")

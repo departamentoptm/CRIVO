@@ -21,6 +21,8 @@
   .card h3 { margin:.1rem 0 .3rem; font-size:1rem; color:var(--navy); }
   .card p { margin:0; font-size:.95rem; color:#3d4666; }
   a { color:#2b3f9a; }
+  .card .btn { background:var(--navy); color:#fff; box-shadow:none; padding:.6rem 1.2rem; }
+  .transparencia { color:#3d4666; font-size:.9rem; }
   footer { text-align:center; color:var(--muted); font-size:.9rem; padding:0 1rem 2.5rem; }
 </style>
 </head>
@@ -47,9 +49,36 @@
     <p>1. Abra o site (não é preciso cadastro). &nbsp;2. Escolha as questões e resolva. &nbsp;3. Consulte a correção e o seu gabarito. &nbsp;4. (Opcional) Toque em “Sincronizar com Google Drive” e autorize o acesso para levar o progresso a outros aparelhos, ou use “Salvar progresso em arquivo”. O CRIVO acessa somente a pasta “CRIVO - Progresso” criada por ele mesmo.</p>
   </div>
 
+  <h2>Como ajudar o CRIVO</h2>
+  <div class="card">
+    <p>Cada correção do CRIVO é escrita por uma inteligência artificial, que depois confere o próprio texto com o gabarito oficial e com as diretrizes. Esses modelos não “leem” e “escrevem” palavras inteiras: eles trabalham com pedacinhos de texto chamados <i>tokens</i>, e cada token processado tem um custo.</p>
+    <p style="margin-top:.6rem">Para rodar um modelo assim no nosso próprio computador, precisaríamos de uma máquina com placas de vídeo potentes, que ainda não temos. Enquanto isso, usamos o serviço de uma empresa pela internet (uma API), que cobra pelos tokens usados em cada questão. Hoje, cada questão corrigida custa cerca de R$ 0,07 (US$ 0,012), e uma prova inteira de 100 questões custa em torno de R$ 7.</p>
+    <p style="margin-top:.6rem">O site continua gratuito para todos: esse valor é o que custa transformar cada prova em correções comentadas. Se quiser ajudar a trazer mais provas, doe o quanto couber no seu bolso; jamais restringiremos o seu acesso à plataforma caso não possa contribuir. A chave PIX está no formulário abaixo, onde você também pode pedir uma prova ou se oferecer para ajudar a construir e manter a plataforma.</p>
+    <p style="margin-top:.8rem"><a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSey6vrooOj0Ym9uU0JRGAMdri9xwdMavR23dZnXm8jWBQL1_Q/viewform" target="_blank" rel="noopener">📨 Solicitar provas / Ajudar o CRIVO</a></p>
+    <p class="transparencia" id="transparencia" style="margin-top:.8rem" hidden></p>
+  </div>
+
   <h2>Privacidade</h2>
   <div class="card"><p>Explicamos quais dados são tratados e como eles podem ser apagados na nossa <a href="privacidade.html">Política de Privacidade</a>.</p></div>
 </main>
 <footer>CRIVO - UNIOESTE · <a href="privacidade.html">Política de Privacidade</a> · <a href="./">Acessar a plataforma</a></footer>
+<script>
+/* transparência: gasto com a IA (dados/gastos.json) e questões com correção (dados/indice.json), atualizados a cada geração */
+(async () => {
+  const COTACAO = 5.90;   /* câmbio de referência (R$ por US$) */
+  try {
+    const [g, i] = await Promise.all(['dados/gastos.json', 'dados/indice.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null)));
+    if (!g || !i) return;
+    let comCorrecao = 0;
+    for (const anos of Object.values(i.bancas || {})) for (const e of Object.values(anos))
+      comCorrecao += Math.max(0, (e.questoes || []).length - (e.sem_correcao || 0));
+    const usd = +g.gasto_usd || 0;
+    const fmt = (v, moeda) => v.toLocaleString('pt-BR', { style: 'currency', currency: moeda });
+    const el = document.getElementById('transparencia');
+    el.textContent = `Transparência: até agora, ${comCorrecao.toLocaleString('pt-BR')} questões têm correção comentada, e o gasto total com a IA foi de ${fmt(usd, 'USD')} (cerca de ${fmt(usd * COTACAO, 'BRL')}, com o dólar a R$ ${COTACAO.toFixed(2).replace('.', ',')}).`;
+    el.hidden = false;
+  } catch (e) { /* sem os dados, o parágrafo não aparece */ }
+})();
+</script>
 </body>
 </html>

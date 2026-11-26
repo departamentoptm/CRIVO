@@ -574,8 +574,9 @@ button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-vis
 .action-btn.anki-fab      { --c: #6f42c1; }
 .action-btn.refazer-fab   { --c: #f2661c; }
 .action-btn.historico-fab { --c: #0e93ac; }
+.action-btn.reportar-fab  { --c: #c2410c; }
 .action-btn, .action-btn.unsaved, .action-btn.grifar-fab, .action-btn.anki-fab,
-.action-btn.refazer-fab, .action-btn.historico-fab {
+.action-btn.refazer-fab, .action-btn.historico-fab, .action-btn.reportar-fab {
     background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 60%), var(--c);
     border: 1px solid rgba(255,255,255,.35);
     box-shadow: 0 2px 8px rgba(0,0,0,.22);

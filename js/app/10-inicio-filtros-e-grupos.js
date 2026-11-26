@@ -310,13 +310,22 @@ async function refazerGrupoNaResolucao(btn) {
     showScreen(resolvingScreen);
 }
 
-/* ---- botão "Solicitar novas provas": abre o Formulário Google (endereço em URL_SOLICITAR_PROVAS) ---- */
+/* ---- botão "Solicitar provas / Ajudar o CRIVO": abre o Formulário Google (endereço em URL_SOLICITAR_PROVAS) ---- */
 /* Cole aqui o link do formulário (Formulários Google > Enviar > link). Vazio = o botão avisa que falta configurar. */
-const URL_SOLICITAR_PROVAS = '';
+const URL_SOLICITAR_PROVAS = 'https://docs.google.com/forms/d/e/1FAIpQLSey6vrooOj0Ym9uU0JRGAMdri9xwdMavR23dZnXm8jWBQL1_Q/viewform';
 document.getElementById('solicitarProvasBtn').addEventListener('click', () => {
     if (!/^https:\/\//.test(URL_SOLICITAR_PROVAS)) {
         homeMsg.textContent = 'O formulário para solicitar novas provas ainda não foi configurado. Avise o centro acadêmico.';
         return;
     }
     window.open(URL_SOLICITAR_PROVAS, '_blank', 'noopener');
+});
+
+/* ---- botão ⚠️ Reportar (barra superior): abre o formulário "reportar erro" e lembra banca, edição e número ---- */
+const URL_REPORTAR_ERRO = 'https://docs.google.com/forms/d/e/1FAIpQLSeIwZE2_9nRz6wGghnsRKAcd44bMdZOneZcL-hcbGNhbs2aiw/viewform';
+document.getElementById('reportarBtn').addEventListener('click', () => {
+    const q = questoes[questaoAtualIndex];
+    if (!q) { avisoGrifo('Abra uma questão para reportar um erro nela.'); return; }
+    window.open(URL_REPORTAR_ERRO, '_blank', 'noopener');
+    avisoGrifo(`No formulário, informe: banca ${q.exam || currentExam}, edição ${q.year || currentYear}, questão ${q.num}.`);
 });

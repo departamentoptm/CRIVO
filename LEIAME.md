@@ -189,26 +189,31 @@ A questão fica sem correção até ser gerada de novo (`gerar --questoes 85` ou
 
 ## Quando um estudante reporta um erro
 
-O botão "Reportar erro" de cada questão abre um Formulário Google já com o código da questão preenchido.
+O link "Reportar erro nesta questão" (na página da questão) e o botão **⚠️ Reportar** (barra superior da
+resolução) abrem o Formulário Google "CRIVO - reportar erro"; o botão também lembra, num aviso, a banca, a
+edição e o número que o estudante deve informar.
 Para trazer os reportes ao projeto: **Actions → Importar formulários (reportes, revisões e dúvidas) → Run workflow**. Sai um pull
 request: os reportes de questões com correção entram em `revisao.reportes` e a correção fica "reportado";
 depois de aprovar, rode **Gerar correções** no modo pendentes e elas são refeitas levando o reporte em conta.
 Reportes de questões sem correção, de correções revisadas por pessoas ou com código inválido aparecem em
 `relatorios/reportes.md` para a equipe conferir à mão. Cada reporte entra uma única vez.
 
-Configuração (uma vez):
-1. Em forms.google.com, crie o formulário "CRIVO — reportar erro" com 3 perguntas: **Questão** (resposta
-   curta, obrigatória), **O que está errado** (parágrafo, obrigatória) e **Fonte que confirma** (resposta curta,
-   opcional). Em Configurações → Respostas, deixe "Coletar endereços de e-mail" em **Não coletar** e não exija login.
-2. Menu ⋮ → **Gerar link pré-preenchido** → no campo Questão escreva `{id}` → **Gerar link** → copie o link e
-   cole em `js/crivo-render.js`, na linha `urlReportarErro: ''` (entre as aspas).
+Configuração (já feita; o endereço do formulário está em `urlReportarErro`, em `js/crivo-render.js`, e em
+`URL_REPORTAR_ERRO`, no fim de `js/app/10-inicio-filtros-e-grupos.js`):
+1. O formulário tem 4 perguntas obrigatórias: **Qual a banca?**, **Qual a edição?**, **Número da Questão** e
+   **O que está errado?**. O importador procura as colunas por essas palavras (banca, edição, número, errado) e
+   monta o código da questão (ex.: AMP-2020-Q5); se mudar os títulos, mantenha essas palavras. Também aceita
+   uma pergunta só com o código (ex.: AMP-2020-Q5) e uma pergunta opcional com "fonte" no título.
+2. (Opcional) Para o formulário abrir já preenchido: menu ⋮ → **Gerar link pré-preenchido**, escreva `{id}` num
+   campo com o código e cole o link em `urlReportarErro`.
 3. Aba Respostas → **Vincular ao Planilhas**. Na planilha: Arquivo → Compartilhar → **Publicar na Web** →
    escolha a aba das respostas e o formato **CSV** → Publicar → copie o link.
 4. No GitHub: Settings → Secrets and variables → Actions → aba **Variables** → New repository variable:
    nome `URL_REPORTES_CSV`, valor = o link do passo 3.
 
 O CSV publicado pode ser lido por quem tiver o link: o formulário não pede dados pessoais, e o aviso no
-formulário deve pedir que ninguém escreva nome, e-mail ou RA.
+formulário deve pedir que ninguém escreva nome, e-mail ou RA. Para receber um e-mail a cada reporte: aba
+Respostas → ⋮ → **Receber notificações por e-mail para novas respostas**.
 
 Também dá para editar à mão: abra `dados/<BANCA>/<ANO>/correcoes.json`, procure o id da questão (ex.: `AMP-2021-Q50`) e:
 - se o erro for simples, corrija o texto direto em `secoes_html`; **ou**
@@ -293,11 +298,16 @@ O histórico dos simulados vai para o arquivo de progresso e para o Google Drive
 
 ## Solicitar novas provas
 
-O botão **📨 Solicitar novas provas** da tela inicial abre um Formulário Google. Crie o formulário com os
-campos: banca (obrigatório), ano ou edição, link da prova, número de questões por prova e quantidade de provas
-anteriores (todos opcionais, menos a banca). Em **Enviar → link**, copie o endereço e cole em
-`URL_SOLICITAR_PROVAS`, no fim de `js/app/10-inicio-filtros-e-grupos.js`. Até lá, o botão avisa que o
-formulário não foi configurado. As respostas ficam na planilha do formulário.
+O botão **📨 Solicitar provas / Ajudar o CRIVO** da tela inicial e o botão da seção "Como ajudar o CRIVO" da
+página `sobre.html` abrem o Formulário Google "CRIVO - Solicitar novas provas / Fornecer ajuda" (endereço em
+`URL_SOLICITAR_PROVAS`, em `js/app/10-inicio-filtros-e-grupos.js`, e no link de `sobre.html`). Nele o estudante
+pede uma prova, se oferece para ajudar ou doa (a chave PIX aparece só no formulário). Como o formulário recebe
+arquivos, o Google exige login. As respostas ficam só na planilha do formulário: **não publique** essa planilha
+na Web (tem nome, e-mail e comprovantes).
+
+A seção "Como ajudar o CRIVO" da página Sobre mostra, atualizados a cada geração, quantas questões têm correção
+(`dados/indice.json`) e o gasto total com a IA (`dados/gastos.json`), convertido a R$ 5,90 por dólar
+(`COTACAO`, no fim de `sobre.html`).
 
 ## Salvamento automático no Google Drive
 
