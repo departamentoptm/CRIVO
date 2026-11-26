@@ -1392,3 +1392,9 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
     .desemp-linha.graf > * { grid-area: auto; }
 }
 .desemp-cartoes { padding: .25rem .6rem; min-height: 30px; font-size: .8rem; }
+/* cartões cloze */
+.cloze-frase { border-radius: .35rem; padding: .1rem .2rem; line-height: 1.9; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.cloze-lacuna { display: inline-block; padding: 0 .45rem; border: 2px solid; border-radius: .35rem; font-weight: 800; color: #1f2937; line-height: 1.4; }
+.cloze-alvo { border-radius: .3rem; padding: .05rem .2rem; color: #111827; }
+.cloze-outro { border-radius: .3rem; padding: 0 .05rem; }
+.cart-info-faces.cloze { grid-template-columns: 1fr; }

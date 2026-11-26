@@ -9,6 +9,7 @@ function corDoGrifo(h) {
     let lightness = 76;
     if (h.lado === 'frente') lightness = 86;
     else if (h.lado === 'verso') lightness = 62;
+    else if (h.lado === 'cloze') lightness = 66;
     return `hsl(${cor.h}, ${cor.s}%, ${lightness}%)`;
 }
 
@@ -114,6 +115,57 @@ function aplicarGrifo(doc, h) {
     return true;
 }
 
+/* ---- cloze: a frase em volta do grifo ----
+   A frase termina em ponto final, exclamação ou interrogação (seguidos de espaço e letra maiúscula, número ou
+   fim do texto) ou no fim do parágrafo/item de lista. Abreviações ("Dr.", "p. ex.") e decimais ("3.5") não contam. */
+const _ABREV_FRASE = /(?:^|[\s(])(?:dr|dra|drs|sr|sra|srs|prof|profa|ex|pág|fig|figs|cap|art|vs|etc|aprox|obs|nº|máx|mín|séc|tab|ref|ed|vol|cf|ie|eg|min|seg|cols|al)$/i;
+function _fimDeFrase(t, i) {
+    if (t[i] === '.') {
+        if (t[i + 1] && !/\s/.test(t[i + 1])) return false;                     /* 3.5, p.ex., e-mail */
+        const antes = t.slice(Math.max(0, i - 8), i);
+        if (_ABREV_FRASE.test(antes) || /(?:^|[\s(.])[A-Za-zÀ-ÿ]$/.test(antes)) return false;   /* abreviação ou inicial ("p.", "A.") */
+    }
+    const m = /^\s*(\S)/.exec(t.slice(i + 1));
+    return !m || /[A-ZÀ-Ý0-9"“'(•\-–—]/.test(m[1]);
+}
+function fraseDoTexto(t, ini, fim) {
+    let a = 0, b = t.length;
+    for (let i = ini - 1; i >= 0; i--) if (/[.!?]/.test(t[i]) && _fimDeFrase(t, i)) { a = i + 1; break; }
+    for (let i = Math.max(ini, fim - 1); i < t.length; i++) if (/[.!?]/.test(t[i]) && _fimDeFrase(t, i)) { b = i + 1; break; }
+    /* junta espaços repetidos e tira os das pontas, mantendo a posição do trecho */
+    let out = '', nIni = 0, nFim = 0, esp = false;
+    for (let i = a; i <= b; i++) {
+        if (i === ini) nIni = out.length;
+        if (i === fim) nFim = out.length;
+        if (i === b) break;
+        if (/\s/.test(t[i])) { if (!esp && out.length) out += ' '; esp = true; } else { out += t[i]; esp = false; }
+    }
+    out = out.trimEnd();
+    return { texto: out, ini: Math.min(nIni, out.length), fim: Math.min(Math.max(nFim, nIni), out.length) || out.length };
+}
+function fraseDoGrifo(doc, h) {
+    const spans = [...doc.querySelectorAll(`.crivo-highlight[data-grifo-id="${h.id}"]`)];
+    if (!spans.length) return null;
+    const win = doc.defaultView;
+    let bloco = spans[0].parentElement;
+    while (bloco && bloco !== doc.body && /^(inline|inline-block|contents)$/.test(win.getComputedStyle(bloco).display)) bloco = bloco.parentElement;
+    bloco = bloco || doc.body;
+    const r = doc.createRange();
+    r.setStart(bloco, 0); r.setEndBefore(spans[0]);
+    const ini = r.toString().length;
+    r.setEndAfter(spans[spans.length - 1]);
+    const fim = r.toString().length;
+    const f = fraseDoTexto(bloco.textContent, ini, fim);
+    return { texto: f.texto, ini: f.ini, fim: f.fim };
+}
+function atualizarFraseCloze(doc, h) {
+    if (h.lado !== 'cloze') return false;
+    const f = fraseDoGrifo(doc, h);
+    if (!f || (h.frase && h.frase.texto === f.texto && h.frase.ini === f.ini && h.frase.fim === f.fim)) return false;
+    h.frase = f;
+    return true;
+}
+
 function grifosDaQuestaoAtual() {
     const q = questoes[questaoAtualIndex];
     if (!q) return [];
@@ -126,7 +178,12 @@ function aplicarGrifosDaQuestaoAtual() {
     if (!doc || !doc.body) return;
     const rodar = () => {
         if (docDaQuestao() !== doc) return;
-        grifosDaQuestaoAtual().forEach(g => { try { aplicarGrifo(doc, g); } catch (e) { console.warn('Grifo:', e); } });
+        let mudou = false;
+        grifosDaQuestaoAtual().forEach(g => {
+            try { if (aplicarGrifo(doc, g) && g.lado === 'cloze' && !g.frase) mudou = atualizarFraseCloze(doc, g) || mudou; }
+            catch (e) { console.warn('Grifo:', e); }
+        });
+        if (mudou) { setDirty(true); salvarBackup(); }
     };
     rodar();
     setTimeout(rodar, 350);
@@ -207,7 +264,7 @@ function abrirEditorGrifo(spanEl) {
 
     const win = questionFrame.contentWindow;
     const rect = spanEl.getBoundingClientRect();
-    const boxW = 240, boxH = 108;
+    const boxW = 280, boxH = 108;
     const sx = win.scrollX || 0, sy = win.scrollY || 0;
     const left = Math.min(Math.max(8, rect.left + sx), Math.max(8, doc.documentElement.scrollWidth - boxW - 8));
     let top = rect.top + sy - boxH - 6;
@@ -225,9 +282,10 @@ function abrirEditorGrifo(spanEl) {
                 'style="width:70px;padding:6px;border:1px solid #bbb;border-radius:6px;font-size:16px;">' +
             '<button id="crivoRemover" title="Remover grifo" style="margin-left:auto;border:none;background:none;cursor:pointer;font-size:22px;padding:2px 6px;">🗑️</button>' +
         '</div>' +
-        '<div style="padding:8px 10px;display:flex;gap:18px;font-size:15px;">' +
+        '<div style="padding:8px 10px;display:flex;gap:12px;font-size:15px;">' +
             '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="crivoLado" value="frente" style="width:20px;height:20px;margin:0"> Frente</label>' +
             '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="crivoLado" value="verso" style="width:20px;height:20px;margin:0"> Verso</label>' +
+            '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;" title="Lacuna: a frase aparece com este trecho escondido. Trechos com o mesmo número formam um só cartão."><input type="radio" name="crivoLado" value="cloze" style="width:20px;height:20px;margin:0"> Cloze</label>' +
         '</div>';
     doc.documentElement.appendChild(box);
 
@@ -243,7 +301,8 @@ function abrirEditorGrifo(spanEl) {
         if (h.numero && !h.lado) { h.lado = 'frente'; marcarRadio(); }
         aplicar();
     });
-    radios.forEach(r => r.addEventListener('change', () => { h.lado = r.value; aplicar(); }));
+    radios.forEach(r => r.addEventListener('change', () => { h.lado = r.value; atualizarFraseCloze(doc, h); aplicar(); }));
+    if (atualizarFraseCloze(doc, h)) { setDirty(true); salvarBackup(); }
     box.querySelector('#crivoRemover').addEventListener('click', () => { fecharEditorGrifo(doc); removerGrifo(doc, id); });
 
     const fora = ev => { if (!box.contains(ev.target)) fecharEditorGrifo(doc); };
@@ -336,42 +395,19 @@ function exportarAnki() {
     if (!currentExam || !currentYear || !q || resolvingScreen.classList.contains('hidden')) {
         avisoGrifo('Abra uma questão para exportar os cartões dela.'); return;
     }
-    const grifos = grifosDaQuestaoAtual().slice().sort((a, b) => (a.startOffset || 0) - (b.startOffset || 0));
-    const porNumero = {};
-    for (const g of grifos) {
-        if (!g.numero || (g.lado !== 'frente' && g.lado !== 'verso')) continue;
-        (porNumero[g.numero] ||= { frente: [], verso: [] })[g.lado].push(g.texto);
-    }
-    const todos = Object.keys(porNumero).map(Number).sort((a, b) => a - b);
-    const validos = todos.filter(n => porNumero[n].frente.length && porNumero[n].verso.length);
-    const ignorados = todos.length - validos.length;
-
-    if (!validos.length) {
-        alert('Nenhum cartão completo nesta questão.\n\nCada cartão precisa de um trecho grifado como "frente" e outro como "verso" com o mesmo número.');
+    const prefixo = `${currentExam}|${currentYear}|${q.num}|`;
+    const cartoes = [...paresDosGrifos().entries()].filter(([id, c]) => id.startsWith(prefixo) && (c.dir === 'fv' || c.dir === 'cz')).map(([, c]) => c);
+    if (!cartoes.length) {
+        alert('Nenhum cartão completo nesta questão.\n\nCada cartão precisa de um trecho grifado como "frente" e outro como "verso" com o mesmo número, ou de um trecho marcado como "cloze".');
         return;
     }
     const base = `${currentExam}_${currentYear}_Q_${q.num}`;
-    const nomeSeguro = base.replace(/[\\/:*?"<>|]/g, '-');
-    const _tagBanca = String(currentExam).trim().replace(/\s+/g, '_');
-    const _disc = disciplinaDe(currentExam, currentYear, q.num);
-    const tag = [_tagBanca, _disc ? _disc.replace(/\s+/g, '_') : ''].filter(Boolean).join(' ');   /* tags separadas por espaço */
-    const linhas = [
-        '#separator:tab',
-        '#html:true',
-        '#notetype:Basic (and reversed card)',
-        `#deck:${base}`,
-        '#tags column:3'
-    ];
-    for (const n of validos) {
-        const c = porNumero[n];
-        linhas.push([c.frente.map(escAnki).join('<br><br>'), c.verso.map(escAnki).join('<br><br>'), tag].join('\t'));
-    }
+    const linhas = linhasAnki(cartoes);
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([linhas.join('\n') + '\n'], { type: 'text/plain;charset=utf-8' }));
-    a.download = nomeSeguro + '.txt';
+    a.download = base.replace(/[\\/:*?"<>|]/g, '-') + '.txt';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 3000);
-    avisoGrifo(`${validos.length} cartão(ões) exportado(s) em ${a.download}` +
-        (ignorados ? ` — ${ignorados} número(s) ignorado(s) por faltar frente ou verso.` : ''));
+    avisoGrifo(`${cartoes.length} cartão(ões) exportado(s) em ${a.download}`);
 }
 ankiBtn.addEventListener('click', exportarAnki);

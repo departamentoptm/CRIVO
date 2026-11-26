@@ -129,7 +129,7 @@ function _botoesResposta(itens, ini) {
 function renderPainelCartoes() {
     const el = document.getElementById('cartPainel');
     const itens = dadosDosCartoes();
-    if (!itens.length) { el.innerHTML = '<div class="revisao-vazia">Você ainda não tem cartões. Grife trechos da correção e marque, com o mesmo número, um trecho como "Frente" e outro como "Verso". 🖍️</div>'; return; }
+    if (!itens.length) { el.innerHTML = '<div class="revisao-vazia">Você ainda não tem cartões. Grife trechos da correção e marque, com o mesmo número, um trecho como "Frente" e outro como "Verso", ou marque um trecho como "Cloze". 🖍️</div>'; return; }
     const cont = contarClasses(itens), h0 = new Date(); h0.setHours(0, 0, 0, 0);
     const ini30 = +h0 - 29 * DIA_MS;
     /* previsão: cartões que vencem em cada um dos próximos 30 dias (os atrasados contam em hoje) */
@@ -204,7 +204,7 @@ function renderListaPainel() {
         + '<div class="cart-tabela-wrap"><table class="cart-tabela cart-lista"><thead><tr>' + col('cartao', 'Cartão') + col('classe', 'Classificação') + col('vence', 'Vence')
         + col('ivl', 'Intervalo') + col('dif', 'Dificuldade') + col('revs', 'Revisões') + col('erros', 'Erros') + '</tr></thead><tbody>'
         + lista.map(x => `<tr class="cart-linha" data-id="${escapeHtml(x.id)}" tabindex="0" role="button">`
-            + `<td>${escapeHtml(`${x.c.prova} ${x.c.ano} Q${x.c.questao} · nº ${x.c.numero} · ${x.c.dir === 'vf' ? 'V→F' : 'F→V'}`)}${x.orfao ? ' ⚠️' : ''}</td>`
+            + `<td>${escapeHtml(`${x.c.prova} ${x.c.ano} Q${x.c.questao} · nº ${x.c.numero} · ${x.c.dir === 'cz' ? 'Cloze' : x.c.dir === 'vf' ? 'V→F' : 'F→V'}`)}${x.orfao ? ' ⚠️' : ''}</td>`
             + `<td><span class="cart-classe ${x.classe}">${ROTULO_CLASSE[x.classe]}</span></td>`
             + `<td>${x.estado ? _dataCurta(x.estado.proxima) : '—'}</td><td>${x.estado ? _fmtDias(_ivlDias(x.estado)) : '—'}</td>`
             + `<td>${x.estado ? _difPct(x.estado.d) + '%' : '—'}</td><td>${x.log.length}</td><td>${x.log.filter(l => l.nota === 1).length}</td></tr>`).join('')
@@ -259,7 +259,8 @@ function abrirDadosCartao(id) {
     ov.className = 'modal-overlay'; ov.id = 'cartInfoOverlay';
     ov.innerHTML = '<div class="modal cart-info" role="dialog" aria-modal="true" aria-labelledby="cartInfoTit">'
         + `<h3 id="cartInfoTit">ℹ️ ${_rotuloCartao(c)}</h3>`
-        + `<div class="cart-info-faces"><div><small>Frente</small>${_paraHtml(c.frente || [])}</div><div><small>Verso</small>${_paraHtml(c.verso || [])}</div></div>`
+        + (c.dir === 'cz' ? `<div class="cart-info-faces cloze"><div><small>Cloze</small>${clozeHtml(c, true)}</div></div>`
+            : `<div class="cart-info-faces"><div><small>Frente</small>${_paraHtml(c.frente || [])}</div><div><small>Verso</small>${_paraHtml(c.verso || [])}</div></div>`)
         + '<div class="cart-info-grade">'
         + lin('Classificação', `<span class="cart-classe ${classe}">${ROTULO_CLASSE[classe]}</span>`)
         + lin('Criado em', c.criado ? _dataCurta(c.criado) : '—')

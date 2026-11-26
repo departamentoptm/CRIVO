@@ -827,6 +827,39 @@ def t_desempenho_cartoes(page, url):
     page.evaluate("showScreen(resolvingScreen)")
 
 
+@teste("cloze: frase detectada, cartão com lacuna, resposta destacada e exportação para o Anki")
+def t_cloze(page, url):
+    r = page.evaluate("""() => { const t = 'O Dr. Silva tratou. A dose é 3.5 mg, p. ex. no adulto! As camadas são: crosta, manto e núcleo.';
+        return ['Silva', '3.5', 'manto'].map(w => { const i = t.indexOf(w); return fraseDoTexto(t, i, i + w.length).texto; }); }""")
+    assert r == ["O Dr. Silva tratou.", "A dose é 3.5 mg, p. ex. no adulto!", "As camadas são: crosta, manto e núcleo."], f"frases erradas: {r}"
+    f = page.frame_locator("#questionFrame")
+    f.locator(".crivo-highlight >> nth=0").dblclick()
+    f.locator("#crivoEditor input[value='cloze']").check()
+    f.locator("#crivoNum").fill("9")
+    g = page.evaluate("progress.grifados.find(g => g.lado === 'cloze')")
+    assert g and g.get("frase") and g["numero"] == 9, f"o grifo cloze não guardou a frase: {g}"
+    fr = g["frase"]
+    assert fr["texto"][fr["ini"]:fr["fim"]].strip() == g["texto"].strip(), f"a posição do trecho na frase está errada: {fr}"
+    page.keyboard.press("Escape")
+    cid = page.evaluate("[...paresDosGrifos().keys()].find(k => k.endsWith('|9|cz'))")
+    assert cid, "o cartão cloze não foi criado"
+    page.evaluate(f"(async () => {{ await abrirTelaCartoes(); iniciarSessaoCartoes(['{cid}']); }})()")
+    page.wait_for_selector("#cartSessao:not([hidden])")
+    assert page.locator("#cartFrente .cloze-lacuna").count() == 1 and page.locator("#cartFrente .cloze-frase").count() == 1, "a frente do cloze deveria ter a lacuna"
+    assert "cloze" in page.inner_text("#cartOrigem"), "o rótulo deveria dizer cloze"
+    page.click("#cartMostrarBtn")
+    assert g["texto"].strip()[:8] in page.inner_text("#cartFrente .cloze-alvo"), "a resposta não destacou o trecho"
+    assert not page.is_visible("#cartVerso"), "o cloze não tem verso separado"
+    linhas = page.evaluate(f"linhasAnki([progress.cartoes['{cid}']])")
+    assert "#notetype column:5" in linhas and linhas[-1].endswith("\tCloze") and "{{c1::" in linhas[-1], f"exportação do cloze errada: {linhas[-1][:200]}"
+    page.click("#cartNotas button[data-nota='3']")
+    # limpa: tira o grifo e o cartão para não mudar as contagens dos outros testes
+    page.evaluate(f"""() => {{ const g = progress.grifados.find(g => g.lado === 'cloze'); g.lado = null; g.numero = null; delete g.frase;
+        delete progress.cartoes['{cid}']; salvarBackup(); }}""")
+    page.click("#backFromCartoesBtn"); page.wait_for_timeout(200)
+    page.click("#startBtnHome"); quadro(page)
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -841,7 +874,7 @@ def main():
             page = ctx.new_page()
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
-            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
+            for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_cloze, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
                       t_exportar_cartoes, t_painel_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_desempenho_cartoes, t_plano, t_meta,
                       t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_recarregar):
                 t(page, url)

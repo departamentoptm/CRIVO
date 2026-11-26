@@ -2,7 +2,9 @@
    CARTÕES DOS GRIFOS (revisão dentro do CRIVO, sem precisar do Anki)
    Cada par de grifos com o mesmo número numa questão (um ou mais trechos "frente" e um ou mais "verso")
    vira um cartão nos dois sentidos: frente → verso e verso → frente, como o tipo "Basic (and reversed card)"
-   do Anki. Os cartões têm fila própria ("Cartões de hoje") e usam o mesmo FSRS-6 das questões, com as notas
+   do Anki. Trechos marcados como "Cloze" viram cartões de lacuna (um sentido só): a frase em volta do trecho
+   aparece com ele escondido; trechos cloze com o mesmo número formam um só cartão, mesmo em frases diferentes
+   (as frases são juntadas). Os cartões têm fila própria ("Cartões de hoje") e usam o mesmo FSRS-6 das questões, com as notas
    Errei, Difícil, Bom e Fácil.
    O cartão é identificado pela questão, pelo número e pelo sentido. Se o texto dos grifos daquele número mudar
    (um grifo novo, um grifo apagado, grifos juntados de outro aparelho), o cartão continua o mesmo, com o texto
@@ -30,9 +32,35 @@ function paresDosGrifos() {
         const [prova, ano, questao, numero] = k.split('|');
         for (const dir of ['fv', 'vf']) pares.set(`${k}|${dir}`, { prova, ano, questao, numero, dir, frente, verso });
     }
+    /* cloze: cada número vira um cartão (um sentido só). O cartão mostra a(s) frase(s) dos trechos desse número,
+       juntas como se fossem uma, com esses trechos em lacuna; trechos cloze de outros números na mesma frase
+       aparecem destacados de leve. */
+    const clozePorQ = new Map();
+    for (const g of progress.grifados || []) {
+        if (!g || !g.numero || g.lado !== 'cloze') continue;
+        const kq = `${g.prova}|${g.ano}|${g.questao}`;
+        if (!clozePorQ.has(kq)) clozePorQ.set(kq, []);
+        clozePorQ.get(kq).push(g);
+    }
+    const fraseDe = g => g.frase && g.frase.texto ? g.frase : { texto: g.texto || '', ini: 0, fim: (g.texto || '').length };
+    for (const [kq, gs] of clozePorQ) {
+        const [prova, ano, questao] = kq.split('|');
+        for (const numero of [...new Set(gs.map(g => String(g.numero)))]) {
+            const meus = gs.filter(g => String(g.numero) === numero).sort((a, b) => (a.startOffset || 0) - (b.startOffset || 0));
+            const textos = [...new Set(meus.map(g => fraseDe(g).texto))].filter(Boolean);
+            const frases = textos.map(texto => {
+                const marcas = new Map();
+                gs.forEach(g => { const f = fraseDe(g); if (f.texto === texto && f.fim > f.ini) marcas.set(`${f.ini}|${f.fim}`, { ini: f.ini, fim: f.fim, alvo: String(g.numero) === numero, n: +g.numero }); });
+                return { texto, marcas: [...marcas.values()].sort((a, b) => a.ini - b.ini) };
+            });
+            if (!frases.length) continue;
+            const frente = frases.map(f => { let o = '', p = 0; f.marcas.forEach(m => { o += f.texto.slice(p, m.ini) + (m.alvo ? '[...]' : f.texto.slice(m.ini, m.fim)); p = m.fim; }); return o + f.texto.slice(p); });
+            pares.set(`${kq}|${numero}|cz`, { prova, ano, questao, numero, dir: 'cz', tipo: 'cloze', frente, verso: meus.map(g => g.texto), frases });
+        }
+    }
     return pares;
 }
-const _baseCartao = id => String(id).replace(/\|(fv|vf)(\|[^|]*)?$/, '');
+const _baseCartao = id => String(id).replace(/\|(fv|vf|cz)(\|[^|]*)?$/, '');
 function cartaoApagado(c) { return !!(c && c.apagado && !(c.reativado && c.reativado > c.apagado)); }
 /* ids antigos "prova|ano|questão|número|sentido|texto" -> "prova|ano|questão|número|sentido", somando as revisões */
 function migrarIdsCartoes() {
@@ -72,9 +100,9 @@ function sincronizarCartoes() {
     for (const [id, p] of pares) {
         const c = progress.cartoes[id];
         if (!c) { progress.cartoes[id] = Object.assign({}, p, { criado: agora, revisoes: [] }); mudou = true; continue; }
-        if (mesmo(c.frente, p.frente) && mesmo(c.verso, p.verso)) continue;
+        if (mesmo(c.frente, p.frente) && mesmo(c.verso, p.verso) && mesmo(c.frases, p.frases)) continue;
         if (cartaoApagado(c)) c.reativado = agora;          /* apagado e o texto mudou: volta como cartão novo */
-        c.frente = p.frente; c.verso = p.verso; mudou = true;
+        c.frente = p.frente; c.verso = p.verso; if (p.frases) c.frases = p.frases; mudou = true;
     }
     if (mudou) { setDirty(true); salvarBackup(); }
     return pares;
@@ -137,7 +165,25 @@ const _paraHtml = linhas => linhas.map(t => escapeHtml(t)).join('<br><br>');
 function _rotuloCartao(c) {
     const disc = disciplinaDe(c.prova, c.ano, c.questao);
     return `${escapeHtml(c.prova)} ${escapeHtml(c.ano)} - Q${escapeHtml(c.questao)}${disc ? ' - ' + escapeHtml(disc) : ''}`
-        + ` · cartão nº ${escapeHtml(c.numero)} · ${c.dir === 'vf' ? 'verso → frente' : 'frente → verso'}`;
+        + ` · cartão nº ${escapeHtml(c.numero)} · ${c.dir === 'cz' ? 'cloze' : c.dir === 'vf' ? 'verso → frente' : 'frente → verso'}`;
+}
+/* cloze na tela: a frase num tom claro da cor do número; o trecho em lacuna "[...]" (ou, na resposta, num tom
+   mais escuro); trechos cloze de outros números, destacados de leve */
+function _corDoNumero(n) { return PALETA_CORES[(((+n || 1) - 1) % PALETA_CORES.length + PALETA_CORES.length) % PALETA_CORES.length]; }
+function clozeHtml(c, revelar) {
+    const k = _corDoNumero(c.numero);
+    return (c.frases || []).map(f => {
+        let o = '', p = 0;
+        for (const m of f.marcas || []) {
+            o += escapeHtml(f.texto.slice(p, m.ini));
+            const tr = escapeHtml(f.texto.slice(m.ini, m.fim));
+            if (m.alvo) o += revelar ? `<b class="cloze-alvo" style="background:hsl(${k.h},${k.s}%,62%)">${tr}</b>`
+                : `<span class="cloze-lacuna" style="border-color:hsl(${k.h},${k.s}%,40%);background:hsl(${k.h},${k.s}%,80%)">[...]</span>`;
+            else { const x = _corDoNumero(m.n); o += `<span class="cloze-outro" style="background:hsl(${x.h},${x.s}%,90%)">${tr}</span>`; }
+            p = m.fim;
+        }
+        return `<span class="cloze-frase" style="background:hsl(${k.h},${k.s}%,93%)">${o + escapeHtml(f.texto.slice(p))}</span>`;
+    }).join(' ');
 }
 function _textoProximo(estado, g) {
     if (g === 1) return 'de novo agora';
@@ -173,7 +219,7 @@ function renderListaCartoes() {
         }).join('')
         : `<div class="revisao-vazia">${passado ? 'Nenhum cartão revisado neste dia.'
             : `Nenhum cartão programado para ${cartDiaSel === hoje ? 'hoje' : 'este dia'}.`
-              + (Object.keys(progress.cartoes || {}).length ? ' 🎉' : ' Para criar cartões, grife trechos da correção e marque, com o mesmo número, um trecho como "Frente" e outro como "Verso". 🖍️')}</div>`;
+              + (Object.keys(progress.cartoes || {}).length ? ' 🎉' : ' Para criar cartões, grife trechos da correção e marque, com o mesmo número, um trecho como "Frente" e outro como "Verso", ou marque um trecho como "Cloze". 🖍️')}</div>`;
     const btn = document.getElementById('cartIniciarBtn');
     btn.hidden = passado;
     btn.disabled = !lista.length;
@@ -203,10 +249,16 @@ function renderCartao() {
         + (cartFeitos ? ` · ${cartFeitos} revisado${cartFeitos === 1 ? '' : 's'} nesta sessão` : '');
     document.getElementById('cartOrigem').innerHTML = _rotuloCartao(atual);
     document.getElementById('cartOrfao').hidden = paresDosGrifos().has(id);
-    const [ladoA, ladoB] = atual.dir === 'vf' ? [atual.verso, atual.frente] : [atual.frente, atual.verso];
-    document.getElementById('cartFrente').innerHTML = _paraHtml(ladoA || []);
-    document.getElementById('cartVerso').innerHTML = _paraHtml(ladoB || []);
-    document.getElementById('cartVerso').hidden = !cartMostrando;
+    if (atual.dir === 'cz') {                              /* cloze: a mesma frase, com a lacuna e depois com a resposta */
+        document.getElementById('cartFrente').innerHTML = clozeHtml(atual, cartMostrando);
+        document.getElementById('cartVerso').innerHTML = '';
+        document.getElementById('cartVerso').hidden = true;
+    } else {
+        const [ladoA, ladoB] = atual.dir === 'vf' ? [atual.verso, atual.frente] : [atual.frente, atual.verso];
+        document.getElementById('cartFrente').innerHTML = _paraHtml(ladoA || []);
+        document.getElementById('cartVerso').innerHTML = _paraHtml(ladoB || []);
+        document.getElementById('cartVerso').hidden = !cartMostrando;
+    }
     document.getElementById('cartMostrarBtn').hidden = cartMostrando;
     const notas = document.getElementById('cartNotas');
     notas.hidden = !cartMostrando;
@@ -264,7 +316,7 @@ document.getElementById('cartApagarBtn').addEventListener('click', () => {
     const id = cartFila[0], c = id && progress.cartoes[id];
     if (!c) return;
     /* apaga os dois sentidos do mesmo par (mesma questão e número) */
-    const irmaos = ['fv', 'vf'].map(d => `${_baseCartao(id)}|${d}`).filter(x => progress.cartoes[x]);
+    const irmaos = id.endsWith('|cz') ? [id] : ['fv', 'vf'].map(d => `${_baseCartao(id)}|${d}`).filter(x => progress.cartoes[x]);
     const ativo = paresDosGrifos().has(id);
     if (!confirm('Apagar este cartão (nos dois sentidos) e o histórico de revisões dele?'
         + (ativo ? '\n\nOs grifos continuam na questão; o cartão só volta se você mudar o texto ou o número desses grifos.' : ''))) return;
@@ -307,7 +359,7 @@ function exportarTodosCartoes() {
     const atuais = paresDosGrifos();
     const notas = new Map();
     for (const [id, c] of Object.entries(progress.cartoes || {})) {
-        if (!c || cartaoApagado(c) || c.dir !== 'fv') continue;
+        if (!c || cartaoApagado(c) || (c.dir !== 'fv' && c.dir !== 'cz')) continue;
         if (!comOrfaos && !atuais.has(id)) continue;
         if (banca && c.prova !== banca) continue;
         if (ano && String(c.ano) !== ano) continue;
@@ -317,12 +369,7 @@ function exportarTodosCartoes() {
         notas.set(id, { c, d });
     }
     if (!notas.size) { alert('Nenhum cartão com esses filtros.'); return; }
-    const linhas = ['#separator:tab', '#html:true', '#notetype:Basic (and reversed card)', '#tags column:3', '#deck column:4'];
-    for (const { c, d } of notas.values()) {
-        const tag = [String(c.prova).trim().replace(/\s+/g, '_'), d ? d.replace(/\s+/g, '_') : ''].filter(Boolean).join(' ');
-        const deck = `${c.prova}_${c.ano}_Q_${c.questao}`.replace(/[\t\n]/g, ' ');
-        linhas.push([(c.frente || []).map(escAnki).join('<br><br>'), (c.verso || []).map(escAnki).join('<br><br>'), tag, deck].join('\t'));
-    }
+    const linhas = linhasAnki([...notas.values()].map(x => x.c));
     const nome = ['CRIVO_cartoes', banca, ano, disc, tema].filter(Boolean).join('_').replace(/[\\/:*?"<>|\s]+/g, '-') + '.txt';
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([linhas.join('\n') + '\n'], { type: 'text/plain;charset=utf-8' }));
@@ -332,3 +379,24 @@ function exportarTodosCartoes() {
     document.getElementById('cartExpMsg').textContent = `${notas.size} cartão(ões) exportado(s). No Anki: Arquivo → Importar.`;
 }
 document.getElementById('cartExpBtn').addEventListener('click', exportarTodosCartoes);
+
+/* linhas do arquivo do Anki: frente/verso ("Basic (and reversed card)") e cloze ("Cloze", com {{c1::...}}), num só arquivo */
+function linhasAnki(cartoes) {
+    const linhas = ['#separator:tab', '#html:true', '#tags column:3', '#deck column:4', '#notetype column:5'];
+    for (const c of cartoes) {
+        const d = disciplinaDe(c.prova, c.ano, c.questao);
+        const tag = [String(c.prova).trim().replace(/\s+/g, '_'), d ? d.replace(/\s+/g, '_') : ''].filter(Boolean).join(' ');
+        const deck = `${c.prova}_${c.ano}_Q_${c.questao}`.replace(/[\t\n]/g, ' ');
+        if (c.dir === 'cz') {
+            const texto = (c.frases || []).map(f => {
+                let o = '', p = 0;
+                (f.marcas || []).forEach(m => { o += escAnki(f.texto.slice(p, m.ini)) + (m.alvo ? `{{c1::${escAnki(f.texto.slice(m.ini, m.fim))}}}` : escAnki(f.texto.slice(m.ini, m.fim))); p = m.fim; });
+                return o + escAnki(f.texto.slice(p));
+            }).join(' ');
+            linhas.push([texto, '', tag, deck, 'Cloze'].join('\t'));
+        } else {
+            linhas.push([(c.frente || []).map(escAnki).join('<br><br>'), (c.verso || []).map(escAnki).join('<br><br>'), tag, deck, 'Basic (and reversed card)'].join('\t'));
+        }
+    }
+    return linhas;
+}
