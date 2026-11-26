@@ -193,6 +193,8 @@
             <h1>🃏 Cartões dos grifos</h1>
         </div>
         <div class="progress-content cartoes-conteudo">
+            <div class="cart-topo"><button type="button" class="aparencia-btn" id="cartPainelBtn" aria-expanded="false" title="Estatísticas de todos os cartões, como no Anki">📊 Painel</button></div>
+            <div class="cart-painel" id="cartPainel" hidden></div>
             <div class="revisao-conteudo" id="cartListaArea">
                 <div class="revisao-data">
                     <button type="button" class="dia-btn" id="cartDiaAnt" aria-label="Dia anterior">‹</button>
@@ -221,6 +223,7 @@
                         <button type="button" data-nota="4" class="nota-facil" aria-keyshortcuts="4"><kbd class="tecla">4</kbd> Fácil <span class="cartao-quando"></span></button>
                     </div>
                     <div class="cartao-acoes">
+                        <button type="button" class="aparencia-btn" id="cartInfoBtn">ℹ️ Dados do cartão</button>
                         <button type="button" class="aparencia-btn" id="cartAbrirBtn">📄 Abrir a questão</button>
                         <button type="button" class="aparencia-btn" id="cartApagarBtn">🗑️ Apagar cartão</button>
                     </div>
@@ -294,5 +297,6 @@
 <script src="js/app/14-simulado.js?v=dev"></script>
 <script src="js/app/15-tempo-e-inatividade.js?v=dev"></script>
 <script src="js/app/16-drive-seguranca.js?v=dev"></script>
+<script src="js/app/17-estatisticas-dos-cartoes.js?v=dev"></script>
 </body>
 </html>

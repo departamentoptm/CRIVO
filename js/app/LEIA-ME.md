@@ -20,6 +20,7 @@ arquivos, carregados **nesta ordem** pelo `index.html`:
 | `14-simulado.js` | simulado montado pelo aluno (correção escondida; o relógio só para na pausa por inatividade), resultado com classificação para a revisão e histórico |
 | `15-tempo-e-inatividade.js` | relógio de estudo (só com a aba visível), tempo de cada questão (até confirmar + leitura da correção, máx. 20 min), média para o plano e pausa por inatividade (20 min) com a tela embaçada |
 | `16-drive-seguranca.js` | aviso flutuante do salvamento na nuvem, restaurar uma cópia do Drive e "Carregar arquivo" com comparação e confirmação (somar, substituir ou cancelar) |
+| `17-estatisticas-dos-cartoes.js` | classificação dos cartões como no Anki (novo, aprendendo, reaprendendo, recente, maduro), painel dos cartões (gráficos, True retention e lista), dados de cada cartão e, no Desempenho, mapas de calor, bloco dos cartões e cartões por disciplina e tema |
 | `12-aparencia.js` | modo escuro (fundos brancos viram escuros e letras pretas viram claras; as outras cores ficam) e tamanho da letra |
 
 Dados no progresso (`progress`, salvo no navegador, no arquivo e no Drive): `registro` (respostas), `avaliacoes`

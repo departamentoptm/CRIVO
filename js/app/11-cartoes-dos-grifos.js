@@ -193,9 +193,11 @@ function iniciarSessaoCartoes(ids) {
     document.getElementById('cartSessao').hidden = false;
     renderCartao();
 }
+let _cartInicioMs = 0;                                      /* tempo do cartão: da frente aparecer até a nota */
 function renderCartao() {
     const id = cartFila[0], atual = id && progress.cartoes[id];
     if (!atual) { mostrarListaCartoes(); return; }          /* terminou: volta para a lista do dia */
+    if (!cartMostrando) _cartInicioMs = Date.now();
     const restantes = cartFila.length;
     document.getElementById('cartSessaoResumo').textContent = `${restantes} ${restantes === 1 ? 'cartão restante' : 'cartões restantes'}`
         + (cartFeitos ? ` · ${cartFeitos} revisado${cartFeitos === 1 ? '' : 's'} nesta sessão` : '');
@@ -219,7 +221,8 @@ function avaliarCartao(g) {
     const id = cartFila[0], c = id && progress.cartoes[id];
     if (!c) return;
     if (!Array.isArray(c.revisoes)) c.revisoes = [];
-    c.revisoes.push({ data: new Date().toISOString(), nota: g });
+    const tempoMs = _cartInicioMs ? Math.min(60000, Math.max(0, Date.now() - _cartInicioMs)) : 0;   /* no máximo 60 s, como no Anki */
+    c.revisoes.push(Object.assign({ data: new Date().toISOString(), nota: g }, tempoMs ? { tempoMs } : {}));
     setDirty(true); salvarBackup();
     cartFila.shift();
     if (g === 1) cartFila.push(id);               /* Errei: volta no fim da sessão */

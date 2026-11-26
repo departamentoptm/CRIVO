@@ -144,21 +144,45 @@ function _barra(c, n) {
     const p = _pct(c, n);
     return `<span class="desemp-barra" aria-hidden="true"><span style="width:${p}%" class="${p < LIMITE_PONTO_FRACO * 100 ? 'fraco' : 'bom'}"></span></span>`;
 }
-function _semanas(qtd) {
-    const seg = d => { const x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; };
-    const ini = seg(Date.now()); ini.setDate(ini.getDate() - 7 * (qtd - 1));
-    const sem = Array.from({ length: qtd }, (_, i) => { const d = new Date(ini); d.setDate(d.getDate() + 7 * i); return { ini: d, n: 0, certas: 0 }; });
+/* evolução: semanal = últimos 7 dias, mensal = últimos 30 dias (barras por dia), anual = últimos 12 meses (barras por mês) */
+let evoModo = 'semanal';
+function _evolucao(modo) {
+    const hoje0 = new Date(); hoje0.setHours(0, 0, 0, 0);
+    let baldes, indice;
+    if (modo === 'anual') {
+        baldes = Array.from({ length: 12 }, (_, i) => { const d = new Date(hoje0.getFullYear(), hoje0.getMonth() - 11 + i, 1);
+            return { ini: d, rot: d.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', ''), n: 0, certas: 0 }; });
+        indice = t => (t.getFullYear() - baldes[0].ini.getFullYear()) * 12 + t.getMonth() - baldes[0].ini.getMonth();
+    } else {
+        const qtd = modo === 'mensal' ? 30 : 7;
+        baldes = Array.from({ length: qtd }, (_, i) => { const d = new Date(hoje0); d.setDate(d.getDate() - (qtd - 1 - i));
+            return { ini: d, rot: d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }), n: 0, certas: 0 }; });
+        indice = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); return Math.round((d - baldes[0].ini) / DIA_MS); };
+    }
     const vistos = new Set();
     for (const e of progress.registro || []) {
         if (e.acao !== 'confirmou' || !e.correta) continue;
         const k = _chaveQ(e.prova, e.ano, e.questao);
         if (semGabarito.has(k)) continue;
-        const t = new Date(e.data), i = Math.floor((seg(t) - ini) / (7 * DIA_MS) + 0.01);
-        if (i < 0 || i >= qtd || vistos.has(k + '|' + isoDoDia(+t))) continue;
-        vistos.add(k + '|' + isoDoDia(+t));
-        sem[i].n++; sem[i].certas += e.opcao === e.correta ? 1 : 0;
+        const t = new Date(e.data), i = indice(t), dia = k + '|' + isoDoDia(+t);
+        if (i < 0 || i >= baldes.length || vistos.has(dia)) continue;      /* a mesma questão conta uma vez por dia */
+        vistos.add(dia);
+        baldes[i].n++; baldes[i].certas += e.opcao === e.correta ? 1 : 0;
     }
-    return sem;
+    return baldes;
+}
+function _blocoEvolucao() {
+    const b = _evolucao(evoModo), maxN = Math.max(1, ...b.map(s => s.n)), compacto = b.length > 12;
+    const botao = (m, t) => `<button type="button" class="aparencia-btn evo-btn" data-evo="${m}" aria-pressed="${evoModo === m}">${t}</button>`;
+    return '<h2>📅 Evolução</h2><div class="desemp-vista evo-vista" role="group" aria-label="Período">'
+        + botao('semanal', 'Semanal') + botao('mensal', 'Mensal') + botao('anual', 'Anual') + '</div>'
+        + `<div class="desemp-semanas${compacto ? ' compacto' : ''}" style="grid-template-columns: repeat(${b.length}, 1fr)">`
+        + b.map((s, i) => `<div class="desemp-semana" title="${s.rot}: ${s.n} questões, ${_pct(s.certas, s.n)}% de acerto">`
+            + `<span class="desemp-semana-pct">${s.n && !compacto ? _pct(s.certas, s.n) + '%' : ''}</span>`
+            + `<span class="desemp-semana-col"><span style="height:${Math.round(100 * s.n / maxN)}%"></span></span>`
+            + `<span class="desemp-semana-n">${compacto ? '' : s.n}</span><span class="desemp-semana-data">${!compacto || i % 5 === 4 ? s.rot.slice(0, compacto ? 2 : 9) : ''}</span></div>`).join('')
+        + `</div><p class="desemp-nota">Barras: questões respondidas por ${evoModo === 'anual' ? 'mês (últimos 12 meses)' : `dia (últimos ${b.length} dias)`}`
+        + `${compacto ? '; toque numa barra para ver o número e o acerto' : '. Acima: % de acerto'}. A mesma questão conta uma vez por dia.</p>`;
 }
 
 /* filtros (os mesmos do Meu gabarito) e forma do gráfico */
@@ -235,11 +259,14 @@ function _blocoGrafico() {
     if (!lista.length) return `<section class="desemp-bloco"><h2>📚 ${titulo}</h2><p class="desemp-nota">Nada com esses filtros.</p></section>`;
     const maxTot = Math.max(1, ...lista.map(([, z]) => f.naoRealizadas ? z.tot : Math.max(z.a, z.e)));
     const praticar = f.modo === 'disciplina';
+    const cg = typeof cartoesPorGrupo === 'function' ? cartoesPorGrupo() : new Map();
+    const mini = x => typeof miniCartoes === 'function' ? miniCartoes(x) : '';
     return `<section class="desemp-bloco"><h2>📚 ${titulo}</h2>` + lista.map(([g, z]) => {
         const subs = ordenar(z.sub).filter(([, y]) => visivel(y));
         const maxSub = Math.max(1, ...subs.map(([, y]) => f.naoRealizadas ? y.tot : Math.max(y.a, y.e)));
-        return `<details class="desemp-disc"><summary><span class="desemp-nome">${escapeHtml(g)}</span>${_grafico(z, maxTot)}</summary>`
-            + (subs.length ? subs.map(([t, y]) => `<div class="desemp-linha graf"><span class="desemp-nome">${escapeHtml(t)}</span>${_grafico(y, maxSub)}`
+        const cgg = cg.get(g);
+        return `<details class="desemp-disc"><summary><span class="desemp-nome">${escapeHtml(g)}</span><span class="graf-col">${_grafico(z, maxTot)}${mini(cgg)}</span></summary>`
+            + (subs.length ? subs.map(([t, y]) => `<div class="desemp-linha graf"><span class="desemp-nome">${escapeHtml(t)}</span><span class="graf-col">${_grafico(y, maxSub)}${mini(cgg && cgg.sub.get(t))}</span>`
                 + (praticar ? `<button type="button" class="aparencia-btn desemp-praticar" data-d="${escapeHtml(g)}" data-t="${escapeHtml(t)}">Praticar</button>` : '<span></span>') + '</div>').join('')
                 : '<p class="desemp-nota">Temas ainda não classificados para estas questões.</p>')
             + '</details>';
@@ -268,7 +295,6 @@ function renderDesempenho() {
         return;
     }
     const fracos = temasPadrao ? pontosFracos(est) : [];
-    const semanas = _semanas(8), maxN = Math.max(1, ...semanas.map(s => s.n));
     let h = `<div class="desemp-resumo"><div><b>${est.n}</b><span>questões respondidas</span></div><div><b>${_pct(est.certas, est.n)}%</b><span>de acerto</span></div>`
         + `<div><b>${sequenciaDeDias()}</b><span>dias seguidos</span></div>`
         + (() => { const t = temposMedios(); const f = ms => t.nConf ? _tempoCurto(ms) : '—';
@@ -287,12 +313,7 @@ function renderDesempenho() {
             + `<button type="button" class="aparencia-btn desemp-praticar" data-fraco="${i}">Praticar</button></div>`).join('') + '</div>'
             + `<button type="button" class="auth-btn home-btn-review revisao-iniciar" id="estudarFracosBtn">▶ Estudar meus pontos fracos (${_plural(fracos.length, 'tema', 'temas')})</button>`;
     }
-    h += '</section><section class="desemp-bloco"><h2>📅 Evolução semanal</h2><div class="desemp-semanas">'
-        + semanas.map(s => `<div class="desemp-semana" title="${s.n} questões, ${_pct(s.certas, s.n)}% de acerto">`
-            + `<span class="desemp-semana-pct">${s.n ? _pct(s.certas, s.n) + '%' : ''}</span>`
-            + `<span class="desemp-semana-col"><span style="height:${Math.round(100 * s.n / maxN)}%"></span></span>`
-            + `<span class="desemp-semana-n">${s.n}</span><span class="desemp-semana-data">${s.ini.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}</span></div>`).join('')
-        + '</div><p class="desemp-nota">Barras: questões respondidas por semana (a partir da segunda-feira indicada). Acima: % de acerto.</p></section>';
+    h += '</section><section class="desemp-bloco" id="desempEvolucao">' + _blocoEvolucao() + '</section>';
     h += _filtrosDesempenhoHtml() + '<div id="desempGrafico">' + _blocoGrafico() + '</div>';
     el.innerHTML = h;
     el._fracos = fracos;
@@ -321,6 +342,8 @@ document.getElementById('painelDesempenho').addEventListener('change', e => {
 });
 document.getElementById('painelDesempenho').addEventListener('click', async e => {
     const el = e.currentTarget;
+    const evo = e.target.closest('.evo-btn');
+    if (evo) { evoModo = evo.dataset.evo; document.getElementById('desempEvolucao').innerHTML = _blocoEvolucao(); return; }
     if (e.target.id === 'dvDividida' || e.target.id === 'dvLado') { desempVista = e.target.id === 'dvLado' ? 'lado' : 'dividida'; return _atualizarGraficoDesempenho(); }
     if (e.target.id === 'estudarFracosBtn') return estudarGrupo(questoesDosTemas(el._fracos || []), 'Pontos fracos');
     const b = e.target.closest('.desemp-praticar');

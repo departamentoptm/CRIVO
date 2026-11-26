@@ -342,8 +342,8 @@ def t_desempenho(page, url):
     page.click("#desempenhoBtnHome")
     page.wait_for_selector("#desempenhoScreen:not(.hidden)")
     txt = page.inner_text("#painelDesempenho")
-    assert "questões respondidas" in txt and "Evolução semanal" in txt, "painel de desempenho incompleto"
-    assert "Tema teste 2" in page.inner_text("#painelDesempenho .desemp-bloco >> nth=0"), "o ponto fraco não apareceu"
+    assert "questões respondidas" in txt and "Evolução" in txt, "painel de desempenho incompleto"
+    assert "Tema teste 2" in page.inner_text("#painelDesempenho .desemp-bloco:has(h2:text('Pontos fracos'))"), "o ponto fraco não apareceu"
     # gráfico por disciplina e tema: barras divididas, lado a lado e filtros como no Meu gabarito
     assert page.locator("#desempGrafico .graf-dividida .seg.erro").count() > 0, "as barras divididas não mostram os erros"
     page.select_option("#dfDisc", "Pediatria"); page.wait_for_timeout(200)
@@ -751,6 +751,67 @@ def t_cabecalho_historico(page, url):
     page.click("#closeHistoricoBtn")
 
 
+@teste("cartões: classificação como no Anki, painel com gráficos e lista, e dados de um cartão")
+def t_painel_cartoes(page, url):
+    r = page.evaluate("""() => { const d = Date.now() - 400 * DIA_MS, rev = l => l.map(([dia, nota]) => ({ data: new Date(d + dia * DIA_MS).toISOString(), nota }));
+        const cl = l => historicoCartao({ revisoes: rev(l) }).classe;
+        return [cl([]), cl([[0, 1]]), cl([[0, 3]]), cl([[0, 3], [3, 1]]), cl([[0, 3], [3, 3], [12, 3], [40, 3], [120, 3]])]; }""")
+    assert r == ["novo", "aprendendo", "recente", "reaprendendo", "maduro"], f"classificação errada: {r}"
+    assert page.evaluate("Object.values(progress.cartoes).some(c => (c.revisoes || []).some(v => v.tempoMs > 0))"), "o tempo dos cartões não foi gravado"
+    page.click("#cartPainelBtn")
+    assert page.is_visible("#cartPainel") and not page.is_visible("#cartListaArea"), "o painel não abriu"
+    txt = page.inner_text("#cartPainel")
+    for t in ("Quantidade por classificação", "Previsão de revisões", "Revisões por dia", "True retention", "Botões de resposta",
+              "Intervalos", "Estabilidade", "Dificuldade", "Retenção atual", "Horários", "Todos os cartões"):
+        assert t in txt, f"faltou '{t}' no painel"
+    n = page.evaluate("listarCartoes().length")
+    assert page.locator("#cartPainel .cart-linha").count() == n, "a lista do painel não tem todos os cartões"
+    page.select_option("#cpClasse", "novo"); page.wait_for_timeout(100)
+    novos = page.evaluate("dadosDosCartoes().filter(x => x.classe === 'novo').length")
+    assert page.locator("#cartPainel .cart-linha").count() == novos, "o filtro de classificação não filtrou"
+    page.select_option("#cpClasse", "")
+    page.click("#cartPainel .cart-ordem[data-ordem='revs']"); page.click("#cartPainel .cart-ordem[data-ordem='revs']")
+    page.click("#cartPainel .cart-linha >> nth=0")
+    page.wait_for_selector(".cart-info")
+    info = page.inner_text(".cart-info")
+    for t in ("Classificação", "Próxima revisão", "Estabilidade", "Dificuldade", "Retenção atual", "Tempo médio", "Frente", "Abrir a questão de origem"):
+        assert t in info, f"faltou '{t}' nos dados do cartão"
+    assert page.locator(".cart-info tbody tr").count() >= 1, "a tabela de revisões do cartão está vazia"
+    page.click(".cart-info button[data-acao='fechar']")
+    page.click("#backFromCartoesBtn")
+    assert page.is_visible("#cartListaArea") and not page.is_visible("#cartPainel"), "Voltar deveria fechar o painel"
+    page.evaluate("iniciarSessaoCartoes([listarCartoes()[0].id])")
+    page.click("#cartInfoBtn"); page.wait_for_selector(".cart-info")
+    page.click(".cart-info button[data-acao='fechar']")
+    page.evaluate("mostrarListaCartoes()")
+
+
+@teste("Desempenho: mapas de calor, cartões, evolução semanal/mensal/anual e cartões por disciplina")
+def t_desempenho_cartoes(page, url):
+    page.evaluate("abrirTelaDesempenho()"); page.click("#abaDesempenho"); page.wait_for_selector("#painelDesempenho", state="visible")
+    assert page.locator("#painelDesempenho .hm-bloco").count() == 2, "faltam os dois mapas de calor"
+    txt = page.inner_text("#desempCartoes")
+    assert "Cartões" in txt and "tempo médio por cartão" in txt and "Maduros" in txt, "o bloco dos cartões está incompleto: " + txt[:200]
+    assert page.locator("#desempEvolucao .desemp-semana").count() == 7, "semanal: 7 dias"
+    page.click("#desempEvolucao [data-evo='mensal']")
+    assert page.locator("#desempEvolucao .desemp-semana").count() == 30, "mensal: 30 dias"
+    page.click("#desempEvolucao [data-evo='anual']")
+    assert page.locator("#desempEvolucao .desemp-semana").count() == 12, "anual: 12 meses"
+    page.click("#desempEvolucao [data-evo='semanal']")
+    tem = page.evaluate("[...cartoesPorGrupo().values()].reduce((t, z) => t + z.tot, 0)")
+    if tem:
+        assert page.locator("#desempGrafico .graf-cartoes").count() > 0, "os cartões não aparecem ao lado das disciplinas"
+    page.click(".hm-mover[data-tipo='q'][data-passo='-1']")
+    assert page.locator(".hm-bloco[data-hm='q'] .hm-mover[data-passo='1']").is_enabled(), "deveria poder voltar ao ano atual"
+    page.click(".hm-bloco[data-hm='q'] .hm-mover[data-passo='1']")
+    dia = page.evaluate("isoDoDia(Date.now() - 3 * DIA_MS)")
+    page.click(f".hm-dia[data-tipo='q'][data-dia='{dia}']")
+    page.wait_for_selector("#progressScreen:not(.hidden)")
+    assert page.is_checked("#gabPorData") and page.input_value("#gabDataInput") == dia, "tocar num dia deveria abrir o Meu gabarito naquela data"
+    page.click("#backFromProgressBtn")
+    page.evaluate("showScreen(resolvingScreen)")
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -766,7 +827,7 @@ def main():
             page.on("pageerror", lambda e, n=nome: erros_js.append(f"[{n}] {e}"))
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
-                      t_exportar_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_plano, t_meta,
+                      t_exportar_cartoes, t_painel_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_desempenho_cartoes, t_plano, t_meta,
                       t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_recarregar):
                 t(page, url)
             ctx.close()
