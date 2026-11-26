@@ -75,8 +75,9 @@ function pontosFracos(est) {
 /* questões de um conjunto de temas para praticar: primeiro as não feitas (edições recentes antes); sem
    nenhuma, as que o aluno errou na última resposta */
 function questoesDosTemas(pares) {
-    const alvo = new Set(pares.map(p => p.d + '|' + p.t));
-    const doTema = _questoesDoAcervo().filter(q => alvo.has((disciplinaDe(q.b, q.a, q.n) || '') + '|' + (temaDe(q.b, q.a, q.n) || '')))
+    const alvo = new Set(pares.map(p => p.d + '|' + p.t)), disc = new Set(pares.filter(p => !p.t).map(p => p.d));   /* sem tema = disciplina inteira */
+    const doTema = _questoesDoAcervo().filter(q => { const d = disciplinaDe(q.b, q.a, q.n) || '';
+        return disc.has(d) || alvo.has(d + '|' + (temaDe(q.b, q.a, q.n) || '')); })
         .sort((x, y) => y.a.localeCompare(x.a) || x.b.localeCompare(y.b) || (+x.n) - (+y.n));
     let lista = doTema.filter(q => !isRealizada(q.b, q.a, q.n));
     if (!lista.length) lista = doTema.filter(q => { const e = progress.estado?.[q.b]?.[q.a]?.[q.n]; return e && e.correct && e.selected !== e.correct; });
@@ -265,9 +266,12 @@ function _blocoGrafico() {
         const subs = ordenar(z.sub).filter(([, y]) => visivel(y));
         const maxSub = Math.max(1, ...subs.map(([, y]) => f.naoRealizadas ? y.tot : Math.max(y.a, y.e)));
         const cgg = cg.get(g);
-        return `<details class="desemp-disc"><summary><span class="desemp-nome">${escapeHtml(g)}</span><span class="graf-col">${_grafico(z, maxTot)}${mini(cgg)}</span></summary>`
-            + (subs.length ? subs.map(([t, y]) => `<div class="desemp-linha graf"><span class="desemp-nome">${escapeHtml(t)}</span><span class="graf-col">${_grafico(y, maxSub)}${mini(cgg && cgg.sub.get(t))}</span>`
-                + (praticar ? `<button type="button" class="aparencia-btn desemp-praticar" data-d="${escapeHtml(g)}" data-t="${escapeHtml(t)}">Praticar</button>` : '<span></span>') + '</div>').join('')
+        /* botões: Praticar (questões) e 🃏 Cartões (todos os cartões do tema ou da disciplina) */
+        const botoes = (x, t) => praticar ? `<span class="desemp-botoes"><button type="button" class="aparencia-btn desemp-praticar" data-d="${escapeHtml(g)}"${t ? ` data-t="${escapeHtml(t)}"` : ''}>Praticar</button>`
+            + `<button type="button" class="aparencia-btn desemp-cartoes" data-d="${escapeHtml(g)}"${t ? ` data-t="${escapeHtml(t)}"` : ''} ${x && x.tot ? '' : 'disabled'}>🃏 Cartões</button></span>` : '<span></span>';
+        return `<details class="desemp-disc${praticar ? ' com-botoes' : ''}"><summary><span class="desemp-nome">${escapeHtml(g)}</span><span class="graf-col">${mini(cgg)}${_grafico(z, maxTot)}</span>${praticar ? botoes(cgg, null) : ''}</summary>`
+            + (subs.length ? subs.map(([t, y]) => { const ct = cgg && cgg.sub.get(t);
+                return `<div class="desemp-linha graf"><span class="desemp-nome">${escapeHtml(t)}</span><span class="graf-col">${mini(ct)}${_grafico(y, maxSub)}</span>${botoes(ct, t)}</div>`; }).join('')
                 : '<p class="desemp-nota">Temas ainda não classificados para estas questões.</p>')
             + '</details>';
     }).join('') + '<p class="desemp-nota graf-legenda-geral"><span class="ok">■ acertos</span> <span class="erro">■ erros</span> <span class="nao">■ não respondidas</span> · '
@@ -346,10 +350,13 @@ document.getElementById('painelDesempenho').addEventListener('click', async e =>
     if (evo) { evoModo = evo.dataset.evo; document.getElementById('desempEvolucao').innerHTML = _blocoEvolucao(); return; }
     if (e.target.id === 'dvDividida' || e.target.id === 'dvLado') { desempVista = e.target.id === 'dvLado' ? 'lado' : 'dividida'; return _atualizarGraficoDesempenho(); }
     if (e.target.id === 'estudarFracosBtn') return estudarGrupo(questoesDosTemas(el._fracos || []), 'Pontos fracos');
+    const c = e.target.closest('.desemp-cartoes');
+    if (c) { e.preventDefault(); if (typeof abrirCartoesDoGrupo === 'function') await abrirCartoesDoGrupo(c.dataset.d, c.dataset.t || null); return; }
     const b = e.target.closest('.desemp-praticar');
     if (!b) return;
-    const par = b.dataset.fraco != null ? (el._fracos || [])[+b.dataset.fraco] : { d: b.dataset.d, t: b.dataset.t };
-    if (par) await estudarGrupo(questoesDosTemas([par]), par.t);
+    e.preventDefault();                                          /* dentro do título da disciplina: não abre/fecha a lista */
+    const par = b.dataset.fraco != null ? (el._fracos || [])[+b.dataset.fraco] : { d: b.dataset.d, t: b.dataset.t || '' };
+    if (par) await estudarGrupo(questoesDosTemas([par]), par.t || par.d);
 });
 
 /* ---------- plano de estudo ---------- */

@@ -1357,19 +1357,38 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
 .cart-tabela td.nota-1 { color: #b91c1c; font-weight: 700; } .cart-tabela td.nota-2 { color: #b45309; } .cart-tabela td.nota-3 { color: #15803d; } .cart-tabela td.nota-4 { color: #1d4ed8; }
 .cart-info-botoes { flex-direction: row; flex-wrap: wrap; justify-content: flex-end; }
 @media (max-width: 620px) { .cart-info-faces { grid-template-columns: 1fr; } }
-/* mapas de calor */
-.hm-nav { display: flex; align-items: center; justify-content: center; gap: .6rem; font-size: .82rem; color: var(--muted); margin-bottom: .4rem; }
-.hm-grade { display: grid; grid-template-rows: repeat(7, 11px); grid-auto-flow: column; grid-auto-columns: 11px; gap: 2px; overflow-x: auto; padding-bottom: .3rem; }
+/* mapas de calor: questões em azul, cartões em verde */
+.hm-nav { display: flex; align-items: center; justify-content: center; gap: .8rem; color: var(--navy); margin-bottom: .4rem; }
+.hm-corpo { display: flex; gap: 4px; }
+.hm-semana { display: grid; grid-template-rows: 14px repeat(7, 11px); gap: 2px; font-size: .62rem; color: var(--muted); line-height: 11px; flex: none; }
+.hm-rolar { overflow-x: auto; padding-bottom: .3rem; min-width: 0; }
+.hm-meses { display: grid; gap: 2px; height: 14px; font-size: .62rem; color: var(--muted); }
+.hm-meses > span { white-space: nowrap; }
+.hm-grade { display: grid; grid-template-rows: repeat(7, 11px); grid-auto-flow: column; grid-auto-columns: 11px; gap: 2px; }
 .hm-dia { width: 11px; height: 11px; border-radius: 2px; background: #e5e7eb; cursor: pointer; }
 .hm-dia.fora { background: transparent; cursor: default; }
-.hm-dia.n1 { background: #bbf7d0; } .hm-dia.n2 { background: #4ade80; } .hm-dia.n3 { background: #16a34a; } .hm-dia.n4 { background: #14532d; }
-.hm-dia:hover { outline: 2px solid var(--navy); }
+.hm-dia.futuro { background: #f3f4f6; cursor: default; }
+.hm-dia.hoje { outline: 1.5px solid var(--magenta, #a63268); outline-offset: 0; }
+.hm-q .hm-dia.n1 { background: #bfdbfe; } .hm-q .hm-dia.n2 { background: #60a5fa; } .hm-q .hm-dia.n3 { background: #2563eb; } .hm-q .hm-dia.n4 { background: #1e3a8a; }
+.hm-c .hm-dia.n1 { background: #bbf7d0; } .hm-c .hm-dia.n2 { background: #4ade80; } .hm-c .hm-dia.n3 { background: #16a34a; } .hm-c .hm-dia.n4 { background: #14532d; }
+.hm-dia[data-dia]:hover { outline: 2px solid var(--navy); }
 /* evolução */
 .evo-vista { margin-bottom: .6rem; }
 .evo-btn[aria-pressed="true"] { background: var(--navy); color: #fff; }
 .desemp-semanas.compacto { gap: 2px; }
-/* cartões por disciplina e tema (ao lado das barras das questões) */
-.graf-col { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
-.graf-cartoes { display: flex; flex-direction: column; gap: .15rem; }
-.graf-cartoes .graf-trilho { flex: none; width: 100%; display: flex; height: .45rem; border-radius: 1rem; overflow: hidden; background: #e5e7eb; }
-.graf-cartoes .graf-legenda { font-size: .74rem; color: var(--muted); font-weight: 500; }
+/* cartões por disciplina e tema: rosca pequena à esquerda das barras das questões */
+.graf-col { display: flex; flex-direction: row; align-items: center; gap: .55rem; min-width: 0; }
+.graf-col > .graf-dividida, .graf-col > .graf-lado { flex: 1 1 auto; min-width: 0; }
+.graf-cartoes { display: flex; align-items: center; gap: .35rem; flex: none; width: 6.6rem; }
+.rosca-mini { width: 2.1rem; height: 2.1rem; border-radius: 50%; flex: none;
+              -webkit-mask: radial-gradient(circle, transparent 52%, #000 54%); mask: radial-gradient(circle, transparent 52%, #000 54%); }
+.graf-cartoes small { font-size: .7rem; color: var(--muted); line-height: 1.25; font-weight: 500; }
+.desemp-botoes { display: flex; gap: .35rem; flex-wrap: wrap; justify-content: flex-end; }
+.desemp-disc.com-botoes > summary { grid-template-columns: minmax(8rem, 1fr) minmax(0, 2fr) auto; }
+@media (max-width: 700px) {
+    .desemp-disc.com-botoes > summary { grid-template-columns: 1fr; }
+    .desemp-botoes { justify-content: stretch; } .desemp-botoes > button { flex: 1; }
+    .desemp-linha.graf { grid-template-columns: 1fr; grid-template-areas: none; row-gap: .35rem; }
+    .desemp-linha.graf > * { grid-area: auto; }
+}
+.desemp-cartoes { padding: .25rem .6rem; min-height: 30px; font-size: .8rem; }

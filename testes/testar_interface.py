@@ -801,9 +801,24 @@ def t_desempenho_cartoes(page, url):
     tem = page.evaluate("[...cartoesPorGrupo().values()].reduce((t, z) => t + z.tot, 0)")
     if tem:
         assert page.locator("#desempGrafico .graf-cartoes").count() > 0, "os cartões não aparecem ao lado das disciplinas"
-    page.click(".hm-mover[data-tipo='q'][data-passo='-1']")
-    assert page.locator(".hm-bloco[data-hm='q'] .hm-mover[data-passo='1']").is_enabled(), "deveria poder voltar ao ano atual"
-    page.click(".hm-bloco[data-hm='q'] .hm-mover[data-passo='1']")
+    ano = page.evaluate("new Date().getFullYear()")
+    dias = page.evaluate("[...document.querySelectorAll('.hm-q .hm-dia[data-dia], .hm-q .hm-dia.futuro')].length")
+    assert page.get_attribute(".hm-q .hm-dia[data-dia] >> nth=0", "data-dia") == f"{ano}-01-01", "o mapa deveria começar em 1º de janeiro"
+    assert dias in (365, 366), f"o mapa deveria ir até 31 de dezembro ({dias} dias)"
+    assert page.locator(".hm-q .hm-meses span").count() == 12, "faltam os nomes dos meses"
+    cor_q = page.evaluate("getComputedStyle(document.querySelector('.hm-q .hm-dia.n4, .hm-q .hm-dia.n3, .hm-q .hm-dia.n2, .hm-q .hm-dia.n1')).backgroundColor")
+    cor_c = page.evaluate("(() => { const e = document.querySelector('.hm-c .hm-dia.n4, .hm-c .hm-dia.n3, .hm-c .hm-dia.n2, .hm-c .hm-dia.n1'); return e ? getComputedStyle(e).backgroundColor : 'nenhum'; })()")
+    assert cor_q != cor_c, "as cores dos mapas de questões e de cartões deveriam ser diferentes"
+    assert page.locator(".hm-q .hm-mover[data-passo='1']").is_disabled(), "não deveria avançar além do ano atual"
+    if tem:
+        txt = page.inner_text("#desempGrafico")
+        assert "Retenção" in txt and "True retention" not in txt, "no gráfico deve aparecer Retenção"
+        assert page.locator("#desempGrafico .rosca-mini").count() > 0, "faltou a rosca dos cartões"
+        page.click("#desempGrafico .desemp-cartoes:not([disabled]) >> nth=0")
+        page.wait_for_selector("#cartoesScreen:not(.hidden)")
+        assert page.is_visible("#cartSessao"), "o botão 🃏 Cartões deveria abrir a revisão dos cartões do grupo"
+        page.evaluate("mostrarListaCartoes()")
+        page.evaluate("abrirTelaDesempenho()"); page.click("#abaDesempenho"); page.wait_for_selector("#painelDesempenho", state="visible")
     dia = page.evaluate("isoDoDia(Date.now() - 3 * DIA_MS)")
     page.click(f".hm-dia[data-tipo='q'][data-dia='{dia}']")
     page.wait_for_selector("#progressScreen:not(.hidden)")

@@ -6,7 +6,7 @@
      - Reaprendendo: errado ("Errei") depois de já ter acertado, até o próximo acerto;
      - Recente: intervalo menor que 21 dias; Maduro: intervalo de 21 dias ou mais.
    Tipo de cada revisão (pelo estado antes dela): Aprendizado (novo/aprendendo), Revisão (recente/maduro) e
-   Reaprendizado. "True retention" = % de revisões do tipo Revisão respondidas com Difícil, Bom ou Fácil.
+   Reaprendizado. Retenção (no Anki, "True retention") = % de revisões do tipo Revisão respondidas com Difícil, Bom ou Fácil.
    Tempo de cada cartão: da frente aparecer até a nota, no máximo 60 s (medido desde a atualização 30).
    - Tela dos cartões: botão "📊 Painel" (gráficos e lista de todos os cartões) e "ℹ️ Dados do cartão".
    - Desempenho: mapas de calor (questões e cartões), bloco dos cartões e cartões por disciplina e tema.
@@ -54,7 +54,7 @@ function contarClasses(itens) {
     itens.forEach(x => { cont[x.classe]++; });
     return cont;
 }
-/* True retention entre ini e fim (ms): revisões de cartões recentes e maduros */
+/* retenção (True retention do Anki) entre ini e fim (ms): revisões de cartões recentes e maduros */
 function retencaoVerdadeira(itens, ini = 0, fim = Infinity) {
     const r = { recente: { ok: 0, n: 0 }, maduro: { ok: 0, n: 0 } };
     for (const x of itens) for (const l of x.log) {
@@ -154,14 +154,14 @@ function renderPainelCartoes() {
     const ret = retencaoVerdadeira(itens);
     let h = '<div class="desemp-resumo">'
         + `<div><b>${itens.length}</b><span>cartões</span></div>`
-        + `<div><b>${_pctTxt(ret.total)}</b><span>True retention (total)</span></div>`
+        + `<div><b>${_pctTxt(ret.total)}</b><span>Retenção (total)</span></div>`
         + `<div><b>${_fmtSeg(tempoN ? tempoTot / tempoN : 0)}</b><span>tempo médio por cartão</span></div></div>`;
     h += _secao('🧮 Quantidade por classificação', rosca(cont),
         'Novo: nunca revisado. Aprendendo: visto, ainda sem acerto. Reaprendendo: errado depois de já ter acertado, até o próximo acerto. Recente: intervalo menor que 21 dias. Maduro: 21 dias ou mais.');
     h += _secao('🔮 Previsão de revisões (próximos 30 dias)', _colunas(prev, '#6f42c1'), 'Cartões que vencem em cada dia; os atrasados contam em hoje.');
     h += _secao('📆 Revisões por dia (últimos 30 dias)', _colunas(dias), 'Toque numa barra para ver o número e o acerto do dia.');
-    h += _secao('✅ True retention', _tabelaRetencao(itens),
-        'Porcentagem de revisões de cartões recentes e maduros respondidas com Difícil, Bom ou Fácil (sem contar o aprendizado). O FSRS do CRIVO mira 90%.');
+    h += _secao('✅ Retenção', _tabelaRetencao(itens),
+        'Retenção (no Anki, “True retention”): porcentagem de revisões de cartões recentes e maduros respondidas com Difícil, Bom ou Fácil (sem contar o aprendizado). O FSRS do CRIVO mira 90%.');
     h += _secao('🔘 Botões de resposta (últimos 30 dias)', _botoesResposta(itens, ini30));
     h += _secao('⏳ Intervalos', _colunas(_faixas(comEstado.map(x => _ivlDias(x.estado)), FAIXAS_DIAS), '#2b3f9a'), 'Intervalo atual de cada cartão já revisado.');
     h += _secao('📈 Estabilidade', _colunas(_faixas(comEstado.map(x => x.estado.s), FAIXAS_DIAS), '#0e93ac'),
@@ -295,34 +295,39 @@ function abrirDadosCartao(id) {
 document.getElementById('cartInfoBtn').addEventListener('click', () => { if (cartFila[0]) abrirDadosCartao(cartFila[0]); });
 
 /* ---------- Desempenho: mapas de calor ---------- */
-const _hmDeslocamento = { q: 0, c: 0 };                     /* 0 = últimos 365 dias; -1 = o ano anterior a esse… */
+const _hmAno = { q: new Date().getFullYear(), c: new Date().getFullYear() };     /* ano mostrado em cada mapa */
 function _contagemPorDia(tipo) {
     const m = new Map(), soma = t => { const d = isoDoDia(+new Date(t)); m.set(d, (m.get(d) || 0) + 1); };
     if (tipo === 'q') (progress.registro || []).forEach(e => { if (e.acao === 'confirmou') soma(e.data); });
     else Object.values(progress.cartoes || {}).forEach(c => ((c && c.revisoes) || []).forEach(v => soma(v.data)));
     return m;
 }
+const _MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+/* mapa de calor de um ano (1º de janeiro a 31 de dezembro), uma coluna por semana, como no Anki */
 function mapaDeCalor(tipo) {
-    const m = _contagemPorDia(tipo), off = _hmDeslocamento[tipo];
-    const fim = new Date(); fim.setHours(12, 0, 0, 0); fim.setDate(fim.getDate() + 365 * off);
-    const ini = new Date(fim); ini.setDate(ini.getDate() - 364);
-    const vals = []; for (const [d, n] of m) if (d >= isoDoDia(+ini) && d <= isoDoDia(+fim)) vals.push(n);
+    const m = _contagemPorDia(tipo), ano = _hmAno[tipo], hojeIso = isoDoDia(Date.now()), anoAtual = new Date().getFullYear();
+    const anos = [...m.keys()].map(d => +d.slice(0, 4)), primeiro = Math.min(anoAtual, ...anos);
+    const vals = []; for (const [d, n] of m) if (d.startsWith(ano + '-')) vals.push(n);
     const max = Math.max(1, ...vals), nivel = n => !n ? 0 : Math.min(4, Math.ceil(4 * n / max));
-    const cel = [];
-    const d = new Date(ini); d.setDate(d.getDate() - d.getDay());                  /* começa num domingo */
     const nome = tipo === 'q' ? ['questão', 'questões'] : ['revisão de cartão', 'revisões de cartões'];
-    for (; d <= fim; d.setDate(d.getDate() + 1)) {
-        const iso = isoDoDia(+d), n = m.get(iso) || 0, fora = d < ini;
-        cel.push(fora ? '<span class="hm-dia fora"></span>'
-            : `<span class="hm-dia n${nivel(n)}" data-dia="${iso}" data-tipo="${tipo}" role="button" tabindex="-1" title="${d.toLocaleDateString('pt-BR')}: ${n} ${n === 1 ? nome[0] : nome[1]}"></span>`);
+    const ini = new Date(ano, 0, 1, 12), recuo = ini.getDay();          /* a 1ª coluna começa no domingo */
+    const cel = Array.from({ length: recuo }, () => '<span class="hm-dia fora"></span>'), meses = [];
+    for (const d = new Date(ini); d.getFullYear() === ano; d.setDate(d.getDate() + 1)) {
+        const iso = isoDoDia(+d), n = m.get(iso) || 0, col = Math.floor((cel.length) / 7) + 1;
+        if (d.getDate() === 1) meses.push(`<span style="grid-column:${col}">${_MESES[d.getMonth()]}</span>`);
+        const quando = `${d.toLocaleDateString('pt-BR')}: ${n} ${n === 1 ? nome[0] : nome[1]}`;
+        cel.push(iso > hojeIso ? `<span class="hm-dia futuro" title="${d.toLocaleDateString('pt-BR')}"></span>`
+            : `<span class="hm-dia n${nivel(n)}${iso === hojeIso ? ' hoje' : ''}" data-dia="${iso}" data-tipo="${tipo}" role="button" title="${quando}"></span>`);
     }
+    const colunas = Math.ceil(cel.length / 7);
     const total = vals.reduce((a, b) => a + b, 0), diasCom = vals.filter(Boolean).length;
-    return `<section class="desemp-bloco hm-bloco" data-hm="${tipo}"><h2>${tipo === 'q' ? '🗓️ Questões por dia' : '🗓️ Cartões por dia'}</h2>`
-        + `<div class="hm-nav"><button type="button" class="dia-btn hm-mover" data-tipo="${tipo}" data-passo="-1" aria-label="Ano anterior">‹</button>`
-        + `<span>${ini.toLocaleDateString('pt-BR')} a ${fim.toLocaleDateString('pt-BR')}</span>`
-        + `<button type="button" class="dia-btn hm-mover" data-tipo="${tipo}" data-passo="1" aria-label="Próximo ano" ${off >= 0 ? 'disabled' : ''}>›</button></div>`
-        + `<div class="hm-grade">${cel.join('')}</div>`
-        + `<p class="desemp-nota">${total} ${total === 1 ? nome[0] : nome[1]} em ${_plural(diasCom, 'dia', 'dias')} de estudo`
+    return `<section class="desemp-bloco hm-bloco hm-${tipo}" data-hm="${tipo}"><h2>${tipo === 'q' ? '🗓️ Questões por dia' : '🗓️ Cartões por dia'}</h2>`
+        + `<div class="hm-nav"><button type="button" class="dia-btn hm-mover" data-tipo="${tipo}" data-passo="-1" aria-label="Ano anterior" ${ano <= primeiro ? 'disabled' : ''}>‹</button>`
+        + `<b>${ano}</b><button type="button" class="dia-btn hm-mover" data-tipo="${tipo}" data-passo="1" aria-label="Próximo ano" ${ano >= anoAtual ? 'disabled' : ''}>›</button></div>`
+        + '<div class="hm-corpo"><div class="hm-semana"><span></span><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>'
+        + `<div class="hm-rolar"><div class="hm-meses" style="grid-template-columns: repeat(${colunas}, 11px)">${meses.join('')}</div>`
+        + `<div class="hm-grade">${cel.join('')}</div></div></div>`
+        + `<p class="desemp-nota">${total} ${total === 1 ? nome[0] : nome[1]} em ${_plural(diasCom, 'dia', 'dias')} de estudo em ${ano}`
         + `${diasCom ? ` (média de ${Math.round(total / diasCom)} por dia de estudo)` : ''}. Toque num dia para ver o que foi feito nele.</p></section>`;
 }
 async function abrirGabaritoNoDia(dia) {
@@ -349,8 +354,8 @@ function blocoCartoesDesempenho() {
     return _secao('🃏 Cartões', rosca(cont) + '<div class="desemp-resumo cart-resumo">'
         + `<div><b>${_fmtSeg(n ? tot / n : 0)}</b><span>tempo médio por cartão</span></div>`
         + `<div><b>${_fmtSeg(tot)}</b><span>tempo total nos cartões</span></div>`
-        + `<div><b>${_pctTxt(ret.total)}</b><span>True retention</span></div></div>`,
-        'Tempo de cada cartão: da frente aparecer até a nota, no máximo 60 s (medido desde a atualização 30). True retention: revisões de cartões recentes e maduros respondidas com Difícil, Bom ou Fácil.');
+        + `<div><b>${_pctTxt(ret.total)}</b><span>Retenção</span></div></div>`,
+        'Tempo de cada cartão: da frente aparecer até a nota, no máximo 60 s (medido desde a atualização 30). Retenção: revisões de cartões recentes e maduros respondidas com Difícil, Bom ou Fácil.');
 }
 /* cartões por grupo (os mesmos grupos e filtros do gráfico "Por disciplina e tema") */
 function cartoesPorGrupo() {
@@ -372,11 +377,22 @@ function cartoesPorGrupo() {
     return grupos;
 }
 function miniCartoes(z) {
-    if (!z || !z.tot) return '';
-    const tit = CLASSES_CARTAO.map(([k, r]) => `${r}: ${z.cont[k]}`).join(', ');
-    return `<span class="graf-cartoes" title="${tit}"><span class="graf-trilho">`
-        + CLASSES_CARTAO.map(([k, , cor]) => z.cont[k] ? `<span class="seg" style="width:${(100 * z.cont[k] / z.tot).toFixed(2)}%;background:${cor}"></span>` : '').join('')
-        + `</span><span class="graf-legenda">🃏 ${_plural(z.tot, 'cartão', 'cartões')} · True retention ${z.n ? _pct(z.ok, z.n) + '%' : '—'}</span></span>`;
+    const tot = z ? z.tot : 0;
+    let acc = 0;
+    const fundo = tot ? 'conic-gradient(' + CLASSES_CARTAO.map(([k, , cor]) => { const p = 100 * z.cont[k] / tot, seg = `${cor} ${acc.toFixed(2)}% ${(acc + p).toFixed(2)}%`; acc += p; return seg; }).join(', ') + ')' : '#e5e7eb';
+    const tit = tot ? CLASSES_CARTAO.map(([k, r]) => `${r}: ${z.cont[k]}`).join(', ') : 'Nenhum cartão';
+    return `<span class="graf-cartoes" title="${tit}"><span class="rosca-mini" style="background:${fundo}"></span>`
+        + `<small>🃏 ${tot}<br>Retenção ${tot && z.n ? _pct(z.ok, z.n) + '%' : '—'}</small></span>`;
+}
+/* "🃏 Cartões" de um tema ou disciplina: todos os cartões dele (os que vencem primeiro), mesmo os que ainda não venceram */
+async function abrirCartoesDoGrupo(disc, tema) {
+    const ids = dadosDosCartoes().filter(x => (disciplinaDe(x.c.prova, x.c.ano, x.c.questao) || 'Sem disciplina') === disc
+            && (!tema || temaDe(x.c.prova, x.c.ano, x.c.questao) === tema))
+        .sort((a, b) => (a.estado ? a.estado.proxima : 0) - (b.estado ? b.estado.proxima : 0))
+        .map(x => x.id);
+    if (!ids.length) { alert('Não há cartões neste grupo.'); return; }
+    await abrirTelaCartoes();
+    iniciarSessaoCartoes(ids);
 }
 const _renderDesempenhoCartoes = renderDesempenho;
 renderDesempenho = function () {
@@ -389,12 +405,17 @@ renderDesempenho = function () {
     _rolarMapas(el);
 };
 /* o mapa abre nos dias mais recentes (à direita) */
-function _rolarMapas(raiz) { requestAnimationFrame(() => raiz.querySelectorAll('.hm-grade').forEach(g => { g.scrollLeft = g.scrollWidth; })); }
+function _rolarMapas(raiz) {
+    requestAnimationFrame(() => raiz.querySelectorAll('.hm-rolar').forEach(r => {
+        const h = r.querySelector('.hm-dia.hoje');                 /* mostra o dia de hoje (no ano atual) */
+        r.scrollLeft = h ? Math.max(0, h.offsetLeft - r.clientWidth + 40) : 0;
+    }));
+}
 document.getElementById('painelDesempenho').addEventListener('click', e => {
     const mv = e.target.closest('.hm-mover');
     if (mv) {
         const t = mv.dataset.tipo;
-        _hmDeslocamento[t] = Math.min(0, _hmDeslocamento[t] + +mv.dataset.passo);
+        _hmAno[t] = Math.min(new Date().getFullYear(), _hmAno[t] + +mv.dataset.passo);
         mv.closest('.hm-bloco').outerHTML = mapaDeCalor(t);
         _rolarMapas(document.getElementById('painelDesempenho'));
         return;
