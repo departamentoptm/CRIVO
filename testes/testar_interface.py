@@ -438,6 +438,11 @@ def t_simulado(page, url):
     assert page.evaluate("progress.avaliacoes.length") == av + 1, "a classificação não foi salva"
     assert page.locator("#simHistorico .sim-hist").count() == 1, "o histórico não mostra o simulado"
     assert not page.locator("#simBarra").is_visible(), "a barra do simulado deveria sumir"
+    page.click("#simFecharResultadoBtn")
+    assert not page.locator("#simResultado").is_visible(), "o ✕ deveria fechar o resultado do simulado"
+    page.click("#simHistorico .sim-hist >> nth=0")
+    assert page.locator("#simResultado").is_visible(), "tocar num simulado anterior deveria abrir o resultado"
+    page.click("#simFecharResultadoBtn")
     page.click("#backFromSimuladoBtn")
 
 
@@ -729,6 +734,23 @@ def t_indicador(page, url):
     page.evaluate("document.body.classList.remove('rodape-oculto'); localStorage.removeItem('crivo_aviso_pos'); driveAtivo = false; mostrarIndicadorDrive()")
 
 
+@teste("página da questão: banca - edição - disciplina abaixo do número; histórico com os três tempos")
+def t_cabecalho_historico(page, url):
+    page.evaluate("showScreen(resolvingScreen)")
+    quadro(page)
+    q = page.evaluate("[currentExam, currentYear, String(questoes[questaoAtualIndex].num), disciplinaDe(currentExam, currentYear, questoes[questaoAtualIndex].num)]")
+    sub = page.frame_locator("#questionFrame").locator(".crivo-origem").inner_text()
+    assert sub == " - ".join(x for x in q[:2] + [q[3]] if x), f"subtítulo errado: {sub!r} {q}"
+    page.evaluate("""() => { const [b, a, n] = [currentExam, currentYear, String(questoes[questaoAtualIndex].num)];
+        const d = new Date(Date.now() - 5000).toISOString();
+        progress.registro.push({ data: d, prova: b, ano: a, questao: n, acao: 'confirmou', opcao: 'A', correta: 'B', tempoMs: 65000 });
+        progress.leituras = Object.assign({}, progress.leituras, { [d]: 30000 }); openHistoricoModal(b, a, n); }""")
+    txt = page.inner_text("#historicoList")
+    assert "até confirmar" in txt and "na correção" in txt and "total" in txt, "o histórico não mostra os tempos: " + txt[:200]
+    assert "1m35s" in txt and "1m5s" in txt and "30s" in txt, "o total (65 s + 30 s) não aparece: " + txt[:300]
+    page.click("#closeHistoricoBtn")
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -745,7 +767,7 @@ def main():
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
                       t_exportar_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_plano, t_meta,
-                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_recarregar):
+                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

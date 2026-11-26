@@ -1303,3 +1303,11 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
 .escolha-botoes { display: flex; flex-direction: column; gap: .45rem; margin-top: .8rem; }
 .escolha-botoes button { text-align: left; }
 .escolha-aviso { color: #9a3412; background: #fff7ed; border-radius: .5rem; padding: .5rem .7rem; }
+
+/* resultado do simulado: botão ✕ para fechar */
+.sim-res-titulo { display: flex; align-items: center; gap: .5rem; }
+.sim-fechar { margin-left: auto; flex: none; width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--line-strong, #c9d1e6);
+              background: #fff; color: var(--navy, #1a2a6c); font-size: 1rem; line-height: 1; cursor: pointer; }
+.sim-fechar:hover { background: #f1f4fc; }
+/* histórico da questão: tempos de cada resposta */
+.hist-tempos { display: block; margin-top: .2rem; font-size: .8rem; color: var(--muted, #6b7280); }

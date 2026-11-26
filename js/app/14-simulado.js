@@ -250,7 +250,8 @@ function renderResultadoSimulado(id) {
     });
     const avaliadas = new Map();
     (progress.avaliacoes || []).forEach(v => { if (v.data >= r.fim) avaliadas.set(`${v.prova}|${v.ano}|${v.questao}`, +v.nota); });
-    el.innerHTML = `<section class="desemp-bloco"><h2>📊 Resultado — ${new Date(r.inicio).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</h2>`
+    el.innerHTML = `<section class="desemp-bloco"><h2 class="sim-res-titulo">📊 Resultado — ${new Date(r.inicio).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}`
+        + '<button type="button" class="sim-fechar" id="simFecharResultadoBtn" title="Fechar este resultado" aria-label="Fechar este resultado">✕</button></h2>'
         + `<div class="desemp-resumo"><div><b>${ac.certas}/${ac.n}</b><span>acertos</span></div><div><b>${_pct(ac.certas, ac.n)}%</b><span>de acerto</span></div>`
         + `<div><b>${_fmtRestante(r.usadoMs).replace(/^0:/, '')}</b><span>de ${r.duracaoMin} min${r.motivo === 'tempo' ? ' (tempo esgotado)' : ''}</span></div></div>`
         + (ac.branco ? `<p class="desemp-nota">${_plural(ac.branco, 'questão ficou', 'questões ficaram')} em branco e ${ac.branco === 1 ? 'conta' : 'contam'} como erro.</p>` : '')
@@ -296,6 +297,7 @@ simuladoScreen.addEventListener('click', async e => {
     const id = e.target.id;
     if (id === 'simIniciarBtn') return iniciarSimulado();
     if (id === 'simContinuarBtn') return continuarSimulado();
+    if (id === 'simFecharResultadoBtn') { renderResultadoSimulado(null); return; }
     if (id === 'simFinalizarAgoraBtn') { if (confirm('Finalizar o simulado agora? As questões em branco contam como erro.')) return finalizarSimulado('aluno'); return; }
     const nota = e.target.closest('.sim-notas button');
     if (nota) {

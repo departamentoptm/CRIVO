@@ -384,6 +384,11 @@
         .crivo-aviso-texto_da_questao_mudou { background: #f8d7da; border-left-color: #dc3545; color: #721c24; }`;
 
     /* ---------- Página completa ---------- */
+    /* "AMP - 2020 - Pediatria": o site define window.crivoSubtitulo (com a disciplina); sem ele, banca e edição */
+    function subtitulo(banca, ano, numero) {
+        try { if (typeof global.crivoSubtitulo === 'function') { const s = global.crivoSubtitulo(banca, ano, numero); if (s) return s; } } catch (e) {}
+        return `${banca} - ${ano}`;
+    }
     function montarPagina(edicao, numero) {
         const q = edicao._porNumero ? edicao._porNumero.get(String(numero))
                                     : edicao.questoes.find(x => String(x.numero) === String(numero));
@@ -675,6 +680,7 @@ ${CSS_EXTRA}
 <body>
     <div class="container" data-questao-id="${esc(id)}">
         <h1>Questão ${esc(q.numero)}</h1>
+        <div class="theme crivo-origem" style="margin:-4px 0 16px">${esc(subtitulo(edicao.banca, edicao.ano, q.numero))}</div>
         <div class="question-text">
             ${higienizar(q.enunciado_html)}
         </div>

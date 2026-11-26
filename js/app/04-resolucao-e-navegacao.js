@@ -255,8 +255,12 @@ function openHistoricoModal(banca, ano, num) {
         const dataStr = fmtDataHora(ev.data);
         const label = ev.acao === 'confirmou' ? 'Confirmou' : 'Restaurou';
         const corretaTxt = ev.correta ? ` (correta: ${escapeHtml(ev.correta)})` : '';
-        const tempoTxt = ev.tempoMs != null ? ` · ⏱ ${fmtTempo(ev.tempoMs)}` : '';
-        item.innerHTML = `<span style="font-size:.9rem;">${label} <b>${escapeHtml(ev.opcao || '?')}</b>${corretaTxt} em ${dataStr}${tempoTxt}</span>`;
+        const conf = ev.tempoMs != null ? +ev.tempoMs : null, leit = (progress.leituras || {})[ev.data];
+        const fmt = ms => ms == null ? '—' : fmtTempo(ms);
+        const tempoTxt = ev.acao === 'confirmou'
+            ? `<span class="hist-tempos">⏱ até confirmar: <b>${fmt(conf)}</b> · na correção: <b>${fmt(leit != null ? +leit : null)}</b>`
+              + ` · total: <b>${conf == null && leit == null ? '—' : fmtTempo((conf || 0) + (+leit || 0))}</b></span>` : '';
+        item.innerHTML = `<span style="font-size:.9rem;">${label} <b>${escapeHtml(ev.opcao || '?')}</b>${corretaTxt} em ${dataStr}</span>${tempoTxt}`;
         list.appendChild(item);
     });
     overlay.addEventListener('click', (e) => { if (e.target === overlay) closeHistoricoModal(); });
@@ -276,3 +280,6 @@ function closeHistoricoModal() {
     const m = document.getElementById('historicoModalOverlay');
     if (m) m.remove();
 }
+
+/* subtítulo da página da questão: banca - edição - disciplina */
+window.crivoSubtitulo = (banca, ano, num) => [banca, ano, disciplinaDe(banca, ano, num)].filter(Boolean).join(' - ');
