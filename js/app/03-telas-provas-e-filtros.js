@@ -211,6 +211,7 @@ async function rebuildQuestoes(navigateIfLost = true) {
             });
             if (filtros.tema && temasPadrao) filtradas = filtradas.filter(q => temaDe(q.exam, q.year, q.num) === filtros.tema);
         }
+        if (filtros.comCorrecao) filtradas = filtradas.filter(q => !semCorrecao.has(`${q.exam}|${q.year}|${q.num}`));
         if (filtros.revisao) {
             /* revisão espaçada: só as questões com revisão vencida, da mais atrasada para a mais recente */
             filtradas = filtradas.filter(q => revisaoPendente(q.exam, q.year, q.num))
@@ -358,6 +359,7 @@ function renderTemaSelector() {
 
 function renderBottomFilters() {
     soNaoRealizadas.checked = filtros.somenteNaoRealizadas;
+    document.getElementById('soComCorrecao').checked = !!filtros.comCorrecao;
     maxQuestoesInput.value = filtros.maxQuestoes > 0 ? filtros.maxQuestoes : '';
 }
 
@@ -450,6 +452,10 @@ document.getElementById('temaSelector').addEventListener('change', async (e) => 
     await rebuildQuestoes();
 });
 
+document.getElementById('soComCorrecao').addEventListener('change', async e => {
+    filtros.comCorrecao = e.target.checked;
+    await rebuildQuestoes();
+});
 soNaoRealizadas.addEventListener('change', async () => {
     filtros.somenteNaoRealizadas = soNaoRealizadas.checked;
     await rebuildQuestoes();

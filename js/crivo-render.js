@@ -138,7 +138,6 @@
             const gab = typeof q.gabarito === 'string' ? q.gabarito : null;
             if (c && gab && c.gabarito_usado && c.gabarito_usado !== gab && !alertas.includes('correcao_contradiz_gabarito'))
                 alertas.push('correcao_contradiz_gabarito');
-            if (q.imagem_pendente && !alertas.includes('aguardando_imagem')) alertas.push('aguardando_imagem');
             if (qs.gabarito_situacao === 'preliminar' && !alertas.includes('gabarito_preliminar')) alertas.push('gabarito_preliminar');
             return Object.assign({}, q, {
                 tema: (c && c.tema) || q.disciplina || '',
@@ -681,6 +680,7 @@ ${CSS_EXTRA}
     <div class="container" data-questao-id="${esc(id)}">
         <h1>Questão ${esc(q.numero)}</h1>
         <div class="theme crivo-origem" style="margin:-4px 0 16px">${esc(subtitulo(edicao.banca, edicao.ano, q.numero))}</div>
+        ${q.imagem_pendente ? '<div class="crivo-aviso crivo-aviso-aguardando_imagem crivo-aviso-imagem"><strong>Atenção:</strong> esta questão depende de uma imagem que ainda não foi adicionada ao CRIVO. Ela fica fora do simulado, do plano de estudo e das estatísticas.</div>' : ''}
         <div class="question-text">
             ${higienizar(q.enunciado_html)}
         </div>

@@ -860,6 +860,40 @@ def t_cloze(page, url):
     page.click("#startBtnHome"); quadro(page)
 
 
+@teste("atualização 32: cronômetro, aviso de sair, grifos entre aparelhos, imagem pendente e filtro com correção")
+def t_atualizacao32(page, url):
+    page.evaluate("showScreen(resolvingScreen)"); quadro(page)
+    assert page.evaluate("uiPrefs.versaoTempo") == 2, "a preferência do cronômetro não foi migrada"
+    assert not page.evaluate("saveBtn.classList.contains('unsaved')"), "o botão Salvar não deve piscar quando o progresso está guardado"
+    # limite por questão: depois de confirmar, não pula mais
+    page.evaluate("aplicarModoTempo('questao'); reiniciarTimer()")
+    f = page.frame_locator("#questionFrame")
+    if f.locator("#submitBtn").is_visible():
+        f.locator(".option >> nth=0").click(); f.locator("#submitBtn").click(); page.wait_for_timeout(300)
+        assert not page.evaluate("!!expirationTimer"), "depois de confirmar, o limite por questão não deve pular para a próxima"
+    page.evaluate("aplicarModoTempo('off')")
+    # grifo editado: vale a versão mais recente
+    r = page.evaluate("""() => { const g = (n, t) => ({ id: 'gx', prova: 'AMP', ano: '2020', questao: '1', texto: 't', numero: n, lado: 'frente', atualizado: t });
+        return [mesclarProgresso({ registro: [], grifados: [g(1, '2026-01-01')] }, { registro: [], grifados: [g(2, '2026-02-01')] }).grifados[0].numero,
+                mesclarProgresso({ registro: [], grifados: [g(3, '2026-03-01')] }, { registro: [], grifados: [g(2, '2026-02-01')] }).grifados[0].numero]; }""")
+    assert r == [2, 3], f"a mescla deveria ficar com o grifo alterado por último: {r}"
+    # imagem pendente: aviso antes de responder e fora do acervo (plano, simulado, estatísticas)
+    k = page.evaluate("[...imagemPendente][0]")
+    assert k, "a lista de questões com imagem pendente está vazia"
+    b, a, n = k.split("|")
+    assert not page.evaluate(f"_questoesDoAcervo().some(q => q.b === '{b}' && q.a === '{a}' && q.n === '{n}')"), "a questão sem imagem não deveria estar no acervo"
+    page.evaluate(f"abrirQuestaoDoGabarito('{b}', '{a}', '{n}')")
+    page.wait_for_function(f"document.getElementById('questionFrame').contentDocument?.querySelector('.crivo-aviso-imagem')", timeout=15000)
+    # só questões com correção
+    total = page.evaluate("(() => { filtros.lista = null; filtros.bancas = []; filtros.anos = []; filtros.disciplina = ''; return 0; })()")
+    page.evaluate("rebuildQuestoes(false)"); page.wait_for_timeout(300)
+    total = page.evaluate("questoes.length")
+    page.click("#filtrosBtn"); page.check("#soComCorrecao"); page.wait_for_timeout(400)
+    com = page.evaluate("questoes.length")
+    assert 0 < com < total and page.evaluate("questoes.every(q => !semCorrecao.has(`${q.exam}|${q.year}|${q.num}`))"), f"filtro com correção: {com} de {total}"
+    page.uncheck("#soComCorrecao"); page.wait_for_timeout(300); page.mouse.click(5, 300)
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -876,7 +910,7 @@ def main():
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_cloze, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
                       t_exportar_cartoes, t_painel_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_desempenho_cartoes, t_plano, t_meta,
-                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_recarregar):
+                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_atualizacao32, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

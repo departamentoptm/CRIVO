@@ -51,15 +51,19 @@ function fsrsRevisar(c, g, t) {
 
 let semGabarito = new Set();       /* "BANCA|ANO|N" anuladas ou excluídas: fora da revisão */
 let excluidas = new Set();         /* "BANCA|ANO|N" excluídas do cálculo: fora das estatísticas */
+let semCorrecao = new Set();       /* "BANCA|ANO|N" ainda sem correção comentada */
+let imagemPendente = new Set();    /* "BANCA|ANO|N" que dependem de uma imagem ainda não adicionada */
 async function carregarAnulacoes() {
     try {
         const ind = await CrivoRender.carregarIndice();
-        const sg = new Set(), ex = new Set();
+        const sg = new Set(), ex = new Set(), sc = new Set(), ip = new Set();
         for (const [b, anos] of Object.entries(ind.bancas || {})) for (const [a, info] of Object.entries(anos)) {
             (info.anuladas || []).forEach(n => sg.add(`${b}|${a}|${n}`));
             (info.excluidas || []).forEach(n => { sg.add(`${b}|${a}|${n}`); ex.add(`${b}|${a}|${n}`); });
+            (info.sem_correcao_num || []).forEach(n => sc.add(`${b}|${a}|${n}`));
+            (info.imagem_pendente || []).forEach(n => ip.add(`${b}|${a}|${n}`));
         }
-        semGabarito = sg; excluidas = ex;
+        semGabarito = sg; excluidas = ex; semCorrecao = sc; imagemPendente = ip;
     } catch (e) { console.warn('anulações:', e); }
 }
 const ehExcluida = (b, a, n) => excluidas.has(`${b}|${a}|${n}`);

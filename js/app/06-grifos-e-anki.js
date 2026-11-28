@@ -293,7 +293,7 @@ function abrirEditorGrifo(spanEl) {
     const radios = box.querySelectorAll('input[name="crivoLado"]');
     const marcarRadio = () => radios.forEach(r => { r.checked = (r.value === h.lado); });
     marcarRadio();
-    const aplicar = () => { atualizarCorGrifos(); setDirty(true); salvarBackup(); };
+    const aplicar = () => { h.atualizado = new Date().toISOString(); atualizarCorGrifos(); setDirty(true); salvarBackup(); };
 
     num.addEventListener('input', () => {
         const v = parseInt(num.value, 10);

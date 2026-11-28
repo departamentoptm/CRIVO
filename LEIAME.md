@@ -415,6 +415,11 @@ Se o relatório apontar problemas:
 Depois de importada, a edição não é processada de novo (a não ser com `--sobrescrever`, que mantém as correções).
 O gerador de correções pula questões com figura, porque o modelo de texto não enxerga a imagem.
 
+**Questões que dependem de uma imagem que não veio do PDF** (`"imagem_pendente": true` no `questoes.json`): o site
+mostra um aviso antes da resposta e as deixa fora do simulado, do plano de estudo e das estatísticas. A lista,
+com o passo a passo para adicionar a imagem pelo GitHub, fica em `relatorios/imagens_pendentes.md` e é
+atualizada sozinha sempre que o índice é gerado (`ferramentas/gerar_indice.py`).
+
 ## ENAMED
 
 `provas/ENAMED/` tem o caderno 02 de 2025 (gabarito definitivo) e de 2026 (gabarito preliminar), 100 questões

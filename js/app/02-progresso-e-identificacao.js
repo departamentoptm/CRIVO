@@ -36,13 +36,24 @@ function setLastPos(exam, year, num) {
 }
 function setDirty(v) {
     dirty = v;
-    saveBtn.classList.toggle('unsaved', v);
-    saveBtn.innerHTML = '<span class="ico">💾</span><span class="lbl"> Salvar</span>' + (v ? '<span class="dot"> •</span>' : '');
+    /* o progresso já fica no navegador: o botão só chama atenção se a gravação falhou */
+    const alerta = typeof gravacaoFalhou !== 'undefined' && gravacaoFalhou;
+    saveBtn.classList.toggle('unsaved', alerta);
+    saveBtn.innerHTML = '<span class="ico">💾</span><span class="lbl"> Salvar</span>' + (alerta ? '<span class="dot"> •</span>' : '');
 }
 
 const bkKey = ra => 'crivo_backup_' + ra;
 const filtrosKey = ra => 'crivo_filtros_' + ra;
-function salvarBackup() { try { localStorage.setItem(bkKey(currentRA), JSON.stringify(progress)); } catch {} }
+let gravacaoFalhou = false;
+function salvarBackup() {
+    try { localStorage.setItem(bkKey(currentRA), JSON.stringify(progress)); gravacaoFalhou = false; }
+    catch (e) {
+        if (!gravacaoFalhou) setTimeout(() => alert('⚠️ Não foi possível guardar o seu progresso neste navegador (o espaço acabou).\n\n'
+            + 'Para não perder o que você fez: toque em "Salvar progresso em arquivo" ou ligue a sincronização com o Google Drive.'), 0);
+        gravacaoFalhou = true;
+    }
+    try { saveBtn.classList.toggle('unsaved', gravacaoFalhou); } catch {}
+}
 function lerBackup(ra) {
     try {
         const v = JSON.parse(localStorage.getItem(bkKey(ra)));
@@ -96,6 +107,7 @@ function lerFiltros() {
                 tema: typeof v.tema === 'string' ? v.tema : '',
                 listaNome: typeof v.listaNome === 'string' ? v.listaNome : null,
                 somenteNaoRealizadas: !!v.somenteNaoRealizadas,
+                comCorrecao: !!v.comCorrecao,
                 maxQuestoes: parseInt(v.maxQuestoes) || 0,
                 revisao: !!v.revisao,
                 embaralhar: !!v.embaralhar,

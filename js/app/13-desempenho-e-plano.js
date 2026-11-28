@@ -22,7 +22,8 @@ function _questoesDoAcervo() {
     for (const b of Object.keys(exams || {}).sort()) for (const a of Object.keys(exams[b] || {})) {
         for (const f of questoesDoManifest(b, a) || []) {
             const n = String(f.num);
-            if (!semGabarito.has(_chaveQ(b, a, n))) out.push({ b, a, n });
+            const k = _chaveQ(b, a, n);
+            if (!semGabarito.has(k) && !imagemPendente.has(k)) out.push({ b, a, n });     /* sem imagem: fora do plano e do simulado */
         }
     }
     return out;
@@ -33,7 +34,7 @@ function primeirasRespostas() {
     for (const e of progress.registro || []) {
         if (e.acao !== 'confirmou' || !e.correta) continue;
         const k = _chaveQ(e.prova, e.ano, e.questao);
-        if (!m.has(k) && !semGabarito.has(k)) m.set(k, { certa: e.opcao === e.correta, data: e.data });
+        if (!m.has(k) && !semGabarito.has(k) && !imagemPendente.has(k)) m.set(k, { certa: e.opcao === e.correta, data: e.data });
     }
     return m;
 }
@@ -44,7 +45,7 @@ function ultimasRespostas(dia) {
         if (e.acao !== 'confirmou' || !e.correta) continue;
         if (dia && isoDoDia(+new Date(e.data)) !== dia) continue;
         const k = _chaveQ(e.prova, e.ano, e.questao);
-        if (!semGabarito.has(k)) m.set(k, { certa: e.opcao === e.correta, data: e.data });
+        if (!semGabarito.has(k) && !imagemPendente.has(k)) m.set(k, { certa: e.opcao === e.correta, data: e.data });
     }
     return m;
 }
@@ -164,7 +165,7 @@ function _evolucao(modo) {
     for (const e of progress.registro || []) {
         if (e.acao !== 'confirmou' || !e.correta) continue;
         const k = _chaveQ(e.prova, e.ano, e.questao);
-        if (semGabarito.has(k)) continue;
+        if (semGabarito.has(k) || imagemPendente.has(k)) continue;
         const t = new Date(e.data), i = indice(t), dia = k + '|' + isoDoDia(+t);
         if (i < 0 || i >= baldes.length || vistos.has(dia)) continue;      /* a mesma questão conta uma vez por dia */
         vistos.add(dia);

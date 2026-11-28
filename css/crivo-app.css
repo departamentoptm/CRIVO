@@ -1398,3 +1398,8 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
 .cloze-alvo { border-radius: .3rem; padding: .05rem .2rem; color: #111827; }
 .cloze-outro { border-radius: .3rem; padding: 0 .05rem; }
 .cart-info-faces.cloze { grid-template-columns: 1fr; }
+
+/* Meu gabarito: marca das questões com correção */
+.chip { position: relative; }
+.corr-marca { position: absolute; top: -.45rem; right: -.35rem; font-size: .68rem; line-height: 1; }
+.gab-legenda { font-size: .78rem; color: var(--muted); align-self: center; }

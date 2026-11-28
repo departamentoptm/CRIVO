@@ -12,7 +12,7 @@
 const LIMITE_INATIVIDADE_MS = 20 * 60000, MAX_TEMPO_QUESTAO_MS = 20 * 60000;
 let _relogioMs = 0, _relogioTick = Date.now(), _ultimaAtividade = Date.now(), _relogioNaAtividade = 0;
 let _inativo = false, _timerEstavaRodando = false;
-let _inicioQuestaoAtivo = null, _leituraAberta = null;
+let _inicioQuestaoAtivo = null, _leituraAberta = null, _questaoConfirmada = false;
 
 function _haTempoCorrendo() {
     if (!currentRA) return false;
@@ -84,7 +84,7 @@ function retomarTimer() {
     if (timerInterval) clearInterval(timerInterval);
     isTimerRunning = true; startTime = Date.now();
     timerInterval = setInterval(() => { const el = pausedElapsedMs + (Date.now() - startTime); timerDisplay.textContent = formatTime(el); checarLimiteTotal(el); }, 500);
-    if (modoTempo === 'questao' && !modoSimulado) {
+    if (modoTempo === 'questao' && !modoSimulado && !_questaoConfirmada) {
         const resta = Math.max(1000, maxTime * 60000 - pausedElapsedMs);
         expirationTimer = setTimeout(() => {
             if (questaoAtualIndex < questoes.length - 1) { alert('Tempo máximo atingido. Pulando para a próxima.'); carregarQuestao(questaoAtualIndex + 1); }
@@ -117,6 +117,7 @@ function fecharLeitura() {
 const _carregarQuestaoTempo = carregarQuestao;
 carregarQuestao = async function (index) {
     fecharLeitura();
+    _questaoConfirmada = false;
     const r = await _carregarQuestaoTempo(index);
     _inicioQuestaoAtivo = relogioAtivo();
     return r;
@@ -137,6 +138,9 @@ window.addEventListener('message', (event) => {
     if (!ev) return;
     fecharLeitura();
     _leituraAberta = { chave: ev.data, inicio: relogioAtivo(), ate: ev.tempoMs || 0 };
+    /* confirmou: o limite por questão não pula mais para a próxima enquanto o aluno lê a correção */
+    _questaoConfirmada = true;
+    if (expirationTimer) { clearTimeout(expirationTimer); expirationTimer = null; }
 });
 
 /* tempo médio por questão (minutos): mediana das últimas 300 respostas, contando refeitas; até confirmar +

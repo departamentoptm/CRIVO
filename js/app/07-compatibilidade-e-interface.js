@@ -171,7 +171,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     populateExamSelector();
 });
 window.addEventListener('beforeunload', (e) => {
-    if (dirty) { e.preventDefault(); e.returnValue = ''; return ''; }
+    /* avisa só se a última gravação no navegador falhou ou se há alterações ainda não enviadas ao Drive */
+    let pendenteDrive = false;
+    try { pendenteDrive = !!(driveAtivo && driveAssinatura() !== driveUltimaAssinatura); } catch {}
+    if (gravacaoFalhou || pendenteDrive) { e.preventDefault(); e.returnValue = ''; return ''; }
     pausarTimer();
     if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
 });
@@ -187,13 +190,17 @@ const toggleTopBtn = document.getElementById('toggleTopBtn');
 const toggleBottomBtn = document.getElementById('toggleBottomBtn');
 const UI_KEY = 'crivo_ui';
 const ROTULO_TEMPO = { todas: 'Tempo máx. total:', questao: 'Tempo máx.:', off: 'Tempo: desativado' };
-let uiPrefs = { modoTempo: 'questao', filtros: false, topo: false, rodape: false, maxTodas: 60 };
+let uiPrefs = { modoTempo: 'off', filtros: false, topo: false, rodape: false, maxTodas: 60, maxQuestao: 3, versaoTempo: 2 };
 try {
     const v = JSON.parse(localStorage.getItem(UI_KEY));
     if (v && typeof v === 'object') {
         if (ROTULO_TEMPO[v.modoTempo]) uiPrefs.modoTempo = v.modoTempo;
         uiPrefs.filtros = !!v.filtros; uiPrefs.topo = !!v.topo; uiPrefs.rodape = !!v.rodape;
         if (parseInt(v.maxTodas) > 0) uiPrefs.maxTodas = parseInt(v.maxTodas);
+        if (parseInt(v.maxQuestao) > 0) uiPrefs.maxQuestao = parseInt(v.maxQuestao);
+        /* até a atualização 32 o padrão era "1 min por questão" (pulava sozinho); quem não escolheu um limite passa a "Desativado" */
+        if (v.versaoTempo !== 2) { if (uiPrefs.modoTempo === 'questao' && !(parseInt(v.maxQuestao) > 0)) uiPrefs.modoTempo = 'off'; }
+        uiPrefs.versaoTempo = 2;
     }
 } catch {}
 function salvarUi() { try { localStorage.setItem(UI_KEY, JSON.stringify(uiPrefs)); } catch {} }
@@ -216,7 +223,7 @@ toggleTopBtn.addEventListener('click', () => { uiPrefs.topo = !uiPrefs.topo; sal
 toggleBottomBtn.addEventListener('click', () => { uiPrefs.rodape = !uiPrefs.rodape; salvarUi(); aplicarUi(); });
 
 function aplicarModoTempo(m, semTimer) {
-    if (!ROTULO_TEMPO[m]) m = 'questao';
+    if (!ROTULO_TEMPO[m]) m = 'off';
     modoTempo = m; uiPrefs.modoTempo = m; salvarUi();
     tempoContainer.dataset.modo = m;
     tempoModoBtn.textContent = ROTULO_TEMPO[m];
@@ -590,3 +597,7 @@ function textoCorrecaoIniciar() {
 questionFrame.addEventListener('load', () => {
     try { textoCorrecaoIniciar(); } catch (e) { console.warn('textoCorrecao', e); }
 });
+
+/* limite por questão guardado (antes voltava a 1 min a cada recarga) */
+maxTime = uiPrefs.maxQuestao || 3;
+try { document.getElementById('maxTimeInput').value = maxTime; } catch {}

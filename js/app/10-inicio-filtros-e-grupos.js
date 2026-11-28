@@ -54,7 +54,7 @@ const filtrosBtn = document.getElementById('filtrosBtn');
 const filtrosPainel = document.getElementById('filtrosPainel');
 const filtrosAtivos = document.getElementById('filtrosAtivos');
 function atualizarFiltrosAtivos() {
-    const n = [filtros.somenteNaoRealizadas && !filtros.revisao, filtros.revisao, filtros.embaralhar, filtros.maxQuestoes > 0].filter(Boolean).length;
+    const n = [filtros.somenteNaoRealizadas && !filtros.revisao, filtros.revisao, filtros.embaralhar, filtros.maxQuestoes > 0, filtros.comCorrecao].filter(Boolean).length;
     filtrosAtivos.textContent = n ? String(n) : '';
     filtrosBtn.title = n ? `${n} filtro(s) ativo(s): toque para ver` : 'Apenas não realizadas, revisões pendentes, embaralhar e limitar';
 }

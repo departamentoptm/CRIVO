@@ -141,12 +141,16 @@ function mesclarProgresso(a, b) {
     [a.grifosApagados || {}, b.grifosApagados || {}].forEach(x => {
         for (const [id, quando] of Object.entries(x)) if (!grifosApagados[id] || quando > grifosApagados[id]) grifosApagados[id] = quando;
     });
-    const gm = new Map(), grifados = [];
+    /* o mesmo grifo nos dois lados: vale a versão alterada por último (número, frente/verso/cloze) */
+    const gm = new Map(), semId = [];
+    const quando = g => String(g.atualizado || g.criadoEm || '');
     [...(a.grifados || []), ...(b.grifados || [])].forEach(g => {
         if (!g || (g.id && grifosApagados[g.id])) return;
-        if (!g.id) { grifados.push(g); return; }
-        if (!gm.has(g.id)) { gm.set(g.id, g); grifados.push(g); }
+        if (!g.id) { semId.push(g); return; }
+        const x = gm.get(g.id);
+        if (!x || quando(g) > quando(x)) gm.set(g.id, g);
     });
+    const grifados = [...gm.values(), ...semId];
 
     const ultimo = {};
     registro.forEach(e => { if (e.acao === 'confirmou' || e.acao === 'restaurou') ultimo[[e.prova, e.ano, e.questao].join('|')] = e.data; });

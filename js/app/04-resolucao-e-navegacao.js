@@ -199,7 +199,7 @@ prevBtn.addEventListener('click', () => { if (questaoAtualIndex > 0) carregarQue
 nextBtn.addEventListener('click', () => { if (questaoAtualIndex < questoes.length - 1) carregarQuestao(questaoAtualIndex + 1); });
 maxTimeInput.addEventListener('change', () => {
     const v = parseInt(maxTimeInput.value);
-    if (!isNaN(v) && v > 0) { maxTime = v; if (questaoAtualIndex < questoes.length) reiniciarTimer(); }
+    if (!isNaN(v) && v > 0) { maxTime = v; uiPrefs.maxQuestao = v; salvarUi(); if (questaoAtualIndex < questoes.length) reiniciarTimer(); }
     else maxTimeInput.value = maxTime;
 });
 homeBtn.addEventListener('click', () => {

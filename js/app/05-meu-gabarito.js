@@ -65,6 +65,7 @@ function renderProgressV2() {
     </select>`;
     html += `<label><input type="checkbox" id="gabMostrarNaoRealizadas"> Exibir questões não realizadas</label>`;
     html += `<label title="Mostrar só as questões respondidas num dia, com o resultado daquele dia"><input type="checkbox" id="gabPorData"> 📅 Filtrar por data</label>`;
+    html += '<span class="gab-legenda" title="Questões que já têm correção comentada">📖 = com correção</span>';
     html += `<span class="gab-data" id="gabDataBox" hidden><button type="button" id="gabDataAnt" aria-label="Dia anterior">‹</button><input type="date" id="gabDataInput" aria-label="Data"><button type="button" id="gabDataProx" aria-label="Próximo dia">›</button></span>`;
     html += '</div><div id="gabDynamic"></div>';
     progressContent.innerHTML = html;
@@ -429,3 +430,11 @@ backFromProgressBtn.addEventListener('click', () => {
 backFromProgressBtn.addEventListener('click', () => {
     if (iframeDesatualizado && !resolvingScreen.classList.contains('hidden')) { iframeDesatualizado = false; carregarQuestao(questaoAtualIndex); }
 });
+
+/* marca 📖 nas questões que já têm correção comentada */
+const _renderChipCorrecao = renderChipHtml;
+renderChipHtml = function (q) {
+    const h = _renderChipCorrecao(q);
+    if (typeof semCorrecao === 'undefined' || semCorrecao.has(`${q.banca}|${q.ano}|${q.num}`)) return h;
+    return h.replace('<span class="qn">', '<span class="corr-marca" title="Tem correção comentada" aria-label="tem correção">📖</span><span class="qn">');
+};
