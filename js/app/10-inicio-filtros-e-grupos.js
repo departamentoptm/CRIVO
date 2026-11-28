@@ -19,7 +19,11 @@ function migrarBackupsAntigos() {
     } catch (e) { console.warn('migração do progresso local:', e); }
 }
 window.addEventListener('DOMContentLoaded', async () => {
-    migrarBackupsAntigos();
+    await prepararArmazenamento(CHAVE_LOCAL);
+    if (!ARMAZEM.cache.has(bkKey(CHAVE_LOCAL))) {             /* sem progresso no IndexedDB: soma os antigos do localStorage */
+        migrarBackupsAntigos();
+        await prepararArmazenamento(CHAVE_LOCAL);
+    }
     await loginWithRA(CHAVE_LOCAL);
     currentUser = 'CRIVO';
 });

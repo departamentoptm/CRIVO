@@ -7,8 +7,9 @@ function aplicarEvento(estado, ev) {
 }
 function saveProgressForQuestion(exam, year, num, data) {
     if (!currentRA) return;
+    if (!data || !data.correct) return;            /* toques nas alternativas antes de confirmar não são guardados */
     const agora = new Date();
-    const ev = { data: agora.toISOString(), dataHora: agora.toLocaleString('pt-BR'),
+    const ev = { data: agora.toISOString(),
                  prova: exam, ano: year, questao: String(num),
                  acao: data.correct ? 'confirmou' : 'selecionou', opcao: data.selected };
     if (data.correct) {
@@ -44,19 +45,91 @@ function setDirty(v) {
 
 const bkKey = ra => 'crivo_backup_' + ra;
 const filtrosKey = ra => 'crivo_filtros_' + ra;
-let gravacaoFalhou = false;
-function salvarBackup() {
-    try { localStorage.setItem(bkKey(currentRA), JSON.stringify(progress)); gravacaoFalhou = false; }
-    catch (e) {
-        if (!gravacaoFalhou) setTimeout(() => alert('⚠️ Não foi possível guardar o seu progresso neste navegador (o espaço acabou).\n\n'
-            + 'Para não perder o que você fez: toque em "Salvar progresso em arquivo" ou ligue a sincronização com o Google Drive.'), 0);
-        gravacaoFalhou = true;
+/* ============================================================
+   ARMAZENAMENTO DO PROGRESSO
+   O progresso fica no banco de dados do navegador (IndexedDB), que comporta centenas de MB; o localStorage
+   (limite de ~5 MB, cerca de 15 mil questões) só é usado se o IndexedDB não estiver disponível. Na primeira
+   vez, o progresso que estava no localStorage é copiado para o IndexedDB e só então apagado de lá.
+   Registro compacto: só confirmações (não os toques nas alternativas) e sem campos repetidos.
+   ============================================================ */
+const ARMAZEM = { db: null, cache: new Map(), gravando: false, pendente: false };
+function compactarRegistro(reg) {
+    return reg.filter(e => e && e.prova && e.ano && e.questao && e.opcao && e.acao !== 'selecionou')
+        .map(e => { if (!('dataHora' in e)) return e; const { dataHora, ...r } = e; return r; });
+}
+function _abrirIdb() {
+    return new Promise((res, rej) => {
+        if (!window.indexedDB) return rej(new Error('sem IndexedDB'));
+        const r = indexedDB.open('crivo', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('dados');
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+        r.onblocked = () => rej(new Error('IndexedDB bloqueado'));
+    });
+}
+function _idb(modo, fn) {
+    return new Promise((res, rej) => {
+        const tx = ARMAZEM.db.transaction('dados', modo), req = fn(tx.objectStore('dados'));
+        tx.oncomplete = () => res(req ? req.result : undefined);
+        tx.onerror = tx.onabort = () => rej(tx.error || new Error('falha no IndexedDB'));
+    });
+}
+/* abre o banco e traz o progresso guardado (copiando do localStorage na primeira vez) */
+async function prepararArmazenamento(ra) {
+    try { ARMAZEM.db = ARMAZEM.db || await _abrirIdb(); } catch (e) { console.warn('IndexedDB indisponível, usando localStorage:', e); ARMAZEM.db = null; return; }
+    const chave = bkKey(ra);
+    let v = null;
+    try { v = await _idb('readonly', st => st.get(chave)); } catch (e) { console.warn('leitura do IndexedDB:', e); }
+    if (!v) {
+        try {
+            const t = localStorage.getItem(chave);
+            if (t) { v = JSON.parse(t); await _idb('readwrite', st => st.put(v, chave)); localStorage.removeItem(chave); }
+        } catch (e) { console.warn('cópia do localStorage para o IndexedDB:', e); }
     }
-    try { saveBtn.classList.toggle('unsaved', gravacaoFalhou); } catch {}
+    if (v) ARMAZEM.cache.set(chave, v);
+}
+let gravacaoFalhou = false;
+function _falhaAoGravar() {
+    if (!gravacaoFalhou) setTimeout(() => alert('⚠️ Não foi possível guardar o seu progresso neste navegador.\n\n'
+        + 'Para não perder o que você fez: toque em "Salvar progresso em arquivo" ou ligue a sincronização com o Google Drive.'), 0);
+    gravacaoFalhou = true;
+    try { saveBtn.classList.add('unsaved'); } catch {}
+}
+function _gravouBem() {
+    if (!gravacaoFalhou) return;
+    gravacaoFalhou = false;
+    try { setDirty(dirty); } catch {}
+}
+/* grava a versão mais recente; mudanças feitas durante uma gravação entram na seguinte */
+function _gravarIdb() {
+    ARMAZEM.pendente = true;
+    if (ARMAZEM.gravando) return;
+    ARMAZEM.gravando = true;
+    (async () => {
+        while (ARMAZEM.pendente) {
+            ARMAZEM.pendente = false;
+            const chave = bkKey(currentRA), valor = progress;
+            try { await _idb('readwrite', st => st.put(valor, chave)); ARMAZEM.cache.set(chave, valor); _gravouBem(); }
+            catch (e) { console.warn('gravação no IndexedDB:', e); _falhaAoGravar(); }
+        }
+        ARMAZEM.gravando = false;
+    })();
+}
+function salvarBackup() {
+    if (!currentRA) return;
+    if (ARMAZEM.db) { _gravarIdb(); return; }
+    try { localStorage.setItem(bkKey(currentRA), JSON.stringify(progress)); _gravouBem(); }
+    catch (e) { _falhaAoGravar(); }
 }
 function lerBackup(ra) {
     try {
-        const v = JSON.parse(localStorage.getItem(bkKey(ra)));
+        const guardado = ARMAZEM.db ? ARMAZEM.cache.get(bkKey(ra)) : null;
+        const v = guardado ? Object.assign({}, guardado, { registro: compactarRegistro(guardado.registro || []) })
+            : JSON.parse(localStorage.getItem(bkKey(ra)));
+        /* estado vazio com registro (arquivo antigo): refaz o estado a partir das respostas */
+        if (v && Array.isArray(v.registro) && v.registro.length && (!v.estado || !Object.keys(v.estado).length)) {
+            v.estado = {}; v.registro.forEach(ev => aplicarEvento(v.estado, ev));
+        }
         if (v && v.estado) {
             if (!Array.isArray(v.grifados)) v.grifados = [];
             if (!v.resetados || typeof v.resetados !== 'object') v.resetados = {};
@@ -71,7 +144,7 @@ function lerBackup(ra) {
 
 function normalizar(d) {
     const p = { estado: {}, ultimaPosicao: d.ultimaPosicao || null,
-                registro: (Array.isArray(d.registro) ? d.registro : []).filter(e => e && e.prova && e.ano && e.questao && e.opcao),
+                registro: compactarRegistro(Array.isArray(d.registro) ? d.registro : []),
                 grifados: Array.isArray(d.grifados) ? d.grifados : [],
                 resetados: (d.resetados && typeof d.resetados === 'object') ? d.resetados : {},
                 avaliacoes: Array.isArray(d.avaliacoes) ? d.avaliacoes.filter(a => a && a.data && a.prova && a.ano && a.questao && a.nota) : [],
@@ -157,7 +230,6 @@ function restaurarResposta(banca, ano, num, evento) {
     const agora = new Date();
     progress.registro.push({
         data: agora.toISOString(),
-        dataHora: agora.toLocaleString('pt-BR'),
         prova: banca, ano, questao: String(num),
         acao: 'restaurou',
         opcao: evento.opcao,

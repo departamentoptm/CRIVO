@@ -309,6 +309,14 @@ A seção "Como ajudar o CRIVO" da página Sobre mostra, atualizados a cada gera
 (`dados/indice.json`) e o gasto total com a IA (`dados/gastos.json`), convertido a R$ 5,90 por dólar
 (`COTACAO`, no fim de `sobre.html`).
 
+## Onde o progresso fica no aparelho
+
+O progresso fica no banco de dados do navegador (IndexedDB), que comporta centenas de MB (testado com 40 mil
+questões respondidas). O localStorage, com limite de cerca de 5 MB, só é usado se o IndexedDB não estiver disponível;
+na primeira abertura depois da atualização 33, o progresso que estava nele é copiado para o IndexedDB e só então
+apagado. O registro guarda só as respostas confirmadas (não os toques nas alternativas). Se uma gravação falhar,
+o site avisa e pede para salvar em arquivo ou ligar o Drive.
+
 ## Salvamento automático no Google Drive
 
 - Com a sincronização ligada, cada mudança vai para o Drive em até 10 segundos (no máximo a cada 10 s

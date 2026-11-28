@@ -86,7 +86,9 @@ def t_responder(page, url):
     if rev.count():
         assert rev.is_visible(), "opções Difícil/Bom/Fácil não apareceram"
         rev.locator("button").nth(1).click()
-    salvo = page.evaluate("Object.keys(localStorage).some(k => k.startsWith('crivo_backup_') && localStorage.getItem(k).includes('registro'))")
+    page.wait_for_timeout(300)
+    salvo = page.evaluate("""async () => { const v = await _idb('readonly', st => st.get(bkKey(currentRA)));
+        return !!(v && v.registro && v.registro.some(e => e.acao === 'confirmou') && !v.registro.some(e => e.acao === 'selecionou')); }""")
     assert salvo, "a resposta não foi salva no navegador"
 
 
@@ -175,8 +177,8 @@ def t_recarregar(page, url):
     page.wait_for_selector("#startBtnHome", state="visible", timeout=20000)
     page.click("#startBtnHome")
     quadro(page); page.wait_for_timeout(500)
-    ok = page.evaluate("Object.keys(localStorage).some(k => k.startsWith('crivo_backup_') && localStorage.getItem(k).includes('registro'))")
-    assert ok, "progresso perdido ao recarregar"
+    ok = page.evaluate("progress.registro.length > 0 && !!ARMAZEM.db && !localStorage.getItem(bkKey(currentRA))")
+    assert ok, "progresso perdido ao recarregar (ou não foi para o IndexedDB)"
 
 
 @teste("cartões dos grifos: lista do dia, revisão nos dois sentidos e repetição do Errei")
