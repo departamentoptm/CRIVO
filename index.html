@@ -63,16 +63,18 @@
                 <div class="home-buttons">
                     <button class="auth-btn home-btn-start" id="startBtnHome">▶ Iniciar resolução de questões</button>
                     <button class="auth-btn home-btn-review" id="revisaoBtnHome" title="Questões que você errou ou marcou para revisar, nos intervalos calculados pelo FSRS">🔁 Revisão espaçada</button>
-                    <button class="auth-btn home-btn-review" id="cartoesBtnHome" title="Cartões criados a partir dos seus grifos (frente e verso com o mesmo número)">🃏 Cartões dos grifos</button>
+                    <button class="auth-btn home-btn-review" id="cartoesBtnHome" title="Cartões criados a partir dos seus grifos (frente e verso com o mesmo número, ou cloze)">🃏 Cartões dos grifos</button>
                     <button class="auth-btn home-btn-secondary" id="viewProgressBtn">📊 Meu Gabarito / Progresso</button>
                     <button class="auth-btn home-btn-review" id="simuladoBtnHome" type="button" title="Prova montada por você, com tempo total e correção só no fim">📝 Simulado</button>
-                    <button class="auth-btn home-btn-secondary" id="desempenhoBtnHome" type="button" title="Acerto por disciplina e tema, pontos fracos, evolução semanal e plano de estudo">📈 Desempenho e plano de estudo</button>
+                    <button class="auth-btn home-btn-secondary" id="desempenhoBtnHome" type="button" title="Acerto por disciplina e tema, pontos fracos, evolução, mapas de calor e plano de estudo">📈 Desempenho e plano de estudo</button>
                     <button class="auth-btn home-btn-secondary" id="saveBtnHome" type="button" title="Baixa um arquivo com todo o seu progresso">💾 Salvar progresso em arquivo</button>
                     <button class="auth-btn home-btn-secondary" id="loadBtnHome">📂 Carregar arquivo de progresso</button>
                     <button class="auth-btn home-btn-secondary" id="driveBtnHome" type="button" title="Salva e carrega o seu progresso na sua conta Google Drive">☁️ Sincronizar com Google Drive</button>
+                    <button class="auth-btn home-btn-secondary" id="buscaBtnHome" type="button" title="Procurar uma palavra no enunciado, nas alternativas e nas correções">🔎 Buscar questões</button>
                     <button class="auth-btn home-btn-secondary" id="solicitarProvasBtn" type="button" title="Peça uma prova para o CRIVO ou ofereça ajuda para construir e manter a plataforma">📨 Solicitar provas / Ajudar o CRIVO</button>
                     <button class="auth-btn home-btn-danger" id="logoutBtn" hidden>Sair</button>
                 </div>
+                <button type="button" class="aparencia-btn ajuda-btn" id="ajudaBtn" title="Rever o passeio pelas funções do CRIVO">❓ Ajuda: como usar o CRIVO</button>
                 <div class="aparencia" role="group" aria-label="Aparência">
                     <button type="button" class="aparencia-btn" id="temaBtn" aria-pressed="false">🌙 Modo escuro</button>
                     <span class="aparencia-letra">
@@ -117,7 +119,7 @@
                 <button class="action-btn grifar-fab" id="grifarBtn" title="Grifar seleção (Ctrl+Alt)" aria-label="Grifar"><span class="ico">🖍️</span><span class="lbl"> Grifar</span></button>
                 <button class="action-btn reportar-fab" id="reportarBtn" type="button" title="Reportar erro nesta questão" aria-label="Reportar erro"><span class="ico">⚠️</span><span class="lbl"> Reportar</span></button>
                 <button class="action-btn" id="saveBtn" title="Baixar um arquivo com todo o seu progresso" aria-label="Salvar progresso"><span class="ico">💾</span><span class="lbl"> Salvar</span></button>
-                <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
+                <button class="action-btn anki-fab" id="ankiBtn" title="Exportar cartões grifados para o Anki (.txt)" aria-label="Exportar para o Anki"><span class="ico">📦</span><span class="lbl"> Anki</span></button>
                 <span class="grupo-aviso" id="grupoAviso" hidden>📋 <span id="grupoAvisoTxt"></span><button type="button" id="grupoSairBtn" title="Sair do grupo e voltar aos filtros anteriores" aria-label="Sair do grupo">×</button></span>
                 <select id="examSelector" hidden></select>
                 <select id="yearSelector" hidden></select>
@@ -185,6 +187,26 @@
             <div class="revisao-resumo" id="revResumo"></div>
             <div class="revisao-lista" id="revLista"></div>
             <button type="button" class="auth-btn home-btn-review revisao-iniciar" id="revIniciarBtn">▶ Iniciar revisão</button>
+        </div>
+    </div>
+
+    <div id="buscaScreen" class="screen hidden">
+        <div class="progress-header">
+            <button class="back-btn" id="backFromBuscaBtn">← Voltar</button>
+            <h1>🔎 Buscar questões</h1>
+        </div>
+        <div class="progress-content busca-conteudo">
+            <form class="busca-form" id="buscaForm" role="search">
+                <input type="search" id="buscaInput" placeholder="Ex.: síndrome nefrótica, CIV, Kawasaki…" aria-label="Palavras para buscar" autocomplete="off" enterkeyhint="search">
+                <button type="submit" class="auth-btn home-btn-start busca-ir">Buscar</button>
+            </form>
+            <div class="busca-opcoes">
+                <label><input type="checkbox" id="buscaCorrecoes" checked> Procurar também nas correções</label>
+                <select id="buscaBanca" aria-label="Banca"><option value="">Todas as bancas</option></select>
+            </div>
+            <div class="desemp-nota" id="buscaStatus">Digite uma ou mais palavras. Aparecem as questões que têm todas elas (acentos e maiúsculas não importam).</div>
+            <button type="button" class="auth-btn home-btn-review busca-estudar" id="buscaEstudarBtn" hidden>▶ Resolver estas questões</button>
+            <div class="busca-resultados" id="buscaResultados"></div>
         </div>
     </div>
 
@@ -299,5 +321,6 @@
 <script src="js/app/15-tempo-e-inatividade.js?v=dev"></script>
 <script src="js/app/16-drive-seguranca.js?v=dev"></script>
 <script src="js/app/17-estatisticas-dos-cartoes.js?v=dev"></script>
+<script src="js/app/18-busca-e-guia.js?v=dev"></script>
 </body>
 </html>

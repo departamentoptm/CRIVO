@@ -1374,7 +1374,7 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
 .hm-dia[data-dia]:hover { outline: 2px solid var(--navy); }
 /* evolução */
 .evo-vista { margin-bottom: .6rem; }
-.evo-btn[aria-pressed="true"] { background: var(--navy); color: #fff; }
+.evo-btn[aria-pressed="true"], .dm-btn[aria-pressed="true"] { background: var(--navy); color: #fff; }
 .desemp-semanas.compacto { gap: 2px; }
 /* cartões por disciplina e tema: rosca pequena à esquerda das barras das questões */
 .graf-col { display: flex; flex-direction: row; align-items: center; gap: .55rem; min-width: 0; }
@@ -1403,3 +1403,31 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
 .chip { position: relative; }
 .corr-marca { position: absolute; top: -.45rem; right: -.35rem; font-size: .68rem; line-height: 1; }
 .gab-legenda { font-size: .78rem; color: var(--muted); align-self: center; }
+
+/* busca */
+.busca-conteudo { display: flex; flex-direction: column; gap: .6rem; }
+.busca-form { display: flex; gap: .5rem; }
+.busca-form input { flex: 1; min-width: 0; padding: .7rem .9rem; font-size: 1rem; border: 1px solid var(--line-strong); border-radius: .8rem; }
+.busca-ir { width: auto; padding: .6rem 1.1rem; margin: 0; }
+.busca-opcoes { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; font-size: .9rem; }
+.busca-resultados { display: flex; flex-direction: column; gap: .45rem; }
+.busca-item { display: flex; flex-direction: column; gap: .25rem; text-align: left; background: #fff; border: 1px solid var(--line); border-radius: .8rem;
+              padding: .6rem .8rem; cursor: pointer; font: inherit; color: var(--ink); }
+.busca-item:hover, .busca-item:focus { border-color: var(--navy-600); outline: none; }
+.busca-titulo { font-weight: 700; color: var(--navy); font-size: .92rem; }
+.busca-feita { color: var(--muted); font-weight: 500; }
+.busca-trecho { font-size: .86rem; color: #3d4666; line-height: 1.45; }
+.busca-trecho small { color: var(--muted); font-weight: 700; }
+.busca-trecho mark { background: #fde68a; border-radius: .2rem; padding: 0 .1rem; }
+.busca-estudar { margin: 0; }
+/* guia de primeiros passos */
+.ajuda-btn { display: block; margin: .6rem auto 0; }
+.guia-fundo { position: fixed; inset: 0; z-index: 4000; background: transparent; }
+.guia-alvo { position: relative; z-index: 3999; box-shadow: 0 0 0 4px #fbbf24, 0 0 0 9999px rgba(12, 20, 64, .5) !important; }
+.guia-balao { position: fixed; z-index: 4002; width: min(22rem, calc(100vw - 1rem)); background: #fff; color: var(--ink); border-radius: 1rem;
+              padding: .9rem 1rem; box-shadow: 0 12px 32px rgba(0, 0, 0, .3); }
+.guia-balao h3 { margin: .1rem 0 .35rem; color: var(--navy); font-size: 1.05rem; }
+.guia-balao p { margin: 0; font-size: .92rem; line-height: 1.45; }
+.guia-contagem { font-size: .75rem; color: var(--muted); font-weight: 700; }
+.guia-botoes { display: flex; gap: .4rem; justify-content: flex-end; margin-top: .8rem; flex-wrap: wrap; }
+.guia-botoes .auth-btn { width: auto; margin: 0; padding: .5rem 1rem; }

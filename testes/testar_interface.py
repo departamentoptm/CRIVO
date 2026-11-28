@@ -62,6 +62,13 @@ def t_inicio(page, url):
     page.wait_for_selector("#startBtnHome", state="visible", timeout=20000)
     assert visivel(page, "#authScreen"), "tela inicial não apareceu"
     assert visivel(page, "#revisaoBtnHome") and visivel(page, "#viewProgressBtn"), "botões da tela inicial ausentes"
+    # guia de primeiros passos na primeira visita: avança, volta e pula
+    page.wait_for_selector(".guia-balao", timeout=5000)
+    assert "1 de" in page.inner_text(".guia-balao"), "o guia deveria começar no passo 1"
+    page.click(".guia-balao [data-guia='proximo']")
+    assert "2 de" in page.inner_text(".guia-balao") and page.locator(".guia-alvo").count() == 1, "o guia não avançou"
+    page.click(".guia-balao [data-guia='pular']")
+    assert not page.locator(".guia-fundo").count() and page.evaluate("localStorage.getItem('crivo_guia_visto')") == "1", "Pular deveria fechar e lembrar"
 
 
 @teste("inicia a resolução e carrega a questão no quadro")
@@ -896,6 +903,33 @@ def t_atualizacao32(page, url):
     page.uncheck("#soComCorrecao"); page.wait_for_timeout(300); page.mouse.click(5, 300)
 
 
+@teste("busca (enunciado, alternativas e correções) e acerto pela 1ª e pela última resposta")
+def t_busca_acerto(page, url):
+    page.evaluate("showHome(); showScreen(authScreen)")
+    page.click("#buscaBtnHome")
+    page.wait_for_selector("#buscaScreen:not(.hidden)")
+    page.fill("#buscaInput", "sindrome nefrotica")       # sem acento: deve achar "síndrome nefrótica"
+    page.click(".busca-ir")
+    page.wait_for_function("document.getElementById('buscaStatus').textContent.includes('encontrada')", timeout=60000)
+    n = page.locator("#buscaResultados .busca-item").count()
+    assert n > 0 and page.locator("#buscaResultados mark").count() > 0, "a busca não achou nem destacou o termo"
+    page.uncheck("#buscaCorrecoes"); page.wait_for_timeout(500)
+    n2 = page.locator("#buscaResultados .busca-item").count()
+    assert n2 <= n, "sem as correções deveria achar o mesmo ou menos"
+    page.check("#buscaCorrecoes"); page.wait_for_timeout(500)
+    page.click("#buscaEstudarBtn")
+    page.wait_for_selector("#resolvingScreen:not(.hidden)")
+    assert "Busca:" in page.inner_text("#grupoAviso"), "Resolver estas questões deveria abrir um grupo"
+    page.click("#grupoSairBtn"); page.wait_for_timeout(300)
+    page.evaluate("abrirTelaDesempenho()"); page.click("#abaDesempenho"); page.wait_for_selector("#painelDesempenho", state="visible")
+    txt = page.inner_text("#painelDesempenho .desemp-resumo >> nth=0")
+    assert "1ª resposta" in txt and "última resposta" in txt, "faltou o acerto pela 1ª e pela última resposta"
+    page.click(".dm-btn[data-medida='primeira']")
+    assert "pela 1ª resposta" in page.inner_text("#desempGrafico"), "o gráfico deveria usar a 1ª resposta"
+    page.click(".dm-btn[data-medida='ultima']")
+    page.evaluate("showScreen(resolvingScreen)")
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -912,7 +946,7 @@ def main():
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_cloze, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
                       t_exportar_cartoes, t_painel_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_desempenho_cartoes, t_plano, t_meta,
-                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_atualizacao32, t_recarregar):
+                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_atualizacao32, t_busca_acerto, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

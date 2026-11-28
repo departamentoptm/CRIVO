@@ -29,13 +29,14 @@ function _questoesDoAcervo() {
     return out;
 }
 /* primeira resposta confirmada de cada questão (usada para saber quais questões novas foram feitas hoje) */
-function primeirasRespostas() {
+function primeirasRespostas(dia) {
     const m = new Map();
     for (const e of progress.registro || []) {
         if (e.acao !== 'confirmou' || !e.correta) continue;
         const k = _chaveQ(e.prova, e.ano, e.questao);
         if (!m.has(k) && !semGabarito.has(k) && !imagemPendente.has(k)) m.set(k, { certa: e.opcao === e.correta, data: e.data });
     }
+    if (dia) for (const [k, r] of m) if (isoDoDia(+new Date(r.data)) !== dia) m.delete(k);   /* 1ª resposta dada naquele dia */
     return m;
 }
 /* última resposta confirmada de cada questão (o que o aluno sabe agora); com dia, a última daquele dia */
@@ -49,8 +50,9 @@ function ultimasRespostas(dia) {
     }
     return m;
 }
-function estatisticas() {
-    const pr = ultimasRespostas();
+/* medida do acerto: 'primeira' (1ª resposta de cada questão) ou 'ultima' (o que o aluno sabe agora) */
+function estatisticas(medida) {
+    const pr = medida === 'primeira' ? primeirasRespostas() : ultimasRespostas();
     const porDisc = new Map();
     let n = 0, certas = 0;
     for (const [k, r] of pr) {
@@ -188,7 +190,7 @@ function _blocoEvolucao() {
 }
 
 /* filtros (os mesmos do Meu gabarito) e forma do gráfico */
-const desempFiltros = { banca: '', ano: '', disciplina: '', modo: 'disciplina', mostrar: 'tudo', naoRealizadas: true, data: '' };
+const desempFiltros = { banca: '', ano: '', disciplina: '', modo: 'disciplina', mostrar: 'tudo', naoRealizadas: true, data: '', medida: 'ultima' };
 let desempVista = 'dividida';                     /* 'dividida' (acertos/erros/não respondidas) ou 'lado' */
 function _filtrosDesempenhoHtml() {
     const f = desempFiltros, opc = (v, t, sel) => `<option value="${escapeHtml(v)}" ${v === sel ? 'selected' : ''}>${escapeHtml(t)}</option>`;
@@ -206,11 +208,14 @@ function _filtrosDesempenhoHtml() {
         + '</div>'
         + '<div class="desemp-vista" role="group" aria-label="Forma do gráfico">'
         + `<button type="button" class="aparencia-btn" id="dvDividida" aria-pressed="${desempVista === 'dividida'}">Barras divididas</button>`
-        + `<button type="button" class="aparencia-btn" id="dvLado" aria-pressed="${desempVista === 'lado'}">Barras lado a lado</button></div>`;
+        + `<button type="button" class="aparencia-btn" id="dvLado" aria-pressed="${desempVista === 'lado'}">Barras lado a lado</button></div>`
+        + '<div class="desemp-vista" role="group" aria-label="Medida do acerto">'
+        + `<button type="button" class="aparencia-btn dm-btn" data-medida="ultima" aria-pressed="${desempFiltros.medida !== 'primeira'}" title="O resultado da última vez que você respondeu cada questão">Última resposta</button>`
+        + `<button type="button" class="aparencia-btn dm-btn" data-medida="primeira" aria-pressed="${desempFiltros.medida === 'primeira'}" title="O resultado da primeira vez que você respondeu cada questão">1ª resposta</button></div>`;
 }
 /* contagem por grupo: disponíveis (acervo com os filtros), acertos e erros (última resposta) */
 function contagensDesempenho() {
-    const f = desempFiltros, resp = ultimasRespostas(f.data || null);
+    const f = desempFiltros, resp = f.medida === 'primeira' ? primeirasRespostas(f.data || null) : ultimasRespostas(f.data || null);
     const grupos = new Map();
     const pega = (mapa, chave) => { if (!mapa.has(chave)) mapa.set(chave, { tot: 0, a: 0, e: 0, sub: new Map() }); return mapa.get(chave); };
     for (const q of _questoesDoAcervo()) {
@@ -276,7 +281,7 @@ function _blocoGrafico() {
                 : '<p class="desemp-nota">Temas ainda não classificados para estas questões.</p>')
             + '</details>';
     }).join('') + '<p class="desemp-nota graf-legenda-geral"><span class="ok">■ acertos</span> <span class="erro">■ erros</span> <span class="nao">■ não respondidas</span> · '
-        + 'Acerto e erro pela última resposta de cada questão.</p></section>';
+        + `Acerto e erro pela ${desempFiltros.medida === 'primeira' ? '1ª' : 'última'} resposta de cada questão.</p></section>`;
 }
 /* tempos médios: até confirmar (todas as respostas com tempo medido) e lendo a correção (as leituras medidas) */
 function temposMedios() {
@@ -294,22 +299,25 @@ function _tempoCurto(ms) {
 }
 function renderDesempenho() {
     const el = document.getElementById('painelDesempenho');
-    const est = estatisticas();
+    const est = estatisticas(), est1 = estatisticas('primeira');
     if (!est.n) {
         el.innerHTML = '<div class="revisao-vazia">Você ainda não respondeu questões. Resolva algumas e volte aqui para ver o seu desempenho. 📈</div>';
         return;
     }
-    const fracos = temasPadrao ? pontosFracos(est) : [];
-    let h = `<div class="desemp-resumo"><div><b>${est.n}</b><span>questões respondidas</span></div><div><b>${_pct(est.certas, est.n)}%</b><span>de acerto</span></div>`
+    const fracos = temasPadrao ? pontosFracos(est1) : [];          /* pontos fracos pela 1ª resposta */
+    let h = `<div class="desemp-resumo"><div><b>${est.n}</b><span>questões respondidas</span></div>`
+        + `<div title="O resultado da primeira vez que você respondeu cada questão"><b>${_pct(est1.certas, est1.n)}%</b><span>de acerto na 1ª resposta</span></div>`
+        + `<div title="O resultado da última vez que você respondeu cada questão"><b>${_pct(est.certas, est.n)}%</b><span>de acerto na última resposta</span></div>`
         + `<div><b>${sequenciaDeDias()}</b><span>dias seguidos</span></div>`
         + (() => { const t = temposMedios(); const f = ms => t.nConf ? _tempoCurto(ms) : '—';
             return `<div title="Média de ${t.nConf} respostas"><b>${f(t.conf)}</b><span>até confirmar (média)</span></div>`
                 + `<div title="Média de ${t.nLeit} leituras"><b>${t.nLeit ? _tempoCurto(t.leit) : '—'}</b><span>na correção (média)</span></div>`
                 + `<div><b>${t.nConf ? _tempoCurto(t.conf + t.leit) : '—'}</b><span>total por questão</span></div>`; })()
         + '</div>'
-        + '<p class="desemp-nota">Acerto: considera a última resposta de cada questão; anuladas e excluídas ficam de fora. '
+        + '<p class="desemp-nota">Acerto na 1ª resposta: como você foi da primeira vez (não muda ao refazer). Acerto na última: o que você sabe agora. '
+        + 'Anuladas, excluídas e questões sem imagem ficam de fora. '
         + 'Tempos: média de todas as respostas (refeitas e revisões incluídas), até 20 min por questão; o total soma as duas médias.</p>';
-    h += '<section class="desemp-bloco"><h2>🎯 Pontos fracos</h2>';
+    h += '<section class="desemp-bloco"><h2>🎯 Pontos fracos</h2><p class="desemp-nota">Pela 1ª resposta de cada questão: refazer depois de ler a correção não esconde o tema.</p>';
     if (!temasPadrao) h += '<p class="desemp-nota">Os temas das questões ainda não foram classificados. Rode Actions → Gerar correções → ação <b>temas-padrao</b>.</p>';
     else if (!fracos.length) h += `<p class="desemp-nota">Nenhum tema com menos de ${LIMITE_PONTO_FRACO * 100}% de acerto entre os que têm pelo menos ${MINIMO_PONTO_FRACO} questões respondidas.</p>`;
     else {
@@ -347,6 +355,8 @@ document.getElementById('painelDesempenho').addEventListener('change', e => {
 });
 document.getElementById('painelDesempenho').addEventListener('click', async e => {
     const el = e.currentTarget;
+    const dm = e.target.closest('.dm-btn');
+    if (dm) { desempFiltros.medida = dm.dataset.medida; document.querySelectorAll('.dm-btn').forEach(b => b.setAttribute('aria-pressed', String(b === dm))); return _atualizarGraficoDesempenho(); }
     const evo = e.target.closest('.evo-btn');
     if (evo) { evoModo = evo.dataset.evo; document.getElementById('desempEvolucao').innerHTML = _blocoEvolucao(); return; }
     if (e.target.id === 'dvDividida' || e.target.id === 'dvLado') { desempVista = e.target.id === 'dvLado' ? 'lado' : 'dividida'; return _atualizarGraficoDesempenho(); }
