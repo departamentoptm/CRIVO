@@ -1,9 +1,9 @@
 {
  "formato": "crivo-gastos",
  "teto_usd": 30.0,
- "gasto_usd": 7.042,
+ "gasto_usd": 7.1091,
  "observacao": "Conferido com o painel da DeepSeek em 23/11/2026. Desde a atualização 18, o gasto de cada execução é gravado direto no main, mesmo que o PR não seja aprovado.",
- "correcoes_geradas": 488,
+ "correcoes_geradas": 492,
  "execucoes": [
   {
    "data": "2026-11-22T04:58Z",
@@ -148,6 +148,12 @@
    "acao": "gerar AMP 2016 pendentes",
    "custo_usd": 1.0897,
    "chamadas": 677
+  },
+  {
+   "data": "2026-11-28T15:42Z",
+   "acao": "gerar AMP 2016 pendentes",
+   "custo_usd": 0.0671,
+   "chamadas": 44
   }
  ]
 }
