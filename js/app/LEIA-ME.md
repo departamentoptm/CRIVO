@@ -21,7 +21,7 @@ arquivos, carregados **nesta ordem** pelo `index.html`:
 | `15-tempo-e-inatividade.js` | relógio de estudo (só com a aba visível), tempo de cada questão (até confirmar + leitura da correção, máx. 20 min), média para o plano e pausa por inatividade (20 min) com a tela embaçada |
 | `16-drive-seguranca.js` | aviso flutuante do salvamento na nuvem, restaurar uma cópia do Drive e "Carregar arquivo" com comparação e confirmação (somar, substituir ou cancelar) |
 | `17-estatisticas-dos-cartoes.js` | classificação dos cartões como no Anki (novo, aprendendo, reaprendendo, recente, maduro), painel dos cartões (gráficos, True retention e lista), dados de cada cartão e, no Desempenho, mapas de calor, bloco dos cartões e cartões por disciplina e tema |
-| `18-busca-e-guia.js` | busca por palavras no enunciado, nas alternativas e nas correções (as edições são baixadas uma vez) e guia de primeiros passos (6 balões na primeira visita; botão "❓ Ajuda") |
+| `18-busca-e-guia.js` | busca por palavras no enunciado, nas alternativas e nas correções (as edições são baixadas uma vez) e ajuda: um ❓ em cada tela com um passeio por todas as funções dela (o da tela inicial aparece sozinho na primeira visita) |
 | `12-aparencia.js` | modo escuro (fundos brancos viram escuros e letras pretas viram claras; as outras cores ficam) e tamanho da letra |
 
 Dados no progresso (`progress`, salvo no navegador, no arquivo e no Drive): `registro` (respostas), `avaliacoes`

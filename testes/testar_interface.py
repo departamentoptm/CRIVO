@@ -930,6 +930,34 @@ def t_busca_acerto(page, url):
     page.evaluate("showScreen(resolvingScreen)")
 
 
+@teste("ajuda: um ❓ em cada tela, com passeio por todas as funções visíveis")
+def t_guias(page, url):
+    def percorrer(abrir, minimo, nome):
+        abrir()
+        page.wait_for_selector(".guia-balao", timeout=5000)
+        total = int(page.inner_text(".guia-contagem").split(" de ")[1])
+        assert total >= minimo, f"{nome}: só {total} passos"
+        for _ in range(total):
+            assert page.locator(".guia-alvo").count() == 1, f"{nome}: o passo não destacou nenhum elemento"
+            page.click(".guia-balao [data-guia='proximo']")
+        assert not page.locator(".guia-fundo").count(), f"{nome}: o passeio não terminou"
+        return total
+    telas = [
+        ("inicio", lambda: (page.evaluate("showHome(); showScreen(authScreen)"), page.click("#ajudaBtn")), 10),
+        ("resolucao", lambda: (page.evaluate("showScreen(resolvingScreen)"), page.click("[data-guia-tela='resolucao']")), 15),
+        ("revisao", lambda: (page.evaluate("abrirTelaRevisao()"), page.wait_for_timeout(500), page.click("[data-guia-tela='revisao']")), 3),
+        ("cartoes", lambda: (page.evaluate("abrirTelaCartoes()"), page.wait_for_timeout(500), page.click("[data-guia-tela='cartoes']")), 4),
+        ("gabarito", lambda: (page.click("#homeBtn") if page.is_visible("#homeBtn") else None, page.evaluate("showHome(); showScreen(authScreen)"), page.click("#viewProgressBtn"), page.wait_for_timeout(500), page.click("[data-guia-tela='gabarito']")), 3),
+        ("simulado", lambda: (page.evaluate("abrirTelaSimulado()"), page.wait_for_timeout(500), page.click("[data-guia-tela='simulado']")), 3),
+        ("desempenho", lambda: (page.evaluate("abrirTelaDesempenho()"), page.click("#abaDesempenho"), page.wait_for_timeout(500), page.click("[data-guia-tela='desempenho']")), 8),
+        ("plano", lambda: (page.click("#abaPlano"), page.wait_for_timeout(300), page.click("[data-guia-tela='desempenho']")), 4),
+        ("busca", lambda: (page.evaluate("abrirTelaBusca()"), page.wait_for_timeout(300), page.click("[data-guia-tela='busca']")), 3),
+    ]
+    for nome, abrir, minimo in telas:
+        percorrer(abrir, minimo, nome)
+    page.evaluate("showScreen(resolvingScreen)")
+
+
 def main():
     s, url = servidor()
     with sync_playwright() as p:
@@ -946,7 +974,7 @@ def main():
             page.on("dialog", lambda d: d.accept())
             for t in (t_inicio, t_resolucao, t_responder, t_grifar, t_cloze, t_fsrs, t_navegar, t_filtros, t_todas, t_gabarito, t_revisao, t_cartoes, t_cartoes_dias,
                       t_exportar_cartoes, t_painel_cartoes, t_cartao_texto, t_orfao, t_mescla, t_aparencia, t_icones, t_temas, t_desempenho, t_tempos, t_desempenho_cartoes, t_plano, t_meta,
-                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_atualizacao32, t_busca_acerto, t_recarregar):
+                      t_filtro_plano, t_simulado, t_inatividade, t_solicitar, t_drive, t_indicador, t_carregar_arquivo, t_selo_duvidas, t_cabecalho_historico, t_atualizacao32, t_busca_acerto, t_guias, t_recarregar):
                 t(page, url)
             ctx.close()
         nav.close()

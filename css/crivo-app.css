@@ -1423,7 +1423,11 @@ body.rodape-oculto #toggleBottomBtn { order: -2; }
 /* guia de primeiros passos */
 .ajuda-btn { display: block; margin: .6rem auto 0; }
 .guia-fundo { position: fixed; inset: 0; z-index: 4000; background: transparent; }
-.guia-alvo { position: relative; z-index: 3999; box-shadow: 0 0 0 4px #fbbf24, 0 0 0 9999px rgba(12, 20, 64, .5) !important; }
+.guia-alvo { z-index: 3999; box-shadow: 0 0 0 4px #fbbf24, 0 0 0 9999px rgba(12, 20, 64, .5) !important; }
+.guia-rel { position: relative; }
+.ajuda-cabecalho { margin-left: auto; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid rgba(255,255,255,.45);
+                   background: rgba(255,255,255,.14); color: #fff; font-size: 1.05rem; cursor: pointer; flex: none; }
+.ajuda-cabecalho:hover { background: rgba(255,255,255,.26); }
 .guia-balao { position: fixed; z-index: 4002; width: min(22rem, calc(100vw - 1rem)); background: #fff; color: var(--ink); border-radius: 1rem;
               padding: .9rem 1rem; box-shadow: 0 12px 32px rgba(0, 0, 0, .3); }
 .guia-balao h3 { margin: .1rem 0 .35rem; color: var(--navy); font-size: 1.05rem; }
