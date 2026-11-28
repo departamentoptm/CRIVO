@@ -22134,6 +22134,223 @@
     "reportes": [],
     "reportes_atendidos": []
    }
+  },
+  "AMP-2016-Q26": {
+   "tema": "Reumatologia: efeitos colaterais músculo-esqueléticos de medicamentos",
+   "aviso_diretriz": null,
+   "gabarito_usado": "A",
+   "secoes_html": {
+    "2.1": "<p><strong>Disciplina:</strong> Reumatologia / Farmacologia clínica.</p><p><strong>Tema:</strong> Associação entre medicamentos de uso frequente e seus efeitos adversos sobre o sistema musculoesquelético (osteoporose, ruptura de tendão, lúpus induzido por droga, gota e mialgia).</p><p><strong>Contextualização:</strong> A questão cobra a capacidade de reconhecer reações adversas medicamentosas (RAM) com manifestação reumatológica, um tópico que transita entre a farmacologia e a clínica reumatológica. Na prática, o médico precisa diferenciar uma doença reumática primária de um efeito colateral de fármaco, pois a conduta é completamente distinta: muitas vezes basta suspender o agente implicado. Em provas de residência, esse tipo de associação é clássico porque exige memorização de pares droga–efeito, mas também raciocínio fisiopatológico. A banca AMP já explorou o tema em outras ocasiões, tanto com casos clínicos de mialgia por estatina quanto com afirmativas sobre efeitos adversos de drogas modificadoras da artrite reumatoide.</p>",
+    "2.2": "<p><strong>Conceito-chave:</strong> Cada fármaco tem um tropismo por determinado mecanismo fisiopatológico que resulta em um efeito adverso musculoesquelético característico.</p><ul><li><strong>Corticosteroides:</strong> inibem a diferenciação e a função dos osteoblastos, aumentam a reabsorção óssea e reduzem a absorção intestinal de cálcio, levando à osteoporose secundária, especialmente com uso crônico.</li><li><strong>Quinolonas:</strong> afetam a síntese de colágeno e a integridade do tecido conjuntivo tendíneo, predispondo à tendinopatia e à ruptura de tendão (especialmente o tendão de Aquiles).</li><li><strong>Procainamida:</strong> é uma amina aromática que, após metabolização, induz a formação de autoanticorpos, sobretudo anti-histona (e anti-DNA de fita simples), desencadeando um quadro de lúpus induzido por droga, com manifestações articulares e cutâneas, mas com acometimento renal raro. O anti-DNA nativo (fita dupla) é típico do lúpus eritematoso sistêmico idiopático e não do lúpus medicamentoso.</li><li><strong>Ciclosporina:</strong> reduz a excreção renal de ácido úrico, elevando a uricemia e podendo precipitar crises de gota.</li><li><strong>Atorvastatina (estatinas):</strong> inibe a HMG-CoA redutase, podendo causar mialgia, miosite e, mais raramente, rabdomiólise.</li></ul><p>Portanto, a associação correta é: corticoide–osteoporose; quinolona–ruptura de tendão; procainamida–lúpus induzido; ciclosporina–gota; atorvastatina–mialgia.</p>",
+    "2.3": "<p><strong>Justificativa da resposta correta (alternativa A):</strong> A sequência 1a, 2c, 3d, 4b, 5e associa corretamente:</p><ul><li><strong>1a:</strong> corticoide → osteoporose. O uso crônico de glicocorticoides é a causa mais comum de osteoporose secundária.</li><li><strong>2c:</strong> quinolonas → ruptura de tendão. As fluoroquinolonas são reconhecidas por aumentar o risco de tendinopatia e ruptura do tendão de Aquiles.</li><li><strong>3d:</strong> procainamida → lúpus induzido por droga. A procainamida é o protótipo das drogas indutoras de lúpus, tipicamente com anti-histona positivo e anti-DNA nativo (fita dupla) negativo.</li><li><strong>4b:</strong> ciclosporina → gota. A ciclosporina reduz a excreção renal de urato, podendo desencadear hiperuricemia e crises de gota.</li><li><strong>5e:</strong> atorvastatina → mialgia. A mialgia é o efeito adverso musculoesquelético mais comum das estatinas.</li></ul><p>Essa combinação é a única que contempla todos os pares corretos.</p>",
+    "2.4": "<p><strong>Alternativa A — Correta.</strong> Associa adequadamente cada fármaco ao seu efeito colateral clássico: corticoide–osteoporose (1a), quinolona–ruptura de tendão (2c), procainamida–lúpus induzido (3d), ciclosporina–gota (4b) e atorvastatina–mialgia (5e).</p><p><strong>Alternativa B — Errada.</strong> Em 2b coloca a ciclosporina (b) como causadora de ruptura de tendão (o correto é a quinolona, c); em 3c coloca a quinolona (c) como indutora de lúpus (o correto é a procainamida, d); e ainda repete a letra b em 4b para gota, tornando a sequência inconsistente.</p><p><strong>Alternativa C — Errada.</strong> Em 2d coloca a procainamida como causadora de ruptura de tendão (o correto é a quinolona, c) e em 3b coloca a ciclosporina como indutora de lúpus (o correto é a procainamida, d), invertendo os pares. A procainamida é o protótipo do lúpus medicamentoso, não de tendinopatia; a ciclosporina está mais ligada à gota.</p><p><strong>Alternativa D — Errada.</strong> Em 3e coloca a atorvastatina como indutora de lúpus (o correto é a procainamida, d) e em 4d coloca a procainamida como causadora de gota (o correto é a ciclosporina, b). As estatinas não são causadoras clássicas de lúpus induzido; a procainamida não é causa de gota.</p><p><strong>Alternativa E — Errada.</strong> Em 2d coloca a procainamida como causadora de ruptura de tendão (o correto é a quinolona, c) e em 3c coloca a quinolona como indutora de lúpus (o correto é a procainamida, d); mantém a ciclosporina em 4b (gota), que está correta, mas a inversão entre quinolona e procainamida compromete a sequência.</p>",
+    "2.5": "<p><strong>Palavras-chave e pistas no enunciado:</strong></p><ul><li><strong>\"corticoide\" e \"osteoporose\":</strong> o uso crônico de glicocorticoides é a causa mais comum de osteoporose secundária; a associação é imediata.</li><li><strong>\"quinolonas\" e \"ruptura de tendão\":</strong> as fluoroquinolonas são conhecidas por causar tendinopatia, especialmente em idosos e usuários de corticoides.</li><li><strong>\"procainamida\" e \"lúpus induzido por droga\":</strong> a procainamida é o fármaco clássico associado ao lúpus medicamentoso, ao lado da hidralazina; o perfil típico é anti-histona positivo, anti-DNA nativo (fita dupla) negativo e acometimento renal raro.</li><li><strong>\"ciclosporina\" e \"gota\":</strong> a ciclosporina eleva o ácido úrico por reduzir sua excreção renal.</li><li><strong>\"atorvastatina\" e \"mialgia\":</strong> a mialgia é o efeito adverso musculoesquelético mais frequente das estatinas.</li></ul>",
+    "2.6": "<p><strong>Algoritmo de decisão:</strong></p><ol><li>Identifique o efeito colateral descrito e pense no mecanismo fisiopatológico subjacente.</li><li>Relacione o mecanismo ao fármaco que classicamente o produz: osteoporose → corticoide; tendinopatia → quinolona; lúpus → procainamida (anti-histona positivo, anti-DNA nativo negativo); gota → ciclosporina; mialgia → estatina.</li><li>Verifique se a sequência proposta na alternativa contempla todos os pares corretos.</li><li>Elimine alternativas que invertem pares clássicos (ex.: quinolona como causadora de lúpus).</li><li>Confirme a resposta final.</li></ol>",
+    "2.7": "<p><strong>Dados para memorizar:</strong></p><ul><li><strong>Fatos que definem:</strong> corticoide → osteoporose; quinolona → ruptura de tendão; procainamida → lúpus induzido (anti-histona positivo, anti-DNA nativo negativo, rim poupado); ciclosporina → gota; estatina → mialgia.</li><li><strong>Números e doses:</strong> o tema não depende de números específicos; o reconhecimento é qualitativo.</li><li><strong>Mnemônicos:</strong> não há mnemônico consagrado na literatura para essa associação; o aprendizado deve ser por mecanismo fisiopatológico.</li></ul>",
+    "2.8": "<table class=\"data-table\"><thead><tr><th>Condição</th><th>Sinais/Sintomas que diferenciam</th><th>Exame/Diagnóstico</th><th>Conduta</th></tr></thead><tbody><tr><td>Osteoporose por corticoide</td><td>Dor óssea difusa, fraturas por fragilidade, uso crônico de glicocorticoide</td><td>Densitometria óssea com T-score ≤ -2,5 ou fratura por fragilidade</td><td>Suplementação de cálcio e vitamina D, bifosfonatos, reduzir dose do corticoide</td></tr><tr><td>Ruptura de tendão por quinolona</td><td>Dor súbita em tendão de Aquiles, estalido, dificuldade para deambular</td><td>Ultrassonografia ou ressonância magnética do tendão</td><td>Suspender a quinolona, imobilização, avaliação ortopédica</td></tr><tr><td>Lúpus induzido por procainamida</td><td>Artralgias, mialgias, febre, serosite, anti-histona positivo; acometimento renal raro</td><td>FAN positivo, anti-histona positivo, critérios clínicos</td><td>Suspender a droga; sintomas costumam regredir em semanas</td></tr><tr><td>Gota por ciclosporina</td><td>Hiperuricemia, artrite monoarticular aguda (podagra)</td><td>Ácido úrico sérico, cristais de urato no líquido sinovial</td><td>Reduzir ou substituir a ciclosporina, anti-inflamatórios, colchicina</td></tr><tr><td>Mialgia por estatina</td><td>Dor muscular difusa, sem elevação de CK ou com elevação discreta</td><td>Dosagem de CK, exclusão de outras causas</td><td>Suspender ou trocar a estatina, reavaliar sintomas</td></tr></tbody></table>",
+    "2.9": "<p><strong>Variações de abordagem em provas:</strong></p><ul><li><strong>Diagnóstico:</strong> diante de um paciente em uso de procainamida que desenvolve artralgias e FAN positivo, o diagnóstico é lúpus induzido por droga.</li><li><strong>Tratamento:</strong> qual a conduta inicial na mialgia por estatina? Suspender a estatina e reavaliar.</li><li><strong>Complicação:</strong> qual o risco do uso de quinolonas em idosos? Tendinopatia e ruptura de tendão.</li><li><strong>Prevenção:</strong> como prevenir osteoporose em pacientes em uso crônico de corticoide? Suplementação de cálcio e vitamina D, além de bifosfonatos quando indicado.</li></ul>",
+    "2.10": "<p class=\"hist-contagem\"><strong>No acervo:</strong> 12 questões relacionadas em 9 das 21 provas da AMP (2006–2026): 1 do mesmo tema, 11 de tema relacionado, 0 com caso semelhante.</p><p><strong>Padrão de cobrança identificado:</strong> A banca AMP alterna entre questões de associação direta droga–efeito colateral (como esta) e questões que exigem reconhecimento de efeitos adversos em contextos clínicos, como mialgia por estatina e complicações de drogas modificadoras da artrite reumatoide.</p><p><strong>Abordagem ainda não cobrada:</strong> Não foram identificadas, no acervo, questões que abordem especificamente o lúpus induzido por procainamida ou a gota por ciclosporina em formato de caso clínico, o que poderia ser explorado em provas futuras.</p><p><strong>Evolução da cobrança:</strong> As questões sobre o tema têm variado entre associação simples, verdadeiro/falso e casos clínicos, sugerindo que a banca valoriza tanto a memorização quanto a aplicação clínica.</p><p><strong>O que isso sugere para a próxima prova:</strong> É provável que o tema continue sendo cobrado, seja por associação de fármacos e efeitos, seja por meio de casos clínicos que exijam a identificação do agente causal e a conduta adequada.</p>",
+    "2.11": "<p><strong>Conexões com outros temas:</strong></p><ul><li>Se você viu lúpus eritematoso sistêmico, lembre-se de que drogas como procainamida e hidralazina podem induzir um quadro semelhante, mas com menor acometimento renal.</li><li>Se você viu osteoporose, lembre-se de que o uso crônico de glicocorticoides é a principal causa secundária.</li><li>Se você viu infecções do trato urinário ou pneumonia, lembre-se de que as quinolonas podem causar tendinopatia, especialmente em idosos.</li><li>Se você viu dislipidemia e uso de estatinas, lembre-se de que a mialgia é o efeito adverso mais comum e pode exigir troca da estatina.</li></ul>",
+    "2.12": "<p><strong>Erro do usuário e estratégia de correção:</strong></p><ul><li><strong>Alternativa B:</strong> erro típico de quem confunde quinolona com indutora de lúpus e ciclosporina com causadora de ruptura de tendão. Tipo: lacuna de conhecimento. Ação: revisar os fármacos indutores de lúpus (procainamida, hidralazina) e os causadores de tendinopatia (quinolonas).</li><li><strong>Alternativa C:</strong> erro de quem troca procainamida por ciclosporina como causadora de lúpus. Tipo: confusão conceitual. Ação: memorizar que a procainamida é o protótipo do lúpus medicamentoso.</li><li><strong>Alternativa D:</strong> erro de quem atribui à estatina a indução de lúpus e à procainamida a gota. Tipo: lacuna de conhecimento. Ação: revisar os efeitos adversos das estatinas (mialgia) e da procainamida (lúpus).</li><li><strong>Alternativa E:</strong> erro de quem troca quinolona por procainamida na ruptura de tendão. Tipo: erro de leitura/interpretação. Ação: atentar para a associação clássica entre quinolonas e tendinopatia.</li></ul>",
+    "2.13": "<p><strong>Conexão com a prática:</strong> Na prática clínica, é fundamental reconhecer efeitos adversos medicamentosos musculoesqueléticos para evitar investigações desnecessárias e tratamentos equivocados. Por exemplo, um paciente em uso de quinolona que desenvolve dor no tendão de Aquiles deve ter a droga suspensa imediatamente; um paciente com artralgias e FAN positivo em uso de procainamida pode ter lúpus induzido, que regride com a suspensão do fármaco. O reconhecimento precoce evita morbidade e melhora o manejo.</p>",
+    "2.14": "<p><strong>Conceitos relacionados para revisar:</strong></p><ul><li>Efeitos adversos dos glicocorticoides (osteoporose, diabetes, hipertensão).</li><li>Fármacos indutores de lúpus (procainamida, hidralazina, isoniazida, minociclina): tipicamente anti-histona positivo, anti-DNA nativo (fita dupla) negativo e baixo acometimento renal, ao contrário do LES idiopático.</li><li>Quinolonas: espectro, efeitos adversos (tendinopatia, neuropatia, prolongamento do QT).</li><li>Estatinas: miopatia, mialgia, rabdomiólise, interações medicamentosas.</li><li>Ciclosporina: nefrotoxicidade, hipertensão, hiperuricemia e gota.</li></ul>",
+    "2.15": "<p>1. <strong>Harrison — Medicina Interna</strong> — Reumatologia: lúpus induzido por drogas; osteoporose; gota.</p><p>2. <strong>Goodman &amp; Gilman — As Bases Farmacológicas da Terapêutica</strong> — Farmacologia clínica: efeitos adversos de quinolonas, estatinas, ciclosporina e glicocorticoides.</p><p>3. Consulta do tema: <a href=\"https://www.uptodate.com/contents/search?search=drug-induced%20lupus%20erythematosus%20procainamide%20fluoroquinolone%20tendon%20rupture%20corticosteroid-induced%20osteoporosis%20cyclosporine%20hyperuricemia%20gout%20statin-associated%20muscle%20symptoms\">UpToDate</a> · <a href=\"https://www.google.com/search?q=site%3Amsdmanuals.com/pt/profissional%20efeitos%20colaterais%20m%C3%BAsculo-esquel%C3%A9ticos%20de%20medicamentos\">Manual MSD (busca no site)</a> · <a href=\"https://pubmed.ncbi.nlm.nih.gov/?term=drug-induced%20lupus%20erythematosus%20procainamide%20fluoroquinolone%20tendon%20rupture%20corticosteroid-induced%20osteoporosis%20cyclosporine%20hyperuricemia%20gout%20statin-associated%20muscle%20symptoms\">PubMed</a> <em>(UpToDate exige assinatura institucional)</em>.</p>"
+   },
+   "historico": [
+    {
+     "id": "AMP-2017-Q93",
+     "ano": "2017",
+     "numero": 93,
+     "gabarito": "B",
+     "resumo": "Paciente com diabetes e hipertensão em tratamento farmacológico apresenta mialgia difusa: medicamento provavelmente responsável",
+     "cobrado": "complicação",
+     "resposta": "B (Sinvastatina (Prevenção primária para DCV).)",
+     "relacao": "Mesmo tema: mialgia por estatina como efeito adverso musculoesquelético de fármaco",
+     "tipo": "mesmo_tema"
+    },
+    {
+     "id": "AMP-2007-Q25",
+     "ano": "2007",
+     "numero": 25,
+     "gabarito": "D",
+     "resumo": "Uso crônico e retirada de glicocorticoides: afirmação incorreta sobre supressão do eixo e síndrome de retirada",
+     "cobrado": "tratamento",
+     "resposta": "D (Sintomas da síndrome da retirada não ocorrem em pacientes quando estão recebendo doses fis…)",
+     "relacao": "Tema relacionado: efeitos adversos de glicocorticoides crônicos, incluindo ósseo",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2007-Q34",
+     "ano": "2007",
+     "numero": 34,
+     "gabarito": "B",
+     "resumo": "Gestante com lúpus eritematoso sistêmico em uso de cloroquina e prednisona: conduta e riscos materno-fetais",
+     "cobrado": "conduta inicial",
+     "resposta": "B (Esta paciente deve ser submetida à pesquisa de anticorpos anti Ro e anti La porque estes p…)",
+     "relacao": "Tema relacionado: lúpus e segurança/efeitos de medicamentos na gestação",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2008-Q41",
+     "ano": "2008",
+     "numero": 41,
+     "gabarito": "D",
+     "resumo": "Lúpus eritematoso sistêmico juvenil: identificar a afirmação incorreta sobre a doença",
+     "cobrado": "diagnóstico",
+     "resposta": "D (A dosagem de anticorpos antinucleares apresenta altaespecificidade e baixa sensibilidade.)",
+     "relacao": "Tema relacionado: manifestações do lúpus, diferencial do lúpus induzido por fármaco",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2008-Q73",
+     "ano": "2008",
+     "numero": 73,
+     "gabarito": "E",
+     "resumo": "Artrite reumatoide: identificar a afirmativa falsa sobre efeitos adversos das drogas modificadoras.",
+     "cobrado": "tratamento",
+     "resposta": "E (O principal efeito colateral da sulfassalazina é a pneumonite intersticial por droga.)",
+     "relacao": "Tema relacionado: efeitos adversos de drogas modificadoras em reumatologia",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2010-Q67",
+     "ano": "2010",
+     "numero": 67,
+     "gabarito": "A",
+     "resumo": "critérios diagnósticos do lúpus eritematoso sistêmico: identificar o que não faz parte",
+     "cobrado": "diagnóstico",
+     "resposta": "A (Proteína C-reativa.)",
+     "relacao": "Tema relacionado: lúpus eritematoso sistêmico, diagnóstico diferencial do lúpus induzido por droga",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2011-Q48",
+     "ano": "2011",
+     "numero": 48,
+     "gabarito": "C",
+     "resumo": "critérios classificatórios do lúpus eritematoso sistêmico",
+     "cobrado": "diagnóstico",
+     "resposta": "C (Plaquetopenia, glomerulonefrite e fenômeno de Raynaud.)",
+     "relacao": "Tema relacionado: critérios de lúpus, contexto do lúpus induzido por procainamida",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2011-Q53",
+     "ano": "2011",
+     "numero": 53,
+     "gabarito": "B",
+     "resumo": "Correlacionar anti-hipertensivos com suas contraindicações ou precauções",
+     "cobrado": "tratamento",
+     "resposta": "B (D, C, A, B;)",
+     "relacao": "Tema relacionado: associação de fármacos a contraindicações e efeitos adversos",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2012-Q77",
+     "ano": "2012",
+     "numero": 77,
+     "gabarito": "E",
+     "resumo": "Lúpus eritematoso sistêmico: critérios de classificação do Colégio Americano de Reumatologia",
+     "cobrado": "diagnóstico",
+     "resposta": "E (Linfócitos abaixo de 1.500/mm3 em duas ou mais ocasiões, anticorpo anti-SM e úlceras orais…)",
+     "relacao": "Tema relacionado: lúpus e critérios classificatórios, relacionado ao lúpus droga-induzido",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2019-Q80",
+     "ano": "2019",
+     "numero": 80,
+     "gabarito": "D",
+     "resumo": "risco associado ao uso de bloqueadores de TNF na artrite reumatoide",
+     "cobrado": "complicação",
+     "resposta": "D (Reativação de tuberculose latente.)",
+     "relacao": "Tema relacionado: efeitos adversos de terapia biológica em doença reumatológica",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2020-Q66",
+     "ano": "2020",
+     "numero": 66,
+     "gabarito": "D",
+     "resumo": "Análise de afirmativas sobre efeitos colaterais e mecanismos de anti-hipertensivos",
+     "cobrado": "fisiopatologia",
+     "resposta": "D (II, III.)",
+     "relacao": "Tema relacionado: efeitos colaterais de fármacos cardiovasculares por classe",
+     "tipo": "tema_relacionado"
+    },
+    {
+     "id": "AMP-2024-Q80",
+     "ano": "2024",
+     "numero": 80,
+     "gabarito": "A",
+     "resumo": "verdadeiro ou falso sobre dislipidemias: HDL, hipertrigliceridemia, fármacos para LDL, cálculo do LDL e efeitos adversos das estatinas",
+     "cobrado": "tratamento",
+     "resposta": "A (V, V, V, F, F.)",
+     "relacao": "Tema relacionado: efeitos adversos das estatinas no contexto de dislipidemia",
+     "tipo": "tema_relacionado"
+    }
+   ],
+   "historico_meta": {
+    "metodo": "catalogo+disciplina+lexico+ia_v2",
+    "questoes_da_banca_avaliadas": 2074,
+    "candidatas_pela_triagem": 65,
+    "relevantes": 12,
+    "triagem_truncada": false,
+    "provas_no_acervo": 21,
+    "anos": [
+     "2006",
+     "2026"
+    ],
+    "provas_com_relacionadas": 9,
+    "por_tipo": {
+     "mesmo_tema": 1,
+     "tema_relacionado": 11,
+     "caso_semelhante": 0
+    }
+   },
+   "referencias": {
+    "livros": [
+     {
+      "fonte": "Harrison — Medicina Interna",
+      "secao": "Reumatologia: lúpus induzido por drogas; osteoporose; gota"
+     },
+     {
+      "fonte": "Goodman & Gilman — As Bases Farmacológicas da Terapêutica",
+      "secao": "Farmacologia clínica: efeitos adversos de quinolonas, estatinas, ciclosporina e glicocorticoides"
+     }
+    ],
+    "busca_pubmed": "drug-induced lupus erythematosus procainamide fluoroquinolone tendon rupture corticosteroid-induced osteoporosis cyclosporine hyperuricemia gout statin-associated muscle symptoms",
+    "artigos": [],
+    "fontes_web": []
+   },
+   "afirmacoes_criticas": [
+    "Corticosteroides causam osteoporose secundária por inibição de osteoblastos e aumento da reabsorção óssea.",
+    "Quinolonas estão associadas a tendinopatia e ruptura de tendão, especialmente do tendão de Aquiles.",
+    "Procainamida é o fármaco clássico indutor de lúpus medicamentoso, com anti-histona positivo.",
+    "Ciclosporina reduz a excreção renal de ácido úrico, podendo precipitar gota.",
+    "Estatinas, como a atorvastatina, causam mialgia como efeito adverso musculoesquelético mais comum."
+   ],
+   "resolucao_cega": {
+    "alternativa": "A",
+    "confianca": 0.98,
+    "concorda_com_gabarito": true
+   },
+   "verificacao": {
+    "aprovado": true,
+    "rodada": 2,
+    "modelo": "deepseek-flash",
+    "tipo": "conferencia",
+    "problemas_leves": []
+   },
+   "origem": "api_v2",
+   "modelo": "deepseek-flash",
+   "gerado_em": "2026-11-28T16:54:21Z",
+   "revisao": {
+    "status": "nao_revisado",
+    "alertas": [],
+    "reportes": [],
+    "reportes_atendidos": []
+   }
   }
  }
 }
