@@ -306,8 +306,26 @@ arquivos, o Google exige login. As respostas ficam só na planilha do formulári
 na Web (tem nome, e-mail e comprovantes).
 
 A seção "Como ajudar o CRIVO" da página Sobre mostra, atualizados a cada geração, quantas questões têm correção
-(`dados/indice.json`) e o gasto total com a IA (`dados/gastos.json`), convertido a R$ 5,90 por dólar
-(`COTACAO`, no fim de `sobre.html`).
+(`dados/indice.json`), o gasto total com a IA (`dados/gastos.json`), convertido a R$ 5,90 por dólar
+(`COTACAO`, no fim de `sobre.html`), o total de doações e uma tabela mensal (doações × gasto com a IA, últimos 12 meses).
+Quem quer enviar uma prova encontra o passo a passo em `COMO-ENVIAR-UMA-PROVA.md` (link na página Sobre).
+
+### Doações (registro público, sem dados pessoais)
+
+A planilha de respostas do formulário tem nome, e-mail e comprovantes e **nunca** é publicada. Para o registro
+público, a equipe mantém, na mesma planilha, uma **aba separada** só com três colunas:
+
+| Data | Valor (R$) | Confirmado |
+|---|---|---|
+| 28/11/2026 | 10,00 | sim |
+
+1. Ao receber uma doação, confira o valor no extrato da conta e acrescente uma linha nessa aba
+   (escreva `sim` em Confirmado só depois de conferir). Não escreva nomes.
+2. Uma vez: Arquivo → Compartilhar → **Publicar na Web** → escolha **só essa aba** e o formato **CSV** → copie o
+   link. No GitHub: Settings → Secrets and variables → Actions → aba Variables → `URL_DOACOES_CSV` = o link.
+3. Rode **Actions → Importar formulários**. O importador (`ferramentas/importar_doacoes.py`) grava só data e
+   valor das linhas confirmadas em `dados/doacoes.json`; o PR fica esperando aprovação. A página Sobre mostra o
+   total e a tabela mensal.
 
 ## Onde o progresso fica no aparelho
 

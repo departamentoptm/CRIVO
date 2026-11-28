@@ -26,68 +26,74 @@
 <header><div class="in">
   <div class="nav"><a href="./">← Voltar ao CRIVO</a><a href="sobre.html">Sobre o CRIVO</a></div>
   <h1>Política de Privacidade</h1>
-  <p>CRIVO - UNIOESTE · Última atualização: 22 de novembro de 2026</p>
+  <p>CRIVO - UNIOESTE · Última atualização: 28 de novembro de 2026</p>
 </div></header>
 <main>
 
 <section>
   <h2>1. Quem somos</h2>
-  <p>O <strong>CRIVO - UNIOESTE</strong> é uma plataforma gratuita de estudo para resolução de questões de provas, voltada a estudantes e ex-alunos do curso de Medicina. É mantida pela equipe do projeto <em>departamentoptm</em> e funciona inteiramente no navegador do aluno, sem servidor próprio de banco de dados.</p>
+  <p>O <strong>CRIVO - UNIOESTE</strong> é uma plataforma gratuita de estudo para resolução de questões de provas de residência, voltada a estudantes e ex-alunos do curso de Medicina. É mantida pela equipe do projeto <em>departamentoptm</em>. O site funciona no navegador do aluno, sem servidor próprio nem cadastro: não pedimos nome, RA nem e-mail para usar o CRIVO.</p>
 </section>
 
 <section>
   <h2>2. Quais dados tratamos</h2>
   <ul>
-    <li><strong>Identificação:</strong> nenhuma. O CRIVO não pede nome, RA nem e-mail e não mantém lista de alunos.</li>
-    <li><strong>Progresso de estudo:</strong> questões respondidas, acertos e erros, tempo gasto, posição da última questão, trechos grifados e cartões marcados para exportação.</li>
-    <li><strong>Dados do Google (somente se o aluno autorizar):</strong> o CRIVO pede apenas a permissão <code>drive.file</code> do Google Drive. Com ela, o site cria e acessa <u>somente</u> a pasta “CRIVO - Progresso” e o arquivo <code>crivo_progresso.json</code> criados por ele mesmo.</li>
-    <li><strong>Erros reportados (somente se o aluno enviar):</strong> o formulário “Reportar erro” guarda o código da questão e o texto escrito pelo aluno, sem pedir nome nem e-mail. Esses reportes ficam visíveis à equipe e são usados só para corrigir o material; não escreva dados pessoais neles.</li>
+    <li><strong>Progresso de estudo</strong> (fica só no seu aparelho e, se você quiser, no seu Google Drive): respostas confirmadas e acertos, tempo até confirmar e tempo lendo a correção, classificações da revisão espaçada, trechos grifados, cartões e as revisões deles, plano de estudo, simulados, a última questão aberta e as preferências de letra e de ícones.</li>
+    <li><strong>Google Drive</strong> (somente se você ligar a sincronização): o CRIVO pede apenas a permissão <code>drive.file</code>, que dá acesso só aos arquivos criados por ele. Na pasta “CRIVO - Progresso” ficam o arquivo principal <code>crivo_progresso.json</code>, arquivos temporários <code>crivo_pendente_…</code> (gravados ao sair do site e juntados ao principal na sincronização seguinte) e uma cópia de segurança por dia, <code>crivo_copia_…</code> (as 7 mais recentes). Arquivos antigos vão para a lixeira do seu Drive, não são apagados na hora.</li>
+    <li><strong>Formulário “Reportar erro”</strong> (somente se você enviar): banca, edição, número da questão e o texto que você escrever. Não pedimos nome nem e-mail; por isso, <strong>não escreva dados pessoais nele</strong>.</li>
+    <li><strong>Formulário “Solicitar provas / Fornecer ajuda”</strong> (somente se você enviar): o seu objetivo, a prova pedida (banca, anos, links), os arquivos que você enviar (provas ou comprovante de doação) e, se você quiser informar, nome e e-mail. Como o formulário recebe arquivos, o Google pede que você entre com uma conta Google, e os arquivos enviados ficam no Google Drive da conta do projeto, com o nome da conta de quem enviou.</li>
+    <li><strong>Doações</strong>: publicamos só a data e o valor de cada doação confirmada no extrato, sem nome, e-mail ou comprovante.</li>
   </ul>
-  <p>O CRIVO <strong>não</strong> lê o e-mail, o nome, a foto, os contatos nem qualquer outro arquivo da conta Google do aluno.</p>
+  <p>O CRIVO não lê o e-mail, o nome, a foto, os contatos nem qualquer outro arquivo da sua conta Google.</p>
 </section>
 
 <section>
   <h2>3. Como e para que usamos os dados</h2>
   <ul>
-    <li>Mostrar o gabarito, o desempenho e o histórico de cada aluno.</li>
-    <li>Guardar o progresso no navegador (armazenamento local) para que ele não se perca.</li>
-    <li>Quando o aluno toca em “Sincronizar com Google Drive”, copiar o progresso para o arquivo acima e atualizá-lo ao entrar, durante o uso e ao sair do site, para que o progresso apareça em outros aparelhos.</li>
+    <li>Mostrar o seu gabarito, desempenho, revisões, cartões e plano de estudo.</li>
+    <li>Guardar o progresso no navegador (no banco de dados do navegador, o IndexedDB, ou, se ele não estiver disponível, no armazenamento local) para que ele não se perca.</li>
+    <li>Com a sincronização ligada, copiar o progresso para o seu Google Drive ao entrar, durante o uso (a cada alteração) e ao sair, para que ele apareça em outros aparelhos.</li>
+    <li>Corrigir as questões reportadas e atender às solicitações de provas e às ofertas de ajuda.</li>
+    <li>Publicar o registro de doações e de gastos, para prestação de contas.</li>
   </ul>
   <p>Os dados são usados exclusivamente para essas finalidades.</p>
 </section>
 
 <section>
-  <h2>4. Onde os dados ficam e com quem são compartilhados</h2>
+  <h2>4. Onde os dados ficam e quem tem acesso</h2>
   <ul>
-    <li>No <strong>navegador</strong> do aluno (armazenamento local do site).</li>
-    <li>No <strong>Google Drive do próprio aluno</strong>, caso ele ative a sincronização. Nós não recebemos uma cópia desse arquivo.</li>
+    <li><strong>Progresso:</strong> no seu navegador e, se você ativar, no <strong>seu</strong> Google Drive. Nós não recebemos uma cópia e nenhuma pessoa da equipe lê esses arquivos.</li>
+    <li><strong>Erros reportados:</strong> ficam na planilha do formulário, que é publicada para o robô do projeto ler (quem tiver o link da planilha pode vê-la). O texto do reporte é enviado ao serviço de inteligência artificial que escreve as correções (DeepSeek) para refazer a correção da questão, e fica guardado junto da correção no repositório público do projeto no GitHub.</li>
+    <li><strong>Respostas do formulário “Solicitar provas / Fornecer ajuda”</strong> (nome, e-mail, arquivos e comprovantes): só quem administra a conta <strong>departamento.ptm@gmail.com</strong> tem acesso. Essa planilha não é publicada.</li>
+    <li><strong>Prazo:</strong> não há prazo definido para apagar as respostas dos formulários; você pode pedir a exclusão a qualquer momento (seção 5).</li>
   </ul>
-  <p>Não vendemos, não alugamos e não compartilhamos dados de alunos com terceiros, não os usamos para publicidade e nenhuma pessoa da equipe lê o conteúdo dos arquivos no Drive do aluno. O uso e a transferência, para qualquer outro aplicativo, das informações recebidas das APIs do Google seguem a <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado.</p>
+  <p>Os formulários, as planilhas e o Drive são serviços do Google, que atua como operador desses dados. Não vendemos, não alugamos e não compartilhamos dados com terceiros, nem os usamos para publicidade. O uso e a transferência, para qualquer outro aplicativo, das informações recebidas das APIs do Google seguem a <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Política de Dados do Usuário dos Serviços de API do Google</a>, incluindo os requisitos de Uso Limitado.</p>
 </section>
 
 <section>
   <h2>5. Controle do aluno, exclusão e revogação</h2>
   <ul>
-    <li><strong>Apagar o progresso na nuvem:</strong> exclua a pasta “CRIVO - Progresso” no seu Google Drive.</li>
+    <li><strong>Apagar o progresso na nuvem:</strong> exclua a pasta “CRIVO - Progresso” no seu Google Drive e, depois, <strong>esvazie a lixeira</strong> do Drive (as cópias antigas ficam lá).</li>
     <li><strong>Revogar o acesso do CRIVO:</strong> em <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>, escolha o CRIVO e clique em remover acesso.</li>
     <li><strong>Apagar os dados do navegador:</strong> limpe os dados do site nas configurações do navegador.</li>
-    <li><strong>Backup manual:</strong> o aluno pode exportar e carregar o próprio arquivo de progresso a qualquer momento, sem usar o Google.</li>
+    <li><strong>Apagar o que você enviou pelos formulários:</strong> escreva para departamento.ptm@gmail.com informando a data do envio; apagaremos a resposta e os arquivos.</li>
+    <li><strong>Cópia de segurança:</strong> você pode baixar e carregar o próprio arquivo de progresso a qualquer momento, sem usar o Google.</li>
   </ul>
 </section>
 
 <section>
   <h2>6. Seus direitos (LGPD)</h2>
-  <p>Nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018), o aluno pode solicitar confirmação do tratamento, acesso, correção ou eliminação dos seus dados e a revogação de consentimento. Como os dados de progresso ficam no navegador e no Drive do próprio aluno, a maior parte dessas ações pode ser feita diretamente por ele, conforme a seção 5.</p>
+  <p>Nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode solicitar confirmação do tratamento, acesso, correção ou eliminação dos seus dados e a revogação de consentimento. Os dados de progresso ficam no seu navegador e no seu Drive, então a maior parte dessas ações pode ser feita por você mesmo (seção 5); para os formulários, escreva para o e-mail abaixo.</p>
 </section>
 
 <section>
   <h2>7. Segurança</h2>
-  <p>A comunicação com o Google ocorre por conexão segura (HTTPS) e o acesso ao Drive depende de autorização expressa do aluno, que pode ser retirada a qualquer momento. Recomendamos não usar a sincronização em computadores de uso compartilhado sem sair da conta Google.</p>
+  <p>A comunicação com o Google ocorre por conexão segura (HTTPS), e o acesso ao Drive depende de autorização expressa sua, que pode ser retirada a qualquer momento. Recomendamos não usar a sincronização em computadores compartilhados sem sair da conta Google.</p>
 </section>
 
 <section>
   <h2>8. Alterações e contato</h2>
-  <p>Esta política pode ser atualizada, e a data da última revisão aparece no topo da página. Dúvidas ou solicitações: <strong>departamento.ptm@gmail.com</strong>.</p>
+  <p>Esta política pode ser atualizada, e a data da última revisão aparece no topo da página. Dúvidas ou solicitações: <a href="mailto:departamento.ptm@gmail.com">departamento.ptm@gmail.com</a>.</p>
 </section>
 
 </main>

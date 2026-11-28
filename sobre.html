@@ -23,6 +23,9 @@
   a { color:#2b3f9a; }
   .card .btn { background:var(--navy); color:#fff; box-shadow:none; padding:.6rem 1.2rem; }
   .transparencia { color:#3d4666; font-size:.9rem; }
+  table.registro { width:100%; border-collapse:collapse; margin-top:.4rem; font-size:.9rem; }
+  table.registro th, table.registro td { padding:.35rem .4rem; border-bottom:1px solid #e3e8f4; text-align:left; }
+  table.registro td:nth-child(n+2), table.registro th:nth-child(n+2) { text-align:right; }
   footer { text-align:center; color:var(--muted); font-size:.9rem; padding:0 1rem 2.5rem; }
 </style>
 </head>
@@ -51,11 +54,13 @@
 
   <h2>Como ajudar o CRIVO</h2>
   <div class="card">
-    <p>Cada correção do CRIVO é escrita por uma inteligência artificial, que depois confere o próprio texto com o gabarito oficial e com as diretrizes. Esses modelos não “leem” e “escrevem” palavras inteiras: eles trabalham com pedacinhos de texto chamados <i>tokens</i>, e cada token processado tem um custo.</p>
+    <p>Cada correção do CRIVO é escrita por uma inteligência artificial, que depois confere o próprio texto com o gabarito oficial; em parte das questões, também consulta diretrizes encontradas por busca na internet. As correções ainda não revisadas por pessoas trazem o aviso “Correção gerada por IA”. Esses modelos não “leem” e “escrevem” palavras inteiras: eles trabalham com pedacinhos de texto chamados <i>tokens</i>, e cada token processado tem um custo.</p>
     <p style="margin-top:.6rem">Para rodar um modelo assim no nosso próprio computador, precisaríamos de uma máquina com placas de vídeo potentes, que ainda não temos. Enquanto isso, usamos o serviço de uma empresa pela internet (uma API), que cobra pelos tokens usados em cada questão. Hoje, cada questão corrigida custa cerca de R$ 0,07 (US$ 0,012), e uma prova inteira de 100 questões custa em torno de R$ 7.</p>
-    <p style="margin-top:.6rem">O site continua gratuito para todos: esse valor é o que custa transformar cada prova em correções comentadas. Se quiser ajudar a trazer mais provas, doe o quanto couber no seu bolso; jamais restringiremos o seu acesso à plataforma caso não possa contribuir. A chave PIX está no formulário abaixo, onde você também pode pedir uma prova ou se oferecer para ajudar a construir e manter a plataforma.</p>
+    <p style="margin-top:.6rem">O site continua gratuito para todos: esse valor é o que custa transformar cada prova em correções comentadas. Se quiser ajudar a trazer mais provas, doe o quanto couber no seu bolso; jamais restringiremos o seu acesso à plataforma caso não possa contribuir. A chave PIX (de um integrante da equipe) está no formulário abaixo, onde você também pode pedir uma prova ou se oferecer para ajudar a construir e manter a plataforma. Tudo o que entra e o que é gasto com a IA aparece no registro abaixo, sem o nome de quem doou.</p>
     <p style="margin-top:.8rem"><a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSey6vrooOj0Ym9uU0JRGAMdri9xwdMavR23dZnXm8jWBQL1_Q/viewform" target="_blank" rel="noopener">📨 Solicitar provas / Ajudar o CRIVO</a></p>
     <p class="transparencia" id="transparencia" style="margin-top:.8rem" hidden></p>
+    <div id="registroMensal" hidden></div>
+    <p style="margin-top:.8rem">Quer enviar uma prova que ainda não está no CRIVO? Veja <a href="https://github.com/departamentoptm/CRIVO/blob/main/COMO-ENVIAR-UMA-PROVA.md" target="_blank" rel="noopener">como enviar uma prova</a>.</p>
   </div>
 
   <h2>Privacidade</h2>
@@ -67,7 +72,7 @@
 (async () => {
   const COTACAO = 5.90;   /* câmbio de referência (R$ por US$) */
   try {
-    const [g, i] = await Promise.all(['dados/gastos.json', 'dados/indice.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null)));
+    const [g, i, d] = await Promise.all(['dados/gastos.json', 'dados/indice.json', 'dados/doacoes.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null)));
     if (!g || !i) return;
     let comCorrecao = 0;
     for (const anos of Object.values(i.bancas || {})) for (const e of Object.values(anos))
@@ -77,6 +82,20 @@
     const el = document.getElementById('transparencia');
     el.textContent = `Transparência: até agora, ${comCorrecao.toLocaleString('pt-BR')} questões têm correção comentada, e o gasto total com a IA foi de ${fmt(usd, 'USD')} (cerca de ${fmt(usd * COTACAO, 'BRL')}, com o dólar a R$ ${COTACAO.toFixed(2).replace('.', ',')}).`;
     el.hidden = false;
+    /* registro mensal: doações recebidas (confirmadas no extrato) e gasto com a IA, nos últimos 12 meses */
+    const meses = [], hoje = new Date();
+    for (let k = 11; k >= 0; k--) { const m = new Date(hoje.getFullYear(), hoje.getMonth() - k, 1); meses.push({ chave: m.toISOString().slice(0, 7), rot: m.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' }), doado: 0, gasto: 0 }); }
+    const porMes = Object.fromEntries(meses.map(m => [m.chave, m]));
+    ((d && d.doacoes) || []).forEach(x => { const m = porMes[String(x.data).slice(0, 7)]; if (m) m.doado += +x.valor || 0; });
+    (g.execucoes || []).forEach(x => { const m = porMes[String(x.data).slice(0, 7)]; if (m) m.gasto += (+x.custo_usd || 0) * COTACAO; });
+    const usados = meses.filter(m => m.doado || m.gasto);
+    const tot = ((d && d.doacoes) || []).reduce((t, x) => t + (+x.valor || 0), 0);
+    const reg = document.getElementById('registroMensal');
+    reg.innerHTML = `<p style="margin-top:.8rem"><b>Doações recebidas até agora:</b> ${fmt(tot, 'BRL')}.</p>`
+      + (usados.length ? '<table class="registro"><thead><tr><th>Mês</th><th>Doações</th><th>Gasto com a IA (aprox.)</th></tr></thead><tbody>'
+        + usados.map(m => `<tr><td>${m.rot}</td><td>${fmt(m.doado, 'BRL')}</td><td>${fmt(m.gasto, 'BRL')}</td></tr>`).join('') + '</tbody></table>' : '')
+      + '<p class="transparencia">Doações: só data e valor, conferidos pela equipe no extrato. Gasto: custo de cada execução da IA, convertido a R$ ' + COTACAO.toFixed(2).replace('.', ',') + ' por dólar.</p>';
+    reg.hidden = false;
   } catch (e) { /* sem os dados, o parágrafo não aparece */ }
 })();
 </script>

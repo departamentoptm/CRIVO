@@ -1,4 +1,5 @@
 # Botão "Run workflow": traz os formulários do Google para o site e abre um pull request. Não usa IA.
+#   - doações (só data e valor, confirmados) -> dados/doacoes.json       (variável URL_DOACOES_CSV)
 #   - erros reportados pelos estudantes  -> correções marcadas para refazer   (variável URL_REPORTES_CSV)
 #   - revisões da liga                   -> selo "revisada" ou refazer         (variável URL_REVISOES_CSV)
 #   - dúvidas respondidas pela liga      -> dados/duvidas.json                 (variável URL_DUVIDAS_CSV)
@@ -32,9 +33,10 @@ jobs:
           URL_REPORTES: ${{ vars.URL_REPORTES_CSV }}
           URL_REVISOES: ${{ vars.URL_REVISOES_CSV }}
           URL_DUVIDAS: ${{ vars.URL_DUVIDAS_CSV }}
+          URL_DOACOES: ${{ vars.URL_DOACOES_CSV }}
         run: |
-          if [ -z "$URL_REPORTES$URL_REVISOES$URL_DUVIDAS" ]; then
-            echo "::error::Crie ao menos uma das variáveis URL_REPORTES_CSV, URL_REVISOES_CSV ou URL_DUVIDAS_CSV (veja o LEIAME)."; exit 1
+          if [ -z "$URL_REPORTES$URL_REVISOES$URL_DUVIDAS$URL_DOACOES" ]; then
+            echo "::error::Crie ao menos uma das variáveis URL_REPORTES_CSV, URL_REVISOES_CSV, URL_DUVIDAS_CSV ou URL_DOACOES_CSV (veja o LEIAME)."; exit 1
           fi
           : > relatorios_formularios.md
           if [ -n "$URL_REPORTES" ]; then
@@ -49,6 +51,10 @@ jobs:
             python ferramentas/importar_duvidas.py --csv "$URL_DUVIDAS" --dados dados --relatorio relatorios/duvidas.md
             cat relatorios/duvidas.md >> relatorios_formularios.md
           fi
+          if [ -n "$URL_DOACOES" ]; then
+            python ferramentas/importar_doacoes.py --csv "$URL_DOACOES" --dados dados --relatorio relatorios/doacoes.md
+            cat relatorios/doacoes.md >> relatorios_formularios.md
+          fi
           python ferramentas/gerar_indice.py --dados dados
           cat relatorios_formularios.md >> "$GITHUB_STEP_SUMMARY"
       - name: Abrir pull request
@@ -60,7 +66,7 @@ jobs:
           git config user.name "crivo-bot"; git config user.email "crivo-bot@users.noreply.github.com"
           git checkout -b "$ramo"
           git add dados
-          for f in relatorios/reportes.md relatorios/revisoes.md relatorios/duvidas.md; do [ -f "$f" ] && git add "$f"; done
-          git commit -m "Formulários: reportes, revisões e dúvidas"
+          for f in relatorios/reportes.md relatorios/revisoes.md relatorios/duvidas.md relatorios/doacoes.md; do [ -f "$f" ] && git add "$f"; done
+          git commit -m "Formulários: reportes, revisões, dúvidas e doações"
           git push origin "$ramo"
-          gh pr create --title "Formulários: reportes, revisões e dúvidas" --body-file relatorios_formularios.md --base "${{ github.ref_name }}" --head "$ramo"
+          gh pr create --title "Formulários: reportes, revisões, dúvidas e doações" --body-file relatorios_formularios.md --base "${{ github.ref_name }}" --head "$ramo"

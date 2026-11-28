@@ -12,8 +12,11 @@ GitHub, sem escrever código. Os detalhes técnicos estão no `LEIAME.md`.
   nunca muda o enunciado, as alternativas nem o gabarito oficial.
 - **Cada aluno guarda o próprio progresso** no navegador e, se quiser, no Google Drive dele. O projeto não
   guarda dados dos alunos.
-- **Tudo o que o robô faz vira um "pull request" (PR)**: uma proposta de mudança que alguém precisa aprovar.
-  Nada entra no site sem aprovação.
+- **Tudo o que o robô faz vira um "pull request" (PR)**: uma proposta de mudança.
+  - Os PRs de **correções** (Gerar correções) são **aprovados sozinhos** depois da validação automática (as
+    correções reprovadas pela revisão automática não entram). Se a validação falhar, o PR fica aberto para você.
+  - Os PRs de **importação de prova** e de **formulários** (reportes, revisões, dúvidas e doações) ficam
+    esperando alguém da equipe conferir e aprovar.
 
 ## 2. Regras de ouro
 
